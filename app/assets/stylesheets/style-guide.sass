@@ -1,5 +1,4 @@
 .container
-  $grid-columns: 8 !global
   +outer-container
 
 h1, h2, h3, h4, h5, h6
@@ -9,3 +8,16 @@ h1
   font-size: 34px
   margin: 10px 0 15px 0
 
+#grid
+  +outer-container
+  div
+    padding: 10px
+  .left
+    +media($medium-screen)
+      +span-columns(3)
+    background-color: $light-gray
+  .right
+    +media($medium-screen)
+      +span-columns(9)
+    background-color: $medium-gray
+    +omega
