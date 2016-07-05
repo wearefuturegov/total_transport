@@ -21,14 +21,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# include bourbon/neat/bitters for basic template
 gem 'bourbon'
-
 gem 'neat'
-
 gem 'bitters'
-
+# other starter gems
 gem 'high_voltage'
-
 gem 'normalize-rails'
 
 # Use ActiveModel has_secure_password
