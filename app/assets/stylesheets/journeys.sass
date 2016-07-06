@@ -1,0 +1,66 @@
+// Place all the styles related to the journeys controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body
+  background-color: #F1F1F1
+
+#mobile-cont
+  max-width: $medium-screen // Restictor to start work with mobile - needs deleting for desktop		
+  margin-top: 60px 
+
+header
+  +outer-container
+  text-align: center
+  background-color: $prim-color
+  position: absolute
+  display: block
+  padding: 10px
+  width: 100%
+  top: 0
+  left: 0
+  color: #fff
+
+  .left, .right 
+    +span-columns(2)
+    text-align: left
+  .centre
+    +span-columns(8)
+  .right
+    +omega
+    text-align: right
+  #backbtn 
+    background-color: transparent
+    color: $dark-gray
+    font-size: 14px
+    padding: 5px
+  a, #backbtn
+    color: #fff
+
+h1 
+  text-align: center
+
+.card-cont 
+  text-align: center
+
+.card
+  background: #ffffff
+  border-radius: 2px
+  display: inline-block
+  height: 150px
+  margin: 1rem
+  position: relative
+  width: 400px
+  padding: 25px
+  text-align: left
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+
+.card:hover
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+
+.card:active 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+
+
+

@@ -1,9 +1,19 @@
-<h1>Select time</h1>
+<%= render :partial => "layouts/mobile_header" %>
 
-<p>
-  <%= link_to "9am", select_pick_up_journeys_path %>
-</p>
+<h1>Choose time</h1>
 
-<p>
-  <%= link_to "1pm", select_pick_up_journeys_path %>
-</p>
+<div class="card-cont">
+  <%= link_to select_pick_up_journeys_path do %>
+    <div class="card">
+      <p>1pm - 2pm</p>
+    </div>
+  <% end %>
+
+  <%= link_to select_pick_up_journeys_path do %>
+    <div class="card">
+      <p>5pm - 6pm</p>
+    </div>
+  <% end %>
+</div>
+
+<%= render :partial => "layouts/mobile_footer" %>
