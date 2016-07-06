@@ -1,6 +1,12 @@
 <%= render partial: "layouts/mobile_header" %>
 
 <h1>Choose pick up location</h1>
+<script type="text/javascript">
+  function initMap() {
+    draggableMap(dengie_center, dengie_boundary)
+  }
+</script>
+<div id="map" style="width:100%;height:250px"></div>
 
 <%= link_to "next", select_drop_off_journeys_path %>
 
