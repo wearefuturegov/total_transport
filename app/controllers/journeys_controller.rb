@@ -8,4 +8,7 @@ class JourneysController < ApplicationController
   def select_time
 
   end
+  def select_stops
+
+  end
 end

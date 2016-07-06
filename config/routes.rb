@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :journeys do
     collection do
       get 'routes'
+      get 'select_stops'
       get 'select_time'
       get 'select_pick_up'
       get 'select_drop_off'
