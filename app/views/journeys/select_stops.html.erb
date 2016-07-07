@@ -1,46 +1,55 @@
 <%= render partial: "layouts/mobile_header" %>
 
 <h1>Select Pick Up Location</h1>
-
+  
 <div class="stop-list">
-  <div class="stop" data-stopnum="1">
+  <div class="stop" id="1">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
-    <div class="stop-title">Place</div>
+    <div class="stop-title">Bradwell-on-Sea</div>
   </div>
-  <div class="stop" data-stopnum="2">
+  <div class="stop" id="2">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
-    <div class="stop-title">Place</div>
+    <div class="stop-title">Tillingham</div>
   </div>
-  <div class="stop" data-stopnum="3">
+  <div class="stop" id="3">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
-    <div class="stop-title">Place</div>
+    <div class="stop-title">Dengie</div>
   </div>
-  <div class="stop" data-stopnum="4">
+  <div class="stop" id="4">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
-    <div class="stop-title">Place</div>
+    <div class="stop-title">Asheldham</div>
   </div>
-  <div class="stop" data-stopnum="5">
+  <div class="stop" id="5">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
-    <div class="stop-title">Place</div>
+    <div class="stop-title">Southminster</div>
+  </div>
+  <div class="stop" id="6">
+    <div class="stop-dot">
+      <div class="stop-dot-middle"></div>
+    </div>
+    <div class="stop-dot-line"></div>
+    <div class="stop-title">Burnham-on-Crouch</div>
   </div>
 </div>
 
-<p>
-<%= link_to "next", select_time_journeys_path %>
-</p>
+<div id="confirmation">
+  <%= link_to select_time_journeys_path do %>
+  <button>Confirm</button>
+  <% end %>
+</div>
 <%= render partial: "layouts/mobile_footer" %>

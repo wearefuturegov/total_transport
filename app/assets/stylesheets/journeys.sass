@@ -6,10 +6,12 @@ body
   background-color: $background-color
 
 #mobile-cont
-  max-width: $medium-screen // Restictor to start work with mobile - needs deleting for desktop		
-  margin-top: 75px 
+  max-width: 600px // Restictor to start work with mobile - needs deleting for desktop		
+  margin-top: 85px 
 
 header
+  max-width: 600px !important // Restictor to start work with mobile - needs deleting for desktop   
+
   +outer-container
   text-align: center
   background-color: $prim-color
@@ -37,8 +39,11 @@ header
   a, #backbtn
     color: #fff
 
-h1 
+#mobile-cont h1 
   text-align: center
+  margin-bottom: 35px
+  .strong
+    font-weight: 700
 
 .card-cont 
   text-align: center
@@ -50,7 +55,7 @@ h1
   height: 150px
   margin: 1rem
   position: relative
-  width: 400px
+  width: 75%
   padding: 25px
   text-align: left
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
@@ -76,9 +81,20 @@ h1
 
 $dot-width: 35px
 
+
+.stop-list:after                              // THIS NEEDS FIXING? - make more dynamic - possible not use after?
+  content: ""
+  position: absolute
+  top: 2px
+  left: 30px
+  height: 98%
+  background-color: $prim-color
+  width: 6px
+  z-index: -2
+
 .stop-list
   position: relative
-  
+
   .stop
     display: block
     margin: 15px
@@ -118,14 +134,13 @@ $dot-width: 35px
   cursor: pointer
   .stop-dot
     transform: scale(1.25)
-    //border: 1px ADD THIS IN WITH A DELAY?
 
     .stop-dot-middle
       width: $dot-width
       height: $dot-width
       margin-left: calc((#{$dot-width}/2)*-1)
       margin-top: calc((#{$dot-width}/2)*-1)
-      //transform: scale($dot-width, $dot-width)
+
   .stop-title
     margin-left: calc(#{$dot-width}/1.25)
     font-weight: 600
@@ -137,7 +152,9 @@ $dot-width: 35px
     background-color: $red !important
 .stop.active.hover 
   .stop-dot
-    transform: scale(0.8)
+    transform: scale(0.95)
+  .stop-title
+    margin-left: calc(#{$dot-width}/1.75)
 
 .stop-dot-line 
   background-color: $red
@@ -151,20 +168,26 @@ $dot-width: 35px
 .stop.lastChild.lastHover
   color: $medium-gray
   .stop-dot
-    transform: scale(0.75)
+    transform: scale(0.88)
+  .stop-title
+    margin-left: calc(#{$dot-width}/2.5)
 
 .stop.hover
   .stop-dot
     transform: scale(1.25)
 
-.stop-list:after                              // THIS NEEDS FIXING? - make more dynamic - possible not use after?
-  content: ""
-  position: absolute
-  top: 15px
-  left: 30px
-  height: 85%
-  background-color: $prim-color
-  width: 6px
-  z-index: -2
+.subStop
+  cursor: default !important
+  .stop-dot
+    height: 0 !important
+    border-radius: 0 !important
+    top: 15px
+    transition: all 0.25s cubic-bezier(.25,.8,.25,1) !important
+  .stop-title
+    color: $medium-gray
 
-
+#confirmation
+  display: none
+  float: right
+  text-transform: uppercase
+  margin-right: $dot-width
