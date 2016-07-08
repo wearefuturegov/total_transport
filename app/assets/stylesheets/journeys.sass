@@ -45,35 +45,63 @@ header
   .strong
     font-weight: 700
 
+.smlTxt 
+  font-size: 11px
+  color: $medium-gray
+  text-transform: uppercase 
+  vertical-align: text-bottom  
+
 .card-cont 
-  +outer-container(80%)
-.card
-  +span-columns(12)
-  background: #ffffff
-  border-radius: 2px
-  margin-bottom: 35px
-  text-align: left
-//box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.23)
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
-
-.cardBtn
-  text-align: center
-  background: $prim-color
-  color: #fff
-  padding: 8px
-  text-transform: uppercase
-  .arw
+  +outer-container(90%)
+  .card
+    +span-columns(12)
+    background: #ffffff
+    border-radius: 2px
+    margin-bottom: 35px
+    text-align: left
+    position: relative
+  //box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.23)
     transition: all 0.3s cubic-bezier(.25,.8,.25,1)
-    margin-left: 3px
+  .inner
+    padding: 15px
+    +outer-container
+  .left, .right
+    +span-columns(6)
+  .right
+    +omega
+  .pickUp, .dropOff
+    font-size: 15px
+  .timeEst
+    font-size: 18px
+    font-weight: 600
+  .date
+    +span-columns(12)
+    font-size: 12px
+    text-transform: uppercase
+  .midArw
+    position: absolute
+    top: 31%
+    left: 39%
+    font-size: 35px
+  .cardBtn
+    +span-columns(12)
+    text-align: center
+    background: $prim-color
+    color: #fff
+    padding: 8px
+    text-transform: uppercase
+    .arw
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+      margin-left: 3px
 
-.cardBtn:hover
-  .arw
-    margin-left: 10px
-.card:hover
-//box-shadow: 0 10px 20px rgba(0,0,0,0.095), 0 6px 6px rgba(0,0,0,0.23)
+  .cardBtn:hover
+    .arw
+      margin-left: 10px
+  .card:hover
+  //box-shadow: 0 10px 20px rgba(0,0,0,0.095), 0 6px 6px rgba(0,0,0,0.23)
 
-.card:active 
-// box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.24)
+  .card:active 
+  // box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.24)
 
 
 
@@ -83,17 +111,11 @@ header
 
 .route
   color: $dark-gray 
-  //border: $medium-gray 2px solid 
-  .origin, .desti, .selectRoute, .acordBtn
+  .origin, .desti,
     display: block
     width: 100%
     padding: 15px
     padding-left: 15px
-  .origin
-    //border-bottom: $medium-gray 2px solid
-  .desti
-    //border-top: $medium-gray 2px solid
-    //margin-top: -2px
   .acordBtn
     font-size: 13px
     padding: 0
@@ -110,10 +132,6 @@ header
   .acordBtn:hover
     cursor: pointer
   .sub 
-    font-size: 11px
-    color: $medium-gray
-    text-transform: uppercase 
-    vertical-align: text-bottom  
     width: 40px
     text-align: right
     display: inline-block
