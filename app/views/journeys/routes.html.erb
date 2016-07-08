@@ -1,32 +1,108 @@
 <%= render partial: "layouts/mobile_header" %>
 
-<h1>Book A Custom Journey</h1>
+<h1>Choose A Route</h1>
 
-<form id="journey-input">
+<!--<form id="journey-input">
   <div id="input-cont">
     <label>From <input type="text" name="from"></label>
     <label>To <input type="text" name="to"></label>
   </div>
 </form>
+-->
+<div class="card-cont">
+  <div class="route card">
+    <div class="origin"><span class="sub">From:</span>Bradwell-on-Sea</div>
+    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+    <div class="acord">
+      <ul>
+        <li>- Tillingham</li>
+        <li>- Dengie</li>
+        <li>- Asheldham</li>
+        <li>- Southminster</li>
+      </ul>
+    </div>
+    <div class="desti"><span class="sub">To:</span> Burnham-on-Crouch</div>
+    <%= link_to select_stops_journeys_path do %>
+      <div class="cardBtn">
+        <span>Select Route <i class="arw fa fa-chevron-right"></i></span>
+      </div>
+    <% end %>
+  </div>
 
-<p>
-  <%= link_to "Maldon to Denge", select_stops_journeys_path %>
-</p>
+  <div class="route card">
+    <div class="origin"><span class="sub">From:</span>Bradwell-on-Sea</div>
+    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+    <div class="acord">
+      <ul>
+        <li>- Tillingham</li>
+        <li>- Dengie</li>
+        <li>- Asheldham</li>
+        <li>- Southminster</li>
+      </ul>
+    </div>
+    <div class="desti"><span class="sub">To:</span> Burnham-on-Crouch</div>
+    <%= link_to select_stops_journeys_path do %>
+      <div class="cardBtn">
+        <span>Select Route <i class="arw fa fa-chevron-right"></i></span>
+      </div>
+    <% end %>
+  </div>
 
-<p>
-  <%= link_to "Maldon to Denge", select_stops_journeys_path %>
-</p>
+  <div class="route card">
+    <div class="origin"><span class="sub">From:</span>Bradwell-on-Sea</div>
+    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+    <div class="acord">
+      <ul>
+        <li>- Tillingham</li>
+        <li>- Dengie</li>
+        <li>- Asheldham</li>
+        <li>- Southminster</li>
+      </ul>
+    </div>
+    <div class="desti"><span class="sub">To:</span> Burnham-on-Crouch</div>
+    <%= link_to select_stops_journeys_path do %>
+      <div class="cardBtn">
+        <span>Select Route <i class="arw fa fa-chevron-right"></i></span>
+      </div>
+    <% end %>
+  </div>
 
-<p>
-  <%= link_to "Maldon to Denge", select_stops_journeys_path %>
-</p>
+  <div class="route card">
+    <div class="origin"><span class="sub">From:</span>Bradwell-on-Sea</div>
+    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+    <div class="acord">
+      <ul>
+        <li>- Tillingham</li>
+        <li>- Dengie</li>
+        <li>- Asheldham</li>
+        <li>- Southminster</li>
+      </ul>
+    </div>
+    <div class="desti"><span class="sub">To:</span> Burnham-on-Crouch</div>
+    <%= link_to select_stops_journeys_path do %>
+      <div class="cardBtn">
+        <span>Select Route <i class="arw fa fa-chevron-right"></i></span>
+      </div>
+    <% end %>
+  </div>
 
-<p>
-  <%= link_to "Maldon to Denge", select_stops_journeys_path %>
-</p>
-
-<p>
-  <%= link_to "Maldon to Denge", select_stops_journeys_path %>
-</p>
-
+  <div class="route card">
+    <div class="origin"><span class="sub">From:</span>Bradwell-on-Sea</div>
+    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+    <div class="acord">
+      <ul>
+        <li>- Tillingham</li>
+        <li>- Dengie</li>
+        <li>- Asheldham</li>
+        <li>- Southminster</li>
+      </ul>
+    </div>
+    <div class="desti"><span class="sub">To:</span> Burnham-on-Crouch</div>
+    <%= link_to select_stops_journeys_path do %>
+      <div class="cardBtn">
+        <span>Select Route <i class="arw fa fa-chevron-right"></i></span>
+      </div>
+    <% end %>
+  </div>
+</div>
 <%= render partial: "layouts/mobile_footer" %>

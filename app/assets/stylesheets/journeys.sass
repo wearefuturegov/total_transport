@@ -2,16 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* START Generics */
 body
   background-color: $background-color
 
 #mobile-cont
   max-width: 600px // Restictor to start work with mobile - needs deleting for desktop		
-  margin-top: 85px 
+  margin-top: 85px   
 
 header
   max-width: 600px !important // Restictor to start work with mobile - needs deleting for desktop   
-
   +outer-container
   text-align: center
   background-color: $prim-color
@@ -46,43 +46,98 @@ header
     font-weight: 700
 
 .card-cont 
-  text-align: center
-
+  +outer-container(80%)
 .card
+  +span-columns(12)
   background: #ffffff
   border-radius: 2px
-  display: inline-block
-  height: 150px
-  margin: 1rem
-  position: relative
-  width: 75%
-  padding: 25px
+  margin-bottom: 35px
   text-align: left
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
+//box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.23)
   transition: all 0.3s cubic-bezier(.25,.8,.25,1)
 
+.cardBtn
+  text-align: center
+  background: $prim-color
+  color: #fff
+  padding: 8px
+  text-transform: uppercase
+  .arw
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+    margin-left: 3px
+
+.cardBtn:hover
+  .arw
+    margin-left: 10px
 .card:hover
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+//box-shadow: 0 10px 20px rgba(0,0,0,0.095), 0 6px 6px rgba(0,0,0,0.23)
 
 .card:active 
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
+// box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.24)
 
-#journey-input
 
-  input
-    max-width: 275px
+
+/* END Generics */
+
+/* START Routes */
+
+.route
+  color: $dark-gray 
+  //border: $medium-gray 2px solid 
+  .origin, .desti, .selectRoute, .acordBtn
+    display: block
+    width: 100%
+    padding: 15px
+    padding-left: 15px
+  .origin
+    //border-bottom: $medium-gray 2px solid
+  .desti
+    //border-top: $medium-gray 2px solid
+    //margin-top: -2px
+  .acordBtn
+    font-size: 13px
+    padding: 0
+    padding-left: 65px
+    color: $prim-color
+    line-height: 18px
+    font-weight: 600
+    .arw
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+      color: $medium-gray
+      display: inline-block
+      font-size: 18px
+      transform: rotate(0deg)
+  .acordBtn:hover
+    cursor: pointer
+  .sub 
+    font-size: 11px
+    color: $medium-gray
+    text-transform: uppercase 
+    vertical-align: text-bottom  
+    width: 40px
+    text-align: right
     display: inline-block
-    margin-left: 15px
+    margin-right: 5px
+  .acord 
+    display: none
+    transition: all 0.25s cubic-bezier(.25,.8,.25,1)
+    padding: 15px 0 5px 40px
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
+    li
+      padding-left: 45px
+      line-height: 28px
 
-  #input-cont
-    text-align: center
-    label
-      text-align: right
+.route.open
+  .acordBtn
+    .arw
+      transform: rotate(-180deg)
 
+/* END Routes */
+
+/* START Stop selection */
 $dot-width: 35px
 
-
-.stop-list:after                              // THIS NEEDS FIXING? - make more dynamic - possible not use after?
+.stop-list:after
   content: ""
   position: absolute
   top: 2px
@@ -191,3 +246,25 @@ $dot-width: 35px
   float: right
   text-transform: uppercase
   margin-right: $dot-width
+
+/* END Stop selection */
+
+/* START Times */
+.time-cont 
+  text-align: center
+
+.timeSelect
+  height: 150px
+
+#journey-input
+
+  input
+    max-width: 275px
+    display: inline-block
+    margin-left: 15px
+
+  #input-cont
+    text-align: center
+    label
+      text-align: right
+/* END Times */
