@@ -7,8 +7,12 @@
     draggableMap(burnham_on_crouch_center, burnham_on_crouch_boundary)
   }
 </script>
-<div id="map" style="width:100%;height:250px"></div>
+<div id="map"></div>
 
-<%= link_to "next", confirm_booking_journeys_path %>
+<div id="confirmation">
+  <%= link_to confirm_booking_journeys_path do %>
+  <button>Confirm <i class="arw fa fa-chevron-right"></i></button>
+  <% end %>
+</div>
 
 <%= render partial: "layouts/mobile_footer" %>
