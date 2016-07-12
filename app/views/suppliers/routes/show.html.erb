@@ -2,10 +2,36 @@
 
 <h2>Stops:</h2>
 
-<ul>
+<table>
   <% @route.stops.each do |stop| %>
-    <li><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></li>
+    <tr>
+      <td><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></td>
+      <td>
+        <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
+      </td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
 <%= link_to "Add a new stop", new_suppliers_route_stop_path(@route) %>
+
+<script type="text/javascript">
+  function initMap() {
+    $('.map_preview').each(function(i, m) {
+      var map = new google.maps.Map(m, {});
+      map.data.addGeoJson($(m).data('geojson'));
+      var polygon;
+      map.data.forEach(function(feature) {polygon = feature.getGeometry()});
+      var bounds = new google.maps.LatLngBounds();
+      polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
+      tightFitBounds(map, bounds);
+    });
+  }
+</script>
+
+<style media="screen">
+  .map_preview {
+    width: 100%;
+    height: 100px;
+  }
+</style>
