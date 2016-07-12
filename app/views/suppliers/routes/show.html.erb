@@ -1,0 +1,11 @@
+<h1><% @route.name %></h1>
+
+<h2>Stops:</h2>
+
+<ul>
+  <% @route.stops.each do |stop| %>
+    <li><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Add a new stop", new_suppliers_route_stop_path(@route) %>

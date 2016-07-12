@@ -11,9 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160708140119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "routes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "route_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.json     "polygon"
+    t.integer  "position"
+    t.integer  "minutes_from_last_stop"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
+
+  add_foreign_key "stops", "routes"
 end

@@ -75,6 +75,16 @@ function draggableMap(centralPoint, boundary) {
     zoomControl: false
   });
 
+  map.set('styles', [{
+    featureType: 'landscape',
+    elementType: 'geometry',
+    stylers: [
+      { hue: '#00ff00' },
+      { saturation: 30 },
+      { lightness: 10}
+    ]}
+  ]);
+
   var polygon = new google.maps.Polygon({
     paths: boundary,
     strokeColor: '#FF0000',

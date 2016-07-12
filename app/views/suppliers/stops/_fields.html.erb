@@ -1,0 +1,59 @@
+<script type="text/javascript">
+  function initMap() {
+    var map;
+
+    function initialize() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(51.68149662336043, 0.8797645568847656),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
+        zoomControl: true
+      });
+
+      map.data.setControls(['Polygon']);
+      map.data.setDrawingMode('Polygon');
+      map.data.setStyle({
+        editable: true,
+        draggable: true
+      });
+
+      function savePolygon() {
+        map.data.setControls(null);
+        map.data.setDrawingMode(null);
+        map.data.toGeoJson(function (json) {
+          $('#stop_polygon').val(JSON.stringify(json));
+        });
+      }
+
+      function loadPolygon() {
+        var data = JSON.parse($('#stop_polygon').val());
+        // map.data.forEach(function (f) {
+        //     map.data.remove(f);
+        // });
+        map.data.addGeoJson(data);
+      }
+
+
+      map.data.addListener('addfeature', savePolygon);
+      map.data.addListener('removefeature', savePolygon);
+      map.data.addListener('setgeometry', savePolygon);
+      loadPolygon();
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+  };
+</script>
+
+<style media="screen">
+#map {
+  width: 600px;
+  height: 300px;
+}
+</style>
+
+<%= form.label :name %>
+<%= form.text_field :name %>
+<%= form.label :polygon, "Choose stop area" %>
+<%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
+<div id="map"></div>

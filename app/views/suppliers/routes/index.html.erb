@@ -1,0 +1,9 @@
+<ul>
+  <% Route.all.each do |route| %>
+    <li><%= link_to route.name, suppliers_route_path(route) %></li>
+  <% end %>
+</ul>
+
+<%= form_for [:suppliers, Route.new] do |form| %>
+  <%= form.submit "Create new Route" %>
+<% end %>

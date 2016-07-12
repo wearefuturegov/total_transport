@@ -1,0 +1,4 @@
+<%= form_for [:suppliers, @route, @stop] do |form| %>
+  <%= render partial: 'fields', locals: {form: form} %>
+  <%= form.submit "Save stop" %>
+<% end %>
