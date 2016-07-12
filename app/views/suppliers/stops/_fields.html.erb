@@ -1,7 +1,8 @@
 <script type="text/javascript">
+  var map;
+  var polygon;
+  var bounds;
   function initMap() {
-    var map;
-
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
@@ -24,6 +25,10 @@
         map.data.toGeoJson(function (json) {
           $('#stop_polygon').val(JSON.stringify(json));
         });
+        fetchPolygon();
+        fetchLatLngBoundsOfPolygon();
+        $('#stop_latitude').val(bounds.getCenter().lat());
+        $('#stop_longitude').val(bounds.getCenter().lng());
       }
 
       function loadPolygon() {
@@ -32,6 +37,23 @@
         //     map.data.remove(f);
         // });
         map.data.addGeoJson(data);
+        fitMapToPolygon();
+      }
+
+      function fetchPolygon() {
+        // This appears to be the most reliable way of
+        // fetching the polygon object from the map object :-/
+        map.data.forEach(function(feature) {poly = feature.getGeometry()})
+      }
+
+      function fetchLatLngBoundsOfPolygon() {
+        bounds=new google.maps.LatLngBounds();
+        poly.forEachLatLng(function(ll) {bounds.extend(ll)});
+      }
+
+      function fitMapToPolygon() {
+        fetchLatLngBoundsOfPolygon();
+        map.fitBounds(bounds);
       }
 
 
@@ -56,4 +78,6 @@
 <%= form.text_field :name %>
 <%= form.label :polygon, "Choose stop area" %>
 <%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
+<%= form.hidden_field :latitude %>
+<%= form.hidden_field :longitude %>
 <div id="map"></div>

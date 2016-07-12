@@ -28,7 +28,7 @@ class Suppliers::StopsController < ApplicationController
   private
 
   def stop_params
-    params.require(:stop).permit(:name, :polygon)
+    params.require(:stop).permit(:name, :polygon, :latitude, :longitude)
   end
 
   def find_route
