@@ -26,9 +26,11 @@
           $('#stop_polygon').val(JSON.stringify(json));
         });
         fetchPolygon();
-        fetchLatLngBoundsOfPolygon();
-        $('#stop_latitude').val(bounds.getCenter().lat());
-        $('#stop_longitude').val(bounds.getCenter().lng());
+        if(hasPolygon()) {
+          fetchLatLngBoundsOfPolygon();
+          $('#stop_latitude').val(bounds.getCenter().lat());
+          $('#stop_longitude').val(bounds.getCenter().lng());
+        }
       }
 
       function loadPolygon() {
@@ -37,18 +39,26 @@
         //     map.data.remove(f);
         // });
         map.data.addGeoJson(data);
-        fitMapToPolygon();
+        fetchPolygon();
+        if(hasPolygon()) {
+          fetchLatLngBoundsOfPolygon();
+          fitMapToPolygon();
+        }
       }
 
       function fetchPolygon() {
         // This appears to be the most reliable way of
         // fetching the polygon object from the map object :-/
-        map.data.forEach(function(feature) {poly = feature.getGeometry()})
+        map.data.forEach(function(feature) {polygon = feature.getGeometry()})
+      }
+
+      function hasPolygon() {
+        return typeof polygon !== 'undefined';
       }
 
       function fetchLatLngBoundsOfPolygon() {
         bounds=new google.maps.LatLngBounds();
-        poly.forEachLatLng(function(ll) {bounds.extend(ll)});
+        polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
       }
 
       function fitMapToPolygon() {
