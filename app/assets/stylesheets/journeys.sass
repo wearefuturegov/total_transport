@@ -74,7 +74,7 @@ header
   .right
     +omega
   .pickUp, .dropOff
-    font-size: 15px
+    font-size: 14px
   .timeEst
     font-size: 18px
     font-weight: 600
@@ -169,7 +169,7 @@ header
   left: 30px
   height: 98%
   background-color: $prim-color
-  width: 6px
+  width: 5px
   z-index: -2
 
 .stop-list
@@ -193,7 +193,7 @@ header
       position: relative
       width: $dot-width
       height: $dot-width
-      border: $prim-color 5px solid
+      border: $prim-color 4px solid
       background-color: #fff
       
       .stop-dot-middle
@@ -260,7 +260,10 @@ header
   cursor: default !important
   .stop-dot
     height: 0 !important
-    border-radius: 0 !important
+    width: 21px !important
+    margin-left: 15px
+    border-radius: 6px !important
+    border-color: $red !important
     top: 15px
     transition: all 0.25s cubic-bezier(.25,.8,.25,1) !important
   .stop-title
@@ -275,20 +278,17 @@ header
 .timeSelect
   height: 150px
 
-#journey-input
+.input-cont
   max-width: 90%
   margin: 0 auto
   margin-bottom: $dot-width
-  
+
   input
-    max-width: 275px
+    max-width: 75%
     display: inline-block
     margin-left: 15px
-
-  #input-cont
-    text-align: center
-    label
-      text-align: right
+  label
+    text-align: right
 /* END Times */
 
 
