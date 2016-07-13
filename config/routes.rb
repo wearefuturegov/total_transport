@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   namespace :suppliers do
     resources :routes do
+      member do
+        put 'sort'
+      end
+
       resources :stops
     end
   end

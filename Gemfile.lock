@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_list (0.7.5)
+      activerecord (>= 3.0)
     arel (6.0.3)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -73,6 +75,8 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (5.0.5)
+      railties (>= 3.2.16)
     json (1.8.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -175,6 +179,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   bitters
   bourbon
   byebug
@@ -183,6 +188,7 @@ DEPENDENCIES
   high_voltage
   jbuilder (~> 2.0)
   jquery-rails
+  jquery-ui-rails
   neat
   normalize-rails
   pg (~> 0.15)

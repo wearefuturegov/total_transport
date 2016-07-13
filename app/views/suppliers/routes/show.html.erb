@@ -2,9 +2,9 @@
 
 <h2>Stops:</h2>
 
-<table>
+<table id="sortable_stops">
   <% @route.stops.each do |stop| %>
-    <tr>
+    <tr id="stop_<%= stop.id %>">
       <td><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></td>
       <td>
         <% if stop != @route.stops.first %>
@@ -23,6 +23,13 @@
 </table>
 
 <%= link_to "Add a new stop", new_suppliers_route_stop_path(@route) %>
+
+<script type="text/javascript">
+  var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+  $('#sortable_stops').sortable({items:'tr', containment:'parent', axis:'y', update: function() {
+    $.post('<%= sort_suppliers_route_path(@route) %>', '_method=put&authenticity_token='+AUTH_TOKEN+'&'+$(this).sortable('serialize'));
+  }});
+</script>
 
 <script type="text/javascript">
   function initMap() {
