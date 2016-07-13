@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th>Date</th>
+    <% @route.stops.each do |stop| %>
+      <th><%= stop.name %></th>
+    <% end %>
+    <th></th>
+  </tr>
+  <% @journeys.each do |journey| %>
+    <tr>
+      <td><%= journey.start_time.strftime("%F") %></td>
+      <% journey.stops.each do |stop| %>
+        <td><%= stop.time_for_journey(journey).strftime("%H:%M") %></td>
+      <% end %>
+      <td>
+        <%= link_to "edit", edit_suppliers_route_journey_path(@route, journey) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_for [:suppliers, @route, Journey.new] do |form| %>
+  <%= form.label :start_time %>
+  <%= form.datetime_select :start_time %>
+  <%= form.submit %>
+<% end %>

@@ -2,3 +2,9 @@
   width: 3em;
   display: inline-block;
 }
+
+.edit_journey, .new_journey {
+  select {
+    display: inline-block;
+  }
+}

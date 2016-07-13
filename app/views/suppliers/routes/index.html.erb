@@ -1,8 +1,12 @@
-<ul>
+<table>
   <% Route.all.each do |route| %>
-    <li><%= link_to route.name, suppliers_route_path(route) %></li>
+    <tr>
+      <td><%= route.name %></td>
+      <td><%= link_to "edit route", suppliers_route_path(route) %></td>
+      <td><%= link_to "view and add journeys", suppliers_route_journeys_path(route) %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
 <%= form_for [:suppliers, Route.new] do |form| %>
   <%= form.submit "Create new Route" %>

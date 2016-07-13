@@ -1,0 +1,9 @@
+<%= form_for [:suppliers, @route, @journey] do |form| %>
+  <%= form.label :start_time %>
+  <%= form.datetime_select :start_time %>
+  <%= form.submit %>
+<% end %>
+
+<%= form_for [:suppliers, @route, @journey], method: :delete do |form| %>
+  <%= form.submit "Cancel and delete journey" %>
+<% end %>

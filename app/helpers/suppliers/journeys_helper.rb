@@ -1,0 +1,2 @@
+module Suppliers::JourneysHelper
+end

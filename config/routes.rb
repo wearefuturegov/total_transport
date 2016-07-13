@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       end
 
       resources :stops
+      resources :journeys
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
