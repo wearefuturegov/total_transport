@@ -8,19 +8,13 @@ class Stop < ActiveRecord::Base
 
   def minutes_from_first_stop
     m = 0
-    previous_stops.each {|s| m += s.minutes_from_last_stop}
+    previous_stops[1..-1].each do |s|
+      m += s.minutes_from_last_stop if s.minutes_from_last_stop
+    end
     m
   end
 
   def time_for_journey(journey)
     journey.start_time + minutes_from_first_stop.minutes
-  end
-
-  def minutes_from_last_stop
-    if position == 0
-      0
-    else
-      super
-    end
   end
 end
