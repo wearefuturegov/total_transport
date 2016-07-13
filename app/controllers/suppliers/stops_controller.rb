@@ -24,6 +24,12 @@ class Suppliers::StopsController < ApplicationController
     redirect_to suppliers_route_path(@route)
   end
 
+  def destroy
+    @stop = @route.stops.find(params[:id])
+    @stop.destroy
+    redirect_to suppliers_route_path(@route)
+  end
+
 
   private
 

@@ -2,3 +2,7 @@
   <%= render partial: 'fields', locals: {form: form} %>
   <%= form.submit "Save stop" %>
 <% end %>
+
+<%= form_for [:suppliers, @route, @stop], method: :delete do |form| %>
+<%= form.submit "Delete stop" %>
+<% end %>
