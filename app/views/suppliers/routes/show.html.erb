@@ -7,6 +7,15 @@
     <tr>
       <td><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></td>
       <td>
+        <% if stop != @route.stops.first %>
+          <%= form_for [:suppliers, @route, stop] do |form| %>
+            <p>
+              <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
+              minutes.
+              <%= form.submit "Save" %>
+            </p>
+          <% end %>
+        <% end %>
         <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
       </td>
     </tr>
