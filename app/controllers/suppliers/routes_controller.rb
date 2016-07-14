@@ -9,7 +9,7 @@ class Suppliers::RoutesController < ApplicationController
   def sort
     @route = Route.find(params[:id])
     params[:stop].each_with_index do |value,index|
-      @route.stops.find(value).update_attribute(:position,index)
+      @route.stops.find(value).update_attribute(:position,index+1)
     end
     render :nothing => true
   end
