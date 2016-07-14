@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :routes
+
   resources :journeys do
     collection do
       get 'routes'
