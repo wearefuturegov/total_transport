@@ -36,6 +36,7 @@ ol
 #mobile-cont
   max-width: 600px // Restictor to start work with mobile - needs deleting for desktop    
   margin-top: 85px   
+
   h1 
     text-align: center
     margin-bottom: 35px
@@ -97,6 +98,7 @@ header
 
 
 /* START Cards */
+ 
 
 .card
   +span-columns(12)
@@ -116,13 +118,15 @@ header
 .right
   +omega
 .pickUp, .dropOff
-  font-size: 17px
+  //font-size: 17px - FOR DESKTOP
+  font-size: 14px
   color: $medium-gray
   margin-top: -3px
   display: block
 
 .timeEst
-  font-size: 23px
+  //font-size: 23px - FOR DESKTOP
+  font-size: 18px
   font-weight: 600
 .date
   +span-columns(12)
@@ -131,7 +135,8 @@ header
   position: absolute
   top: 16%
   left: 42%
-  font-size: 20px
+  //font-size: 20px - FOR DESKTOP
+  font-size: 17px 
 .cardBtn
   +span-columns(12)
   text-align: center

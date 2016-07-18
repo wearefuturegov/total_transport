@@ -1,18 +1,21 @@
 <%= render partial: "layouts/mobile_header" %>
 
 <h1>Choose pick up location</h1>
-<script type="text/javascript">
-  function initMap() {
-    draggableMap(dengie_center, dengie_boundary)
-  }
-</script>
-<div id="map"></div>
+<div class="card-cont">
+  <script type="text/javascript">
+    function initMap() {
+      draggableMap(dengie_center, dengie_boundary)
+    }
+  </script>
+  <div id="map" class="card" style="margin-bottom:0"></div>
 
-
-<div id="confirmation">
-  <%= link_to select_drop_off_journeys_path do %>
-  <button>Confirm <i class="arw fa fa-chevron-right"></i></button>
-  <% end %>
+  <div id="confirmation" class="card">
+    <%= link_to select_drop_off_journeys_path do %>
+      <div class="cardBtn">
+        <span>Confirm Route</span>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <%= render partial: "layouts/mobile_footer" %>

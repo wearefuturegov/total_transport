@@ -119,6 +119,21 @@ $(document).ready(function() {
 
   } else {
     $('.stop').hover(function() {
+      
+      if ($(".firstStop")[0]) { 
+        var stopID = $(this).attr('id');
+        var startID = $(".firstStop").attr('id');
+        var stopsBetween = ($(this).attr('id') - $(".firstStop").attr('id'))-1;
+        if (stopsBetween > 0) {
+          for (var i = startID; i <= (stopID-1); i++) {
+            $('#'+i).addClass('tempHover');
+          }
+          console.log('stopid = ' +stopID +' startID = '+ startID + ' between = ' + stopsBetween);
+        }
+      } else {
+
+      }
+      // hover functions for drawing the red line and adding classes
       // check if its not the last stop
       if ($(this).hasClass('lastChild')) {
         // it is the last stop
@@ -149,6 +164,9 @@ $(document).ready(function() {
         $(this).css({'cursor' :"pointer"});
         $(this).removeClass('hover');
         $(this).removeClass('lastHover');
+        $('.stop').each(function() {
+          $(this).removeClass('tempHover');
+        })
         //clearStopLine();
     });
   }
@@ -158,10 +176,10 @@ function sortLineHeight(lossNumber) {
   //var newNumOfStops = $('.stop:not([style*="display: none"])').length;
   var currentNum = $('.stop:not([style*="display: none"])').length;
   if (currentNum == lossNumber) {
-    $('#main-line').height(((currentNum-2)*66)+50);
+    $('#main-line').height(((currentNum-2)*64)+50);
   } else {
     var newNumOfStops = currentNum - lossNumber;
-    $('#main-line').height(((newNumOfStops-2)*66)+50);
+    $('#main-line').height(((newNumOfStops-2)*64)+50);
   }
 }
 
