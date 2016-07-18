@@ -1,5 +1,43 @@
 <%= render partial: "layouts/mobile_header" %>
 
 <h1>Confirm booking</h1>
+<div class="card-cont">
+  <p>Please note that pick up and drop off times are estimated and might slightly change.</p>
+
+  <div class="card" id="pickUpCard">
+    <%= image_tag("pickup.png", :alt => "Pick Up Location") %>
+    <div class="inner">
+      <h4>Your Pick Up<br/>Location:</h4>
+      <div class="right" style="float: right; text-align: right;">
+        <span class="timeEst">15:25 - 15:40</span><br/>
+        <span class="pickUp">Dengie</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="dropOffCard">
+    <%= image_tag("dropoff.png", :alt => "Pick Up Location") %>
+    <div class="inner">
+      <h4>Your Drop Off<br/>Location:</h4>
+      <div class="right" style="float: right; text-align: right;">
+        <span class="timeEst">16:05 - 16:20</span><br/>
+        <span class="dropOff">Burnham-on-Crouch</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Let us know your phone number so that we can notify you when your vehicle is on it's way.</p>
+
+  <form id="confirm-input">
+    <label>Phone <input type="text" name="from"></label>
+  </form>
+
+  <a href="#">
+    <div class="cardBtn" style="margin-bottom: 25px;">
+      <span>Confirm Booking</span>
+    </div>
+  </a>
+
+</div>
 
 <%= render partial: "layouts/mobile_footer" %>

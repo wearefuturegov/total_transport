@@ -8,6 +8,7 @@ $(document).ready(function() {
   var drpfTxt = 'Select Drop Off Location';
   var cnfmTxt = 'Confirm Route';
   $('.stop').last().addClass('lastChild');
+  sortLineHeight(0);
 
   // If a stop is clicked
   $('.stop').click(function() {
@@ -34,9 +35,12 @@ $(document).ready(function() {
           stopNumber = $('.stop.active').attr('id');
           $('.stop.active').find('.stop-dot-line').addClass('alive');
           // reveal all stops above
+          var revealNum = $('.stop:not([style*="display: none"])').length;
           for (var i = numOfStops; i >= (parseInt($(this).attr('id')) + 1); i--) {
-            $('#'+i).slideDown(); // IMPROVE - use css rather than jquery for this animation
+            $('#'+i).slideDown();
+            revealNum++;
           }
+          sortLineHeight(revealNum);
           // remove sub stop class from everything
           $('.stop').each(function(){
             $(this).removeClass('subStop');
@@ -52,8 +56,9 @@ $(document).ready(function() {
           $('.lastChildOff').removeClass('lastChildOff');
           // reveal any hidden stops
           $('.stop').each(function(){
-            $(this).slideDown(); // IMPROVE - use css rather than jquery for this animation
+            $(this).slideDown();
           });
+          sortLineHeight(0);
         }
       } else {
         // if it is not active - Make active
@@ -71,9 +76,13 @@ $(document).ready(function() {
             $(this).find('.stop-dot-line').addClass('alive');
             $(this).addClass('firstStop');
             // hide any stops above the clicked dot
+            var hiddenNum = 0;
             for (var i = (parseInt($(this).attr('id')) - 1); i >= 0; i--) {
-              $('#'+i).slideUp(); // IMPROVE - use css rather than jquery for this animation
+              $('#'+i).slideUp();
+              hiddenNum++;
             }
+            sortLineHeight(hiddenNum-1);
+
             stopNumber = parseInt($(this).attr('id'));
           } else if(activeDots == 2) {
             // both stops have been chosen
@@ -82,9 +91,13 @@ $(document).ready(function() {
               $('#confirmation').slideDown(500);
             }, 100);
             // hide any stop below the second stop clicked
+            var hiddenNum = 0;
             for (var i = numOfStops; i >= (parseInt($(this).attr('id')) + 1); i--) {
-              $('#'+i).slideUp(); // IMPROVE - use css rather than jquery for this animation
+              $('#'+i).slideUp();
+              hiddenNum++;
             }
+            sortLineHeight(hiddenNum);
+
             // add class to all sub stops 
             setTimeout(function(){
               $('.stop').each(function(){
@@ -106,6 +119,21 @@ $(document).ready(function() {
 
   } else {
     $('.stop').hover(function() {
+      
+      if ($(".firstStop")[0]) { 
+        var stopID = $(this).attr('id');
+        var startID = $(".firstStop").attr('id');
+        var stopsBetween = ($(this).attr('id') - $(".firstStop").attr('id'))-1;
+        if (stopsBetween > 0) {
+          for (var i = startID; i <= (stopID-1); i++) {
+            $('#'+i).addClass('tempHover');
+          }
+          console.log('stopid = ' +stopID +' startID = '+ startID + ' between = ' + stopsBetween);
+        }
+      } else {
+
+      }
+      // hover functions for drawing the red line and adding classes
       // check if its not the last stop
       if ($(this).hasClass('lastChild')) {
         // it is the last stop
@@ -136,10 +164,24 @@ $(document).ready(function() {
         $(this).css({'cursor' :"pointer"});
         $(this).removeClass('hover');
         $(this).removeClass('lastHover');
+        $('.stop').each(function() {
+          $(this).removeClass('tempHover');
+        })
         //clearStopLine();
     });
   }
 });
+
+function sortLineHeight(lossNumber) {
+  //var newNumOfStops = $('.stop:not([style*="display: none"])').length;
+  var currentNum = $('.stop:not([style*="display: none"])').length;
+  if (currentNum == lossNumber) {
+    $('#main-line').height(((currentNum-2)*64)+50);
+  } else {
+    var newNumOfStops = currentNum - lossNumber;
+    $('#main-line').height(((newNumOfStops-2)*64)+50);
+  }
+}
 
 
 function drawStopLine(begin, end) {
@@ -154,7 +196,7 @@ function drawStopLine(begin, end) {
     if (begin < end) {
       // it will be lower
       $('.stop-dot-line.alive').css('height', (diff*60));
-      $('.stop-dot-line.alive').css('top', 30);
+      $('.stop-dot-line.alive').css('top', 35);
     } else {
       // it will be higher
       //$('.stop-dot-line.alive').css('top', -30);

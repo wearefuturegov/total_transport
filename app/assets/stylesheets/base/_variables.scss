@@ -3,11 +3,13 @@ $medium-screen: 600px;
 $large-screen: 900px;
 
 // Typography
-$base-font-family: $font-stack-system;
-$heading-font-family: $base-font-family;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic,600italic,800);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,400italic,700,900);
+$base-font-family: 'Open Sans', sans-serif;
+$heading-font-family: 'Roboto', sans-serif;
 
 // Font Sizes
-$base-font-size: 16px;
+$base-font-size: 19px;
 
 // Line height
 $base-line-height: 1.5;
@@ -24,7 +26,7 @@ $prim-color: #1565c0;
 $background-color: #F1F1F1;
 $red: #ea3535;
 $blue: #1565c0;
-$dark-gray: #333;
+$dark-gray: #231f30;
 $medium-gray: #999;
 $light-gray: #ddd;
 
