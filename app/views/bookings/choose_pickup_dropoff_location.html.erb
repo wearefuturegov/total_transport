@@ -1,0 +1,60 @@
+<%= render partial: "layouts/mobile_header" %>
+
+<h1>Choose pick up location</h1>
+<div class="card-cont">
+  <script type="text/javascript">
+    function initMap() {
+      var geoJson = <%= @stop.polygon.to_json.html_safe %>;
+      var map = new google.maps.Map(document.getElementById("map"), {});
+      map.data.addGeoJson(geoJson);
+      var polygon;
+      map.data.forEach(function(feature) {polygon = feature.getGeometry()});
+      var bounds = new google.maps.LatLngBounds();
+      polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
+      tightFitBounds(map, bounds);
+
+      $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
+
+      var last_position = map.getCenter();
+      map.addListener('center_changed', function() {
+        console.info(map.getCenter().toString())
+        if(!bounds.contains(map.getCenter())) {
+          map.setCenter(last_position);
+        } else {
+          last_position = map.getCenter();
+          <% if @pickup_of_dropoff == 'pickup' %>
+            $('#booking_pickup_lat').val(map.getCenter().lat());
+            $('#booking_pickup_lng').val(map.getCenter().lng());
+          <% else %>
+            $('#booking_dropoff_lat').val(map.getCenter().lat());
+            $('#booking_dropoff_lng').val(map.getCenter().lng());
+          <% end %>
+        }
+      });
+    }
+  </script>
+  <div id="map" class="card" style="margin-bottom:0"></div>
+
+  <div id="confirmation" class="card">
+    <% if @pickup_of_dropoff == 'pickup' %>
+      <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
+        <%= form.hidden_field :pickup_lat %>
+        <%= form.hidden_field :pickup_lng %>
+        <%= form.submit "Confirm Route" %>
+      <% end %>
+    <% else %>
+      <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
+        <%= form.hidden_field :dropoff_lat %>
+        <%= form.hidden_field :dropoff_lng %>
+        <%= form.submit "Confirm Route" %>
+      <% end %>
+    <% end %>
+    <!-- <%= link_to select_drop_off_journeys_path do %>
+      <div class="cardBtn">
+        <span>Confirm Route</span>
+      </div>
+    <% end %> -->
+  </div>
+</div>
+
+<%= render partial: "layouts/mobile_footer" %>

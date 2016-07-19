@@ -14,13 +14,34 @@ class BookingsController < ApplicationController
     redirect_to choose_journey_route_booking_path(@route, @booking)
   end
 
-  # Choose journey
   def choose_journey
   end
 
   def save_journey
     @booking.update_attributes(booking_params)
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+  end
+
+  def choose_pickup_location
+    @stop = @booking.pickup_stop
+    @pickup_of_dropoff = 'pickup'
+    render template: 'bookings/choose_pickup_dropoff_location'
+  end
+
+  def save_pickup_location
+    @booking.update_attributes(booking_params)
+    redirect_to choose_dropoff_location_route_booking_path(@route, @booking)
+  end
+
+  def choose_dropoff_location
+    @stop = @booking.dropoff_stop
+    @pickup_of_dropoff = 'dropoff'
+    render template: 'bookings/choose_pickup_dropoff_location'
+  end
+
+  def save_dropoff_location
+    @booking.update_attributes(booking_params)
+    redirect_to confirm_route_booking_path(@route, @booking)
   end
 
   private
