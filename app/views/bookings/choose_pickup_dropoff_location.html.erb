@@ -3,22 +3,26 @@
 <h1>Choose pick up location</h1>
 <div class="card-cont">
   <script type="text/javascript">
+  var map
     function initMap() {
       var geoJson = <%= @stop.polygon.to_json.html_safe %>;
-      var map = new google.maps.Map(document.getElementById("map"), {});
+      map = new google.maps.Map(document.getElementById("map"), {});
       map.data.addGeoJson(geoJson);
-      var polygon;
-      map.data.forEach(function(feature) {polygon = feature.getGeometry()});
+      var polygon_feature;
+      map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
       var bounds = new google.maps.LatLngBounds();
-      polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
+      polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
       tightFitBounds(map, bounds);
+
+      var polygon = new google.maps.Polygon({
+        paths: polygon_feature.getArray()[0].getArray(),
+      });
 
       $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
 
       var last_position = map.getCenter();
       map.addListener('center_changed', function() {
-        console.info(map.getCenter().toString())
-        if(!bounds.contains(map.getCenter())) {
+        if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
           map.setCenter(last_position);
         } else {
           last_position = map.getCenter();
