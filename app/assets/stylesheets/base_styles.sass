@@ -17,7 +17,7 @@ h1, h2
 
 h2 
   font-size: 28px
-  margin: 0px 0 10px 0
+  margin: 0px 0 15px 0
   text-transform: uppercase
 
 h3 
@@ -43,6 +43,13 @@ ol
 .half
   +span-columns(6)
   +omega(2n)
+  .cardBtn
+    border-radius: 0
+  .cardBtn:last-child
+    border-bottom-right-radius: 2px
+  .cardBtn:first-child
+    border-bottom-left-radius: 2px
+
 
 #mobile-cont
   max-width: 500px // Restictor to start work with mobile - needs deleting for desktop    
@@ -203,12 +210,11 @@ a:hover
 
 button 
   text-transform: uppercase
-button.negative
 
-button.negative
-  background: rgba($red, 0.9)
-button.negative:hover
-  background: rgba($red, 1)
+.negative
+  background: rgba($red, 0.9) !important
+.negative:hover
+  background: rgba($red, 1) !important
 
 #grid
   +outer-container

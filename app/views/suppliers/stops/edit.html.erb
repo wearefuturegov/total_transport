@@ -1,8 +1,21 @@
-<%= form_for [:suppliers, @route, @stop] do |form| %>
-  <%= render partial: 'fields', locals: {form: form} %>
-  <%= form.submit "Save stop" %>
-<% end %>
+<%= render partial: "layouts/suppliers_header" %>
+  <section id="sup_edit_stop">
+    <h2>Edit Stop:</h2>
+    <div class="card">
+      <%= form_for [:suppliers, @route, @stop] do |form| %>
+        <div class="inner">
+          <%= render partial: 'fields', locals: {form: form} %>
+        </div>
+        <div class="half">
+          <%= form.submit "Save stop", :class => "cardBtn name_validation" %>
+        </div>
+      <% end %>
 
-<%= form_for [:suppliers, @route, @stop], method: :delete do |form| %>
-<%= form.submit "Delete stop" %>
-<% end %>
+      <div class="half">
+        <%= form_for [:suppliers, @route, @stop], method: :delete do |form| %>
+          <%= form.submit "Delete stop", :class => "cardBtn negative" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<%= render partial: "layouts/suppliers_footer" %>
