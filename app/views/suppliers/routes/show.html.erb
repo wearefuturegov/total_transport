@@ -8,19 +8,18 @@
     <% @route.stops.each do |stop| %>
       <div id="stop_<%= stop.id %>" class="stop card">
         <div class="edit_route_mins half">
-          <span><%= link_to stop.name, edit_suppliers_route_stop_path(@route, stop) %></span>
-        
-          <% if stop != @route.stops.first %>
-            <%= form_for [:suppliers, @route, stop] do |form| %>
-              <p>
-                <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
-                minutes.
-                <%= form.submit "Save" %>
-              </p>
-            <% end %>
-          <% end %>
+          <p class="stop_name"><%= stop.name %></p>
+          <div class="buttons">
+            <%= link_to edit_suppliers_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
+            <button class="negative">Delete Stop</button>
+          </div>
         </div>
         <div class="half">
+          <%= form_for [:suppliers, @route, stop] do |form| %>
+            <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
+            minutes.
+            <%= form.submit "Save", :class => "min_save" %>
+          <% end %>
           <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
         </div>
       </div>
