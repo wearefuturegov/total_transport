@@ -14,7 +14,7 @@
   <% end %>
 </div>
 
-<%= form_for @booking, url: wizard_path(booking_id: @booking), method: :put do |form| %>
+<%= form_for [@route, @booking] do |form| %>
   <%= form.hidden_field :pickup_stop_id %>
   <%= form.hidden_field :dropoff_stop_id %>
   <div id="confirmation" style="display: none;">

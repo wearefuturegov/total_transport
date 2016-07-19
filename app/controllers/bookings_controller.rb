@@ -1,26 +1,28 @@
 class BookingsController < ApplicationController
-  include Wicked::Wizard
-
-  steps :choose_stops, :choose_journey, :choose_pickup_location, :choose_dropoff_location, :confirmation
-
   before_filter :find_route
+  before_filter :find_booking, except: [:new, :create]
 
-  def show
-    @booking = Booking.find(params[:booking_id])
-    render_wizard
+  # Choose stops
+  def new
+    @booking = Booking.new
+    render template: 'bookings/choose_stops'
   end
 
-  def update
-    @booking = Booking.find(params[:booking_id])
-    params[:booking][:state] = step.to_s
-    @booking.update_attributes(params[:booking])
-    render_wizard @booking
-  end
-
+  # Save stops
   def create
-    @booking = Booking.create
-    redirect_to wizard_path(steps.first, :booking_id => @booking.id)
+    @booking = Booking.create(booking_params)
+    redirect_to choose_journey_route_booking_path(@route, @booking)
   end
+
+  # Choose journey
+  def choose_journey
+  end
+
+  def save_journey
+    @booking.update_attributes(booking_params)
+    redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+  end
+
   private
 
   def booking_params
@@ -29,5 +31,9 @@ class BookingsController < ApplicationController
 
   def find_route
     @route = Route.find(params[:route_id])
+  end
+
+  def find_booking
+    @booking = Booking.find(params[:id])
   end
 end

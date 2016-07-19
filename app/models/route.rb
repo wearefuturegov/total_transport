@@ -13,4 +13,13 @@ class Route < ActiveRecord::Base
       "Route #{self.id}"
     end
   end
+
+  def available_journeys_by_date
+    available_journeys_by_date = {}
+    journeys.available.each do |journey|
+      available_journeys_by_date[journey.start_time.to_date] ||= []
+      available_journeys_by_date[journey.start_time.to_date] << journey
+    end
+    available_journeys_by_date
+  end
 end

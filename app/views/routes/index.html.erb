@@ -22,14 +22,11 @@
         </ul>
       </div>
       <div class="desti"><span class="sub smlTxt">To:</span><%= route.stops.last.name %></div>
-      <%= form_for [route, Booking.new] do |form| %>
-        <%= form.submit "Customise Route" %>
-      <% end %>
-      <!-- <%= link_to select_stops_journeys_path do %>
+      <%= link_to new_route_booking_path(route) do %>
         <div class="cardBtn">
           <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
         </div>
-      <% end %> -->
+      <% end %>
     </div>
   <% end %>
 </div>

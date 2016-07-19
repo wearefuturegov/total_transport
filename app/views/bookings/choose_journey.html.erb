@@ -1,0 +1,37 @@
+<%= render partial: "layouts/mobile_header" %>
+
+<h1>Choose time</h1>
+
+<div class="card-cont">
+  <% @route.available_journeys_by_date.each_pair do |date, journeys| %>
+    <div class="date">
+      <h3><%= date %></h3>
+    </div>
+    <% journeys.each do |journey| %>
+      <div class="card">
+        <div class="inner">
+          <div class="left">
+            <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%H:%M") %></span><br/>
+            <span class="pickUp"><%= @booking.pickup_stop.name %></span>
+          </div>
+          <div class="midArw"><i class="fa fa-arrow-right"></i></div>
+          <div class="right">
+            <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%H:%M") %></span><br/>
+            <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
+          </div>
+        </div>
+        <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
+          <%= form.hidden_field :journey_id, value: journey.id %>
+          <%= form.submit 'Book Journey' %>
+        <% end %>
+        <!-- <%= link_to select_pick_up_journeys_path do %>
+          <div class="cardBtn">
+            <span>Book Journey</span>
+          </div>
+        <% end %> -->
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<%= render partial: "layouts/mobile_footer" %>
