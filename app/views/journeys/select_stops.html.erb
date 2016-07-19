@@ -1,55 +1,60 @@
 <%= render partial: "layouts/mobile_header" %>
 
 <h1>Select Pick Up Location</h1>
-  
 <div class="stop-list">
-  <div class="stop" id="1">
+  <div id="main-line"></div>
+  <div class="stop card" id="1">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Bradwell-on-Sea</div>
   </div>
-  <div class="stop" id="2">
+  <div class="stop card" id="2">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Tillingham</div>
   </div>
-  <div class="stop" id="3">
+  <div class="stop card" id="3">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Dengie</div>
   </div>
-  <div class="stop" id="4">
+  <div class="stop card" id="4">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Asheldham</div>
   </div>
-  <div class="stop" id="5">
+  <div class="stop card" id="5">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Southminster</div>
   </div>
-  <div class="stop" id="6">
+  <div class="stop card" id="6">
     <div class="stop-dot">
       <div class="stop-dot-middle"></div>
     </div>
     <div class="stop-dot-line"></div>
     <div class="stop-title">Burnham-on-Crouch</div>
   </div>
+  <div id="confirmation" class="card" style="display: none;">
+    <%= link_to select_time_journeys_path do %>
+      <div class="cardBtn">
+        <span>Confirm Route</span>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="clear"></div>
 </div>
 
-<div id="confirmation" style="display: none;">
-  <%= link_to select_time_journeys_path do %>
-  <button>Confirm <i class="arw fa fa-chevron-right"></i></button>
-  <% end %>
-</div>
+
 <%= render partial: "layouts/mobile_footer" %>

@@ -1,0 +1,261 @@
+/* Base Styles */
+body
+  background-color: $background-color
+  color: $dark-gray
+
+h1, h2, h3, h4, h5, h6
+  margin: 0px 0 5px 0
+  font-weight: 500
+
+h1, h2
+  font-size: 35px
+  margin: 5px 0 20px 0
+  text-transform: uppercase
+  font-weight: 500
+  letter-spacing: 1px
+
+h2 
+  font-size: 28px
+  margin: 0px 0 10px 0
+  text-transform: none
+
+h3 
+  font-size: 24px
+
+h4 
+  text-transform: uppercase
+  margin-bottom: 0
+  font-size: 20px
+  display: inline-block
+
+ul, ol 
+  //list-style-type: disc 
+  list-style-position: inside
+  li
+    margin-bottom: 10px
+ol 
+  list-style-type: decimal
+
+.clear 
+  clear: both
+
+#mobile-cont
+  max-width: 500px // Restictor to start work with mobile - needs deleting for desktop    
+  margin-top: 85px   
+
+  h1 
+    text-align: center
+    margin-bottom: 35px
+    .strong
+      font-weight: 700
+
+p.highlight 
+  font-size: $base-font-size+2
+
+section, .container
+  +outer-container
+  max-width: $large-screen
+  margin: 15px auto
+
+  .inner, article
+    +span-columns(12)
+
+.omega
+  +omega
+
+/* START Header */
+
+header
+  max-width: 500px !important // Restictor to start work with mobile - needs deleting for desktop   
+  +outer-container
+  text-align: center
+  background-color: $prim-color
+  position: absolute
+  display: block
+  padding: 10px
+  width: 100%
+  top: 0
+  left: 0
+  color: #fff
+
+  .left, .right 
+    +span-columns(2)
+    text-align: left
+  .centre
+    +span-columns(8)
+  .right
+    +omega
+    text-align: right
+  #backbtn 
+    background-color: transparent
+    color: $dark-gray
+    font-size: 14px
+    padding: 5px
+  a, #backbtn
+    color: #fff
+
+/* END Header */
+
+
+/* START Type & Copy */
+
+
+/* END Type & Copy */
+
+
+/* START Cards */
+ 
+
+.card
+  +span-columns(12)
+  background: #ffffff
+  border-radius: 2px
+  margin-bottom: 35px
+  text-align: left
+  position: relative
+  //box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+  transition: box-shadow 0.6s cubic-bezier(.25,.8,.25,1)
+.inner
+  padding: 20px
+  +outer-container
+.left, .right
+  +span-columns(6)
+.right
+  +omega
+.pickUp, .dropOff
+  //font-size: 17px - FOR DESKTOP
+  font-size: 14px
+  color: $medium-gray
+  margin-top: -3px
+  display: block
+
+.timeEst
+  //font-size: 23px - FOR DESKTOP
+  font-size: 18px
+  font-weight: 600
+.date
+  +span-columns(12)
+  text-transform: uppercase
+.midArw
+  position: absolute
+  top: 16%
+  left: 42%
+  //font-size: 20px - FOR DESKTOP
+  font-size: 17px 
+.cardBtn
+  +span-columns(12)
+  text-align: center
+  background: $prim-color
+  color: #fff
+  padding: 8px
+  text-transform: uppercase
+  border-bottom-left-radius: 2px
+  border-bottom-right-radius: 2px
+  font-size: 17px
+
+@media screen and (min-width: $medium-screen)
+  .third
+    +span-columns(6)
+    +omega(2n)
+
+.card:hover
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
+  //box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0px 20px 30px 0px rgba(0,0,0,0.10)
+  //transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+
+.card:active 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.24)
+  transition: box-shadow 0.1s cubic-bezier(.25,.8,.25,1) !important
+
+
+/* END Cards */
+
+/* START Other UI */
+
+#grid
+  +outer-container
+  div
+    padding: 10px
+  .left
+    +media($medium-screen)
+      +span-columns(3)
+    background-color: $light-gray
+  .right
+    +media($medium-screen)
+      +span-columns(9)
+    background-color: $medium-gray
+    +omega
+
+/* END Other UI */
+
+
+/* START Style Guide Unique Styles */
+
+.styleGuideSec
+  padding: 12px
+  h2
+    cursor: pointer
+  .acord
+    display: none
+
+  .styleGuideArw
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+
+.styleGuideSec.open
+  .styleGuideArw
+    transform: rotate(-180deg)
+
+#glos
+  .glos_lesser
+    opacity: 0.5
+  .glos_highlight
+    box-shadow: 0 7px 9px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.08)
+    opacity: 1
+#type 
+  #type_body, #type_header
+    font-style: italic
+    font-weight: 600
+
+#colour
+  .colourSqr
+    display: inline-block
+    width: 30px
+    height: 30px
+    border-radius: 5px
+    background-color: $prim-color
+    margin-left: 10px
+    vertical-align: top
+  .colHex, .colRGB
+    color: $prim-color
+    font-size: 15px
+#second_col 
+  .colourSqr
+    background-color: $red
+  .colHex, .colRGB
+    color: $red
+#bg_col 
+  .colourSqr
+    background-color: $background-color
+  .colHex, .colRGB
+    color: $background-color
+#d_gray_col 
+  .colourSqr
+    background-color: $dark-gray
+  .colHex, .colRGB
+    color: $dark-gray
+#m_gray_col 
+  .colourSqr
+    background-color: $medium-gray
+  .colHex, .colRGB
+    color: $medium-gray
+#l_gray_col 
+  .colourSqr
+    background-color: $light-gray
+  .colHex, .colRGB
+    color: $light-gray
+
+/* END Style Guide Unique Styles */
+
+
+

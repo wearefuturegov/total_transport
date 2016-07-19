@@ -1,5 +1,9 @@
 <%= render partial: "layouts/mobile_header" %>
-
+<script type="text/javascript">
+  $(function() {
+    $('#backbtn').css('color', '#1565c0'); // REMOVE THIS AFTER THE PROTOTYPE
+  });
+</script>
 <h1>Choose A Route</h1>
 
 <form id="journey-input">
@@ -11,109 +15,124 @@
 
 <div class="card-cont">
   <div class="route card" id="1">
-    <div class="origin"><span class="sub smlTxt">From:</span>Bradwell-on-Sea</div>
-    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 7 Stops</div>
-    <div class="acord">
-      <ul>
-        <li style="display: none">Bradwell-on-Sea</li>
-        <li>Tillingham</li>
-        <li>Dengie</li>
-        <li>Asheldham</li>
-        <li>Southminster</li>
-        <li>Mayland</li>
-        <li>Latchindon</li>
-        <li>Mundon</li>
-        <li style="display: none">Maldon</li>
-      </ul>
+    <div class="inner">
+      <div class="origin">Bradwell-on-Sea</div>
+      <div class="bar"></div>
+      <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 7 Stops</div>
+      <div class="acord">
+        <ul>
+          <li style="display: none">Bradwell-on-Sea</li>
+          <li>Tillingham</li>
+          <li>Dengie</li>
+          <li>Asheldham</li>
+          <li>Southminster</li>
+          <li>Mayland</li>
+          <li>Latchindon</li>
+          <li>Mundon</li>
+          <li style="display: none">Maldon</li>
+        </ul>
+      </div>
+      <div class="desti" id="cinema">Maldon</div>
     </div>
-    <div class="desti"><span class="sub smlTxt">To:</span>Maldon</div>
     <%= link_to select_stops_journeys_path do %>
       <div class="cardBtn">
-        <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+        <span>Customise Route</span>
       </div>
     <% end %>
   </div>
 
   <div class="route card" id="2">
-    <div class="origin"><span class="sub smlTxt">From:</span>Bradwell-on-Sea</div>
-    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via  Stops</div>
-    <div class="acord">
-      <ul>
-        <li style="display: none">Bradwell-on-Sea</li>
-        <li>Tillingham</li>
-        <li>Steeple</li>
-        <li>Mayland</li>
-        <li>Latchingdon</li>
-        <li>Cold Norton</li>
-        <li style="display: none">South Woodham Ferrers</li>
-      </ul>
+    <div class="inner">
+      <div class="origin">Bradwell-on-Sea</div>
+      <div class="bar"></div>
+      <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 5 Stops</div>
+      <div class="acord">
+        <ul>
+          <li style="display: none">Bradwell-on-Sea</li>
+          <li>Tillingham</li>
+          <li>Steeple</li>
+          <li>Mayland</li>
+          <li>Latchingdon</li>
+          <li>Cold Norton</li>
+          <li style="display: none">South Woodham Ferrers</li>
+        </ul>
+      </div>
+      <div class="desti" id="cinema">South Woodham Ferrers</div>
     </div>
-    <div class="desti"><span class="sub smlTxt">To:</span>South Woodham Ferrers</div>
     <%= link_to select_stops_journeys_path do %>
       <div class="cardBtn">
-        <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+        <span>Customise Route</span>
       </div>
     <% end %>
   </div>
 
   <div class="route card" id="3">
-    <div class="origin"><span class="sub smlTxt">From:</span>Dengie</div>
-    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 1 Stops</div>
-    <div class="acord">
-      <ul>
-        <li style="display: none">Dengie</li>
-        <li>Asheldham</li>
-        <li style="display: none">Southminster</li>
-      </ul>
+    <div class="inner">
+      <div class="origin">Dengie</div>
+      <div class="bar"></div>
+      <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 1 Stop</div>
+      <div class="acord">
+        <ul>
+          <li style="display: none">Dengie</li>
+          <li>Asheldham</li>
+          <li style="display: none">Southminster</li>
+        </ul>
+      </div>
+      <div class="desti" id="cinema">Southminster</div>
     </div>
-    <div class="desti"><span class="sub smlTxt">To:</span>Southminster</div>
     <%= link_to select_stops_journeys_path do %>
       <div class="cardBtn">
-        <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+        <span>Customise Route</span>
       </div>
     <% end %>
   </div>
 
   <div class="route card" id="4">
-    <div class="origin"><span class="sub smlTxt">From:</span>Bradwell-on-Sea</div>
-    <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
-    <div class="acord">
-      <ul>
-        <li class="firstStop" style="display: none">Bradwell-on-Sea</li>
-        <li>Tillingham</li>
-        <li id="farm">Dengie</li>
-        <!-- FAKE LOCATIONS DELETE AFTER USER TEST -->
-        <li style="display: none">Reel Cinema</li><li style="display: none">Landwick Farm</li>
-        <li>Asheldham</li>
-        <li>Southminster</li>
-        <li class="lastStop" style="display: none">Burnham-on-Crouch</li>
-      </ul>
+    <div class="inner">
+      <div class="origin">Bradwell-on-Sea</div>
+      <div class="bar"></div>
+      <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+      <div class="acord">
+        <ul>
+          <li class="firstStop" style="display: none">Bradwell-on-Sea</li>
+          <li>Tillingham</li>
+          <li id="farm">Dengie</li>
+          <!-- FAKE LOCATIONS DELETE AFTER USER TEST -->
+          <li style="display: none">Reel Cinema</li><li style="display: none">Landwick Farm</li>
+          <li>Asheldham</li>
+          <li>Southminster</li>
+          <li class="lastStop" style="display: none">Burnham-on-Crouch</li>
+        </ul>
+      </div>
+      <div class="desti" id="cinema">Burnham-on-Crouch</div>
     </div>
-    <div class="desti" id="cinema"><span class="sub smlTxt">To:</span>Burnham-on-Crouch</div>
     <%= link_to select_stops_journeys_path do %>
       <div class="cardBtn">
-        <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+        <span>Customise Route</span>
       </div>
     <% end %>
   </div>
 
   <div class="route card" id="5">
-    <div class="origin"><span class="sub smlTxt">From:</span>Burnham-on-Crouch</div>
-    <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
-    <div class="acord">
-      <ul>
-        <li style="display: none">Burnham-on-Crouch</li>
-        <li>Southminster</li>
-        <li>Asheldham</li>
-        <li>Dengie</li>
-        <li>Tillingham</li>
-        <li style="display: none">Bradwell-on-Sea</li>
-      </ul>
+    <div class="inner">
+      <div class="origin">Burnham-on-Crouch</div>
+      <div class="bar"></div>
+      <div class="acordBtn" id="farmBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via 4 Stops</div>
+      <div class="acord">
+        <ul>
+          <li style="display: none">Burnham-on-Crouch</li>
+          <li>Southminster</li>
+          <li>Asheldham</li>
+          <li>Dengie</li>
+          <li>Tillingham</li>
+          <li style="display: none">Bradwell-on-Sea</li>
+        </ul>
+      </div>
+      <div class="desti" id="cinema">Bradwell-on-Sea</div>
     </div>
-    <div class="desti"><span class="sub smlTxt">To:</span>Bradwell-on-Sea</div>
     <%= link_to select_stops_journeys_path do %>
       <div class="cardBtn">
-        <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+        <span>Customise Route</span>
       </div>
     <% end %>
   </div>
