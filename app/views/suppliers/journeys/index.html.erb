@@ -1,3 +1,5 @@
+<%= render partial: "layouts/suppliers_header" %>
+
 <table>
   <tr>
     <th>Date</th>
@@ -24,3 +26,5 @@
   <%= form.datetime_select :start_time %>
   <%= form.submit %>
 <% end %>
+
+<%= render partial: "layouts/suppliers_footer" %>

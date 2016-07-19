@@ -48,9 +48,8 @@ $dot-width: 30px
     cursor: pointer
   .acord 
     display: none
-    transition: all 0.25s cubic-bezier(.25,.8,.25,1)
     padding: 15px 0 5px 40px
-    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
+    transition: all 0.25s cubic-bezier(.25,.8,.25,1), top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
     ul 
       margin-left: -15px
     li
@@ -98,7 +97,7 @@ $dot-width: 30px
     margin-bottom: 3px
     line-height: $dot-width
     font-size: 20px
-    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94), box-shadow 1s cubic-bezier(0.25, 0.8, 0.25, 1)
     
     .stop-dot, .stop-dot-middle
       border-radius: 50%
@@ -203,8 +202,7 @@ $dot-width: 30px
     color: $medium-gray
 
 #confirmation
-  transition: all 0.15s cubic-bezier(.25,.8,.25,.4)
-  transition: top 0.15s cubic-bezier(0.17, 0.04, 0.03, 0.94)
+  transition: all 0.15s cubic-bezier(.25,.8,.25,.4), top 0.15s cubic-bezier(0.17, 0.04, 0.03, 0.94)
 /* END Stop selection */
 
 /* START Times */

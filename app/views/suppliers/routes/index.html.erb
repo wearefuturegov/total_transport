@@ -1,13 +1,39 @@
-<table>
+<%= render partial: "layouts/suppliers_header" %>
+<section id="sup_routes">
   <% Route.all.each do |route| %>
-    <tr>
-      <td><%= route.name %></td>
-      <td><%= link_to "edit route", suppliers_route_path(route) %></td>
-      <td><%= link_to "view and add journeys", suppliers_route_journeys_path(route) %></td>
-    </tr>
+    <div class="card">
+      <div class="inner">
+        <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
+        <hr>
+        <span class="sup_route_journeys">
+          <span class="numOfJourn">0</span> Current Journeys - 
+          <%= link_to suppliers_route_journeys_path(route) do %>
+            <span class="addTxt">Add</span> Journeys to this Route
+          <% end %>
+        </span>
+      </div>
+      <%= link_to suppliers_route_path(route) do %>
+        <div class="cardBtn">
+          <span>Edit Route</span>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</table>
-
 <%= form_for [:suppliers, Route.new] do |form| %>
   <%= form.submit "Create new Route" %>
 <% end %>
+</section>
+
+<script type="text/javascript">
+  $(function() {
+    $('.sup_route_journeys').each(function() {
+      if (parseInt($(this).find('.numOfJourn').html()) == 0) {
+        $(this).find('.addTxt').html('Add');
+      } else {
+        $(this).find('.addTxt').html('Edit/Add');
+      }
+    });
+  });
+</script>
+
+<%= render partial: "layouts/suppliers_footer" %>
