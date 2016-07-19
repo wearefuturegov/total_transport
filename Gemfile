@@ -32,7 +32,6 @@ gem 'font-awesome-sass', '~> 4.6.2'
 gem 'jquery-ui-rails'
 
 gem 'acts_as_list'
-gem 'wicked'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
