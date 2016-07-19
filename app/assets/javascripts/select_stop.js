@@ -64,7 +64,7 @@ $(document).ready(function() {
           $('.lastChild').addClass('lastChildOff');
           $('.lastChild').removeClass('lastChild');
           $(this).addClass('active');
-          
+
           if (activeDots == 1) {
             // if its the first dot store the globals and set title
             $('h1').html(drpfTxt);
@@ -81,11 +81,12 @@ $(document).ready(function() {
             setTimeout(function(){
               $('#confirmation').slideDown(500);
             }, 100);
+            setStopIDs();
             // hide any stop below the second stop clicked
             for (var i = numOfStops; i >= (parseInt($(this).attr('id')) + 1); i--) {
               $('#'+i).slideUp(); // IMPROVE - use css rather than jquery for this animation
             }
-            // add class to all sub stops 
+            // add class to all sub stops
             setTimeout(function(){
               $('.stop').each(function(){
                 if (!$(this).hasClass('active')) {
@@ -165,4 +166,11 @@ function drawStopLine(begin, end) {
 function clearStopLine() {
   $('.stop-dot-line.alive').removeAttr('style');
   $('.stop-dot-line.alive').css('height', '0');
+}
+
+function setStopIDs() {
+  var pickup_stop_id = $($('.stop.active')[0]).data('stop-id');
+  var dropoff_stop_id = $($('.stop.active')[1]).data('stop-id');
+  $('#booking_pickup_stop_id').val(pickup_stop_id);
+  $('#booking_dropoff_stop_id').val(dropoff_stop_id);
 }

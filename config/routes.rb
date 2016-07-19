@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :routes
+  resources :routes do
+    resources :bookings
+  end
 
   resources :journeys do
     collection do
