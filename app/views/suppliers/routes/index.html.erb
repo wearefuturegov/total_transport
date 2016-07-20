@@ -4,9 +4,12 @@
     <div class="card">
       <div class="inner">
         <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
+        <% route.stops.each do |stop| %>
+          <%= stop.name %>
+        <% end %>
         <hr>
         <span class="sup_route_journeys">
-          <span class="numOfJourn">0</span> Current Journeys - 
+          <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys - 
           <%= link_to suppliers_route_journeys_path(route) do %>
             <span class="addTxt">Add</span> Journeys to this Route
           <% end %>

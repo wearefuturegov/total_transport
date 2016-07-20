@@ -7,7 +7,7 @@ class Suppliers::StopsController < ApplicationController
   def create
     @stop = @route.stops.new(stop_params)
     @stop.save
-    if params[:commit] == "Create and add another stop"
+    if params[:commit] == "Create & add another stop"
       redirect_to new_suppliers_route_stop_path(@route)
     else
       redirect_to suppliers_route_path(@route)

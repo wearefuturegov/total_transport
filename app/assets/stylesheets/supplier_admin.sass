@@ -14,6 +14,7 @@
     .stop
       cursor: -webkit-grab 
       cursor: -moz-grab
+      margin-bottom: 6px
       .stop_name
         font-size: 28px
       .buttons
@@ -52,5 +53,30 @@
     display: block
     float: none
 
+
+#new_journey
+  select
+    border: 1px solid rgba($dark-gray, 0.7)
+    border-radius: 2px
+    background-color: #fff
+    line-height: 1.5em
+    padding: 5px 40px 5px 10px
+    color: $dark-gray
+    cursor: pointer
+
+    margin: 0
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    -webkit-appearance: none
+    -moz-appearance: none
+
+    background-image: linear-gradient(45deg, transparent 50%, $dark-gray 50%), linear-gradient(135deg, $dark-gray 50%, transparent 50%), linear-gradient(to right, rgba($dark-gray, 0.3), rgba($dark-gray, 0.3))
+    background-position: calc(100% - 15px) calc(15px + 2px), calc(100% - 10px) calc(15px + 2px), calc(100% - 30px) 10px
+    background-size: 5px 5px, 5px 5px, 1px 20px
+    background-repeat: no-repeat
+  select:focus
+    outline: none
+    border: 1px solid $prim-color
 
 /* END edit Stop page */
