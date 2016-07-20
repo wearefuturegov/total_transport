@@ -35,7 +35,7 @@
 
   <script type="text/javascript">
     var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-    $('#sortable_stops').sortable({items:'.card', containment:'parent', axis:'y', update: function() {
+    $('#sortable_stops').sortable({items:'.card', containment:'#sortable_stops', axis:'y', update: function() {
       $.post('<%= sort_suppliers_route_path(@route) %>', '_method=put&authenticity_token='+AUTH_TOKEN+'&'+$(this).sortable('serialize'));
     }});
 
