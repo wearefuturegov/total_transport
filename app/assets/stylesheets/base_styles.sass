@@ -45,9 +45,10 @@ ol
   +omega(2n)
   .cardBtn
     border-radius: 0
-  .cardBtn:last-child
+  .cardBtn.negative
     border-bottom-right-radius: 2px
-  .cardBtn:first-child
+    border-bottom-left-radius: 0px
+  .cardBtn
     border-bottom-left-radius: 2px
 
 
@@ -203,13 +204,16 @@ a:hover
 
 .cardBtn, button, [type='button'], [type='reset'], [type='submit']
   background: rgba($prim-color, 0.9)
-  transition: all 0s cubic-bezier(.25,.8,.25,1), background 1s cubic-bezier(.25,.8,.25,1)
+  transition: all 0s, background 1s cubic-bezier(.25,.8,.25,1)
 .cardBtn:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover
   background: rgba($prim-color, 1)
-  transition: all 0s cubic-bezier(.25,.8,.25,1), background 0.7s cubic-bezier(.25,.8,.25,1)
+  transition: all 0s, background 0.7s cubic-bezier(.25,.8,.25,1)
 
 button 
   text-transform: uppercase
+
+button, [type='button'], [type='reset'], [type='submit']
+  padding: 10px 15px
 
 .negative
   background: rgba($red, 0.9) !important

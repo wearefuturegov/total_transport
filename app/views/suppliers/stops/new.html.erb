@@ -1,16 +1,17 @@
 <%= render partial: "layouts/suppliers_header" %>
   <section id="sup_edit_stop">
-    <h2>Edit Stop:</h2>
+    <h2>Add a Stop:</h2>
     <div class="card">
       <%= form_for [:suppliers, @route, @stop] do |form| %>
         <div class="inner">
           <%= render partial: 'fields', locals: {form: form} %>
+          <button id="resetMapBtn" disabled type="button" onclick="resetMap()">Clear Map</button>
         </div>
         <div class="half">
           <%= form.submit "Create & add another stop", :class => "cardBtn name_validation" %>
         </div>
-        <div class="half">
-          <%= form.submit "Create & finish", :class => "cardBtn name_validation" %>
+        <div class="half" style="clear:none;">
+          <%= form.submit "Create & finish", :class => "cardBtn name_validation negative" %>
         </div>
       <% end %>
     </div>

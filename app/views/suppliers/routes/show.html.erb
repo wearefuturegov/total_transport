@@ -1,6 +1,6 @@
 <%= render partial: "layouts/suppliers_header" %>
 <section id="sup_edit_route">
-  <h1><% @route.name %></h1>
+  <h1><%= @route.name %></h1>
 
   <h2>Stops:</h2>
 
@@ -11,7 +11,9 @@
           <p class="stop_name"><%= stop.name %></p>
           <div class="buttons">
             <%= link_to edit_suppliers_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
-            <button class="negative">Delete Stop</button>
+            <%= form_for [:suppliers, @route, stop], method: :delete do |form| %>
+              <%= form.submit "Delete stop", :class => "cardBtn negative delete" %>
+            <% end %>
           </div>
         </div>
         <div class="half">

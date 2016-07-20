@@ -33,7 +33,7 @@ $(document).ready(function() {
     dropAcord(parent, '.route');
   });
 
-  $('input.negative').click(function(e) {
+  $('input.delete').click(function(e) {
     //e.preventDefault();
     var c = confirm("Are you sure you want to delete this? Click OK to continue.");
     return c;
