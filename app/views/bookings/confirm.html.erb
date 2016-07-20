@@ -9,7 +9,7 @@
     <div class="inner">
       <h4>Your Pick Up<br/>Location:</h4>
       <div class="right" style="float: right; text-align: right;">
-        <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%H:%M") %></span><br/>
+        <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(@booking.journey) %></span><br/>
         <span class="pickUp"><%= @booking.pickup_stop.name %></span>
       </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="inner">
       <h4>Your Drop Off<br/>Location:</h4>
       <div class="right" style="float: right; text-align: right;">
-        <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.journey).strftime("%H:%M") %></span><br/>
+        <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(@booking.journey) %></span><br/>
         <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
       </div>
     </div>
