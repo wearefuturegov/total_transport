@@ -1,0 +1,77 @@
+<%= render partial: "layouts/mobile_header" %>
+
+<h1>Confirm booking</h1>
+<div class="card-cont">
+  <p>Please note that pick up and drop off times are estimated and might slightly change.</p>
+
+  <div class="card" id="pickUpCard">
+    <div id="pickup_map" style="width: 100%; height: 200px;"></div>
+    <div class="inner">
+      <h4>Your Pick Up<br/>Location:</h4>
+      <div class="right" style="float: right; text-align: right;">
+        <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(@booking.journey) %></span><br/>
+        <span class="pickUp"><%= @booking.pickup_stop.name %></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="dropOffCard">
+    <div id="dropoff_map" style="width: 100%; height: 200px;"></div>
+    <div class="inner">
+      <h4>Your Drop Off<br/>Location:</h4>
+      <div class="right" style="float: right; text-align: right;">
+        <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(@booking.journey) %></span><br/>
+        <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
+      </div>
+    </div>
+  </div>
+
+  <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
+
+  <form id="confirm-input">
+    <label>Phone <input type="text" name="from"></label>
+  </form>
+
+  <a href="#">
+    <div class="cardBtn" style="margin-bottom: 25px;">
+      <span>Confirm Booking</span>
+    </div>
+  </a>
+
+</div>
+
+<script type="text/javascript">
+  function initMap() {
+    var pickup_point = new google.maps.LatLng(<%= @booking.pickup_lat %>, <%= @booking.pickup_lng %>);
+    var dropoff_point = new google.maps.LatLng(<%= @booking.dropoff_lat %>, <%= @booking.dropoff_lng %>);
+    var pickup_map = new google.maps.Map(document.getElementById("pickup_map"), {
+      zoom: 14,
+      center: pickup_point,
+      streetViewControl: false,
+      mapTypeControl: false,
+      scrollwheel: false,
+      zoomControl: false
+    });
+    var dropoff_map = new google.maps.Map(document.getElementById("dropoff_map"), {
+      zoom: 14,
+      center: dropoff_point,
+      streetViewControl: false,
+      mapTypeControl: false,
+      scrollwheel: false,
+      zoomControl: false
+    });
+
+    var pickup_marker = new google.maps.Marker({
+      position: pickup_point,
+      map: pickup_map
+    });
+
+    var dropoff_marker = new google.maps.Marker({
+      position: dropoff_point,
+      map: dropoff_map
+    });
+
+  }
+</script>
+
+<%= render partial: "layouts/mobile_footer" %>

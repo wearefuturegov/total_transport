@@ -1,0 +1,40 @@
+<%= render partial: "layouts/mobile_header" %>
+
+<h1>Choose A Route</h1>
+
+<form id="journey-input">
+  <div class="input-cont">
+    <label>From <input type="text" name="from"></label>
+    <label>To <input type="text" name="to"></label>
+  </div>
+</form>
+
+<div class="card-cont">
+  <% Route.bookable_routes.each do |route| %>
+    <div class="route card" id="<%= route.id %>">
+      <div class="inner">
+        <div class="origin"><%= route.stops.first.name %></div>
+        
+        <div class="bar"></div>
+
+        <div class="acordBtn">
+          <span class="arw"><i class="fa fa-chevron-down"></i></span> Via <%= pluralize(route.stops.count - 2, "stop") %>
+        </div>
+        <div class="acord">
+          <ul>
+            <% route.stops.each do |stop| %>
+              <li <%= ' style="display: none"' if stop.first? || stop.last? %>><%= stop.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="desti"><%= route.stops.last.name %></div>
+      </div>
+      <%= link_to new_route_booking_path(route) do %>
+        <div class="cardBtn">
+          <span>Customise Route</span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<%= render partial: "layouts/mobile_footer" %>

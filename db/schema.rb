@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713094021) do
+ActiveRecord::Schema.define(version: 20160714132525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "journey_id"
+    t.integer  "pickup_stop_id"
+    t.float    "pickup_lat"
+    t.float    "pickup_lng"
+    t.integer  "dropoff_stop_id"
+    t.float    "dropoff_lat"
+    t.float    "dropoff_lng"
+    t.string   "state"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
+  add_index "bookings", ["journey_id"], name: "index_bookings_on_journey_id", using: :btree
+  add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
 
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
@@ -44,6 +61,9 @@ ActiveRecord::Schema.define(version: 20160713094021) do
 
   add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
 
+  add_foreign_key "bookings", "journeys"
+  add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
+  add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
   add_foreign_key "stops", "routes"
 end

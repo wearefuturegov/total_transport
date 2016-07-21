@@ -1,0 +1,27 @@
+<%= render partial: "layouts/mobile_header" %>
+
+<h1>Select Pick Up Location</h1>
+
+<div id="passenger_stop_select" class="stop-list">
+  <div id="main-line"></div>
+  <% @route.stops.each do |stop| %>
+    <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title"><%= stop.name %></div>
+    </div>
+  <% end %>
+
+  <%= form_for [@route, @booking] do |form| %>
+    <%= form.hidden_field :pickup_stop_id %>
+    <%= form.hidden_field :dropoff_stop_id %>
+    <div id="confirmation" class="card" style="display: none;">
+      <%= form.submit 'Confirm Route', :class => 'cardBtn' %>
+    </div>
+  <% end %>
+    
+  <div class="clear"></div>
+</div>
+<%= render partial: "layouts/mobile_footer" %>
