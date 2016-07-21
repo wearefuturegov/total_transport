@@ -1,4 +1,4 @@
-class Suppliers::JourneysController < ApplicationController
+class Suppliers::JourneysController < SuppliersController
   before_filter :find_route
   def index
     @journeys = @route.journeys

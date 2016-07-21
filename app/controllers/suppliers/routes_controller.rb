@@ -1,4 +1,4 @@
-class Suppliers::RoutesController < ApplicationController
+class Suppliers::RoutesController < SuppliersController
   def create
     Route.create!
     redirect_to suppliers_routes_path
