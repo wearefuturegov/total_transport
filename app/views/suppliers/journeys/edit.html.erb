@@ -1,9 +1,21 @@
-<%= form_for [:suppliers, @route, @journey] do |form| %>
-  <%= form.label :start_time %>
-  <%= form.datetime_select :start_time %>
-  <%= form.submit %>
-<% end %>
-
-<%= form_for [:suppliers, @route, @journey], method: :delete do |form| %>
-  <%= form.submit "Cancel and delete journey" %>
-<% end %>
+<%= render partial: "layouts/suppliers_header" %>
+  <section id="sup_route_journeys">
+    <div class="card">
+      <%= form_for [:suppliers, @route, @journey] do |form| %>
+        <div class="inner">
+          <h4>Edit Journey</h4>
+          <%= form.label :start_time, "Edit Journey Start Date & Time:" %>
+          <%= form.datetime_select :start_time %>
+        </div>
+        <div class="half">
+          <%= form.submit "Submit Edit", :class => "cardBtn"  %>
+        </div>
+      <% end %>
+      <div class="half">
+        <%= form_for [:suppliers, @route, @journey], method: :delete do |form| %>
+          <%= form.submit "Cancel & delete journey", :class => "negative" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<%= render partial: "layouts/suppliers_footer" %>

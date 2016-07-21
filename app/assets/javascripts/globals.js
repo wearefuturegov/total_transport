@@ -32,6 +32,29 @@ $(document).ready(function() {
     }
     dropAcord(parent, '.route');
   });
+
+  $('input.delete').click(function(e) {
+    var c = confirm("Are you sure you want to delete this? Click OK to continue.");
+    return c;
+  });
+
+  $('input.name_validation').click(function(e) {
+    if ($('#stop_name').val() == '') {
+      alert('You need to add a name');
+      return false;
+    } else {
+      if ($('#stop_latitude').length) {
+        if ($('#stop_latitude').val() == '') {
+          alert('You need to draw a stop area');
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+  });
 });
 
 function dropAcord(element, eleClass) {

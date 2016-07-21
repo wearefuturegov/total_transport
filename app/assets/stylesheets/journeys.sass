@@ -10,7 +10,7 @@ $dot-width: 30px
   +outer-container(95%)
 
 .route
-  color: $dark-gray 
+  color: $dark-gray
   .origin, .desti
     display: block
     width: 100%
@@ -46,12 +46,11 @@ $dot-width: 30px
       margin-left: 15px
   .acordBtn:hover
     cursor: pointer
-  .acord 
+  .acord
     display: none
-    transition: all 0.25s cubic-bezier(.25,.8,.25,1)
     padding: 15px 0 5px 40px
-    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
-    ul 
+    transition: all 0s, top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
+    ul
       margin-left: -15px
     li
       line-height: 28px
@@ -72,7 +71,7 @@ $dot-width: 30px
     .arw
       transform: rotate(-180deg)
 
-  
+
 /* END Routes */
 
 /* START Stop selection */
@@ -82,7 +81,8 @@ $dot-width: 30px
 .stop-list
   position: relative
   overflow: hidden
-  
+  padding-top: 10px
+
   #main-line
     position: absolute
     top: 38px
@@ -92,14 +92,14 @@ $dot-width: 30px
     width: 5px
     z-index: 1
     transition: all 0.5s cubic-bezier(.25,.8,.25,1)
-  
+
   .stop
     padding: 15px
     margin-bottom: 3px
     line-height: $dot-width
     font-size: 20px
-    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94)
-    
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94), box-shadow 1s cubic-bezier(0.25, 0.8, 0.25, 1)
+
     .stop-dot, .stop-dot-middle
       border-radius: 50%
       transition: all 0.5s cubic-bezier(.25,.8,.25,1)
@@ -115,7 +115,7 @@ $dot-width: 30px
       height: $dot-width
       border: $prim-color 4px solid
       background-color: #fff
-      
+
       .stop-dot-middle
         background-color: $prim-color
         width: 0px
@@ -156,13 +156,13 @@ $dot-width: 30px
     border-color: $red
   .stop-dot-middle
     background-color: $red !important
-.stop.active.hover 
+.stop.active.hover
   .stop-dot
     transform: scale(0.95)
   .stop-title
     margin-left: calc(#{$dot-width}/1.75)
 
-.stop-dot-line 
+.stop-dot-line
   background-color: $red
   position: absolute
   width: 5px
@@ -203,12 +203,11 @@ $dot-width: 30px
     color: $medium-gray
 
 #confirmation
-  transition: all 0.15s cubic-bezier(.25,.8,.25,.4)
-  transition: top 0.15s cubic-bezier(0.17, 0.04, 0.03, 0.94)
+  transition: all 0s, top 0.1s cubic-bezier(0.17, 0.04, 0.03, 0.4)
 /* END Stop selection */
 
 /* START Times */
-.time-cont 
+.time-cont
   text-align: center
 
 .timeSelect

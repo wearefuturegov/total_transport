@@ -25,6 +25,7 @@
         map.data.toGeoJson(function (json) {
           $('#stop_polygon').val(JSON.stringify(json));
         });
+        $('#resetMapBtn').prop('disabled', false);
         fetchPolygon();
         if(hasPolygon()) {
           fetchLatLngBoundsOfPolygon();
@@ -75,6 +76,21 @@
 
     google.maps.event.addDomListener(window, 'load', initialize);
   };
+
+  function resetMap() {
+    map.data.forEach(function (feature) {
+      map.data.remove(feature);
+    });
+    map.data.setControls(['Polygon']);
+    map.data.setDrawingMode('Polygon');
+    map.data.setStyle({
+      editable: true,
+      draggable: true
+    });
+    $('#stop_latitude').val('');
+    $('#stop_longitude').val('');
+    $('#resetMapBtn').prop('disabled', true);
+  }
 </script>
 
 <style media="screen">
@@ -86,8 +102,9 @@
 
 <%= form.label :name %>
 <%= form.text_field :name %>
-<%= form.label :polygon, "Choose stop area" %>
+<%= form.label :polygon, "Define the Stop Area" %>
 <%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
 <%= form.hidden_field :latitude %>
 <%= form.hidden_field :longitude %>
 <div id="map"></div>
+<button id="resetMapBtn" class="negative" disabled type="button" onclick="resetMap()">Clear Map</button>
