@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   root 'routes#index'
 
   namespace :suppliers do
+    root 'routes#index'
     resources :routes do
       member do
         put 'sort'
