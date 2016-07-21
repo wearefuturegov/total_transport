@@ -3,8 +3,9 @@
 <h1>Select Pick Up Location</h1>
 
 <div class="stop-list">
+  <div id="main-line"></div>
   <% @route.stops.each do |stop| %>
-    <div class="stop" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
+    <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
       <div class="stop-dot">
         <div class="stop-dot-middle"></div>
       </div>
@@ -12,17 +13,15 @@
       <div class="stop-title"><%= stop.name %></div>
     </div>
   <% end %>
+
+  <%= form_for [@route, @booking] do |form| %>
+    <%= form.hidden_field :pickup_stop_id %>
+    <%= form.hidden_field :dropoff_stop_id %>
+    <div id="confirmation" class="card" style="display: none;">
+      <%= form.submit 'Confirm Route', :class => 'cardBtn' %>
+    </div>
+  <% end %>
+    
+  <div class="clear"></div>
 </div>
-
-<%= form_for [@route, @booking] do |form| %>
-  <%= form.hidden_field :pickup_stop_id %>
-  <%= form.hidden_field :dropoff_stop_id %>
-  <div id="confirmation" style="display: none;">
-    <%= form.submit 'Confirm' %>
-    <!-- <%= link_to select_time_journeys_path do %>
-    <button>Confirm <i class="arw fa fa-chevron-right"></i></button>
-    <% end %> -->
-  </div>
-<% end %>
-
 <%= render partial: "layouts/mobile_footer" %>

@@ -37,27 +37,25 @@
       });
     }
   </script>
-  <div id="map" class="card" style="margin-bottom:0"></div>
 
-  <div id="confirmation" class="card">
-    <% if @pickup_of_dropoff == 'pickup' %>
-      <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
-        <%= form.hidden_field :pickup_lat %>
-        <%= form.hidden_field :pickup_lng %>
-        <%= form.submit "Confirm Route" %>
+  <div class="card">
+    <div id="map" style="margin-bottom:0"></div>
+
+    <div id="confirmation">
+      <% if @pickup_of_dropoff == 'pickup' %>
+        <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
+          <%= form.hidden_field :pickup_lat %>
+          <%= form.hidden_field :pickup_lng %>
+          <%= form.submit "Confirm Route", :class => 'cardBtn' %>
+        <% end %>
+      <% else %>
+        <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
+          <%= form.hidden_field :dropoff_lat %>
+          <%= form.hidden_field :dropoff_lng %>
+          <%= form.submit "Confirm Route", :class => 'cardBtn'  %>
+        <% end %>
       <% end %>
-    <% else %>
-      <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
-        <%= form.hidden_field :dropoff_lat %>
-        <%= form.hidden_field :dropoff_lng %>
-        <%= form.submit "Confirm Route" %>
-      <% end %>
-    <% end %>
-    <!-- <%= link_to select_drop_off_journeys_path do %>
-      <div class="cardBtn">
-        <span>Confirm Route</span>
-      </div>
-    <% end %> -->
+    </div>
   </div>
 </div>
 

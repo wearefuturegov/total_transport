@@ -12,19 +12,26 @@
 <div class="card-cont">
   <% Route.bookable_routes.each do |route| %>
     <div class="route card" id="<%= route.id %>">
-      <div class="origin"><span class="sub smlTxt">From:</span><%= route.stops.first.name %></div>
-      <div class="acordBtn"><span class="arw"><i class="fa fa-chevron-down"></i></span> Via <%= pluralize(route.stops.count - 2, "stop") %></div>
-      <div class="acord">
-        <ul>
-          <% route.stops.each do |stop| %>
-            <li<%= ' style="display: none"' if stop.first? || stop.last? %>><%= stop.name %></li>
-          <% end %>
-        </ul>
+      <div class="inner">
+        <div class="origin"><%= route.stops.first.name %></div>
+        
+        <div class="bar"></div>
+
+        <div class="acordBtn">
+          <span class="arw"><i class="fa fa-chevron-down"></i></span> Via <%= pluralize(route.stops.count - 2, "stop") %>
+        </div>
+        <div class="acord">
+          <ul>
+            <% route.stops.each do |stop| %>
+              <li <%= ' style="display: none"' if stop.first? || stop.last? %>><%= stop.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="desti"><%= route.stops.last.name %></div>
       </div>
-      <div class="desti"><span class="sub smlTxt">To:</span><%= route.stops.last.name %></div>
       <%= link_to new_route_booking_path(route) do %>
         <div class="cardBtn">
-          <span>Customise Route <i class="arw fa fa-chevron-right"></i></span>
+          <span>Customise Route</span>
         </div>
       <% end %>
     </div>

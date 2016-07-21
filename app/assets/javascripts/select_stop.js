@@ -182,6 +182,9 @@ function sortLineHeight(lossNumber) {
     var newNumOfStops = currentNum - lossNumber;
     $('#main-line').height(((newNumOfStops-2)*64)+50);
   }
+  /*setTimeout(function() {
+    $('#main-line').height(((newNumOfStops-2)*64)+50);
+  }, 1000);*/
 }
 
 

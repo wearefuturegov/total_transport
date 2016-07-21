@@ -5,7 +5,7 @@
 <div class="card-cont">
   <% @route.available_journeys_by_date.each_pair do |date, journeys| %>
     <div class="date">
-      <h3><%= date %></h3>
+      <h3><%= date %>:</h3>
     </div>
     <% journeys.each do |journey| %>
       <div class="card">
@@ -20,10 +20,12 @@
             <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
           </div>
         </div>
-        <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
-          <%= form.hidden_field :journey_id, value: journey.id %>
-          <%= form.submit 'Book Journey' %>
-        <% end %>
+        <div id="confirmation">
+          <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
+            <%= form.hidden_field :journey_id, value: journey.id %>
+            <%= form.submit 'Book Journey', :class => 'cardBtn' %>
+          <% end %>
+        </div>
         <!-- <%= link_to select_pick_up_journeys_path do %>
           <div class="cardBtn">
             <span>Book Journey</span>
