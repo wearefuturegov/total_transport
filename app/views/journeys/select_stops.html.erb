@@ -1,60 +1,60 @@
 <%= render partial: "layouts/mobile_header" %>
-
-<h1>Select Pick Up Location</h1>
-<div class="stop-list">
-  <div id="main-line"></div>
-  <div class="stop card" id="1">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Bradwell-on-Sea</div>
-  </div>
-  <div class="stop card" id="2">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Tillingham</div>
-  </div>
-  <div class="stop card" id="3">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Dengie</div>
-  </div>
-  <div class="stop card" id="4">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Asheldham</div>
-  </div>
-  <div class="stop card" id="5">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Southminster</div>
-  </div>
-  <div class="stop card" id="6">
-    <div class="stop-dot">
-      <div class="stop-dot-middle"></div>
-    </div>
-    <div class="stop-dot-line"></div>
-    <div class="stop-title">Burnham-on-Crouch</div>
-  </div>
-  <div id="confirmation" class="card" style="display: none;">
-    <%= link_to select_time_journeys_path do %>
-      <div class="cardBtn">
-        <span>Confirm Route</span>
+<div id="passenger_stop_select">
+  <h1>Select Pick Up Location</h1>
+  <div class="stop-list">
+    <div id="main-line"></div>
+    <div class="stop card" id="1">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
       </div>
-    <% end %>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Bradwell-on-Sea</div>
+    </div>
+    <div class="stop card" id="2">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Tillingham</div>
+    </div>
+    <div class="stop card" id="3">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Dengie</div>
+    </div>
+    <div class="stop card" id="4">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Asheldham</div>
+    </div>
+    <div class="stop card" id="5">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Southminster</div>
+    </div>
+    <div class="stop card" id="6">
+      <div class="stop-dot">
+        <div class="stop-dot-middle"></div>
+      </div>
+      <div class="stop-dot-line"></div>
+      <div class="stop-title">Burnham-on-Crouch</div>
+    </div>
+    <div id="confirmation" class="card" style="display: none;">
+      <%= link_to select_time_journeys_path do %>
+        <div class="cardBtn">
+          <span>Confirm Route</span>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="clear"></div>
   </div>
-  
-  <div class="clear"></div>
 </div>
-
 
 <%= render partial: "layouts/mobile_footer" %>

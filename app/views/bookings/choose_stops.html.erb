@@ -2,7 +2,7 @@
 
 <h1>Select Pick Up Location</h1>
 
-<div class="stop-list">
+<div id="passenger_stop_select" class="stop-list">
   <div id="main-line"></div>
   <% @route.stops.each do |stop| %>
     <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
