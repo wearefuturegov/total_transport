@@ -91,6 +91,7 @@ $(document).ready(function() {
               setTimeout(function(){
                 $('#confirmation').slideDown(500);
               }, 100);
+              setStopIDs();
               // hide any stop below the second stop clicked
               var hiddenNum = 0;
               for (var i = numOfStops; i >= (parseInt($(this).attr('id')) + 1); i--) {
@@ -207,5 +208,12 @@ $(document).ready(function() {
       $('.stop-dot-line.alive').removeAttr('style');
       $('.stop-dot-line.alive').css('height', '0');
     }
+  }
+
+  function setStopIDs() {
+    var pickup_stop_id = $($('.stop.active')[0]).data('stop-id');
+    var dropoff_stop_id = $($('.stop.active')[1]).data('stop-id');
+    $('#booking_pickup_stop_id').val(pickup_stop_id);
+    $('#booking_dropoff_stop_id').val(dropoff_stop_id);
   }
 });
