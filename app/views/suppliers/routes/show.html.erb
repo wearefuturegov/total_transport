@@ -12,7 +12,7 @@
           <div class="buttons">
             <%= link_to edit_suppliers_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
             <%= form_for [:suppliers, @route, stop], method: :delete do |form| %>
-              <%= form.submit "Delete stop", :class => "cardBtn negative delete" %>
+              <%= form.submit "Delete stop", :class => "negative delete" %>
             <% end %>
           </div>
         </div>
