@@ -13,18 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :journeys do
-    collection do
-      get 'routes'
-      get 'select_stops'
-      get 'select_time'
-      get 'select_pick_up'
-      get 'select_drop_off'
-      get 'confirm_booking'
-    end
-  end
-
-  root 'journeys#index'
+  root 'routes#index'
 
   namespace :suppliers do
     resources :routes do
