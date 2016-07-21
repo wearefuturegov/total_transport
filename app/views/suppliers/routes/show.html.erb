@@ -33,6 +33,12 @@
         <span>Add a New Stop</span>
       </div>
     <% end %>
+
+    <div class="half">
+      <%= form_for [:suppliers, @route], method: :delete do |form| %>
+        <%= form.submit "Delete route", :class => "cardBtn negative delete" %>
+      <% end %>
+    </div>
   </div>
 
 
