@@ -1,0 +1,31 @@
+.minutes-field
+  width: 3em
+  display: inline-block
+
+.edit_journey, .new_journey
+  select 
+    display: inline-block
+
+
+/* START edit route page */
+#editRoute
+  #sortable_stops
+    padding: 15px
+    margin: 0
+    overflow: visible
+    button, [type='button'], [type='reset'], [type='submit']
+      padding: 10px 15px
+    .stop
+      cursor: -webkit-grab 
+      cursor: -moz-grab
+    .stop:active
+      cursor: -webkit-grabbing 
+      cursor: -moz-grabbing
+    .ui-sortable-helper
+      box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.15)
+      cursor: move
+  .map_preview 
+    width: 100%
+    height: 100px
+
+/* END edit route page */
