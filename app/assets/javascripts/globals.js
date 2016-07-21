@@ -34,7 +34,6 @@ $(document).ready(function() {
   });
 
   $('input.delete').click(function(e) {
-    //e.preventDefault();
     var c = confirm("Are you sure you want to delete this? Click OK to continue.");
     return c;
   });
@@ -57,9 +56,6 @@ $(document).ready(function() {
     }
   });
 });
-
-
-
 
 function dropAcord(element, eleClass) {
   if (element.hasClass('open')) {

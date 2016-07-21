@@ -77,11 +77,6 @@
     google.maps.event.addDomListener(window, 'load', initialize);
   };
 
-  $('#resetMapBtn').click(function() {
-    resetMap();
-    $(this).prop('disabled', true);
-  });  
-
   function resetMap() {
     map.data.forEach(function (feature) {
       map.data.remove(feature);
@@ -92,6 +87,9 @@
       editable: true,
       draggable: true
     });
+    $('#stop_latitude').val('');
+    $('#stop_longitude').val('');
+    $('#resetMapBtn').prop('disabled', true);
   }
 </script>
 
@@ -109,3 +107,4 @@
 <%= form.hidden_field :latitude %>
 <%= form.hidden_field :longitude %>
 <div id="map"></div>
+<button id="resetMapBtn" class="negative" disabled type="button" onclick="resetMap()">Clear Map</button>
