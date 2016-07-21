@@ -1,4 +1,4 @@
-class Suppliers::StopsController < ApplicationController
+class Suppliers::StopsController < SuppliersController
   before_filter :find_route
   def new
     @stop = @route.stops.new
