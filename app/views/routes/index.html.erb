@@ -14,7 +14,7 @@
     <div class="route card" id="<%= route.id %>">
       <div class="inner">
         <div class="origin"><%= route.stops.first.name %></div>
-        
+
         <div class="bar"></div>
 
         <div class="acordBtn">
@@ -23,7 +23,7 @@
         <div class="acord">
           <ul>
             <% route.stops.each do |stop| %>
-              <li <%= ' style="display: none"' if stop.first? || stop.last? %>><%= stop.name %></li>
+              <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
             <% end %>
           </ul>
         </div>
