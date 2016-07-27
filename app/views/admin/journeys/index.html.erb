@@ -20,7 +20,7 @@
               <td><%= stop.time_for_journey(journey).strftime("%H:%M") %></td>
             <% end %>
             <td>
-              <%= link_to edit_suppliers_route_journey_path(@route, journey) do %>
+              <%= link_to edit_admin_route_journey_path(@route, journey) do %>
                 <button>Edit</button>
               <% end %>
             </td>
@@ -31,7 +31,7 @@
   </div>
 
   <div class="card">
-    <%= form_for [:suppliers, @route, Journey.new] do |form| %>
+    <%= form_for [:admin, @route, Journey.new] do |form| %>
       <div class="inner">
         <h4>Add a New Journey</h4>
         <%= render partial: 'fields', locals: {form: form} %>

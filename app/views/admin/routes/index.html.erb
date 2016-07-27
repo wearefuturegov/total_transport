@@ -9,19 +9,19 @@
         <hr>
         <span class="sup_route_journeys">
           <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys -
-          <%= link_to suppliers_route_journeys_path(route) do %>
+          <%= link_to admin_route_journeys_path(route) do %>
             <span class="addTxt">Add</span> Journeys to this Route
           <% end %>
         </span>
       </div>
-      <%= link_to suppliers_route_path(route) do %>
+      <%= link_to admin_route_path(route) do %>
         <div class="cardBtn">
           <span>Edit Route</span>
         </div>
       <% end %>
     </div>
   <% end %>
-<%= form_for [:suppliers, Route.new] do |form| %>
+<%= form_for [:admin, Route.new] do |form| %>
   <%= form.submit "Create new Route" %>
 <% end %>
 </section>
