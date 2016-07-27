@@ -1,12 +1,12 @@
 class Suppliers::VehiclesController < SuppliersController
   def index
-    @vehicles = current_user.team.vehicles
+    @vehicles = current_supplier.team.vehicles
   end
   def new
-    @vehicle = current_user.team.vehicles.new
+    @vehicle = current_supplier.team.vehicles.new
   end
   def create
-    @vehicle = current_user.team.vehicles.new(vehicle_params)
+    @vehicle = current_supplier.team.vehicles.new(vehicle_params)
     @vehicle.save
     redirect_to suppliers_vehicles_path
   end

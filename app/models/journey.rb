@@ -3,7 +3,7 @@ class Journey < ActiveRecord::Base
   has_many :stops, through: :route
   has_many :bookings, dependent: :destroy
   belongs_to :vehicle
-  belongs_to :user
+  belongs_to :supplier
 
   scope :available, -> {where('start_time > ?', Time.now)}
 end
