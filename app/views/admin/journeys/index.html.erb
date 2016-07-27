@@ -14,7 +14,7 @@
         <% @journeys.each do |journey| %>
           <tr>
             <td><%= journey.start_time.strftime("%F") %></td>
-            <td><%= journey.supplier.email %></td>
+            <td><%= journey.supplier.name %></td>
             <td><%= journey.vehicle.registration %></td>
             <% journey.stops.each do |stop| %>
               <td><%= stop.time_for_journey(journey).strftime("%H:%M") %></td>

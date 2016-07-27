@@ -8,6 +8,8 @@ class Supplier < ActiveRecord::Base
   has_many :journeys
   before_create :set_team
 
+  validates_presence_of :name, :phone_number
+
   def set_team
     self.team = Team.create!
   end
