@@ -21,7 +21,7 @@
         </div>
         <div class="right">
           <% if current_supplier %>
-            <%= current_supplier.email %>
+            <%= link_to current_supplier.name, edit_supplier_registration_path %>
             <%= form_tag destroy_supplier_session_path, method: :delete do %>
               <%= submit_tag "logout" %>
             <% end %>
