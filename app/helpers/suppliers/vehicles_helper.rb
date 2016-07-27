@@ -1,0 +1,2 @@
+module Suppliers::VehiclesHelper
+end
