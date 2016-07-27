@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727090257) do
+ActiveRecord::Schema.define(version: 20160727100346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,9 +38,13 @@ ActiveRecord::Schema.define(version: 20160727090257) do
     t.datetime "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "vehicle_id"
+    t.integer  "user_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
+  add_index "journeys", ["user_id"], name: "index_journeys_on_user_id", using: :btree
+  add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -103,6 +107,8 @@ ActiveRecord::Schema.define(version: 20160727090257) do
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
+  add_foreign_key "journeys", "users"
+  add_foreign_key "journeys", "vehicles"
   add_foreign_key "stops", "routes"
   add_foreign_key "users", "teams"
   add_foreign_key "vehicles", "teams"
