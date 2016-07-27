@@ -1,0 +1,10 @@
+<% if current_team.suppliers.count < 2 %>
+  <h1>You are currently the only person in your team</h1>
+<% else %>
+  <h1>You have <%= current_team.suppliers.count %> people in your team</h1>
+  <ul>
+    <% current_team.suppliers.each do |supplier| %>
+      <li><%= supplier.name %></li>
+    <% end %>
+  </ul>
+<% end %>

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'routes#index'
+    resource :team
     resources :vehicles
     resources :routes do
       member do
