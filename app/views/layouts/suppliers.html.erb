@@ -20,7 +20,12 @@
           Essex Better Bus - Suppliers Admin
         </div>
         <div class="right">
-          &nbsp;
+          <% if current_supplier %>
+            <%= current_supplier.email %>
+            <%= form_tag destroy_supplier_session_path, method: :delete do %>
+              <%= submit_tag "logout" %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </header>
