@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   namespace :suppliers do
     root 'routes#index'
+    resources :vehicles
     resources :routes do
       member do
         put 'sort'

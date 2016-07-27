@@ -1,0 +1,11 @@
+<%= form_for [:suppliers, @vehicle] do |form| %>
+  <%= form.label :registration, "Registration Number" %>
+  <%= form.text_field :registration %>
+  <%= form.label :seats, "Number of Seats" %>
+  <%= form.text_field :seats %>
+  <%= form.label :make_model, "Make and Model" %>
+  <%= form.text_field :make_model %>
+  <%= form.label :colour %>
+  <%= form.text_field :colour %>
+  <%= form.submit %>
+<% end %>
