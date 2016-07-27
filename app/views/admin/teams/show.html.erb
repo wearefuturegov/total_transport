@@ -8,3 +8,9 @@
     <% end %>
   </ul>
 <% end %>
+
+<p>
+  <%= link_to admin_vehicles_path do %>
+    You have <%= pluralize current_team.vehicles.count, "vehicle" %> in your team
+  <% end %>
+</p>
