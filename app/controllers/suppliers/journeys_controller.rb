@@ -31,6 +31,6 @@ class Suppliers::JourneysController < SuppliersController
   end
 
   def journey_params
-    params.require(:journey).permit(:start_time)
+    params.require(:journey).permit(:start_time, :vehicle_id, :supplier_id)
   end
 end

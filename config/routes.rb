@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :suppliers
   resources :routes do
     resources :bookings do
       member do
