@@ -1,5 +1,7 @@
 class Admin::JourneysController < AdminController
   before_filter :find_route
+  before_filter :find_journey, only: [:edit, :update, :destroy]
+  before_filter :check_permissions, except: [:index, :create]
   def index
     @journeys = @route.journeys
   end
@@ -10,17 +12,14 @@ class Admin::JourneysController < AdminController
   end
 
   def edit
-    @journey = @route.journeys.find(params[:id])
   end
 
   def update
-    @journey = @route.journeys.find(params[:id])
     @journey.update_attributes(journey_params)
     redirect_to admin_route_journeys_path(@route)
   end
 
   def destroy
-    @journey = @route.journeys.find(params[:id])
     @journey.destroy
     redirect_to admin_route_journeys_path(@route)
   end
@@ -32,5 +31,15 @@ class Admin::JourneysController < AdminController
 
   def journey_params
     params.require(:journey).permit(:start_time, :vehicle_id, :supplier_id)
+  end
+
+  def find_journey
+    @journey = @route.journeys.find(params[:id])
+  end
+
+  def check_permissions
+    unless @journey.editable_by_supplier?(current_supplier)
+      render :file => "public/401.html", :status => :unauthorized
+    end
   end
 end
