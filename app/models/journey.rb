@@ -6,4 +6,8 @@ class Journey < ActiveRecord::Base
   belongs_to :supplier
 
   scope :available, -> {where('start_time > ?', Time.now)}
+
+  def editable_by_supplier?(supplier)
+    supplier.team == self.supplier.team
+  end
 end
