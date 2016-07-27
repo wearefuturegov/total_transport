@@ -11,6 +11,8 @@ class Supplier < ActiveRecord::Base
   validates_presence_of :name, :phone_number
 
   def set_team
-    self.team = Team.create!
+    if self.team.blank?
+      self.team = Team.create!
+    end
   end
 end
