@@ -1,6 +1,6 @@
 <section id="sup_route_journeys">
   <div class="card">
-    <%= form_for [:suppliers, @route, @journey] do |form| %>
+    <%= form_for [:admin, @route, @journey] do |form| %>
       <div class="inner">
         <h4>Edit Journey</h4>
         <%= render partial: 'fields', locals: {form: form} %>
@@ -10,7 +10,7 @@
       </div>
     <% end %>
     <div class="half">
-      <%= form_for [:suppliers, @route, @journey], method: :delete do |form| %>
+      <%= form_for [:admin, @route, @journey], method: :delete do |form| %>
         <%= form.submit "Cancel & delete journey", :class => "negative" %>
       <% end %>
     </div>

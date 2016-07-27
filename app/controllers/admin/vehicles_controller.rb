@@ -1,4 +1,4 @@
-class Suppliers::VehiclesController < SuppliersController
+class Admin::VehiclesController < AdminController
   def index
     @vehicles = current_supplier.team.vehicles
   end
@@ -8,7 +8,7 @@ class Suppliers::VehiclesController < SuppliersController
   def create
     @vehicle = current_supplier.team.vehicles.new(vehicle_params)
     @vehicle.save
-    redirect_to suppliers_vehicles_path
+    redirect_to admin_vehicles_path
   end
 
   private

@@ -1,2 +1,0 @@
-module Suppliers::StopsHelper
-end

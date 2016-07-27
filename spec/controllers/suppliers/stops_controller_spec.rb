@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Suppliers::StopsController, type: :controller do
+RSpec.describe Admin::StopsController, type: :controller do
 
 end

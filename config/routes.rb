@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   root 'routes#index'
 
-  namespace :suppliers do
+  namespace :admin do
     root 'routes#index'
     resources :vehicles
     resources :routes do
