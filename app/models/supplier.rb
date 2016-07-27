@@ -15,4 +15,8 @@ class Supplier < ActiveRecord::Base
       self.team = Team.create!
     end
   end
+
+  def solo_team?
+    team.solo_team?
+  end
 end

@@ -9,4 +9,8 @@ class Team < ActiveRecord::Base
       super
     end
   end
+
+  def solo_team?
+    suppliers.count < 2
+  end
 end

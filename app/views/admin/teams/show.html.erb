@@ -1,4 +1,4 @@
-<% if current_team.suppliers.count < 2 %>
+<% if current_team.solo_team? %>
   <h1>You are currently the only person in your team</h1>
 <% else %>
   <h1>You have <%= current_team.suppliers.count %> people in your team</h1>
