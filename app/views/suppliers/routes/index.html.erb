@@ -1,4 +1,3 @@
-<%= render partial: "layouts/suppliers_header" %>
 <section id="sup_routes">
   <% Route.all.each do |route| %>
     <div class="card">
@@ -9,7 +8,7 @@
         <% end %>
         <hr>
         <span class="sup_route_journeys">
-          <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys - 
+          <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys -
           <%= link_to suppliers_route_journeys_path(route) do %>
             <span class="addTxt">Add</span> Journeys to this Route
           <% end %>
@@ -38,5 +37,3 @@
     });
   });
 </script>
-
-<%= render partial: "layouts/suppliers_footer" %>
