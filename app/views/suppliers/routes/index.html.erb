@@ -4,9 +4,15 @@
     <div class="card">
       <div class="inner">
         <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
-        <% route.stops.each do |stop| %>
-          <%= stop.name %>
-        <% end %>
+        
+        <select multiple id="select_<%= route.id %>" class="waypoints">
+          <% route.stops.each do |stop| %>
+            <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+          <% end %>
+        </select>
+
+        <div id="map_<%= route.id %>" class="route_preview"></div>
+         
         <hr>
         <span class="sup_route_journeys">
           <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys - 
@@ -27,6 +33,7 @@
 <% end %>
 </section>
 
+
 <script type="text/javascript">
   $(function() {
     $('.sup_route_journeys').each(function() {
@@ -37,6 +44,50 @@
       }
     });
   });
+
+  
+
+  function initMap() {
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var map = new google.maps.Map(document.getElementById('map_1'), {
+      zoom: 6,
+      center: {lat: 51.701927139259, lng: 0.828781127929688}
+    });
+    directionsDisplay.setMap(map);
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    var waypts = [];
+    var checkboxArray = document.getElementById('select_1');
+    for (var i = 0; i < checkboxArray.length; i++) {
+      if (checkboxArray.options[i].selected) {
+        waypts.push({
+          location: checkboxArray[i].value,
+          stopover: true
+        });
+      }
+    }
+    console.log(waypts);
+    directionsService.route({
+      origin: '51.701927139259, 0.828781127929688',
+      destination: '51.5787747151075, 0.824661254882812',
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        var route = response.routes[0];
+        console.log('DONE');
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
 </script>
+
 
 <%= render partial: "layouts/suppliers_footer" %>
