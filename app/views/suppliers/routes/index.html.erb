@@ -48,20 +48,25 @@
   
 
   function initMap() {
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var map = new google.maps.Map(document.getElementById('map_1'), {
-      zoom: 6,
-      center: {lat: 51.701927139259, lng: 0.828781127929688}
-    });
-    directionsDisplay.setMap(map);
+    $('.route_preview').each(function(i, m) {
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var map = new google.maps.Map(m, {
+        zoom: 4,
+        center: {lat: 51.701927139259, lng: 0.828781127929688} //change this to the center of the route
+      });
+      directionsDisplay.setMap(map);
 
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+      calculateAndDisplayRoute(directionsService, directionsDisplay, $(this));
+    });
   }
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, map) {
     var waypts = [];
-    var checkboxArray = document.getElementById('select_1');
+    var idNum = map.attr('id').slice(4);
+    var checkboxArray = document.getElementById('select_'+idNum);
+    var start = checkboxArray[0].value;
+    console.log(checkboxArray.length)
     for (var i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray.options[i].selected) {
         waypts.push({
@@ -72,7 +77,7 @@
     }
     console.log(waypts);
     directionsService.route({
-      origin: '51.701927139259, 0.828781127929688',
+      origin: start,
       destination: '51.5787747151075, 0.824661254882812',
       waypoints: waypts,
       optimizeWaypoints: true,
