@@ -69,7 +69,8 @@
         });
       }
     }
-    console.log(waypts);
+    waypts.shift();
+    waypts.pop();
     directionsService.route({
       origin: start,
       destination: end,
