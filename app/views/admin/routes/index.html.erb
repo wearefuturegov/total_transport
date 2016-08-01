@@ -1,11 +1,17 @@
 <section id="sup_routes">
   <% Route.all.each do |route| %>
-    <div class="card">
+     <div class="card">
       <div class="inner">
         <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
-        <% route.stops.each do |stop| %>
-          <%= stop.name %>
-        <% end %>
+        
+        <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
+          <% route.stops.each do |stop| %>
+            <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+          <% end %>
+        </select>
+
+        <div id="map_<%= route.id %>" class="route_preview"></div>
+         
         <hr>
         <span class="sup_route_journeys">
           <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys -
@@ -27,7 +33,6 @@
 </section>
 
 <script type="text/javascript">
-  <script type="text/javascript">
   $(function() {
     $('.sup_route_journeys').each(function() {
       if (parseInt($(this).find('.numOfJourn').html()) == 0) {
@@ -41,11 +46,8 @@
   function initMap() {
     $('.route_preview').each(function(i, m) {
       var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
-      var map = new google.maps.Map(m, {
-        zoom: 4,
-        center: {lat: 51.701927139259, lng: 0.828781127929688} //change this to the center of the route
-      });
+      var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+      var map = new google.maps.Map(m, { scrollwheel:  false });
       directionsDisplay.setMap(map);
 
       calculateAndDisplayRoute(directionsService, directionsDisplay, $(this));
@@ -57,6 +59,7 @@
     var idNum = map.attr('id').slice(4);
     var checkboxArray = document.getElementById('select_'+idNum);
     var start = checkboxArray[0].value;
+    var end = checkboxArray[(checkboxArray.length-1)].value;
     console.log(checkboxArray.length)
     for (var i = 0; i < checkboxArray.length; i++) {
       if (checkboxArray.options[i].selected) {
@@ -69,7 +72,7 @@
     console.log(waypts);
     directionsService.route({
       origin: start,
-      destination: '51.5787747151075, 0.824661254882812',
+      destination: end,
       waypoints: waypts,
       optimizeWaypoints: true,
       travelMode: google.maps.TravelMode.DRIVING
@@ -83,5 +86,4 @@
       }
     });
   }
-</script>
 </script>
