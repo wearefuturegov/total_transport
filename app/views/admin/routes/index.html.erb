@@ -46,7 +46,7 @@
   function initMap() {
     $('.route_preview').each(function(i, m) {
       var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+      var directionsDisplay = new google.maps.DirectionsRenderer;
       var map = new google.maps.Map(m, { scrollwheel:  false });
       directionsDisplay.setMap(map);
 
