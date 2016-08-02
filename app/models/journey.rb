@@ -4,6 +4,7 @@ class Journey < ActiveRecord::Base
   has_many :bookings, dependent: :destroy
   belongs_to :vehicle
   belongs_to :supplier
+  validates_presence_of :vehicle, :supplier, :start_time
 
   scope :available, -> {where('start_time > ?', Time.now)}
 
