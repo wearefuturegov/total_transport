@@ -1,8 +1,12 @@
 class Admin::JourneysController < AdminController
   before_filter :find_journey, only: [:edit, :update, :destroy, :show]
-  before_filter :check_permissions, except: [:index, :create, :new]
+  before_filter :check_permissions, except: [:index, :create, :new, :show]
   def index
-    @journeys = Journey.all
+    if params[:filter] == 'me'
+      @journeys = current_supplier.journeys
+    else
+      @journeys = current_team.journeys
+    end
   end
 
   def create

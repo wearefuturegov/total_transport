@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   has_many :suppliers
   has_many :vehicles
+  has_many :journeys, through: :suppliers
 
   def name
     if attributes[:name].blank?
