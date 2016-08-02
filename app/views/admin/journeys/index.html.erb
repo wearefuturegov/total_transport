@@ -2,43 +2,14 @@
   <div class="card">
     <div class="inner">
       <table>
-        <tr>
-          <th>Date</th>
-          <th>Driver</th>
-          <th>Vehicle</th>
-          <% @route.stops.each do |stop| %>
-            <th><%= stop.name %></th>
-          <% end %>
-          <th></th>
-        </tr>
         <% @journeys.each do |journey| %>
           <tr>
-            <td><%= journey.start_time.strftime("%F") %></td>
-            <td><%= journey.supplier.name %></td>
-            <td><%= journey.vehicle.registration %></td>
-            <% journey.stops.each do |stop| %>
-              <td><%= stop.time_for_journey(journey).strftime("%H:%M") %></td>
-            <% end %>
-            <td>
-              <% if journey.editable_by_supplier?(current_supplier) %>
-                <%= link_to edit_admin_route_journey_path(@route, journey) do %>
-                  <button>Edit</button>
-                <% end %>
-              <% end %>
-            </td>
+            <td><%= link_to journey.start_time.strftime("%F"), admin_journey_path(journey) %></td>
           </tr>
         <% end %>
       </table>
     </div>
   </div>
-
-  <div class="card">
-    <%= form_for [:admin, @route, Journey.new] do |form| %>
-      <div class="inner">
-        <h4>Add a New Journey</h4>
-        <%= render partial: 'fields', locals: {form: form} %>
-      </div>
-      <%= form.submit "Create Journey", :class => "cardBtn" %>
-    <% end %>
-  </div>
 </section>
+
+<%= link_to "Add a journey", new_admin_journey_path %>

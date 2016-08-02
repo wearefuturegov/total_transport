@@ -1,0 +1,11 @@
+<div class="card">
+  <%= form_for [:admin, Journey.new] do |form| %>
+    <div class="inner">
+      <h4>Add a New Journey</h4>
+      <%= form.label :route_id, "Select Driver" %>
+      <%= form.select :route_id, Route.all.collect {|r| [r.name, r.id]} %>
+      <%= render partial: 'fields', locals: {form: form} %>
+    </div>
+    <%= form.submit "Create Journey", :class => "cardBtn" %>
+  <% end %>
+</div>
