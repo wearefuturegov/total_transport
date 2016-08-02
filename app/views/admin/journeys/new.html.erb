@@ -1,24 +1,27 @@
 <div class="card-cont" id="editJrny">
   <h2>Add a New Journey</h2>
-  <h3 id="jrnyRouteTitle">Select a Route:</h3>
-  <%= form_for [:admin, Journey.new] do |form| %>
-  <% Route.all.each do |route| %>
-    <div class="card editJrnyRoute">
-      <div class="inner">
-        <%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %>
+  <% if Route.exists? %>
+    <h3 id="jrnyRouteTitle">Select a Route:</h3>
+    <%= form_for [:admin, Journey.new] do |form| %>
+    <% Route.all.each do |route| %>
+      <div class="card editJrnyRoute">
+        <div class="inner">
+          <%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %>
+        </div>
       </div>
+    <% end %>
+    
+    <div class="card editJrnyInfo" style="display: none;">
+      <div class="inner">
+        <%= render partial: 'fields', locals: {form: form} %>
+      </div>
+      <%= form.submit "Create Journey", :class => "cardBtn" %>
     </div>
-  <% end %>
-  
-  <div class="card editJrnyInfo" style="display: none;">
-    <div class="inner">
-      <%= render partial: 'fields', locals: {form: form} %>
-    </div>
-    <%= form.submit "Create Journey", :class => "cardBtn" %>
+    <% end %>
   </div>
-  <% end %>
-</div>
-
+<% else %>
+  <p>There are currently no routes, please check back again later for more routes to be added.</p>
+<% end %>
 <script type="text/javascript">
   $(function() {
     $('.editJrnyRoute').click(function() {
