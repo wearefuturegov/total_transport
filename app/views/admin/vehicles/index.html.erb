@@ -6,6 +6,7 @@
     <th>Number of Seats</th>
     <th>Make and Model</th>
     <th>Colour</th>
+    <th></th>
   </tr>
   <% @vehicles.each do |vehicle| %>
     <tr>
@@ -13,6 +14,7 @@
       <td><%= vehicle.seats %></td>
       <td><%= vehicle.make_model %></td>
       <td><%= vehicle.colour %></td>
+      <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
     </tr>
   <% end %>
 </table>

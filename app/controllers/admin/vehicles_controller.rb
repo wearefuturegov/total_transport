@@ -1,13 +1,21 @@
 class Admin::VehiclesController < AdminController
   def index
-    @vehicles = current_supplier.team.vehicles
+    @vehicles = current_team.vehicles
   end
   def new
-    @vehicle = current_supplier.team.vehicles.new
+    @vehicle = current_team.vehicles.new
   end
   def create
-    @vehicle = current_supplier.team.vehicles.new(vehicle_params)
+    @vehicle = current_team.vehicles.new(vehicle_params)
     @vehicle.save
+    redirect_to admin_vehicles_path
+  end
+  def edit
+    @vehicle = current_team.vehicles.find(params[:id])
+  end
+  def update
+    @vehicle = current_team.vehicles.find(params[:id])
+    @vehicle.update_attributes(vehicle_params)
     redirect_to admin_vehicles_path
   end
 
