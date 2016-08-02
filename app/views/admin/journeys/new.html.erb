@@ -1,11 +1,40 @@
-<div class="card">
+<div class="card-cont" id="editJrny">
+  <h2>Add a New Journey</h2>
+  <h3>Select a Route:</h3>
   <%= form_for [:admin, Journey.new] do |form| %>
+  <% Route.all.each do |route| %>
+    <label>
+      <div class="card editJrnyRoute">
+        <div class="inner">
+          <%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %>
+        </div>
+      </div>
+    </label>
+  <% end %>
+  
+  <div class="card editJrnyInfo">
     <div class="inner">
-      <h4>Add a New Journey</h4>
-      <%= form.label :route_id, "Select Driver" %>
-      <%= form.select :route_id, Route.all.collect {|r| [r.name, r.id]} %>
       <%= render partial: 'fields', locals: {form: form} %>
     </div>
     <%= form.submit "Create Journey", :class => "cardBtn" %>
+  </div>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.editJrnyRoute').click(function() {
+      if (!$(this).hasClass('active')) {
+        $(this).addClass('active');
+        $('.editJrnyRoute').not(this).each(function(){ 
+          $(this).addClass('disabled');
+        });
+      } else {
+        $(this).removeClass('active');
+        $('.editJrnyRoute').not(this).each(function(){ 
+          $(this).removeClass('disabled');
+        });
+      }
+    });
+  });
+</script>

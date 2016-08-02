@@ -1,14 +1,17 @@
 <section id="sup_route_journeys">
-  <div class="card">
-    <div class="inner">
-      <table>
-        <% @journeys.each do |journey| %>
-          <tr>
-            <td><%= link_to journey.start_time.strftime("%F"), admin_journey_path(journey) %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
+  <div class="card-cont">
+    <% if @journeys.exists? %>
+      <% @journeys.each do |journey| %>
+        <div class="card">
+          <div class="inner">
+            <%= link_to journey.start_time.strftime("%F"), admin_journey_path(journey) %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      Nothing to see here
+    <% end %>
+    
   </div>
 </section>
 
