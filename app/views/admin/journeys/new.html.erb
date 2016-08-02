@@ -1,18 +1,16 @@
 <div class="card-cont" id="editJrny">
   <h2>Add a New Journey</h2>
-  <h3>Select a Route:</h3>
+  <h3 id="jrnyRouteTitle">Select a Route:</h3>
   <%= form_for [:admin, Journey.new] do |form| %>
   <% Route.all.each do |route| %>
-    <label>
-      <div class="card editJrnyRoute">
-        <div class="inner">
-          <%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %>
-        </div>
+    <div class="card editJrnyRoute">
+      <div class="inner">
+        <%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %>
       </div>
-    </label>
+    </div>
   <% end %>
   
-  <div class="card editJrnyInfo">
+  <div class="card editJrnyInfo" style="display: none;">
     <div class="inner">
       <%= render partial: 'fields', locals: {form: form} %>
     </div>
@@ -25,16 +23,28 @@
   $(function() {
     $('.editJrnyRoute').click(function() {
       if (!$(this).hasClass('active')) {
+        resetJrnyRoutes();
+        $('.editJrnyRoute').not(this).each(function(){ 
+          $(this).addClass('inactive');
+          $(this).slideUp();
+        });
+        $(this).find('input:radio').prop('checked',true);
         $(this).addClass('active');
-        $('.editJrnyRoute').not(this).each(function(){ 
-          $(this).addClass('disabled');
-        });
+        $('#jrnyRouteTitle').html('Selected Route:');
+        $('.editJrnyInfo').slideDown();
       } else {
-        $(this).removeClass('active');
-        $('.editJrnyRoute').not(this).each(function(){ 
-          $(this).removeClass('disabled');
-        });
+        resetJrnyRoutes();
+        $('.editJrnyInfo').slideUp();
       }
     });
   });
+
+  function resetJrnyRoutes() {
+    $('.editJrnyRoute').each(function(){ 
+      $(this).find('input:radio').prop('checked',false);
+      $(this).removeClass('inactive').removeClass('active');
+      $(this).slideDown();
+      $('#jrnyRouteTitle').html('Select a Route:');
+    });
+  }
 </script>

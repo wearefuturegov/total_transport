@@ -1,4 +1,4 @@
-<%= form.label :start_time, "Define Journey Start Date & Time:" %>
+<%= form.label :start_time, "Select Date & Time" %>
 <%= form.datetime_select :start_time %>
 <%= form.label :supplier_id, "Select Driver" %>
 <%= form.select :supplier_id, current_supplier.team.suppliers.collect {|u| [u.name, u.id]} %>

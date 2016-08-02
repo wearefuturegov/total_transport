@@ -11,7 +11,7 @@ class Admin::JourneysController < AdminController
 
   def create
     journey = Journey.create!(journey_params)
-    redirect_to admin_journey_path(journey)
+    redirect_to admin_journeys_path
   end
 
   def edit
