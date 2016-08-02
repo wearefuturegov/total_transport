@@ -1,10 +1,19 @@
 <section id="sup_route_journeys">
   <div class="card-cont">
+    <% if params[:filter] == 'team' %>
+      <%= link_to "Me", admin_journeys_path() %>
+    <% else %>
+      <%= link_to "Team", admin_journeys_path(filter: 'team') %>
+    <% end %>
+    
+
     <% if @journeys.exists? %>
       <% @journeys.each do |journey| %>
         <div class="card">
           <div class="inner">
             <%= link_to journey.start_time.strftime("%F"), admin_journey_path(journey) %>
+            <%= journey.supplier.name %>
+            <%= pluralize(journey.bookings.count, "booking") %>
           </div>
         </div>
       <% end %>
@@ -12,7 +21,6 @@
       Nothing to see here
     <% end %>
     
+    <%= link_to "Add a journey", new_admin_journey_path %>
   </div>
 </section>
-
-<%= link_to "Add a journey", new_admin_journey_path %>
