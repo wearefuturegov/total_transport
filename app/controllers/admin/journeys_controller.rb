@@ -23,6 +23,8 @@ class Admin::JourneysController < AdminController
     redirect_to admin_journeys_path
   end
 
+  private
+
   def journey_params
     params.require(:journey).permit(:start_time, :vehicle_id, :supplier_id)
   end
