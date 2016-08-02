@@ -1,13 +1,11 @@
 <section id="sup_route_journeys">
   <div class="card-cont">
-    <% if params[:filter] == 'team' %>
-      <%= link_to "Me", admin_journeys_path() %>
-    <% else %>
-      <%= link_to "Team", admin_journeys_path(filter: 'team') %>
-    <% end %>
-    
-
     <% if @journeys.exists? %>
+      <% if params[:filter] == 'team' %>
+        <%= link_to "Me", admin_journeys_path() %>
+      <% else %>
+        <%= link_to "Team", admin_journeys_path(filter: 'team') %>
+      <% end %>
       <% @journeys.each do |journey| %>
         <div class="card">
           <div class="inner">
@@ -18,7 +16,7 @@
         </div>
       <% end %>
     <% else %>
-      Nothing to see here
+      <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
     <% end %>
     
     <%= link_to "Add a journey", new_admin_journey_path %>
