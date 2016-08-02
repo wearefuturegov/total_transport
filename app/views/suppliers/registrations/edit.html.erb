@@ -45,11 +45,3 @@
     <%= f.submit "Update" %>
   </div>
 <% end %>
-
-<%= link_to "Your team", admin_team_path %>
-<% if current_supplier.admin? %>
-  <%= link_to "Manage routes", admin_team_path %>
-<% end %>
-<%= form_tag destroy_supplier_session_path, method: :delete do %>
-  <%= submit_tag "logout" %>
-<% end %>
