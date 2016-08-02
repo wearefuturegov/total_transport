@@ -1,6 +1,9 @@
 <%= render partial: "layouts/mobile_header" %>
-
-<h1>Choose pick up location</h1>
+<% if @pickup_of_dropoff == 'pickup' %>
+  <h1>Choose pick up location</h1>
+<% else %>
+  <h1>Choose Drop Off location</h1>
+<% end %>
 <div class="card-cont">
   <script type="text/javascript">
   var map
