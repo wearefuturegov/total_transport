@@ -1,4 +1,5 @@
 class Admin::RoutesController < AdminController
+  before_filter :check_permissions
   def create
     Route.create!
     redirect_to admin_routes_path
@@ -17,5 +18,13 @@ class Admin::RoutesController < AdminController
       @route.stops.find(value).update_attribute(:position,index+1)
     end
     render :nothing => true
+  end
+
+  private
+
+  def check_permissions
+    unless current_supplier.admin?
+      render :file => "public/401.html", :status => :unauthorized
+    end
   end
 end

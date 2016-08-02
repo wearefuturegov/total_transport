@@ -17,16 +17,16 @@ Rails.application.routes.draw do
   root 'routes#index'
 
   namespace :admin do
-    root 'routes#index'
+    root 'journeys#index'
     resource :team
     resources :vehicles
+    resources :journeys
     resources :routes do
       member do
         put 'sort'
       end
 
       resources :stops
-      resources :journeys
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

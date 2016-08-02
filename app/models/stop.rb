@@ -3,6 +3,7 @@ class Stop < ActiveRecord::Base
   acts_as_list scope: :route
   has_many :pickup_stops, class_name: 'Booking', foreign_key: 'pickup_stop_id', dependent: :destroy
   has_many :dropoff_stops, class_name: 'Booking', foreign_key: 'dropoff_stop_id', dependent: :destroy
+  validates_presence_of :route, :latitude, :longitude, :polygon
 
   def previous_stops
     route.stops.where('position <= ?', self.position)
