@@ -24,14 +24,18 @@
           <% end %>  
         </div>
       <% end %>
+
       <% @journeys.each do |journey| %>
-        <div class="card">
-          <div class="inner">
-            <%= link_to journey.start_time.strftime("%F"), admin_journey_path(journey) %>
-            <%= journey.supplier.name %>
-            <%= pluralize(journey.bookings.count, "booking") %>
+        <%= link_to admin_journey_path(journey), class: "jrny_single" do %>
+          <div class="card" id="jrny_<%= journey.id %>">
+            <div class="inner">
+              <p><strong>Route:</strong> <%= journey.route.name %></p>
+              <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
+              <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
+              <p><strong>Number of Bookings:</strong> <%= pluralize(journey.bookings.count, "booking") %></p>
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     <% else %>
       <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
