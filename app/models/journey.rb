@@ -11,4 +11,8 @@ class Journey < ActiveRecord::Base
   def editable_by_supplier?(supplier)
     supplier.team == self.supplier.team
   end
+
+  def is_booked?
+    bookings.count > 0
+  end
 end
