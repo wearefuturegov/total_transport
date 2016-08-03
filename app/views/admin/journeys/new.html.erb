@@ -1,40 +1,45 @@
 <div class="card-cont" id="sup_edit_jrny">
   <h2>Add a New Journey</h2>
+  
   <% if Route.exists? %>
-    <h3 id="sup_jrny_title">Select a Route:</h3>
-    <%= form_for [:admin, Journey.new] do |form| %>
-    <% Route.all.each do |route| %>
-      <div class="card sup_edit_jrny">
-        <div class="inner">
-          <div class="twoThird">
-            <p class="highlight"><%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %></p>
-            <p>Via <%= route.stops.count-2 %> Possible Stops:</p>
-            <ul>
-              <% route.stops[1..-2].each_with_index do |stop| %>
-                <li><%= stop.name %></li>
-              <% end %>
-            </ul>
-          </div>
-          <div class="third mobFull">
-            <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
-              <% route.stops.each do |stop| %>
-                <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
-              <% end %>
-            </select>
-            <div id="map_<%= route.id %>" class="route_preview"></div>
+    <% if current_team.vehicles.count > 0 %>
+      <h3 id="sup_jrny_title">Select a Route:</h3>
+      <%= form_for [:admin, Journey.new] do |form| %>
+      <% Route.all.each do |route| %>
+        <div class="card sup_edit_jrny">
+          <div class="inner">
+            <div class="twoThird">
+              <p class="highlight"><%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %></p>
+              <p>Via <%= route.stops.count-2 %> Possible Stops:</p>
+              <ul>
+                <% route.stops[1..-2].each_with_index do |stop| %>
+                  <li><%= stop.name %></li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="third mobFull">
+              <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
+                <% route.stops.each do |stop| %>
+                  <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+                <% end %>
+              </select>
+              <div id="map_<%= route.id %>" class="route_preview"></div>
+            </div>
           </div>
         </div>
+      <% end %>
+      
+      <div class="card sup_edit_jrny_info" style="display: none;">
+        <div class="inner">
+          <%= render partial: 'fields', locals: {form: form} %>
+        </div>
+        <%= form.submit "Create Journey", :class => "cardBtn" %>
       </div>
-    <% end %>
-    
-    <div class="card sup_edit_jrny_info" style="display: none;">
-      <div class="inner">
-        <%= render partial: 'fields', locals: {form: form} %>
-      </div>
-      <%= form.submit "Create Journey", :class => "cardBtn" %>
+      <% end %>
     </div>
-    <% end %>
-  </div>
+  <% else %>
+    <p>You currently have no vehicles <%= link_to "add one now", admin_vehicles_path %> before you can add a journey.</p>
+  <% end %>
 <% else %>
   <p>There are currently no routes, please check back again later for more routes to be added.</p>
 <% end %>
