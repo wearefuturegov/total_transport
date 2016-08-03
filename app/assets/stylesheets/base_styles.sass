@@ -52,6 +52,23 @@ ol
   .cardBtn
     border-bottom-left-radius: 2px
 
+.third
+  +span-columns(4)
+  +omega(3n)
+.twoThird
+  +span-columns(8)
+
+@media screen and (max-width: $medium-screen)
+  .third
+    +span-columns(6)
+    +omega(2n)
+  .twoThird
+    +span-columns(12)
+    +omega(1n)
+  .mobFull
+    +span-columns(12)
+    +omega(1n)
+
 .hidden
   display: none
 
@@ -196,10 +213,10 @@ a:hover
   box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.24)
   transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s cubic-bezier(.25,.8,.25,1) !important
 
-@media screen and (min-width: $medium-screen)
-  .third
-    +span-columns(6)
-    +omega(2n)
+.outsideBounds
+  position: absolute
+  top: 0
+  right: 0
 
 /* END Cards */
 
