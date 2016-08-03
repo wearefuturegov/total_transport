@@ -14,4 +14,8 @@ class Team < ActiveRecord::Base
   def solo_team?
     suppliers.count < 2
   end
+
+  def single_vehicle?
+    vehicles.count < 2
+  end
 end
