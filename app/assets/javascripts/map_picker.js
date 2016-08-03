@@ -107,3 +107,40 @@ function draggableMap(centralPoint, boundary) {
     }
   });
 }
+
+
+
+
+function calculateRouteMultiStop(directionsService, directionsDisplay, map) {
+    var waypts = [];
+    var idNum = map.attr('id').slice(4);
+    var checkboxArray = document.getElementById('select_'+idNum);
+    var start = checkboxArray[0].value;
+    var end = checkboxArray[(checkboxArray.length-1)].value;
+    console.log(checkboxArray.length)
+    for (var i = 0; i < checkboxArray.length; i++) {
+      if (checkboxArray.options[i].selected) {
+        waypts.push({
+          location: checkboxArray[i].value,
+          stopover: true
+        });
+      }
+    }
+    waypts.shift();
+    waypts.pop();
+    directionsService.route({
+      origin: start,
+      destination: end,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        var route = response.routes[0];
+        console.log('DONE');
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
