@@ -1,27 +1,29 @@
 <section id="sup_route_journeys">
   <div class="card-cont">
     <% if @journeys.exists? %>
-      <div id="team_toggle">
-        <% if params[:filter] == 'team' %>
-          <%= link_to admin_journeys_path() do %>
-            Me
-            <div class="switch">
-              <input type="checkbox" checked>
-              <div class="slider round"></div>
-            </div>
-            Team
-          <% end %>
-        <% else %>
-          <%= link_to admin_journeys_path(filter: 'team') do %>
-            Me
-            <div class="switch">
-              <input type="checkbox">
-              <div class="slider round"></div>
-            </div>
-            Team
-          <% end %>
-        <% end %>  
-      </div>
+      <% if !current_team.solo_team? %>
+        <div id="team_toggle">
+          <% if params[:filter] == 'team' %>
+            <%= link_to admin_journeys_path() do %>
+              Me
+              <div class="switch">
+                <input type="checkbox" checked>
+                <div class="slider round"></div>
+              </div>
+              Team
+            <% end %>
+          <% else %>
+            <%= link_to admin_journeys_path(filter: 'team') do %>
+              Me
+              <div class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+              </div>
+              Team
+            <% end %>
+          <% end %>  
+        </div>
+      <% end %>
       <% @journeys.each do |journey| %>
         <div class="card">
           <div class="inner">
