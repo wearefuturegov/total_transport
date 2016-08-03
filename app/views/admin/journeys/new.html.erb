@@ -8,7 +8,7 @@
         <div class="inner">
           <div class="twoThird">
             <p class="highlight"><%= form.radio_button :route_id, route.id, class: 'routeRadio hidden' %> <%= route.name %></p>
-            <p>Via <%= route.stops.count-2 %> Stops:</p>
+            <p>Via <%= route.stops.count-2 %> Possible Stops:</p>
             <ul>
               <% route.stops[1..-2].each_with_index do |stop| %>
                 <li><%= stop.name %></li>
