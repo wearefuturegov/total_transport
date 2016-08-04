@@ -1,8 +1,8 @@
 class Admin::RoutesController < AdminController
   before_filter :check_permissions
   def create
-    Route.create!
-    redirect_to admin_routes_path
+    route = Route.create!
+    redirect_to admin_route_path(route)
   end
   def show
     @route = Route.find(params[:id])
