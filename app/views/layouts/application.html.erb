@@ -18,7 +18,10 @@
           Essex Better Bus
         </div>
         <div class="right">
-          &nbsp;
+          <% if current_passenger %>
+            <%= current_passenger.phone_number %>
+            <%= link_to 'logout', passenger_path, method: :delete %>
+          <% end %>
         </div>
       </div>
     </header>

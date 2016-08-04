@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802141352) do
+ActiveRecord::Schema.define(version: 20160804154148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 20160802141352) do
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
   add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
+
+  create_table "passengers", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "verification_code"
+    t.datetime "verification_code_generated_at"
+    t.boolean  "verified"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false

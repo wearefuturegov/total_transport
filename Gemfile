@@ -38,8 +38,11 @@ gem 'devise'
 
 gem 'rails_12factor'
 gem 'puma'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'airbrake', '~> 4.1'
+
+gem 'twilio-ruby'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

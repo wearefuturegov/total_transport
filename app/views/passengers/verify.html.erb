@@ -1,0 +1,10 @@
+<% if @incorrect %>
+  <p>
+    That verification code was incorrect. Try again.
+  </p>
+<% end %>
+<%= form_tag verify_passenger_path do %>
+  <%= hidden_field_tag :id, @passenger.id %>
+  <%= text_field_tag :verification_code %>
+  <%= submit_tag "login" %>
+<% end %>

@@ -1,0 +1,5 @@
+<%= form_for Passenger.new, url: passenger_path do |form| %>
+  <%= form.label :phone_number %>
+  <%= form.text_field :phone_number %>
+  <%= form.submit "Next" %>
+<% end %>
