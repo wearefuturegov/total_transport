@@ -39,6 +39,8 @@ gem 'devise'
 gem 'rails_12factor'
 gem 'puma'
 
+gem 'rollbar'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
