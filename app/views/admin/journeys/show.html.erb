@@ -1,20 +1,34 @@
-<p><%= @journey.start_time.strftime("%F") %></p>
-<p><%= @journey.supplier.name %></p>
-<p><%= @journey.vehicle.registration %></p>
-<p><% @journey.stops.each do |stop| %></p>
-  <p>
-    <%= stop.name %>:
-    <%= stop.time_for_journey(@journey).strftime("%H:%M") %>
-  </p>
-<% end %>
-<% if @journey.editable_by_supplier?(current_supplier) %>
-  <%= link_to edit_admin_journey_path(@journey) do %>
-    <button>Edit</button>
+<div class="card-cont">
+  <div class="card">
+    <div class="inner">
+      <p><%= @journey.route.name %></p>
+      <p>Date: <%= @journey.start_time.strftime("%F") %></p>
+      <% if !current_team.solo_team? %>
+        <p>Driver: <%= @journey.supplier.name %></p>
+      <% end %>
+      <p>Vehicle: <%= link_to @journey.vehicle.registration, edit_admin_vehicle_path(@journey.vehicle) %></p>
+      <h4>Stops:</h4>
+      <p><% @journey.stops.each do |stop| %></p>
+        <p>
+          <%= stop.name %>:
+          <%= stop.time_for_journey(@journey).strftime("%H:%M") %>
+        </p>
+      <% end %>
+    </div>
+    <% if @journey.editable_by_supplier?(current_supplier) %>
+      <%= link_to edit_admin_journey_path(@journey) do %>
+        <button class="cardBtn">Edit</button>
+      <% end %>
+    <% end %>
+  </div>
+  <% if @journey.is_booked? %>
+    <h4>Bookings:</h4>
+    <% @journey.bookings.each do |booking| %>
+      <div class="card">
+        <div class="inner">
+          <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-
-<ul>
-  <% @journey.bookings.each do |booking| %>
-    <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>
-  <% end %>
-</ul>
+</div>
