@@ -27,7 +27,7 @@
 
       <% @journeys.each do |journey| %>
         <%= link_to admin_journey_path(journey), class: "jrny_single" do %>
-          <div class="card" id="jrny_<%= journey.id %>">
+          <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="inner">
               <p><strong>Route:</strong> <%= journey.route.name %></p>
               <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
