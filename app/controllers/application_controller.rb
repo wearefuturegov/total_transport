@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def find_current_passenger
     if session[:current_passenger]
-      @current_passenger = Passenger.find(session[:current_passenger])
+      @current_passenger = Passenger.find_by_id(session[:current_passenger])
     else
       nil
     end
