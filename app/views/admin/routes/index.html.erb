@@ -1,35 +1,37 @@
-<section id="sup_routes">
-  <div class="card-cont">
-    <% Route.all.each do |route| %>
-       <div class="card">
-        <div class="inner">
-          <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
-
-          <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
-            <% route.stops.each do |stop| %>
-              <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
-            <% end %>
-          </select>
-
-          <div id="map_<%= route.id %>" class="route_preview"></div>
-
-          <hr>
-          <span class="sup_route_journeys">
-            <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys
-          </span>
-        </div>
-        <%= link_to admin_route_path(route) do %>
-          <div class="cardBtn">
-            <span>Edit Route</span>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+<div class="card-cont sup_route_journeys">
   <%= form_for [:admin, Route.new] do |form| %>
-    <%= form.submit "Create new Route" %>
+    <%= form.submit "Create new Route", class: "subBtn" %>
   <% end %>
-</section>
+  <% Route.all.each do |route| %>
+     <div class="card">
+      <div class="inner">
+        <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
+
+        <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
+          <% route.stops.each do |stop| %>
+            <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+          <% end %>
+        </select>
+
+        <div id="map_<%= route.id %>" class="route_preview"></div>
+
+        <hr>
+        <span class="sup_route_journeys">
+          <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys
+        </span>
+      </div>
+      <%= link_to admin_route_path(route) do %>
+        <div class="cardBtn">
+          <span>Edit Route</span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= form_for [:admin, Route.new] do |form| %>
+    <%= form.submit "Create new Route", class: "subBtn" %>
+  <% end %>
+</div>
+
 
 <script type="text/javascript">
   $(function() {

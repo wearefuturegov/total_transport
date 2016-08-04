@@ -44,13 +44,18 @@ ol
 .half
   +span-columns(6)
   +omega(2n)
-  .cardBtn
-    border-radius: 0
-  .cardBtn.negative
-    border-bottom-right-radius: 2px
-    border-bottom-left-radius: 0px
-  .cardBtn
-    border-bottom-left-radius: 2px
+.half .cardBtn
+  border-radius: 0
+.half .cardBtn:first-child
+  border-bottom-left-radius: 2px
+.half .cardBtn.negative
+  border-bottom-right-radius: 2px
+  border-bottom-left-radius: 0px
+
+.wideBtn
+  .half
+    width: 50%
+    margin-right: 0
 
 .third
   +span-columns(4)
@@ -73,8 +78,6 @@ ol
   display: none
 
 #mobile-cont
-  max-width: 500px // Restictor to start work with mobile - needs deleting for desktop    
-
   h1 
     text-align: center
     margin-bottom: 35px
@@ -130,10 +133,6 @@ header
   a, #backbtn
     color: #fff
 
-#mobile-cont 
-  header
-    max-width: 500px !important // Restictor to start work with mobile - needs deleting for desktop 
-
 /* END Header */
 
 
@@ -144,7 +143,8 @@ header
 
 
 /* START Cards */
- 
+.card-cont
+  +outer-container(95%)
 .card
   +span-columns(12)
   background: #ffffff
@@ -240,6 +240,10 @@ tbody tr:first-child
 .cardBtn:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover
   background: rgba($prim-color, 1)
   transition: all 0s, background 0.7s cubic-bezier(.25,.8,.25,1)
+  color: #fff
+
+input[type=submit]
+  text-transform: uppercase
 
 button 
   text-transform: uppercase
@@ -247,10 +251,23 @@ button
 button, [type='button'], [type='reset'], [type='submit']
   padding: 10px 15px
 
+.buttons
+  form
+    display: inline-block
+    vertical-align: middle
+form
+  .cardBtn
+    padding: 8px
+    font-weight: 700
+    line-height: 25.5px
 .negative
   background: rgba($red, 0.9) !important
 .negative:hover
   background: rgba($red, 1) !important
+
+.subBtn
+  float: right
+  margin-bottom: 25px
 
 #grid
   +outer-container

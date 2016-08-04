@@ -1,22 +1,27 @@
-<h1>Your vehicles</h1>
+<div class="card-cont">
+  <div class="card">
+    <div class="inner">
+      <h1>Your vehicles</h1>
 
-<table>
-  <tr>
-    <th>Registration Number</th>
-    <th>Number of Seats</th>
-    <th>Make and Model</th>
-    <th>Colour</th>
-    <th></th>
-  </tr>
-  <% @vehicles.each do |vehicle| %>
-    <tr>
-      <td><%= vehicle.registration %></td>
-      <td><%= vehicle.seats %></td>
-      <td><%= vehicle.make_model %></td>
-      <td><%= vehicle.colour %></td>
-      <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
-    </tr>
-  <% end %>
-</table>
-
-<%= link_to "Add a vehicle", new_admin_vehicle_path %>
+      <table>
+        <tr>
+          <th>Registration Number</th>
+          <th>Number of Seats</th>
+          <th>Make and Model</th>
+          <th>Colour</th>
+          <th></th>
+        </tr>
+        <% @vehicles.each do |vehicle| %>
+          <tr>
+            <td><%= vehicle.registration %></td>
+            <td><%= vehicle.seats %></td>
+            <td><%= vehicle.make_model %></td>
+            <td><%= vehicle.colour %></td>
+            <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
+          </tr>
+        <% end %>
+      </table>      
+    </div>
+    <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'cardBtn' %>
+  </div>
+</div>

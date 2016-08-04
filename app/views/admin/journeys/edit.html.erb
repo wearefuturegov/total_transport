@@ -1,20 +1,18 @@
-<section id="jrny_edit" class="sup_route_journeys">
-  <div class="card-cont">
-    <div class="card">
-      <%= form_for [:admin, @route, @journey] do |form| %>
-        <div class="inner">
-          <h4>Edit Journey</h4>
-          <%= render partial: 'fields', locals: {form: form} %>
-        </div>
-        <div class="half">
-          <%= form.submit "Save Edit", :class => "cardBtn"  %>
-        </div>
-      <% end %>
-      <div class="half">
-        <%= form_for [:admin, @route, @journey], method: :delete do |form| %>
-          <%= form.submit "Delete journey", :class => "negative cardBtn" %>
-        <% end %>
+<div class="card-cont">
+  <div class="card wideBtn">
+    <%= form_for [:admin, @route, @journey] do |form| %>
+      <div class="inner">
+        <h4>Edit Journey</h4>
+        <%= render partial: 'fields', locals: {form: form} %>
       </div>
+      <div class="half">
+        <%= form.submit "Save Edit", :class => "cardBtn"  %>
+      </div>
+    <% end %>
+    <div class="half">
+      <%= form_for [:admin, @route, @journey], method: :delete do |form| %>
+        <%= form.submit "Delete journey", :class => "negative cardBtn" %>
+      <% end %>
     </div>
   </div>
-</section>
+</div>

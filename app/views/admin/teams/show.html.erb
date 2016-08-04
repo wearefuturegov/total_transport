@@ -1,26 +1,35 @@
-<p><%= link_to 'Edit your profile', edit_supplier_registration_path %></p>
+<div class="card">
+  <div class="inner">
+    <p><%= link_to 'Edit your profile', edit_supplier_registration_path %></p>
 
-<% if current_supplier.admin? %>
-  <p><%= link_to "Manage routes", admin_routes_path %></p>
-<% end %>
+    <p>
+      <%= link_to admin_vehicles_path do %>
+        You have <%= pluralize current_team.vehicles.count, "vehicle" %>
+        <% if !current_team.solo_team? %>
+          in your team
+        <% end %>
+      <% end %>
+    </p>
 
-<p>
-  <%= link_to admin_vehicles_path do %>
-    You have <%= pluralize current_team.vehicles.count, "vehicle" %> in your team
-  <% end %>
-</p>
-
-<% if current_team.solo_team? %>
-  <h3>You are currently the only person in your team</h3>
-<% else %>
-  <h3>You have <%= current_team.suppliers.count %> people in your team</h3>
-  <ul>
-    <% current_team.suppliers.each do |supplier| %>
-      <li><%= supplier.name %></li>
+    <% if current_team.solo_team? %>
+      <h3>You are currently the only person in your team - invite people now</h3>
+    <% else %>
+      <h3>You have <%= current_team.suppliers.count %> people in your team</h3>
+      <ul>
+        <% current_team.suppliers.each do |supplier| %>
+          <li><%= supplier.name %></li>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
 
-<%= form_tag destroy_supplier_session_path, method: :delete do %>
-  <%= submit_tag "logout" %>
-<% end %>
+    <% if current_supplier.admin? %>
+      <p><strong>Admin</strong> - <%= link_to "Manage Core Routes", admin_routes_path %></p>
+    <% end %>
+
+  </div>
+
+  <%= form_tag destroy_supplier_session_path, method: :delete do %>
+    <%= submit_tag "LOGOUT", class: 'negative cardBtn' %>
+  <% end %>
+
+</div>

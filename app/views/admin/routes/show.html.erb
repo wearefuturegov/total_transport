@@ -1,4 +1,4 @@
-<section id="sup_edit_route">
+<section id="sup_edit_route" class="card-cont">
   <h1><%= @route.name %></h1>
 
   <h2>Stops:</h2>
@@ -11,7 +11,7 @@
           <div class="buttons">
             <%= link_to edit_admin_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
             <%= form_for [:admin, @route, stop], method: :delete do |form| %>
-              <%= form.submit "Delete stop", :class => "cardBtn negative delete" %>
+              <%= form.submit "Delete stop", :class => "negative delete" %>
             <% end %>
           </div>
         </div>
@@ -27,19 +27,21 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="wideBtn card">
+  <div class="half">
     <%= link_to new_admin_route_stop_path(@route) do %>
       <div class="cardBtn">
         <span>Add a New Stop</span>
       </div>
     <% end %>
-
-    <div class="half">
-      <%= form_for [:admin, @route], method: :delete do |form| %>
-        <%= form.submit "Delete route", :class => "cardBtn negative delete" %>
-      <% end %>
-    </div>
   </div>
-
+  <div class="half">
+    <%= form_for [:admin, @route], method: :delete do |form| %>
+      <%= form.submit "Delete route", :class => "cardBtn negative delete" %>
+    <% end %>
+  </div>
+  </div>
 
 
   <script type="text/javascript">
