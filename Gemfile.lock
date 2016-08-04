@@ -38,6 +38,9 @@ GEM
       tzinfo (~> 1.1)
     acts_as_list (0.7.5)
       activerecord (>= 3.0)
+    airbrake (4.3.8)
+      builder
+      multi_json
     arel (6.0.3)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
@@ -198,6 +201,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+  airbrake (~> 4.1)
   bitters
   bourbon
   byebug
