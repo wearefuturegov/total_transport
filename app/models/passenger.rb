@@ -1,4 +1,5 @@
 class Passenger < ActiveRecord::Base
+  has_many :bookings
   def send_verification!
     set_verification_code
     @client = Twilio::REST::Client.new

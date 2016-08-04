@@ -4,13 +4,13 @@ class BookingsController < ApplicationController
 
   # Choose stops
   def new
-    @booking = Booking.new
+    @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
   end
 
   # Save stops
   def create
-    @booking = Booking.create(booking_params)
+    @booking = current_passenger.bookings.create(booking_params)
     redirect_to choose_journey_route_booking_path(@route, @booking)
   end
 
@@ -55,6 +55,6 @@ class BookingsController < ApplicationController
   end
 
   def find_booking
-    @booking = Booking.find(params[:id])
+    @booking = current_passenger.bookings.find(params[:id])
   end
 end
