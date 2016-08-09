@@ -17,6 +17,6 @@ class Admin::SuppliersController < AdminController
 
   private
   def supplier_params
-    params.require(:supplier).permit(:email, :phone_number, :name, :admin)
+    params.require(:supplier).permit(:email, :phone_number, :name, :admin, :approved)
   end
 end

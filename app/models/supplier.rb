@@ -19,4 +19,16 @@ class Supplier < ActiveRecord::Base
   def solo_team?
     team.solo_team?
   end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super
+    end
+  end
 end

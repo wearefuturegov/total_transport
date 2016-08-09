@@ -4,6 +4,7 @@
     <th>Name</th>
     <th>Phone Number</th>
     <th>Team</th>
+    <th>Approved?</th>
     <th>Super admin?</th>
     <th></th>
   </tr>
@@ -13,6 +14,7 @@
       <td><%= supplier.name %></td>
       <td><%= supplier.phone_number %></td>
       <td><%= supplier.team.name %></td>
+      <td><%= supplier.approved? %></td>
       <td><%= supplier.admin? %></td>
       <td><%= link_to "edit", edit_admin_supplier_path(supplier) %></td>
     </tr>
