@@ -15,6 +15,10 @@ class Team < ActiveRecord::Base
     suppliers.count < 2
   end
 
+  def empty?
+    suppliers.count == 0
+  end
+
   def single_vehicle?
     vehicles.count < 2
   end

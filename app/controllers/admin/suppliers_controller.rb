@@ -15,6 +15,12 @@ class Admin::SuppliersController < AdminController
     redirect_to admin_suppliers_path
   end
 
+  def destroy
+    @supplier = Supplier.find(params[:id])
+    @supplier.destroy!
+    redirect_to admin_suppliers_path
+  end
+
   private
   def supplier_params
     params.require(:supplier).permit(:email, :phone_number, :name, :admin, :approved)

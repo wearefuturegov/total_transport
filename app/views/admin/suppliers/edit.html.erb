@@ -11,3 +11,7 @@
   <%= form.check_box :approved %>
   <%= form.submit %>
 <% end %>
+
+<%= form_for [:admin, @supplier], method: :delete do |form| %>
+  <%= form.submit "Delete supplier", :class => "cardBtn negative delete" %>
+<% end %>

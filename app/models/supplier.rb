@@ -5,8 +5,9 @@ class Supplier < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :team
-  has_many :journeys
+  has_many :journeys, dependent: :destroy
   before_create :set_team
+  after_destroy :destroy_team_if_solo
 
   validates_presence_of :name, :phone_number
 
@@ -22,6 +23,10 @@ class Supplier < ActiveRecord::Base
 
   def active_for_authentication?
     super && approved?
+  end
+
+  def destroy_team_if_solo
+    team.destroy if team.empty?
   end
 
   def inactive_message
