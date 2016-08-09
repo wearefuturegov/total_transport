@@ -8,9 +8,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-  <%= yield %>
-
+  <div id="mobile-cont">
+    <header>
+      <div class="inner">
+        <div class="left">
+          &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
+        </div>
+        <div class="centre">
+          Essex Better Bus
+        </div>
+        <div class="right">
+          &nbsp;
+        </div>
+      </div>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <section>
+      <%= yield %>
+    </section>
+  </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
 </html>

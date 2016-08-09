@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TotalTransport</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div id="suppliers-cont">
+    <header>
+      <div class="inner">
+        <div class="left">
+          &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
+        </div>
+        <div class="centre">
+        <% if current_supplier %><%= current_supplier.name %><% else %>Supplier<% end %> - Admin
+        </div>
+        <div class="right">
+          <% if current_supplier %>
+            <%= link_to 'Account', admin_team_path %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <section class="supplier">
+      <%= yield %>
+    </section>
+  </div>
+
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+</html>

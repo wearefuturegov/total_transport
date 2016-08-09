@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714132525) do
+ActiveRecord::Schema.define(version: 20160802141352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,11 +36,16 @@ ActiveRecord::Schema.define(version: 20160714132525) do
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
     t.datetime "start_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "vehicle_id"
+    t.integer  "supplier_id"
+    t.boolean  "open_to_bookings", default: true
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
+  add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
+  add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -61,9 +66,54 @@ ActiveRecord::Schema.define(version: 20160714132525) do
 
   add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
 
+  create_table "suppliers", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "team_id"
+    t.string   "name"
+    t.string   "phone_number"
+    t.boolean  "admin"
+  end
+
+  add_index "suppliers", ["email"], name: "index_suppliers_on_email", unique: true, using: :btree
+  add_index "suppliers", ["reset_password_token"], name: "index_suppliers_on_reset_password_token", unique: true, using: :btree
+  add_index "suppliers", ["team_id"], name: "index_suppliers_on_team_id", using: :btree
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "seats"
+    t.string   "registration"
+    t.string   "make_model"
+    t.string   "colour"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "vehicles", ["team_id"], name: "index_vehicles_on_team_id", using: :btree
+
   add_foreign_key "bookings", "journeys"
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
+  add_foreign_key "journeys", "suppliers"
+  add_foreign_key "journeys", "vehicles"
   add_foreign_key "stops", "routes"
+  add_foreign_key "suppliers", "teams"
+  add_foreign_key "vehicles", "teams"
 end

@@ -1,0 +1,57 @@
+<div class="card-cont sup_route_journeys">
+  <%= form_for [:admin, Route.new] do |form| %>
+    <%= form.submit "Create new Route", class: "subBtn" %>
+  <% end %>
+  <% Route.all.each do |route| %>
+     <div class="card">
+      <div class="inner">
+        <span class="sup_route_name"><i class="fa fa-bus"></i> <%= route.name %></span>
+
+        <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
+          <% route.stops.each do |stop| %>
+            <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+          <% end %>
+        </select>
+
+        <div id="map_<%= route.id %>" class="route_preview"></div>
+
+        <hr>
+        <span class="sup_route_journeys">
+          <span class="numOfJourn"><%= route.journeys.count %></span> Current Journeys
+        </span>
+      </div>
+      <%= link_to admin_route_path(route) do %>
+        <div class="cardBtn">
+          <span>Edit Route</span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%= form_for [:admin, Route.new] do |form| %>
+    <%= form.submit "Create new Route", class: "subBtn" %>
+  <% end %>
+</div>
+
+
+<script type="text/javascript">
+  $(function() {
+    $('.sup_route_journeys').each(function() {
+      if (parseInt($(this).find('.numOfJourn').html()) == 0) {
+        $(this).find('.addTxt').html('Add');
+      } else {
+        $(this).find('.addTxt').html('Edit/Add');
+      }
+    });
+  });
+
+  function initMap() {
+    $('.route_preview').each(function(i, m) {
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var map = new google.maps.Map(m, { scrollwheel:  false, disableDefaultUI: true });
+      directionsDisplay.setMap(map);
+
+      calculateRouteMultiStop(directionsService, directionsDisplay, $(this));
+    });
+  }
+</script>

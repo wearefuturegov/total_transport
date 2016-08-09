@@ -1,0 +1,17 @@
+<h2>Edit Stop:</h2>
+<div class="card wideBtn">
+  <%= form_for [:admin, @route, @stop] do |form| %>
+    <div class="inner">
+      <%= render partial: 'fields', locals: {form: form} %>
+    </div>
+    <div class="half">
+      <%= form.submit "Save stop", :class => "cardBtn name_validation" %>
+    </div>
+  <% end %>
+
+  <div class="half">
+    <%= form_for [:admin, @route, @stop], method: :delete do |form| %>
+      <%= form.submit "Delete stop", :class => "cardBtn negative delete" %>
+    <% end %>
+  </div>
+</div>

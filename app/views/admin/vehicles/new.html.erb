@@ -1,0 +1,11 @@
+<div class="card-cont">
+  <div class="card">
+    <div class="inner">
+      <%= form_for [:admin, @vehicle] do |form| %>
+        <%= render partial: 'fields', locals: {form: form} %>
+        
+    </div>
+    <%= form.submit "Create Vehicle", :class => "cardBtn" %>
+    <% end %>
+  </div>
+</div>

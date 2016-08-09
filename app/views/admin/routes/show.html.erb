@@ -1,0 +1,76 @@
+<section id="sup_edit_route" class="card-cont">
+  <h1><%= @route.name %></h1>
+
+  <h2>Stops:</h2>
+
+  <div id="sortable_stops" class="stop-list">
+    <% @route.stops.each do |stop| %>
+      <div id="stop_<%= stop.id %>" class="stop card">
+        <div class="edit_route_mins half">
+          <p class="stop_name"><%= stop.name %></p>
+          <div class="buttons">
+            <%= link_to edit_admin_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
+            <%= form_for [:admin, @route, stop], method: :delete do |form| %>
+              <%= form.submit "Delete stop", :class => "negative delete" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="half">
+          <div class="time_gap_form">
+            <%= form_for [:admin, @route, stop] do |form| %>
+              <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
+              minutes.
+              <%= form.submit "Save", :class => "min_save" %>
+            <% end %>
+          </div>
+          <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="wideBtn card">
+  <div class="half">
+    <%= link_to new_admin_route_stop_path(@route) do %>
+      <div class="cardBtn">
+        <span>Add a New Stop</span>
+      </div>
+    <% end %>
+  </div>
+  <div class="half">
+    <%= form_for [:admin, @route], method: :delete do |form| %>
+      <%= form.submit "Delete route", :class => "cardBtn negative delete" %>
+    <% end %>
+  </div>
+  </div>
+
+
+  <script type="text/javascript">
+    function hideFirstTimeGap() {
+      $('.time_gap_form').css('visibility', 'visible');
+      $('.stop-list .time_gap_form').first().css('visibility', 'hidden');
+    }
+    var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    $('#sortable_stops').sortable({items:'.card', containment:'#sortable_stops', axis:'y', update: function() {
+      $.post('<%= sort_admin_route_path(@route) %>', '_method=put&authenticity_token='+AUTH_TOKEN+'&'+$(this).sortable('serialize'));
+      hideFirstTimeGap();
+    }});
+
+    $(function () {
+      hideFirstTimeGap();
+    })
+
+    function initMap() {
+      $('.map_preview').each(function(i, m) {
+        var map = new google.maps.Map(m, {});
+        map.data.addGeoJson($(m).data('geojson'));
+        var polygon;
+        map.setOptions({draggable: false, scrollwheel:  false});
+        map.data.forEach(function(feature) {polygon = feature.getGeometry()});
+        var bounds = new google.maps.LatLngBounds();
+        polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
+        tightFitBounds(map, bounds);
+      });
+    }
+  </script>
+
+</section>

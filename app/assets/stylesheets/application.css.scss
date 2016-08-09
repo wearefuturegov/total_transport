@@ -1,11 +1,4 @@
-@import "font-awesome-sprockets";
-@import "font-awesome";
-@import "bourbon";
-@import "neat";
-@import "base/base";
-@import "animate";
-@import "base_styles";
-@import "journeys";
-@import "map_picker";
-@import "supplier_admin";
+@import "base_imports";
+@import "admin/map_picker";
+@import "admin/supplier_admin";
 @import "jquery-ui/sortable";

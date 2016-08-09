@@ -1,3 +1,4 @@
+ruby '2.3.1'
 source 'https://rubygems.org'
 
 
@@ -32,6 +33,13 @@ gem 'font-awesome-sass', '~> 4.6.2'
 gem 'jquery-ui-rails'
 
 gem 'acts_as_list'
+
+gem 'devise'
+
+gem 'rails_12factor'
+gem 'puma'
+
+gem 'airbrake', '~> 4.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

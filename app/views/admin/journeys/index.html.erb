@@ -1,0 +1,46 @@
+<div class="card-cont">
+  <% if @journeys.exists? %>
+    <% if !current_team.solo_team? %>
+      <div id="team_toggle">
+        <% if params[:filter] == 'team' %>
+          <%= link_to admin_journeys_path() do %>
+            Me
+            <div class="switch">
+              <input type="checkbox" checked>
+              <div class="slider round"></div>
+            </div>
+            Team
+          <% end %>
+        <% else %>
+          <%= link_to admin_journeys_path(filter: 'team') do %>
+            Me
+            <div class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </div>
+            Team
+          <% end %>
+        <% end %>  
+      </div>
+    <% end %>
+
+    <% @journeys.each do |journey| %>
+      <%= link_to admin_journey_path(journey), class: "jrny_single" do %>
+        <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
+          <div class="inner">
+            <p><strong>Route:</strong> <%= journey.route.name %></p>
+            <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
+            <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
+            <p><strong>Number of Bookings:</strong> <%= pluralize(journey.bookings.count, "booking") %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
+  <% end %>
+  
+  <%= link_to new_admin_journey_path do %>
+    <button>Add a journey</button>
+  <% end %>
+</div>
