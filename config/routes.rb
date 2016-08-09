@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resource :team
     resources :vehicles
     resources :journeys
+    resources :suppliers
     resources :routes do
       member do
         put 'sort'

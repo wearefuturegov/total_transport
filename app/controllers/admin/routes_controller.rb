@@ -19,12 +19,4 @@ class Admin::RoutesController < AdminController
     end
     render :nothing => true
   end
-
-  private
-
-  def check_permissions
-    unless current_supplier.admin?
-      render :file => "public/401.html", :status => :unauthorized
-    end
-  end
 end
