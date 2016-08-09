@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resource :passenger do
+    member do
+      get :verify
+      post :verify
+    end
+  end
   devise_for :suppliers
   resources :routes do
     resources :bookings do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802141352) do
+ActiveRecord::Schema.define(version: 20160804170632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,12 @@ ActiveRecord::Schema.define(version: 20160802141352) do
     t.string   "state"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "passenger_id"
   end
 
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
   add_index "bookings", ["journey_id"], name: "index_bookings_on_journey_id", using: :btree
+  add_index "bookings", ["passenger_id"], name: "index_bookings_on_passenger_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
 
   create_table "journeys", force: :cascade do |t|
@@ -46,6 +48,15 @@ ActiveRecord::Schema.define(version: 20160802141352) do
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
   add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
+
+  create_table "passengers", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "verification_code"
+    t.datetime "verification_code_generated_at"
+    t.boolean  "verified"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -108,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160802141352) do
   add_index "vehicles", ["team_id"], name: "index_vehicles_on_team_id", using: :btree
 
   add_foreign_key "bookings", "journeys"
+  add_foreign_key "bookings", "passengers"
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
