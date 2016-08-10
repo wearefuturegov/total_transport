@@ -1,9 +1,13 @@
 <h1>Your profile</h1>
 
+<p><%= @passenger.name %></p>
 <%= image_tag @passenger.photo.url(:square) %>
 
+<h2>Edit profile</h2>
 <%= form_for(@passenger, multipart: true) do |f| %>
   <%= f.label :photo %>
   <%= f.file_field :photo %>
-  <%= f.submit 'Upload photo' %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit 'Save profile' %>
 <% end %>

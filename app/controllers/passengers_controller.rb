@@ -41,6 +41,6 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    params.require(:passenger).permit(:photo)
+    params.require(:passenger).permit(:photo, :name)
   end
 end
