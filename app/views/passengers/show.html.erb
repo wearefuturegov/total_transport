@@ -11,3 +11,21 @@
   <%= f.text_field :name %>
   <%= f.submit 'Save profile' %>
 <% end %>
+
+<h2>Bookings</h2>
+
+<table>
+  <% @passenger.bookings.booked.each do |booking| %>
+    <tr>
+      <td><%= booking.pickup_stop.time_for_journey(booking.journey) %></td>
+      <td><%= booking.pickup_stop.name %></td>
+      <td><%= booking.dropoff_stop.name %></td>
+      <td>
+        <% if booking.future? %>
+          <%= form_for [booking.route, booking], method: :delete do |form| %>
+            <%= form.submit "Cancel", :class => "negative delete" %>
+          <% end %>
+        <% end %>
+      </td>
+  <% end %>
+</table>

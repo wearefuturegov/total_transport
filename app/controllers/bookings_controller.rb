@@ -44,6 +44,11 @@ class BookingsController < ApplicationController
     redirect_to confirm_route_booking_path(@route, @booking)
   end
 
+  def destroy
+    @booking.destroy
+    redirect_to passenger_path
+  end
+
   private
 
   def booking_params
