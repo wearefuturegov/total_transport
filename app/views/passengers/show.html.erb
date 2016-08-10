@@ -1,0 +1,9 @@
+<h1>Your profile</h1>
+
+<%= image_tag @passenger.photo.url(:square) %>
+
+<%= form_for(@passenger, multipart: true) do |f| %>
+  <%= f.label :photo %>
+  <%= f.file_field :photo %>
+  <%= f.submit 'Upload photo' %>
+<% end %>

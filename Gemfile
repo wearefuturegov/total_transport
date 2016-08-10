@@ -44,6 +44,9 @@ gem 'airbrake', '~> 4.1'
 
 gem 'twilio-ruby'
 
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

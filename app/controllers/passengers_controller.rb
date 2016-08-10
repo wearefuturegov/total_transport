@@ -1,5 +1,6 @@
 class PassengersController < ApplicationController
-  skip_before_action :authenticate_passenger!
+  skip_before_action :authenticate_passenger!, only: [:new, :create, :verify]
+
   def new
 
   end
@@ -25,5 +26,21 @@ class PassengersController < ApplicationController
         @incorrect = true
       end
     end
+  end
+
+  def show
+    @passenger = current_passenger
+  end
+
+  def update
+    @passenger = current_passenger
+    @passenger.update_attributes(passenger_params)
+    redirect_to passenger_path
+  end
+
+  private
+
+  def passenger_params
+    params.require(:passenger).permit(:photo)
   end
 end

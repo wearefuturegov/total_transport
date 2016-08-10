@@ -19,7 +19,7 @@
         </div>
         <div class="right">
           <% if current_passenger %>
-            <%= current_passenger.phone_number %>
+            <%= link_to current_passenger.phone_number, passenger_path %>
             <%= link_to 'logout', passenger_path, method: :delete %>
           <% end %>
         </div>
