@@ -26,7 +26,11 @@ Rails.application.routes.draw do
     root 'journeys#index'
     resource :team
     resources :vehicles
-    resources :journeys
+    resources :journeys do
+      collection do
+        get 'surrounding_journeys'
+      end
+    end
     resources :suppliers
     resources :routes do
       member do

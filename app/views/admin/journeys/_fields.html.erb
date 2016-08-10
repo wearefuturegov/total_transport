@@ -1,5 +1,10 @@
+<div class="surrounding_journeys">
+
+</div>
+
 <%= form.label :start_time, "Select Date & Time" %>
-<%= form.datetime_select :start_time %>
+<%= form.datetime_local_field :start_time, value: Time.now.strftime("%Y-%m-%dT%H:%M") %>
+
 <% if current_team.solo_team? %>
   <%= form.hidden_field :supplier_id, value: current_supplier.id %>
 <% else %>
@@ -20,3 +25,20 @@
 
 <%= form.label :open_to_bookings, "Open to Bookings?" %>
 <%= form.check_box :open_to_bookings %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#journey_start_time').change(function() {
+      $.get(
+        '<%= surrounding_journeys_admin_journeys_path %>',
+        {
+          datetime: $('#journey_start_time').val(),
+          route_id: $('input[name=\'journey[route_id]\']:checked').val()
+        },
+        function(html) {
+          $('.surrounding_journeys').html(html);
+        }
+      )
+    })
+  })
+</script>

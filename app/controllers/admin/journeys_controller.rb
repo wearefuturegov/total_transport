@@ -1,6 +1,6 @@
 class Admin::JourneysController < AdminController
   before_filter :find_journey, only: [:edit, :update, :destroy, :show]
-  before_filter :check_permissions, except: [:index, :create, :new, :show]
+  before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
     if params[:filter] == 'team'
       @journeys = current_team.journeys
@@ -25,6 +25,13 @@ class Admin::JourneysController < AdminController
   def destroy
     @journey.destroy
     redirect_to admin_journeys_path
+  end
+
+  def surrounding_journeys
+    @route = Route.find(params[:route_id])
+    @previous_journeys = @route.journeys.where('start_time < ?', params[:datetime]).order('start_time DESC').limit(2)
+    @next_journeys = @route.journeys.where('start_time > ?', params[:datetime]).order('start_time ASC').limit(2)
+    render layout: false
   end
 
   private
