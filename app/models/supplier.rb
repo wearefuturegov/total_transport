@@ -8,6 +8,7 @@ class Supplier < ActiveRecord::Base
   has_many :journeys, dependent: :destroy
   before_create :set_team
   after_destroy :destroy_team_if_solo
+  after_update :send_approved_email?
 
   validates_presence_of :name, :phone_number
 
@@ -35,5 +36,15 @@ class Supplier < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def send_approved_email?
+    if approved_changed? && approved?
+      send_approved_email!
+    end
+  end
+
+  def send_approved_email!
+    SupplierMailer.approved_email(self).deliver
   end
 end
