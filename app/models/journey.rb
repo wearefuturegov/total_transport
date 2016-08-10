@@ -6,7 +6,7 @@ class Journey < ActiveRecord::Base
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
 
-  scope :available, -> {where('start_time > ?', Time.now)}
+  scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
 
   def editable_by_supplier?(supplier)
     supplier.team == self.supplier.team
