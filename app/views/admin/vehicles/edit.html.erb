@@ -8,3 +8,9 @@
     <% end %>
   </div>
 </div>
+
+<% if current_supplier.admin? %>
+  <%= form_for [:admin, @vehicle], method: :delete do |form| %>
+    <%= form.submit "Delete vehicle", :class => "cardBtn negative delete" %>
+  <% end %>
+<% end %>

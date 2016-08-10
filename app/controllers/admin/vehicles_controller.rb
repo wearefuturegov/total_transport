@@ -18,6 +18,11 @@ class Admin::VehiclesController < AdminController
     @vehicle.update_attributes(vehicle_params)
     redirect_to admin_vehicles_path
   end
+  def destroy
+    @vehicle = current_team.vehicles.find(params[:id])
+    @vehicle.destroy
+    redirect_to admin_vehicles_path
+  end
 
   private
   def vehicle_params
