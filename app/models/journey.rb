@@ -15,4 +15,8 @@ class Journey < ActiveRecord::Base
   def is_booked?
     bookings.count > 0
   end
+
+  def full?
+    bookings.count >= vehicle.seats
+  end
 end

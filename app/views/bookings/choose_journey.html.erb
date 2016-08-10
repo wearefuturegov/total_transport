@@ -19,9 +19,13 @@
           </div>
         </div>
         <div id="confirmation">
-          <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
-            <%= form.hidden_field :journey_id, value: journey.id %>
-            <%= form.submit 'Book Journey', :class => 'cardBtn' %>
+          <% if journey.full? %>
+            <p class="cardBtn">Fully booked<p>
+          <% else %>
+            <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
+              <%= form.hidden_field :journey_id, value: journey.id %>
+              <%= form.submit 'Book Journey', :class => 'cardBtn' %>
+            <% end %>
           <% end %>
         </div>
       </div>
