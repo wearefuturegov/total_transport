@@ -3,7 +3,7 @@
 <div class="card-cont">
   <% @route.available_journeys_by_date.each_pair do |date, journeys| %>
     <div class="date">
-      <h3><%= date %>:</h3>
+      <h3><%= friendly_date date %>:</h3>
     </div>
     <% journeys.each do |journey| %>
       <div class="card">
