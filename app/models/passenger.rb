@@ -1,5 +1,5 @@
 class Passenger < ActiveRecord::Base
-  has_many :bookings
+  has_many :bookings, dependent: :destroy
 
   has_attached_file :photo, styles: {
     thumb: '100x100>',
