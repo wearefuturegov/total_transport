@@ -19,4 +19,14 @@ class Journey < ActiveRecord::Base
   def full?
     bookings.count >= vehicle.seats
   end
+
+  def self.close_near_journeys
+    number_of_hours_ahead = 6
+    beginning_of_hour = Time.now.at_beginning_of_hour
+    from_time = beginning_of_hour + number_of_hours_ahead.hours
+    to_time = beginning_of_hour + number_of_hours_ahead.hours + 59.minutes
+    where('start_time > ? AND start_time < ?', from_time, to_time).each do |journey|
+      journey.update_attribute(:open_to_bookings, false)
+    end
+  end
 end
