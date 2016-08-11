@@ -47,3 +47,19 @@
     </tr>
   <% end %>
 </table>
+
+<h2>Supplier suggestions</h2>
+<table>
+  <tr>
+    <th>Suggested by</th>
+    <th>From page</th>
+    <th>Description</th>
+  </tr>
+  <% @supplier_suggestions.each do |supplier_suggestion| %>
+    <tr>
+      <td><%= supplier_suggestion.supplier.email %></td>
+      <td><%= link_to supplier_suggestion.url, supplier_suggestion.url %></td>
+      <td><%= supplier_suggestion.description %></td>
+    </tr>
+  <% end %>
+</table>

@@ -3,5 +3,6 @@ class Admin::SuggestionsController < AdminController
     @suggested_journeys = SuggestedJourney.all
     @suggested_routes = SuggestedRoute.all
     @suggested_edit_to_stops = SuggestedEditToStop.all
+    @supplier_suggestions = SupplierSuggestion.all
   end
 end
