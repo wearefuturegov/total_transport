@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   end
   devise_for :suppliers
   resources :routes do
+    collection do
+      get :suggest_route
+      post :suggest_route
+    end
     resources :bookings do
       member do
         get :choose_journey

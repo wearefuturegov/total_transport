@@ -1,0 +1,5 @@
+<%= form_for @suggested_route, url: suggest_route_routes_path do |form| %>
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  <%= form.submit %>
+<% end %>
