@@ -1,0 +1,7 @@
+<%= form_for @suggested_journey, url: suggest_journey_route_booking_path(@route, @booking) do |form| %>
+  <%= form.label :start_time %>
+  <%= form.datetime_local_field :start_time, value: Time.now.strftime("%Y-%m-%dT%H:%M") %>
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  <%= form.submit %>
+<% end %>
