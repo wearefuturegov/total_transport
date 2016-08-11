@@ -29,6 +29,9 @@
     <section class="supplier">
       <%= yield %>
     </section>
+    <footer>
+      <%= link_to "suggest an edit", new_admin_supplier_suggestion_path(from_url: request.path) %>
+    </footer>
   </div>
 
 </body>

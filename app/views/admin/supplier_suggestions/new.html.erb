@@ -1,0 +1,6 @@
+<%= form_for [:admin, @supplier_suggestion] do |form| %>
+  <%= form.hidden_field :url %>
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  <%= form.submit %>
+<% end %>

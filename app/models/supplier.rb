@@ -6,6 +6,7 @@ class Supplier < ActiveRecord::Base
 
   belongs_to :team
   has_many :journeys, dependent: :destroy
+  has_many :supplier_suggestions, dependent: :destroy
   before_create :set_team
   after_destroy :destroy_team_if_solo
   after_update :send_approved_email?

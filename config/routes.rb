@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :stops
     end
     resources :suggestions
+    resources :supplier_suggestions
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

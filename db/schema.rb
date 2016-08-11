@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811130239) do
+ActiveRecord::Schema.define(version: 20160811142509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,16 @@ ActiveRecord::Schema.define(version: 20160811130239) do
 
   add_index "suggested_routes", ["passenger_id"], name: "index_suggested_routes_on_passenger_id", using: :btree
 
+  create_table "supplier_suggestions", force: :cascade do |t|
+    t.integer  "supplier_id"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "supplier_suggestions", ["supplier_id"], name: "index_supplier_suggestions_on_supplier_id", using: :btree
+
   create_table "suppliers", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -174,6 +184,7 @@ ActiveRecord::Schema.define(version: 20160811130239) do
   add_foreign_key "suggested_journeys", "passengers"
   add_foreign_key "suggested_journeys", "routes"
   add_foreign_key "suggested_routes", "passengers"
+  add_foreign_key "supplier_suggestions", "suppliers"
   add_foreign_key "suppliers", "teams"
   add_foreign_key "vehicles", "teams"
 end
