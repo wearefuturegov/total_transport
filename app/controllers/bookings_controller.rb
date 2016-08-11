@@ -44,6 +44,17 @@ class BookingsController < ApplicationController
     redirect_to confirm_route_booking_path(@route, @booking)
   end
 
+  def confirm
+  end
+
+  def save_confirm
+    @booking.update_attributes(booking_params)
+    redirect_to confirmation_route_booking_path(@route, @booking)
+  end
+
+  def confirmation
+  end
+
   def destroy
     @booking.destroy
     redirect_to passenger_path
@@ -71,7 +82,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state)
+    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number)
   end
 
   def suggested_journey_params

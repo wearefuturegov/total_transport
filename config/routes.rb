@@ -20,6 +20,8 @@ Rails.application.routes.draw do
         get :choose_dropoff_location
         patch :save_dropoff_location
         get :confirm
+        patch :save_confirm
+        get :confirmation
 
         get :suggest_journey
         post :suggest_journey
