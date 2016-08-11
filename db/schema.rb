@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811125514) do
+ActiveRecord::Schema.define(version: 20160811130239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,17 @@ ActiveRecord::Schema.define(version: 20160811125514) do
   end
 
   add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
+
+  create_table "suggested_edit_to_stops", force: :cascade do |t|
+    t.integer  "passenger_id"
+    t.integer  "stop_id"
+    t.text     "description"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "suggested_edit_to_stops", ["passenger_id"], name: "index_suggested_edit_to_stops_on_passenger_id", using: :btree
+  add_index "suggested_edit_to_stops", ["stop_id"], name: "index_suggested_edit_to_stops_on_stop_id", using: :btree
 
   create_table "suggested_journeys", force: :cascade do |t|
     t.integer  "passenger_id"
@@ -158,6 +169,8 @@ ActiveRecord::Schema.define(version: 20160811125514) do
   add_foreign_key "journeys", "suppliers"
   add_foreign_key "journeys", "vehicles"
   add_foreign_key "stops", "routes"
+  add_foreign_key "suggested_edit_to_stops", "passengers"
+  add_foreign_key "suggested_edit_to_stops", "stops"
   add_foreign_key "suggested_journeys", "passengers"
   add_foreign_key "suggested_journeys", "routes"
   add_foreign_key "suggested_routes", "passengers"

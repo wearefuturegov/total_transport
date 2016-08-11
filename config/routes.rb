@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
         get :suggest_journey
         post :suggest_journey
+        get :suggest_edit_to_stop
+        post :suggest_edit_to_stop
       end
     end
   end
