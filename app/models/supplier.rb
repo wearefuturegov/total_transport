@@ -10,6 +10,13 @@ class Supplier < ActiveRecord::Base
   after_destroy :destroy_team_if_solo
   after_update :send_approved_email?
 
+  has_attached_file :photo, styles: {
+    thumb: '100x100>',
+    square: '200x200#',
+    medium: '300x300>'
+  }
+
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
   validates_presence_of :name, :phone_number
 
   def set_team

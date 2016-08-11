@@ -18,6 +18,14 @@
     <%= f.text_field :phone_number %>
   </div>
 
+  <div class="field">
+    <%= f.label :photo %><br />
+    <% if resource.photo? %>
+      <%= image_tag resource.photo.url(:square) %>
+    <% end %>
+    <%= f.file_field :photo %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
@@ -26,7 +34,7 @@
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
     <%= f.password_field :password, autocomplete: "off" %>
     <% if @minimum_password_length %>
-      
+
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
