@@ -15,7 +15,14 @@
           &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
         </div>
         <div class="centre">
-        <% if current_supplier %><%= current_supplier.name %><% else %>Supplier<% end %> - Admin
+          <%= link_to admin_root_path do %>
+            <% if current_supplier %>
+              <%= current_supplier.name %>
+            <% else %>
+              Supplier
+            <% end %>
+            - Admin
+          <% end %>
         </div>
         <div class="right">
           <% if current_supplier %>
@@ -24,14 +31,14 @@
         </div>
       </div>
     </header>
-    
+
     <div id="alerts">
       <section>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
       </section>
     </div>
-    
+
     <section class="supplier">
       <%= yield %>
     </section>
