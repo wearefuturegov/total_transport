@@ -24,8 +24,14 @@
         </div>
       </div>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    
+    <div id="alerts">
+      <section>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </section>
+    </div>
+    
     <section class="supplier">
       <%= yield %>
     </section>
