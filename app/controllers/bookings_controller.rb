@@ -45,11 +45,39 @@ class BookingsController < ApplicationController
   end
 
   def confirm
+    @token = Braintree::ClientToken.generate
   end
 
   def save_confirm
-    @booking.update_attributes(booking_params)
-    redirect_to confirmation_route_booking_path(@route, @booking)
+    if params[:payment_nonce]
+      result = Braintree::Customer.create(
+        :id => current_passenger.id,
+        :first_name => current_passenger.name,
+        :payment_method_nonce => params[:payment_nonce]
+      )
+      if result.success?
+        current_passenger.braintree_id = result.customer.id
+        current_passenger.braintree_token = result.customer.payment_methods[0].token
+        current_passenger.save!
+      else
+        raise result
+      end
+    end
+
+    result = Braintree::Transaction.sale(
+      :amount => "1.00",
+      :customer_id => current_passenger.id,
+      :options => {
+        :submit_for_settlement => true
+      },
+      :device_data => params[:device_data]
+    )
+    if result.success?
+      @booking.update_attributes(booking_params)
+      redirect_to confirmation_route_booking_path(@route, @booking)
+    else
+      raise result
+    end
   end
 
   def confirmation

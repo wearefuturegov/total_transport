@@ -29,9 +29,54 @@
   <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
     <%= form.label :phone_number %>
     <%= form.text_field :phone_number, value: current_passenger.phone_number %>
-    <%= form.submit "Confirm Booking", :class => 'cardBtn' %>
+    <% unless current_passenger.braintree_id? %>
+      <%= hidden_field_tag :payment_nonce %>
+      <%= hidden_field_tag :device_data %>
+    <% end %>
+    <%= form.submit "Confirm Booking", :class => 'cardBtn', id: 'payment-button', onclick: 'return false;' %>
   <% end %>
 </div>
+
+<% unless current_passenger.braintree_id? %>
+  <script type="text/javascript">
+    // Fetch the button you are using to initiate the PayPal flow
+    var paypalButton = document.getElementById('payment-button');
+
+    // Create a Client component
+    braintree.client.create({authorization: '<%= @token %>'}, function (clientErr, clientInstance) {
+
+      braintree.dataCollector.create({
+        client: clientInstance,
+        paypal: true
+      }, function (err, dataCollectorInstance) {
+        if (err) {
+          // Handle error
+          return;
+        }
+        $('#device_data').val(dataCollectorInstance.deviceData);
+      });
+
+      // Create PayPal component
+      braintree.paypal.create({
+        client: clientInstance
+      }, function (paypalErr, paypalInstance) {
+        paypalButton.addEventListener('click', function () {
+          // Tokenize here!
+          paypalInstance.tokenize({
+            flow: 'vault', // This enables the Vault flow
+            billingAgreementDescription: 'Payment for booking',
+            locale: 'en_gb',
+            enableShippingAddress: false
+          }, function (err, tokenizationPayload) {
+            $('#payment_nonce').val(tokenizationPayload.nonce);
+            $('form.edit_booking').submit();
+          });
+        });
+      });
+    });
+
+  </script>
+<% end %>
 
 <script type="text/javascript">
   function initMap() {

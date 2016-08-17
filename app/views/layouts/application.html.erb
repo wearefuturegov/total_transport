@@ -4,6 +4,9 @@
   <title>TotalTransport</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <script src="https://js.braintreegateway.com/web/3.0.0/js/client.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.0.0/js/paypal.min.js"></script>
+  <script src="https://js.braintreegateway.com/web/3.0.0/js/data-collector.min.js"></script>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -25,7 +28,7 @@
         </div>
       </div>
     </header>
-    
+
     <div id="alerts">
       <section>
         <p class="notice"><%= notice %></p>
