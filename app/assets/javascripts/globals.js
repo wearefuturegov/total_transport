@@ -14,6 +14,14 @@ $(window).load(function() {
 });
 
 $(document).ready(function() {
+  $('.alerts').each(function() {
+    if ($(this).hasClass('out_parent')) {
+      $(this).parent().before(this);
+    }
+    if ($(this).find('.notice').html().length > 0 || $(this).find('.alert').html().length > 0) {
+      $(this).slideDown();
+    }
+  });
   
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
@@ -55,6 +63,30 @@ $(document).ready(function() {
       }
     }
   });
+
+  if ($('.inputfile').length) {
+    $( '.inputfile' ).each( function(){
+      var $input   = $( this ),
+        $label   = $('.inputfile_label'),
+        labelVal = $label.html();
+      $input.on( 'change', function( e ) {
+        var fileName = e.target.value.split( '\\' ).pop();
+
+        if( fileName ) {
+          $label.find('span').html( fileName );
+          $label.addClass('active'); 
+        } else {
+          $label.html( labelVal );
+          $lavel.removeClass('active');
+        }
+      });
+
+      // Firefox bug fix
+      $input
+      .on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+      .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+    });
+  }
 });
 
 function dropAcord(element, eleClass) {

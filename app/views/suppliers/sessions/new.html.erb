@@ -1,26 +1,27 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
+<div class="login_form card no_click lower_cont">
+  <h2>Log in to Admin</h2>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me, 'Remember me on this computer', :class => 'inline' %>
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true %>
     </div>
-  <% end -%>
 
-  <div class="login_actions">
-    <%= f.submit "Log in" %>
-
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+    <div class="actions">
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, :class => 'inline' %>
+        </div>
+      <% end -%>
+      <%= f.submit "Log in" %>  
+    </div>
+  <% end %>
+  <div class="lower">
+    <span>Don't have an account?</span>
     <%= render "suppliers/shared/links" %>
   </div>
-<% end %>
+</div>

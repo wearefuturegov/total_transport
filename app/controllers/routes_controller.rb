@@ -1,6 +1,6 @@
 class RoutesController < ApplicationController
   def index
-
+    @page_title = "Choose Route"
   end
 
   def suggest_route

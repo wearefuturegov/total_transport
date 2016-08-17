@@ -32,7 +32,7 @@
       </div>
     </header>
 
-    <div id="alerts">
+    <div class="alerts">
       <section>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
@@ -40,11 +40,16 @@
     </div>
 
     <section class="supplier">
-      <%= yield %>
+      <div class="card-cont">
+        <%= yield %>
+
+        <section id="footer">
+          <%= link_to new_admin_supplier_suggestion_path(from_url: request.path) do %>
+            <button>Suggest An Edit</button>
+          <% end %>
+        </section>
+      </div>
     </section>
-    <footer>
-      <%= link_to "suggest an edit", new_admin_supplier_suggestion_path(from_url: request.path) %>
-    </footer>
   </div>
 
 </body>

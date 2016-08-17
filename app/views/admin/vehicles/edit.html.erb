@@ -1,12 +1,10 @@
-<div class="card-cont">
-  <div class="card">
-    <div class="inner">
-      <%= form_for [:admin, @vehicle] do |form| %>
-        <%= render partial: 'fields', locals: {form: form} %>
-    </div>
-    <%= form.submit "Update Vehicle", :class => "cardBtn" %>
-    <% end %>
+<div class="card">
+  <div class="inner">
+    <%= form_for [:admin, @vehicle] do |form| %>
+      <%= render partial: 'fields', locals: {form: form} %>
   </div>
+  <%= form.submit "Update Vehicle", :class => "cardBtn" %>
+  <% end %>
 </div>
 
 <% if current_supplier.admin? %>

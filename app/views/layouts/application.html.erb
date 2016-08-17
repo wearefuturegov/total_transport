@@ -15,7 +15,7 @@
           &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
         </div>
         <div class="centre">
-          Essex Better Bus
+          <%= @page_title %>
         </div>
         <div class="right">
           <% if current_passenger %>
@@ -26,7 +26,7 @@
       </div>
     </header>
     
-    <div id="alerts">
+    <div class="alerts">
       <section>
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>

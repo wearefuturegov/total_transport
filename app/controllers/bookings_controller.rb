@@ -4,6 +4,7 @@ class BookingsController < ApplicationController
 
   # Choose stops
   def new
+    @page_title = "Choose Route"
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
   end

@@ -1,27 +1,25 @@
-<div class="card-cont">
-  <div class="card">
-    <div class="inner">
-      <h1>Your vehicles</h1>
+    <% @vehicles.each do |vehicle| %>
+      <div class="card third single_vehicle">
+        <div class="inner">
+          <ul>
+            <li><h4>Reg - <%= vehicle.registration %></h4></li>
+            <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
+            <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
+            <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
+          </ul>
+        </div>
+        <%= link_to edit_admin_vehicle_path(vehicle) do %><button class="cardBtn">Edit</button><% end %>
+      </div>
+    <% end %>
 
-      <table>
-        <tr>
-          <th>Registration Number</th>
-          <th>Number of Seats</th>
-          <th>Make and Model</th>
-          <th>Colour</th>
-          <th></th>
-        </tr>
-        <% @vehicles.each do |vehicle| %>
-          <tr>
-            <td><%= vehicle.registration %></td>
-            <td><%= vehicle.seats %></td>
-            <td><%= vehicle.make_model %></td>
-            <td><%= vehicle.colour %></td>
-            <td><%= link_to 'edit', edit_admin_vehicle_path(vehicle) %></td>
-          </tr>
-        <% end %>
-      </table>      
-    </div>
-    <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'cardBtn' %>
-  </div>
-</div>
+  <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'cardBtn' %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.single_vehicle').each(function() {
+      var colour = $(this).find('.vehicle_col').html();
+      console.log(colour);
+      $(this).find('.vehicle_col_block').css('background-color', colour);
+    });
+  });
+</script>

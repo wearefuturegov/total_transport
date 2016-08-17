@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_passenger!
   skip_before_action :authenticate_passenger!, if: :devise_controller?
   layout :layout_by_resource
+  before_action :set_page_title
 
   helper_method :current_passenger
   def current_passenger
@@ -61,5 +62,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource_or_scope)
     admin_root_path
+  end
+
+  def set_page_title
+    @page_title = "Essex Better Bus"
   end
 end
