@@ -16,7 +16,7 @@ $(window).load(function() {
 $(document).ready(function() {
   $('.alerts').each(function() {
     if ($(this).hasClass('out_parent')) {
-      $(this).parent().before(this);
+      $(this).parent().parent().before(this);
     }
     if ($(this).find('.notice').html().length > 0 || $(this).find('.alert').html().length > 0) {
       $(this).slideDown();
