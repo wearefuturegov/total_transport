@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_passenger!
   skip_before_action :authenticate_passenger!, if: :devise_controller?
+  layout :layout_by_resource
 
   helper_method :current_passenger
   def current_passenger
@@ -24,6 +25,14 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def layout_by_resource
+    if devise_controller?
+      "admin"
+    else
+      "application"
+    end
+  end
 
   def authenticate_passenger!
     if current_passenger
