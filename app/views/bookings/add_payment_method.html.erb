@@ -1,0 +1,9 @@
+<%= form_for @payment_method, url: create_payment_method_route_booking_path(@route, @booking) do |form| %>
+  <% PaymentMethod.types.each do |payment_method_type| %>
+    <label>
+      <%= form.radio_button :name, payment_method_type %>
+      <%= PaymentMethod.friendly_name_for_type(payment_method_type) %>
+    </label>
+  <% end %>
+  <%= form.submit 'Next', :class => 'cardBtn' %>
+<% end %>
