@@ -42,6 +42,32 @@ class BookingsController < ApplicationController
 
   def save_dropoff_location
     @booking.update_attributes(booking_params)
+    if current_passenger.payment_methods.any?
+      redirect_to choose_payment_method_route_booking_path(@route, @booking)
+    else
+      redirect_to add_payment_method_route_booking_path(@route, @booking)
+    end
+  end
+
+  def choose_payment_method
+  end
+
+  def save_payment_method
+    if params[:booking][:payment_method_id] == 'new'
+      redirect_to add_payment_method_route_booking_path(@route, @booking)
+    else
+      @booking.update_attributes(booking_params)
+      redirect_to confirm_route_booking_path(@route, @booking)
+    end
+  end
+
+  def add_payment_method
+    @payment_method = current_passenger.payment_methods.new
+  end
+
+  def create_payment_method
+    @payment_method = current_passenger.payment_methods.create!(payment_method_params)
+    @booking.update_attribute(:payment_method, @payment_method)
     redirect_to confirm_route_booking_path(@route, @booking)
   end
 
@@ -83,7 +109,11 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number)
+    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number, :payment_method_id)
+  end
+
+  def payment_method_params
+    params.require(:payment_method).permit(:name)
   end
 
   def suggested_journey_params
