@@ -25,8 +25,14 @@
   <% @journey.bookings.each do |booking| %>
     <div class="card">
       <div class="inner">
-        <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>
+        <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= booking.passenger.phone_number %>
       </div>
     </div>
+  <% end %>
+  <hr />
+  <h4>Send message to all passengers</h4>
+  <%= form_tag send_message_admin_journey_path(@journey) do %>
+    <%= text_field_tag :notification_message %>
+    <%= submit_tag "Send message" %>
   <% end %>
 <% end %>

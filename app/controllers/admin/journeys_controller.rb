@@ -1,5 +1,5 @@
 class Admin::JourneysController < AdminController
-  before_filter :find_journey, only: [:edit, :update, :destroy, :show]
+  before_filter :find_journey, only: [:edit, :update, :destroy, :show, :send_message]
   before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
     if params[:filter] == 'team'
@@ -32,6 +32,14 @@ class Admin::JourneysController < AdminController
     @previous_journeys = @route.journeys.where('start_time < ?', params[:datetime]).order('start_time DESC').limit(2)
     @next_journeys = @route.journeys.where('start_time > ?', params[:datetime]).order('start_time ASC').limit(2)
     render layout: false
+  end
+
+  def send_message
+    @journey.bookings.each do |booking|
+      booking.send_notification!(params[:notification_message])
+    end
+    flash[:notice] = "Message sent!"
+    redirect_to admin_journey_path(@journey)
   end
 
   private

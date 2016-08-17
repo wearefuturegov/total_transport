@@ -18,4 +18,13 @@ class Booking < ActiveRecord::Base
   def future?
     !past?
   end
+
+  def send_notification!(message)
+    @client = Twilio::REST::Client.new
+    @client.messages.create(
+      from: '+441173252034',
+      to: self.phone_number,
+      body: message
+    )
+  end
 end

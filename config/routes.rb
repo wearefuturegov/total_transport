@@ -45,6 +45,9 @@ Rails.application.routes.draw do
       collection do
         get 'surrounding_journeys'
       end
+      member do
+        post 'send_message'
+      end
     end
     resources :suppliers
     resources :routes do
