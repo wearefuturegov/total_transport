@@ -30,8 +30,10 @@
     </div>
   <% end %>
   <hr />
-  <h4>Send message to all passengers</h4>
+  <h4>Send SMS message to</h4>
   <%= form_tag send_message_admin_journey_path(@journey) do %>
+    <%= select_tag :to,
+      options_for_select([["All Passengers", "all"]] + @journey.bookings.collect {|x| [x.phone_number, x.id]}) %>
     <%= text_field_tag :notification_message %>
     <%= submit_tag "Send message" %>
   <% end %>
