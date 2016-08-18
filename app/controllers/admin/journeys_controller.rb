@@ -9,6 +9,10 @@ class Admin::JourneysController < AdminController
     end
   end
 
+  def new
+    @journey = current_supplier.journeys.new
+  end
+
   def create
     journey = Journey.create!(journey_params)
     redirect_to admin_journeys_path
