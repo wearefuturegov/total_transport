@@ -5,19 +5,26 @@
   </section>
 </div>
 
-<div class="login_form card no_click">
+<div class="login_form card no_click profile">
   <h2>Edit <%= current_supplier.name %></h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-
-    <div class="field photo_edit">
-      <% if resource.photo? %>
-        <%= image_tag resource.photo.url(:square) %>
-      <% end %>
-      <%= f.file_field :photo, :class => 'inputfile' %><br />
-      <%= f.label :photo, :class => 'inputfile_label' do %>
-        <i class="fa fa-upload"></i> <span>Choose a File...</span>
-      <% end %>
+    <div class="profile_banner">
+      <div class="profile_face">
+        <% if current_supplier.photo? %>
+          <%= image_tag current_supplier.photo.url(:square) %>
+        <% else %> 
+          <div class="circle">
+            <i class="fa fa-user fa-2x"></i>
+          </div>
+        <% end %>
+        <div class="field photo_edit">
+          <%= f.file_field :photo, :class => 'inputfile' %><br />
+            <%= f.label :photo, :class => 'inputfile_label' do %>
+              <i class="fa fa-upload"></i> <span>Choose a File...</span>
+            <% end %>
+        </div>
+      </div>
     </div>
 
     <div class="field">

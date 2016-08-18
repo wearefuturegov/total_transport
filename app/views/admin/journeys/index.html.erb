@@ -1,28 +1,27 @@
+<% if !current_team.solo_team? %>
+  <div id="team_toggle">
+    <% if params[:filter] == 'team' %>
+      <%= link_to admin_journeys_path() do %>
+        Me
+        <div class="switch">
+          <input type="checkbox" checked>
+          <div class="slider round"></div>
+        </div>
+        Team
+      <% end %>
+    <% else %>
+      <%= link_to admin_journeys_path(filter: 'team') do %>
+        Me
+        <div class="switch">
+          <input type="checkbox">
+          <div class="slider round"></div>
+        </div>
+        Team
+      <% end %>
+    <% end %>  
+  </div>
+<% end %>
 <% if @journeys.exists? %>
-  <% if !current_team.solo_team? %>
-    <div id="team_toggle">
-      <% if params[:filter] == 'team' %>
-        <%= link_to admin_journeys_path() do %>
-          Me
-          <div class="switch">
-            <input type="checkbox" checked>
-            <div class="slider round"></div>
-          </div>
-          Team
-        <% end %>
-      <% else %>
-        <%= link_to admin_journeys_path(filter: 'team') do %>
-          Me
-          <div class="switch">
-            <input type="checkbox">
-            <div class="slider round"></div>
-          </div>
-          Team
-        <% end %>
-      <% end %>  
-    </div>
-  <% end %>
-
   <% @journeys.each do |journey| %>
     <%= link_to admin_journey_path(journey), class: "jrny_single" do %>
       <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
@@ -36,9 +35,18 @@
     <% end %>
   <% end %>
 <% else %>
-  <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
+  <div class="card no_click">
+    <div class="inner">
+      <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
+    </div>
+  </div>
 <% end %>
 
-<%= link_to new_admin_journey_path do %>
-  <button>Add a journey</button>
-<% end %>
+
+
+
+<div class="actions">
+  <%= link_to new_admin_journey_path do %>
+    <button>Add a journey</button>
+  <% end %>
+</div>
