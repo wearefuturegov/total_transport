@@ -33,9 +33,12 @@
       <%= f.text_field :phone_number %>
     </div>
 
-    <div class="field full">
-      <%= f.label :photo %>
-      <%= f.file_field :photo %>
+    <div class="field full photo_edit">
+      <%= f.label :photo, "Profile Photo" %>
+      <%= f.file_field :photo, :class => 'inputfile' %>
+      <%= f.label :photo, :class => 'inputfile_label' do %>
+        <i class="fa fa-upload"></i> <span>Choose a File...</span>
+      <% end %>
     </div>
 
     <div class="field full">
