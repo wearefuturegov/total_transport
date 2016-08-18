@@ -15,6 +15,10 @@ class Route < ActiveRecord::Base
     end
   end
 
+  def has_available_journeys?
+    journeys.available.any?
+  end
+
   def available_journeys_by_date
     available_journeys_by_date = {}
     journeys.available.each do |journey|
