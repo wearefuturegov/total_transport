@@ -1,5 +1,30 @@
-<%= form_for Passenger.new, url: passenger_path do |form| %>
-  <%= form.label :phone_number %>
-  <%= form.text_field :phone_number %>
-  <%= form.submit "Next" %>
-<% end %>
+<div class="card_cont">
+  <div class="card no_click login_form">
+    <h2>Log In</h2>
+    <p>Log in using your phone number and we will send you a confirmation code to verify it is you.</p>
+    <%= form_for Passenger.new, url: passenger_path do |form| %>
+      <%= form.label :phone_number %>
+      <%= form.text_field :phone_number, autofocus: true %>
+      <div class="actions">
+        <%= form.submit "Send The Verification Code" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#new_passenger').submit(function(e) {
+    var self = this;
+    e.preventDefault();
+    var inputVal = $('#passenger_phone_number').val();
+    if (inputVal == "") {
+      alertRails('You need to enter a phone number.', $('#passenger_phone_number'));
+    } else if (!$.isNumeric(inputVal)) {
+      alertRails('You need to enter a valid phone number - it must be just digits.', $('#passenger_phone_number'));
+    } else if (inputVal.length != 10) {
+      alertRails('Your phone number is the incorrect number of digits', $('#passenger_phone_number'));
+    } else {
+      self.submit();
+    }
+  });
+</script>

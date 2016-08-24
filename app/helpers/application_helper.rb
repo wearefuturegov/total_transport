@@ -15,7 +15,7 @@ module ApplicationHelper
     elsif (date > Date.today.beginning_of_year) && (date < Date.today.end_of_year)
       date.strftime("%B %-d")
     else
-      date.strftime("%B %-d %Y")
+      date.strftime("%B %-d - %Y")
     end
   end
 end
