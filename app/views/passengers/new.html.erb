@@ -21,7 +21,7 @@
       alertRails('You need to enter a phone number.', $('#passenger_phone_number'));
     } else if (!$.isNumeric(inputVal)) {
       alertRails('You need to enter a valid phone number - it must be just digits.', $('#passenger_phone_number'));
-    } else if (inputVal.length != 10) {
+    } else if (inputVal.length <= 10) {
       alertRails('Your phone number is the incorrect number of digits', $('#passenger_phone_number'));
     } else {
       self.submit();
