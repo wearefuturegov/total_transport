@@ -1,9 +1,10 @@
 class RoutesController < ApplicationController
   def index
-    @page_title = "Choose Route"
+    @page_title = "Choose A Route"
   end
 
   def suggest_route
+    @page_title = "Suggest A Route"
     if request.method == 'POST'
       @suggested_route = SuggestedRoute.create!(suggested_route_params)
       redirect_to routes_path

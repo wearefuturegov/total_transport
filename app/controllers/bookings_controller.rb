@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
 
   # Choose stops
   def new
-    @page_title = "Choose Route"
+    @page_title = "Choose Pick Up Area"
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
   end
@@ -16,6 +16,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_journey
+    @page_title = "Choose Time"
   end
 
   def save_journey
@@ -24,6 +25,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
+    @page_title = "Choose Pick Up Location"
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -35,6 +37,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
+    @page_title = "Choose Drop Off Location"
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -50,6 +53,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_payment_method
+    @page_title = "Choose Payment Method"
   end
 
   def save_payment_method
@@ -62,6 +66,7 @@ class BookingsController < ApplicationController
   end
 
   def add_payment_method
+    @page_title = "New Payment Method"
     @payment_method = current_passenger.payment_methods.new
   end
 
@@ -72,6 +77,7 @@ class BookingsController < ApplicationController
   end
 
   def confirm
+    @page_title = "Confirm Booking"
   end
 
   def save_confirm
@@ -88,6 +94,7 @@ class BookingsController < ApplicationController
   end
 
   def suggest_journey
+    @page_title = "Suggest A New Time"
     if request.method == 'POST'
       @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
       redirect_to choose_journey_route_booking_path(@route, @booking)
@@ -97,6 +104,7 @@ class BookingsController < ApplicationController
   end
 
   def suggest_edit_to_stop
+    @page_title = "Suggest A Stop Area Edit"
     @stop = Stop.find(params[:stop_id])
     if request.method == 'POST'
       @suggested_edit_to_stop = SuggestedEditToStop.create!(suggested_edit_to_stop_params)

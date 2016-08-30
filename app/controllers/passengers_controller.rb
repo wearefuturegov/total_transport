@@ -29,6 +29,7 @@ class PassengersController < ApplicationController
   end
 
   def show
+    @page_title = "Edit Account"
     @passenger = current_passenger
   end
 

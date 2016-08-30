@@ -1,12 +1,4 @@
-<div class="login_form card no_click profile cont">
-  <h2>Edit 
-    <% if @passenger.name? %>
-      <%= @passenger.name %>
-    <% else %>
-      Profile
-    <% end %> 
-  </h2>
-  
+<div class="login_form card no_click profile cont">  
   <%= form_for(@passenger, multipart: true) do |f| %>
     <div class="profile_banner">
       <div class="profile_face">
