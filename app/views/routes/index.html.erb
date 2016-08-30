@@ -9,8 +9,9 @@
 
 <div class="card-cont">
   <% Route.bookable_routes.each do |route| %>
-    <div class="route card" id="<%= route.id %>">
+    <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
       <div class="inner">
+        
         <div class="origin"><%= route.stops.first.name %></div>
 
         <div class="bar"></div>
@@ -29,7 +30,7 @@
       </div>
       <%= link_to new_route_booking_path(route) do %>
         <div class="cardBtn">
-          <span>Customise Route</span>
+          <span>Customise This Route</span>
         </div>
       <% end %>
     </div>

@@ -44,6 +44,7 @@
     var pickup_map = new google.maps.Map(document.getElementById("pickup_map"), {
       zoom: 14,
       center: pickup_point,
+      draggable: false,
       streetViewControl: false,
       mapTypeControl: false,
       scrollwheel: false,
@@ -53,6 +54,7 @@
       zoom: 14,
       center: dropoff_point,
       streetViewControl: false,
+      draggable: false,
       mapTypeControl: false,
       scrollwheel: false,
       zoomControl: false

@@ -11,13 +11,17 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="profile_banner">
       <div class="profile_face">
-        <% if current_supplier.photo? %>
-          <%= image_tag current_supplier.photo.url(:square) %>
-        <% else %> 
-          <div class="circle">
-            <i class="fa fa-user fa-2x"></i>
-          </div>
-        <% end %>
+        <div id="theFace">
+          <% if current_supplier.photo? %>
+            <%= image_tag current_supplier.photo.url(:square), :id => 'profile_start_pic'  %>
+          <% else %> 
+            <div class="circle" id="plaecholderProfile">
+              <i class="fa fa-user fa-2x"></i>
+            </div>
+          <% end %>
+          <img id="tempImg" src="#" alt="Temporary Image Upload" style="display: none;">
+        </div>
+        
         <div class="field photo_edit">
           <%= f.file_field :photo, :class => 'inputfile' %>
             <%= f.label :photo, :class => 'inputfile_label' do %>

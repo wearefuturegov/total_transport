@@ -5,8 +5,8 @@ $(document).ready(function() {
     var activeDots = 0;
     var numOfStops = $('.stop').length;
     var stopNumber = 0;
-    var pkupTxt = 'Select Pick Up Location';
-    var drpfTxt = 'Select Drop Off Location';
+    var pkupTxt = 'Choose Pick Up Area';
+    var drpfTxt = 'Choose Drop Off Area';
     var cnfmTxt = 'Confirm Route';
     $('.stop').last().addClass('lastChild');
     sortLineHeight(0);

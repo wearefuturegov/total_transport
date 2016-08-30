@@ -1,10 +1,20 @@
+<div class="card_cont">
+  <div class="card no_click login_form">
+    <h2>Verify</h2>
+    <p>Type in the verification code you have been sent.</p>
+    
+    <%= form_tag verify_passenger_path do %>
+      <%= hidden_field_tag :id, @passenger.id %>
+      <%= text_field_tag :verification_code %>
+      <div class="actions">
+        <%= submit_tag "Verify" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <% if @incorrect %>
-  <p>
-    That verification code was incorrect. Try again.
-  </p>
-<% end %>
-<%= form_tag verify_passenger_path do %>
-  <%= hidden_field_tag :id, @passenger.id %>
-  <%= text_field_tag :verification_code %>
-  <%= submit_tag "login" %>
+  <script type="text/javascript">
+    alertRails('That verification code was incorrect. Please try again.', false);
+  </script>
 <% end %>

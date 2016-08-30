@@ -242,10 +242,12 @@ header
   section
     margin: 0 auto
 
-/* START Type & Copy */
+/* START Typography & Copy */
 
 .subTxt
   font-size: 12px
+.bold
+  font-weight: 600
 /* END Type & Copy */
 
 
@@ -310,6 +312,18 @@ input[type='text'], input[type='password'], input[type='email']
     margin: 0
   li:last-child
     margin-bottom: 0
+
+
+.incorrect, .incorrect:hover
+  border: $red solid 1px
+
+[type='color']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='email']:focus, [type='month']:focus, [type='number']:focus, [type='password']:focus, [type='search']:focus, [type='tel']:focus, [type='text']:focus, [type='time']:focus, [type='url']:focus, [type='week']:focus, input:not([type]):focus, textarea:focus, select[multiple]:focus
+  border-color: rgba($prim-color, 0.4)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($prim-color, 0.3)
+
+.incorrect[type='color']:focus, .incorrect[type='date']:focus, .incorrect[type='datetime']:focus, .incorrect[type='datetime-local']:focus, .incorrect[type='email']:focus, .incorrect[type='month']:focus, .incorrect[type='number']:focus, .incorrect[type='password']:focus, .incorrect[type='search']:focus, .incorrect[type='tel']:focus, .incorrect[type='text']:focus, .incorrect[type='time']:focus, .incorrect[type='url']:focus, .incorrect[type='week']:focus, .incorrect input:not([type]):focus, .incorrect textarea:focus, .incorrect select[multiple]:focus
+  border-color: rgba($red, 0.8)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($red, 0.3)
 /* END login styles */
 
 /* START Profiles */
@@ -318,19 +332,24 @@ input[type='text'], input[type='password'], input[type='email']
     text-align: center
     margin-bottom: 15px
     .circle
-      width: 65px
-      height: 65px
-      line-height: 73px
+      width: 150px
+      height: 150px
+      line-height: 173px
+      font-size: 50px
       color: #fff
       background-color: $prim-color
       border-radius: 50%
       margin: 0 auto
       overflow: hidden
+      margin-bottom: 15px
     .profile_face
-      img
+      #theFace
         border-radius: 50%
-        max-width: 150px
-        height: auto
+        margin: 0 auto
+        width: 150px
+        height: 150px
+        overflow: hidden
+        margin-bottom: 10px
     h3
       margin-bottom: 0
       margin-top: 10px
