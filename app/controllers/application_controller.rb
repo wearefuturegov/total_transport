@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :authenticate_passenger!, if: :devise_controller?
   layout :layout_by_resource
   before_action :set_page_title
+  before_action :set_top_sec
 
   helper_method :current_passenger
   def current_passenger
@@ -65,6 +66,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_page_title
-    @page_title = "Essex Better Bus"
+    @page_title = "Pickup"
+  end
+
+  def set_top_sec
+    @top_sec = false
   end
 end

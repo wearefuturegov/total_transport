@@ -1,4 +1,5 @@
 $(window).load(function() {
+
   $('a[href*="#"]:not([href="#"])').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
       var target = $(this.hash);
@@ -84,7 +85,11 @@ $(document).ready(function() {
               } else {
                 $('#profile_start_pic').hide();
               }
-              $('#tempImg').attr('src', e.target.result).slideDown();
+              $('#tempImg').attr('src', e.target.result).slideDown(function() {
+                if ($('#tempImg').height() < $('#theFace').height()) {
+                  $('#tempImg').height($('#theFace').height()).css('max-width', 'none');
+                }
+              });
             };
           })(f);
           reader.readAsDataURL(f);
