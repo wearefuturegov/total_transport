@@ -1,10 +1,3 @@
-<!-- <form id="journey-input">
-  <div class="input-cont">
-    <label>From <input type="text" name="from"></label>
-    <label>To <input type="text" name="to"></label>
-  </div>
-</form> -->
-
 <div class="card-cont">
   <% Route.bookable_routes.each do |route| %>
     <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
@@ -15,7 +8,19 @@
         <div class="bar"></div>
 
         <div class="acordBtn">
-          <span class="arw"><i class="fa fa-chevron-down"></i></span> Via <%= pluralize(route.stops.count - 2, "stop") %>
+          <span class="arw"><i class="fa fa-chevron-down"></i></span> Via 
+          <% if route.stops.count > 3 %>
+            <% route.stops.first(3).each_with_index do |stop, index| %>
+              <% if !stop.last?  %>
+                <%= stop.name if !stop.first? %><%= ',' if index == 1 %>  
+                <% if index == 2 && route.stops.count > 4 %>
+                  &amp; <%= pluralize(route.stops.count - 4, "other area") %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= route.stops[1].name %>
+          <% end %>
         </div>
         <div class="acord">
           <ul>

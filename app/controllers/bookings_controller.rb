@@ -4,7 +4,8 @@ class BookingsController < ApplicationController
 
   # Choose stops
   def new
-    @page_title = "Choose Pick Up Area"
+    @page_title = "Choose Your Pick Up Area"
+    @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
   end
@@ -16,7 +17,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_journey
-    @page_title = "Choose Time"
+    @page_title = "Pick Your Time"
+    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
   end
 
   def save_journey
@@ -25,7 +27,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
-    @page_title = "Choose Pick Up Location"
+    @page_title = "Choose Your Pick Up Point"
+    @top_sec = "Move the map to show us where to pick you up. You can choose a pick up point anywhere in the highlighted area."
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -37,7 +40,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Drop Off Location"
+    @page_title = "Choose Your Drop Off Point"
+    @top_sec = "Move the map to show us where to pick you up. You can choose a drop off point anywhere in the highlighted area."    
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -53,7 +57,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_payment_method
-    @page_title = "Choose Payment Method"
+    @page_title = "Choose Your Payment Method"
   end
 
   def save_payment_method
@@ -77,7 +81,7 @@ class BookingsController < ApplicationController
   end
 
   def confirm
-    @page_title = "Confirm Booking"
+    @page_title = "Confirm Your Booking"
   end
 
   def save_confirm

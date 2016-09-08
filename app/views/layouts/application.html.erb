@@ -19,8 +19,15 @@
         </div>
         <div class="right">
           <% if current_passenger %>
-            <%= link_to current_passenger.phone_number, passenger_path %>
-            <%= link_to 'logout', passenger_path, method: :delete %>
+            <div class="mobile_only">
+              <%= link_to passenger_path do %>
+                <i class="fa fa-user"></i>
+              <% end %>
+            </div>
+            <div class="desktop_only">
+              <%= link_to current_passenger.phone_number, passenger_path %>
+              <%= link_to 'logout', passenger_path, method: :delete %>
+            </div>
           <% end %>
         </div>
       </div>
@@ -32,6 +39,14 @@
         <p class="alert"><%= alert %></p>
       </section>
     </div>
+
+    <% if @top_sec != false %>
+      <div class="top_sec">
+        <div class="inner_cont">
+          <span><%= @top_sec %></span>
+        </div>
+      </div>
+    <% end %>
 
     <section>
       <%= yield %>

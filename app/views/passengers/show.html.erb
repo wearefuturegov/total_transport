@@ -1,38 +1,41 @@
-<div class="login_form card no_click profile cont">  
-  <%= form_for(@passenger, multipart: true) do |f| %>
-    <div class="profile_banner">
-      <div class="profile_face">
-        <div id="theFace">
-          <% if @passenger.photo? %>
-            <%= image_tag @passenger.photo.url(:square), :id => 'profile_start_pic' %>
-          <% else %> 
-            <div class="circle" id="plaecholderProfile">
-              <i class="fa fa-user fa-2x"></i>
-            </div>
-          <% end %>
-          <img id="tempImg" src="#" alt="Temporary Image Upload" style="display: none;">
-        </div>
-        <div class="field photo_edit">
-          <%= f.file_field :photo, :class => 'inputfile' %>
-            <%= f.label :photo, :class => 'inputfile_label' do %>
-              <i class="fa fa-upload"></i> <span>Choose a File...</span>
+<div class="card-cont">
+  <div class="login_form card no_click profile cont">  
+    <%= form_for(@passenger, multipart: true) do |f| %>
+      <div class="profile_banner">
+        <div class="profile_face">
+          <div id="theFace">
+            <% if @passenger.photo? %>
+              <%= image_tag @passenger.photo.url(:square), :id => 'profile_start_pic' %>
+            <% else %> 
+              <div class="circle" id="plaecholderProfile">
+                <i class="fa fa-user fa-2x"></i>
+              </div>
             <% end %>
+            <img id="tempImg" src="#" alt="Temporary Image Upload" style="display: none;">
+          </div>
+          <div class="field photo_edit">
+            <%= f.file_field :photo, :class => 'inputfile' %>
+              <%= f.label :photo, :class => 'inputfile_label' do %>
+                <i class="fa fa-upload"></i> <span>Choose a File...</span>
+              <% end %>
+          </div>
         </div>
       </div>
-    </div>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <div class="actions">
-      <%= f.submit 'Save profile' %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <div class="actions">
+        <%= f.submit 'Save profile' %>
+      </div>
+    <% end %>
     </div>
-  <% end %>
-
-<% if @passenger.bookings.any? %>
-  <br/>
-  <h2>Bookings</h2>
-  <p>This is a list of all of your future and past bookings:</p>
-</div>
+  <% if @passenger.bookings.any? %>
+    <div class="white_block">
+      <div class="inner_cont">
+        <h2>Bookings</h2>
+        <p>This is a list of all of your future and past bookings:</p>
+      </div>
+    </div>
     <% @passenger.bookings.booked.each do |booking| %>
       <div class="login_form card cont">
         <h4>Your Journey - <%= friendly_date(booking.pickup_stop.time_for_journey(booking.journey)) %></h4>
@@ -52,7 +55,5 @@
         <% end %>
       </div>
     <% end %>
-  </div>
-<% else %>
+  <% end %>
 </div>
-<% end %>

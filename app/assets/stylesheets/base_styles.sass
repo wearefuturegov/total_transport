@@ -41,6 +41,13 @@ ol
 .clear 
   clear: both  
 
+.desktop_only
+  display: none
+
+.left, .right
+  +span-columns(6)
+.right
+  +omega
 /* START Cards */
 .cont
   +outer-container
@@ -61,19 +68,13 @@ ol
   .inner
     padding: 20px
     +outer-container
-  .left, .right
-    +span-columns(6)
-  .right
-    +omega
   .pickUp, .dropOff
-    //font-size: 17px - FOR DESKTOP
     font-size: 14px
     color: $medium-gray
     margin-top: -3px
     display: block
 
   .timeEst
-    //font-size: 23px - FOR DESKTOP
     font-size: 18px
     font-weight: 600
   .date
@@ -83,7 +84,6 @@ ol
     position: absolute
     top: 16%
     left: 42%
-    //font-size: 20px - FOR DESKTOP
     font-size: 17px 
 .cardBtn
   +span-columns(12)
@@ -251,19 +251,49 @@ header
 /* END Type & Copy */
 
 
+.white_block, .top_sec
+  background-color: #fff
+  padding: 25px
+  border-bottom: 1px solid rgba(100,100,100,0.2)
+
+  .inner_cont
+    max-width: $large-screen*0.95
+    margin: 0 auto
+
+.white_block
+  //width: 105%
+  //margin-left: -2.5%
+  display: block
+  border-top: 1px solid rgba(100,100,100,0.2)
+
 /* START login & form styles */
 
 input[type='text'], input[type='password'], input[type='email']
   border-radius: 2px
 
+#link_down
+  text-align: center
+  margin-top: 15px
+
+#passenger_landing, #more_info
+  .actions, .actions input
+    margin-top: 0
+
+#more_info 
+  position: absolute
+  left: 0
+  width: 100%
+  .inner_cont
+    +outer-container
+    max-width: $large-screen*0.95
+
 .login_form
   padding: 20px
   border-bottom-left-radius: 0
   border-bottom-right-radius: 0
-  max-width: 680px
+  //max-width: 680px
   margin: 50px auto !important
   position: relative
-
   float: none
 .lower_cont 
   //border-top: 3px solid $coral
