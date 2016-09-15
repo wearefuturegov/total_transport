@@ -1,9 +1,37 @@
 <%= form_for @payment_method, url: create_payment_method_route_booking_path(@route, @booking) do |form| %>
   <% PaymentMethod.types.each do |payment_method_type| %>
-    <label>
+    <label class="payment-option">
       <%= form.radio_button :name, payment_method_type %>
-      <%= PaymentMethod.friendly_name_for_type(payment_method_type) %>
+      <span>
+        <i class="fa" id="<%= payment_method_type %>"></i>
+        <%= PaymentMethod.friendly_name_for_type(payment_method_type) %>
+      </span>
     </label>
   <% end %>
-  <%= form.submit 'Next', :class => 'cardBtn' %>
 <% end %>
+
+
+
+<script type="text/javascript"> 
+  $(document).ready(function() {
+    $('.payment-option i').each(function() {
+      if ($(this).attr('id') == 'paypal') {
+        $(this).addClass('fa-paypal');
+      } else if ($(this).attr('id') == 'apple_pay') {
+        $(this).addClass('fa-apple');
+      } else if ($(this).attr('id') == 'credit_card') {
+        $(this).addClass('fa-credit-card-alt');
+      } else if ($(this).attr('id') == 'google_pay') {
+        $(this).addClass('fa-google-wallet');
+      } else if ($(this).attr('id') == 'cash') {
+        $(this).addClass('fa-money');
+      } else if ($(this).attr('id') == 'balance') {
+        $(this).before('£0.00');
+        $(this).remove();
+      }
+    });
+  });
+  $('.payment-option').click(function() {
+    $('#new_payment_method').submit();
+  });
+</script>
