@@ -2,13 +2,17 @@ class PassengersController < ApplicationController
   skip_before_action :authenticate_passenger!, only: [:new, :create, :verify]
 
   def new
-
+    @passenger = Passenger.new
   end
 
   def create
-    passenger = Passenger.find_or_create_by(phone_number: params[:passenger][:phone_number])
-    passenger.send_verification!
-    redirect_to verify_passenger_path(id: passenger.id)
+    @passenger = Passenger.find_or_create_by(phone_number: params[:passenger][:phone_number])
+    if @passenger.valid?
+      @passenger.send_verification!
+      redirect_to verify_passenger_path(id: @passenger.id)
+    else
+      render action: 'new'
+    end
   end
 
   def destroy

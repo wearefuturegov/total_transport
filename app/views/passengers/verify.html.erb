@@ -1,8 +1,12 @@
+<% if @incorrect %>
+  That verification code was incorrect. Please try again.
+<% end %>
+
 <div class="card-cont">
   <div class="card no_click login_form">
     <h2>Verify Your Phone Number</h2>
     <p>Type in the verification code we sent to your number</p>
-    
+
     <%= form_tag verify_passenger_path do %>
       <%= hidden_field_tag :id, @passenger.id %>
       <%= text_field_tag :verification_code %>
@@ -12,9 +16,3 @@
     <% end %>
   </div>
 </div>
-
-<% if @incorrect %>
-  <script type="text/javascript">
-    alertRails('That verification code was incorrect. Please try again.', false);
-  </script>
-<% end %>

@@ -1,8 +1,12 @@
+<% @passenger.errors.full_messages.each do |msg| %>
+  <%= msg %>
+<% end %>
+
 <div class="card-cont" id="passenger_landing">
   <div class="card no_click login_form">
     <h3>Need to go somewhere? We’ll pick you up.</h3>
     <p>Pickup is a door-to-door transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and designed to get you where you need to go.</p>
-    <%= form_for Passenger.new, url: passenger_path do |form| %>
+    <%= form_for @passenger, url: passenger_path do |form| %>
       <%= form.label :phone_number, "Enter your mobile number to get started." %>
       <%= form.text_field :phone_number, autofocus: true %>
       <div class="actions">
@@ -35,7 +39,7 @@
       <p>Pickup will send you a text a few hours before your trip to let you know exactly when we’ll arrive.</p>
     </div>
     <div class="full">
-      <%= form_for Passenger.new, url: passenger_path do |form| %>
+      <%= form_for @passenger, url: passenger_path do |form| %>
         <%= form.label :phone_number, "Enter your mobile number to get started." %>
         <%= form.text_field :phone_number %>
         <div class="actions">
@@ -45,20 +49,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  $('#new_passenger').submit(function(e) {
-    var self = this;
-    e.preventDefault();
-    var inputVal = $('#passenger_phone_number').val();
-    if (inputVal == "") {
-      alertRails('You need to enter a phone number.', $('#passenger_phone_number'));
-    } else if (!$.isNumeric(inputVal)) {
-      alertRails('You need to enter a valid phone number - it must be just digits.', $('#passenger_phone_number'));
-    } else if (inputVal.length <= 10) {
-      alertRails('Your phone number is the incorrect number of digits', $('#passenger_phone_number'));
-    } else {
-      self.submit();
-    }
-  });
-</script>

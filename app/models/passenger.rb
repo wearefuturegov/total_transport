@@ -12,6 +12,7 @@ class Passenger < ActiveRecord::Base
   }
 
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+  validate :validate_phone_number, on: :create
 
   def send_verification!
     set_verification_code
@@ -29,5 +30,13 @@ class Passenger < ActiveRecord::Base
       to: self.phone_number,
       body: message
     )
+  end
+
+  def validate_phone_number
+    @client = Twilio::REST::LookupsClient.new
+    response = @client.phone_numbers.get(self.phone_number, country_code: 'GB')
+    self.phone_number = response.phone_number
+  rescue Twilio::REST::RequestError => e
+    errors.add(:phone_number, "is not a valid phone number")
   end
 end
