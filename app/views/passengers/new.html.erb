@@ -1,5 +1,5 @@
-<% @passenger.errors.full_messages.each do |msg| %>
-  <%= msg %>
+<% if @invalid_phone_number %>
+  Phone number is not a valid phone number
 <% end %>
 
 <div class="card-cont" id="passenger_landing">

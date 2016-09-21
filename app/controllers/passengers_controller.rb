@@ -6,11 +6,13 @@ class PassengersController < ApplicationController
   end
 
   def create
-    @passenger = Passenger.find_or_create_by(phone_number: params[:passenger][:phone_number])
-    if @passenger.valid?
+    if formatted_phone_number = Passenger.formatted_phone_number(params[:passenger][:phone_number])
+      @passenger = Passenger.find_or_create_by(phone_number: formatted_phone_number)
       @passenger.send_verification!
       redirect_to verify_passenger_path(id: @passenger.id)
     else
+      @passenger = Passenger.new
+      @invalid_phone_number = true
       render action: 'new'
     end
   end
