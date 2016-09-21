@@ -7,5 +7,6 @@ FactoryGirl.define do
     password_confirmation "password"
     name "James Darling"
     phone_number "07811407085"
+    team
   end
 end

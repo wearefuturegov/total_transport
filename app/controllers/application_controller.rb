@@ -48,7 +48,11 @@ class ApplicationController < ActionController::Base
     if session[:current_passenger]
       @current_passenger = Passenger.find_by_id(session[:current_passenger])
     else
-      nil
+      if Rails.env.test? && cookies[:stub_user_id].present?
+        @current_passenger = Passenger.find_by_id(cookies[:stub_user_id]) if cookies[:stub_user_id]
+      else
+        nil
+      end
     end
   end
 

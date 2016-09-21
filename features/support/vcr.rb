@@ -10,6 +10,7 @@ VCR.configure do |c|
     i.response.headers.delete('Set-Cookie')
     i.request.headers.delete('Authorization')
   end
+  c.ignore_localhost = true
 end
 
 VCR.cucumber_tags do |t|

@@ -68,6 +68,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -139,6 +142,8 @@ GEM
       railties (>= 3.2.16)
     json (1.8.3)
     jwt (1.5.4)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -277,6 +282,7 @@ DEPENDENCIES
   bitters
   bourbon
   byebug
+  capybara-webkit
   coffee-rails (~> 4.1.0)
   cucumber-rails
   database_cleaner
@@ -288,6 +294,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
+  launchy
   neat
   normalize-rails
   paperclip
