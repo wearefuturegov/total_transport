@@ -18,4 +18,19 @@ module ApplicationHelper
       date.strftime("%B %-d - %Y")
     end
   end
+
+  def payment_class(payment_method_type)
+    payment_method_type = payment_method_type.to_s
+    if payment_method_type == 'paypal'
+      'fa-paypal'
+    elsif payment_method_type == 'apple_pay'
+      'fa-apple'
+    elsif payment_method_type == 'credit_card'
+      'fa-credit-card-alt'
+    elsif payment_method_type == 'google_pay'
+      'fa-google-wallet'
+    elsif payment_method_type == 'cash'
+      'fa-money'
+    end
+  end
 end
