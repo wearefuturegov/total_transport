@@ -22,7 +22,7 @@ class Booking < ActiveRecord::Base
   def send_notification!(message)
     @client = Twilio::REST::Client.new
     @client.messages.create(
-      from: '+441173252034',
+      from: TWILIO_PHONE_NUMBER,
       to: self.phone_number,
       body: message
     )

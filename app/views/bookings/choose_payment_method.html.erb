@@ -3,7 +3,11 @@
     <label class="payment-option">
       <%= form.radio_button :payment_method_id, payment_method.id %>
       <span>
-        <i class="fa" id="<%= payment_method.name %>"></i>
+        <% if payment_method.name == :balance %>
+          £0.00
+        <% else %>
+          <i class="fa <%= payment_class(payment_method.name) %>" id="<%= payment_method.name %>"></i>
+        <% end %>
         <%= payment_method.friendly_name %>
       </span>
     </label>
@@ -14,26 +18,10 @@
   </label>
 <% end %>
 
-<script type="text/javascript"> 
-  $(document).ready(function() {
-    $('.payment-option i').each(function() {
-      if ($(this).attr('id') == 'paypal') {
-        $(this).addClass('fa-paypal');
-      } else if ($(this).attr('id') == 'apple_pay') {
-        $(this).addClass('fa-apple');
-      } else if ($(this).attr('id') == 'credit_card') {
-        $(this).addClass('fa-credit-card-alt');
-      } else if ($(this).attr('id') == 'google_pay') {
-        $(this).addClass('fa-google-wallet');
-      } else if ($(this).attr('id') == 'cash') {
-        $(this).addClass('fa-money');
-      } else if ($(this).attr('id') == 'balance') {
-        $(this).before('£0.00');
-        $(this).remove();
-      }
-    });
-  });
+<script type="text/javascript">
   $('.payment-option').click(function() {
-    $('.edit_booking').submit();
+    setTimeout(function(){
+      $('.edit_booking').submit();
+    }, 10);
   });
 </script>

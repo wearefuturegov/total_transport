@@ -25,9 +25,17 @@ class Passenger < ActiveRecord::Base
   def send_notification!(message)
     @client = Twilio::REST::Client.new
     @client.messages.create(
-      from: '+441173252034',
+      from: TWILIO_PHONE_NUMBER,
       to: self.phone_number,
       body: message
     )
+  end
+
+  def self.formatted_phone_number(phone_number)
+    @client = Twilio::REST::LookupsClient.new
+    response = @client.phone_numbers.get(phone_number, country_code: 'GB')
+    response.phone_number
+  rescue Twilio::REST::RequestError => e
+    false
   end
 end

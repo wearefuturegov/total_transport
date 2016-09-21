@@ -61,6 +61,12 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'capybara-webkit'
+  gem 'launchy'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :development do
