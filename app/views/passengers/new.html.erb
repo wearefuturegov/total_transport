@@ -1,7 +1,7 @@
 <div class="card-cont" id="passenger_landing">
   <div class="card no_click login_form">
     <h3>Need to go somewhere? We’ll pick you up.</h3>
-    <p>Pickup is a door-to-door transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and designed to get you where you need to go.</p>
+    <p>NAME is a door-to-door transport service. It’s cheaper than a taxi, more flexible than a bus, and designed to get you where you need to go.</p>
     <%= form_for Passenger.new, url: passenger_path do |form| %>
       <%= form.label :phone_number, "Enter your mobile number to get started." %>
       <%= form.text_field :phone_number, autofocus: true %>
@@ -16,13 +16,13 @@
   <div class="inner_cont">
     <div class="left">
       <h3>Step 1: Pick Your Route</h3>
-      <p>Start by selecting where and when you want to travel. (Pickup operates routes all across rural Essex) You can schedule a trip any time from way over a month up to a day in advance.</p>
+      <p>Start by selecting where and when you want to travel. (NAME operates routes all across rural Essex) You can schedule a trip any time from way over a month up to a day in advance.</p>
       <p>All times listed are estimates and may change based on who else schedules a ride.</p>
     </div>
     <hr class="mobile_only">
     <div class="right">
       <h3>Step 2: Pick Your Start and End Points</h3>
-      <p>Pickup is available anywhere in the areas highlighted. We can stop anywhere that’s convenient -- including houses, schools, and shops.</p>
+      <p>NAME is available anywhere in the areas highlighted. We can stop anywhere that’s convenient -- including houses, schools, and shops.</p>
     </div>
     <hr class="mobile_only">
     <div class="left">
@@ -32,7 +32,7 @@
     <hr class="mobile_only">
     <div class="right">
       <h3>Step 4: Get Picked Up</h3>
-      <p>Pickup will send you a text a few hours before your trip to let you know exactly when we’ll arrive.</p>
+      <p>NAME will send you a text a few hours before your trip to let you know exactly when we’ll arrive.</p>
     </div>
     <div class="full">
       <%= form_for Passenger.new, url: passenger_path do |form| %>

@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_page_title
-    @page_title = "Pickup"
+    @page_title = "NAME"
   end
 
   def set_top_sec
