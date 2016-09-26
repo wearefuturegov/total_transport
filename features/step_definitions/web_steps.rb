@@ -15,7 +15,12 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
 end
 
 When /^(?:|I )click "([^"]*)"$/ do |link|
-  first('*', text: /^#{link}$/).trigger('click')
+  sleep 1
+  if el = first(:xpath, "//*[text()[contains(.,'#{link}')]]")
+    el.trigger('click')
+  else
+    # debugger
+  end
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

@@ -12,6 +12,9 @@ require 'factory_girl'
 # selectors in your step definitions to use the XPath syntax.
 # Capybara.default_selector = :xpath
 Capybara.javascript_driver = :webkit
+Capybara.automatic_reload = false
+require 'rack/utils'
+Capybara.app = Rack::ShowExceptions.new(TotalTransport::Application)
 
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
