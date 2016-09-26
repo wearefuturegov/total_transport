@@ -15,8 +15,8 @@ Feature: Booking a journey
     And I press "Confirm Drop Off Point"
     Then I should not see "Add a payment method"
     When I click "Credit card"
-    Then I should see "17:57 - 18:17 Haverhill"
-    And I should see "18:01 - 18:21 Halstead"
+    Then I should see "5:57pm - 6:17pm Haverhill"
+    And I should see "6:01pm - 6:21pm Halstead"
     And I should see "Paying with Credit card"
 
   @javascript
@@ -35,8 +35,8 @@ Feature: Booking a journey
     And I press "Confirm Drop Off Point"
     Then I should see "Add a payment method"
     When I click "Credit card"
-    Then I should see "17:57 - 18:17 Haverhill"
-    And I should see "18:01 - 18:21 Halstead"
+    Then I should see "5:57pm - 6:17pm Haverhill"
+    And I should see "6:01pm - 6:21pm Halstead"
     And I should see "Paying with Credit card"
 
   @javascript
@@ -55,6 +55,6 @@ Feature: Booking a journey
     And I press "Confirm Drop Off Point"
     And I click "Add a payment method"
     And I click "Paypal"
-    Then I should see "17:57 - 18:17 Haverhill"
-    And I should see "18:01 - 18:21 Halstead"
+    Then I should see "5:57pm - 6:17pm Haverhill"
+    And I should see "6:01pm - 6:21pm Halstead"
     And I should see "Paying with Paypal"
