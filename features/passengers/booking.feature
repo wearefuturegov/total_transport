@@ -17,7 +17,7 @@ Feature: Booking a journey
     When I click "Credit card"
     Then I should see "5:57pm - 6:17pm Haverhill"
     And I should see "6:01pm - 6:21pm Halstead"
-    And I should see "Paying with Credit card"
+    And I should see "Paying £2.50 with Paypal"
 
   @javascript
   Scenario: Successful booking with existing payment method
@@ -37,7 +37,7 @@ Feature: Booking a journey
     When I click "Credit card"
     Then I should see "5:57pm - 6:17pm Haverhill"
     And I should see "6:01pm - 6:21pm Halstead"
-    And I should see "Paying with Credit card"
+    And I should see "Paying £2.50 with Paypal"
 
   @javascript
   Scenario: Successful booking with existing payment method
@@ -57,4 +57,4 @@ Feature: Booking a journey
     And I click "Paypal"
     Then I should see "5:57pm - 6:17pm Haverhill"
     And I should see "6:01pm - 6:21pm Halstead"
-    And I should see "Paying with Paypal"
+    And I should see "Paying £2.50 with Paypal"

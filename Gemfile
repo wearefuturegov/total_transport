@@ -32,6 +32,8 @@ gem 'normalize-rails'
 gem 'font-awesome-sass', '~> 4.6.2'
 gem 'jquery-ui-rails'
 
+gem 'geokit'
+
 gem 'acts_as_list'
 
 gem 'devise'
