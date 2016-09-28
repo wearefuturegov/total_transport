@@ -24,7 +24,7 @@
   </div>
 
   <p>
-    Paying with <%= @booking.payment_method.friendly_name %>
+    Paying <%= number_to_currency @booking.price, unit: '£' %> with <%= @booking.payment_method.friendly_name %>
   </p>
 
   <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>

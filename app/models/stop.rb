@@ -22,4 +22,12 @@ class Stop < ActiveRecord::Base
   def time_for_journey(journey)
     journey.start_time + minutes_from_first_stop.minutes
   end
+
+  def lat_lng
+    Geokit::LatLng.new(self.latitude, self.longitude)
+  end
+
+  def distance_to(stop)
+    self.lat_lng.distance_to(stop.lat_lng, units: :miles)
+  end
 end

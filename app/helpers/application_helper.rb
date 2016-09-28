@@ -1,21 +1,19 @@
 module ApplicationHelper
   def padded_time(time)
-    (time - 10.minutes).strftime("%H:%M") +
+    (time - 10.minutes).strftime("%l:%M%P") +
     " - " +
-    (time + 10.minutes).strftime("%H:%M")
+    (time + 10.minutes).strftime("%l:%M%P")
   end
 
   def friendly_date(date)
     if date == Date.today
       "Today"
-    elsif date == Date.yesterday
-      "Yesterday"
-    elsif (date > Date.today - 7) && (date < Date.yesterday)
-      date.strftime("%A")
+    elsif date == Date.tomorrow
+      "Tomorrow"
     elsif (date > Date.today.beginning_of_year) && (date < Date.today.end_of_year)
-      date.strftime("%B %-d")
+      date.strftime("%A, %-d %B")
     else
-      date.strftime("%B %-d - %Y")
+      date.strftime("%A, %-d %B, %Y")
     end
   end
 
