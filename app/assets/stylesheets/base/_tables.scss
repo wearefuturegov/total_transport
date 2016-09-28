@@ -22,3 +22,17 @@ td,
 th {
   vertical-align: middle;
 }
+
+tbody tr {
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+tbody tr:nth-child(even) {
+  background-color: rgba(#eee, 0.4);
+}
+tbody tr:hover {
+  background-color: rgba($prim-color, 0.3);
+}
+tbody tr:first-child {
+  background-color: #fff !important;
+}
+

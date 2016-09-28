@@ -1,0 +1,112 @@
+ul, ol 
+  //list-style-type: disc 
+  list-style-position: inside
+  li
+    margin-bottom: 10px
+ol 
+  list-style-type: decimal
+
+.clear 
+  clear: both  
+
+.no-mobile
+  display: none
+
+.left, .right
+  +span-columns(6)
+.right
+  +omega
+.omega
+  +omega
+
+.full
+  +span-columns(12)
+  +omega
+
+.half
+  +span-columns(6)
+  +omega(2n)
+
+.outsideBounds
+  position: absolute
+  top: 0
+  right: 0
+
+.wideBtn
+  .half
+    width: 50%
+    margin-right: 0
+
+.third
+  +span-columns(4)
+  +omega(3n)
+.twoThird
+  +span-columns(8)
+
+@media screen and (max-width: $medium-screen)
+  .third
+    +span-columns(6)
+    +omega(2n)
+  .twoThird
+    +span-columns(12)
+    +omega(1n)
+  .mobFull
+    +span-columns(12)
+    +omega(1n)
+
+.hidden
+  display: none
+
+.inline
+  display: inline-block
+  vertical-align: text-top
+
+section, .container
+  +outer-container
+  max-width: $large-screen
+  margin: 30px auto
+
+  .inner, article
+    +span-columns(12)
+
+hr 
+  margin: 20px 5px
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3)
+
+
+.alerts
+  padding: 10px
+  background-color: $red
+  color: #fff
+  display: none
+  p
+    margin-bottom: 0
+  section
+    margin: 0 auto
+
+.white_block, .top_sec
+  background-color: #fff
+  padding: 25px
+  border-bottom: 1px solid rgba(100,100,100,0.2)
+
+  .inner_cont
+    max-width: $large-screen*0.95
+    margin: 0 auto
+
+.white_block
+  display: block
+  border-top: 1px solid rgba(100,100,100,0.2)
+
+#grid
+  +outer-container
+  div
+    padding: 10px
+  .left
+    +media($medium-screen)
+      +span-columns(3)
+    background-color: $light-gray
+  .right
+    +media($medium-screen)
+      +span-columns(9)
+    background-color: $medium-gray
+    +omega

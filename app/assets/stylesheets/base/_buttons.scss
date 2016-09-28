@@ -33,3 +33,30 @@
     }
   }
 }
+
+button, .inputfile_label, input[type=submit] {
+  text-transform: uppercase;
+}
+
+button, [type='button'], [type='reset'], [type='submit'], .inputfile_label {
+  padding: 10px 15px;
+}
+
+.buttons {
+  form {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.negative {
+  background: rgba($red, 0.9) !important;
+}
+.negative:hover {
+  background: rgba($red, 1) !important;
+}
+
+.subBtn {
+  float: right;
+  margin-bottom: 25px;
+}

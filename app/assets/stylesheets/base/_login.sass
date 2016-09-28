@@ -1,0 +1,86 @@
+input[type='text'], input[type='password'], input[type='email']
+  border-radius: 2px
+
+#link_down
+  text-align: center
+  margin-top: 15px
+
+#passenger_landing, #more_info
+  .actions, .actions input
+    margin-top: 0
+
+#more_info 
+  position: absolute
+  left: 0
+  width: 100%
+  .inner_cont
+    +outer-container
+    max-width: $large-screen*0.95
+
+.login_form
+  padding: 20px
+  border-bottom-left-radius: 0
+  border-bottom-right-radius: 0
+  //max-width: 680px
+  margin: 50px auto !important
+  position: relative
+  float: none
+.lower_cont 
+  //border-top: 3px solid $coral
+  padding-bottom: 88px
+  .lower
+    +outer-container
+    padding: 10px 20px
+    background-color: $coral
+    color: #fff
+    position: absolute
+    left: 0
+    bottom: 0
+    width: 100%
+    border-bottom-left-radius: 2px
+    border-bottom-right-radius: 2px
+    text-align: center
+    span
+      vertical-align: middle
+    button
+      background: transparent
+      border: 2px solid #fff 
+      width: 33%
+      margin-left: 15px
+      
+    button:hover
+      background: #fff
+      color: $coral
+
+.actions
+  margin-top: 15px
+  text-align: center
+  input[type='submit'], button
+    width: 100%
+    margin-top: 15px
+    padding: 15px
+
+  label
+    font-weight: 400
+
+.half.field label
+  margin-bottom: 0 !important
+
+#error_explanation
+  h2
+    font-size: 21px
+    margin: 0
+  li:last-child
+    margin-bottom: 0
+
+
+.incorrect, .incorrect:hover
+  border: $red solid 1px
+
+[type='color']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='email']:focus, [type='month']:focus, [type='number']:focus, [type='password']:focus, [type='search']:focus, [type='tel']:focus, [type='text']:focus, [type='time']:focus, [type='url']:focus, [type='week']:focus, input:not([type]):focus, textarea:focus, select[multiple]:focus
+  border-color: rgba($prim-color, 0.4)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($prim-color, 0.3)
+
+.incorrect[type='color']:focus, .incorrect[type='date']:focus, .incorrect[type='datetime']:focus, .incorrect[type='datetime-local']:focus, .incorrect[type='email']:focus, .incorrect[type='month']:focus, .incorrect[type='number']:focus, .incorrect[type='password']:focus, .incorrect[type='search']:focus, .incorrect[type='tel']:focus, .incorrect[type='text']:focus, .incorrect[type='time']:focus, .incorrect[type='url']:focus, .incorrect[type='week']:focus, .incorrect input:not([type]):focus, .incorrect textarea:focus, .incorrect select[multiple]:focus
+  border-color: rgba($red, 0.8)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($red, 0.3)
