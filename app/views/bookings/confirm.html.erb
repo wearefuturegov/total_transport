@@ -1,4 +1,3 @@
-<h1>Confirm booking</h1>
 <div class="card-cont">
   <p>Please note that pick up and drop off times are estimated and might slightly change.</p>
 
@@ -23,6 +22,10 @@
       </div>
     </div>
   </div>
+
+  <p>
+    Paying <%= number_to_currency @booking.price, unit: '£' %> with <%= @booking.payment_method.friendly_name %>
+  </p>
 
   <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
 
@@ -85,6 +88,7 @@
     var pickup_map = new google.maps.Map(document.getElementById("pickup_map"), {
       zoom: 14,
       center: pickup_point,
+      draggable: false,
       streetViewControl: false,
       mapTypeControl: false,
       scrollwheel: false,
@@ -94,6 +98,7 @@
       zoom: 14,
       center: dropoff_point,
       streetViewControl: false,
+      draggable: false,
       mapTypeControl: false,
       scrollwheel: false,
       zoomControl: false

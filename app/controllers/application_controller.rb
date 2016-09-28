@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_passenger!
   skip_before_action :authenticate_passenger!, if: :devise_controller?
+  layout :layout_by_resource
+  before_action :set_page_title
+  before_action :set_top_sec
 
   helper_method :current_passenger
   def current_passenger
@@ -25,6 +28,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def layout_by_resource
+    if devise_controller?
+      "admin"
+    else
+      "application"
+    end
+  end
+
   def authenticate_passenger!
     if current_passenger
       true
@@ -37,7 +48,11 @@ class ApplicationController < ActionController::Base
     if session[:current_passenger]
       @current_passenger = Passenger.find_by_id(session[:current_passenger])
     else
-      nil
+      if Rails.env.test? && cookies[:stub_user_id].present?
+        @current_passenger = Passenger.find_by_id(cookies[:stub_user_id]) if cookies[:stub_user_id]
+      else
+        nil
+      end
     end
   end
 
@@ -52,5 +67,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource_or_scope)
     admin_root_path
+  end
+
+  def set_page_title
+    @page_title = "Pickup"
+  end
+
+  def set_top_sec
+    @top_sec = false
   end
 end

@@ -19,6 +19,10 @@ Rails.application.routes.draw do
         patch :save_pickup_location
         get :choose_dropoff_location
         patch :save_dropoff_location
+        get :choose_payment_method
+        patch :save_payment_method
+        get :add_payment_method
+        post :create_payment_method
         get :confirm
         patch :save_confirm
         get :confirmation
@@ -40,6 +44,9 @@ Rails.application.routes.draw do
     resources :journeys do
       collection do
         get 'surrounding_journeys'
+      end
+      member do
+        post 'send_message'
       end
     end
     resources :suppliers

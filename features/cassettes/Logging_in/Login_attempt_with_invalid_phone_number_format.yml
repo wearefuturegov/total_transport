@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://lookups.twilio.com/v1/PhoneNumbers/239?CountryCode=GB
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/4.11.1 (ruby/x86_64-darwin15 2.3.1-p112)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: NOT FOUND
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 20 Sep 2016 17:00:05 GMT
+      Twilio-Request-Duration:
+      - '0.026'
+      Twilio-Request-Id:
+      - RQ265948277376446e9a3ffc43e232c23c
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '156'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"code": 20404, "message": "The requested resource /PhoneNumbers/239
+        was not found", "more_info": "https://www.twilio.com/docs/errors/20404", "status":
+        404}'
+    http_version: 
+  recorded_at: Tue, 20 Sep 2016 17:00:05 GMT
+- request:
+    method: get
+    uri: https://lookups.twilio.com/v1/PhoneNumbers/239?CountryCode=GB
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/4.11.1 (ruby/x86_64-darwin15 2.3.1-p112)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: NOT FOUND
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 20 Sep 2016 17:00:05 GMT
+      Twilio-Request-Duration:
+      - '0.038'
+      Twilio-Request-Id:
+      - RQff84fca1d7d84f788e8469ed584aa743
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '156'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"code": 20404, "message": "The requested resource /PhoneNumbers/239
+        was not found", "more_info": "https://www.twilio.com/docs/errors/20404", "status":
+        404}'
+    http_version: 
+  recorded_at: Tue, 20 Sep 2016 17:00:05 GMT
+recorded_with: VCR 3.0.3

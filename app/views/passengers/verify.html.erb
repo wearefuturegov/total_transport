@@ -1,10 +1,18 @@
 <% if @incorrect %>
-  <p>
-    That verification code was incorrect. Try again.
-  </p>
+  That verification code was incorrect. Please try again.
 <% end %>
-<%= form_tag verify_passenger_path do %>
-  <%= hidden_field_tag :id, @passenger.id %>
-  <%= text_field_tag :verification_code %>
-  <%= submit_tag "login" %>
-<% end %>
+
+<div class="card-cont">
+  <div class="card no_click login_form">
+    <h2>Verify Your Phone Number</h2>
+    <p>Type in the verification code we sent to your number</p>
+
+    <%= form_tag verify_passenger_path do %>
+      <%= hidden_field_tag :id, @passenger.id %>
+      <%= text_field_tag :verification_code %>
+      <div class="actions">
+        <%= submit_tag "Go" %>
+      </div>
+    <% end %>
+  </div>
+</div>

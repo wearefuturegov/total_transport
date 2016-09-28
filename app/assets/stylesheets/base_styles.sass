@@ -41,14 +41,105 @@ ol
 .clear 
   clear: both  
 
+.desktop_only
+  display: none
+
+.left, .right
+  +span-columns(6)
+.right
+  +omega
+/* START Cards */
+.cont
+  +outer-container
+.card-cont
+  +outer-container(95%)
+.card
+  +span-columns(12)
+  background: #ffffff
+  border-radius: 2px
+  margin-bottom: 35px
+  text-align: left
+  position: relative
+  //box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+
+  p:last-child
+    margin-bottom: 0
+  .inner
+    padding: 20px
+    +outer-container
+  .pickUp, .dropOff
+    font-size: 14px
+    color: $medium-gray
+    margin-top: -3px
+    display: block
+
+  .timeEst
+    font-size: 18px
+    font-weight: 600
+  .date
+    +span-columns(12)
+    text-transform: uppercase
+  .midArw
+    position: absolute
+    top: 16%
+    left: 42%
+    font-size: 17px 
+.cardBtn
+  +span-columns(12)
+  text-align: center
+  color: #fff
+  padding: 8px
+  text-transform: uppercase
+  border-radius: 0
+  border-bottom-left-radius: 2px
+  border-bottom-right-radius: 2px
+  font-size: 17px
+  cursor: pointer
+
+a
+  color: rgba(21,101,192,0.8)
+  transition: color 1s cubic-bezier(.25,.8,.25,1)
+
+a:hover
+  color: rgba(21,101,192,1)
+  transition: color 0.5s cubic-bezier(.25,.8,.25,1)
+
+.card
+  transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 1s cubic-bezier(.25,.8,.25,1)
+
+.card:hover, .card.no_click:active
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
+  //box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0px 20px 30px 0px rgba(0,0,0,0.10)
+  transition: all 0.1s cubic-bezier(.25,.8,.25,1), box-shadow 0.7s cubic-bezier(.25,.8,.25,1)
+
+.card:active
+  box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.24)
+  transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s cubic-bezier(.25,.8,.25,1) !important
+
+.outsideBounds
+  position: absolute
+  top: 0
+  right: 0
+
+/* END Cards */
+
+
+.omega
+  +omega
+
+.full
+  +span-columns(12)
+  +omega
+
 .half
   +span-columns(6)
   +omega(2n)
-.half .cardBtn
+.half.cardBtn
   border-radius: 0
-.half .cardBtn:first-child
-  border-bottom-left-radius: 2px
-.half .cardBtn.negative
+  width: 50% !important
+  border-bottom-left-radius: 2px  
+.half.cardBtn.negative
   border-bottom-right-radius: 2px
   border-bottom-left-radius: 0px
 
@@ -94,7 +185,7 @@ p.highlight
 section, .container
   +outer-container
   max-width: $large-screen
-  margin: 15px auto
+  margin: 30px auto
 
   .inner, article
     +span-columns(12)
@@ -117,7 +208,6 @@ header
   top: 0
   left: 0
   color: #fff
-  margin-bottom: 25px
   .inner
     +outer-container
     padding: 5px
@@ -136,115 +226,200 @@ header
     padding: 5px
   a, #backbtn
     color: #fff
+  a:active, a:focus, a:hover
+    color: #fff
+    text-decoration: underline
 
 /* END Header */
 
-#alerts
+.alerts
   padding: 10px
   background-color: $red
   color: #fff
-  margin-bottom: 25px
-  margin-top: -25px
+  display: none
   p
     margin-bottom: 0
   section
     margin: 0 auto
 
-/* START Type & Copy */
+/* START Typography & Copy */
 
-
+.subTxt
+  font-size: 12px
+.bold
+  font-weight: 600
 /* END Type & Copy */
 
 
-/* START Cards */
-.card-cont
-  +outer-container(95%)
-.card
-  +span-columns(12)
-  background: #ffffff
+.white_block, .top_sec
+  background-color: #fff
+  padding: 25px
+  border-bottom: 1px solid rgba(100,100,100,0.2)
+
+  .inner_cont
+    max-width: $large-screen*0.95
+    margin: 0 auto
+
+.white_block
+  //width: 105%
+  //margin-left: -2.5%
+  display: block
+  border-top: 1px solid rgba(100,100,100,0.2)
+
+/* START login & form styles */
+
+input[type='text'], input[type='password'], input[type='email']
   border-radius: 2px
-  margin-bottom: 35px
-  text-align: left
-  position: relative
-  //box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
 
-  p:last-child
-    margin-bottom: 0
-  .inner
-    padding: 20px
-    +outer-container
-  .left, .right
-    +span-columns(6)
-  .right
-    +omega
-  .pickUp, .dropOff
-    //font-size: 17px - FOR DESKTOP
-    font-size: 14px
-    color: $medium-gray
-    margin-top: -3px
-    display: block
-
-  .timeEst
-    //font-size: 23px - FOR DESKTOP
-    font-size: 18px
-    font-weight: 600
-  .date
-    +span-columns(12)
-    text-transform: uppercase
-  .midArw
-    position: absolute
-    top: 16%
-    left: 42%
-    //font-size: 20px - FOR DESKTOP
-    font-size: 17px 
-.cardBtn
-  +span-columns(12)
+#link_down
   text-align: center
-  color: #fff
-  padding: 8px
-  text-transform: uppercase
-  border-radius: 0
-  border-bottom-left-radius: 2px
-  border-bottom-right-radius: 2px
-  font-size: 17px
-  cursor: pointer
+  margin-top: 15px
 
-a
-  color: rgba(21,101,192,0.8)
-  transition: color 1s cubic-bezier(.25,.8,.25,1)
+#passenger_landing, #more_info
+  .actions, .actions input
+    margin-top: 0
 
-a:hover
-  color: rgba(21,101,192,1)
-  transition: color 0.5s cubic-bezier(.25,.8,.25,1)
-
-.card
-  transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 1s cubic-bezier(.25,.8,.25,1)
-
-.card:hover
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08), 0px 15px 30px 0px rgba(0,0,0,0.07)
-  //box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0px 20px 30px 0px rgba(0,0,0,0.10)
-  transition: all 0.1s cubic-bezier(.25,.8,.25,1), box-shadow 0.7s cubic-bezier(.25,.8,.25,1)
-
-.card:active
-  box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.24)
-  transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s cubic-bezier(.25,.8,.25,1) !important
-
-.outsideBounds
+#more_info 
   position: absolute
-  top: 0
-  right: 0
+  left: 0
+  width: 100%
+  .inner_cont
+    +outer-container
+    max-width: $large-screen*0.95
 
-/* END Cards */
+.login_form
+  padding: 20px
+  border-bottom-left-radius: 0
+  border-bottom-right-radius: 0
+  //max-width: 680px
+  margin: 50px auto !important
+  position: relative
+  float: none
+.lower_cont 
+  //border-top: 3px solid $coral
+  padding-bottom: 88px
+  .lower
+    +outer-container
+    padding: 10px 20px
+    background-color: $coral
+    color: #fff
+    position: absolute
+    left: 0
+    bottom: 0
+    width: 100%
+    border-bottom-left-radius: 2px
+    border-bottom-right-radius: 2px
+    text-align: center
+    span
+      vertical-align: middle
+    button
+      background: transparent
+      border: 2px solid #fff 
+      width: 33%
+      margin-left: 15px
+      
+    button:hover
+      background: #fff
+      color: $coral
+
+.actions
+  margin-top: 15px
+  text-align: center
+  input[type='submit'], button
+    width: 100%
+    margin-top: 15px
+    padding: 15px
+
+  label
+    font-weight: 400
+
+.half.field label
+  margin-bottom: 0 !important
+
+#error_explanation
+  h2
+    font-size: 21px
+    margin: 0
+  li:last-child
+    margin-bottom: 0
 
 
-/* START login styles */
-  
-.login_actions
-  margin: 25px 0
+.incorrect, .incorrect:hover
+  border: $red solid 1px
 
+[type='color']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='email']:focus, [type='month']:focus, [type='number']:focus, [type='password']:focus, [type='search']:focus, [type='tel']:focus, [type='text']:focus, [type='time']:focus, [type='url']:focus, [type='week']:focus, input:not([type]):focus, textarea:focus, select[multiple]:focus
+  border-color: rgba($prim-color, 0.4)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($prim-color, 0.3)
+
+.incorrect[type='color']:focus, .incorrect[type='date']:focus, .incorrect[type='datetime']:focus, .incorrect[type='datetime-local']:focus, .incorrect[type='email']:focus, .incorrect[type='month']:focus, .incorrect[type='number']:focus, .incorrect[type='password']:focus, .incorrect[type='search']:focus, .incorrect[type='tel']:focus, .incorrect[type='text']:focus, .incorrect[type='time']:focus, .incorrect[type='url']:focus, .incorrect[type='week']:focus, .incorrect input:not([type]):focus, .incorrect textarea:focus, .incorrect select[multiple]:focus
+  border-color: rgba($red, 0.8)
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03), 0 0 6px rgba($red, 0.3)
 /* END login styles */
 
+/* START Profiles */
+.profile 
+  .profile_banner
+    text-align: center
+    margin-bottom: 15px
+    .circle
+      width: 150px
+      height: 150px
+      line-height: 173px
+      font-size: 50px
+      color: #fff
+      background-color: $prim-color
+      border-radius: 50%
+      margin: 0 auto
+      overflow: hidden
+      margin-bottom: 15px
+    .profile_face
+      #theFace
+        border-radius: 50%
+        margin: 0 auto
+        width: 150px
+        height: 150px
+        overflow: hidden
+        margin-bottom: 10px
+    h3
+      margin-bottom: 0
+      margin-top: 10px
+    .editBtn
+      font-size: 13px
+  .profile_team
+    margin-top: 30px
+    li
+      list-style-type: disc
+
+.photo_edit
+  img
+    border-radius: 50%
+    max-width: 150px
+    height: auto
+  input[type="file"]
+    margin: 0 auto
+    max-width: 225px
+    line-height: 0
+    margin-top: 10px
+    font-size: 16px
+.inputfile
+  width: 0.1px
+  height: 0.1px
+  opacity: 0
+  overflow: hidden
+  position: absolute
+  z-index: -1
+.inputfile_label 
+  display: inline-block
+  cursor: pointer
+  color: #fff
+  font-size: 15px
+  border-radius: 2px
+  margin-bottom: 10px
+.inputfile_label.active
+  background-color: rgba($coral, 0.9)
+.inputfile_label.active:hover
+  background-color: rgba($coral, 1)
+/* END profiles */
 
 /* START Other UI */
 
@@ -257,32 +432,28 @@ tbody tr:hover
 tbody tr:first-child
   background-color: #fff !important
 
-.cardBtn, button, [type='button'], [type='reset'], [type='submit']
+.cardBtn, button, [type='button'], [type='reset'], [type='submit'], .inputfile_label
   background: rgba($prim-color, 0.9)
   transition: all 0s, background 1s cubic-bezier(.25,.8,.25,1)
-.cardBtn:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover
+.cardBtn:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover, .inputfile_label:hover
   background: rgba($prim-color, 1)
   transition: all 0s, background 0.7s cubic-bezier(.25,.8,.25,1)
   color: #fff
 
-input[type=submit]
+button, .inputfile_label, input[type=submit]
   text-transform: uppercase
 
-button 
-  text-transform: uppercase
-
-button, [type='button'], [type='reset'], [type='submit']
+button, [type='button'], [type='reset'], [type='submit'], .inputfile_label
   padding: 10px 15px
 
 .buttons
   form
     display: inline-block
     vertical-align: middle
-form
-  .cardBtn
-    padding: 8px
-    font-weight: 700
-    line-height: 25.5px
+input[type='submit'].cardBtn
+  padding: 8px
+  font-weight: 700
+  line-height: 25.5px
 .negative
   background: rgba($red, 0.9) !important
 .negative:hover
@@ -309,6 +480,30 @@ form
 /* END Other UI */
 
 
+/* START Payments */
+
+.payment-option
+  cursor: pointer
+  padding: 10px 20px
+  font-size: 25px
+  .fa
+    width: 33px
+    margin-right: 10px
+    text-align: center
+  input[type="radio"]
+    display: none
+
+
+/* END Payments */
+
+
+/* START footer */
+
+#footer
+  +span-columns(12)
+  margin-top: 50px
+
+/* END footer */
 
 
 

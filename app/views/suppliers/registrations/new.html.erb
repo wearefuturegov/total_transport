@@ -1,49 +1,63 @@
-<h2>Sign up</h2>
+<div class="alerts out_parent">
+  <section>
+    <div class="notice"></div>
+    <div class="alert"><%= devise_error_messages! %></div>
+  </section>
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div class="login_form card no_click lower_cont cont">
+  <h2>Sign up to Admin</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="field full">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="field full">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field full">
+      <%= f.label :password_confirmation %>
+      <em>Retype password</em>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+    <div class="field full">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field full">
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number %>
+    </div>
+
+    <div class="field full photo_edit">
+      <%= f.label :photo, "Profile Photo" %>
+      <%= f.file_field :photo, :class => 'inputfile' %>
+      <%= f.label :photo, :class => 'inputfile_label' do %>
+        <i class="fa fa-upload"></i> <span>Choose a File...</span>
+      <% end %>
+    </div>
+
+    <div class="field full">
+      <%= f.label :team_id %>
+      <%= f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}  %>
+    </div>
+
+    <div class="actions full">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+
+  <div class="lower">
+    <span>Already have an account?</span>
+    <%= render "suppliers/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
-  </div>
-
-  <div class="field">
-    <%= f.label :photo %><br />
-    <%= f.file_field :photo %>
-  </div>
-
-  <div class="field">
-    <%= f.label :team_id %><br />
-    <%= f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}  %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "suppliers/shared/links" %>
+</div>

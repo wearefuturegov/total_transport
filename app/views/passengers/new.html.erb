@@ -1,5 +1,51 @@
-<%= form_for Passenger.new, url: passenger_path do |form| %>
-  <%= form.label :phone_number %>
-  <%= form.text_field :phone_number %>
-  <%= form.submit "Next" %>
+<% if @invalid_phone_number %>
+  Phone number is not a valid phone number
 <% end %>
+
+<div class="card-cont" id="passenger_landing">
+  <div class="card no_click login_form">
+    <h3>Need to go somewhere? We’ll pick you up.</h3>
+    <p>Pickup is a door-to-door transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and designed to get you where you need to go.</p>
+    <%= form_for @passenger, url: passenger_path do |form| %>
+      <%= form.label :phone_number, "Enter your mobile number to get started." %>
+      <%= form.text_field :phone_number, autofocus: true %>
+      <div class="actions">
+        <%= form.submit "Verify My Number" %>
+      </div>
+    <% end %>
+    <p id="link_down"><a href="#more_info" title="How It Works...">How It Works... <i class="fa fa-long-arrow-down"></i></a></p>
+  </div>
+</div>
+<div id="more_info" class="white_block">
+  <div class="inner_cont">
+    <div class="left">
+      <h3>Step 1: Pick Your Route</h3>
+      <p>Start by selecting where and when you want to travel. (Pickup operates routes all across rural Essex) You can schedule a trip any time from way over a month up to a day in advance.</p>
+      <p>All times listed are estimates and may change based on who else schedules a ride.</p>
+    </div>
+    <hr class="mobile_only">
+    <div class="right">
+      <h3>Step 2: Pick Your Start and End Points</h3>
+      <p>Pickup is available anywhere in the areas highlighted. We can stop anywhere that’s convenient -- including houses, schools, and shops.</p>
+    </div>
+    <hr class="mobile_only">
+    <div class="left">
+      <h3>Step 3: Pick How You’d Like to Pay</h3>
+      <p>You can pay with a card or use your bus pass. You can also have someone else top up your account on your behalf.</p>
+    </div>
+    <hr class="mobile_only">
+    <div class="right">
+      <h3>Step 4: Get Picked Up</h3>
+      <p>Pickup will send you a text a few hours before your trip to let you know exactly when we’ll arrive.</p>
+    </div>
+    <div class="full">
+      <%= form_for @passenger, url: passenger_path do |form| %>
+        <%= form.label :phone_number, "Enter your mobile number to get started." %>
+        <%= form.text_field :phone_number %>
+        <div class="actions">
+          <%= form.submit "Verify My Number" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

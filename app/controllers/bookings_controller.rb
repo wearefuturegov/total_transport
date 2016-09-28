@@ -4,6 +4,8 @@ class BookingsController < ApplicationController
 
   # Choose stops
   def new
+    @page_title = "Choose Your Pick Up Area"
+    @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
   end
@@ -15,6 +17,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_journey
+    @page_title = "Pick Your Time"
+    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
   end
 
   def save_journey
@@ -23,6 +27,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
+    @page_title = "Choose Your Pick Up Point"
+    @top_sec = "Move the map to show us where to pick you up. You can choose a pick up point anywhere in the highlighted area."
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -34,6 +40,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
+    @page_title = "Choose Your Drop Off Point"
+    @top_sec = "Move the map to show us where to pick you up. You can choose a drop off point anywhere in the highlighted area."
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -41,10 +49,39 @@ class BookingsController < ApplicationController
 
   def save_dropoff_location
     @booking.update_attributes(booking_params)
+    if current_passenger.payment_methods.any?
+      redirect_to choose_payment_method_route_booking_path(@route, @booking)
+    else
+      redirect_to add_payment_method_route_booking_path(@route, @booking)
+    end
+  end
+
+  def choose_payment_method
+    @page_title = "Choose Your Payment Method"
+  end
+
+  def save_payment_method
+    if params[:booking][:payment_method_id] == 'new'
+      redirect_to add_payment_method_route_booking_path(@route, @booking)
+    else
+      @booking.update_attributes(booking_params)
+      redirect_to confirm_route_booking_path(@route, @booking)
+    end
+  end
+
+  def add_payment_method
+    @page_title = "New Payment Method"
+    @payment_method = current_passenger.payment_methods.new
+  end
+
+  def create_payment_method
+    @payment_method = current_passenger.payment_methods.create!(payment_method_params)
+    @booking.update_attribute(:payment_method, @payment_method)
     redirect_to confirm_route_booking_path(@route, @booking)
   end
 
   def confirm
+    @page_title = "Confirm Your Booking"
     @token = Braintree::ClientToken.generate
   end
 
@@ -89,6 +126,7 @@ class BookingsController < ApplicationController
   end
 
   def suggest_journey
+    @page_title = "Suggest A New Time"
     if request.method == 'POST'
       @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
       redirect_to choose_journey_route_booking_path(@route, @booking)
@@ -98,6 +136,7 @@ class BookingsController < ApplicationController
   end
 
   def suggest_edit_to_stop
+    @page_title = "Suggest A Stop Area Edit"
     @stop = Stop.find(params[:stop_id])
     if request.method == 'POST'
       @suggested_edit_to_stop = SuggestedEditToStop.create!(suggested_edit_to_stop_params)
@@ -110,7 +149,11 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number)
+    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number, :payment_method_id)
+  end
+
+  def payment_method_params
+    params.require(:payment_method).permit(:name)
   end
 
   def suggested_journey_params

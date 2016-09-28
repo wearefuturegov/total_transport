@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816144918) do
+ActiveRecord::Schema.define(version: 20160817114331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,17 @@ ActiveRecord::Schema.define(version: 20160816144918) do
     t.float    "dropoff_lat"
     t.float    "dropoff_lng"
     t.string   "state"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "passenger_id"
     t.string   "phone_number"
+    t.integer  "payment_method_id"
   end
 
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
   add_index "bookings", ["journey_id"], name: "index_bookings_on_journey_id", using: :btree
   add_index "bookings", ["passenger_id"], name: "index_bookings_on_passenger_id", using: :btree
+  add_index "bookings", ["payment_method_id"], name: "index_bookings_on_payment_method_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
 
   create_table "journeys", force: :cascade do |t|
@@ -65,6 +67,15 @@ ActiveRecord::Schema.define(version: 20160816144918) do
     t.string   "braintree_id"
     t.string   "braintree_token"
   end
+
+  create_table "payment_methods", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "passenger_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "payment_methods", ["passenger_id"], name: "index_payment_methods_on_passenger_id", using: :btree
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -176,11 +187,13 @@ ActiveRecord::Schema.define(version: 20160816144918) do
 
   add_foreign_key "bookings", "journeys"
   add_foreign_key "bookings", "passengers"
+  add_foreign_key "bookings", "payment_methods"
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
   add_foreign_key "journeys", "suppliers"
   add_foreign_key "journeys", "vehicles"
+  add_foreign_key "payment_methods", "passengers"
   add_foreign_key "stops", "routes"
   add_foreign_key "suggested_edit_to_stops", "passengers"
   add_foreign_key "suggested_edit_to_stops", "stops"

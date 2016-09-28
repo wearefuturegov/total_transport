@@ -1,5 +1,3 @@
-<h1>Select Pick Up Location</h1>
-
 <div id="passenger_stop_select" class="stop-list">
   <div id="main-line"></div>
   <% @route.stops.each do |stop| %>
@@ -16,7 +14,7 @@
     <%= form.hidden_field :pickup_stop_id %>
     <%= form.hidden_field :dropoff_stop_id %>
     <div id="confirmation" class="card" style="display: none;">
-      <%= form.submit 'Confirm Route', :class => 'cardBtn' %>
+      <%= form.submit 'View Times', :class => 'cardBtn' %>
     </div>
   <% end %>
 
