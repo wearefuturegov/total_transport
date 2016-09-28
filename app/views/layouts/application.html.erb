@@ -15,16 +15,22 @@
           &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
         </div>
         <div class="centre">
-          <%= @page_title %>
+          <!-- **** TO DO change these so that we can have alternate titles on mobile and desktop -->
+          <div id="desktop-title" class="no-mobile">
+            <%= @page_title %>
+          </div>
+          <div id="mobile-title" class="no-desktop">
+            <%= @page_title %>
+          </div>
         </div>
         <div class="right">
           <% if current_passenger %>
-            <div class="mobile_only">
+            <div class="no-desktop">
               <%= link_to passenger_path do %>
                 <i class="fa fa-user"></i>
               <% end %>
             </div>
-            <div class="desktop_only">
+            <div class="no-mobile">
               <%= link_to current_passenger.phone_number, passenger_path %>
               <%= link_to 'logout', passenger_path, method: :delete %>
             </div>
