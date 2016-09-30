@@ -1,19 +1,19 @@
 // Breakpoints
-$medium-screen: 600px;
+$mobile-break: 600px;
 $large-screen: 960px;
 
 // Typography
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic,600italic,800);
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,400italic,700,900);
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic,600italic,800';
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
 $base-font-family: 'Open Sans', sans-serif;
-$heading-font-family: 'Roboto', sans-serif;
+$heading-font-family: 'Montserrat', sans-serif;
 
 // Font Sizes
-$base-font-size: 19px;
+$base-font-size: 17px;
 
 // Line height
 $base-line-height: 1.5;
-$heading-line-height: 1.2;
+$heading-line-height: 1.3;
 
 // Other Sizes
 $base-border-radius: 3px;
@@ -21,15 +21,25 @@ $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
+$mobile-padding-side: 25px;
+
 // Colors
 $prim-color: #1565c0;
-$background-color: #F1F1F1;
+$secondary-colour: #FF8637;
 $red: #ea3535;
 $blue: #1565c0;
+$darker-blue: #0246A6;
+$teal: #20CCCA;
+$darker-teal: #1DBCB3;
+
 $dark-gray: #231f30;
 $medium-gray: #999;
-$light-gray: #ddd;
+$light-gray: #E9E9E9;
+$lightest-gray: #F9F9F9;
 $coral: #ff5253;
+
+// Background Colors
+$base-background-color: $lightest-gray;
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -39,9 +49,7 @@ $action-color: $blue;
 $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
 
-// Background Colors
-$base-background-color: #fff;
-$secondary-background-color: tint($base-border-color, 75%);
+
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);

@@ -9,7 +9,7 @@
         <div class="edit_route_mins half">
           <p class="stop_name"><%= stop.name %></p>
           <div class="buttons">
-            <%= link_to edit_admin_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
+            <%= link_to edit_admin_route_stop_path(@route, stop) do %><div class="button">Edit Stop</div><% end %>
             <%= form_for [:admin, @route, stop], method: :delete do |form| %>
               <%= form.submit "Delete stop", :class => "negative delete" %>
             <% end %>

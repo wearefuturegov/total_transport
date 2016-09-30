@@ -30,11 +30,9 @@
     <% end %>
     </div>
   <% if @passenger.bookings.any? %>
-    <div class="white_block">
-      <div class="inner_cont">
-        <h2>Bookings</h2>
-        <p>This is a list of all of your future and past bookings:</p>
-      </div>
+    <div class="bookings">
+      <h2>Bookings</h2>
+      <p>This is a list of all of your future and past bookings:</p>
     </div>
     <% @passenger.bookings.booked.each do |booking| %>
       <div class="login_form card cont">

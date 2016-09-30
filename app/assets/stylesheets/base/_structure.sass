@@ -1,49 +1,67 @@
-ul, ol 
-  //list-style-type: disc 
-  list-style-position: inside
-  li
-    margin-bottom: 10px
-ol 
-  list-style-type: decimal
+.outer
+  +outer-container
+  max-width: $large-screen
+  margin: 30px auto
 
-.clear 
-  clear: both  
+  .inner
+    +span-columns(12)
 
-.no-mobile
-  display: none
+.blue-block, .teal-block, .grey-block
+  padding: $mobile-padding-side
 
-.left, .right
+.blue-block, .teal-block
+  background: $blue
+  background: -webkit-linear-gradient(45deg, $darker-blue 0%, $blue 100%) 
+  background: -o-linear-gradient(45deg, $darker-blue 0%, $blue 100%) 
+  background: -moz-linear-gradient(45deg, $darker-blue 0%, $blue 100%)
+  background: linear-gradient(45deg, $darker-blue 0%, $blue 100%)
+  color: #fff
+  a 
+    color: #fff
+  a:hover
+    color: $secondary-colour
+
+.grey-block
+  background: $lightest-gray
+  background: -webkit-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%) 
+  background: -o-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%) 
+  background: -moz-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%)
+  background: linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%)
+
+.teal-block
+  background: $teal
+  background: -webkit-linear-gradient(45deg, $darker-teal 0%, $teal 100%) 
+  background: -o-linear-gradient(45deg, $darker-teal 0%, $teal 100%) 
+  background: -moz-linear-gradient(45deg, $darker-teal 0%, $teal 100%)
+  background: linear-gradient(45deg, $darker-teal 0%, $teal 100%)
+
+
+.half, .left, .right
   +span-columns(6)
+
 .right
   +omega
-.omega
-  +omega
+
+.half
+  +omega(2n)
 
 .full
   +span-columns(12)
   +omega
 
-.half
-  +span-columns(6)
-  +omega(2n)
-
-.outsideBounds
-  position: absolute
-  top: 0
-  right: 0
-
-.wideBtn
-  .half
-    width: 50%
-    margin-right: 0
+.omega
+  +omega
 
 .third
   +span-columns(4)
   +omega(3n)
+
 .twoThird
   +span-columns(8)
 
-@media screen and (max-width: $medium-screen)
+@media screen and (max-width: $mobile-break)
+  .half, .left, .right
+    +span-columns(12)
   .third
     +span-columns(6)
     +omega(2n)
@@ -54,20 +72,36 @@ ol
     +span-columns(12)
     +omega(1n)
 
+.clear 
+  clear: both 
+
 .hidden
   display: none
 
-.inline
-  display: inline-block
-  vertical-align: text-top
 
-section, .container
-  +outer-container
-  max-width: $large-screen
-  margin: 30px auto
 
-  .inner, article
-    +span-columns(12)
+
+
+// older styles
+
+ul, ol 
+  //list-style-type: disc 
+  list-style-position: inside
+  li
+    margin-bottom: 10px
+ol 
+  list-style-type: decimal
+
+
+.outsideBounds
+  position: absolute
+  top: 0
+  right: 0
+
+.wideBtn
+  .half
+    width: 50%
+    margin-right: 0
 
 hr 
   margin: 20px 5px
@@ -84,29 +118,16 @@ hr
   section
     margin: 0 auto
 
-.white_block, .top_sec
-  background-color: #fff
-  padding: 25px
-  border-bottom: 1px solid rgba(100,100,100,0.2)
-
-  .inner_cont
-    max-width: $large-screen*0.95
-    margin: 0 auto
-
-.white_block
-  display: block
-  border-top: 1px solid rgba(100,100,100,0.2)
-
 #grid
   +outer-container
   div
     padding: 10px
   .left
-    +media($medium-screen)
+    +media($mobile-break)
       +span-columns(3)
     background-color: $light-gray
   .right
-    +media($medium-screen)
+    +media($mobile-break)
       +span-columns(9)
     background-color: $medium-gray
     +omega

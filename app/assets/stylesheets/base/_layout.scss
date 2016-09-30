@@ -95,7 +95,7 @@ html {
     transition: opacity 0.25s ease;
     width: 95%;
 
-    @include media($medium-screen) {
+    @include media($mobile-break) {
       max-height: 70%;
       padding: $modal-padding;
       width: 60%;
@@ -112,7 +112,7 @@ html {
     .modal-content {
       color: $base-font-color;
 
-      @include media($medium-screen) {
+      @include media($mobile-break) {
         columns: 2 8em;
       }
     }

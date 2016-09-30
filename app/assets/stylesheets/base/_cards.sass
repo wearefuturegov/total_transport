@@ -35,26 +35,6 @@
     left: 42%
     font-size: 17px 
 
-.cardBtn
-  +span-columns(12)
-  text-align: center
-  color: #fff
-  padding: 8px
-  text-transform: uppercase
-  border-radius: 0
-  border-bottom-left-radius: 2px
-  border-bottom-right-radius: 2px
-  font-size: 17px
-  cursor: pointer
-
-.half.cardBtn
-  border-radius: 0
-  width: 50% !important
-  border-bottom-left-radius: 2px  
-.half.cardBtn.negative
-  border-bottom-right-radius: 2px
-  border-bottom-left-radius: 0px
-
 .card
   transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 1s cubic-bezier(.25,.8,.25,1)
 
@@ -67,15 +47,3 @@
   box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.24)
   transition: all 0s cubic-bezier(.25,.8,.25,1), box-shadow 0.2s cubic-bezier(.25,.8,.25,1) !important
 
-.cardBtn, button, [type='button'], [type='reset'], [type='submit'], .inputfile_label
-  background: rgba($prim-color, 0.9)
-  transition: all 0s, background 1s cubic-bezier(.25,.8,.25,1)
-.cardBtn:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover, .inputfile_label:hover
-  background: rgba($prim-color, 1)
-  transition: all 0s, background 0.7s cubic-bezier(.25,.8,.25,1)
-  color: #fff
-
-input[type='submit'].cardBtn
-  padding: 8px
-  font-weight: 700
-  line-height: 25.5px

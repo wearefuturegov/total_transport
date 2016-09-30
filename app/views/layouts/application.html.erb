@@ -8,14 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
-  <div id="mobile-cont">
+  <% if @set_header_conditional == true %>
     <header>
       <div class="inner">
         <div class="left">
-          &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
+          &nbsp;
         </div>
         <div class="centre">
-          <!-- **** TO DO change these so that we can have alternate titles on mobile and desktop -->
           <div id="desktop-title" class="no-mobile">
             <%= @page_title %>
           </div>
@@ -38,25 +37,25 @@
         </div>
       </div>
     </header>
-    
-    <div id="alerts" class="alerts">
-      <section>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      </section>
-    </div>
-
-    <% if @top_sec != false %>
-      <div class="top_sec">
-        <div class="inner_cont">
-          <span><%= @top_sec %></span>
-        </div>
-      </div>
-    <% end %>
-
+  <% end %>
+  
+  <div id="alerts" class="alerts">
     <section>
-      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
     </section>
+  </div>
+
+  <% if @top_sec != false %>
+    <div class="top-sec">
+      <div class="inner-cont">
+        <span><%= @top_sec %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="main-cont">
+    <%= yield %>
   </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
