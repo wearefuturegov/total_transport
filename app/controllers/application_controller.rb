@@ -74,10 +74,6 @@ class ApplicationController < ActionController::Base
     @page_title = "Pickup"
   end
 
-  def set_header_conditional
-    @set_header_conditional = true
-  end
-
   def set_top_sec
     @top_sec = false
   end

@@ -23,16 +23,16 @@ th {
   vertical-align: middle;
 }
 
-tbody tr {
+tbody.alternating tr {
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
-tbody tr:nth-child(even) {
+tbody.alternating tr:nth-child(even) {
   background-color: rgba(#eee, 0.4);
 }
-tbody tr:hover {
+tbody.alternating tr:hover {
   background-color: rgba($prim-color, 0.3);
 }
-tbody tr:first-child {
+tbody.alternating tr:first-child {
   background-color: #fff !important;
 }
 

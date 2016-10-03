@@ -1,11 +1,72 @@
+#passengers-new
+  header
+    display: none
 .onboarding-header
   .inner
     +outer-container
     max-width: $large-screen
     padding: $mobile-padding-side 0
+  p
+    max-width: 600px
+    margin: 5px auto
+  h2  
+    font-family: 'Open Sans', sans-serif
+  form.new_passenger
+    padding: 35px 10px
 
 form.new_passenger
-  padding: 35px 10px
+  max-width: 500px
+  margin: 0 auto
   label 
     font-size: 15px
     margin-bottom: 0.5em
+
+.steps 
+  h4
+    margin-top: 25px
+
+#step-4
+  form
+    margin-top: 25px
+
+/* VERIFY PAGE */
+#verify
+  #verify-loading
+    p
+      margin-top: 25px
+      margin-bottom: 100px
+      font-weight: 600
+
+
+  #digit-input
+    .single-digit 
+      display: inline-block
+      border-style: none
+      width: 70px
+      height: 80px
+      font-size: 45px
+      padding: 22px
+
+  #no-verify
+    margin-top: 50px
+  .actions
+    max-width: 335px
+    margin: 0 auto
+  
+
+
+// UNIQUE DESKTOP STYLES
+@media screen and (min-width: ($large-screen - 1px))
+  .steps
+    h3
+      text-align: center
+    p
+      max-width: 600px
+      margin: 0 auto
+
+  #verify
+    #digit-input
+      .single-digit 
+        width: 80px 
+        height: 90px
+        font-size: 60px

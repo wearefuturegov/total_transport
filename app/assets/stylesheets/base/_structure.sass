@@ -1,10 +1,8 @@
-.outer
-  +outer-container
-  max-width: $large-screen
-  margin: 30px auto
-
+.container
   .inner
-    +span-columns(12)
+    +outer-container
+    max-width: $large-screen
+    padding: $mobile-padding-side 10px
 
 .blue-block, .teal-block, .grey-block
   padding: $mobile-padding-side
@@ -19,7 +17,7 @@
   a 
     color: #fff
   a:hover
-    color: $secondary-colour
+    color: $orange
 
 .grey-block
   background: $lightest-gray
@@ -35,6 +33,14 @@
   background: -moz-linear-gradient(45deg, $darker-teal 0%, $teal 100%)
   background: linear-gradient(45deg, $darker-teal 0%, $teal 100%)
 
+
+.fill-space
+  position: absolute
+  height: 100%
+  width: 100%
+
+.hidden
+  display: none
 
 .half, .left, .right
   +span-columns(6)
@@ -77,6 +83,10 @@
 
 .hidden
   display: none
+
+  
+
+
 
 
 

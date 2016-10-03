@@ -3,7 +3,6 @@ class PassengersController < ApplicationController
 
   def new
     @passenger = Passenger.new
-    @set_header_conditional = false;
   end
 
   def create

@@ -113,6 +113,15 @@ $(document).ready(function() {
       .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
     });
   }
+
+
+  $('.single-digit').keypress(function(event){
+    if(event.which == 8 && isNaN(String.fromCharCode(event.which))){
+      event.preventDefault(); 
+    } else {
+      $(this).next('input').focus();
+    }
+  });
 });
 
 

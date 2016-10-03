@@ -8,36 +8,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
-  <% if @set_header_conditional == true %>
-    <header>
-      <div class="inner">
-        <div class="left">
-          &nbsp;
+  <header>
+    <div class="inner">
+      <div class="left">
+        &nbsp;
+      </div>
+      <div class="centre">
+        <div id="desktop-title" class="no-mobile">
+          <%= @page_title %>
         </div>
-        <div class="centre">
-          <div id="desktop-title" class="no-mobile">
-            <%= @page_title %>
-          </div>
-          <div id="mobile-title" class="no-desktop">
-            <%= @page_title %>
-          </div>
-        </div>
-        <div class="right">
-          <% if current_passenger %>
-            <div class="no-desktop">
-              <%= link_to passenger_path do %>
-                <i class="fa fa-user"></i>
-              <% end %>
-            </div>
-            <div class="no-mobile">
-              <%= link_to current_passenger.phone_number, passenger_path %>
-              <%= link_to 'logout', passenger_path, method: :delete %>
-            </div>
-          <% end %>
+        <div id="mobile-title" class="no-desktop">
+          <%= @page_title %>
         </div>
       </div>
-    </header>
-  <% end %>
+      <div class="right">
+        <% if current_passenger %>
+          <div class="no-desktop">
+            <%= link_to passenger_path do %>
+              <i class="fa fa-user"></i>
+            <% end %>
+          </div>
+          <div class="no-mobile">
+            <%= link_to current_passenger.phone_number, passenger_path %>
+            <%= link_to 'logout', passenger_path, method: :delete %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </header>
   
   <div id="alerts" class="alerts">
     <section>
@@ -47,8 +45,8 @@
   </div>
 
   <% if @top_sec != false %>
-    <div class="top-sec">
-      <div class="inner-cont">
+    <div class="top-sec container">
+      <div class="inner">
         <span><%= @top_sec %></span>
       </div>
     </div>
