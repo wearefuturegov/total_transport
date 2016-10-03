@@ -1,31 +1,35 @@
 <div class="card-cont container">
-  <% Route.bookable_routes.each do |route| %>
-    <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
-      <div class="inner">
-        
-        <div class="origin"><%= route.stops.first.name %></div>
+  <div class="inner">
+    <% Route.bookable_routes.each do |route| %>
+      <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
+        <div class="inner">
+          
+          <div class="origin"><%= route.stops.first.name %></div>
 
-        <div class="bar"></div>
+          <div class="bar"></div>
 
-        <div class="acordBtn">
-          <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+          <div class="acordBtn">
+            <div class="button alt-button">
+              <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+            </div>
+          </div>
+          <div class="acord">
+            <ul>
+              <% route.stops.each do |stop| %>
+                <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="desti"><%= route.stops.last.name %></div>
         </div>
-        <div class="acord">
-          <ul>
-            <% route.stops.each do |stop| %>
-              <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="desti"><%= route.stops.last.name %></div>
+        <%= link_to new_route_booking_path(route) do %>
+          <div class="cardBtn button">
+            <span>Customise This Route</span>
+          </div>
+        <% end %>
       </div>
-      <%= link_to new_route_booking_path(route) do %>
-        <div class="cardBtn button">
-          <span>Customise This Route</span>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
 <%= link_to "Suggest a new route", suggest_route_routes_path %>
