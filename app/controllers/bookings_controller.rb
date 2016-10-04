@@ -27,8 +27,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
-    @page_title = "Choose Your Pick Up Point"
-    @top_sec = "Move the map to show us where to pick you up. You can choose a pick up point anywhere in the highlighted area."
+    @page_title = "Choose Pick Up Point"
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -40,8 +39,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Your Drop Off Point"
-    @top_sec = "Move the map to show us where to pick you up. You can choose a drop off point anywhere in the highlighted area."    
+    @page_title = "Choose Drop Off Point"
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
