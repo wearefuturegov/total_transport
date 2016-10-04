@@ -108,40 +108,40 @@ var map
         <%= form.hidden_field :dropoff_lng %>
         <%= form.submit "Next", :class => 'button alt-button'  %>
       <% end %>
-      <script type="text/javascript">
-        $(document).ready(function() {
-          $('.drop_off_change').html('drop off');
-          $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
-        });
-        $(window).resize(function() {
-          $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
-        });
-        $('.single-landmark').click(function() {
-          if (!$(this).hasClass('chosen')) {
-            clearDots();
-            $(this).addClass('chosen');
-
-            if ($(this).data('choice') == 'landmark-choice') {
-              $('#choose-stop span').html('Drag the map to choose');
-            } else {
-              $('#choose-stop span').html('Choose your own');
-            }
-          }
-        });
-        $('.single-landmark').hover(function() {
-          $(this).addClass('hover');
-        }, function() {
-          $(this).removeClass('hover');
-        });
-
-        function clearDots() {
-          $('.single-landmark').each(function() {
-            $(this).removeClass('chosen');
-            $('#choose-stop').removeClass('searching');
-          });
-        }
-      </script>
     <% end %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.drop_off_change').html('drop off');
+        $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
+      });
+      $(window).resize(function() {
+        $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
+      });
+      $('.single-landmark').click(function() {
+        if (!$(this).hasClass('chosen')) {
+          clearDots();
+          $(this).addClass('chosen');
+
+          if ($(this).data('choice') == 'landmark-choice') {
+            $('#choose-stop span').html('Drag the map to choose');
+          } else {
+            $('#choose-stop span').html('Choose your own');
+          }
+        }
+      });
+      $('.single-landmark').hover(function() {
+        $(this).addClass('hover');
+      }, function() {
+        $(this).removeClass('hover');
+      });
+
+      function clearDots() {
+        $('.single-landmark').each(function() {
+          $(this).removeClass('chosen');
+          $('#choose-stop').removeClass('searching');
+        });
+      }
+    </script>
   </div>
 </div>
 
