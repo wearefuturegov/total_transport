@@ -2,7 +2,7 @@
 var map
   function initMap() {
     var geoJson = <%= @stop.polygon.to_json.html_safe %>;
-    map = new google.maps.Map(document.getElementById("map"), {});
+    map = new google.maps.Map(document.getElementById("map"), { scrollwheel: false });
     map.data.addGeoJson(geoJson);
     var polygon_feature;
     map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
@@ -14,7 +14,12 @@ var map
       paths: polygon_feature.getArray()[0].getArray(),
     });
 
-    $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
+    <% if @pickup_of_dropoff == 'pickup' %>
+      $('<div/>').addClass('centerMarker').html('Pickup').appendTo(map.getDiv());
+    <% else %>
+      $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
+    <% end %>
+    
 
     var last_position = map.getCenter();
     
@@ -31,6 +36,11 @@ var map
           $('#booking_dropoff_lng').val(map.getCenter().lng());
         <% end %>
       }
+    });
+
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
+      $('#map .centerMarker').css('margin-top', ($('#map .centerMarker').outerHeight()+10)*-1);
     });
 
     map.addListener('dragstart', function() {
