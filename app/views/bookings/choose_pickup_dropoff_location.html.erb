@@ -61,35 +61,22 @@ var map
     <% end %>
 
     <div class="landmarks">
-      <% if @pickup_of_dropoff == 'pickup' %>
-        <div class="single-landmark" data-choice="landmark-1">
-          <div class="dot">
-            <div class="dot-middle"></div>
-          </div> 
-          <span>Tillingham Bus Stop</span>
-        </div>
-        <div class="single-landmark" data-choice="landmark-2">
-          <div class="dot">
-            <div class="dot-middle"></div>
-          </div> 
-          <span>The Swan Care Home</span>
-        </div>
+      <% if @stop.landmarks.present? %>
+        <% @stop.landmarks.each do |landmark| %>
+          <div class="single-landmark" data-lat="<%= landmark.latitude %>" data-long="<%= landmark.longitude %>">
+            <div class="dot">
+              <div class="dot-middle"></div>
+            </div> 
+            <span><%= landmark.name %></span>
+          </div>
+        <% end %>
       <% else %>
-        <div class="single-landmark" data-choice="landmark-1">
-          <div class="dot">
-            <div class="dot-middle"></div>
-          </div> 
-          <span>Burnham Train Station</span>
-        </div>
-        <div class="single-landmark" data-choice="landmark-2">
-          <div class="dot">
-            <div class="dot-middle"></div>
-          </div> 
-          <span>The Burnham Surgery</span>
+        <div class="single-landmark">
+          <span>Area has no landmarks</span>
         </div>
       <% end %>
 
-      <div id="choose-stop" class="single-landmark" data-choice="landmark-choice">
+      <div id="choose-stop" class="single-landmark" data-lat="choose-own" data-long="choose-own">
         <div class="dot">
           <div class="dot-middle"></div>
         </div> 
@@ -129,10 +116,14 @@ var map
           clearDots();
           $(this).addClass('chosen');
 
-          if ($(this).data('choice') == 'landmark-choice') {
+          if ($(this).data('lat') == 'choose-own') {
             $('#choose-stop span').html('Drag the map to choose');
           } else {
             $('#choose-stop span').html('Choose your own');
+            var lat = $(this).data('lat'),
+                long = $(this).data('long');
+            var center = new google.maps.LatLng(lat, long);
+            map.setCenter(center);
           }
         }
       });
