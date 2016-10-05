@@ -32,9 +32,13 @@ class Passenger < ActiveRecord::Base
   end
 
   def self.formatted_phone_number(phone_number)
-    @client = Twilio::REST::LookupsClient.new
-    response = @client.phone_numbers.get(phone_number, country_code: 'GB')
-    response.phone_number
+    if phone_number.present?
+      @client = Twilio::REST::LookupsClient.new
+      response = @client.phone_numbers.get(phone_number, country_code: 'GB')
+      response.phone_number
+    else
+      false
+    end
   rescue Twilio::REST::RequestError => e
     false
   end
