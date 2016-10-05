@@ -79,7 +79,7 @@ class BookingsController < ApplicationController
   end
 
   def confirm
-    @page_title = "Confirm Your Booking"
+    @page_title = "Overview"
   end
 
   def save_confirm

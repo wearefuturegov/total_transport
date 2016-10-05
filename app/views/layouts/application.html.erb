@@ -11,7 +11,12 @@
   <header>
     <div class="inner">
       <div class="left">
-        &nbsp;
+        <div id="back-btn" class="hidden">
+          <%= link_to request.referer.present? ? request.referer : default_path do %>
+            <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
+          <% end %>
+        </div>
+        <div id="spacer">&nbsp;</div>
       </div>
       <div class="centre">
         <div id="desktop-title" class="no-mobile">
@@ -23,15 +28,20 @@
       </div>
       <div class="right">
         <% if current_passenger %>
-          <div class="no-desktop">
+          <div id="profile-link">
             <%= link_to passenger_path do %>
               <i class="fa fa-user"></i>
             <% end %>
           </div>
-          <div class="no-mobile">
+          <div id="cancel-booking" class="hidden">
+            <%= link_to routes_path do %>
+              <i class="fa fa-times"></i>
+            <% end %>
+          </div>
+          <!--<div class="no-mobile">
             <%= link_to current_passenger.phone_number, passenger_path %>
             <%= link_to 'logout', passenger_path, method: :delete %>
-          </div>
+          </div>-->
         <% end %>
       </div>
     </div>
