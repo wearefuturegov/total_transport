@@ -23,6 +23,7 @@ class PassengersController < ApplicationController
   end
 
   def verify
+    @back_path = new_passenger_path
     @passenger = Passenger.find(params[:id])
     if request.method == 'POST'
       if @passenger.verification_code == params[:verification_code]
@@ -36,6 +37,7 @@ class PassengersController < ApplicationController
 
   def show
     @page_title = "Edit Account"
+    @back_path = routes_path
     @passenger = current_passenger
   end
 

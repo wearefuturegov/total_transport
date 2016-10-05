@@ -11,12 +11,15 @@
   <header>
     <div class="inner">
       <div class="left">
-        <div id="back-btn" class="hidden">
-          <%= link_to request.referer.present? ? request.referer : default_path do %>
-            <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
-          <% end %>
-        </div>
-        <div id="spacer">&nbsp;</div>
+        <% if @back_path %>
+          <div id="back-btn">
+            <%= link_to @back_path do %>
+              <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
+            <% end %>
+          </div>
+        <% else %>
+          <div id="spacer">&nbsp;</div>
+        <% end %>
       </div>
       <div class="centre">
         <div id="desktop-title" class="no-mobile">

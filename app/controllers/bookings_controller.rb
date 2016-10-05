@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   # Choose stops
   def new
     @page_title = "Choose Your Pick Up Area"
+    @back_path = routes_path
     @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
@@ -18,6 +19,7 @@ class BookingsController < ApplicationController
 
   def choose_journey
     @page_title = "Pick Your Time"
+    @back_path = new_route_booking_path(@route)
     @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
   end
 
@@ -27,7 +29,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
-    @page_title = "Choose Pick Up Point"
+    @page_title = "Choose Pick Up Area"
+    @back_path = choose_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -39,7 +42,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Drop Off Point"
+    @page_title = "Choose Drop Off Area"
+    @back_path = choose_pickup_location_route_booking_path(@route, @booking)
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -56,6 +60,7 @@ class BookingsController < ApplicationController
 
   def choose_payment_method
     @page_title = "Choose Your Payment Method"
+    @back_path = choose_dropoff_location_route_booking_path(@route, @booking)    
   end
 
   def save_payment_method
@@ -69,6 +74,7 @@ class BookingsController < ApplicationController
 
   def add_payment_method
     @page_title = "New Payment Method"
+    @back_path = choose_payment_method_route_booking_path(@route, @booking)
     @payment_method = current_passenger.payment_methods.new
   end
 
@@ -80,6 +86,7 @@ class BookingsController < ApplicationController
 
   def confirm
     @page_title = "Overview"
+    @back_path = choose_payment_method_route_booking_path(@route, @booking)
   end
 
   def save_confirm
