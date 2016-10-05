@@ -17,7 +17,7 @@ var map
     $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
 
     var last_position = map.getCenter();
-
+    
     map.addListener('center_changed', function() {
       if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
         map.setCenter(last_position);
@@ -57,7 +57,7 @@ var map
     <% if @pickup_of_dropoff == 'pickup' %>
       <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
     <% else %>
-      <span>Great we will pick you up from <strong><%= Stop.find(@booking.pickup_stop_id).name %></strong>. Where in <%= @stop.name %> should we drop you off?.</span>
+      <span>Great we will pick you up from <i><%= @booking.pickup_name %></i> in <i><%= Stop.find(@booking.pickup_stop_id).name %></i>. Where in <%= @stop.name %> should we drop you off?.</span>
     <% end %>
 
     <div class="landmarks">
@@ -122,6 +122,13 @@ var map
             $('#choose-stop span').html('Drag the map to choose');
           } else {
             $('#choose-stop span').html('Choose your own');
+            
+            <% if @pickup_of_dropoff == 'pickup' %>
+              $('#booking_pickup_name').val($(this).find('span').html())
+            <% else %>
+              $('#booking_dropoff_name').val($(this).find('span').html())
+            <% end %>
+
             var lat = $(this).data('lat'),
                 long = $(this).data('long');
             var center = new google.maps.LatLng(lat, long);
