@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005112603) do
+ActiveRecord::Schema.define(version: 20161005142428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20161005112603) do
     t.integer  "passenger_id"
     t.string   "phone_number"
     t.integer  "payment_method_id"
+    t.string   "pickup_name"
+    t.string   "dropoff_name"
   end
 
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
@@ -75,6 +77,8 @@ ActiveRecord::Schema.define(version: 20161005112603) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "name"
+    t.string   "braintree_id"
+    t.string   "braintree_token"
   end
 
   create_table "payment_methods", force: :cascade do |t|

@@ -60,7 +60,7 @@ class BookingsController < ApplicationController
 
   def choose_payment_method
     @page_title = "Choose Your Payment Method"
-    @back_path = choose_dropoff_location_route_booking_path(@route, @booking)    
+    @back_path = choose_dropoff_location_route_booking_path(@route, @booking)
   end
 
   def save_payment_method
@@ -126,7 +126,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number, :payment_method_id)
+    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id)
   end
 
   def payment_method_params

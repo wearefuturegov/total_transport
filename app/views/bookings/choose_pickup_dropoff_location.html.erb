@@ -33,7 +33,7 @@ var map
       }
     });
 
-    map.addListener('dragend', function() { 
+    map.addListener('dragend', function() {
       $('.single-landmark').each(function() {
         $(this).removeClass('chosen');
         $('#choose-stop').removeClass('searching');
@@ -65,26 +65,26 @@ var map
         <div class="single-landmark" data-choice="landmark-1">
           <div class="dot">
             <div class="dot-middle"></div>
-          </div> 
+          </div>
           <span>Tillingham Bus Stop</span>
         </div>
         <div class="single-landmark" data-choice="landmark-2">
           <div class="dot">
             <div class="dot-middle"></div>
-          </div> 
+          </div>
           <span>The Swan Care Home</span>
         </div>
       <% else %>
         <div class="single-landmark" data-choice="landmark-1">
           <div class="dot">
             <div class="dot-middle"></div>
-          </div> 
+          </div>
           <span>Burnham Train Station</span>
         </div>
         <div class="single-landmark" data-choice="landmark-2">
           <div class="dot">
             <div class="dot-middle"></div>
-          </div> 
+          </div>
           <span>The Burnham Surgery</span>
         </div>
       <% end %>
@@ -92,7 +92,7 @@ var map
       <div id="choose-stop" class="single-landmark" data-choice="landmark-choice">
         <div class="dot">
           <div class="dot-middle"></div>
-        </div> 
+        </div>
         <span>Choose your own</span>
       </div>
     </div>
@@ -107,12 +107,14 @@ var map
       <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
         <%= form.hidden_field :pickup_lat %>
         <%= form.hidden_field :pickup_lng %>
+        <%= form.hidden_field :pickup_name %>
         <%= form.submit "Next", :class => 'button alt-button' %>
       <% end %>
     <% else %>
       <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
         <%= form.hidden_field :dropoff_lat %>
         <%= form.hidden_field :dropoff_lng %>
+        <%= form.hidden_field :dropoff_name %>
         <%= form.submit "Next", :class => 'button alt-button'  %>
       <% end %>
     <% end %>
