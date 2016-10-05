@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817114331) do
+ActiveRecord::Schema.define(version: 20161005112603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,17 @@ ActiveRecord::Schema.define(version: 20160817114331) do
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
   add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
 
+  create_table "landmarks", force: :cascade do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "stop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "landmarks", ["stop_id"], name: "index_landmarks_on_stop_id", using: :btree
+
   create_table "passengers", force: :cascade do |t|
     t.string   "phone_number"
     t.string   "verification_code"
@@ -64,6 +75,8 @@ ActiveRecord::Schema.define(version: 20160817114331) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "name"
+    t.string   "braintree_id"
+    t.string   "braintree_token"
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -191,6 +204,7 @@ ActiveRecord::Schema.define(version: 20160817114331) do
   add_foreign_key "journeys", "routes"
   add_foreign_key "journeys", "suppliers"
   add_foreign_key "journeys", "vehicles"
+  add_foreign_key "landmarks", "stops"
   add_foreign_key "payment_methods", "passengers"
   add_foreign_key "stops", "routes"
   add_foreign_key "suggested_edit_to_stops", "passengers"

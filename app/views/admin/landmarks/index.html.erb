@@ -1,0 +1,5 @@
+<% @landmarks.each do |landmark| %>
+  <p><%= link_to landmark.name, edit_admin_route_stop_landmark_path(@route, @stop, landmark) %></p>
+<% end %>
+
+<p><%= link_to "Add a new landmark", new_admin_route_stop_landmark_path(@route, @stop) %></p>

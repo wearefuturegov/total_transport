@@ -1,0 +1,18 @@
+<div id="sup_edit_landmark">
+  <h2>Edit Landmark:</h2>
+  <div class="card">
+    <%= form_for [:admin, @route, @stop, @landmark] do |form| %>
+      <div class="inner">
+        <%= render partial: 'fields', locals: {form: form} %>
+      </div>
+      <div class="half" style="clear:none;">
+        <%= form.submit "Save Landmark", :class => "cardBtn name_validation" %>
+      </div>
+      <div class="half">
+        <%= form_for [:admin, @route, @stop, @landmark], method: :delete do |form| %>
+          <%= form.submit "Delete Landmark", :class => "cardBtn negative delete" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div id="sup_edit_landmark">
+  <h2>Add a Landmark:</h2>
+  <div class="card">
+    <%= form_for [:admin, @route, @stop, @landmark] do |form| %>
+      <div class="inner">
+        <%= render partial: 'fields', locals: {form: form} %>
+      </div>
+      <div class="half" style="clear:none;">
+        <%= form.submit "Create Landmark", :class => "cardBtn name_validation" %>
+      </div>
+    <% end %>
+  </div>
+</div>
