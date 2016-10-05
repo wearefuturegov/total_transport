@@ -19,7 +19,7 @@ class Passenger < ActiveRecord::Base
   end
 
   def set_verification_code
-    self.update_attribute(:verification_code, (rand * 10000).to_i)
+    self.update_attribute(:verification_code, generate_verfication_code)
   end
 
   def send_notification!(message)
@@ -41,5 +41,11 @@ class Passenger < ActiveRecord::Base
     end
   rescue Twilio::REST::RequestError => e
     false
+  end
+
+  private
+
+  def generate_verfication_code
+    (rand * 10000).to_i.to_s.rjust(4, "0")
   end
 end
