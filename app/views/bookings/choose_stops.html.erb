@@ -1,22 +1,26 @@
-<div id="passenger_stop_select" class="stop-list">
-  <div id="main-line"></div>
-  <% @route.stops.each do |stop| %>
-    <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
-      <div class="stop-dot">
-        <div class="stop-dot-middle"></div>
-      </div>
-      <div class="stop-dot-line"></div>
-      <div class="stop-title"><%= stop.name %></div>
-    </div>
-  <% end %>
+<div class="container">
+  <div class="inner">
+    <div id="passenger-stop-select" class="stop-list">
+      <div id="main-line"></div>
+      <% @route.stops.each do |stop| %>
+        <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
+          <div class="dot stop-dot">
+            <div class="dot-middle stop-dot-middle"></div>
+          </div>
+          <div class="stop-dot-line"></div>
+          <div class="stop-title"><%= stop.name %></div>
+        </div>
+      <% end %>
 
-  <%= form_for [@route, @booking] do |form| %>
-    <%= form.hidden_field :pickup_stop_id %>
-    <%= form.hidden_field :dropoff_stop_id %>
-    <div id="confirmation" class="card" style="display: none;">
-      <%= form.submit 'View Times', :class => 'cardBtn' %>
-    </div>
-  <% end %>
+      <%= form_for [@route, @booking] do |form| %>
+        <%= form.hidden_field :pickup_stop_id %>
+        <%= form.hidden_field :dropoff_stop_id %>
+        <div id="confirmation" class="card" style="display: none;">
+          <%= form.submit 'View Times', :class => 'cardBtn' %>
+        </div>
+      <% end %>
 
-  <div class="clear"></div>
+      <div class="clear"></div>
+    </div>
+  </div>
 </div>

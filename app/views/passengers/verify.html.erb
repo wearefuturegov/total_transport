@@ -2,17 +2,42 @@
   That verification code was incorrect. Please try again.
 <% end %>
 
-<div class="card-cont">
-  <div class="card no_click login_form">
-    <h2>Verify Your Phone Number</h2>
-    <p>Type in the verification code we sent to your number</p>
+<div id="verify" class="grey-block fill-space container center">
+  <div class="inner">
+    <div id="verify-loading" class="center">
+      <i class="fa fa-spinner fa-spin fa-3x"></i>
+      <p>Sending verification code...</p>
+    </div>
 
-    <%= form_tag verify_passenger_path do %>
-      <%= hidden_field_tag :id, @passenger.id %>
-      <%= text_field_tag :verification_code %>
-      <div class="actions">
-        <%= submit_tag "Go" %>
-      </div>
-    <% end %>
+    <h2>Verify Your Phone Number</h2>
+    <p>Type in the verification code we sent to your phone number</p>
+
+    <div id="digit-input">
+      <input class="single-digit" type="number" maxlength="1" size="1" autofocus="true">
+      <input class="single-digit" type="number" maxlength="1" size="1">
+      <input class="single-digit" type="number" maxlength="1" size="1">
+      <input class="single-digit" type="number" maxlength="1" size="1">
+
+      <%-# Need to swap this form with inputs similar to above -%>
+      <%= form_tag verify_passenger_path do %>
+        <%= hidden_field_tag :id, @passenger.id %>
+        <%= text_field_tag :verification_code %>
+        <div class="actions">
+          <%= submit_tag "Verify" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="no-verify">
+      <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", request.referer.present? ? request.referer : default_path, title: "Try sending verification code again" %></strong></p>
+    </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    setTimeout(function() {
+      $('#verify-loading').slideUp();
+    }, 3500);
+  });
+</script>

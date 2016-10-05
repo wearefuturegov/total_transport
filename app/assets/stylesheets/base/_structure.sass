@@ -1,0 +1,150 @@
+.container
+  .inner
+    +outer-container
+    max-width: $large-screen
+    padding: $mobile-padding-side 10px
+
+.blue-block, .teal-block, .grey-block
+  padding: $mobile-padding-side
+
+.blue-block, .teal-block
+  background: $blue
+  background: -webkit-linear-gradient(45deg, $darker-blue 0%, $blue 100%) 
+  background: -o-linear-gradient(45deg, $darker-blue 0%, $blue 100%) 
+  background: -moz-linear-gradient(45deg, $darker-blue 0%, $blue 100%)
+  background: linear-gradient(45deg, $darker-blue 0%, $blue 100%)
+  color: #fff
+  a 
+    color: #fff
+  a:hover
+    color: $orange
+
+.grey-block
+  background: $lightest-gray
+  background: -webkit-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%) 
+  background: -o-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%) 
+  background: -moz-linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%)
+  background: linear-gradient(45deg, $light-gray 0%, $lightest-gray 100%)
+
+.teal-block
+  background: $teal
+  background: -webkit-linear-gradient(45deg, $darker-teal 0%, $teal 100%) 
+  background: -o-linear-gradient(45deg, $darker-teal 0%, $teal 100%) 
+  background: -moz-linear-gradient(45deg, $darker-teal 0%, $teal 100%)
+  background: linear-gradient(45deg, $darker-teal 0%, $teal 100%)
+
+.white-block
+  background: $white
+  border: 1px solid rgba($light-gray, 5%)
+
+
+.fill-space
+  position: absolute
+  height: 100%
+  width: 100%
+
+.hidden
+  display: none
+
+.half, .left, .right
+  +span-columns(6)
+
+.right
+  +omega
+
+.half
+  +omega(2n)
+
+.full
+  +span-columns(12)
+  +omega
+
+.omega
+  +omega
+
+.third
+  +span-columns(4)
+  +omega(3n)
+
+.twoThird
+  +span-columns(8)
+
+@media screen and (max-width: $mobile-break)
+  .half, .left, .right
+    +span-columns(12)
+  .third
+    +span-columns(6)
+    +omega(2n)
+  .twoThird
+    +span-columns(12)
+    +omega(1n)
+  .mobFull
+    +span-columns(12)
+    +omega(1n)
+
+.clear 
+  clear: both 
+
+.hidden
+  display: none
+
+.top-sec
+  margin-bottom: $mobile-padding-side
+  .inner
+    padding: $mobile-padding-side
+
+
+
+
+
+
+
+// older styles
+
+ul, ol 
+  //list-style-type: disc 
+  list-style-position: inside
+  li
+    margin-bottom: 10px
+ol 
+  list-style-type: decimal
+
+
+.outsideBounds
+  position: absolute
+  top: 0
+  right: 0
+
+.wideBtn
+  .half
+    width: 50%
+    margin-right: 0
+
+hr 
+  margin: 20px 5px
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3)
+
+
+.alerts
+  padding: 10px
+  background-color: $red
+  color: #fff
+  display: none
+  p
+    margin-bottom: 0
+  section
+    margin: 0 auto
+
+#grid
+  +outer-container
+  div
+    padding: 10px
+  .left
+    +media($mobile-break)
+      +span-columns(3)
+    background-color: $light-gray
+  .right
+    +media($mobile-break)
+      +span-columns(9)
+    background-color: $medium-gray
+    +omega

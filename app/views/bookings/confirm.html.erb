@@ -1,39 +1,41 @@
-<div class="card-cont">
-  <p>Please note that pick up and drop off times are estimated and might slightly change.</p>
+<div class="container">
+  <div class="inner">
+    <p>Please note that pick up and drop off times are estimated and might slightly change.</p>
 
-  <div class="card" id="pickUpCard">
-    <div id="pickup_map" style="width: 100%; height: 200px;"></div>
-    <div class="inner">
-      <h4>Your Pick Up<br/>Location:</h4>
-      <div class="right" style="float: right; text-align: right;">
-        <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(@booking.journey) %></span><br/>
-        <span class="pickUp"><%= @booking.pickup_stop.name %></span>
+    <div class="card no-click" id="pickUpCard">
+      <div id="pickup_map" style="width: 100%; height: 200px;"></div>
+      <div class="inner">
+        <h4>Your Pick Up<br/>Location:</h4>
+        <div class="right" style="float: right; text-align: right;">
+          <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(@booking.journey) %></span><br/>
+          <span class="pickUp"><%= @booking.pickup_stop.name %></span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="card" id="dropOffCard">
-    <div id="dropoff_map" style="width: 100%; height: 200px;"></div>
-    <div class="inner">
-      <h4>Your Drop Off<br/>Location:</h4>
-      <div class="right" style="float: right; text-align: right;">
-        <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(@booking.journey) %></span><br/>
-        <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
+    <div class="card no-click" id="dropOffCard">
+      <div id="dropoff_map" style="width: 100%; height: 200px;"></div>
+      <div class="inner">
+        <h4>Your Drop Off<br/>Location:</h4>
+        <div class="right" style="float: right; text-align: right;">
+          <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(@booking.journey) %></span><br/>
+          <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
+        </div>
       </div>
     </div>
+
+    <p>
+      Paying <%= number_to_currency @booking.price, unit: '£' %> with <%= @booking.payment_method.friendly_name %>
+    </p>
+
+    <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
+
+    <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
+      <%= form.label :phone_number %>
+      <%= form.text_field :phone_number, value: current_passenger.phone_number %>
+      <%= form.submit "Confirm Booking", :class => 'cardBtn' %>
+    <% end %>
   </div>
-
-  <p>
-    Paying <%= number_to_currency @booking.price, unit: '£' %> with <%= @booking.payment_method.friendly_name %>
-  </p>
-
-  <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
-
-  <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, value: current_passenger.phone_number %>
-    <%= form.submit "Confirm Booking", :class => 'cardBtn' %>
-  <% end %>
 </div>
 
 <script type="text/javascript">

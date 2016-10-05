@@ -1,0 +1,62 @@
+.styleGuideSec
+  padding: 12px
+  h2
+    cursor: pointer
+  .acord
+    display: none
+
+  .styleGuideArw
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+
+.styleGuideSec.open
+  .styleGuideArw
+    transform: rotate(-180deg)
+
+#glos
+  .glos_lesser
+    opacity: 0.5
+  .glos_highlight
+    box-shadow: 0 7px 9px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.08)
+    opacity: 1
+#type 
+  #type_body, #type_header
+    font-style: italic
+    font-weight: 600
+
+#colour
+  .colourSqr
+    display: inline-block
+    width: 30px
+    height: 30px
+    border-radius: 5px
+    background-color: $prim-color
+    margin-left: 10px
+    vertical-align: top
+  .colHex, .colRGB
+    color: $prim-color
+    font-size: 15px
+#second_col 
+  .colourSqr
+    background-color: $red
+  .colHex, .colRGB
+    color: $red
+#bg_col 
+  .colourSqr
+    background-color: $base-background-color
+  .colHex, .colRGB
+    color: $base-background-color
+#d_gray_col 
+  .colourSqr
+    background-color: $dark-gray
+  .colHex, .colRGB
+    color: $dark-gray
+#m_gray_col 
+  .colourSqr
+    background-color: $medium-gray
+  .colHex, .colRGB
+    color: $medium-gray
+#l_gray_col 
+  .colourSqr
+    background-color: $light-gray
+  .colHex, .colRGB
+    color: $light-gray

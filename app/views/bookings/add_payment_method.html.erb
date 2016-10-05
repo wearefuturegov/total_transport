@@ -1,18 +1,22 @@
-<%= form_for @payment_method, url: create_payment_method_route_booking_path(@route, @booking) do |form| %>
-  <% PaymentMethod.types.each do |payment_method_type| %>
-    <label class="payment-option">
-      <%= form.radio_button :name, payment_method_type %>
-      <span>
-        <% if payment_method_type == :balance %>
-          £0.00
-        <% else %>
-          <i class="fa <%= payment_class(payment_method_type) %>" id="<%= payment_method_type %>"></i>
-        <% end %>
-        <%= PaymentMethod.friendly_name_for_type(payment_method_type) %>
-      </span>
-    </label>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="inner">
+    <%= form_for @payment_method, url: create_payment_method_route_booking_path(@route, @booking) do |form| %>
+      <% PaymentMethod.types.each do |payment_method_type| %>
+        <label class="payment-option">
+          <%= form.radio_button :name, payment_method_type %>
+          <span>
+            <% if payment_method_type == :balance %>
+              £0.00
+            <% else %>
+              <i class="fa <%= payment_class(payment_method_type) %>" id="<%= payment_method_type %>"></i>
+            <% end %>
+            <%= PaymentMethod.friendly_name_for_type(payment_method_type) %>
+          </span>
+        </label>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 <script type="text/javascript">
   $('.payment-option').click(function(el) {

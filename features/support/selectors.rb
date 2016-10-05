@@ -5,7 +5,7 @@ module HtmlSelectorsHelpers
     when "the page"
       "html > body"
     when "the login form"
-      ".login_form"
+      ".onboarding-header"
     when /^"(.+)"$/
       $1
     else

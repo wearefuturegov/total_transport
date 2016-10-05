@@ -1,4 +1,4 @@
-<div class="card no_click profile">
+<div class="card no-click profile">
   <div class="inner">
     <div class="profile_banner">
       <div class="profile_face">
@@ -45,7 +45,7 @@
 
     <!--<div class="actions">
       <%= link_to edit_supplier_registration_path do %>
-        <button>Edit your profile</button>
+        <div class="button">Edit your profile</div>
       <% end %>
     </div>-->
 
@@ -57,7 +57,7 @@
 </div>
 
 <% if current_supplier.admin? %>
-  <div class="card no_click">
+  <div class="card no-click">
     <div class="inner">
       <h2>Super Admin Options</h2>
       <p><strong>Admin</strong> - <%= link_to "Manage Core Routes", admin_routes_path %></p>

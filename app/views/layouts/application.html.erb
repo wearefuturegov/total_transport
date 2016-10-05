@@ -7,50 +7,63 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-  <div id="mobile-cont">
-    <header>
-      <div class="inner">
-        <div class="left">
-          &nbsp;<!--<form><input id="backbtn" Type="button" VALUE="< Back" onClick="history.go(-1);return true;"></form>-->
-        </div>
-        <div class="centre">
-          <%= @page_title %>
-        </div>
-        <div class="right">
-          <% if current_passenger %>
-            <div class="mobile_only">
-              <%= link_to passenger_path do %>
-                <i class="fa fa-user"></i>
-              <% end %>
-            </div>
-            <div class="desktop_only">
-              <%= link_to current_passenger.phone_number, passenger_path %>
-              <%= link_to 'logout', passenger_path, method: :delete %>
-            </div>
+<body class="<%= controller.controller_name %>" id="<%= @body_id %>">
+  <header>
+    <div class="inner">
+      <div class="left">
+        <div id="back-btn" class="hidden">
+          <%= link_to request.referer.present? ? request.referer : default_path do %>
+            <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
           <% end %>
         </div>
+        <div id="spacer">&nbsp;</div>
       </div>
-    </header>
-    
-    <div id="alerts" class="alerts">
-      <section>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      </section>
-    </div>
-
-    <% if @top_sec != false %>
-      <div class="top_sec">
-        <div class="inner_cont">
-          <span><%= @top_sec %></span>
+      <div class="centre">
+        <div id="desktop-title" class="no-mobile">
+          <%= @page_title %>
+        </div>
+        <div id="mobile-title" class="no-desktop">
+          <%= @page_title %>
         </div>
       </div>
-    <% end %>
-
+      <div class="right">
+        <% if current_passenger %>
+          <div id="profile-link">
+            <%= link_to passenger_path do %>
+              <i class="fa fa-user"></i>
+            <% end %>
+          </div>
+          <div id="cancel-booking" class="hidden">
+            <%= link_to routes_path do %>
+              <i class="fa fa-times"></i>
+            <% end %>
+          </div>
+          <!--<div class="no-mobile">
+            <%= link_to current_passenger.phone_number, passenger_path %>
+            <%= link_to 'logout', passenger_path, method: :delete %>
+          </div>-->
+        <% end %>
+      </div>
+    </div>
+  </header>
+  
+  <div id="alerts" class="alerts">
     <section>
-      <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
     </section>
+  </div>
+
+  <% if @top_sec != false %>
+    <div class="top-sec container white-block">
+      <div class="inner">
+        <span><%= @top_sec %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="main-cont">
+    <%= yield %>
   </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>

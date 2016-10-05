@@ -1,0 +1,110 @@
+/* Base Styles */
+body
+  background-color: $base-background-color
+  margin: 0
+  font-weight: 300
+
+.no-mobile
+  display: none
+
+/* START Typography & Copy */
+
+h1, h2, h3, h4, h5, h6
+  margin: 0px 0 5px 0
+  font-weight: 500
+
+h1  
+  font-size: 40px
+  letter-spacing: -0.25px
+  margin-bottom: 30px
+
+h2 
+  font-size: 24px
+  font-weight: 400
+  margin-bottom: 10px
+
+h3 
+  font-size: 24px
+  margin-bottom: 10px
+
+h4 
+  text-transform: uppercase
+  margin-bottom: 0
+  font-size: 18px
+  text-align: center
+
+a
+  color: rgba(21,101,192,0.8)
+  transition: color 1s cubic-bezier(.25,.8,.25,1)
+
+a:hover
+  color: rgba(21,101,192,1)
+  transition: color 0.5s cubic-bezier(.25,.8,.25,1)
+
+p.highlight 
+  font-size: $base-font-size+2
+
+.subTxt
+  font-size: 12px
+.bold
+  font-weight: 600
+/* END Type & Copy */
+
+/* START Header */
+
+header  
+  text-align: center
+  background-color: $prim-color
+  display: block
+  padding: 10px
+  width: 100%
+  top: 0
+  left: 0
+  color: #fff
+  .inner
+    +outer-container
+    padding: 5px
+  .left, .right 
+    +span-columns(2)
+    text-align: left
+  .centre
+    +span-columns(8)
+  .right
+    +omega
+    text-align: right
+  #backbtn 
+    background-color: transparent
+    color: $dark-gray
+    font-size: 14px
+    padding: 5px
+  a, #backbtn
+    color: #fff
+  a:active, a:focus, a:hover
+    color: #fff
+    text-decoration: underline
+
+/* END Header */
+
+/* START footer */
+
+#footer
+  +span-columns(12)
+  margin-top: 50px
+
+/* END footer */
+
+/* START Payments */
+
+.payment-option
+  cursor: pointer
+  padding: 10px 20px
+  font-size: 25px
+  .fa
+    width: 33px
+    margin-right: 10px
+    text-align: center
+  input[type="radio"]
+    display: none
+
+
+/* END Payments */
