@@ -49,13 +49,14 @@
       </div>
     </div>
   </header>
-  
-  <div id="alerts" class="alerts">
-    <section>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </section>
-  </div>
+
+  <% if flash[:alert].present? %>
+    <div id="alerts" class="alerts">
+      <section>
+        <p class="alert"><%= flash[:alert] %></p>
+      </section>
+    </div>
+  <% end %>
 
   <% if @top_sec != false %>
     <div class="top-sec container white-block">
