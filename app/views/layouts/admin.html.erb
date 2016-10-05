@@ -31,14 +31,14 @@
         </div>
       </div>
     </header>
-
-    <div id="alerts" class="alerts">
-      <section>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      </section>
-    </div>
-
+    <% if alert.present? || notice.present? %>
+      <div id="alerts" class="alerts">
+        <section>
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </section>
+      </div>
+    <% end %>
     <section class="supplier">
       <div class="card-cont">
         <%= yield %>

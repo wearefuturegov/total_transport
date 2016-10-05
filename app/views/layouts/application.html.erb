@@ -51,10 +51,10 @@
   </header>
 
   <% if flash[:alert].present? %>
-    <div id="alerts" class="alerts">
-      <section>
+    <div id="alerts" class="alerts container">
+      <div class="inner">
         <p class="alert"><%= flash[:alert] %></p>
-      </section>
+      </div>
     </div>
   <% end %>
 
