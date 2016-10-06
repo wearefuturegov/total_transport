@@ -31,12 +31,11 @@
         </div>
       </div>
     </header>
-    <% if alert.present? || notice.present? || devise_error_messages!.present? %>
+    <% if alert.present? || notice.present? %>
       <div id="alerts" class="alerts">
         <section>
           <p class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
-          <p class="devise-error"><%= devise_error_messages! %></p>
         </section>
       </div>
     <% end %>
