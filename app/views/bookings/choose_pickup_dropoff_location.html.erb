@@ -58,7 +58,8 @@ var map
     map.addListener('dragend', function() {
       var geocoder = new google.maps.Geocoder;
       geocoder.geocode({'location': map.getCenter()}, function(results, status) {
-        $('#choose-stop').removeClass('searching');
+        $('#choose-stop').removeClass('searching').addClass('final');
+        $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
         $('#choose-stop .dot').removeClass('loader');
         var pin_name
         if (status === 'OK') {
@@ -149,8 +150,10 @@ var map
           $(this).addClass('chosen');
 
           if ($(this).data('lat') == 'choose-own') {
+            $('.edit_booking input[type="submit"]').attr("disabled", true).addClass('disabled');
             $('#choose-stop span').html('Drag the map to choose');
           } else {
+            $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
             $('#choose-stop span').html('Choose your own');
             
             <% if @pickup_of_dropoff == 'pickup' %>
@@ -175,7 +178,7 @@ var map
       function clearDots() {
         $('.single-landmark').each(function() {
           $(this).removeClass('chosen');
-          $('#choose-stop').removeClass('searching');
+          $('#choose-stop').removeClass('searching').removeClass('final');
           $('#choose-stop .dot').removeClass('loader');
         });
       }
