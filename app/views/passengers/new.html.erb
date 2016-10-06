@@ -6,7 +6,7 @@
 
     <%= form_for @passenger, url: passenger_path do |form| %>
       <%= form.label :phone_number, "Enter your mobile number to get started." %>
-      <%= form.number_field :phone_number, autofocus: true %>
+      <%= form.number_field :phone_number, autofocus: true, pattern: "\d*" %>
       <div class="actions">
         <%= form.submit "Send Verification Code", class: 'alt-button' %>
       </div>
