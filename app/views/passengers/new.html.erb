@@ -47,7 +47,7 @@
       <h3>Step 4: Get Picked Up</h3>
       <p>Pickup will send you a text a few hours before your trip to let you know exactly when we’ll arrive.</p>
 
-      <%= form_for @passenger, url: passenger_path do |form| %>
+      <%= form_for @passenger, :html => {class: 'center'}, url: passenger_path do |form| %>
         <%= form.label :phone_number, "Enter your mobile number to get started." %>
         <%= form.text_field :phone_number %>
         <div class="actions">
