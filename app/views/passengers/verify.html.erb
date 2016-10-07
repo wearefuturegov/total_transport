@@ -1,6 +1,6 @@
 <div id="verify" class="grey-block fill-space container center">
   <div class="inner">
-    <% if !@incorrect %>
+    <% if !@verify_sent %>
       <div id="verify-loading" class="center">
         <i class="fa fa-spinner fa-spin fa-3x"></i>
         <p>Sending verification code...</p>
@@ -38,24 +38,48 @@
       $('#verify-loading').slideUp();
     }, 3500);
 
-    $('.single-digit').on("keydown", function(){
-      if($(this).val()){
-        $(this).val('')
+    var keys = {};
+
+    $('.single-digit').on("keydown", function(e){
+      if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+        keys[e.which] = true;
+        if (Object.keys(keys).length > 1) {
+          $(this).next('input').val('').focus();
+        } else {
+          if($(this).val()){
+            $(this).val('');
+          }
+        }
+      } else if(e.keyCode == 8) {
+        if(!$(this).val()){
+          $(this).prev('input').val('').focus();
+        }
       }
+      
     });
 
-    $('.single-digit').on("keyup", function(){
-      if($(this).val()){
-        $(this).next('input').focus();
-
-        var digit1 = $('#digit1').val(),
-            digit2 = $('#digit2').val(),
-            digit3 = $('#digit3').val(),
-            digit4 = $('#digit4').val();
-        var code = digit1.toString() + digit2.toString() + digit3.toString() + digit4.toString();
-        $('#verification_code').val(code);
-        console.log($('#verification_code').val());
+    $('.single-digit').on("keyup", function(e){      
+      if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+        if($(this).val()) {
+          if (Object.keys(keys).length == 1) {
+            console.log($(this).attr('id'));
+            if($(this).attr('id') == "digit4") {
+              $(this).blur();
+            } else {
+              $(this).next('input').focus();
+            }
+          }
+          
+          var digit1 = $('#digit1').val(),
+              digit2 = $('#digit2').val(),
+              digit3 = $('#digit3').val(),
+              digit4 = $('#digit4').val();
+          var code = digit1.toString() + digit2.toString() + digit3.toString() + digit4.toString();
+          $('#verification_code').val(code);
+          console.log($('#verification_code').val());
+        }
       }
+      delete keys[e.which];
     });
   });
 
