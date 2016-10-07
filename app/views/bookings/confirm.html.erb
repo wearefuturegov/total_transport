@@ -25,7 +25,7 @@
     </div>
 
     <p>
-      Paying <%= number_to_currency @booking.price, unit: '£' %> with <%= @booking.payment_method.friendly_name %>
+      Total: <%= number_to_currency @booking.price, unit: '£' %>
     </p>
 
     <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
@@ -33,7 +33,7 @@
     <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, value: current_passenger.phone_number %>
-      <%= form.submit "Confirm Booking", :class => 'cardBtn' %>
+      <%= form.submit "Continue to Payment", :class => 'cardBtn' %>
     <% end %>
   </div>
 </div>
