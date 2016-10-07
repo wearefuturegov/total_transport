@@ -49,7 +49,7 @@
 
       <%= form_for @passenger, :html => {class: 'center'}, url: passenger_path do |form| %>
         <%= form.label :phone_number, "Enter your mobile number to get started." %>
-        <%= form.text_field :phone_number %>
+        <%= form.number_field :phone_number, pattern: "\d*" %>
         <div class="actions">
           <%= form.submit "Send Verification Code", class: 'alt-button' %>
         </div>
