@@ -54,6 +54,8 @@
         if(!$(this).val()){
           $(this).prev('input').val('').focus();
         }
+      } else {
+        event.preventDefault();
       }
       
     });
