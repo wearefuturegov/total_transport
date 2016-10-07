@@ -86,7 +86,9 @@ var map
 <div class="top-sec white-block container">
   <div class="inner">
     <% if @pickup_of_dropoff == 'pickup' %>
-      <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
+      <% if @stop.landmarks.present? %>
+        <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
+      <% end %>
     <% else %>
       <span>Great we will pick you up from <i><%= @booking.pickup_name %></i> in <i><%= Stop.find(@booking.pickup_stop_id).name %></i>. Where in <%= @stop.name %> should we drop you off?.</span>
     <% end %>
@@ -101,17 +103,17 @@ var map
             <span><%= landmark.name %></span>
           </div>
         <% end %>
-      <% else %>
-        <div class="single-landmark">
-          <span>Area has no landmarks</span>
-        </div>
       <% end %>
 
       <div id="choose-stop" class="single-landmark" data-lat="choose-own" data-long="choose-own">
         <div class="dot">
           <div class="dot-middle"></div>
         </div>
-        <span>Choose your own</span>
+        <% if @stop.landmarks.present? %>
+          <span>Choose your own</span>
+        <% else %>
+          <span>Drag the map to choose a pick up point</span>
+        <% end %>
       </div>
     </div>
   </div>
