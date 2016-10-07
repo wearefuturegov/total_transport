@@ -64,7 +64,7 @@ $(document).ready(function() {
   if ($('.inputfile').length) {
     $( '.inputfile' ).each( function(){
       var $input   = $( this ),
-        $label   = $('.inputfile_label'),
+        $label   = $('.inputfile-label'),
         labelVal = $label.html();
       $input.on( 'change', function( e ) {
         var files = e.target.files;
@@ -79,7 +79,7 @@ $(document).ready(function() {
               if ($('#plaecholderProfile').length) {
                 $('#plaecholderProfile').hide();
               } else {
-                $('#profile_start_pic').hide();
+                $('#profile-start-pic').hide();
               }
               $('#tempImg').attr('src', e.target.result).slideDown(function() {
                 if ($('#tempImg').height() < $('#theFace').height()) {

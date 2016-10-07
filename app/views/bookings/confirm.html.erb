@@ -33,7 +33,7 @@
     <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, value: current_passenger.phone_number %>
-      <%= form.submit "Continue to Payment", :class => 'cardBtn' %>
+      <%= form.submit "Continue to Payment", :class => 'button' %>
     <% end %>
   </div>
 </div>

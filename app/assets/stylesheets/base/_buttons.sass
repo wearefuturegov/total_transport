@@ -41,13 +41,38 @@
     &:hover 
       background-color: darken($medium-gray, 5%)
 
-/* shadow: */
-
-
-
+.negative
+  background-color: $red
+.negative:hover, .negative:focus
+  background-color: $darker-red
 
 .alt-button 
   background-color: $orange
 
 .alt-button:hover, .alt-button:focus
   background-color: $darker-orange
+
+
+.border-bottom-left-radius
+  border-radius: 0
+  border-bottom-left-radius: $base-border-radius
+
+.border-bottom-right-radius
+  border-radius: 0
+  border-bottom-right-radius: $base-border-radius
+
+.border-bottom-radius
+  border-top-right-radius: 0
+  border-top-left-radius: 0
+
+.border-top-radius
+  border-bottom-right-radius: 0
+  border-bottom-left-radius: 0
+
+.border-right-radius
+  border-bottom-left-radius: 0
+  border-top-left-radius: 0
+
+.border-left-radius
+  border-bottom-right-radius: 0
+  border-top-right-radius: 0

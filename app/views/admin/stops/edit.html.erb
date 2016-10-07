@@ -1,19 +1,24 @@
-<h2>Edit Stop:</h2>
-<div class="card wideBtn">
-  <%= form_for [:admin, @route, @stop] do |form| %>
-    <div class="inner">
-      <%= render partial: 'fields', locals: {form: form} %>
-    </div>
-    <div class="half">
-      <%= form.submit "Save stop", :class => "cardBtn name_validation" %>
-    </div>
-  <% end %>
+<div class="container">
+  <div class="inner">
+    <h2>Edit Stop:</h2>
+    <div class="card no-click wide-btn">
+      <%= form_for [:admin, @route, @stop] do |form| %>
+        <div class="inner">
+          <%= render partial: 'fields', locals: {form: form} %>
+          
+          <%= link_to "Edit this stop's landmarks", admin_route_stop_landmarks_path(@route, @stop), class: "button" %>
+        </div>
 
-  <div class="half">
-    <%= form_for [:admin, @route, @stop], method: :delete do |form| %>
-      <%= form.submit "Delete stop", :class => "cardBtn negative delete" %>
-    <% end %>
+        <div class="half">
+          <%= form.submit "Save stop", :class => "button name_validation border-left-radius" %>
+        </div>
+      <% end %>
+
+      <div class="half">
+        <%= form_for [:admin, @route, @stop], method: :delete do |form| %>
+          <%= form.submit "Delete stop", :class => "button negative delete border-right-radius" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <%= link_to "Edit this stop's landmarks", admin_route_stop_landmarks_path(@route, @stop) %>
 </div>

@@ -17,11 +17,11 @@
             </div>
             <div id="confirmation">
               <% if journey.full? %>
-                <p class="cardBtn">Fully booked<p>
+                <p class="button">Fully booked<p>
               <% else %>
                 <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
                   <%= form.hidden_field :journey_id, value: journey.id %>
-                  <%= form.submit 'Define Pick Up Point', :class => 'cardBtn' %>
+                  <%= form.submit 'Define Pick Up Point', :class => 'button' %>
                 <% end %>
               <% end %>
             </div>

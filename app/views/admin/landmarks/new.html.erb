@@ -1,13 +1,22 @@
-<div id="sup_edit_landmark">
-  <h2>Add a Landmark:</h2>
-  <div class="card">
-    <%= form_for [:admin, @route, @stop, @landmark] do |form| %>
+<div id="sup_add_landmark" class="container">
+  <div class="inner">
+    <div class="card no-click">
       <div class="inner">
-        <%= render partial: 'fields', locals: {form: form} %>
-      </div>
-      <div class="half" style="clear:none;">
-        <%= form.submit "Create Landmark", :class => "cardBtn name_validation" %>
-      </div>
-    <% end %>
+        <h2>Add a Landmark:</h2>
+        <%= form_for [:admin, @route, @stop, @landmark] do |form| %>
+            <%= render partial: 'fields', locals: {form: form} %>
+        </div>
+        <%= form.submit "Create Landmark", :class => "button name_validation border-bottom-radius" %>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#landmark_name').keyup(function() {
+      $('#map .centerMarker').html($(this).val());
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').width()/2)*-1);
+    });
+  });
+</script>

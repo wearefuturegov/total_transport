@@ -21,7 +21,11 @@
       paths: polygon_feature.getArray()[0].getArray(),
     });
 
-    $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
+    $('<div/>').addClass('centerMarker').html('Landmark Location').appendTo(map.getDiv());
+
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').width()/2)*-1);
+    });
 
     var last_position = map.getCenter();
     map.addListener('center_changed', function() {

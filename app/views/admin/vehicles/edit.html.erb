@@ -1,22 +1,25 @@
-<div class="card no-click">
+<div class="container">
   <div class="inner">
-    <%= form_for [:admin, @vehicle] do |form| %>
-      <%= render partial: 'fields', locals: {form: form} %>
+    <div class="card no-click wide-btn">
+      <div class="inner">
+        <%= form_for [:admin, @vehicle] do |form| %>
+          <%= render partial: 'fields', locals: {form: form} %>
+      </div>
+      <%= form.submit "Update Vehicle", :class => "button border-bottom-left-radius" %>
+      <% end %>
+      <% if current_supplier.admin? %>
+        <%= form_for [:admin, @vehicle], method: :delete do |form| %>
+          <%= form.submit "Delete vehicle", :class => "button negative delete half border-bottom-right-radius" %>
+        <% end %>
+        <script type="text/javascript">
+          $('.button').each(function() {
+            if (!$(this).hasClass('half')) {
+              $(this).addClass('half');
+            }
+          });
+        </script>
+      <% end %>
+    </div>
   </div>
-  <%= form.submit "Update Vehicle", :class => "cardBtn" %>
-  <% end %>
-  <% if current_supplier.admin? %>
-    <%= form_for [:admin, @vehicle], method: :delete do |form| %>
-      <%= form.submit "Delete vehicle", :class => "cardBtn negative delete half" %>
-    <% end %>
-    <script type="text/javascript">
-      $('.cardBtn').each(function() {
-        if (!$(this).hasClass('half')) {
-          $(this).addClass('half');
-        }
-      });
-    </script>
-  <% end %>
 </div>
-
 

@@ -1,52 +1,53 @@
-<% if !current_team.solo_team? %>
-  <div id="team_toggle">
-    <% if params[:filter] == 'team' %>
-      <%= link_to admin_journeys_path() do %>
-        Me
-        <div class="switch">
-          <input type="checkbox" checked>
-          <div class="slider round"></div>
-        </div>
-        Team
+<div class="container">
+  <div class="inner">
+    <% if !current_team.solo_team? %>
+      <div id="team_toggle">
+        <% if params[:filter] == 'team' %>
+          <%= link_to admin_journeys_path() do %>
+            Me
+            <div class="switch">
+              <input type="checkbox" checked>
+              <div class="slider round"></div>
+            </div>
+            Team
+          <% end %>
+        <% else %>
+          <%= link_to admin_journeys_path(filter: 'team') do %>
+            Me
+            <div class="switch">
+              <input type="checkbox">
+              <div class="slider round"></div>
+            </div>
+            Team
+          <% end %>
+        <% end %>  
+      </div>
+    <% end %>
+    <% if @journeys.exists? %>
+      <% @journeys.each do |journey| %>
+        <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
+          <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
+            <div class="inner">
+              <p><strong>Route:</strong> <%= journey.route.name %></p>
+              <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
+              <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
+              <p><strong>Number of Bookings:</strong> <%= pluralize(journey.bookings.count, "booking") %></p>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     <% else %>
-      <%= link_to admin_journeys_path(filter: 'team') do %>
-        Me
-        <div class="switch">
-          <input type="checkbox">
-          <div class="slider round"></div>
-        </div>
-        Team
-      <% end %>
-    <% end %>  
-  </div>
-<% end %>
-<% if @journeys.exists? %>
-  <% @journeys.each do |journey| %>
-    <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
-      <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
+      <div class="card no-click">
         <div class="inner">
-          <p><strong>Route:</strong> <%= journey.route.name %></p>
-          <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
-          <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
-          <p><strong>Number of Bookings:</strong> <%= pluralize(journey.bookings.count, "booking") %></p>
+          <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
         </div>
       </div>
     <% end %>
-  <% end %>
-<% else %>
-  <div class="card no-click">
-    <div class="inner">
-      <p>You currently do not have any journeys, <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
+
+    <div class="actions">
+      <%= link_to new_admin_journey_path do %>
+        <div class="button">Add a journey</div>
+      <% end %>
     </div>
   </div>
-<% end %>
-
-
-
-
-<div class="actions">
-  <%= link_to new_admin_journey_path do %>
-    <div class="button">Add a journey</div>
-  <% end %>
 </div>

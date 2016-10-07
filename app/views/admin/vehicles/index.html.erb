@@ -1,19 +1,23 @@
+<div class="container">
+  <div class="inner">
     <% @vehicles.each do |vehicle| %>
-      <div class="card third single_vehicle">
-        <div class="inner">
-          <ul>
-            <li><h4>Reg - <%= vehicle.registration %></h4></li>
-            <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
-            <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
-            <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
-          </ul>
+      <div class="third">
+        <div class="card single_vehicle">
+          <div class="inner">
+            <ul>
+              <li><h4>Reg - <%= vehicle.registration %></h4></li>
+              <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
+              <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
+              <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
+            </ul>
+          </div>
+          <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="button border-bottom-radius">Edit</div><% end %>
         </div>
-        <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="cardBtn button">Edit</div><% end %>
       </div>
     <% end %>
-
-  <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'cardBtn' %>
-
+    <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'button alt-button' %>
+  </div>
+</div>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.single_vehicle').each(function() {
