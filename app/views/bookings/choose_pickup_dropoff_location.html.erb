@@ -128,14 +128,14 @@ var map
         <%= form.hidden_field :pickup_lat %>
         <%= form.hidden_field :pickup_lng %>
         <%= form.hidden_field :pickup_name %>
-        <%= form.submit "Next", :class => 'button alt-button' %>
+        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled' %>
       <% end %>
     <% else %>
       <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
         <%= form.hidden_field :dropoff_lat %>
         <%= form.hidden_field :dropoff_lng %>
         <%= form.hidden_field :dropoff_name %>
-        <%= form.submit "Next", :class => 'button alt-button'  %>
+        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled'  %>
       <% end %>
     <% end %>
     <script type="text/javascript">
