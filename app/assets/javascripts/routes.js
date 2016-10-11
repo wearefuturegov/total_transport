@@ -1,53 +1,18 @@
 $(document).ready(function() {
   var numOfRoutes = $('.route').length;
 
-  $('.input-cont input[name="from"]').keyup(function() {
-    // On input change
+  $('#filter').keyup(function() {
     var tempTxt = $( this ).val();
-    if ($( this ).val().length > 2) {
-      // Only fire if above 3 characters
+    if (tempTxt.length > 2) {
       checkRoutes(tempTxt);
-
-      // REMOVE ONCE DONE WITH USER TEST
-      var farmCheck = 'Landwick Farm';
-      if (farmCheck.toLowerCase().indexOf(tempTxt.toLowerCase()) >= 0) {
-        $('#farm').css('font-weight', 600);
-        if (!$('#farmBtn').parent('.route').hasClass('open')) {
-          $('#farmBtn').click();
-        }
-      }
     } else {
       $('.route').each(function() {
         // the text is 2 char or below, reveal any hidden routes 
         $(this).slideDown();
-        $(this).removeClass('vis');
-        $('#farm').css('font-weight', 400);
+        $(this).removeClass('filtered');
       });
     }
   });
-
-  $('.input-cont input[name="to"]').keyup(function() {
-    // On input change
-    var tempTxt = $( this ).val();
-    if ($( this ).val().length > 2) {
-      // Only fire if above 3 characters
-      checkRoutes(tempTxt);
-
-      // REMOVE ONCE DONE WITH USER TEST
-      var cinemCheck = 'Reel Cinema';
-      if (cinemCheck.toLowerCase().indexOf(tempTxt.toLowerCase()) >= 0) {
-        $('#cinema').css('font-weight', 600);
-      }
-    } else {
-      $('.route').each(function() {
-        // the text is 2 char or below, reveal any hidden routes 
-        $(this).slideDown();
-        $(this).removeClass('vis');
-        $('#cinema').css('font-weight', 400);
-      });
-    }
-  });
-
 
   function checkRoutes(tempTxt) {
     var exception = [];
@@ -60,17 +25,17 @@ $(document).ready(function() {
         
       } else {
         // if not remove vis class
-        $(this).closest('.route').removeClass('vis');
+        $(this).closest('.route').removeClass('filtered');
       }
     });
     
     $(exception).each(function(index, item) {
       // after checking all that add the vis class to all that need it
-      $('#'+item).addClass('vis');
+      $('#'+item).addClass('filtered');
     });
     $('.route').each(function() {
       // run through all routes - if they dont have the vis class - kill them
-      if(!$(this).hasClass('vis')) {
+      if(!$(this).hasClass('filtered')) {
         $(this).slideUp();
       }
     });

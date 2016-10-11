@@ -20,6 +20,12 @@ $(document).ready(function() {
     $('.alerts').slideDown();
   }
 
+  //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
+  if ($('#move-to-top')) {
+    var content = $('#move-to-top').contents();
+    $('.top-sec .inner').append(content);
+  }
+
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
       barHeight = 98,
