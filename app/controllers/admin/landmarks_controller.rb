@@ -4,10 +4,12 @@ class Admin::LandmarksController < AdminController
 
   def index
     @landmarks = @stop.landmarks
+    @back_path = edit_admin_route_stop_path(@route, @stop)
   end
 
   def new
     @landmark = @stop.landmarks.new
+    @back_path = admin_route_stop_landmarks_path(@route, @stop)
   end
 
   def create
@@ -17,6 +19,7 @@ class Admin::LandmarksController < AdminController
 
   def edit
     @landmark = @stop.landmarks.find(params[:id])
+    @back_path = admin_route_stop_landmarks_path(@route, @stop)
   end
 
   def update

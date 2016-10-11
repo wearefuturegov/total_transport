@@ -2,6 +2,7 @@ class Admin::StopsController < AdminController
   before_filter :find_route
   def new
     @stop = @route.stops.new
+    @back_path = admin_route_path(@route)
   end
 
   def create
@@ -16,6 +17,7 @@ class Admin::StopsController < AdminController
 
   def edit
     @stop = @route.stops.find(params[:id])
+    @back_path = admin_route_path(@route)
   end
 
   def update
