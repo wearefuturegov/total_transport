@@ -22,6 +22,7 @@
               <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
             </div>
             <div id="confirmation">
+              <p><%= pluralize journey.seats_left, "seat" %> left</p>
               <% if journey.full? %>
                 <p class="button">Fully booked<p>
               <% else %>

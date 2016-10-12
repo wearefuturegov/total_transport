@@ -23,8 +23,12 @@ class Journey < ActiveRecord::Base
     bookings.count > 0
   end
 
+  def seats_left
+    vehicle.seats - bookings.count
+  end
+
   def full?
-    bookings.count >= vehicle.seats
+    seats_left <= 0
   end
 
   def route_name
