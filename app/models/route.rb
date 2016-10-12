@@ -15,6 +15,14 @@ class Route < ActiveRecord::Base
     end
   end
 
+  def forwards_name
+    "#{stops.first.name} - #{stops.last.name}"
+  end
+
+  def backwards_name
+    "#{stops.last.name} - #{stops.first.name}"
+  end
+
   def has_available_journeys?
     journeys.available.any?
   end
