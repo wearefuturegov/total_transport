@@ -24,6 +24,12 @@
       </div>
     </div>
 
+    <% if @booking.return_journey? %>
+      <p>Return journey:</p>
+      <p><%= @booking.dropoff_stop.name %>: <%= padded_time @booking.dropoff_stop.time_for_journey(@booking.return_journey) %></p>
+      <p><%= @booking.pickup_stop.name %>: <%= padded_time @booking.pickup_stop.time_for_journey(@booking.return_journey) %></p>
+    <% end %>
+
     <p>
       Total: <%= number_to_currency @booking.price, unit: '£' %>
     </p>

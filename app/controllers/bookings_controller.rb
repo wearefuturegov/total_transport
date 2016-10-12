@@ -33,6 +33,19 @@ class BookingsController < ApplicationController
 
   def save_journey
     @booking.update_attributes(booking_params)
+    redirect_to choose_return_journey_route_booking_path(@route, @booking)
+  end
+
+  def choose_return_journey
+    @page_title = "Pick Your Return Time"
+    @back_path = new_route_booking_path(@route)
+    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
+    from_time = @booking.dropoff_stop.time_for_journey(@booking.journey)
+    @journeys = @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: from_time)
+  end
+
+  def save_return_journey
+    @booking.update_attributes(booking_params)
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end
 
@@ -138,7 +151,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id)
+    params.require(:booking).permit(:journey_id, :return_journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id)
   end
 
   def payment_method_params

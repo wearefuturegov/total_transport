@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       member do
         get :choose_journey
         patch :save_journey
+        get :choose_return_journey
+        patch :save_return_journey
         get :choose_pickup_location
         patch :save_pickup_location
         get :choose_dropoff_location
