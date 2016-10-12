@@ -6,7 +6,7 @@ class Journey < ActiveRecord::Base
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
 
-  scope :forward, -> {where("reversed IS NOT TRUE")}
+  scope :forwards, -> {where("reversed IS NOT TRUE")}
   scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
 

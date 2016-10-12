@@ -27,9 +27,14 @@ class Route < ActiveRecord::Base
     journeys.available.any?
   end
 
-  def available_journeys_by_date
+  def available_journeys_by_date(reversed: false)
     available_journeys_by_date = {}
-    journeys.available.each do |journey|
+    if reversed
+      journeys_in_direction = journeys.forwards
+    else
+      journeys_in_direction = journeys.backwards
+    end
+    journeys_in_direction.available.each do |journey|
       available_journeys_by_date[journey.start_time.to_date] ||= []
       available_journeys_by_date[journey.start_time.to_date] << journey
     end

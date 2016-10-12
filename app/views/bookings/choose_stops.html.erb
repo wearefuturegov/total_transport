@@ -2,8 +2,8 @@
   <div class="inner">
     <div id="passenger-stop-select" class="stop-list">
       <div id="main-line"></div>
-      <% @route.stops.each do |stop| %>
-        <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
+      <% @stops.each do |stop| %>
+        <div class="stop card" id="<%= stop.position_in_order(reversed: @reversed) %>" data-stop-id="<%= stop.id %>">
           <div class="dot stop-dot">
             <div class="dot-middle stop-dot-middle"></div>
           </div>
