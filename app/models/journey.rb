@@ -6,6 +6,8 @@ class Journey < ActiveRecord::Base
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
 
+  scope :forwards, -> {where("reversed IS NOT TRUE")}
+  scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
 
   def editable_by_supplier?(supplier)
@@ -18,6 +20,30 @@ class Journey < ActiveRecord::Base
 
   def full?
     bookings.count >= vehicle.seats
+  end
+
+  def route_name
+    if self.reversed?
+      backwards_name
+    else
+      forwards_name
+    end
+  end
+
+  def stops_in_direction
+    if self.reversed?
+      stops.reverse
+    else
+      stops
+    end
+  end
+
+  def forwards_name
+    "#{stops.first.name} - #{stops.last.name}"
+  end
+
+  def backwards_name
+    "#{stops.last.name} - #{stops.first.name}"
   end
 
   def self.close_near_journeys

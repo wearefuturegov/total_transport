@@ -8,6 +8,13 @@ class BookingsController < ApplicationController
     @back_path = routes_path
     @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
+    if params[:reversed] == 'true'
+      @reversed = true
+      @stops = @route.stops.reverse
+    else
+      @reversed = false
+      @stops = @route.stops
+    end
     render template: 'bookings/choose_stops'
   end
 
@@ -21,6 +28,7 @@ class BookingsController < ApplicationController
     @page_title = "Pick Your Time"
     @back_path = new_route_booking_path(@route)
     @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
+    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
   def save_journey

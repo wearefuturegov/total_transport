@@ -2,8 +2,8 @@
   <div class="inner">
     <div id="passenger-stop-select" class="stop-list">
       <div id="main-line"></div>
-      <% @route.stops.each do |stop| %>
-        <div class="stop card" id="<%= stop.position %>" data-stop-id="<%= stop.id %>">
+      <% @stops.each do |stop| %>
+        <div class="stop card" id="<%= stop.position_in_order(reversed: @reversed) %>" data-stop-id="<%= stop.id %>">
           <div class="dot stop-dot">
             <div class="dot-middle stop-dot-middle"></div>
           </div>
@@ -19,6 +19,7 @@
           <%= form.submit 'Confirm Route', :class => 'button' %>
         </div>
       <% end %>
+      <%= link_to "reverse this journey", new_route_booking_path(@route, @booking, reversed: !@reversed) %>
 
       <div class="clear"></div>
     </div>
@@ -105,7 +106,7 @@ $(document).ready(function() {
               if (activeDots == 2) {
                 $(this).addClass('chosenLastStop');
               }
-              
+
               if (activeDots == 1) {
                 // if its the first dot store the globals and set title
                 $('h1').html(drpfTxt);
@@ -135,7 +136,7 @@ $(document).ready(function() {
                 }
                 sortLineHeight(hiddenNum);
 
-                // add class to all sub stops 
+                // add class to all sub stops
                 setTimeout(function(){
                   $('.stop').each(function(){
                     if (!$(this).hasClass('active')) {
@@ -160,8 +161,8 @@ $(document).ready(function() {
 
     } else {
       $('.stop').hover(function() {
-        
-        if ($(".firstStop")[0]) { 
+
+        if ($(".firstStop")[0]) {
           var stopID = $(this).attr('id');
           var startID = $(".firstStop").attr('id');
           var stopsBetween = ($(this).attr('id') - $(".firstStop").attr('id'))-1;

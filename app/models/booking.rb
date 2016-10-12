@@ -23,6 +23,10 @@ class Booking < ActiveRecord::Base
     @price_distance ||= pickup_stop.distance_to(dropoff_stop)
   end
 
+  def reversed?
+    pickup_stop.position > dropoff_stop.position
+  end
+
   def price
     if price_distance < 2
       2.5

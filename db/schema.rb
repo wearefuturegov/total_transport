@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005142428) do
+ActiveRecord::Schema.define(version: 20161012101612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20161005142428) do
     t.integer  "vehicle_id"
     t.integer  "supplier_id"
     t.boolean  "open_to_bookings", default: true
+    t.boolean  "reversed"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
