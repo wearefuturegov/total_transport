@@ -19,10 +19,24 @@ class Booking < ActiveRecord::Base
     !past?
   end
 
+  def price_distance
+    @price_distance ||= pickup_stop.distance_to(dropoff_stop)
+  end
+
+  def price
+    if price_distance < 2
+      2.5
+    elsif price_distance >= 2 && price_distance <= 5
+      4.5
+    elsif price_distance > 5
+      5.5
+    end
+  end
+
   def send_notification!(message)
     @client = Twilio::REST::Client.new
     @client.messages.create(
-      from: '+441173252034',
+      from: TWILIO_PHONE_NUMBER,
       to: self.phone_number,
       body: message
     )

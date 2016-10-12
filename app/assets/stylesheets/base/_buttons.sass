@@ -1,0 +1,78 @@
+#{$all-buttons}, .button
+  text-align: center
+  appearance: none
+  background-color: $action-color
+  border: 0
+  border-radius: $base-border-radius
+  color: #fff
+  cursor: pointer
+  display: inline-block
+  font-family: $heading-font-family
+  font-size: $base-font-size
+  -webkit-font-smoothing: antialiased
+  font-weight: 600
+  line-height: 1
+  padding: $small-spacing $base-spacing
+  text-decoration: none
+  user-select: none
+  vertical-align: middle
+  white-space: nowrap
+  text-transform: uppercase
+  width: 100%
+  transition: background-color 0.3s cubic-bezier(.25,.8,.25,1)
+  -webkit-appearance: none
+
+  &:hover,
+  &:focus 
+    background-color: shade($action-color, 20%)
+    color: #fff
+
+  &:active
+    -webkit-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75)
+    -moz-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75)
+    box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75)
+   
+
+  &:disabled 
+    cursor: not-allowed
+    opacity: 0.9
+    background-color: $medium-gray
+
+    &:hover 
+      background-color: darken($medium-gray, 5%)
+
+.negative
+  background-color: $red
+.negative:hover, .negative:focus
+  background-color: $darker-red
+
+.alt-button 
+  background-color: $orange
+
+.alt-button:hover, .alt-button:focus
+  background-color: $darker-orange
+
+
+.border-bottom-left-radius
+  border-radius: 0
+  border-bottom-left-radius: $base-border-radius
+
+.border-bottom-right-radius
+  border-radius: 0
+  border-bottom-right-radius: $base-border-radius
+
+.border-bottom-radius
+  border-top-right-radius: 0
+  border-top-left-radius: 0
+
+.border-top-radius
+  border-bottom-right-radius: 0
+  border-bottom-left-radius: 0
+
+.border-right-radius
+  border-bottom-left-radius: 0
+  border-top-left-radius: 0
+
+.border-left-radius
+  border-bottom-right-radius: 0
+  border-top-right-radius: 0

@@ -1,47 +1,50 @@
-<section id="sup_edit_route">
-  <h1><%= @route.name %></h1>
+<div id="sup_edit_route" class="container">
+  <div class="inner">
+    <h1><%= @route.name %></h1>
 
-  <h2>Stops:</h2>
+    <h2>Stops:</h2>
 
-  <div id="sortable_stops" class="stop-list">
-    <% @route.stops.each do |stop| %>
-      <div id="stop_<%= stop.id %>" class="stop card">
-        <div class="edit_route_mins half">
-          <p class="stop_name"><%= stop.name %></p>
-          <div class="buttons">
-            <%= link_to edit_admin_route_stop_path(@route, stop) do %><button>Edit Stop</button><% end %>
-            <%= form_for [:admin, @route, stop], method: :delete do |form| %>
-              <%= form.submit "Delete stop", :class => "negative delete" %>
-            <% end %>
+    <div id="sortable_stops" class="stop-list">
+      <% @route.stops.each do |stop| %>
+        <div id="stop_<%= stop.id %>" class="stop card">
+          <div class="edit_route_mins half">
+            <p class="stop_name"><%= stop.name %></p>
+            <div class="buttons">
+              <%= link_to edit_admin_route_stop_path(@route, stop) do %><div class="button">Edit Stop</div><% end %>
+              <%= form_for [:admin, @route, stop], method: :delete do |form| %>
+                <%= form.submit "Delete stop", :class => "negative delete" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="half">
+            <div class="time_gap_form">
+              <%= form_for [:admin, @route, stop] do |form| %>
+                <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
+                minutes.
+                <%= form.submit "Save", :class => "min_save" %>
+              <% end %>
+            </div>
+            <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
           </div>
         </div>
-        <div class="half">
-          <div class="time_gap_form">
-            <%= form_for [:admin, @route, stop] do |form| %>
-              <%= form.number_field :minutes_from_last_stop, class: 'minutes-field' %>
-              minutes.
-              <%= form.submit "Save", :class => "min_save" %>
-            <% end %>
+      <% end %>
+    </div>
+    <div class="wide-btn card">
+      <div class="half">
+        <%= link_to new_admin_route_stop_path(@route) do %>
+          <div class="button border-left-radius">
+            <span>Add a New Stop</span>
           </div>
-          <div class="map_preview" data-geojson="<%= stop.polygon.to_json %>"></div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  <div class="wideBtn card">
-  <div class="half">
-    <%= link_to new_admin_route_stop_path(@route) do %>
-      <div class="cardBtn">
-        <span>Add a New Stop</span>
+      <div class="half">
+        <%= form_for [:admin, @route], method: :delete do |form| %>
+          <%= form.submit "Delete route", :class => "button negative delete border-right-radius" %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
-  <div class="half">
-    <%= form_for [:admin, @route], method: :delete do |form| %>
-      <%= form.submit "Delete route", :class => "cardBtn negative delete" %>
-    <% end %>
-  </div>
-  </div>
+</div>
 
 
   <script type="text/javascript">
@@ -72,5 +75,3 @@
       });
     }
   </script>
-
-</section>

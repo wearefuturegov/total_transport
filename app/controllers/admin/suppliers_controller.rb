@@ -3,10 +3,12 @@ class Admin::SuppliersController < AdminController
 
   def index
     @suppliers = Supplier.all
+    @back_path = admin_team_path
   end
 
   def edit
     @supplier = Supplier.find(params[:id])
+    @back_path = admin_suppliers_path
   end
 
   def update

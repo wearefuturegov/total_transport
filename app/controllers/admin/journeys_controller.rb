@@ -11,6 +11,7 @@ class Admin::JourneysController < AdminController
 
   def new
     @journey = current_supplier.journeys.new
+    @back_path = admin_root_path
   end
 
   def create
@@ -19,6 +20,11 @@ class Admin::JourneysController < AdminController
   end
 
   def edit
+    @back_path = admin_journey_path(@journey)
+  end
+
+  def show
+    @back_path = admin_root_path
   end
 
   def update

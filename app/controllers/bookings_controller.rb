@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   # Choose stops
   def new
     @page_title = "Choose Your Pick Up Area"
+    @back_path = routes_path
     @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
     render template: 'bookings/choose_stops'
@@ -18,6 +19,7 @@ class BookingsController < ApplicationController
 
   def choose_journey
     @page_title = "Pick Your Time"
+    @back_path = new_route_booking_path(@route)
     @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
   end
 
@@ -27,8 +29,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
-    @page_title = "Choose Your Pick Up Point"
-    @top_sec = "Move the map to show us where to pick you up. You can choose a pick up point anywhere in the highlighted area."
+    @page_title = "Choose Pick Up Area"
+    @back_path = choose_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -40,8 +42,8 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Your Drop Off Point"
-    @top_sec = "Move the map to show us where to pick you up. You can choose a drop off point anywhere in the highlighted area."    
+    @page_title = "Choose Drop Off Area"
+    @back_path = choose_pickup_location_route_booking_path(@route, @booking)
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -49,28 +51,33 @@ class BookingsController < ApplicationController
 
   def save_dropoff_location
     @booking.update_attributes(booking_params)
-    if current_passenger.payment_methods.any?
+    redirect_to confirm_route_booking_path(@route, @booking)
+    /if current_passenger.payment_methods.any?
       redirect_to choose_payment_method_route_booking_path(@route, @booking)
     else
       redirect_to add_payment_method_route_booking_path(@route, @booking)
-    end
+    end/
   end
 
   def choose_payment_method
     @page_title = "Choose Your Payment Method"
+    @back_path = confirm_route_booking_path(@route, @booking)
   end
 
   def save_payment_method
-    if params[:booking][:payment_method_id] == 'new'
+    /if params[:booking][:payment_method_id] == 'new'
       redirect_to add_payment_method_route_booking_path(@route, @booking)
     else
       @booking.update_attributes(booking_params)
       redirect_to confirm_route_booking_path(@route, @booking)
-    end
+    end/
+    @booking.update_attributes(booking_params)
+    redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def add_payment_method
     @page_title = "New Payment Method"
+    @back_path = choose_payment_method_route_booking_path(@route, @booking)
     @payment_method = current_passenger.payment_methods.new
   end
 
@@ -81,12 +88,14 @@ class BookingsController < ApplicationController
   end
 
   def confirm
-    @page_title = "Confirm Your Booking"
+    @page_title = "Overview"
+    @back_path = choose_dropoff_location_route_booking_path(@route, @booking)
   end
 
   def save_confirm
     @booking.update_attributes(booking_params)
-    redirect_to confirmation_route_booking_path(@route, @booking)
+    redirect_to choose_payment_method_route_booking_path(@route, @booking)
+    /redirect_to confirmation_route_booking_path(@route, @booking)/
   end
 
   def confirmation
@@ -121,7 +130,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :state, :phone_number, :payment_method_id)
+    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id)
   end
 
   def payment_method_params

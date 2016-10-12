@@ -1,62 +1,190 @@
-<div class="card-cont">
-  <script type="text/javascript">
-  var map
-    function initMap() {
-      var geoJson = <%= @stop.polygon.to_json.html_safe %>;
-      map = new google.maps.Map(document.getElementById("map"), {});
-      map.data.addGeoJson(geoJson);
-      var polygon_feature;
-      map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
-      var bounds = new google.maps.LatLngBounds();
-      polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
-      tightFitBounds(map, bounds);
+<script type="text/javascript">
+var map
+  function initMap() {
+    var geoJson = <%= @stop.polygon.to_json.html_safe %>;
+    map = new google.maps.Map(document.getElementById("map"), { scrollwheel: false });
+    map.data.addGeoJson(geoJson);
+    var polygon_feature;
+    map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
+    var bounds = new google.maps.LatLngBounds();
+    polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
+    tightFitBounds(map, bounds);
 
-      var polygon = new google.maps.Polygon({
-        paths: polygon_feature.getArray()[0].getArray(),
+    var polygon = new google.maps.Polygon({
+      paths: polygon_feature.getArray()[0].getArray(),
+    });
+
+    <% if @pickup_of_dropoff == 'pickup' %>
+      $('<div/>').addClass('centerMarker').html('Pickup').appendTo(map.getDiv());
+    <% else %>
+      $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
+    <% end %>
+    
+
+    var last_position = map.getCenter();
+    
+    map.addListener('center_changed', function() {
+      if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
+        map.setCenter(last_position);
+      } else {
+        last_position = map.getCenter();
+        <% if @pickup_of_dropoff == 'pickup' %>
+          $('#booking_pickup_lat').val(map.getCenter().lat());
+          $('#booking_pickup_lng').val(map.getCenter().lng());
+        <% else %>
+          $('#booking_dropoff_lat').val(map.getCenter().lat());
+          $('#booking_dropoff_lng').val(map.getCenter().lng());
+        <% end %>
+      }
+    });
+
+    google.maps.event.addListenerOnce(map, 'idle', function(){
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
+      $('#map .centerMarker').css('margin-top', ($('#map .centerMarker').outerHeight()+10)*-1);
+    });
+
+    map.addListener('dragstart', function() {
+      $('.single-landmark').each(function() {
+        $(this).removeClass('chosen');
+        $('#choose-stop').removeClass('searching');
+        $('#choose-stop .dot').removeClass('loader');
       });
 
-      $('<div/>').addClass('centerMarker').appendTo(map.getDiv());
+      $('#choose-stop').addClass('chosen').addClass('searching');
+      $('#choose-stop .dot').addClass('loader');
+      $('#choose-stop span').html('Searching for place...');
+    })
 
-      var last_position = map.getCenter();
-      map.addListener('center_changed', function() {
-        if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
-          map.setCenter(last_position);
+    map.addListener('dragend', function() {
+      var geocoder = new google.maps.Geocoder;
+      geocoder.geocode({'location': map.getCenter()}, function(results, status) {
+        $('#choose-stop').removeClass('searching').addClass('final');
+        $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
+        $('#choose-stop .dot').removeClass('loader');
+        var pin_name
+        if (status === 'OK') {
+          console.log(results);
+          if (results[0]) {
+            pin_name = results[0].formatted_address;
+          } else {
+            pin_name = 'Your pin location';
+          }
         } else {
-          last_position = map.getCenter();
-          <% if @pickup_of_dropoff == 'pickup' %>
-            $('#booking_pickup_lat').val(map.getCenter().lat());
-            $('#booking_pickup_lng').val(map.getCenter().lng());
-          <% else %>
-            $('#booking_dropoff_lat').val(map.getCenter().lat());
-            $('#booking_dropoff_lng').val(map.getCenter().lng());
-          <% end %>
+          pin_name = 'Your pin location';
+        }
+        $('#choose-stop span').html(pin_name);
+        <% if @pickup_of_dropoff == 'pickup' %>
+          $('#booking_pickup_name').val(pin_name);
+        <% else %>
+          $('#booking_dropoff_name').val(pin_name);
+        <% end %>
+      });
+    } );
+  }
+</script>
+
+<div class="top-sec white-block container">
+  <div class="inner">
+    <% if @pickup_of_dropoff == 'pickup' %>
+      <% if @stop.landmarks.present? %>
+        <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
+      <% end %>
+    <% else %>
+      <span>Great we will pick you up from <i><%= @booking.pickup_name %></i> in <i><%= Stop.find(@booking.pickup_stop_id).name %></i>. Where in <%= @stop.name %> should we drop you off?.</span>
+    <% end %>
+
+    <div class="landmarks">
+      <% if @stop.landmarks.present? %>
+        <% @stop.landmarks.each do |landmark| %>
+          <div class="single-landmark" data-lat="<%= landmark.latitude %>" data-long="<%= landmark.longitude %>">
+            <div class="dot">
+              <div class="dot-middle"></div>
+            </div>
+            <span><%= landmark.name %></span>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div id="choose-stop" class="single-landmark" data-lat="choose-own" data-long="choose-own">
+        <div class="dot">
+          <div class="dot-middle"></div>
+        </div>
+        <% if @stop.landmarks.present? %>
+          <span>Choose your own</span>
+        <% else %>
+          <span>Drag the map to choose a pick up point</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="map-cont">
+  <div id="map" style="margin-bottom:0"></div>
+
+  <div id="confirmation">
+    <% if @pickup_of_dropoff == 'pickup' %>
+      <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
+        <%= form.hidden_field :pickup_lat %>
+        <%= form.hidden_field :pickup_lng %>
+        <%= form.hidden_field :pickup_name %>
+        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled' %>
+      <% end %>
+    <% else %>
+      <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
+        <%= form.hidden_field :dropoff_lat %>
+        <%= form.hidden_field :dropoff_lng %>
+        <%= form.hidden_field :dropoff_name %>
+        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled'  %>
+      <% end %>
+    <% end %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.drop_off_change').html('drop off');
+        $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
+      });
+      $(window).resize(function() {
+        $('#map').height(($(window).height()-$('header').outerHeight())-$('.top-sec').outerHeight());
+      });
+      $('.single-landmark').click(function() {
+        if (!$(this).hasClass('chosen')) {
+          clearDots();
+          $(this).addClass('chosen');
+
+          if ($(this).data('lat') == 'choose-own') {
+            $('.edit_booking input[type="submit"]').attr("disabled", true).addClass('disabled');
+            $('#choose-stop span').html('Drag the map to choose');
+          } else {
+            $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
+            $('#choose-stop span').html('Choose your own');
+            
+            <% if @pickup_of_dropoff == 'pickup' %>
+              $('#booking_pickup_name').val($(this).find('span').html())
+            <% else %>
+              $('#booking_dropoff_name').val($(this).find('span').html())
+            <% end %>
+
+            var lat = $(this).data('lat'),
+                long = $(this).data('long');
+            var center = new google.maps.LatLng(lat, long);
+            map.setCenter(center);
+          }
         }
       });
-    }
-  </script>
-  <div class="card">
-    <div id="map" style="margin-bottom:0"></div>
+      $('.single-landmark').hover(function() {
+        $(this).addClass('hover');
+      }, function() {
+        $(this).removeClass('hover');
+      });
 
-    <div id="confirmation">
-      <% if @pickup_of_dropoff == 'pickup' %>
-        <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
-          <%= form.hidden_field :pickup_lat %>
-          <%= form.hidden_field :pickup_lng %>
-          <%= form.submit "Confirm Pick Up Point", :class => 'cardBtn' %>
-        <% end %>
-      <% else %>
-        <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
-          <%= form.hidden_field :dropoff_lat %>
-          <%= form.hidden_field :dropoff_lng %>
-          <%= form.submit "Confirm Drop Off Point", :class => 'cardBtn'  %>
-        <% end %>
-        <script type="text/javascript">
-          $(document).ready(function() {
-            $('.drop_off_change').html('drop off');
-          });
-        </script>
-      <% end %>
-    </div>
+      function clearDots() {
+        $('.single-landmark').each(function() {
+          $(this).removeClass('chosen');
+          $('#choose-stop').removeClass('searching').removeClass('final');
+          $('#choose-stop .dot').removeClass('loader');
+        });
+      }
+    </script>
   </div>
 </div>
 

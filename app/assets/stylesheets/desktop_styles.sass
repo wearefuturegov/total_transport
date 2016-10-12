@@ -1,9 +1,8 @@
-@media screen and (min-width: 959px)
-  .mobile_only
+@media screen and (min-width: ($large-screen - 1px))
+  .no-desktop
     display: none
-  .desktop_only
-    display: block
-
+  .no-mobile
+    display: inline-block
   .route 
     .acordBtn
       font-size: 17px
@@ -13,5 +12,5 @@
       font-size: 17px
     .timeEst
       font-size: 23px
-    .midArw
-      font-size: 20px
+
+  

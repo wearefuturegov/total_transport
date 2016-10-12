@@ -1,11 +1,17 @@
 class Admin::RoutesController < AdminController
   before_filter :check_permissions
+  def index
+    @back_path = admin_team_path
+  end
+
   def create
     route = Route.create!
     redirect_to admin_route_path(route)
   end
+
   def show
     @route = Route.find(params[:id])
+    @back_path = admin_routes_path
   end
   def destroy
     @route = Route.find(params[:id])

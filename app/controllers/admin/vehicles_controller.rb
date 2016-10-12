@@ -1,9 +1,11 @@
 class Admin::VehiclesController < AdminController
   def index
     @vehicles = current_team.vehicles
+    @back_path = admin_team_path
   end
   def new
     @vehicle = current_team.vehicles.new
+    @back_path = admin_vehicles_path
   end
   def create
     @vehicle = current_team.vehicles.new(vehicle_params)
@@ -12,6 +14,7 @@ class Admin::VehiclesController < AdminController
   end
   def edit
     @vehicle = current_team.vehicles.find(params[:id])
+    @back_path = admin_vehicles_path
   end
   def update
     @vehicle = current_team.vehicles.find(params[:id])

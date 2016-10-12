@@ -1,63 +1,62 @@
-<div class="alerts out_parent">
-  <section>
-    <div class="notice"></div>
-    <div class="alert"><%= devise_error_messages! %></div>
-  </section>
-</div>
+<div class="login-form container card-cont">
+  <div class="inner">
+    <div class="card no-click">  
+      <div class="inner">
+        <h2>Sign up to Admin</h2>
 
-<div class="login_form card no_click lower_cont cont">
-  <h2>Sign up to Admin</h2>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <div class="field full">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true %>
+          </div>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <div class="field full">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true %>
+          <div class="field full">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+
+          <div class="field full">
+            <%= f.label :password_confirmation %>
+            <em>Retype password</em>
+            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          </div>
+
+          <div class="field full">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="field full">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number %>
+          </div>
+
+          <div class="field full photo-edit">
+            <%= f.label :photo, "Profile Photo" %>
+            <%= f.file_field :photo, :class => 'inputfile' %>
+            <%= f.label :photo, :class => 'inputfile-label button' do %>
+              <i class="fa fa-upload"></i> <span>Choose a File...</span>
+            <% end %>
+          </div>
+
+          <div class="field full">
+            <%= f.label :team_id %>
+            <%= f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}  %>
+          </div>
+
+          <div class="actions half">
+            <%= f.submit "Sign up", class: "alt-button" %>
+          </div>
+        <% end %>
+      
+        <div class="half">
+          <span>Already have an account?</span>
+          <%= render "suppliers/shared/links" %>
+        </div>
+      </div>
     </div>
-
-    <div class="field full">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "off" %>
-    </div>
-
-    <div class="field full">
-      <%= f.label :password_confirmation %>
-      <em>Retype password</em>
-      <%= f.password_field :password_confirmation, autocomplete: "off" %>
-    </div>
-
-    <div class="field full">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
-
-    <div class="field full">
-      <%= f.label :phone_number %>
-      <%= f.text_field :phone_number %>
-    </div>
-
-    <div class="field full photo_edit">
-      <%= f.label :photo, "Profile Photo" %>
-      <%= f.file_field :photo, :class => 'inputfile' %>
-      <%= f.label :photo, :class => 'inputfile_label' do %>
-        <i class="fa fa-upload"></i> <span>Choose a File...</span>
-      <% end %>
-    </div>
-
-    <div class="field full">
-      <%= f.label :team_id %>
-      <%= f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}  %>
-    </div>
-
-    <div class="actions full">
-      <%= f.submit "Sign up" %>
-    </div>
-  <% end %>
-
-  <div class="lower">
-    <span>Already have an account?</span>
-    <%= render "suppliers/shared/links" %>
   </div>
 </div>

@@ -1,16 +1,18 @@
-<div id="sup_edit_stop">
-  <h2>Add a Stop:</h2>
-  <div class="card">
-    <%= form_for [:admin, @route, @stop] do |form| %>
-      <div class="inner">
-        <%= render partial: 'fields', locals: {form: form} %>
-      </div>
-      <div class="half">
-        <%= form.submit "Create & add another stop", :class => "cardBtn name_validation" %>
-      </div>
-      <div class="half" style="clear:none;">
-        <%= form.submit "Create & finish", :class => "cardBtn name_validation" %>
-      </div>
-    <% end %>
+<div id="sup_edit_stop" class="container">
+  <div class="inner">
+    <h2>Add a Stop:</h2>
+    <div class="card no-click wide-btn">
+      <%= form_for [:admin, @route, @stop] do |form| %>
+        <div class="inner">
+          <%= render partial: 'fields', locals: {form: form} %>
+        </div>
+        <div class="half">
+          <%= form.submit "Create & add another stop", :class => "button name_validation border-left-radius" %>
+        </div>
+        <div class="half" style="clear:none;">
+          <%= form.submit "Create & finish", :class => "button alt-button name_validation border-right-radius" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

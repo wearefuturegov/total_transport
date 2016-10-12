@@ -1,65 +1,69 @@
-<h2>Suggested routes</h2>
-<table>
-  <tr>
-    <th>Suggested by</th>
-    <th>Description</th>
-  </tr>
-  <% @suggested_routes.each do |suggested_route| %>
-    <tr>
-      <td><%= suggested_route.passenger.phone_number %></td>
-      <td><%= suggested_route.description %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container">
+  <div class="inner">
+    <h2>Suggested routes</h2>
+    <table>
+      <tr>
+        <th>Suggested by</th>
+        <th>Description</th>
+      </tr>
+      <% @suggested_routes.each do |suggested_route| %>
+        <tr>
+          <td><%= suggested_route.passenger.phone_number %></td>
+          <td><%= suggested_route.description %></td>
+        </tr>
+      <% end %>
+    </table>
 
-<h2>Suggested times</h2>
-<table>
-  <tr>
-    <th>Suggested by</th>
-    <th>On route</th>
-    <th>Time</th>
-    <th>Description</th>
-  </tr>
-  <% @suggested_journeys.each do |suggested_journey| %>
-    <tr>
-      <td><%= suggested_journey.passenger.phone_number %></td>
-      <td><%= link_to suggested_journey.route.name, admin_route_path(suggested_journey.route) %></td>
-      <td><%= suggested_journey.start_time %></td>
-      <td><%= suggested_journey.description %></td>
-    </tr>
-  <% end %>
-</table>
+    <h2>Suggested times</h2>
+    <table>
+      <tr>
+        <th>Suggested by</th>
+        <th>On route</th>
+        <th>Time</th>
+        <th>Description</th>
+      </tr>
+      <% @suggested_journeys.each do |suggested_journey| %>
+        <tr>
+          <td><%= suggested_journey.passenger.phone_number %></td>
+          <td><%= link_to suggested_journey.route.name, admin_route_path(suggested_journey.route) %></td>
+          <td><%= suggested_journey.start_time %></td>
+          <td><%= suggested_journey.description %></td>
+        </tr>
+      <% end %>
+    </table>
 
-<h2>Suggested edit to stops</h2>
-<table>
-  <tr>
-    <th>Suggested by</th>
-    <th>On route</th>
-    <th>Stop</th>
-    <th>Description</th>
-  </tr>
-  <% @suggested_edit_to_stops.each do |suggested_edit_to_stop| %>
-    <tr>
-      <td><%= suggested_edit_to_stop.passenger.phone_number %></td>
-      <td><%= link_to suggested_edit_to_stop.stop.route.name, admin_route_path(suggested_edit_to_stop.stop.route) %></td>
-      <td><%= link_to suggested_edit_to_stop.stop.name, edit_admin_route_stop_path(suggested_edit_to_stop.stop.route, suggested_edit_to_stop.stop) %></td>
-      <td><%= suggested_edit_to_stop.description %></td>
-    </tr>
-  <% end %>
-</table>
+    <h2>Suggested edit to stops</h2>
+    <table>
+      <tr>
+        <th>Suggested by</th>
+        <th>On route</th>
+        <th>Stop</th>
+        <th>Description</th>
+      </tr>
+      <% @suggested_edit_to_stops.each do |suggested_edit_to_stop| %>
+        <tr>
+          <td><%= suggested_edit_to_stop.passenger.phone_number %></td>
+          <td><%= link_to suggested_edit_to_stop.stop.route.name, admin_route_path(suggested_edit_to_stop.stop.route) %></td>
+          <td><%= link_to suggested_edit_to_stop.stop.name, edit_admin_route_stop_path(suggested_edit_to_stop.stop.route, suggested_edit_to_stop.stop) %></td>
+          <td><%= suggested_edit_to_stop.description %></td>
+        </tr>
+      <% end %>
+    </table>
 
-<h2>Supplier suggestions</h2>
-<table>
-  <tr>
-    <th>Suggested by</th>
-    <th>From page</th>
-    <th>Description</th>
-  </tr>
-  <% @supplier_suggestions.each do |supplier_suggestion| %>
-    <tr>
-      <td><%= supplier_suggestion.supplier.email %></td>
-      <td><%= link_to supplier_suggestion.url, supplier_suggestion.url %></td>
-      <td><%= supplier_suggestion.description %></td>
-    </tr>
-  <% end %>
-</table>
+    <h2>Supplier suggestions</h2>
+    <table>
+      <tr>
+        <th>Suggested by</th>
+        <th>From page</th>
+        <th>Description</th>
+      </tr>
+      <% @supplier_suggestions.each do |supplier_suggestion| %>
+        <tr>
+          <td><%= supplier_suggestion.supplier.email %></td>
+          <td><%= link_to supplier_suggestion.url, supplier_suggestion.url %></td>
+          <td><%= supplier_suggestion.description %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

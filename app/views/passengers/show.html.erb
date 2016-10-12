@@ -1,21 +1,21 @@
 <div class="card-cont">
-  <div class="login_form card no_click profile cont">  
+  <div class="login-form card no-click profile cont">
     <%= form_for(@passenger, multipart: true) do |f| %>
-      <div class="profile_banner">
-        <div class="profile_face">
+      <div class="profile-banner">
+        <div class="profile-face">
           <div id="theFace">
             <% if @passenger.photo? %>
-              <%= image_tag @passenger.photo.url(:square), :id => 'profile_start_pic' %>
-            <% else %> 
+              <%= image_tag @passenger.photo.url(:square), :id => 'profile-start-pic' %>
+            <% else %>
               <div class="circle" id="plaecholderProfile">
                 <i class="fa fa-user fa-2x"></i>
               </div>
             <% end %>
             <img id="tempImg" src="#" alt="Temporary Image Upload" style="display: none;">
           </div>
-          <div class="field photo_edit">
+          <div class="field photo-edit">
             <%= f.file_field :photo, :class => 'inputfile' %>
-              <%= f.label :photo, :class => 'inputfile_label' do %>
+              <%= f.label :photo, :class => 'inputfile-label' do %>
                 <i class="fa fa-upload"></i> <span>Choose a File...</span>
               <% end %>
           </div>
@@ -30,21 +30,19 @@
     <% end %>
     </div>
   <% if @passenger.bookings.any? %>
-    <div class="white_block">
-      <div class="inner_cont">
-        <h2>Bookings</h2>
-        <p>This is a list of all of your future and past bookings:</p>
-      </div>
+    <div class="bookings">
+      <h2>Bookings</h2>
+      <p>This is a list of all of your future and past bookings:</p>
     </div>
     <% @passenger.bookings.booked.each do |booking| %>
-      <div class="login_form card cont">
+      <div class="login-form card cont">
         <h4>Your Journey - <%= friendly_date(booking.pickup_stop.time_for_journey(booking.journey)) %></h4>
         <p><span class="bold">Pick Up Location:</span> <%= booking.pickup_stop.name %> - Est. <%= padded_time booking.pickup_stop.time_for_journey(booking.journey)%><br/>
         <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.pickup_lat %>,<%= booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.pickup_lat %>,<%= booking.pickup_lng %>"></p>
 
         <p><span class="bold">Drop Off Location:</span> <%= booking.dropoff_stop.name %> - Est. <%= padded_time booking.dropoff_stop.time_for_journey(booking.journey)%><br/>
         <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>"></p>
-        
+
 
         <% if booking.future? %>
           <div class="actions">
@@ -55,5 +53,9 @@
         <% end %>
       </div>
     <% end %>
+  <% end %>
+
+  <%= form_for current_passenger, method: :delete do |form| %>
+    <%= form.submit "Logout" %>
   <% end %>
 </div>

@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
   before_action :set_page_title
   before_action :set_top_sec
+  before_filter :create_body_id
 
   helper_method :current_passenger
   def current_passenger
@@ -48,7 +49,11 @@ class ApplicationController < ActionController::Base
     if session[:current_passenger]
       @current_passenger = Passenger.find_by_id(session[:current_passenger])
     else
-      nil
+      if Rails.env.test? && cookies[:stub_user_id].present?
+        @current_passenger = Passenger.find_by_id(cookies[:stub_user_id]) if cookies[:stub_user_id]
+      else
+        nil
+      end
     end
   end
 
@@ -71,5 +76,9 @@ class ApplicationController < ActionController::Base
 
   def set_top_sec
     @top_sec = false
+  end
+
+  def create_body_id
+    @body_id = "#{params[:controller]}-#{params[:action]}"
   end
 end

@@ -19,15 +19,33 @@ class Passenger < ActiveRecord::Base
   end
 
   def set_verification_code
-    self.update_attribute(:verification_code, (rand * 10000).to_i)
+    self.update_attribute(:verification_code, generate_verfication_code)
   end
 
   def send_notification!(message)
     @client = Twilio::REST::Client.new
     @client.messages.create(
-      from: '+441173252034',
+      from: TWILIO_PHONE_NUMBER,
       to: self.phone_number,
       body: message
     )
+  end
+
+  def self.formatted_phone_number(phone_number)
+    if phone_number.present?
+      @client = Twilio::REST::LookupsClient.new
+      response = @client.phone_numbers.get(phone_number, country_code: 'GB')
+      response.phone_number
+    else
+      false
+    end
+  rescue Twilio::REST::RequestError => e
+    false
+  end
+
+  private
+
+  def generate_verfication_code
+    (rand * 10000).to_i.to_s.rjust(4, "0")
   end
 end

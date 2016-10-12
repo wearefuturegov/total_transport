@@ -1,7 +1,7 @@
 // ToDo: change slideUp / sildeDown to a CSS animation
 
 $(document).ready(function() {
-  if ($("#passenger_stop_select").length) { //  CONDITIONAL STATEMENT SO IT ONLY WORKS ON ONE PAGE
+  if ($("#passenger-stop-select").length) { //  CONDITIONAL STATEMENT SO IT ONLY WORKS ON ONE PAGE
     var activeDots = 0;
     var numOfStops = $('.stop').length;
     var stopNumber = 0;
@@ -25,7 +25,7 @@ $(document).ready(function() {
           // lower the current global of active dots
           activeDots--;
           // remove its active class
-          $(this).removeClass('active');
+          $(this).removeClass('active').removeClass('chosenLastStop');
           // remove the alive class from its child
           $(this).find('.stop-dot-line').removeClass('alive');
           $(this).find('.stop-dot-line').removeAttr('style');
@@ -70,6 +70,10 @@ $(document).ready(function() {
             $('.lastChild').addClass('lastChildOff');
             $('.lastChild').removeClass('lastChild');
             $(this).addClass('active');
+            // if this is the last stop add last stop class
+            if (activeDots == 2) {
+              $(this).addClass('chosenLastStop');
+            }
             
             if (activeDots == 1) {
               // if its the first dot store the globals and set title
@@ -145,6 +149,10 @@ $(document).ready(function() {
           if (stopNumber != 0 && activeDots == 1) {
             var potentialStop = parseInt($(this).attr('id'));
             drawStopLine(stopNumber, potentialStop);
+            //If not first stop add secondary hover class for colouring
+            if (!$(this).hasClass('firstStop')) {
+              $(this).addClass('hoverSecondary');
+            }
           }
           if (activeDots == 2 && $(this).hasClass('firstStop')) {
           // remove hover effect from the first stop if two stops are clicked
@@ -166,6 +174,7 @@ $(document).ready(function() {
           $(this).css({'cursor' :"pointer"});
           $(this).removeClass('hover');
           $(this).removeClass('lastHover');
+          $(this).removeClass('hoverSecondary');
           $('.stop').each(function() {
             $(this).removeClass('tempHover');
           })

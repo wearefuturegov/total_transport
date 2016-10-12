@@ -15,15 +15,17 @@ $(window).load(function() {
 });
 
 $(document).ready(function() {
-  $('.alerts').each(function() {
-    if ($(this).hasClass('out_parent')) {
-      $(this).parent().parent().before(this);
-    }
-    if ($(this).find('.notice').html().length > 0 || $(this).find('.alert').html().length > 0) {
-      $(this).slideDown();
-    }
-  });
   
+  if ($('.alerts')) {
+    $('.alerts').slideDown();
+  }
+
+  //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
+  if ($('#move-to-top')) {
+    var content = $('#move-to-top').contents();
+    $('.top-sec .inner').append(content);
+  }
+
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
       barHeight = 98,
@@ -68,7 +70,7 @@ $(document).ready(function() {
   if ($('.inputfile').length) {
     $( '.inputfile' ).each( function(){
       var $input   = $( this ),
-        $label   = $('.inputfile_label'),
+        $label   = $('.inputfile-label'),
         labelVal = $label.html();
       $input.on( 'change', function( e ) {
         var files = e.target.files;
@@ -83,7 +85,7 @@ $(document).ready(function() {
               if ($('#plaecholderProfile').length) {
                 $('#plaecholderProfile').hide();
               } else {
-                $('#profile_start_pic').hide();
+                $('#profile-start-pic').hide();
               }
               $('#tempImg').attr('src', e.target.result).slideDown(function() {
                 if ($('#tempImg').height() < $('#theFace').height()) {
