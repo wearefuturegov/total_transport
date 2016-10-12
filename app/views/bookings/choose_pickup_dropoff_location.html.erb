@@ -45,10 +45,10 @@ var map
 
     map.addListener('dragstart', function() {
       $('.single-landmark').each(function() {
-        $(this).removeClass('chosen');
-        $('#choose-stop').removeClass('searching');
-        $('#choose-stop .dot').removeClass('loader');
+        $(this).removeClass('chosen hover');
       });
+      $('#choose-stop').click().removeClass('searching');
+      $('#choose-stop .dot').removeClass('loader');
 
       $('#choose-stop').addClass('chosen').addClass('searching');
       $('#choose-stop .dot').addClass('loader');
