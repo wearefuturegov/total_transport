@@ -25,7 +25,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_journey
-    @page_title = "Pick Your Time"
+    @page_title = "Choose Your Options"
     @back_path = new_route_booking_path(@route)
     @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
     @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)

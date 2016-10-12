@@ -1,3 +1,9 @@
+<div id="move-to-top">
+  <div class="top-info">
+    <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
+  </div>
+</div>
+
 <div class="card-cont">
   <% @journeys.each_pair do |date, journeys| %>
     <div class="card no-click date-card">
