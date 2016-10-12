@@ -38,7 +38,7 @@ class Stop < ActiveRecord::Base
 
   def position_in_order(reversed: false)
     if reversed
-      route.stops.count - position
+      route.stops.count - position + 1
     else
       position
     end
