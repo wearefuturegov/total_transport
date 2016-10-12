@@ -21,7 +21,7 @@
               <% else %>
                 <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
                   <%= form.hidden_field :journey_id, value: journey.id %>
-                  <%= form.submit 'Define Pick Up Point', :class => 'button' %>
+                  <%= form.submit 'Confirm Time', :class => 'button' %>
                 <% end %>
               <% end %>
             </div>
