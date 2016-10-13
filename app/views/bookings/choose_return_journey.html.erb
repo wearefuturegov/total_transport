@@ -5,6 +5,14 @@
       <p>Single Journey: <%= number_to_currency @booking.single_price, unit: '£' %>
       <%= link_to "No return journey", choose_pickup_location_route_booking_path(@route, @booking) %>
       <p>Return Journey: <%= number_to_currency @booking.return_price, unit: '£' %>
+      <%= form.label :child_tickets %>
+      <%= form.number_field :child_tickets %>
+      <%= form.label :older_bus_passes %>
+      <%= form.number_field :older_bus_passes %>
+      <%= form.label :disabled_bus_passes %>
+      <%= form.number_field :disabled_bus_passes %>
+      <%= form.label :scholar_bus_passes %>
+      <%= form.number_field :scholar_bus_passes %>
     </div>
   </div>
 

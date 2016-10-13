@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013091503) do
+ActiveRecord::Schema.define(version: 20161013105352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 20161013091503) do
     t.integer  "return_journey_id"
     t.integer  "number_of_passengers", default: 1
     t.text     "special_requirements"
+    t.integer  "child_tickets",        default: 0
+    t.integer  "older_bus_passes",     default: 0
+    t.integer  "disabled_bus_passes",  default: 0
+    t.integer  "scholar_bus_passes",   default: 0
   end
 
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
