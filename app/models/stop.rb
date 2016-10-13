@@ -10,9 +10,9 @@ class Stop < ActiveRecord::Base
 
   def previous_stops(reversed: false)
     if reversed
-      route.stops.where('position <= ?', self.position)
-    else
       route.stops.where('position >= ?', self.position)
+    else
+      route.stops.where('position <= ?', self.position)
     end
   end
 
