@@ -17,8 +17,8 @@
         <h3><%= friendly_date date %></h3>
       </div>
       <% journeys.each do |journey| %>
-        <%= form.label :journey_id do %>
           <div class="single-journey card">
+            <%= form.label :journey_id, :value => journey.id do %>
             <%= form.radio_button :journey_id, journey.id %>
             <div class="inner">
               <div class="left">
@@ -36,8 +36,8 @@
                 <% end %>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </div>
