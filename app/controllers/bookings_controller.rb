@@ -27,7 +27,6 @@ class BookingsController < ApplicationController
   def choose_journey
     @page_title = "Choose Your Options"
     @back_path = new_route_booking_path(@route)
-    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
     @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
@@ -39,7 +38,6 @@ class BookingsController < ApplicationController
   def choose_return_journey
     @page_title = "Pick Your Return Time"
     @back_path = new_route_booking_path(@route)
-    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
     from_time = @booking.dropoff_stop.time_for_journey(@booking.journey)
     @journeys = @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: from_time)
   end
@@ -73,11 +71,11 @@ class BookingsController < ApplicationController
   def save_dropoff_location
     @booking.update_attributes(booking_params)
     redirect_to confirm_route_booking_path(@route, @booking)
-    /if current_passenger.payment_methods.any?
-      redirect_to choose_payment_method_route_booking_path(@route, @booking)
-    else
-      redirect_to add_payment_method_route_booking_path(@route, @booking)
-    end/
+    # if current_passenger.payment_methods.any?
+    #   redirect_to choose_payment_method_route_booking_path(@route, @booking)
+    # else
+    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
+    # end
   end
 
   def choose_payment_method
@@ -86,12 +84,12 @@ class BookingsController < ApplicationController
   end
 
   def save_payment_method
-    /if params[:booking][:payment_method_id] == 'new'
-      redirect_to add_payment_method_route_booking_path(@route, @booking)
-    else
-      @booking.update_attributes(booking_params)
-      redirect_to confirm_route_booking_path(@route, @booking)
-    end/
+    # if params[:booking][:payment_method_id] == 'new'
+    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
+    # else
+    #   @booking.update_attributes(booking_params)
+    #   redirect_to confirm_route_booking_path(@route, @booking)
+    # end
     @booking.update_attributes(booking_params)
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
@@ -115,8 +113,7 @@ class BookingsController < ApplicationController
 
   def save_confirm
     @booking.update_attributes(booking_params)
-    redirect_to choose_payment_method_route_booking_path(@route, @booking)
-    /redirect_to confirmation_route_booking_path(@route, @booking)/
+    redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def confirmation
