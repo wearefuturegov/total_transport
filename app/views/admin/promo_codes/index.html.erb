@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Price Deduction</th>
+    <th></th>
+  </tr>
+  <% @promo_codes.each do |promo_code| %>
+    <tr>
+      <td><%= promo_code.code %></td>
+      <td><%= number_to_currency promo_code.price_deduction, unit: '£' %></td>
+      <td><%= button_to "delete", admin_promo_code_path(promo_code), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= form_for [:admin, @promo_code] do |form| %>
+  <%= form.label :price_deduction %>
+  <%= form.number_field :price_deduction, value: 3 %>
+  <%= form.submit %>
+<% end %>

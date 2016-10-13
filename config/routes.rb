@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     end
     resources :suggestions
     resources :supplier_suggestions
+    resources :promo_codes
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
 
