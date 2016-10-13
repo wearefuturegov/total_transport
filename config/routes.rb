@@ -33,6 +33,8 @@ Rails.application.routes.draw do
         post :suggest_journey
         get :suggest_edit_to_stop
         post :suggest_edit_to_stop
+
+        get :price_api
       end
     end
   end

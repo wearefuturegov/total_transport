@@ -2,9 +2,19 @@
   <div class="top-sec container white-block">
     <div class="inner">
       <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
-      <p>Single Journey: <%= number_to_currency @booking.single_price, unit: '£' %>
+      <p>
+        Single Journey:
+        <span id="single_price">
+          <%= number_to_currency @booking.single_price, unit: '£' %>
+        </span>
+      </p>
       <%= link_to "No return journey", choose_pickup_location_route_booking_path(@route, @booking) %>
-      <p>Return Journey: <%= number_to_currency @booking.return_price, unit: '£' %>
+      <p>
+        Return Journey:
+        <span id="return_price">
+          <%= number_to_currency @booking.return_price, unit: '£' %>
+        </span>
+      </p>
       <%= form.label :child_tickets %>
       <%= form.number_field :child_tickets %>
       <%= form.label :older_bus_passes %>
@@ -27,3 +37,17 @@
 <% end %>
 
 <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
+
+<script type="text/javascript">
+  $('form.edit_booking').change(function() {
+    $.get(
+      "<%= price_api_route_booking_path(@route, @booking) %>",
+      $(this).serialize()
+    ).done(
+      function( data ) {
+        $("#single_price").html(data.single);
+        $("#return_price").html(data.return);
+      }
+    );
+  })
+</script>
