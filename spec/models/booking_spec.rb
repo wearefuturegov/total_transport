@@ -115,6 +115,20 @@ RSpec.describe Booking, type: :model do
           booking.older_bus_passes = 1
           expect(booking.price).to eq(5.5)
         end
+        it "should cost 2.5 for 2 passengers with 1 older pass and promo code of £3" do
+          booking.number_of_passengers = 2
+          booking.older_bus_passes = 1
+          promo_code = FactoryGirl.build(:promo_code, price_deduction: 3)
+          booking.promo_code = promo_code
+          expect(booking.price).to eq(2.5)
+        end
+        it "should cost 0 for 2 passengers with 1 older pass and promo code of £10" do
+          booking.number_of_passengers = 2
+          booking.older_bus_passes = 1
+          promo_code = FactoryGirl.build(:promo_code, price_deduction: 10)
+          booking.promo_code = promo_code
+          expect(booking.price).to eq(0)
+        end
       end
       describe "for a return journey" do
         before {allow(booking).to receive(:return_journey?).and_return(true) }
@@ -136,8 +150,21 @@ RSpec.describe Booking, type: :model do
           booking.older_bus_passes = 1
           expect(booking.price).to eq(8)
         end
+        it "should cost 8 for 2 passengers with 1 older pass and promo code of £3" do
+          booking.number_of_passengers = 2
+          booking.older_bus_passes = 1
+          promo_code = FactoryGirl.build(:promo_code, price_deduction: 3)
+          booking.promo_code = promo_code
+          expect(booking.price).to eq(5)
+        end
+        it "should cost 0 for 2 passengers with 1 older pass and promo code of £10" do
+          booking.number_of_passengers = 2
+          booking.older_bus_passes = 1
+          promo_code = FactoryGirl.build(:promo_code, price_deduction: 10)
+          booking.promo_code = promo_code
+          expect(booking.price).to eq(0)
+        end
       end
     end
-
   end
 end
