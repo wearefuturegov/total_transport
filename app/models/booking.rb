@@ -36,18 +36,17 @@ class Booking < ActiveRecord::Base
     end
   end
 
-  def single_price
+  def adult_single_price
     if price_distance < 2
-      p = 2.5
+      2.5
     elsif price_distance >= 2 && price_distance <= 5
-      p = 4.5
+      4.5
     elsif price_distance > 5
-      p = 5.5
+      5.5
     end
-    p * number_of_passengers
   end
 
-  def return_price
+  def adult_return_price
     if price_distance < 2
       p = 3.5
     elsif price_distance >= 2 && price_distance <= 5
@@ -55,7 +54,42 @@ class Booking < ActiveRecord::Base
     elsif price_distance > 5
       p = 8
     end
-    p * number_of_passengers
+  end
+
+  def child_single_price
+    if price_distance < 2
+      1.5
+    elsif price_distance >= 2 && price_distance <= 5
+      2.5
+    elsif price_distance > 5
+      3
+    end
+  end
+
+  def child_return_price
+    if price_distance < 2
+      p = 2
+    elsif price_distance >= 2 && price_distance <= 5
+      p = 3.5
+    elsif price_distance > 5
+      p = 4.5
+    end
+  end
+
+  def single_price
+    (number_of_adult_tickets * adult_single_price) + (child_tickets * child_single_price)
+  end
+
+  def return_price
+    (number_of_adult_tickets * adult_return_price) + (child_tickets * child_return_price)
+  end
+
+  def number_of_free_tickets
+    older_bus_passes + disabled_bus_passes + scholar_bus_passes
+  end
+
+  def number_of_adult_tickets
+    number_of_passengers - number_of_free_tickets - child_tickets
   end
 
   def return_journey?
