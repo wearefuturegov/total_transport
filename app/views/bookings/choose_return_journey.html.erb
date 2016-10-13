@@ -12,11 +12,11 @@
         <% journeys.each do |journey| %>
           <div class="single-journey">
             <div class="left">
-              <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(journey) %></span><br/>
+              <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
               <span class="pickUp"><%= @booking.pickup_stop.name %></span>
             </div>
             <div class="right">
-              <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(journey) %></span><br/>
+              <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
               <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
             </div>
             <div id="confirmation">

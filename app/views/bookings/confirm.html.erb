@@ -7,7 +7,7 @@
       <div class="inner">
         <h4>Your Pick Up<br/>Location:</h4>
         <div class="right" style="float: right; text-align: right;">
-          <span class="timeEst"><%= padded_time @booking.pickup_stop.time_for_journey(@booking.journey) %></span><br/>
+          <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
           <span class="pickUp"><%= @booking.pickup_stop.name %></span>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <div class="inner">
         <h4>Your Drop Off<br/>Location:</h4>
         <div class="right" style="float: right; text-align: right;">
-          <span class="timeEst"><%= padded_time @booking.dropoff_stop.time_for_journey(@booking.journey) %></span><br/>
+          <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
           <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
         </div>
       </div>
@@ -26,8 +26,8 @@
 
     <% if @booking.return_journey? %>
       <p>Return journey:</p>
-      <p><%= @booking.dropoff_stop.name %>: <%= padded_time @booking.dropoff_stop.time_for_journey(@booking.return_journey) %></p>
-      <p><%= @booking.pickup_stop.name %>: <%= padded_time @booking.pickup_stop.time_for_journey(@booking.return_journey) %></p>
+      <p><%= @booking.dropoff_stop.name %>: <%= @booking.dropoff_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></p>
+      <p><%= @booking.pickup_stop.name %>: <%= @booking.pickup_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></p>
     <% end %>
 
     <p>

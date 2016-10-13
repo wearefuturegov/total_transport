@@ -1,10 +1,4 @@
 module ApplicationHelper
-  def padded_time(time)
-    (time - 10.minutes).strftime("%l:%M%P") +
-    " - " +
-    (time + 10.minutes).strftime("%l:%M%P")
-  end
-
   def friendly_date(date)
     if date == Date.today
       "Today"
