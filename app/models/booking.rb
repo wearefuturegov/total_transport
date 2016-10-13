@@ -29,6 +29,10 @@ class Booking < ActiveRecord::Base
     pickup_stop.position > dropoff_stop.position
   end
 
+  def set_promo_code(code)
+    self.promo_code = PromoCode.find_by_code(code)
+  end
+
   def price
     if return_journey?
       return_price
