@@ -151,7 +151,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :return_journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id, :number_of_passengers)
+    params.require(:booking).permit(:journey_id, :return_journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id, :number_of_passengers, :special_requirements)
   end
 
   def payment_method_params
