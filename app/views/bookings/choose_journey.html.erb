@@ -12,34 +12,7 @@
 
 <div class="container">
   <div class="inner">
-    <% @journeys.each_pair do |date, journeys| %>
-      <div class="date">
-        <h3><%= friendly_date date %></h3>
-      </div>
-      <% journeys.each do |journey| %>
-          <div class="single-journey card">
-            <%= form.label :journey_id, :value => journey.id do %>
-            <%= form.radio_button :journey_id, journey.id %>
-            <div class="inner">
-              <div class="left">
-                <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
-                <span class="pickUp"><%= @booking.pickup_stop.name %></span>
-              </div>
-              <div class="right">
-                <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
-                <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
-              </div>
-              <div class="extra-info">
-                <p><%= pluralize journey.seats_left, "seat" %> left</p>
-                <% if journey.full? %>
-                  <p class="button">Fully booked<p>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render partial: 'display_journeys', locals: {form: form} %>
   </div>
 </div>
   <%= form.submit 'Next', :class => 'button alt-button' %>
