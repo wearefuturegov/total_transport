@@ -20,29 +20,30 @@ $(document).ready(function() {
     $('.alerts').slideDown();
   }
 
-  //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
-  if ($('#move-to-top')) {
-    var content = $('#move-to-top').contents();
-    $('.top-sec .inner').append(content);
-  }
-
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
       barHeight = 98,
       listQuant = parent.find('ul li').size();
 
-    if (parent.hasClass('open')) {
-      parent.find('.bar').height(79);
+    if (!parent.hasClass('reversed')) {
+      var reverseParent = $('#' + parent.attr('id') + '-reversed');
     } else {
-      //barHeight = barHeight + ((listQuant-2)*38);
-      //parent.find('.bar').height(barHeight);
-
-      setInterval(function() {
-        drawLine(parent.find('.origin'), parent.find('.desti'), parent.find('.bar'));
-      });
+      var reverseParent = $('#' + parent.attr('id').replace('-reversed', ''));
     }
-    dropAcord(parent, '.route');
+      
+
+    sortAcord(parent);
+    if (reverseParent) {
+      sortAcord(reverseParent);
+    }
+    dropAcord(parent, '.route', reverseParent);
   });
+
+  //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
+  if ($('#move-to-top')) {
+    var content = $('#move-to-top').contents();
+    $('.top-sec .inner').append(content);
+  }
 
   $('input.delete').click(function(e) {
     var c = confirm("Are you sure you want to delete this? Click OK to continue.");
@@ -117,33 +118,6 @@ $(document).ready(function() {
   }
 });
 
-
-function dropAcord(element, eleClass) {
-  if (element.hasClass('open')) {
-      element.removeClass('open');
-      element.find('.acord').slideUp(function(){
-        clearInterval();
-      });
-    } else {      
-      $(eleClass).each(function(){
-        $(this).removeClass('open').find('.acord').slideUp(function(){
-        clearInterval();
-      });
-      }).promise().done( function(){
-        element.find('.acord').first().slideDown(function(){
-        clearInterval();
-      });
-        //console.log(element.html());
-      });
-      element.addClass('open');
-    }
-}
-
-
-function lineDistance(x, y, x0, y0){
-    return Math.sqrt((x -= x0) * x + (y -= y0) * y);
-};
-
 function drawLine(a, b, line) {
   var pointA = $(a).offset();
   var pointB = $(b).offset();
@@ -152,6 +126,55 @@ function drawLine(a, b, line) {
   // Set Width
   $(line).css('height', distance + 'px');                  
 }
+
+function sortAcord(parentObj) {
+  if (parentObj.hasClass('open')) {
+    parentObj.find('.bar').height(79);
+  } else {
+    setInterval(function() {
+      drawLine(parentObj.find('.origin'), parentObj.find('.desti'), parentObj.find('.bar'));
+    });
+  }
+}
+
+function dropAcord(element, eleClass, reverse) {
+  if (element.hasClass('open')) {
+    element.removeClass('open');
+    element.find('.acord').slideUp(function(){
+      clearInterval();
+    });
+    if (reverse) {
+      reverse.removeClass('open');
+      reverse.find('.acord').slideUp(function(){
+        clearInterval();
+      });
+    }
+  } else {      
+    $(eleClass).each(function(){
+      $(this).removeClass('open').find('.acord').slideUp(function(){
+      clearInterval();
+    });
+    }).promise().done( function(){
+      element.find('.acord').first().slideDown(function(){
+        clearInterval();
+      });
+      if (reverse) {
+        reverse.find('.acord').first().slideDown(function(){
+          clearInterval();
+        });
+      }
+    });
+    element.addClass('open');
+    if (reverse) {
+      reverse.addClass('open');
+    }
+  }
+}
+
+function lineDistance(x, y, x0, y0){
+    return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+};
+
 
 
 function alertRails(alertTxt, inputObj) {
