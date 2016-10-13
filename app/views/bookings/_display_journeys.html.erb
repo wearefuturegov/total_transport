@@ -3,9 +3,9 @@
     <h3><%= friendly_date date %></h3>
   </div>
   <% journeys.each do |journey| %>
-      <div class="single-journey card">
+      <div class="single-journey card <%= 'unavalible' if journey.full? %>">
         <%= form.label :journey_id, :value => journey.id do %>
-        <%= form.radio_button :journey_id, journey.id %>
+        <%= form.radio_button :journey_id, journey.id, class: "journey-select" %>
         <div class="inner">
           <div class="left">
             <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
@@ -26,3 +26,13 @@
     </div>
   <% end %>
 <% end %>
+
+<script type="text/javascript">
+  $('.single-journey label').click(function() {
+    if ($('input[type="submit"]').hasClass('disabled')) {
+      $('input[type="submit"]').removeClass('disabled').attr('disabled', false);
+    }
+    $('.single-journey.selected').removeClass('selected');
+    $(this).parent().addClass('selected');
+  });
+</script>
