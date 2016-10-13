@@ -2,13 +2,26 @@
   <tr>
     <th>Code</th>
     <th>Price Deduction</th>
+    <th>Used?</th>
     <th></th>
   </tr>
   <% @promo_codes.each do |promo_code| %>
     <tr>
       <td><%= promo_code.code %></td>
       <td><%= number_to_currency promo_code.price_deduction, unit: '£' %></td>
-      <td><%= button_to "delete", admin_promo_code_path(promo_code), method: :delete %></td>
+      <td>
+        <% if promo_code.used? %>
+          <%= promo_code.booking.passenger.phone_number %><br />
+          <%= promo_code.booking.id %>: <%= promo_code.booking.created_at.to_s %>
+        <% else %>
+          no
+        <% end %>
+      </td>
+      <td>
+        <% if promo_code.available? %>
+          <%= button_to "delete", admin_promo_code_path(promo_code), method: :delete %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
