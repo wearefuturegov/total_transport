@@ -6,10 +6,6 @@
     <p>Return Journey: <%= number_to_currency @booking.return_price, unit: '£' %>
 
     <%= form_for [@route, @booking], url: save_return_journey_route_booking_path(@route, @booking) do |form| %>
-      <%= form.label :number_of_passengers %>
-      <%= form.select :number_of_passengers, [1,2,3,4,5] %>
-      <%= form.label :special_requirements %>
-      <%= form.text_field :special_requirements %>
   </div>
 </div>
 
