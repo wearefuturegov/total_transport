@@ -13,10 +13,6 @@
       <% end %>
 
       <%= form_for [@route, @booking] do |form| %>
-        <%= form.label :number_of_passengers %>
-        <%= form.select :number_of_passengers, [1,2,3,4,5] %>
-        <%= form.label :special_requirements %>
-        <%= form.text_field :special_requirements %>
         <%= form.hidden_field :pickup_stop_id %>
         <%= form.hidden_field :dropoff_stop_id %>
         <div id="confirmation" class="card" style="display: none;">
