@@ -38,22 +38,24 @@ class Booking < ActiveRecord::Base
 
   def single_price
     if price_distance < 2
-      2.5
+      p = 2.5
     elsif price_distance >= 2 && price_distance <= 5
-      4.5
+      p = 4.5
     elsif price_distance > 5
-      5.5
+      p = 5.5
     end
+    p * number_of_passengers
   end
 
   def return_price
     if price_distance < 2
-      3.5
+      p = 3.5
     elsif price_distance >= 2 && price_distance <= 5
-      6.5
+      p = 6.5
     elsif price_distance > 5
-      8
+      p = 8
     end
+    p * number_of_passengers
   end
 
   def return_journey?
