@@ -30,9 +30,28 @@
       <p><%= @booking.pickup_stop.name %>: <%= @booking.pickup_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></p>
     <% end %>
 
-    <p>
-      Total: <%= number_to_currency @booking.price, unit: '£' %>
-    </p>
+    
+    <% if num_of_adults(@booking.number_of_passengers) > 0 %>
+      <p>Adults: <%= num_of_adults(@booking.number_of_passengers) %> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+    <% end %>
+
+    <% if @booking.child_tickets %>
+      <p>Child Fare: <%= @booking.child_tickets %> (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)</p>
+    <% end %>
+    <% if @booking.older_bus_passes %>
+      <p>Older persons bus pass: <%= @booking.older_bus_passes %> (£0.00 each)</p>
+    <% end %>
+    <% if @booking.disabled_bus_passes %>
+      <p>Disabled persons bus pass: <%= @booking.disabled_bus_passes %> (£0.00 each)</p>
+    <% end %>
+    <% if @booking.scholar_bus_passes %>
+      <p>Scholarly Season Ticket<%= @booking.scholar_bus_passes %> (£0.00 each)</p>
+    <% end %>
+    <p>Total: <%= number_to_currency @booking.price, unit: '£' %></p>
+
+    <% if @booking.special_requirements %>
+      <p>Special Requirements: <%= @booking.special_requirements %></p>
+    <% end %>
 
     <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
 
