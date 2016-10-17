@@ -5,10 +5,10 @@
 <<<<<<< HEAD
       <p><%= friendly_date @booking.journey.start_time %></p>
       <p><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min)</p>
-      <p id="adult-tickets"><span id="adult-ticket-no"><%= pluralize @booking.number_of_passengers, "adult ticket" %></span> (<%= number_to_currency @booking.single_price / @booking.number_of_passengers, unit: '£' %> each)</p>
+      <p id="adult-tickets"><span id="adult-ticket-no"><%= pluralize @booking.number_of_passengers, "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
         <p id="concession-1" class="concession-cont hidden">
-          <span class="count">0</span> Child fare (£2.50 each)
+          <span class="count">0</span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
           <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
         </p>
         <p id="concession-2" class="concession-cont hidden">
