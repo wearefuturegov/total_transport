@@ -2,7 +2,6 @@
   <div class="top-sec container white-block">
     <div class="inner">
       <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
-<<<<<<< HEAD
       <p><%= friendly_date @booking.journey.start_time %></p>
       <p><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min)</p>
       <p id="adult-tickets"><span id="adult-ticket-no"><%= pluralize @booking.number_of_passengers, "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
@@ -30,11 +29,12 @@
           <option id="option-2" value="2">Older persons bus pass</option>
           <option id="option-3" value="3">Disabled persons bus pass</option>
           <option id="option-4" value="4">Scholarly Season Ticket</option>
+          <option id="promo" value="5">Add Promo Code</option>
         </select>
 
         <div id="add-concession" class="add button small-button">+ Add a Concessionary Fare</div>
         
-        <div class="promo-code">
+        <div class="promo-code hidden">
           <%= form.label :promo_code %>
           <%= form.text_field :promo_code %>
         </div>
@@ -117,22 +117,28 @@
 
   // ON SELECTION OF CONCESSION
   $('#concession-list').on('change', function() {
+
     if ($(this).val() > 0) {
       $(this).addClass('hidden');
-      if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
-        $('#concession-'+$(this).val()).removeClass('hidden');
-        $('#concession-'+$(this).val()+ ' .count').html(1);
-        addOnetoTotal($(this).val());
+      if ($(this).val() == 5) {
+        $('.promo-code').removeClass('hidden');
+        $('#concession-list #promo').hide();
       } else {
-        var num = parseInt($('#concession-'+$(this).val()+ ' .count').html()) + 1;
-        $('#concession-'+$(this).val()+ ' .count').html(num);
-        addOnetoTotal($(this).val());
-      }
-      $(this).val(0); 
-      noOfAdults--;
-      updateAdults(noOfAdults);
-      if (noOfAdults <= 0) {
-        $('#add-concession').addClass('hidden');
+        if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
+          $('#concession-'+$(this).val()).removeClass('hidden');
+          $('#concession-'+$(this).val()+ ' .count').html(1);
+          addOnetoTotal($(this).val());
+        } else {
+          var num = parseInt($('#concession-'+$(this).val()+ ' .count').html()) + 1;
+          $('#concession-'+$(this).val()+ ' .count').html(num);
+          addOnetoTotal($(this).val());
+        }
+        $(this).val(0); 
+        noOfAdults--;
+        updateAdults(noOfAdults);
+        if (noOfAdults <= 0) {
+          $('#add-concession').addClass('hidden');
+        }
       }
     }
   });
