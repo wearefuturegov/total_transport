@@ -256,15 +256,55 @@ $dot-width: 30px
     margin-bottom: 15px
 
 .single-journey
+  text-align: center
   label
     cursor: pointer
+    margin-bottom: 0
   .journey-select
     display: none
+
+.single-journey.unavailable
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+  label
+    cursor: default
+.single-journey.unavailable:hover
+  box-shadow: none
+.single-journey.unavailable:active
+  box-shadow: none
+  opacity: 0.7
 
 .single-journey.selected
   background-color: pink
 
-/* END Times */
+
+.journey-tabs
+  margin: 0 auto
+  text-align: center
+  margin-top: 15px
+  .tab
+    display: inline-block
+    padding: 10px 15px
+    border: 2px solid $blue
+    margin: 0
+    cursor: pointer
+    position: relative
+    z-index: 1
+  .tab.return-tab
+    margin-right: -3px
+  .tab.single-tab
+    margin-left: -3px
+  .tab.selected
+    background-color: rgba($orange, 0.3)
+    border: 2px solid $orange
+    z-index: 2
+  .tab.selected.return-tab
+    border-right-width: 3px
+  .tab.selected.single-tab
+    border-left-width: 3px
+
+.concession-cont
+  .fa
+    cursor: pointer
 
 
 #filter-cont 

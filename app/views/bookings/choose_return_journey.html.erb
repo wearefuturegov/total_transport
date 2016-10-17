@@ -2,43 +2,174 @@
   <div class="top-sec container white-block">
     <div class="inner">
       <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
-      <p>
-        Single Journey:
-        <span id="single_price">
-          <%= number_to_currency @booking.single_price, unit: '£' %>
-        </span>
-      </p>
-      <%= link_to "No return journey", choose_pickup_location_route_booking_path(@route, @booking) %>
-      <p>
-        Return Journey:
-        <span id="return_price">
-          <%= number_to_currency @booking.return_price, unit: '£' %>
-        </span>
-      </p>
-      <%= form.label :child_tickets %>
-      <%= form.number_field :child_tickets %>
-      <%= form.label :older_bus_passes %>
-      <%= form.number_field :older_bus_passes %>
-      <%= form.label :disabled_bus_passes %>
-      <%= form.number_field :disabled_bus_passes %>
-      <%= form.label :scholar_bus_passes %>
-      <%= form.number_field :scholar_bus_passes %>
+      <p><%= friendly_date @booking.journey.start_time %></p>
+      <p><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min)</p>
+      <p id="adult-tickets"><span id="adult-ticket-no"><%= pluralize @booking.number_of_passengers, "adult ticket" %></span> (<%= number_to_currency @booking.single_price / @booking.number_of_passengers, unit: '£' %> each)</p>
+      <div class="concessions">
+        <p id="concession-1" class="concession-cont hidden">
+          <span class="count">0</span> Child fare (£2.50 each)
+          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
+        </p>
+        <p id="concession-2" class="concession-cont hidden">
+          <span class="count">0</span> Older persons bus pass (£0.00 each)
+          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
+        </p>
+        <p id="concession-3" class="concession-cont hidden">
+          <span class="count">0</span> Disabled persons bus pass (£0.00 each)
+          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
+        </p>
+        <p id="concession-4" class="concession-cont hidden">
+          <span class="count">0</span> Scholarly Season Ticket (£0.00 each)
+          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
+        </p>
+
+        <select id="concession-list" class="hidden">
+          <option id="option-null" value="0">Select a Concession</option>
+          <option id="option-1" value="1">Child fare</option>
+          <option id="option-2" value="2">Older persons bus pass</option>
+          <option id="option-3" value="3">Disabled persons bus pass</option>
+          <option id="option-4" value="4">Scholarly Season Ticket</option>
+        </select>
+
+        <div id="add-concession" class="add button small-button">+ Add a Concessionary Fare</div>
+
+        <div class="hidden">
+          <%= form.label :child_tickets, "Child fare" %>
+          <%= form.number_field :child_tickets, :id => "hidden-1" %>
+          <%= form.label :older_bus_passes %>
+          <%= form.number_field :older_bus_passes, :id => "hidden-2" %>
+          <%= form.label :disabled_bus_passes %>
+          <%= form.number_field :disabled_bus_passes, :id => "hidden-3" %>
+          <%= form.label :scholar_bus_passes %>
+          <%= form.number_field :scholar_bus_passes, :id => "hidden-4" %>
+        </div>
+      </div>
+
+      <div class="journey-tabs">
+        <div class="return-tab tab selected radius border-left-radius">
+          Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
+        </div>
+        <div class="single-tab tab radius border-right-radius">
+          Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="container">
     <div class="inner">
-      <%= render partial: 'display_journeys', locals: {form: form} %>
-      <div class="card">
-        <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+      <div class="return-ticket">
+        <%= render partial: 'display_journeys', locals: {form: form} %>
+
+        <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
+      </div>
+      <div class="card single-ticket hidden">
+        <%= link_to "Next", choose_pickup_location_route_booking_path(@route, @booking), class: "button alt-button single-ticket hidden" %>
       </div>
     </div>
   </div>
+
+  <div class="fixed bottom white-block return-ticket">
+    <div class="container">
+      <div class="inner">
+        <div class="card">
+          <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-spacer return-ticket"></div>
 <% end %>
 
-<%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
-
 <script type="text/javascript">
+  var maxConcessions = 4,
+      noOfAdults = 0;
+  $(document).ready(function() {
+    noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
+  });
+      
+  // ADD CONCESSION BUTTON
+  $('#add-concession').click(function() {
+    $('#concession-list').removeClass('hidden');
+  });
+
+  // DELETE CONCESSION BUTTON
+  $('.cancel-concession').click(function() {
+    var parent = $(this).parent('.concession-cont');
+    parent.addClass('hidden');
+    var idNum = parent.attr('id').slice(-1);
+    parent.find('.count').html(0);
+    var numOfConcess = $('#hidden-'+idNum).val();
+    noOfAdults = parseInt($('#adult-ticket-no').html()) + parseInt(numOfConcess);
+    $('#adult-ticket-no').html(noOfAdults);
+    resetConcession(idNum, numOfConcess);
+    updateAdults(noOfAdults);
+    if ($('#add-concession').hasClass('hidden')) {
+      $('#add-concession').removeClass('hidden');
+    }
+  }); 
+
+  // ON SELECTION OF CONCESSION
+  $('#concession-list').on('change', function() {
+    if ($(this).val() > 0) {
+      $(this).addClass('hidden');
+      if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
+        $('#concession-'+$(this).val()).removeClass('hidden');
+        $('#concession-'+$(this).val()+ ' .count').html(1);
+        addOnetoTotal($(this).val());
+      } else {
+        var num = parseInt($('#concession-'+$(this).val()+ ' .count').html()) + 1;
+        $('#concession-'+$(this).val()+ ' .count').html(num);
+        addOnetoTotal($(this).val());
+      }
+      $(this).val(0); 
+      noOfAdults--;
+      updateAdults(noOfAdults);
+      if (noOfAdults <= 0) {
+        $('#add-concession').addClass('hidden');
+      }
+    }
+  });
+
+  function addOnetoTotal(idNum) {
+    var num = parseInt($('#hidden-'+idNum).val()) + 1;
+    $('#hidden-'+idNum).val(parseInt(num));
+    $('form.edit_booking').trigger("change");
+  }
+
+  function resetConcession(idNum, numOfConcess) {
+    var num = parseInt($('#hidden-'+idNum).val()) - parseInt(numOfConcess);
+    $('#hidden-'+idNum).val(parseInt(num));
+    $('form.edit_booking').trigger("change");
+  }
+
+  function updateAdults(adults) {
+    $('#adult-ticket-no').html(adults + ' adult ticket');
+    if (adults > 1) {
+      $('#adult-ticket-no').append('s');
+    }
+    if (adults <= 0) {
+      $('#adult-tickets').addClass('hidden');
+    } else if ($('#adult-tickets').hasClass('hidden')) {
+      $('#adult-tickets').removeClass('hidden');
+    }
+  }
+
+  $('.journey-tabs .tab').click(function() {
+    if (!$(this).hasClass('selected')) {
+      $(this).toggleClass('selected');
+      if ($(this).hasClass('single-tab')) {
+        $('.return-ticket').toggleClass('hidden');
+        $('.single-ticket').toggleClass('hidden');
+        $('.return-tab').removeClass('selected');
+      } else {
+        $('.return-ticket').toggleClass('hidden');
+        $('.single-ticket').toggleClass('hidden');
+        $('.single-tab').removeClass('selected');
+      }
+    }
+  });
+
   $('form.edit_booking').change(function() {
     $.get(
       "<%= price_api_route_booking_path(@route, @booking) %>",
@@ -49,5 +180,9 @@
         $("#return_price").html(data.return);
       }
     );
-  })
+  });
+
+  function checkFares() {
+
+  }
 </script>

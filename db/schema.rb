@@ -85,8 +85,6 @@ ActiveRecord::Schema.define(version: 20161013105352) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "name"
-    t.string   "braintree_id"
-    t.string   "braintree_token"
   end
 
   create_table "payment_methods", force: :cascade do |t|

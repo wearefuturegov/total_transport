@@ -13,11 +13,18 @@
   <div class="container">
     <div class="inner">
       <%= render partial: 'display_journeys', locals: {form: form} %>
-      <div class="card">
-        <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+    </div>
+  </div>
+  <div class="fixed bottom white-block">
+    <div class="container">
+      <div class="inner">
+        <div class="card">
+          <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+        </div>
       </div>
     </div>
   </div>
+  <div class="fixed-spacer"></div>
 <% end %>
 
 <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>

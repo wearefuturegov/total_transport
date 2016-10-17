@@ -2,7 +2,7 @@
   .inner
     +outer-container
     max-width: $large-screen
-    padding: $mobile-padding-side 10px
+    padding: $mobile-padding-side
 
 .blue-block, .teal-block, .grey-block
   padding: $mobile-padding-side
@@ -67,7 +67,7 @@
   +span-columns(8)
 
 @media screen and (max-width: $mobile-break)
-  .half, .left, .right
+  .left, .right
     +span-columns(12)
   .third
     +span-columns(6)
@@ -91,10 +91,20 @@
     padding: $mobile-padding-side
 
 
+.fixed
+  z-index: 10
+  position: fixed
+  width: 100%
+  left: 0
+  .card:last-child
+    margin-bottom: 0 
+.fixed.bottom
+  bottom: 0
 
-
-
-
+.fixed-spacer
+  display: block
+  height: 75px
+  width: 100%
 
 // older styles
 
