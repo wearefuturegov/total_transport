@@ -25,4 +25,8 @@ module ApplicationHelper
       'fa-money'
     end
   end
+
+  def num_of_adults(num_of_passengers)
+    num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
+  end
 end
