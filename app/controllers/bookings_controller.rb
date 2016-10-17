@@ -37,7 +37,7 @@ class BookingsController < ApplicationController
 
   def choose_return_journey
     @page_title = "Pick Your Return Time"
-    @back_path = new_route_booking_path(@route)
+    @back_path = choose_journey_route_booking_path(@route, @booking)
     from_time = @booking.dropoff_stop.time_for_journey(@booking.journey)
     @journeys = @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: from_time)
   end
@@ -50,7 +50,7 @@ class BookingsController < ApplicationController
 
   def choose_pickup_location
     @page_title = "Choose Pick Up Area"
-    @back_path = choose_journey_route_booking_path(@route, @booking)
+    @back_path = choose_return_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
