@@ -43,6 +43,7 @@ class BookingsController < ApplicationController
   end
 
   def save_return_journey
+    @booking.set_promo_code(params[:booking][:promo_code])
     @booking.update_attributes(booking_params)
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end
@@ -121,6 +122,7 @@ class BookingsController < ApplicationController
 
   include ActionView::Helpers::NumberHelper
   def price_api
+    @booking.set_promo_code(params[:booking][:promo_code])
     @booking.assign_attributes(booking_params)
     render json: {
       single: number_to_currency(@booking.single_price, unit: '£'),

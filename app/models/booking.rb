@@ -5,6 +5,7 @@ class Booking < ActiveRecord::Base
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
   belongs_to :payment_method
+  belongs_to :promo_code
 
   scope :booked, -> {where("journey_id IS NOT NULL AND pickup_stop_id IS NOT NULL AND dropoff_stop_id IS NOT NULL AND payment_method_id IS NOT NULL")}
 
@@ -28,6 +29,10 @@ class Booking < ActiveRecord::Base
     pickup_stop.position > dropoff_stop.position
   end
 
+  def set_promo_code(code)
+    self.promo_code = PromoCode.find_by_code(code)
+  end
+
   def price
     if return_journey?
       return_price
@@ -48,11 +53,11 @@ class Booking < ActiveRecord::Base
 
   def adult_return_price
     if price_distance < 2
-      p = 3.5
+      3.5
     elsif price_distance >= 2 && price_distance <= 5
-      p = 6.5
+      6.5
     elsif price_distance > 5
-      p = 8
+      8
     end
   end
 
@@ -68,20 +73,30 @@ class Booking < ActiveRecord::Base
 
   def child_return_price
     if price_distance < 2
-      p = 2
+      2
     elsif price_distance >= 2 && price_distance <= 5
-      p = 3.5
+      3.5
     elsif price_distance > 5
-      p = 4.5
+      4.5
     end
   end
 
   def single_price
-    (number_of_adult_tickets * adult_single_price) + (child_tickets * child_single_price)
+    p = (number_of_adult_tickets * adult_single_price) + (child_tickets * child_single_price)
+    if promo_code
+      p -= promo_code.price_deduction
+      p = 0 if p < 0
+    end
+    p
   end
 
   def return_price
-    (number_of_adult_tickets * adult_return_price) + (child_tickets * child_return_price)
+    p = (number_of_adult_tickets * adult_return_price) + (child_tickets * child_return_price)
+    if promo_code
+      p -= promo_code.price_deduction
+      p = 0 if p < 0
+    end
+    p
   end
 
   def number_of_free_tickets
