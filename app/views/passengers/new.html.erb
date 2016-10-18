@@ -3,13 +3,13 @@
     <h1><%= @page_title %></h1>
     <h2>Direct transport for rural Essex</h2>
     <p>Welcome to Pickup, a new rural transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.</p>
-    <p>Instead of running fixed routes with fixed stops, Pickup lets you book trips in advance. Passengers can be picked up anywhere they like -- a bus stop, a local place of interest, or even a home. It's safe, convenient and easy to use.</p>
+    <!-- <p>Instead of running fixed routes with fixed stops, Pickup lets you book trips in advance. Passengers can be picked up anywhere they like - a bus stop, a local place of interest, or even a home. It's safe, convenient and easy to use.</p> -->
 
     <%= form_for @passenger, url: passenger_path do |form| %>
-      <%= form.label :phone_number, "Enter your mobile number to get started." %>
+      <%= form.label :phone_number, "Get started with your mobile number" %>
       <%= form.number_field :phone_number, autofocus: true, pattern: "\d*" %>
       <div class="actions">
-        <%= form.submit "Send Verification Code", class: 'alt-button' %>
+        <%= form.submit "Verify Number", class: 'alt-button' %>
       </div>
     <% end %>
     <h4><a href="#step-1" title="How It Works..."> <i class="fa fa-long-arrow-down"></i> How It Works...</a></h4>
@@ -48,10 +48,10 @@
       <p>Pickup will send you a text a few hours before your trip to let you know we’re on our way.</p>
 
       <%= form_for @passenger, :html => {class: 'center'}, url: passenger_path do |form| %>
-        <%= form.label :phone_number, "Enter your mobile number to get started." %>
+        <%= form.label :phone_number, "Get started with your mobile number" %>
         <%= form.number_field :phone_number, pattern: "\d*" %>
         <div class="actions">
-          <%= form.submit "Send Verification Code", class: 'alt-button' %>
+          <%= form.submit "Verify Number", class: 'alt-button' %>
         </div>
       <% end %>
     </div>

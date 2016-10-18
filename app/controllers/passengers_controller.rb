@@ -25,7 +25,6 @@ class PassengersController < ApplicationController
   def verify
     @back_path = new_passenger_path
     @passenger = Passenger.find(params[:id])
-    @verify_sent = false;
     if request.method == 'POST'
       if @passenger.verification_code == params[:verification_code]
         set_current_passenger(@passenger)

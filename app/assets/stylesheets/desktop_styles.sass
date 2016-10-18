@@ -1,4 +1,9 @@
 @media screen and (min-width: ($large-screen - 1px))
+  body
+    font-size: 18px
+  .container
+    .inner
+      padding: $mobile-padding-side
   .no-desktop
     display: none
   .no-mobile
@@ -6,10 +11,19 @@
   .route 
     .acordBtn
       font-size: 17px
-
+  h1  
+    font-size: 40px
+    margin-bottom: 30px
   .small
     font-size: 17px
   .timeEst
     font-size: 23px
 
-  
+  .onboarding-header
+    .inner
+      padding: $mobile-padding-side 0
+
+  .blue-block, .teal-block, .grey-block
+    padding: $mobile-padding-side
+    .inner
+      padding: $mobile-padding-side
