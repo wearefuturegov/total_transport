@@ -66,8 +66,6 @@
     <div class="inner">
       <div class="return-ticket">
         <%= render partial: 'display_journeys', locals: {form: form, field: :return_journey_id} %>
-
-        <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
       </div>
       <div class="card single-ticket hidden">
         <%= form.submit 'Next', :class => 'button alt-button single-ticket hidden' %>
@@ -193,8 +191,4 @@
       }
     );
   });
-
-  function checkFares() {
-
-  }
 </script>
