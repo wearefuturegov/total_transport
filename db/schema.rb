@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013152339) do
+ActiveRecord::Schema.define(version: 20161018100958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 20161013152339) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "name"
+    t.string   "braintree_id"
+    t.string   "braintree_token"
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -207,8 +209,9 @@ ActiveRecord::Schema.define(version: 20161013152339) do
     t.string   "registration"
     t.string   "make_model"
     t.string   "colour"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.boolean  "wheelchair_accessible"
   end
 
   add_index "vehicles", ["team_id"], name: "index_vehicles_on_team_id", using: :btree
