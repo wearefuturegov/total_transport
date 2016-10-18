@@ -19,7 +19,7 @@
             </div>
           </div>
           <% if journey.vehicle.wheelchair_accessible? %>
-            <i class="fa fa-wheelchair"></i>
+            <div class="wheelchair"><i class="fa fa-wheelchair"></i></div>
           <% end %>
           <% if journey.seats_left < 5 && journey.seats_left > 0 %>
             <div class="seats-left">

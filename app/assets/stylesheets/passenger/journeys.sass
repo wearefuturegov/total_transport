@@ -257,6 +257,8 @@ $dot-width: 30px
 
 .single-journey
   text-align: center
+  border: 2px solid $medium-gray
+  border-radius: 4px
   label
     cursor: pointer
     margin-bottom: 0
@@ -265,17 +267,37 @@ $dot-width: 30px
 
 .single-journey.unavailable
   transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+  opacity: 0.7
   label
     cursor: default
 .single-journey.unavailable:hover
   box-shadow: none
 .single-journey.unavailable:active
   box-shadow: none
-  opacity: 0.7
+  opacity: 0.5
 
 .single-journey.selected
-  background-color: pink
+  background-color: rgba($orange, 0.5)
+  border-color: rgba($orange, 0.6)
+  color: $white
+  .grey
+    color: $white
+  .seats-left, .fully-booked
+    background-color: rgba($orange, 0.6)
+.single-journey .wheelchair
+  position: absolute
+  top: 15px
+  right: 15px
 
+
+.seats-left, .fully-booked
+  background-color: $medium-gray
+  color: $white
+  padding: 3px
+  font-weight: 300
+  font-size: 15px
+.fully-booked
+  font-weight: 600
 
 .journey-tabs
   margin: 0 auto
