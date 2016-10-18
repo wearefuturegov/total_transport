@@ -4,7 +4,7 @@
       <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
       <p>All times listed are estimates and may change based on who else schedules a ride.</p>
         <%= form.label :number_of_passengers %>
-        <%= form.select :number_of_passengers, [1,2,3,4,5] %>
+        <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select class" } %>
         <div id="special-req-button" class="button small-button"><i class="fa fa-plus"></i> Add Special Requirements</div>
         <div id="special-req" class="hidden mt1">
           <%= form.label :special_requirements, "Describe your special requirements:" %>
