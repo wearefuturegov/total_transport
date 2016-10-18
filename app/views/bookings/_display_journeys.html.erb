@@ -4,8 +4,8 @@
   </div>
   <% journeys.each do |journey| %>
       <div class="single-journey card<%= ' unavailable' if journey.full? %>">
-        <%= form.label :journey_id, :value => journey.id do %>
-        <%= form.radio_button :journey_id, journey.id, class: "journey-select" %>
+        <%= form.label field, :value => journey.id do %>
+        <%= form.radio_button field, journey.id, class: "journey-select" %>
         <div class="inner">
           <div class="half">
             <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
