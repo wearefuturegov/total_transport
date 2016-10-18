@@ -70,7 +70,7 @@
         <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
       </div>
       <div class="card single-ticket hidden">
-        <%= link_to "Next", choose_pickup_location_route_booking_path(@route, @booking), class: "button alt-button single-ticket hidden" %>
+        <%= form.submit 'Next', :class => 'button alt-button single-ticket hidden' %>
       </div>
     </div>
   </div>
