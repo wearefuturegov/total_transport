@@ -47,9 +47,17 @@
 
   $('#booking_number_of_passengers').on('change', function() {
     var noOfPassengers = $(this).val();
+    checkPassengers(noOfPassengers);
+  });
+
+  $(document).ready(function() {
+    checkPassengers($('#booking_number_of_passengers').val());
+  });
+
+  function checkPassengers(num) {
     $('.single-journey').each(function() {
       console.log($(this).data('seats'));
-      if (noOfPassengers > $(this).data('seats')) {
+      if (num > $(this).data('seats')) {
         console.log($(this))
         $(this).addClass('unavailable');
         if ($(this).hasClass('selected')) {
@@ -60,5 +68,5 @@
         $(this).removeClass('unavailable');
       }
     });
-  });
+  }
 </script>
