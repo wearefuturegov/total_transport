@@ -6,24 +6,24 @@
       <p><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min)</p>
       <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
-        <p id="concession-1" class="concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
+        <div id="concession-1" class="concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
-          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
-        </p>
-        <p id="concession-2" class="concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-2" class="concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
           <span class="count"><%= @booking.older_bus_passes %></span></span> Older persons bus pass (£0.00 each)
-          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
-        </p>
-        <p id="concession-3" class="concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-3" class="concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
           <span class="count"><%= @booking.disabled_bus_passes %></span></span> Disabled persons bus pass (£0.00 each)
-          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
-        </p>
-        <p id="concession-4" class="concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-4" class="concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
           <span class="count"><%= @booking.scholar_bus_passes %></span></span> Scholarly Season Ticket (£0.00 each)
-          <i class="fa fa-times cancel-concession" title="Delete Concession"></i>
-        </p>
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
 
-        <select id="concession-list" class="hidden">
+        <select id="concession-list" class="hidden select full">
           <option id="option-null" value="0">Select a Concession</option>
           <option id="option-1" value="1">Child fare</option>
           <option id="option-2" value="2">Older persons bus pass</option>
@@ -34,7 +34,7 @@
 
         <div id="add-concession" class="add button small-button<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>">+ Add a Concessionary Fare</div>
 
-        <div class="promo-code hidden">
+        <div class="promo-code hidden mt2">
           <%= form.label :promo_code %>
           <%= form.text_field :promo_code %>
         </div>
@@ -77,7 +77,7 @@
     <div class="container">
       <div class="inner">
         <div class="card">
-          <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+          <%= form.submit 'Next', :class => 'button alt-button disabled return-btn', :disabled => true %>
         </div>
       </div>
     </div>
@@ -115,7 +115,6 @@
 
   // ON SELECTION OF CONCESSION
   $('#concession-list').on('change', function() {
-
     if ($(this).val() > 0) {
       $(this).addClass('hidden');
       if ($(this).val() == 5) {
@@ -172,6 +171,8 @@
         $('.return-ticket').toggleClass('hidden');
         $('.single-ticket').toggleClass('hidden');
         $('.return-tab').removeClass('selected');
+        $('.single-journey.selected').removeClass('selected');
+        $('.return-btn').addClass('disabled').attr('disabled', true);
       } else {
         $('.return-ticket').toggleClass('hidden');
         $('.single-ticket').toggleClass('hidden');
