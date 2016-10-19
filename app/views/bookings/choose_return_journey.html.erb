@@ -6,19 +6,19 @@
       <p><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min)</p>
       <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
-        <div id="concession-1" class="concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
+        <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
           <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-2" class="concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
+        <div id="concession-2" class="mb1 concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
           <span class="count"><%= @booking.older_bus_passes %></span></span> Older persons bus pass (£0.00 each)
           <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-3" class="concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
+        <div id="concession-3" class="mb1 concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
           <span class="count"><%= @booking.disabled_bus_passes %></span></span> Disabled persons bus pass (£0.00 each)
           <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-4" class="concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
+        <div id="concession-4" class="mb1 concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
           <span class="count"><%= @booking.scholar_bus_passes %></span></span> Scholarly Season Ticket (£0.00 each)
           <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
