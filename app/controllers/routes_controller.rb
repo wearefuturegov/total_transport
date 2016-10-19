@@ -1,7 +1,7 @@
 class RoutesController < ApplicationController
   def index
     @page_title = "Choose Your Route"
-    @top_sec = "These routes are flexible and show the general areas that your PickUp will pass through."
+    @top_sec = "These routes are flexible and show the general areas that your Pickup will pass through."
   end
 
   def suggest_route
