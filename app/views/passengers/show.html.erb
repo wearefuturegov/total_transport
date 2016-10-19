@@ -1,5 +1,5 @@
-<div class="card-cont">
-  <div class="login-form card no-click profile cont">
+<div class="container white-block profile">
+  <div class="inner">
     <%= form_for(@passenger, multipart: true) do |f| %>
       <div class="profile-banner">
         <div class="profile-face">
@@ -15,7 +15,7 @@
           </div>
           <div class="field photo-edit">
             <%= f.file_field :photo, :class => 'inputfile' %>
-              <%= f.label :photo, :class => 'inputfile-label' do %>
+              <%= f.label :photo, :class => 'inputfile-label button' do %>
                 <i class="fa fa-upload"></i> <span>Choose a File...</span>
               <% end %>
           </div>
@@ -28,34 +28,41 @@
         <%= f.submit 'Save profile' %>
       </div>
     <% end %>
-    </div>
-  <% if @passenger.bookings.any? %>
-    <div class="bookings">
-      <h2>Bookings</h2>
-      <p>This is a list of all of your future and past bookings:</p>
-    </div>
-    <% @passenger.bookings.booked.each do |booking| %>
-      <div class="login-form card cont">
-        <h4>Your Journey - <%= friendly_date(booking.pickup_stop.time_for_journey(booking.journey)) %></h4>
-        <p><span class="bold">Pick Up Location:</span> <%= booking.pickup_stop.name %> - Est. <%= booking.pickup_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.pickup_lat %>,<%= booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.pickup_lat %>,<%= booking.pickup_lng %>"></p>
+  </div>
+</div>
 
-        <p><span class="bold">Drop Off Location:</span> <%= booking.dropoff_stop.name %> - Est. <%= booking.dropoff_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>"></p>
+<div class="container">
+  <div class="inner">
+    <% if @passenger.bookings.any? %>
+      <div class="bookings">
+        <h2>Bookings</h2>
+        <p>This is a list of all of your future and past bookings:</p>
+      </div>
+      <% @passenger.bookings.booked.each do |booking| %>
+        <div class="login-form card">
+          <div class="inner">
+            <h4>Your Journey - <%= friendly_date(booking.pickup_stop.time_for_journey(booking.journey)) %></h4>
+            <p><span class="bold">Pick Up Location:</span> <%= booking.pickup_stop.name %> - Est. <%= booking.pickup_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.pickup_lat %>,<%= booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.pickup_lat %>,<%= booking.pickup_lng %>"></p>
+
+            <p><span class="bold">Drop Off Location:</span> <%= booking.dropoff_stop.name %> - Est. <%= booking.dropoff_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>"></p>
 
 
-        <% if booking.future? %>
-          <div class="actions">
-            <%= form_for [booking.route, booking], method: :delete do |form| %>
-              <%= form.submit "Cancel", :class => "negative delete" %>
+            <% if booking.future? %>
+              <div class="actions">
+                <%= form_for [booking.route, booking], method: :delete do |form| %>
+                  <%= form.submit "Cancel", :class => "negative delete" %>
+                <% end %>
+              </div>
             <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <%= form_for current_passenger, method: :delete do |form| %>
-    <%= form.submit "Logout" %>
-  <% end %>
+    <%= form_for current_passenger, method: :delete do |form| %>
+      <%= form.submit "Logout", :class => "button alt-button" %>
+    <% end %>
+  </div>
 </div>
