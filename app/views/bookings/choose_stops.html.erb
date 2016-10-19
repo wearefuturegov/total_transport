@@ -16,7 +16,7 @@
         <%= form.hidden_field :pickup_stop_id %>
         <%= form.hidden_field :dropoff_stop_id %>
         <div id="confirmation" class="card" style="display: none;">
-          <%= form.submit 'Confirm Route', :class => 'button' %>
+          <%= form.submit 'Confirm Route', :class => 'button alt-button' %>
         </div>
       <% end %>
 
@@ -24,7 +24,14 @@
       
       <div class="suggestion center grey">
         <p>Want to go the other way?<br/>
-        <%= link_to "reverse this journey", new_route_booking_path(@route, @booking, reversed: !@reversed) %></p>
+        <%= link_to new_route_booking_path(@route, @booking, reversed: !@reversed) do %>
+          <div class="reverse-icon">
+            <i class="fa fa-long-arrow-down"></i>
+            <i class="fa fa-long-arrow-up"></i>
+          </div>
+          reverse this journey
+        <% end %>
+        </p>
       </div>
     </div>
   </div>
