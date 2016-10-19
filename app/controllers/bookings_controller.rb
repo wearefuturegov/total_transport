@@ -137,6 +137,7 @@ class BookingsController < ApplicationController
 
   def suggest_journey
     @page_title = "Suggest A New Time"
+    @back_path = choose_journey_route_booking_path(@route, @booking)
     if request.method == 'POST'
       @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
       redirect_to choose_journey_route_booking_path(@route, @booking)
