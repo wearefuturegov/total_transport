@@ -8,6 +8,13 @@ class BookingsController < ApplicationController
     @back_path = routes_path
     @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
+    if params[:reversed] == 'true'
+      @reversed = true
+      @stops = @route.stops.reverse
+    else
+      @reversed = false
+      @stops = @route.stops
+    end
     render template: 'bookings/choose_stops'
   end
 
@@ -18,19 +25,32 @@ class BookingsController < ApplicationController
   end
 
   def choose_journey
-    @page_title = "Pick Your Time"
+    @page_title = "Choose Your Options"
     @back_path = new_route_booking_path(@route)
-    @top_sec = "All times listed are estimates and may change based on who else schedules a ride."
+    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
   def save_journey
+    @booking.update_attributes(booking_params)
+    redirect_to choose_return_journey_route_booking_path(@route, @booking)
+  end
+
+  def choose_return_journey
+    @page_title = "Pick Your Return Time"
+    @back_path = choose_journey_route_booking_path(@route, @booking)
+    from_time = @booking.dropoff_stop.time_for_journey(@booking.journey)
+    @journeys = @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: from_time)
+  end
+
+  def save_return_journey
+    @booking.set_promo_code(params[:booking][:promo_code])
     @booking.update_attributes(booking_params)
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end
 
   def choose_pickup_location
-    @page_title = "Choose Pick Up Area"
-    @back_path = choose_journey_route_booking_path(@route, @booking)
+    @page_title = "Choose Pick Up Point"
+    @back_path = choose_return_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
     render template: 'bookings/choose_pickup_dropoff_location'
@@ -42,7 +62,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Drop Off Area"
+    @page_title = "Choose Drop Off Point"
     @back_path = choose_pickup_location_route_booking_path(@route, @booking)
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
@@ -52,11 +72,11 @@ class BookingsController < ApplicationController
   def save_dropoff_location
     @booking.update_attributes(booking_params)
     redirect_to confirm_route_booking_path(@route, @booking)
-    /if current_passenger.payment_methods.any?
-      redirect_to choose_payment_method_route_booking_path(@route, @booking)
-    else
-      redirect_to add_payment_method_route_booking_path(@route, @booking)
-    end/
+    # if current_passenger.payment_methods.any?
+    #   redirect_to choose_payment_method_route_booking_path(@route, @booking)
+    # else
+    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
+    # end
   end
 
   def choose_payment_method
@@ -65,12 +85,12 @@ class BookingsController < ApplicationController
   end
 
   def save_payment_method
-    /if params[:booking][:payment_method_id] == 'new'
-      redirect_to add_payment_method_route_booking_path(@route, @booking)
-    else
-      @booking.update_attributes(booking_params)
-      redirect_to confirm_route_booking_path(@route, @booking)
-    end/
+    # if params[:booking][:payment_method_id] == 'new'
+    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
+    # else
+    #   @booking.update_attributes(booking_params)
+    #   redirect_to confirm_route_booking_path(@route, @booking)
+    # end
     @booking.update_attributes(booking_params)
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
@@ -94,11 +114,20 @@ class BookingsController < ApplicationController
 
   def save_confirm
     @booking.update_attributes(booking_params)
-    redirect_to choose_payment_method_route_booking_path(@route, @booking)
-    /redirect_to confirmation_route_booking_path(@route, @booking)/
+    redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def confirmation
+  end
+
+  include ActionView::Helpers::NumberHelper
+  def price_api
+    @booking.set_promo_code(params[:booking][:promo_code])
+    @booking.assign_attributes(booking_params)
+    render json: {
+      single: number_to_currency(@booking.single_price, unit: '£'),
+      return: number_to_currency(@booking.return_price, unit: '£')
+    }
   end
 
   def destroy
@@ -130,7 +159,27 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:journey_id, :pickup_stop_id, :pickup_lat, :pickup_lng, :pickup_name, :dropoff_stop_id, :dropoff_lat, :dropoff_lng, :dropoff_name, :state, :phone_number, :payment_method_id)
+    params.require(:booking).permit(
+      :journey_id,
+      :return_journey_id,
+      :pickup_stop_id,
+      :pickup_lat,
+      :pickup_lng,
+      :pickup_name,
+      :dropoff_stop_id,
+      :dropoff_lat,
+      :dropoff_lng,
+      :dropoff_name,
+      :state,
+      :phone_number,
+      :payment_method_id,
+      :number_of_passengers,
+      :special_requirements,
+      :child_tickets,
+      :older_bus_passes,
+      :disabled_bus_passes,
+      :scholar_bus_passes
+    )
   end
 
   def payment_method_params

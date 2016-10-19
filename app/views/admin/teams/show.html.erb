@@ -7,7 +7,7 @@
             <div id="theFace">
               <% if current_supplier.photo? %>
                 <%= image_tag current_supplier.photo.url(:square) %>
-              <% else %> 
+              <% else %>
                 <div class="circle">
                   <i class="fa fa-user fa-2x"></i>
                 </div>
@@ -28,7 +28,7 @@
                 <% if !current_team.solo_team? %>
                   in your team
                 <% end %>
-                 - 
+                 -
               <%= link_to admin_vehicles_path do %>
                 View Vehicles
               <% end %>
@@ -61,6 +61,7 @@
           <p><strong>Admin</strong> - <%= link_to "Manage Core Routes", admin_routes_path %></p>
           <p><strong>Admin</strong> - <%= link_to "Manage Suppliers", admin_suppliers_path %></p>
           <p><strong>Admin</strong> - <%= link_to "View Suggestions", admin_suggestions_path %></p>
+          <p><strong>Admin</strong> - <%= link_to "Manage Promo Codes", admin_promo_codes_path %></p>
         </div>
       </div>
     <% end %>

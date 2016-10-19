@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       member do
         get :choose_journey
         patch :save_journey
+        get :choose_return_journey
+        patch :save_return_journey
         get :choose_pickup_location
         patch :save_pickup_location
         get :choose_dropoff_location
@@ -31,6 +33,8 @@ Rails.application.routes.draw do
         post :suggest_journey
         get :suggest_edit_to_stop
         post :suggest_edit_to_stop
+
+        get :price_api
       end
     end
   end
@@ -61,6 +65,7 @@ Rails.application.routes.draw do
     end
     resources :suggestions
     resources :supplier_suggestions
+    resources :promo_codes
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
 

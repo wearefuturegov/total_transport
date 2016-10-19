@@ -1,12 +1,19 @@
 class Journey < ActiveRecord::Base
   belongs_to :route
   has_many :stops, through: :route
-  has_many :bookings, dependent: :destroy
+  has_many :outward_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'journey_id'
+  has_many :return_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'return_journey_id'
   belongs_to :vehicle
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
 
+  scope :forwards, -> {where("reversed IS NOT TRUE")}
+  scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
+
+  def bookings
+    outward_bookings + return_bookings
+  end
 
   def editable_by_supplier?(supplier)
     supplier.team == self.supplier.team
@@ -16,8 +23,36 @@ class Journey < ActiveRecord::Base
     bookings.count > 0
   end
 
+  def seats_left
+    vehicle.seats - bookings.count
+  end
+
   def full?
-    bookings.count >= vehicle.seats
+    seats_left <= 0
+  end
+
+  def route_name
+    if self.reversed?
+      backwards_name
+    else
+      forwards_name
+    end
+  end
+
+  def stops_in_direction
+    if self.reversed?
+      stops.reverse
+    else
+      stops
+    end
+  end
+
+  def forwards_name
+    "#{stops.first.name} - #{stops.last.name}"
+  end
+
+  def backwards_name
+    "#{stops.last.name} - #{stops.first.name}"
   end
 
   def self.close_near_journeys

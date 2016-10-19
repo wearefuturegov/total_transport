@@ -1,0 +1,54 @@
+<% if @journeys.any? %>
+  <% @journeys.each_pair do |date, journeys| %>
+    <div class="date">
+      <h3><%= friendly_date date %></h3>
+    </div>
+    
+    <% journeys.each do |journey| %>
+        <div class="single-journey card<%= ' unavailable' if journey.full? %>" data-seats="<%= journey.seats_left %>">
+          <%= form.label field, :value => journey.id do %>
+          <%= form.radio_button field, journey.id, class: "journey-select" %>
+          <div class="inner">
+            <div class="half">
+              <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+              <span class="small grey">+/- 10 min</span>
+            </div>
+            <div class="half">
+              <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+              <span class="small grey">+/- 10 min</span>
+            </div>
+          </div>
+          <% if journey.vehicle.wheelchair_accessible? %>
+            <div class="wheelchair"><i class="fa fa-wheelchair"></i></div>
+          <% end %>
+          <% if journey.seats_left < 5 && journey.seats_left > 0 %>
+            <div class="seats-left">
+              <span>Only <%= pluralize journey.seats_left, "seat" %> left!</span>
+            </div>
+          <% elsif journey.full? %>
+            <div class="fully-booked">
+              <span>Fully booked</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>Currently there are no possible journeys avaliable for this route. Please try again later or <%= link_to "suggest a new time good for you", suggest_journey_route_booking_path(@route, @booking) %>, so that we can help tailor this service for you.</p>
+<% end %>
+
+<script type="text/javascript">
+  $('.single-journey label').click(function(e) {
+    var parent = $(this).parent();
+    if (parent.hasClass('unavailable')) {
+      e.preventDefault();
+    } else {
+      if ($('input[type="submit"]').hasClass('disabled')) {
+        $('input[type="submit"]').removeClass('disabled').attr('disabled', false);
+      }
+      $('.single-journey.selected').removeClass('selected');
+      parent.addClass('selected');
+    }
+  });
+</script>

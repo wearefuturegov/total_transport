@@ -1,21 +1,24 @@
-<div id="move-to-top">
+<!-- <div id="move-to-top">
   <div id="filter-cont">
     <label>Filter Routes:
       <input type="text" name="filter" id="filter">
     </label>
   </div>
-</div>
+</div> -->
 
 <div class="card-cont container">
   <div class="inner">
     <% Route.bookable_routes.each do |route| %>
       <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
         <div class="inner">
-          
+          <div class="reverse-btn" title="Reverse this Route">
+            <div class="reverse-icon">
+            <i class="fa fa-long-arrow-down"></i>
+            <i class="fa fa-long-arrow-up"></i>
+          </div>
+          </div>
           <div class="origin"><%= route.stops.first.name %></div>
-
           <div class="bar"></div>
-
           <div class="acordBtn">
             <div class="button alt-button">
               <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
@@ -30,14 +33,66 @@
           </div>
           <div class="desti"><%= route.stops.last.name %></div>
         </div>
-        <%= link_to new_route_booking_path(route) do %>
+        <%= link_to new_route_booking_path(route, reversed: false) do %>
+          <div class="button">
+            <span>Choose This Route</span>
+          </div>
+        <% end %>
+      </div>
+      <div class="reversed hidden route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>-reversed">
+        <div class="inner">
+          <div class="reverse-btn" title="Reverse this Route">
+            <div class="reverse-icon">
+            <i class="fa fa-long-arrow-down fa-rotate-180"></i>
+            <i class="fa fa-long-arrow-up fa-rotate-180"></i>
+          </div>
+          </div>
+          <div class="origin"><%= route.stops.last.name %></div>
+          <div class="bar"></div>
+          <div class="acordBtn">
+            <div class="button alt-button">
+              <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+            </div>
+          </div>
+          <div class="acord">
+            <ul>
+              <% route.stops.reverse_each do |stop| %>
+                <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="desti"><%= route.stops.first.name %></div>
+        </div>
+        <%= link_to new_route_booking_path(route, reversed: true) do %>
           <div class="button">
             <span>Choose This Route</span>
           </div>
         <% end %>
       </div>
     <% end %>
+
+    <div class="clear"></div>
+
+    <div class="suggestion center grey">
+      <p>Don't see a route relevant to you?<br/>
+      <%= link_to "Suggest a new route", suggest_route_routes_path %></p>
+    </div>
   </div>
 </div>
 
-<%= link_to "Suggest a new route", suggest_route_routes_path %>
+<script type="text/javascript">
+  $('.reverse-btn').click(function() {
+    var parent = $(this).closest('.route');
+    var parentId = parent.attr('id');
+
+    if (!parent.hasClass('reversed')) {
+      parent.addClass('hidden');
+      $('#' + parentId + '-reversed').removeClass('hidden');
+    } else {
+      parent.addClass('hidden');
+      $('#' + parentId.replace('-reversed', '')).removeClass('hidden');
+    }
+  });
+</script>
+
+

@@ -1,10 +1,4 @@
 module ApplicationHelper
-  def padded_time(time)
-    (time - 10.minutes).strftime("%l:%M%P") +
-    " - " +
-    (time + 10.minutes).strftime("%l:%M%P")
-  end
-
   def friendly_date(date)
     if date == Date.today
       "Today"
@@ -30,5 +24,9 @@ module ApplicationHelper
     elsif payment_method_type == 'cash'
       'fa-money'
     end
+  end
+
+  def num_of_adults(num_of_passengers)
+    num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
   end
 end

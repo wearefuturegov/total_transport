@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005142428) do
+ActiveRecord::Schema.define(version: 20161018100958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,13 +25,21 @@ ActiveRecord::Schema.define(version: 20161005142428) do
     t.float    "dropoff_lat"
     t.float    "dropoff_lng"
     t.string   "state"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "passenger_id"
     t.string   "phone_number"
     t.integer  "payment_method_id"
     t.string   "pickup_name"
     t.string   "dropoff_name"
+    t.integer  "return_journey_id"
+    t.integer  "number_of_passengers", default: 1
+    t.text     "special_requirements"
+    t.integer  "child_tickets",        default: 0
+    t.integer  "older_bus_passes",     default: 0
+    t.integer  "disabled_bus_passes",  default: 0
+    t.integer  "scholar_bus_passes",   default: 0
+    t.integer  "promo_code_id"
   end
 
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
@@ -39,6 +47,7 @@ ActiveRecord::Schema.define(version: 20161005142428) do
   add_index "bookings", ["passenger_id"], name: "index_bookings_on_passenger_id", using: :btree
   add_index "bookings", ["payment_method_id"], name: "index_bookings_on_payment_method_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
+  add_index "bookings", ["promo_code_id"], name: "index_bookings_on_promo_code_id", using: :btree
 
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
@@ -48,6 +57,7 @@ ActiveRecord::Schema.define(version: 20161005142428) do
     t.integer  "vehicle_id"
     t.integer  "supplier_id"
     t.boolean  "open_to_bookings", default: true
+    t.boolean  "reversed"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
@@ -89,6 +99,13 @@ ActiveRecord::Schema.define(version: 20161005142428) do
   end
 
   add_index "payment_methods", ["passenger_id"], name: "index_payment_methods_on_passenger_id", using: :btree
+
+  create_table "promo_codes", force: :cascade do |t|
+    t.decimal  "price_deduction"
+    t.string   "code"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -192,8 +209,9 @@ ActiveRecord::Schema.define(version: 20161005142428) do
     t.string   "registration"
     t.string   "make_model"
     t.string   "colour"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.boolean  "wheelchair_accessible"
   end
 
   add_index "vehicles", ["team_id"], name: "index_vehicles_on_team_id", using: :btree
@@ -201,6 +219,7 @@ ActiveRecord::Schema.define(version: 20161005142428) do
   add_foreign_key "bookings", "journeys"
   add_foreign_key "bookings", "passengers"
   add_foreign_key "bookings", "payment_methods"
+  add_foreign_key "bookings", "promo_codes"
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"

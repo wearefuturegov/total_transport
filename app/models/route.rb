@@ -15,13 +15,26 @@ class Route < ActiveRecord::Base
     end
   end
 
+  def forwards_name
+    "#{stops.first.name} - #{stops.last.name}"
+  end
+
+  def backwards_name
+    "#{stops.last.name} - #{stops.first.name}"
+  end
+
   def has_available_journeys?
     journeys.available.any?
   end
 
-  def available_journeys_by_date
+  def available_journeys_by_date(reversed: false, from_time: Time.now)
     available_journeys_by_date = {}
-    journeys.available.each do |journey|
+    if reversed
+      journeys_in_direction = journeys.backwards
+    else
+      journeys_in_direction = journeys.forwards
+    end
+    journeys_in_direction.available.where("start_time > ?", from_time).each do |journey|
       available_journeys_by_date[journey.start_time.to_date] ||= []
       available_journeys_by_date[journey.start_time.to_date] << journey
     end
