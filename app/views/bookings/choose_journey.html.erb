@@ -1,7 +1,7 @@
 <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
+      <h4><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h4>
       <p>All times listed are estimates and may change based on who else schedules a ride.</p>
         <p>
         <%= form.label :number_of_passengers, :class => "inline mr1" %>
@@ -18,6 +18,8 @@
 
   <div class="container">
     <div class="inner">
+      <p class="center mb2"><strong>Choose Your Time Of Travel</strong><br/>
+      From <%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></p>
       <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id} %>
     </div>
   </div>
