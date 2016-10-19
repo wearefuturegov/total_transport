@@ -15,6 +15,10 @@ class Journey < ActiveRecord::Base
     outward_bookings + return_bookings
   end
 
+  def booked_bookings
+    outward_bookings.booked + return_bookings.booked
+  end
+
   def editable_by_supplier?(supplier)
     supplier.team == self.supplier.team
   end
@@ -24,7 +28,7 @@ class Journey < ActiveRecord::Base
   end
 
   def seats_left
-    vehicle.seats - bookings.count
+    vehicle.seats - booked_bookings.sum {|x| x.number_of_passengers}
   end
 
   def full?
