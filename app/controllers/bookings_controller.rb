@@ -118,6 +118,8 @@ class BookingsController < ApplicationController
   end
 
   def confirmation
+    @page_title = "Booking Confirmed"
+    @back_path = routes_path
   end
 
   include ActionView::Helpers::NumberHelper
