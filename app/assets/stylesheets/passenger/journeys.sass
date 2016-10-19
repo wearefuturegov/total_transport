@@ -39,7 +39,7 @@ $dot-width: 30px
     width: 5px
     top: 30px
     left: 25px
-    height: 79px
+    height: 74px
 
   .acordBtn
     .button
@@ -136,14 +136,14 @@ $dot-width: 30px
     padding: 15px
     margin-bottom: 3px
     line-height: $dot-width
-    font-size: 20px
+    font-size: 18px
     transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94), box-shadow 1s cubic-bezier(0.25, 0.8, 0.25, 1)
 
     .stop-title
       //float: left
       display: inline-block
       line-height: $dot-width
-      margin-left: calc(#{$dot-width}/1.7)
+      margin-left: 14px
       transition: all 0.3s cubic-bezier(.25,.8,.25,1)
 
 .stop.hover, .stop.active
@@ -257,6 +257,8 @@ $dot-width: 30px
 
 .single-journey
   text-align: center
+  border: 2px solid $medium-gray
+  border-radius: 4px
   label
     cursor: pointer
     margin-bottom: 0
@@ -265,17 +267,37 @@ $dot-width: 30px
 
 .single-journey.unavailable
   transition: all 0.3s cubic-bezier(.25,.8,.25,1)
+  opacity: 0.7
   label
     cursor: default
 .single-journey.unavailable:hover
   box-shadow: none
 .single-journey.unavailable:active
   box-shadow: none
-  opacity: 0.7
+  opacity: 0.5
 
 .single-journey.selected
-  background-color: pink
+  background-color: rgba($orange, 0.5)
+  border-color: rgba($orange, 0.6)
+  color: $white
+  .grey
+    color: $white
+  .seats-left, .fully-booked
+    background-color: rgba($orange, 0.6)
+.single-journey .wheelchair
+  position: absolute
+  top: 15px
+  right: 15px
 
+
+.seats-left, .fully-booked
+  background-color: $medium-gray
+  color: $white
+  padding: 3px
+  font-weight: 300
+  font-size: 15px
+.fully-booked
+  font-weight: 600
 
 .journey-tabs
   margin: 0 auto

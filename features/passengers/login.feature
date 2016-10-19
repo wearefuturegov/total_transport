@@ -12,13 +12,13 @@ Feature: Logging in
     When I go to the home page
     And I fill in "Enter your mobile number to get started." with "239" within the login form
     And I press "Send Verification Code" within the login form
-    Then I should see "Phone number is not a valid phone number"
+    Then I should see "Phone number is not a valid, please try another one"
 
   Scenario: Login attempt with no phone number
     When I go to the home page
     And I fill in "Enter your mobile number to get started." with "" within the login form
     And I press "Send Verification Code" within the login form
-    Then I should see "Phone number is not a valid phone number"
+    Then I should see "Phone number is not a valid, please try another one"
 
   @vcr
   Scenario: Login attempt with invalid verification code

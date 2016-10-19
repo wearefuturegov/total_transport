@@ -1,11 +1,61 @@
+.mt1
+  margin-top: 1em
+
+.mt2
+  margin-top: 2em
+
+.mt3
+  margin-top: 3em
+
+.mt4
+  margin-top: 4em
+
+.ml1
+  margin-left: 1em
+
+.ml2
+  margin-left: 2em
+
+.ml3
+  margin-left: 3em
+
+.ml4
+  margin-left: 4em
+
+.mb1
+  margin-bottom: 1em
+
+.mb2
+  margin-bottom: 2em
+
+.mb3
+  margin-bottom: 3em
+
+.mb4
+  margin-bottom: 4em
+
+.mr1
+  margin-right: 1em
+
+.mr2
+  margin-right: 2em
+
+.mr3
+  margin-right: 3em
+
+.mr4
+  margin-right: 4em
+
 .container
   .inner
     +outer-container
     max-width: $large-screen
-    padding: $mobile-padding-side
+    padding: 15px
 
 .blue-block, .teal-block, .grey-block
-  padding: $mobile-padding-side
+  padding: 15px
+  .inner
+    padding: 10px
 
 .blue-block, .teal-block
   background: $blue
@@ -86,10 +136,36 @@
   display: none
 
 .top-sec
-  margin-bottom: $mobile-padding-side
+  margin-bottom: 15px
   .inner
-    padding: $mobile-padding-side
+    padding: 15px
 
+.select
+  border: 1px solid rgba($dark-gray, 0.7)
+  border-radius: 2px
+  background-color: #fff
+  line-height: 1.5em
+  padding: 5px 40px 5px 10px
+  color: $dark-gray
+  cursor: pointer
+
+  margin: 0
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  -webkit-appearance: none
+  -moz-appearance: none
+
+  background-image: linear-gradient(45deg, transparent 50%, $dark-gray 50%), linear-gradient(135deg, $dark-gray 50%, transparent 50%), linear-gradient(to right, rgba($dark-gray, 0.3), rgba($dark-gray, 0.3))
+  background-position: calc(100% - 15px) calc(13px + 2px), calc(100% - 10px) calc(13px + 2px), calc(100% - 30px) 7px
+
+  background-size: 5px 5px, 5px 5px, 1px 20px
+  background-repeat: no-repeat
+
+  margin-bottom: 15px 
+.select:focus
+  outline: none
+  border: 1px solid $prim-color
 
 .fixed
   z-index: 10

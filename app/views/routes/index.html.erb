@@ -1,10 +1,10 @@
-<div id="move-to-top">
+<!-- <div id="move-to-top">
   <div id="filter-cont">
     <label>Filter Routes:
       <input type="text" name="filter" id="filter">
     </label>
   </div>
-</div>
+</div> -->
 
 <div class="card-cont container">
   <div class="inner">
@@ -64,6 +64,13 @@
         <% end %>
       </div>
     <% end %>
+
+    <div class="clear"></div>
+
+    <div class="suggestion center grey">
+      <p>Don't see a route relevant to you?<br/>
+      <%= link_to "Suggest a new route", suggest_route_routes_path %></p>
+    </div>
   </div>
 </div>
 
@@ -82,4 +89,4 @@
   });
 </script>
 
-<%= link_to "Suggest a new route", suggest_route_routes_path %>
+

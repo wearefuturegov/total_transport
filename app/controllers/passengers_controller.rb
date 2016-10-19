@@ -12,7 +12,7 @@ class PassengersController < ApplicationController
       redirect_to verify_passenger_path(id: @passenger.id)
     else
       @passenger = Passenger.new
-      flash[:alert] = "Phone number is not a valid phone number"
+      flash[:alert] = "Phone number is not a valid, please try another one"
       render action: 'new'
     end
   end
@@ -25,7 +25,6 @@ class PassengersController < ApplicationController
   def verify
     @back_path = new_passenger_path
     @passenger = Passenger.find(params[:id])
-    @verify_sent = false;
     if request.method == 'POST'
       if @passenger.verification_code == params[:verification_code]
         set_current_passenger(@passenger)

@@ -3,10 +3,14 @@
     <div class="inner">
       <h3><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h3>
       <p>All times listed are estimates and may change based on who else schedules a ride.</p>
-        <%= form.label :number_of_passengers %>
-        <%= form.select :number_of_passengers, [1,2,3,4,5] %>
-        <%= form.label :special_requirements %>
-        <%= form.text_field :special_requirements %>
+        <%= form.label :number_of_passengers, :class => "inline mr1 mb2" %>
+        <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
+        <div id="special-req-button" class="button small-button"><i class="fa fa-plus"></i> Add Special Requirements</div>
+        <div id="special-req" class="hidden mt1">
+          <%= form.label :special_requirements, "Describe your special requirements:" %>
+          <%= form.text_field :special_requirements %>
+          <p class="small">Your transport provider will get in touch with you if they can't meet your needs</p>
+        </div>
     </div>
   </div>
 
@@ -27,4 +31,40 @@
   <div class="fixed-spacer"></div>
 <% end %>
 
-<%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>
+<script type="text/javascript">
+  $('#special-req-button').click(function() {
+    if ($(this).hasClass('negative')) {
+      $(this).removeClass('negative').html('<i class="fa fa-plus"></i> Add Special Requirements');
+      $('#special-req').addClass('hidden');
+      $('#special-req input').val('');
+    } else {
+      $(this).addClass('negative').html('<i class="fa fa-minus"></i> Remove Requirements');
+      $('#special-req').removeClass('hidden');
+    }
+  });
+
+  $('#booking_number_of_passengers').on('change', function() {
+    var noOfPassengers = $(this).val();
+    checkPassengers(noOfPassengers);
+  });
+
+  $(document).ready(function() {
+    checkPassengers($('#booking_number_of_passengers').val());
+  });
+
+  function checkPassengers(num) {
+    $('.single-journey').each(function() {
+      console.log($(this).data('seats'));
+      if (num > $(this).data('seats')) {
+        console.log($(this))
+        $(this).addClass('unavailable');
+        if ($(this).hasClass('selected')) {
+          $(this).removeClass('selected');
+          $('input[type="submit"]').addClass('disabled').attr('disabled', true)
+        }
+      } else {
+        $(this).removeClass('unavailable');
+      }
+    });
+  }
+</script>

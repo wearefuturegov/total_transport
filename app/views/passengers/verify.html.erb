@@ -1,11 +1,9 @@
 <div id="verify" class="grey-block fill-space container center">
   <div class="inner">
-    <% if !@verify_sent %>
-      <div id="verify-loading" class="center">
-        <i class="fa fa-spinner fa-spin fa-3x"></i>
-        <p>Sending verification code...</p>
-      </div>
-    <% end %>
+    <div id="verify-loading" class="center">
+      <i class="fa fa-spinner fa-spin fa-3x"></i>
+      <p>Sending verification code...</p>
+    </div>
 
     <h2>Verify Your Phone Number</h2>
     <p>Type in the verification code we sent to your phone number</p>
@@ -34,10 +32,14 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    setTimeout(function() {
-      $('#verify-loading').slideUp();
-    }, 3500);
-
+    if (sessionStorage.getItem("is_sent")) {
+      $('#verify-loading').addClass('hidden');
+    } else {
+      setTimeout(function() {
+        $('#verify-loading').slideUp();
+        sessionStorage.setItem("is_sent", true);
+      }, 3500);
+    }
     var keys = {};
 
     $('.single-digit').on("keydown", function(e){

@@ -19,9 +19,13 @@
           <%= form.submit 'Confirm Route', :class => 'button' %>
         </div>
       <% end %>
-      <%= link_to "reverse this journey", new_route_booking_path(@route, @booking, reversed: !@reversed) %>
 
       <div class="clear"></div>
+      
+      <div class="suggestion center grey">
+        <p>Want to go the other way?<br/>
+        <%= link_to "reverse this journey", new_route_booking_path(@route, @booking, reversed: !@reversed) %></p>
+      </div>
     </div>
   </div>
 </div>
