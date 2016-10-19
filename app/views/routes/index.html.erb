@@ -11,7 +11,7 @@
     <% Route.bookable_routes.each do |route| %>
       <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
         <div class="inner">
-          <div class="reverse-btn" title="Reverse this Route">
+          <div class="reverse-btn top-right" title="Reverse this Route">
             <div class="reverse-icon">
             <i class="fa fa-long-arrow-down"></i>
             <i class="fa fa-long-arrow-up"></i>
