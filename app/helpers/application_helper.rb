@@ -1,13 +1,22 @@
 module ApplicationHelper
-  def friendly_date(date)
+  def friendly_date(date, length=false)
     if date == Date.today
       "Today"
     elsif date == Date.tomorrow
       "Tomorrow"
     elsif (date > Date.today.beginning_of_year) && (date < Date.today.end_of_year)
-      date.strftime("%A, %-d %B")
-    else
-      date.strftime("%A, %-d %B, %Y")
+      if length
+        date.strftime("%a, %-d %B")
+      else
+        date.strftime("%A, %-d %B")
+      end
+      
+    else  
+      if length
+        date.strftime("%a, %-d %B, %Y")
+      else
+        date.strftime("%A, %-d %B, %Y")
+      end
     end
   end
 

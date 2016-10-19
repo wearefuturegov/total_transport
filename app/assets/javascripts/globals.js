@@ -19,7 +19,6 @@ $(window).resize(function() {
 });
 
 $(document).ready(function() {
-  
   if ($('.pop-up')) {
     $('.pop-up').on('click', function(e) {
       if (e.target !== this)
