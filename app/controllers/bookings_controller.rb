@@ -49,7 +49,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_pickup_location
-    @page_title = "Choose Pick Up Area"
+    @page_title = "Choose Pick Up Point"
     @back_path = choose_return_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
@@ -62,7 +62,7 @@ class BookingsController < ApplicationController
   end
 
   def choose_dropoff_location
-    @page_title = "Choose Drop Off Area"
+    @page_title = "Choose Drop Off Point"
     @back_path = choose_pickup_location_route_booking_path(@route, @booking)
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
