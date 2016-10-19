@@ -22,8 +22,8 @@
 
       <div class="clear"></div>
       
-      <div class="suggestion center grey">
-        <p>Want to go the other way?<br/>
+      <div class="suggestion center grey mt2">
+        Want to go the other way?<br/>
         <%= link_to new_route_booking_path(@route, @booking, reversed: !@reversed) do %>
           <div class="reverse-icon">
             <i class="fa fa-long-arrow-down"></i>
@@ -31,7 +31,6 @@
           </div>
           reverse this journey
         <% end %>
-        </p>
       </div>
     </div>
   </div>

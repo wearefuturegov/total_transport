@@ -37,9 +37,7 @@
             <% end %>
           </div>
           <div id="cancel-booking" class="hidden">
-            <%= link_to routes_path do %>
-              <i class="fa fa-times"></i>
-            <% end %>
+            <i class="fa fa-times"></i>
           </div>
           <!--<div class="no-mobile">
             <%= link_to current_passenger.phone_number, passenger_path %>
@@ -68,6 +66,22 @@
 
   <div class="main-cont">
     <%= yield %>
+  </div>
+
+  <div class="pop-up"> 
+    <div class="pop-up-box card no-click">
+      <div class="inner">
+        <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
+        <h3>Are you sure you want to cancel?</h3>
+        <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
+        <%= link_to routes_path do %>
+          <div class="button negative small-button">Cancel Booking</div>
+        <% end %>
+        <div class="button small-button" id="popup-continue">Continue Booking</div>
+      </div>
+
+      
+    </div>
   </div>
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>

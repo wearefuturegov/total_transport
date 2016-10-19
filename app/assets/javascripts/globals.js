@@ -14,8 +14,28 @@ $(window).load(function() {
   });
 });
 
+$(window).resize(function() {
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
+});
+
 $(document).ready(function() {
-  
+  if ($('.pop-up')) {
+    $('.pop-up').on('click', function(e) {
+      if (e.target !== this)
+        return;
+      closePopup();
+    });
+    $('.pop-up-close').click(function() { 
+      closePopup();
+    });
+    $('#popup-continue').click(function() { 
+      closePopup();
+    });
+    $('#cancel-booking').click(function() { 
+      showPopup();
+    });
+  }
+
   if ($('.alerts')) {
     $('.alerts').slideDown();
   }
@@ -190,4 +210,12 @@ function alertRails(alertTxt, inputObj) {
   if (inputObj) {
     inputObj.focus().addClass('incorrect');
   }
+}
+
+function closePopup() {
+  $('.pop-up').fadeOut(150);
+}
+function showPopup() {
+  $('.pop-up').fadeIn(150);
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
 }
