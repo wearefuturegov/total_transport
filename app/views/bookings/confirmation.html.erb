@@ -4,6 +4,8 @@
 
     <p>You booking has been confirmed, you will receive a text with more details the day before you travel. Wait for your driver at your pickup point: <%= @booking.pickup_name %>, at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> on <%= friendly_date @booking.journey.start_time %>.</p>
 
+    <p>You can view or cancel your booking in your <%= link_to 'profile page', passenger_path %>.</p>
+
     <div class="card no-click overview">
       <div class="overview-bar title">
         <%= @booking.dropoff_stop.name %>
