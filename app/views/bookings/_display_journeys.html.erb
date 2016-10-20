@@ -1,13 +1,14 @@
 <% if @journeys.any? %>
   <% @journeys.each_pair do |date, journeys| %>
-    <div class="date">
-      <h3><%= friendly_date date %></h3>
+    <div class="date mb1">
+      <h4><%= friendly_date date %></h4>
     </div>
     
     <% journeys.each do |journey| %>
         <div class="single-journey card<%= ' unavailable' if journey.full? %>" data-seats="<%= journey.seats_left %>">
           <%= form.label field, :value => journey.id do %>
           <%= form.radio_button field, journey.id, class: "journey-select" %>
+          <div class="journey-arrow"><i class="fa fa-arrow-right"></i></div>
           <div class="inner">
             <div class="half">
               <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
