@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="<%= controller.controller_name %>" id="<%= @body_id %>">
   <div id="suppliers-cont">
     <header>
       <div class="inner">
@@ -48,14 +48,12 @@
       </div>
     <% end %>
     <section class="supplier">
-      <div class="card-cont">
         <%= yield %>
 
-        <section id="footer">
-          <%= link_to new_admin_supplier_suggestion_path(from_url: request.path) do %>
-            Suggest An Edit
-          <% end %>
-        </section>
+      <div class="supplier-suggestion">
+        <%= link_to new_admin_supplier_suggestion_path(from_url: request.path) do %>
+          Suggest An Edit
+        <% end %>
       </div>
     </section>
   </div>
