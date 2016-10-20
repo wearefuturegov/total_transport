@@ -8,7 +8,7 @@
         <div class="single-journey card<%= ' unavailable' if journey.full? %>" data-seats="<%= journey.seats_left %>">
           <%= form.label field, :value => journey.id do %>
           <%= form.radio_button field, journey.id, class: "journey-select" %>
-          <div class="journey-arrow"><i class="fa fa-arrow-right"></i></div>
+          <div class="journey-arrow"><i class="fa fa-arrow-right no-desktop"></i><i class="fa fa-long-arrow-right fa-2x no-mobile"></i></div>
           <div class="inner">
             <div class="half">
               <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
