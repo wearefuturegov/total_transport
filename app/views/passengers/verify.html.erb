@@ -9,10 +9,10 @@
     <p>Type in the verification code we sent to your phone number</p>
 
     <div id="digit-input">
-      <input id="digit1" class="single-digit" type="number" pattern="\d*" min="0" max="9" size="1" autofocus="true">
-      <input id="digit2" class="single-digit" type="number" pattern="\d*" min="0" max="9" size="1">
-      <input id="digit3" class="single-digit" type="number" pattern="\d*" min="0" max="9" size="1">
-      <input id="digit4" class="single-digit" type="number" pattern="\d*" min="0" max="9" size="1">
+      <input id="digit1" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1" autofocus="true">
+      <input id="digit2" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+      <input id="digit3" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+      <input id="digit4" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
 
       <%-# Need to swap this form with inputs similar to above -%>
       <%= form_tag verify_passenger_path do %>
@@ -59,16 +59,15 @@
       } else {
         event.preventDefault();
       }
-      
     });
 
     $('.single-digit').on("keyup", function(e){      
       if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
         if($(this).val()) {
           if (Object.keys(keys).length == 1) {
-            console.log($(this).attr('id'));
             if($(this).attr('id') == "digit4") {
-              $(this).blur();
+              //$(this).blur();
+              $('input[type=submit]').focus();
             } else {
               $(this).next('input').focus();
             }
@@ -80,7 +79,6 @@
               digit4 = $('#digit4').val();
           var code = digit1.toString() + digit2.toString() + digit3.toString() + digit4.toString();
           $('#verification_code').val(code);
-          console.log($('#verification_code').val());
         }
       }
       delete keys[e.which];
