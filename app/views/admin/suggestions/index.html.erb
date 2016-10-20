@@ -8,7 +8,7 @@
       </tr>
       <% @suggested_routes.each do |suggested_route| %>
         <tr>
-          <td><%= suggested_route.passenger.phone_number %> on <%= friendly_date supplier_suggestion.supplier.created_at %></td>
+          <td><%= suggested_route.passenger.phone_number %> on <%= friendly_date suggested_route.passenger.created_at %></td>
           <td><%= suggested_route.description %></td>
         </tr>
       <% end %>
@@ -24,7 +24,7 @@
       </tr>
       <% @suggested_journeys.each do |suggested_journey| %>
         <tr>
-          <td><%= suggested_journey.passenger.phone_number %> on <%= friendly_date supplier_suggestion.supplier.created_at %></td>
+          <td><%= suggested_journey.passenger.phone_number %> on <%= friendly_date suggested_journey.passenger.created_at %></td>
           <td><%= link_to suggested_journey.route.name, admin_route_path(suggested_journey.route) %></td>
           <td><%= suggested_journey.start_time %></td>
           <td><%= suggested_journey.description %></td>
@@ -42,7 +42,7 @@
       </tr>
       <% @suggested_edit_to_stops.each do |suggested_edit_to_stop| %>
         <tr>
-          <td><%= suggested_edit_to_stop.passenger.phone_number %> on <%= friendly_date supplier_suggestion.supplier.created_at %></td>
+          <td><%= suggested_edit_to_stop.passenger.phone_number %> on <%= friendly_date suggested_edit_to_stop.passenger.created_at %></td>
           <td><%= link_to suggested_edit_to_stop.stop.route.name, admin_route_path(suggested_edit_to_stop.stop.route) %></td>
           <td><%= link_to suggested_edit_to_stop.stop.name, edit_admin_route_stop_path(suggested_edit_to_stop.stop.route, suggested_edit_to_stop.stop) %></td>
           <td><%= suggested_edit_to_stop.description %></td>
