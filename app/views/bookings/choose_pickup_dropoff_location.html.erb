@@ -114,7 +114,11 @@ var map
         <% if @stop.landmarks.present? %>
           <span>Choose your own</span>
         <% else %>
-          <span>Drag the map to choose a pick up point</span>
+          <% if @pickup_of_dropoff == 'pickup' %>
+            <span>Drag the map to choose a pickup point</span>
+          <% else %>
+            <span>Drag the map to choose a drop off point</span>
+          <% end %>
         <% end %>
       </div>
     </div>
