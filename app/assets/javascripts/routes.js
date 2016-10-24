@@ -11,6 +11,7 @@ $(document).ready(function() {
         $(this).slideDown();
         $(this).removeClass('filtered');
       });
+      $('#total-route-number').html($('.full-route').length);
     }
   });
 
@@ -37,5 +38,6 @@ $(document).ready(function() {
         $(this).slideUp();
       }
     });
+    $('#total-route-number').html(exception.length);
   }
 });
