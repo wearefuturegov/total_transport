@@ -7,7 +7,7 @@ class Booking < ActiveRecord::Base
   belongs_to :payment_method
   belongs_to :promo_code
 
-  scope :booked, -> {where("journey_id IS NOT NULL AND pickup_stop_id IS NOT NULL AND dropoff_stop_id IS NOT NULL AND payment_method_id IS NOT NULL")}
+  scope :booked, -> { where(state: 'booked') }
 
   def route
     journey.route

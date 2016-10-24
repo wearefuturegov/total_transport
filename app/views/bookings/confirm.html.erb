@@ -95,6 +95,7 @@
     <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
 
     <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
+      <%= form.hidden_field :state, value: 'booked' %>
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, value: current_passenger.phone_number, class: "white-input" %>
       <%= form.submit "Confirm booking", :class => 'button alt-button' %>
