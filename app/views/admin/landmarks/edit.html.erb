@@ -8,11 +8,11 @@
           <div class="inner">
             <%= render partial: 'fields', locals: {form: form} %>
           </div>
-      </div>
+        </div>
         <%= form.submit "Save Landmark", :class => "button name_validation border-left-radius half" %>
-        <%= form_for [:admin, @route, @stop, @landmark], method: :delete do |form| %>
-          <%= form.submit "Delete Landmark", :class => "half button negative delete border-right-radius" %>
         <% end %>
+      <%= form_for [:admin, @route, @stop, @landmark], method: :delete do |form| %>
+        <%= form.submit "Delete Landmark", :class => "half button negative delete border-right-radius" %>
       <% end %>
     </div>
   </div>
