@@ -1,10 +1,14 @@
 $(document).ready(function() {
   var numOfRoutes = $('.full-route').length;
 
-  $('#filter').keyup(function() {
-    var tempTxt = $( this ).val();
-    if (tempTxt.length > 2) {
-      checkRoutes(tempTxt);
+  $('#filter').change(function() {
+    if ($('#filter option:selected').val() > 0) {
+      $('.full-route').each(function() {
+        // the text is 2 char or below, reveal any hidden routes 
+        $(this).slideDown();
+        $(this).removeClass('filtered');
+      });
+      checkRoutes($('#filter option:selected').html());
     } else {
       $('.full-route').each(function() {
         // the text is 2 char or below, reveal any hidden routes 
@@ -17,6 +21,7 @@ $(document).ready(function() {
 
   function checkRoutes(tempTxt) {
     var exception = [];
+    console.log(tempTxt);
     $('.full-route .non-reverse .acord li').each(function() {
       // for each list item
       if ($(this).html().toLowerCase().indexOf(tempTxt.toLowerCase()) >= 0) {

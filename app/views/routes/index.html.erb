@@ -2,7 +2,18 @@
   <div class="inner">
     <p>These routes are flexible and show the general areas that your Pickup will pass through.</p>
     <label>Filter Routes:
-      <input type="text" name="filter" id="filter">
+      <select name="filter" id="filter">
+        <option value="0">View All</option>
+        <% tempStops = Array.new() %>
+        <% Route.bookable_routes.each do |route| %>
+          <% route.stops.each do |stop| %>
+            <% unless tempStops.include?(stop.name) %>
+               <option value="<%= stop.id %>"><%= stop.name %></option>
+               <% tempStops.push(stop.name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </select>
     </label>
     <p class="mb0">Browse <span id="total-route-number"><%= Route.bookable_routes.count %></span> total routes:</p>
   </div>
@@ -30,7 +41,7 @@
             <div class="acord">
               <ul>
                 <% route.stops.each do |stop| %>
-                  <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
+                  <li id="<%= stop.id %>" <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
                 <% end %>
               </ul>
             </div>
