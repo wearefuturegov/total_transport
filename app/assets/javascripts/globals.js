@@ -40,6 +40,14 @@ $(document).ready(function() {
     $('.alerts').slideDown();
   }
 
+
+  $("form").submit(function() {
+    $(this).submit(function() {
+        return false;
+    });
+    return true;
+  });
+
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
       barHeight = 98,
