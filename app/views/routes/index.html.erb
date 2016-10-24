@@ -34,7 +34,7 @@
           <div class="desti"><%= route.stops.last.name %></div>
         </div>
         <%= link_to new_route_booking_path(route, reversed: false) do %>
-          <div class="button">
+          <div class="button border-bottom-radius">
             <span>Choose This Route</span>
           </div>
         <% end %>
@@ -64,7 +64,7 @@
           <div class="desti"><%= route.stops.first.name %></div>
         </div>
         <%= link_to new_route_booking_path(route, reversed: true) do %>
-          <div class="button">
+          <div class="button border-bottom-radius">
             <span>Choose This Route</span>
           </div>
         <% end %>
