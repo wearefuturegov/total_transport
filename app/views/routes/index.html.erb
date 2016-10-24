@@ -11,65 +11,67 @@
 <div class="card-cont container">
   <div class="inner">
     <% Route.bookable_routes.each do |route| %>
-      <div class="route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>">
-        <div class="inner">
-          <div class="reverse-btn top-right" title="Reverse this Route">
-            <div class="reverse-icon">
-            <i class="fa fa-long-arrow-down"></i>
-            <i class="fa fa-long-arrow-up"></i>
-          </div>
-          </div>
-          <div class="origin"><%= route.stops.first.name %></div>
-          <div class="bar"></div>
-          <div class="acordBtn">
-            <div class="button alt-button">
-              <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+      <div class="full-route" id="full-<%= route.id %>">
+        <div class="route card<%= ' has_routes' if route.has_available_journeys? %> non-reverse" id="<%= route.id %>">
+          <div class="inner">
+            <div class="reverse-btn top-right" title="Reverse this Route">
+              <div class="reverse-icon">
+              <i class="fa fa-long-arrow-down"></i>
+              <i class="fa fa-long-arrow-up"></i>
             </div>
-          </div>
-          <div class="acord">
-            <ul>
-              <% route.stops.each do |stop| %>
-                <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
-              <% end %>
-            </ul>
-          </div>
-          <div class="desti"><%= route.stops.last.name %></div>
-        </div>
-        <%= link_to new_route_booking_path(route, reversed: false) do %>
-          <div class="button border-bottom-radius">
-            <span>Choose This Route</span>
-          </div>
-        <% end %>
-      </div>
-      <div class="reversed hidden route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>-reversed">
-        <div class="inner">
-          <div class="reverse-btn top-right" title="Reverse this Route">
-            <div class="reverse-icon">
-            <i class="fa fa-long-arrow-down fa-rotate-180"></i>
-            <i class="fa fa-long-arrow-up fa-rotate-180"></i>
-          </div>
-          </div>
-          <div class="origin"><%= route.stops.last.name %></div>
-          <div class="bar"></div>
-          <div class="acordBtn">
-            <div class="button alt-button">
-              <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
             </div>
+            <div class="origin"><%= route.stops.first.name %></div>
+            <div class="bar"></div>
+            <div class="acordBtn">
+              <div class="button alt-button">
+                <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+              </div>
+            </div>
+            <div class="acord">
+              <ul>
+                <% route.stops.each do |stop| %>
+                  <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="desti"><%= route.stops.last.name %></div>
           </div>
-          <div class="acord">
-            <ul>
-              <% route.stops.reverse_each do |stop| %>
-                <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
-              <% end %>
-            </ul>
-          </div>
-          <div class="desti"><%= route.stops.first.name %></div>
+          <%= link_to new_route_booking_path(route, reversed: false) do %>
+            <div class="button border-bottom-radius">
+              <span>Choose This Route</span>
+            </div>
+          <% end %>
         </div>
-        <%= link_to new_route_booking_path(route, reversed: true) do %>
-          <div class="button border-bottom-radius">
-            <span>Choose This Route</span>
+        <div class="reversed hidden route card<%= ' has_routes' if route.has_available_journeys? %>" id="<%= route.id %>-reversed">
+          <div class="inner">
+            <div class="reverse-btn top-right" title="Reverse this Route">
+              <div class="reverse-icon">
+              <i class="fa fa-long-arrow-down fa-rotate-180"></i>
+              <i class="fa fa-long-arrow-up fa-rotate-180"></i>
+            </div>
+            </div>
+            <div class="origin"><%= route.stops.last.name %></div>
+            <div class="bar"></div>
+            <div class="acordBtn">
+              <div class="button alt-button">
+                <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
+              </div>
+            </div>
+            <div class="acord">
+              <ul>
+                <% route.stops.reverse_each do |stop| %>
+                  <li <%= ' style="display: none"'.html_safe if stop.first? || stop.last? %>><%= stop.name %></li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="desti"><%= route.stops.first.name %></div>
           </div>
-        <% end %>
+          <%= link_to new_route_booking_path(route, reversed: true) do %>
+            <div class="button border-bottom-radius">
+              <span>Choose This Route</span>
+            </div>
+          <% end %>
+        </div>
       </div>
     <% end %>
 
