@@ -24,7 +24,7 @@
     $('<div/>').addClass('centerMarker').html('Landmark Location').appendTo(map.getDiv());
 
     google.maps.event.addListenerOnce(map, 'idle', function(){
-      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').width()/2)*-1);
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
     });
 
     var last_position = map.getCenter();

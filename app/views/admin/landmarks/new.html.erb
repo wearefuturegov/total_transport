@@ -16,7 +16,7 @@
   $(document).ready(function() {
     $('#landmark_name').keyup(function() {
       $('#map .centerMarker').html($(this).val());
-      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').width()/2)*-1);
+      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
     });
   });
 </script>
