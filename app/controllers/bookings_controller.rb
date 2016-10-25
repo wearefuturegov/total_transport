@@ -114,6 +114,7 @@ class BookingsController < ApplicationController
 
   def save_confirm
     @booking.update_attributes(booking_params)
+    @booking.send_notification!("You have booked a Pickup journey.")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
