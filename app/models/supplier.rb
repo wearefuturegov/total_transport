@@ -35,7 +35,7 @@ class Supplier < ActiveRecord::Base
   end
 
   def destroy_team_if_solo
-    team.destroy if team.empty?
+    team.destroy if team.empty_team?
   end
 
   def inactive_message
