@@ -65,7 +65,7 @@ var map
         if (status === 'OK') {
           console.log(results);
           if (results[0]) {
-            pin_name = results[0].formatted_address;
+            pin_name = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name + ', ' + results[0].address_components[2].long_name;
           } else {
             pin_name = 'Your pin location';
           }
@@ -96,6 +96,21 @@ var map
     </div>
 
     <div class="landmarks">
+      <div id="choose-stop" class="single-landmark chosen" data-lat="choose-own" data-long="choose-own">
+        <div class="dot">
+          <div class="dot-middle"></div>
+        </div>
+        <% if @stop.landmarks.present? %>
+          <span>Drag the map to choose your own point</span>
+        <% else %>
+          <% if @pickup_of_dropoff == 'pickup' %>
+            <span>Drag the map to choose a pickup point</span>
+          <% else %>
+            <span>Drag the map to choose a drop off point</span>
+          <% end %>
+        <% end %>
+      </div>
+
       <% if @stop.landmarks.present? %>
         <% @stop.landmarks.each do |landmark| %>
           <div class="single-landmark" data-lat="<%= landmark.latitude %>" data-long="<%= landmark.longitude %>">
@@ -106,21 +121,6 @@ var map
           </div>
         <% end %>
       <% end %>
-
-      <div id="choose-stop" class="single-landmark" data-lat="choose-own" data-long="choose-own">
-        <div class="dot">
-          <div class="dot-middle"></div>
-        </div>
-        <% if @stop.landmarks.present? %>
-          <span>Choose your own</span>
-        <% else %>
-          <% if @pickup_of_dropoff == 'pickup' %>
-            <span>Drag the map to choose a pickup point</span>
-          <% else %>
-            <span>Drag the map to choose a drop off point</span>
-          <% end %>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>
@@ -157,10 +157,14 @@ var map
           clearDots();
           $(this).addClass('chosen');
 
-          if ($(this).data('lat') == 'choose-own') {
+          if ($(this).data('lat') == 'choose-own') {  
+            map.setOptions({draggable: true, disableDoubleClickZoom: false});
+
             $('.edit_booking input[type="submit"]').attr("disabled", true).addClass('disabled');
             $('#choose-stop span').html('Drag the map to choose');
           } else {
+            map.setOptions({draggable: false, disableDoubleClickZoom: true});
+
             $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
             $('#choose-stop span').html('Choose your own');
             
