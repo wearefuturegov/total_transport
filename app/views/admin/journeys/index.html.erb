@@ -20,8 +20,30 @@
             </div>
             Team
           <% end %>
-        <% end %>  
+        <% end %>
       </div>
+    <% end %>
+
+    <%= form_for_filterrific @filterrific do |form| %>
+      <%= form.select(
+        :past_or_future,
+        [
+          ['Past', 'past'],
+          ['Future', 'future'],
+        ],
+        { include_blank: '- Any -' }
+      ) %>
+
+      <%= form.select(
+        :booked_or_empty,
+        [
+          ['Booked', 'booked'],
+          ['Empty', 'empty'],
+        ],
+        { include_blank: '- Any -' }
+      ) %>
+
+      <%= submit_tag "Update filter", name: nil %>
     <% end %>
 
     <div class="actions mb2">
@@ -30,8 +52,8 @@
       <% end %>
     </div>
 
-    <% if @journeys.exists? %>
-      <% @journeys.each do |journey| %>
+    <% if @filtered_journeys.exists? %>
+      <% @filtered_journeys.each do |journey| %>
         <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
           <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="inner">
@@ -50,6 +72,9 @@
         </div>
       </div>
     <% end %>
+
+    <%= paginate @filtered_journeys %>
+
 
     <div class="actions">
       <%= link_to new_admin_journey_path do %>

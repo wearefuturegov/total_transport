@@ -7,6 +7,11 @@ class Admin::JourneysController < AdminController
     else
       @journeys = current_supplier.journeys
     end
+    @filterrific = initialize_filterrific(
+      @journeys,
+      params[:filterrific]
+    ) or return
+    @filtered_journeys = @filterrific.find.page(params[:page])
   end
 
   def new

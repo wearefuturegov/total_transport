@@ -49,6 +49,9 @@ gem 'twilio-ruby'
 gem 'paperclip'
 gem 'aws-sdk', '~> 2.3'
 
+gem 'filterrific'
+gem 'kaminari'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

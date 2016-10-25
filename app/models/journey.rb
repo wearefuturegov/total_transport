@@ -11,6 +11,35 @@ class Journey < ActiveRecord::Base
   scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
 
+  scope :past_or_future, ->(past_or_future) {
+    if past_or_future == 'past'
+      where('start_time < ?', Time.now)
+    elsif past_or_future == 'future'
+      where('start_time > ?', Time.now)
+    end
+  }
+  scope :on_date, ->(date) {
+    where('start_time >= ? AND start_time <= ?', Time.now.at_beginning_of_day, Time.now.at_end_of_day)
+  }
+  scope :booked_or_empty, ->(booked_or_empty) {
+    if booked_or_empty == 'booked'
+      where('start_time > ?', Time.now)
+    elsif booked_or_empty == 'empty'
+      where('start_time > ?', Time.now)
+    end
+  }
+
+  filterrific(
+    default_filter_params: {
+      past_or_future: 'future'
+    },
+    available_filters: [
+      :past_or_future,
+      :on_date,
+      :booked_or_empty
+    ]
+  )
+
   def bookings
     outward_bookings + return_bookings
   end
