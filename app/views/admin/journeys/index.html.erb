@@ -3,7 +3,7 @@
     <% if !current_team.solo_team? %>
       <div id="team_toggle">
         <% if params[:filter] == 'team' %>
-          <%= link_to admin_journeys_path() do %>
+          <%= link_to admin_journeys_path(filterrific: params[:filterrific]) do %>
             Me
             <div class="switch">
               <input type="checkbox" checked>
@@ -12,7 +12,7 @@
             Team
           <% end %>
         <% else %>
-          <%= link_to admin_journeys_path(filter: 'team') do %>
+          <%= link_to admin_journeys_path(filter: 'team', filterrific: params[:filterrific]) do %>
             Me
             <div class="switch">
               <input type="checkbox">
@@ -25,6 +25,7 @@
     <% end %>
 
     <%= form_for_filterrific @filterrific do |form| %>
+      <%= hidden_field_tag :filter, params[:filter] %>
       <%= form.select(
         :past_or_future,
         [
