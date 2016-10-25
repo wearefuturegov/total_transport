@@ -1,6 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe Booking, type: :model do
+
+  describe "pickup_between_times" do
+    before do
+      @route = FactoryGirl.create(:route)
+      @stop1 = FactoryGirl.create(:stop, route: @route, position: 1)
+      @stop2 = FactoryGirl.create(:stop, route: @route, minutes_from_last_stop: 20, position: 2)
+      @stop3 = FactoryGirl.create(:stop, route: @route, minutes_from_last_stop: 20, position: 3)
+      @stop4 = FactoryGirl.create(:stop, route: @route, minutes_from_last_stop: 20, position: 4)
+      @journey1 = FactoryGirl.create(:journey, route: @route, start_time: "01/01/2016 6:00".to_time)
+      @journey2 = FactoryGirl.create(:journey, route: @route, start_time: "01/01/2016 6:30".to_time)
+      @journey3 = FactoryGirl.create(:journey, route: @route, start_time: "02/01/2016 6:00".to_time)
+      # 6:20
+      @booking1 = Booking.create!(pickup_stop: @stop2, journey: @journey1, state: 'booked')
+      # 6:40
+      @booking2 = Booking.create!(pickup_stop: @stop3, journey: @journey1, state: 'booked')
+      # 6:30
+      @booking3 = Booking.create!(pickup_stop: @stop1, journey: @journey2, state: 'booked')
+      # next day
+      @booking4 = Booking.create!(pickup_stop: @stop1, journey: @journey3, state: 'booked')
+      # 6:40, not booked
+      @booking5 = Booking.create!(pickup_stop: @stop3, journey: @journey1, state: '')
+    end
+
+    it "should return bookings that pickup during that time" do
+      bookings = Booking.pickup_between_times(
+        "01/01/2016 6:00".to_time,
+        "01/01/2016 6:29".to_time
+      )
+      expect(bookings).to eq([@booking1])
+      bookings = Booking.pickup_between_times(
+        "01/01/2016 6:30".to_time,
+        "01/01/2016 7:00".to_time
+      )
+      expect(bookings).to eq([@booking2, @booking3])
+    end
+  end
+
   describe "pricing" do
     let(:booking) {Booking.new}
     describe "for a journey under 2 miles" do

@@ -13,8 +13,17 @@ class Booking < ActiveRecord::Base
     journey.route
   end
 
+  def self.pickup_between_times(start_time, end_time)
+    bookings = booked.joins(:journey).where('journeys.start_time > ? AND journeys.start_time < ?', start_time - 12.hours, end_time + 12.hours)
+    bookings.select {|booking| booking.pickup_time >= start_time && booking.pickup_time <= end_time}
+  end
+
   def past?
-    pickup_stop.time_for_journey(journey) < Time.now
+    pickup_time < Time.now
+  end
+
+  def pickup_time
+    pickup_stop.time_for_journey(journey)
   end
 
   def future?
