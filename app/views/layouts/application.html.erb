@@ -48,10 +48,10 @@
     </div>
   </header>
 
-  <% if flash[:alert].present? %>
+  <% if flash[:alert].present? || @flash_alert.present? %>
     <div id="alerts" class="alerts container">
       <div class="inner">
-        <p class="alert"><%= flash[:alert] %></p>
+        <p class="alert"><%= flash[:alert] %><%= @flash_alert %></p>
       </div>
     </div>
   <% end %>
@@ -68,7 +68,7 @@
     <%= yield %>
   </div>
 
-  <div class="pop-up"> 
+  <div class="pop-up">
     <div class="pop-up-box card no-click">
       <div class="inner">
         <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
@@ -80,7 +80,7 @@
         <div class="button small-button" id="popup-continue">Continue Booking</div>
       </div>
 
-      
+
     </div>
   </div>
 </body>
