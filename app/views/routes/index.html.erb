@@ -2,18 +2,11 @@
   <div class="inner">
     <p>These routes are flexible and show the general areas that your Pickup will pass through.</p>
     <label>Filter Routes:
-      <select name="filter" id="filter">
+      <input id="filter" type="search">
+      <!-- <select name="filter" id="filter">
         <option value="0">View All</option>
-        <% tempStops = Array.new() %>
-        <% Route.bookable_routes.each do |route| %>
-          <% route.stops.each do |stop| %>
-            <% unless tempStops.include?(stop.name) %>
-               <option value="<%= stop.id %>"><%= stop.name %></option>
-               <% tempStops.push(stop.name) %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </select>
+        
+      </select> -->
     </label>
     <p class="mb0">Browse <span id="total-route-number"><%= Route.bookable_routes.count %></span> total routes:</p>
   </div>
@@ -34,7 +27,7 @@
             <div class="origin"><%= route.stops.first.name %></div>
             <div class="bar"></div>
             <div class="acordBtn">
-              <div class="button alt-button">
+              <div class="button alt-button extra-small-button">
                 <span class="arw"><i class="fa fa-chevron-down"></i></span> Show <%= pluralize(route.stops.count - 2, "other area") %>
               </div>
             </div>
@@ -108,6 +101,79 @@
       $('#' + parentId.replace('-reversed', '')).removeClass('hidden');
     }
   });
+
+  $(document).ready(function() {
+    var numOfRoutes = $('.full-route').length;
+    var availableStops = [
+      <% tempStops = Array.new() %>
+        <% Route.bookable_routes.each do |route| %>
+          <% route.stops.each do |stop| %>
+            <% unless tempStops.include?(stop.name) %>
+               "<%= stop.name %>",
+               <% tempStops.push(stop.name) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      ];
+      $( "#filter" ).autocomplete({
+        source: availableStops,
+        minLength: 1,
+        delay: 0,
+        select: function (event, ui) {
+          checkRoutes(ui.item.value);
+        }
+      });
+  });
+  $( "#filter" ).on('search', function () {
+    resetRoutes();
+  });
+  $( "#filter" ).keyup(function() {
+    console.log($(this).val());
+    if ($(this).val() == "") {
+      resetRoutes();
+    }
+  });
+
+  function resetRoutes() {
+    $('.full-route').each(function() {
+      // the text is 2 char or below, reveal any hidden routes 
+      $(this).slideDown();
+      $(this).removeClass('filtered');
+    });
+    $('#total-route-number').html($('.full-route').length);
+  }
+
+  function checkRoutes(tempTxt) {
+    var exception = [];
+
+    $('.full-route').each(function() {
+      $(this).slideDown();
+      $(this).removeClass('filtered');
+    });
+    
+    $('.full-route .non-reverse .acord li').each(function() {
+      // for each list item
+      if ($(this).html().toLowerCase().indexOf(tempTxt.toLowerCase()) >= 0) {
+        // check if it contains the same text 
+        // if so add to id array 
+        exception.push($(this).closest('.full-route').attr('id'));
+      } else {
+        // if not remove vis class
+        $(this).closest('.full-route').removeClass('filtered');
+      }
+    });
+    $(exception).each(function(index, item) {
+      // after checking all that add the vis class to all that need it
+      $('#'+item).addClass('filtered');
+    });
+    $('.full-route').each(function() {
+      // run through all routes - if they dont have the vis class - kill them
+      if(!$(this).hasClass('filtered')) {
+        $(this).slideUp();
+      }
+    });
+    $('#total-route-number').html(exception.length);
+  }
 </script>
 
 
