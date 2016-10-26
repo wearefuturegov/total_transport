@@ -119,6 +119,9 @@
         source: availableStops,
         minLength: 1,
         delay: 0,
+        open: function(event, ui) {
+          $('.ui-autocomplete').off('menufocus hover mouseover mouseenter');
+        },
         select: function (event, ui) {
           checkRoutes(ui.item.value);
         }
