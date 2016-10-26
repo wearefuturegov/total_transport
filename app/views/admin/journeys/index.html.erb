@@ -26,21 +26,21 @@
     <div id="admin-journey-filters" class="container mb2">
 
       <div id="booked_or_empty" class="tabs-container three-tabs">
-        <div class="tab radius border-left-radius<%= " selected" if params[:filterrific][:booked_or_empty] == '' %>" data-tabid="">
+        <div class="tab radius border-left-radius<%= " selected" if @filterrific.booked_or_empty == nil %>" data-tabid="">
           All
         </div>
-        <div class="tab<%= " selected" if params[:filterrific][:booked_or_empty] == 'booked' %>" data-tabid="booked">
+        <div class="tab<%= " selected" if @filterrific.booked_or_empty == 'booked' %>" data-tabid="booked">
           Booked
         </div>
-        <div class="tab radius border-right-radius<%= " selected" if params[:filterrific][:booked_or_empty] == 'empty' %>" data-tabid="empty">
+        <div class="tab radius border-right-radius<%= " selected" if @filterrific.booked_or_empty == 'empty' %>" data-tabid="empty">
           Empty
         </div>
       </div>
       <div id="past_or_future" class="tabs-container">
-        <div class="tab radius border-left-radius<%= " selected" if params[:filterrific][:past_or_future] == 'future' %>" data-tabid="future">
+        <div class="tab radius border-left-radius<%= " selected" if @filterrific.past_or_future == 'future' %>" data-tabid="future">
           Upcoming
         </div>
-        <div class="tab radius border-right-radius<%= " selected" if params[:filterrific][:past_or_future] == 'past' %>" data-tabid="past">
+        <div class="tab radius border-right-radius<%= " selected" if @filterrific.past_or_future == 'past' %>" data-tabid="past">
           Past
         </div>
       </div>

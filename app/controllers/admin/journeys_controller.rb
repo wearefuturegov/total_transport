@@ -2,6 +2,7 @@ class Admin::JourneysController < AdminController
   before_filter :find_journey, only: [:edit, :update, :destroy, :show, :send_message]
   before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
+    params[:filterrific] ||= {}
     if params[:filter] == 'team'
       @journeys = current_team.journeys
     else
