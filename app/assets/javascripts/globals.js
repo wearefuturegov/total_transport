@@ -144,6 +144,18 @@ $(document).ready(function() {
       .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
     });
   }
+
+  $('.tab').click(function() {
+    if (!$(this).hasClass('selected')) {
+      var parent = $(this).parent();
+      parent.children('.tab').each(function() {
+        if ($(this).hasClass('selected')) {
+          $(this).removeClass('selected');
+        }
+      });
+      $(this).toggleClass('selected');
+    }
+  });
 });
 
 function drawLine(a, b, line) {
@@ -200,9 +212,8 @@ function dropAcord(element, eleClass, reverse) {
 }
 
 function lineDistance(x, y, x0, y0){
-    return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+  return Math.sqrt((x -= x0) * x + (y -= y0) * y);
 };
-
 
 
 function alertRails(alertTxt, inputObj) {

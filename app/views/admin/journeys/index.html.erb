@@ -1,56 +1,74 @@
 <div class="container">
   <div class="inner">
     <% if !current_team.solo_team? %>
-      <div id="team_toggle">
+      <div class="inline">
         <% if params[:filter] == 'team' %>
           <%= link_to admin_journeys_path(filterrific: params[:filterrific]) do %>
-            Me
-            <div class="switch">
-              <input type="checkbox" checked>
-              <div class="slider round"></div>
-            </div>
-            Team
+            My Journeys
           <% end %>
+          .
+          <strong>Team's Journeys</strong>
         <% else %>
+          <strong>My Journeys</strong>
+          .
           <%= link_to admin_journeys_path(filter: 'team', filterrific: params[:filterrific]) do %>
-            Me
-            <div class="switch">
-              <input type="checkbox">
-              <div class="slider round"></div>
-            </div>
-            Team
+            Team's Journeys
           <% end %>
         <% end %>
       </div>
     <% end %>
-
-    <%= form_for_filterrific @filterrific do |form| %>
-      <%= hidden_field_tag :filter, params[:filter] %>
-      <%= form.select(
-        :past_or_future,
-        [
-          ['Past', 'past'],
-          ['Future', 'future'],
-        ],
-        { include_blank: '- Any -' }
-      ) %>
-
-      <%= form.select(
-        :booked_or_empty,
-        [
-          ['Booked', 'booked'],
-          ['Empty', 'empty'],
-        ],
-        { include_blank: '- Any -' }
-      ) %>
-
-      <%= submit_tag "Update filter", name: nil %>
-    <% end %>
-
-    <div class="actions mb2">
+    <div class="actions inline float-right">
       <%= link_to new_admin_journey_path do %>
-        <div class="button">Add a journey</div>
+        <div class="small-button button">Add a journey</div>
       <% end %>
+    </div>
+
+    <div id="admin-journey-filters" class="container mb2">
+
+      <div id="booked_or_empty" class="tabs-container three-tabs">
+        <div class="tab radius border-left-radius<%= " selected" if params[:filterrific][:booked_or_empty] == '' %>" data-tabid="">
+          All
+        </div>
+        <div class="tab<%= " selected" if params[:filterrific][:booked_or_empty] == 'booked' %>" data-tabid="booked">
+          Booked
+        </div>
+        <div class="tab radius border-right-radius<%= " selected" if params[:filterrific][:booked_or_empty] == 'empty' %>" data-tabid="empty">
+          Empty
+        </div>
+      </div>
+      <div id="past_or_future" class="tabs-container">
+        <div class="tab radius border-left-radius<%= " selected" if params[:filterrific][:past_or_future] == 'future' %>" data-tabid="future">
+          Upcoming
+        </div>
+        <div class="tab radius border-right-radius<%= " selected" if params[:filterrific][:past_or_future] == 'past' %>" data-tabid="past">
+          Past
+        </div>
+      </div>
+
+      <div class="hidden">
+        <%= form_for_filterrific @filterrific do |form| %>
+          <%= hidden_field_tag :filter, params[:filter] %>
+          <%= form.select(
+            :past_or_future,
+            [
+              ['Past', 'past'],
+              ['Future', 'future'],
+            ],
+            { include_blank: '- Any -' }
+          ) %>
+
+          <%= form.select(
+            :booked_or_empty,
+            [
+              ['Booked', 'booked'],
+              ['Empty', 'empty'],
+            ],
+            { include_blank: '- Any -' }
+          ) %>
+
+          <%= submit_tag "Update filter", name: nil %>
+        <% end %>
+      </div>
     </div>
 
     <% if @filtered_journeys.exists? %>
@@ -58,10 +76,14 @@
         <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
           <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="inner">
-              <p><strong>Route:</strong> <%= journey.route.name %></p>
               <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
-              <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
-              <p><strong>Number of Bookings:</strong> <%= pluralize(journey.bookings.count, "booking") %></p>
+              <p><%= journey.route.name %></p>
+              <% if journey.supplier.name != @current_supplier.name %>
+                <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
+              <% end %>
+            </div>
+            <div class="bookings">
+              <%= pluralize(journey.bookings.count, "booking") %>
             </div>
           </div>
         <% end %>
@@ -84,3 +106,16 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.tab').click(function() {
+      if ($(this).hasClass('selected')) {
+        var parentID = $(this).parent().attr('id');
+        console.log(parentID);
+        $('#filterrific_'+parentID).val($(this).data('tabid'));
+        $('#filterrific_filter').submit();
+      }
+    });
+  });
+</script>

@@ -50,13 +50,14 @@
           <%= form.number_field :scholar_bus_passes, :id => "hidden-4" %>
         </div>
       </div>
-
-      <div class="journey-tabs">
-        <div class="return-tab tab selected radius border-left-radius">
-          Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-        </div>
-        <div class="single-tab tab radius border-right-radius">
-          Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
+      <div class="center">
+        <div class="tabs-container">
+          <div class="return-tab tab selected radius border-left-radius">
+            Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
+          </div>
+          <div class="single-tab tab radius border-right-radius">
+            Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
+          </div>
         </div>
       </div>
     </div>
@@ -90,6 +91,19 @@
       noOfAdults = 0;
   $(document).ready(function() {
     noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
+    $('.tab').click(function() {
+      if ($(this).hasClass('selected')) {
+        if ($(this).hasClass('single-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+          $('.single-journey.selected').removeClass('selected');
+          $('.return-btn').addClass('disabled').attr('disabled', true);
+        } else if ($(this).hasClass('return-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+        }
+      }
+    });
   });
 
   // ADD CONCESSION BUTTON
@@ -163,23 +177,6 @@
       $('#adult-tickets').removeClass('hidden');
     }
   }
-
-  $('.journey-tabs .tab').click(function() {
-    if (!$(this).hasClass('selected')) {
-      $(this).toggleClass('selected');
-      if ($(this).hasClass('single-tab')) {
-        $('.return-ticket').toggleClass('hidden');
-        $('.single-ticket').toggleClass('hidden');
-        $('.return-tab').removeClass('selected');
-        $('.single-journey.selected').removeClass('selected');
-        $('.return-btn').addClass('disabled').attr('disabled', true);
-      } else {
-        $('.return-ticket').toggleClass('hidden');
-        $('.single-ticket').toggleClass('hidden');
-        $('.single-tab').removeClass('selected');
-      }
-    }
-  });
 
   $('form.edit_booking').change(function() {
     $.get(

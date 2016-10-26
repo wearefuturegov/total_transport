@@ -117,6 +117,9 @@
 .right
   +omega
 
+.float-right
+  float: right
+
 .half
   +omega(2n)
 
@@ -152,6 +155,12 @@
 
 .hidden
   display: none
+
+
+
+
+
+
 
 .top-sec
   margin-bottom: 15px
@@ -258,3 +267,33 @@ hr
 
 .white-input
   background-color: $white
+
+
+.tabs-container
+  margin: 0 auto
+  text-align: center
+  margin-top: 15px
+  margin-right: 15px
+  display: inline-flex
+  .tab
+    display: inline-block
+    padding: 7px 15px
+    border: 2px solid $blue
+    margin: 0
+    cursor: pointer
+    position: relative
+    z-index: 1
+  .tab.selected
+    background-color: rgba($orange, 0.3)
+    border: 2px solid $orange
+    z-index: 2
+  .tab:first-child
+    margin-right: -1px
+  .tab:last-child
+    margin-left: -1px
+.three-tabs
+  .tab:nth-child(2)
+    margin-left: -1px
+  .tab:last-child
+    margin-left: -2px
+
