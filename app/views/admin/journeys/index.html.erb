@@ -1,20 +1,22 @@
 <div class="container">
   <div class="inner">
     <% if !current_team.solo_team? %>
-      <div class="inline">
+      <div class="inline" id="admin-team-filter">
+        <h4>
         <% if params[:filter] == 'team' %>
+          <strong>Team's Journeys</strong>
+          |
           <%= link_to admin_journeys_path(filterrific: params[:filterrific]) do %>
             My Journeys
           <% end %>
-          .
-          <strong>Team's Journeys</strong>
         <% else %>
           <strong>My Journeys</strong>
-          .
+          |
           <%= link_to admin_journeys_path(filter: 'team', filterrific: params[:filterrific]) do %>
             Team's Journeys
           <% end %>
         <% end %>
+        </h4>
       </div>
     <% end %>
     <div class="actions inline float-right">
@@ -23,7 +25,7 @@
       <% end %>
     </div>
 
-    <div id="admin-journey-filters" class="container mb2">
+    <div id="admin-journey-filters" class="container mb2<%= " inline" if current_team.solo_team? %>">
 
       <div id="booked_or_empty" class="tabs-container three-tabs">
         <div class="tab radius border-left-radius<%= " selected" if @filterrific.booked_or_empty == nil %>" data-tabid="">
