@@ -8,7 +8,7 @@
         
       </select> -->
     </label>
-    <p class="mb0">Browse <strong><span id="total-route-number"><%= Route.bookable_routes.count %></span></strong> total routes:</p>
+    <p class="mb0">Browse <strong><span id="total-route-number"><%= Route.bookable_routes.count %></span></strong> total routes<span class="hidden" id="route-location"></span>:</p>
   </div>
 </div>
 
@@ -144,6 +144,7 @@
       $(this).removeClass('filtered');
     });
     $('#total-route-number').html($('.full-route').length);
+    $('#route-location').html('').addClass('hidden');
   }
 
   function checkRoutes(tempTxt) {
@@ -176,6 +177,7 @@
       }
     });
     $('#total-route-number').html(exception.length);
+    $('#route-location').html(' via ' + tempTxt).removeClass('hidden');
   }
 </script>
 
