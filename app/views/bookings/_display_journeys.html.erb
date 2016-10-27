@@ -50,6 +50,7 @@
       e.preventDefault();
     } else {
       if ($('input[type="submit"]').hasClass('disabled')) {
+        $('.continue-btn').slideDown();
         $('input[type="submit"]').removeClass('disabled').attr('disabled', false);
       }
       $('.single-journey.selected').removeClass('selected');

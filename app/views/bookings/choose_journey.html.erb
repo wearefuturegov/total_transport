@@ -23,7 +23,7 @@
       <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id} %>
     </div>
   </div>
-  <div class="fixed bottom white-block">
+  <div class="continue-btn fixed bottom white-block hidden">
     <div class="container">
       <div class="inner">
         <div class="card">
@@ -58,12 +58,11 @@
 
   function checkPassengers(num) {
     $('.single-journey').each(function() {
-      console.log($(this).data('seats'));
       if (num > $(this).data('seats')) {
-        console.log($(this))
         $(this).addClass('unavailable');
         if ($(this).hasClass('selected')) {
           $(this).removeClass('selected');
+          $('.continue-btn').slideDown();
           $('input[type="submit"]').addClass('disabled').attr('disabled', true)
         }
       } else {

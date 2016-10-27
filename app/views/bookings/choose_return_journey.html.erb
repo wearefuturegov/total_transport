@@ -74,7 +74,7 @@
     </div>
   </div>
 
-  <div class="fixed bottom white-block return-ticket">
+  <div class="continue-btn fixed bottom white-block" style="display: none;">
     <div class="container">
       <div class="inner">
         <div class="card">
@@ -91,19 +91,6 @@
       noOfAdults = 0;
   $(document).ready(function() {
     noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
-    $('.tab').click(function() {
-      if ($(this).hasClass('selected')) {
-        if ($(this).hasClass('single-tab')) {
-          $('.return-ticket').toggleClass('hidden');
-          $('.single-ticket').toggleClass('hidden');
-          $('.single-journey.selected').removeClass('selected');
-          $('.return-btn').addClass('disabled').attr('disabled', true);
-        } else if ($(this).hasClass('return-tab')) {
-          $('.return-ticket').toggleClass('hidden');
-          $('.single-ticket').toggleClass('hidden');
-        }
-      }
-    });
   });
 
   // ADD CONCESSION BUTTON

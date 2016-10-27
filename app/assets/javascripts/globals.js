@@ -153,6 +153,20 @@ $(document).ready(function() {
           $(this).removeClass('selected');
         }
       });
+      // unique stuff for choos return journey
+      if (!$(this).hasClass('selected')) {
+        if ($(this).hasClass('single-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+          $('.single-journey.selected').removeClass('selected');
+          $('.continue-btn').slideUp();
+          $('.return-btn').addClass('disabled').attr('disabled', true);
+        } else if ($(this).hasClass('return-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+        }
+      }
+
       $(this).toggleClass('selected');
     }
   });
