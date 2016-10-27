@@ -120,6 +120,7 @@
 .float-right
   float: right
 
+
 .half
   +omega(2n)
 
@@ -149,6 +150,12 @@
   .mobFull
     +span-columns(12)
     +omega(1n)
+  .mobile-center
+    float: none
+    display: block
+    text-align: center
+    margin-top: 15px
+    margin-bottom: 10px
 
 .clear 
   clear: both 
@@ -284,8 +291,10 @@ hr
     position: relative
     z-index: 1
   .tab.selected
-    background-color: rgba($orange, 0.3)
-    border: 2px solid $orange
+    background-color: $blue
+    color: #fff
+    // background-color: rgba($orange, 0.3)
+    // border: 2px solid $orange
     z-index: 2
   .tab:first-child
     margin-right: -1px

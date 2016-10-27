@@ -19,7 +19,7 @@
         </h4>
       </div>
     <% end %>
-    <div class="actions inline float-right">
+    <div class="actions inline float-right mobile-center">
       <%= link_to new_admin_journey_path do %>
         <div class="small-button button">Add a journey</div>
       <% end %>
@@ -78,7 +78,7 @@
         <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
           <div class="card" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="inner">
-              <p><strong>Date:</strong> <%= journey.start_time.strftime("%F") %></p>
+              <p><%= friendly_date journey.start_time %> <%= journey.start_time %></p>
               <p><%= journey.route.name %></p>
               <% if journey.supplier.name != @current_supplier.name %>
                 <p><strong>Driver:</strong> <%= journey.supplier.name %></p>
