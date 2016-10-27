@@ -18,7 +18,7 @@
     polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
 
     var polygon = new google.maps.Polygon({
-      paths: polygon_feature.getArray()[0].getArray(),
+      paths: polygon_feature.getArray()[0].getArray()
     });
 
     $('<div/>').addClass('centerMarker').html('Landmark Location').appendTo(map.getDiv());

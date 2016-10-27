@@ -14,7 +14,7 @@ var map
     tightFitBounds(map, bounds);
 
     var polygon = new google.maps.Polygon({
-      paths: polygon_feature.getArray()[0].getArray(),
+      paths: polygon_feature.getArray()[0].getArray()
     });
 
     <% if @pickup_of_dropoff == 'pickup' %>
@@ -22,7 +22,6 @@ var map
     <% else %>
       $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
     <% end %>
-
 
     var last_position = map.getCenter();
 
