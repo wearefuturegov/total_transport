@@ -130,11 +130,22 @@
   $( "#filter" ).on('search', function () {
     resetRoutes();
   });
+  var typingTimer;
+
   $( "#filter" ).keyup(function() {
-    console.log($(this).val());
-    if ($(this).val() == "") {
-      resetRoutes();
-    }
+    var value = $(this).val();
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function() {
+      if (value.length >= 2) {
+      checkRoutes(value);
+      }
+      if (value == "") {
+        resetRoutes();
+      }
+    }, 500);
+  });
+  $( "#filter" ).keydown(function() {
+    clearTimeout(typingTimer);
   });
 
   function resetRoutes() {
@@ -149,11 +160,6 @@
 
   function checkRoutes(tempTxt) {
     var exception = [];
-
-    $('.full-route').each(function() {
-      $(this).slideDown();
-      $(this).removeClass('filtered');
-    });
     
     $('.full-route .non-reverse .acord li').each(function() {
       // for each list item
@@ -169,6 +175,9 @@
     $(exception).each(function(index, item) {
       // after checking all that add the vis class to all that need it
       $('#'+item).addClass('filtered');
+      if (!$('#'+item).is(":visible")) {
+        $('#'+item).slideDown();
+      }
     });
     $('.full-route').each(function() {
       // run through all routes - if they dont have the vis class - kill them
