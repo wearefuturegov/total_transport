@@ -15,7 +15,7 @@
       <%= form_for [@route, @booking] do |form| %>
         <%= form.hidden_field :pickup_stop_id %>
         <%= form.hidden_field :dropoff_stop_id %>
-        <div id="confirmation" class="card" style="display: none;">
+        <div id="confirmationBtn" class="card" style="display: none;">
           <%= form.submit 'Confirm Route', :class => 'button alt-button' %>
         </div>
       <% end %>
@@ -88,7 +88,7 @@ $(document).ready(function() {
               $('.stop').each(function(){
                 $(this).removeClass('subStop');
               });
-              $('#confirmation').slideUp(250);
+              $('#confirmationBtn').slideUp(250);
             } else {
               // if there is no other stop remaining active reset to the start
               $('h1').html(pkupTxt);
@@ -135,7 +135,7 @@ $(document).ready(function() {
                 // both stops have been chosen
                 $('h1').html(cnfmTxt);
                 setTimeout(function(){
-                  $('#confirmation').slideDown(500);
+                  $('#confirmationBtn').slideDown(500);
                 }, 100);
                 setStopIDs();
                 // hide any stop below the second stop clicked

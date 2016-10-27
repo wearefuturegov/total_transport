@@ -3,7 +3,7 @@
     <h4 class="mb1">Your Journey</h4>
 
     <div class="card no-click overview">
-      <div class="overview-bar title">
+      <div class="overview-bar radius border-top-radius">
         <%= @booking.dropoff_stop.name %>
       </div>
 
@@ -65,7 +65,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="overview-bar price right-text">
+      <div class="overview-bar price right-text radius border-bottom-radius">
         <span>Total: <%= number_to_currency @booking.price, unit: '£' %></span>
       </div>
     </div>
