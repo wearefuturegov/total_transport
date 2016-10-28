@@ -90,6 +90,7 @@
   var maxConcessions = 4,
       noOfAdults = 0;
   $(document).ready(function() {
+    checkPassengers(<%= @booking.number_of_passengers %>);
     noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
   });
 

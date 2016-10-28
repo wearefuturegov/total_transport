@@ -53,21 +53,9 @@
   });
 
   $(document).ready(function() {
+  // For when we move number of passengers to a page before this:
+  //  checkPassengers(<%= @booking.number_of_passengers %>);
     checkPassengers($('#booking_number_of_passengers').val());
   });
 
-  function checkPassengers(num) {
-    $('.single-journey').each(function() {
-      if (num > $(this).data('seats')) {
-        $(this).addClass('unavailable');
-        if ($(this).hasClass('selected')) {
-          $(this).removeClass('selected');
-          $('.continue-btn').slideDown();
-          $('input[type="submit"]').addClass('disabled').attr('disabled', true)
-        }
-      } else {
-        $(this).removeClass('unavailable');
-      }
-    });
-  }
 </script>

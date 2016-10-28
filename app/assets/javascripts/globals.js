@@ -245,6 +245,21 @@ function alertRails(alertTxt, inputObj) {
   }
 }
 
+function checkPassengers(num) {
+  $('.single-journey').each(function() {
+    if (num > $(this).data('seats')) {
+      $(this).addClass('unavailable');
+      if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+        $('.continue-btn').slideDown();
+        $('input[type="submit"]').addClass('disabled').attr('disabled', true)
+      }
+    } else {
+      $(this).removeClass('unavailable');
+    }
+  });
+}
+
 function closePopup() {
   $('.pop-up').fadeOut(150);
 }
