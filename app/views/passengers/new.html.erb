@@ -7,7 +7,7 @@
 
     <%= form_for @passenger, url: passenger_path do |form| %>
       <%= form.label :phone_number, "Get started with your mobile number" %>
-      <%= form.number_field :phone_number, autofocus: true, :pattern => "\\d*" %>
+      <%= form.number_field :phone_number, autofocus: true, :pattern => "\\d*", :step => "0" %>
       <div class="actions">
         <%= form.submit "Verify Number", class: 'alt-button' %>
       </div>
@@ -49,7 +49,7 @@
 
       <%= form_for @passenger, :html => {class: 'center'}, url: passenger_path do |form| %>
         <%= form.label :phone_number, "Get started with your mobile number" %>
-        <%= form.number_field :phone_number, pattern: "\d*" %>
+      <%= form.number_field :phone_number, :pattern => "\\d*", :step => "0" %>
         <div class="actions">
           <%= form.submit "Verify Number", class: 'alt-button' %>
         </div>
