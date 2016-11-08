@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="card no-click">
       <div class="inner">
-        <h2>Log in to Admin</h2>
+        <h2>Log in to Pickup Admin</h2>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field">
             <%= f.label :email %>
@@ -17,16 +17,16 @@
             <% if devise_mapping.rememberable? -%>
               <div class="field">
                 <%= f.check_box :remember_me %>
-                <%= f.label :remember_me, :class => 'inline' %>
+                <%= f.label :remember_me, :class => 'inline mb05' %>
               </div>
             <% end -%>
             <%= f.submit "Log in" %>  
           </div>
+          <div class="half">
+            <p class="mt05 mb0">Don't have an account?</p>
+            <%= render "suppliers/shared/links" %>
+          </div>
         <% end %>
-        <div class="half">
-          <span>Don't have an account?</span>
-          <%= render "suppliers/shared/links" %>
-        </div>
       </div>
     </div>
   </div>
