@@ -171,6 +171,7 @@ $(document).ready(function() {
   });
   $('#singleTab').click(function() {
     localStorage.setItem("returnJourney", "false");
+    clearRadios();
   });
 
   $('.tab').click(function() {
@@ -287,6 +288,12 @@ function checkPassengers(num) {
     } else {
       $(this).removeClass('unavailable');
     }
+  });
+}
+
+function clearRadios() {
+  $('.journey-select').each(function() {
+    $(this).prop('checked', false);
   });
 }
 
