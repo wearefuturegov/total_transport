@@ -19,6 +19,27 @@ $(window).resize(function() {
 });
 
 $(document).ready(function() {
+  if ($('#returnTab')) {
+    if (localStorage.returnJourney == "true") {
+      $('.return-ticket').each(function() {
+        $(this).removeClass('hidden');
+      });
+      $('.single-ticket').each(function() {
+        $(this).addClass('hidden');
+      });
+      $('#returnTab').addClass('selected');
+      $('#singleTab').removeClass('selected');
+    } else {
+      $('.single-ticket').each(function() {
+        $(this).removeClass('hidden');
+      });
+      $('.return-ticket').each(function() {
+        $(this).addClass('hidden');
+      });
+      $('#singleTab').addClass('selected');
+      $('#returnTab').removeClass('selected');
+    }
+  }
   if ($('.pop-up')) {
     $('.pop-up').on('click', function(e) {
       if (e.target !== this)
@@ -145,6 +166,13 @@ $(document).ready(function() {
     });
   }
 
+  $('#returnTab').click(function() {
+    localStorage.setItem("returnJourney", "true");
+  });
+  $('#singleTab').click(function() {
+    localStorage.setItem("returnJourney", "false");
+  });
+
   $('.tab').click(function() {
     if (!$(this).hasClass('selected')) {
       var parent = $(this).parent();
@@ -153,14 +181,16 @@ $(document).ready(function() {
           $(this).removeClass('selected');
         }
       });
-      // unique stuff for choos return journey
+      // unique stuff for choose return journey
       if (!$(this).hasClass('selected')) {
         if ($(this).hasClass('single-tab')) {
           $('.return-ticket').toggleClass('hidden');
           $('.single-ticket').toggleClass('hidden');
-          $('.single-journey.selected').removeClass('selected');
-          $('.continue-btn').slideUp();
-          $('.return-btn').addClass('disabled').attr('disabled', true);
+          $('#hideReturn').slideUp().addClass('hidden');
+          if ($('#hideReturn').length) {
+            $('.single-journey.selected').removeClass('selected');
+            $('.return-btn').addClass('disabled').attr('disabled', true);
+          }
         } else if ($(this).hasClass('return-tab')) {
           $('.return-ticket').toggleClass('hidden');
           $('.single-ticket').toggleClass('hidden');
@@ -251,7 +281,7 @@ function checkPassengers(num) {
       $(this).addClass('unavailable');
       if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
-        $('.continue-btn').slideDown();
+        $('.continue-btn').slideDown().removeClass('hidden');
         $('input[type="submit"]').addClass('disabled').attr('disabled', true)
       }
     } else {

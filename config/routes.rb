@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
     resources :bookings do
       member do
+        get :choose_requirements
+        patch :save_requirements
         get :choose_journey
         patch :save_journey
         get :choose_return_journey

@@ -21,12 +21,24 @@ class BookingsController < ApplicationController
   # Save stops
   def create
     @booking = current_passenger.bookings.create(booking_params)
+    redirect_to choose_requirements_route_booking_path(@route, @booking)
+  end
+
+  def choose_requirements
+    @page_title = "Choose Your Requirements"
+    @back_path = new_route_booking_path(@route)
+    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
+  end
+
+  def save_requirements
+    @booking.set_promo_code(params[:booking][:promo_code])
+    @booking.update_attributes(booking_params)
     redirect_to choose_journey_route_booking_path(@route, @booking)
   end
 
   def choose_journey
-    @page_title = "Choose Your Options"
-    @back_path = new_route_booking_path(@route)
+    @page_title = "Choose Your Time Of Travel"
+    @back_path = choose_requirements_route_booking_path(@route, @booking)
     @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
@@ -43,7 +55,6 @@ class BookingsController < ApplicationController
   end
 
   def save_return_journey
-    @booking.set_promo_code(params[:booking][:promo_code])
     @booking.update_attributes(booking_params)
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end

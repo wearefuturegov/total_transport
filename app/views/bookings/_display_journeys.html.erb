@@ -50,7 +50,7 @@
       e.preventDefault();
     } else {
       if ($('input[type="submit"]').hasClass('disabled')) {
-        $('.continue-btn').slideDown();
+        $('.continue-btn').slideDown().removeClass('hidden');
         $('input[type="submit"]').removeClass('disabled').attr('disabled', false);
       }
       $('.single-journey.selected').removeClass('selected');

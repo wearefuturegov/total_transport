@@ -1,0 +1,243 @@
+<%= form_for [@route, @booking], url: save_requirements_route_booking_path(@route, @booking) do |form| %>
+  <div class="top-sec container white-block">
+    <div class="inner">
+      <h2 class="light"><span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h2>
+
+      <hr>
+
+      <p>
+      <%= form.label :number_of_passengers, :class => "inline mr1" %>
+      <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
+      </p>
+
+      <div class="center mb2">
+        <div class="tabs-container">
+          <div id="returnTab" class="return-tab tab selected radius border-left-radius">
+            Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
+          </div>
+          <div id="singleTab" class="single-tab tab radius border-right-radius">
+            Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
+          </div>
+        </div>
+      </div>
+
+      <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+      <div class="concessions">
+        <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
+          <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-2" class="mb1 concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
+          <span class="count"><%= @booking.older_bus_passes %></span></span> Older persons bus pass (£0.00 each)
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-3" class="mb1 concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
+          <span class="count"><%= @booking.disabled_bus_passes %></span></span> Disabled persons bus pass (£0.00 each)
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+        <div id="concession-4" class="mb1 concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
+          <span class="count"><%= @booking.scholar_bus_passes %></span></span> Scholarly Season Ticket (£0.00 each)
+          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+        </div>
+
+
+        <select id="concession-list" class="hidden select full">
+          <option id="option-null" value="0">Select a Concession</option>
+          <option id="option-1" value="1">Child fare</option>
+          <option id="option-2" value="2">Older persons bus pass</option>
+          <option id="option-3" value="3">Disabled persons bus pass</option>
+          <option id="option-4" value="4">Scholarly Season Ticket</option>
+          <option id="promo" value="5">Add Promo Code</option>
+        </select>
+
+        <div id="add-concession" class="add button small-button<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>">+ Add a Concessionary Fare</div>
+
+        <div class="promo-code hidden mt2">
+          <%= form.label :promo_code %>
+          <%= form.text_field :promo_code %>
+        </div>
+
+        <div class="hidden">
+          <%= form.label :child_tickets, "Child fare" %>
+          <%= form.number_field :child_tickets, :id => "hidden-1" %>
+          <%= form.label :older_bus_passes %>
+          <%= form.number_field :older_bus_passes, :id => "hidden-2" %>
+          <%= form.label :disabled_bus_passes %>
+          <%= form.number_field :disabled_bus_passes, :id => "hidden-3" %>
+          <%= form.label :scholar_bus_passes %>
+          <%= form.number_field :scholar_bus_passes, :id => "hidden-4" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <div id="special-req-button" class="button white-button small-button"><i class="fa fa-plus"></i> Add Special Requirements</div>
+      <div id="special-req" class="hidden mt1">
+        <%= form.label :special_requirements, "Describe your special requirements:" %>
+        <%= form.text_field :special_requirements %>
+        <p class="small">Your transport provider will get in touch with you if they can't meet your needs</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="inner">
+      <%= form.submit 'Next', :class => 'button alt-button' %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  var noOfAdults = 0, 
+  previousPassengers = 0,
+  currentConcessions = 0;
+  $(document).ready(function() {
+    if (localStorage.returnJourney == null) {
+      localStorage.setItem("returnJourney", "true");
+    }
+    checkPassengers(<%= @booking.number_of_passengers %>);
+    updateAdults(<%= num_of_adults(@booking.number_of_passengers) %>);
+    noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
+    currentConcessions = <%= @booking.number_of_passengers - num_of_adults(@booking.number_of_passengers) %>
+  });
+
+
+
+  $('#special-req-button').click(function() {
+    if ($(this).hasClass('negative')) {
+      $(this).removeClass('negative').html('<i class="fa fa-plus"></i> Add Special Requirements');
+      $('#special-req').addClass('hidden');
+      $('#special-req input').val('');
+    } else {
+      $(this).addClass('negative').html('<i class="fa fa-minus"></i> Remove Requirements');
+      $('#special-req').removeClass('hidden');
+    }
+  });
+
+  $('#booking_number_of_passengers').on('focus', function () {
+      previousPassengers = this.value;
+    }).on('change', function() {
+    var noOfPassengers = $(this).val();
+    if (noOfPassengers > (currentConcessions-1)) {
+      checkPassengers(noOfPassengers);
+      noOfAdults = noOfPassengers - currentConcessions;
+      if (noOfAdults <= 0) {
+        $('#add-concession').addClass('hidden');
+      } else {
+        if ($('#add-concession').hasClass('hidden')) {
+          $('#add-concession').removeClass('hidden');
+        }
+      }
+
+      updateDropdown(noOfPassengers);
+    } else {
+      $('#booking_number_of_passengers').val(previousPassengers);
+      alert('Cannot change to that - too many concessions');
+    }
+    
+  });
+
+
+
+
+
+
+
+  // ADD CONCESSION BUTTON
+  $('#add-concession').click(function() {
+    $('#concession-list').removeClass('hidden');
+  });
+
+  // DELETE CONCESSION BUTTON
+  $('.cancel-concession').click(function() {
+    var parent = $(this).parent('.concession-cont');
+    parent.addClass('hidden');
+    var idNum = parent.attr('id').slice(-1);
+    parent.find('.count').html(0);
+    var numOfConcess = $('#hidden-'+idNum).val();
+    noOfAdults = parseInt($('#adult-ticket-no').html()) + parseInt(numOfConcess);
+    $('#adult-ticket-no').html(noOfAdults);
+    resetConcession(idNum, numOfConcess);
+    updateAdults(noOfAdults);
+    if ($('#add-concession').hasClass('hidden')) {
+      $('#add-concession').removeClass('hidden');
+    }
+  });
+
+  // ON SELECTION OF CONCESSION
+  $('#concession-list').on('change', function() {
+    if ($(this).val() > 0) {
+      $(this).addClass('hidden');
+      if ($(this).val() == 5) {
+        $('.promo-code').removeClass('hidden');
+        $('#concession-list #promo').hide();
+      } else {
+        currentConcessions++;
+        if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
+          $('#concession-'+$(this).val()).removeClass('hidden');
+          $('#concession-'+$(this).val()+ ' .count').html(1);
+          addOnetoTotal($(this).val());
+        } else {
+          var num = parseInt($('#concession-'+$(this).val()+ ' .count').html()) + 1;
+          $('#concession-'+$(this).val()+ ' .count').html(num);
+          addOnetoTotal($(this).val());
+        }
+        $(this).val(0);
+        noOfAdults--;
+        updateAdults(noOfAdults);
+        if (noOfAdults <= 0) {
+          $('#add-concession').addClass('hidden');
+        }
+      }
+    }
+  });
+
+  function addOnetoTotal(idNum) {
+    var num = parseInt($('#hidden-'+idNum).val()) + 1;
+    $('#hidden-'+idNum).val(parseInt(num));
+    $('form.edit_booking').trigger("change");
+  }
+
+  function resetConcession(idNum, numOfConcess) {
+    var num = parseInt($('#hidden-'+idNum).val()) - parseInt(numOfConcess);
+    currentConcessions = currentConcessions - parseInt(numOfConcess);
+    $('#hidden-'+idNum).val(parseInt(num));
+    $('form.edit_booking').trigger("change");
+  }
+
+  function updateDropdown(passengers) {
+    var totalAdults = passengers - currentConcessions;
+    $('#adult-ticket-no').html(totalAdults + ' adult ticket');
+    if (totalAdults > 1) {
+      $('#adult-ticket-no').append('s');
+    }
+    if (totalAdults <= 0) {
+      $('#adult-tickets').addClass('hidden');
+    } else if ($('#adult-tickets').hasClass('hidden')) {
+      $('#adult-tickets').removeClass('hidden');
+    }
+  }
+
+  function updateAdults(adults) {
+    $('#adult-ticket-no').html(adults + ' adult ticket');
+    if (adults > 1) {
+      $('#adult-ticket-no').append('s');
+    }
+    if (adults <= 0) {
+      $('#adult-tickets').addClass('hidden');
+    } else if ($('#adult-tickets').hasClass('hidden')) {
+      $('#adult-tickets').removeClass('hidden');
+    }
+  }
+
+  $('form.edit_booking').change(function() {
+    $.get(
+      "<%= price_api_route_booking_path(@route, @booking) %>",
+      $(this).serialize()
+    ).done(
+      function( data ) {
+        $("#single_price").html(data.single);
+        $("#return_price").html(data.return);
+      }
+    );
+  });
+</script>

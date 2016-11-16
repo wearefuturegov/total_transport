@@ -76,7 +76,7 @@
     <% if @filtered_journeys.exists? %>
       <% @filtered_journeys.each do |journey| %>
         <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
-          <div class="card<%= " past-journey" if journey.start_time.past? %>" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
+          <div class="card<%= " past-journey" if journey.start_time.past? %><%= journey.supplier.name == @current_supplier.name ? " my-journey" : " team-journey" %>" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="col-10 mobile-twoThird">
               <div class="inner">
                 <p><%= friendly_date journey.start_time %> <%= journey.start_time.strftime("%H:%M") %></p>

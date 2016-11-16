@@ -329,7 +329,6 @@ hr
 .tabs-container
   margin: 0 auto
   text-align: center
-  margin-top: 15px
   margin-right: 15px
   display: inline-flex
   .tab
@@ -343,6 +342,7 @@ hr
   .tab.selected
     background-color: $blue
     color: #fff
+    cursor: default
     // background-color: rgba($orange, 0.3)
     // border: 2px solid $orange
     z-index: 2
@@ -368,3 +368,6 @@ hr
     float: left
   .last, .first
     display: none
+
+.wierdMarginFix
+  margin-bottom: -1px
