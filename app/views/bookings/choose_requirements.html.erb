@@ -10,18 +10,9 @@
       <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
       </p>
 
-      <div class="center mb2">
-        <div class="tabs-container">
-          <div id="returnTab" class="return-tab tab selected radius border-left-radius">
-            Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-          </div>
-          <div id="singleTab" class="single-tab tab radius border-right-radius">
-            Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'display_journey_tabs' %>
 
-      <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+      <p id="adult-tickets" class="mt2 <%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
         <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)

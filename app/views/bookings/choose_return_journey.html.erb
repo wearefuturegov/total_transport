@@ -3,16 +3,7 @@
     <div class="inner">
       <p>You will be travelling from <span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span> on <strong><%= friendly_date @booking.journey.start_time %></strong> with your pickup at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min) in <%= @booking.pickup_stop.name %></p>
       <p class="return-ticket"><strong>Return:</strong> <%= @booking.dropoff_stop.name %> to <%= @booking.pickup_stop.name %></p>
-      <div class="center">
-        <div class="tabs-container">
-          <div id="returnTab" class="return-tab tab selected radius border-left-radius">
-            Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-          </div>
-          <div id="singleTab" class="single-tab tab radius border-right-radius">
-            Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'display_journey_tabs' %>
     </div>
   </div>
 

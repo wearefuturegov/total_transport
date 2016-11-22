@@ -3,16 +3,7 @@
     <div class="inner">
       <p class="center mb1">From <strong><%= @booking.pickup_stop.name %></span></strong> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></p>
 
-      <div class="center">
-        <div class="tabs-container">
-          <div id="returnTab" class="return-tab tab selected radius border-left-radius">
-            Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-          </div>
-          <div id="singleTab" class="single-tab tab radius border-right-radius">
-            Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'display_journey_tabs' %>
     </div>
   </div>
 
