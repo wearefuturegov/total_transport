@@ -1,12 +1,20 @@
-<div class="container">
+<div class="container blue-block fill-height">
   <div class="inner">
-    <h4 class="mb1">Your Booking is Confirmed</h4>
+    <h2 class="mb2 mt3 center ">Your Journey has been Booked!</h2>
 
-    <p>You booking has been confirmed, you will receive a text with more details the day before you travel. Wait for your driver at your pickup point: <%= @booking.pickup_name %>, at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> on <%= friendly_date @booking.journey.start_time %>.</p>
+    <p>Thanks<%= " #{@booking.passenger_name}" %>, your booking has been confirmed.
+    </p> 
+    <p class="bold">A minivan will pick you up at your pickup point outside <%= @booking.pickup_name %> on <%= friendly_date @booking.journey.start_time %> at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %>.</p>
 
-    <p>You can view or cancel your booking in your <%= link_to 'profile page', passenger_path %>.</p>
+    <% if @booking.payment_method_id == 5 %>
+      <p class="bold">Please pay <%= number_to_currency @booking.price, unit: '£' %> to your driver.</p>
+      <p>If you need to cancel go to:</p>
+    <% else %>
+      <p>You can cancel your booking up to 12 hours before your journey by going to:</p>
+    <% end %>
+    <%= link_to 'Your Bookings', passenger_path, :class => "button alt-button" %>
 
-    <div class="card no-click overview">
+    <!-- <div class="card no-click overview">
       <div class="overview-bar radius border-top-radius">
         <%= @booking.dropoff_stop.name %>
       </div>
@@ -72,7 +80,7 @@
       <div class="overview-bar price right-text radius border-bottom-radius">
         <span>Total: <%= number_to_currency @booking.price, unit: '£' %></span>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
