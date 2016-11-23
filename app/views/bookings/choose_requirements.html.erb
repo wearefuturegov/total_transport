@@ -10,9 +10,9 @@
       <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
       </p>
 
-      <%= render partial: 'display_journey_tabs' %>
+      <div class="mb2"><%= render partial: 'display_journey_tabs' %></div>
 
-      <p id="adult-tickets" class="mt2 <%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+      <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
         <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
@@ -34,10 +34,10 @@
 
         <select id="concession-list" class="hidden select full">
           <option id="option-null" value="0">Select a Concession</option>
-          <option id="option-1" value="1">Child fare</option>
-          <option id="option-2" value="2">Older persons bus pass</option>
-          <option id="option-3" value="3">Disabled persons bus pass</option>
-          <option id="option-4" value="4">Scholarly Season Ticket</option>
+          <option id="option-1" class="non-promo" value="1">Child fare</option>
+          <option id="option-2" class="non-promo" value="2">Older persons bus pass</option>
+          <option id="option-3" class="non-promo" value="3">Disabled persons bus pass</option>
+          <option id="option-4" class="non-promo" value="4">Scholarly Season Ticket</option>
           <option id="promo" value="5">Add Promo Code</option>
         </select>
 
@@ -112,17 +112,24 @@
       checkPassengers(noOfPassengers);
       noOfAdults = noOfPassengers - currentConcessions;
       if (noOfAdults <= 0) {
-        $('#add-concession').addClass('hidden');
+        if (noOfAdults <= 0) {
+          if (!$('.promo-code').hasClass('hidden')) {
+            $('#add-concession').addClass('hidden');
+          } else {
+            $('#concession-list .non-promo').hide();
+          }
+        }
       } else {
+        $('#concession-list .non-promo').show();
         if ($('#add-concession').hasClass('hidden')) {
-          $('#add-concession').removeClass('hidden');
+          $('#add-concession').removeClass('hidden')
         }
       }
 
       updateDropdown(noOfPassengers);
     } else {
       $('#booking_number_of_passengers').val(previousPassengers);
-      alert('Cannot change to that - too many concessions');
+      alert('Cannot change number of passengers - currently there are too many concessions');
     }
     
   });
@@ -149,8 +156,9 @@
     $('#adult-ticket-no').html(noOfAdults);
     resetConcession(idNum, numOfConcess);
     updateAdults(noOfAdults);
+    $('#concession-list .non-promo').show();
     if ($('#add-concession').hasClass('hidden')) {
-      $('#add-concession').removeClass('hidden');
+      $('#add-concession').removeClass('hidden')
     }
   });
 
@@ -161,6 +169,10 @@
       if ($(this).val() == 5) {
         $('.promo-code').removeClass('hidden');
         $('#concession-list #promo').hide();
+        $('#concession-list').val(0);
+        if (noOfAdults <= 0) {
+          $('#add-concession').addClass('hidden');
+        }
       } else {
         currentConcessions++;
         if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
@@ -176,7 +188,11 @@
         noOfAdults--;
         updateAdults(noOfAdults);
         if (noOfAdults <= 0) {
-          $('#add-concession').addClass('hidden');
+          if (!$('.promo-code').hasClass('hidden')) {
+            $('#add-concession').addClass('hidden');
+          } else {
+            $('#concession-list .non-promo').hide();
+          }
         }
       }
     }
