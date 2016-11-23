@@ -70,71 +70,33 @@
       </div>
     </div>
 
-    <!-- <div class="card no-click" id="pickUpCard">
-      <div id="pickup_map" style="width: 100%; height: 200px;"></div>
-      <div class="inner">
-        <h4>Your Pick Up<br/>Location:</h4>
-        <div class="right" style="float: right; text-align: right;">
-          <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
-          <span class="pickUp"><%= @booking.pickup_stop.name %></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card no-click" id="dropOffCard">
-      <div id="dropoff_map" style="width: 100%; height: 200px;"></div>
-      <div class="inner">
-        <h4>Your Drop Off<br/>Location:</h4>
-        <div class="right" style="float: right; text-align: right;">
-          <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
-          <span class="dropOff"><%= @booking.dropoff_stop.name %></span>
-        </div>
-      </div>
-    </div> -->
-
-    <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
-
     <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
       <%= form.hidden_field :state, value: 'booked' %>
+
+      <%= form.label :passenger_name, "Passenger's Name" %>
+      <%= form.text_field :passenger_name, value: current_passenger.name, class: "white-input" %>
+
+      <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
       <%= form.label :phone_number %>
-      <%= form.text_field :phone_number, value: current_passenger.phone_number, class: "white-input" %>
-      <%= form.submit "Confirm booking", :class => 'button alt-button' %>
+      <%= form.text_field :phone_number, value: current_passenger.phone_number, class: "white-input mb1" %>
+      <% PaymentMethod.types.each do |payment_method_id| %>
+        <%= form.radio_button :payment_method_id, payment_method_id, :class => "hidden" %>
+      <% end %>
+      <button id="paypal" class="pay-btn button alt-button mb1"><i class="fa fa-paypal"></i> Pay with PayPal</button>
+      <button id="cash" class="pay-btn button alt-button"><i class="fa fa-money"></i> Pay with Cash</button>
+      <%= form.submit "Confirm booking", :class => 'button alt-button hidden' %>
     <% end %>
   </div>
 </div>
 
-<!-- <script type="text/javascript">
-  function initMap() {
-    var pickup_point = new google.maps.LatLng(<%= @booking.pickup_lat %>, <%= @booking.pickup_lng %>);
-    var dropoff_point = new google.maps.LatLng(<%= @booking.dropoff_lat %>, <%= @booking.dropoff_lng %>);
-    var pickup_map = new google.maps.Map(document.getElementById("pickup_map"), {
-      zoom: 14,
-      center: pickup_point,
-      draggable: false,
-      streetViewControl: false,
-      mapTypeControl: false,
-      scrollwheel: false,
-      zoomControl: false
-    });
-    var dropoff_map = new google.maps.Map(document.getElementById("dropoff_map"), {
-      zoom: 14,
-      center: dropoff_point,
-      streetViewControl: false,
-      draggable: false,
-      mapTypeControl: false,
-      scrollwheel: false,
-      zoomControl: false
-    });
-
-    var pickup_marker = new google.maps.Marker({
-      position: pickup_point,
-      map: pickup_map
-    });
-
-    var dropoff_marker = new google.maps.Marker({
-      position: dropoff_point,
-      map: dropoff_map
-    });
-
-  }
-</script> -->
+<script type="text/javascript">
+  $('.pay-btn').click(function(e) {
+    e.preventDefault();
+    if ($(this).attr('id') == 'paypal') {
+      $('#booking_payment_method_id_paypal').prop("checked", true).val(1);
+    } else {
+      $('#booking_payment_method_id_cash').prop("checked", true).val(5);
+    }
+    $('.edit_booking').submit();
+  });
+</script>

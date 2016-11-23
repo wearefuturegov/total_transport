@@ -127,12 +127,14 @@ class BookingsController < ApplicationController
 
   def save_confirm
     @booking.update_attributes(booking_params)
+    @passenger = current_passenger
+    @passenger.update_attributes(:name => @booking[:passenger_name])
     @booking.send_notification!("You have booked a Pickup journey.")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def confirmation
-    @page_title = "Booking Confirmed"
+    @page_title = " "
     @back_path = routes_path
   end
 
@@ -189,6 +191,7 @@ class BookingsController < ApplicationController
       :dropoff_name,
       :state,
       :phone_number,
+      :passenger_name,
       :payment_method_id,
       :number_of_passengers,
       :special_requirements,
