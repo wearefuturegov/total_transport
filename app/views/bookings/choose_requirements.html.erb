@@ -1,34 +1,35 @@
 <%= form_for [@route, @booking], url: save_requirements_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <h2 class="light"><span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h2>
-
-      <hr>
+      <p class="">Your journey is from <span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff bold"><%= @booking.dropoff_stop.name %></span>. Select the number of passengers that you want to book this journey for and enter any concessionary fares for example a bus pass.</p>
+      <div class="center"><%= render partial: 'display_journey_tabs' %></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="inner">
 
       <p>
-      <%= form.label :number_of_passengers, :class => "inline mr1" %>
+      <%= form.label :number_of_passengers, "Number of Passengers:", :class => "inline mr05 light" %>
       <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
       </p>
 
-      <div class="mb2"><%= render partial: 'display_journey_tabs' %></div>
-
-      <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+      <p id="adult-tickets" class="bold <%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
-        <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
+        <div id="concession-1" class="bold mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+          <div class="cancel-concession button extra-small-button negative ml05 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-2" class="mb1 concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
+        <div id="concession-2" class="bold mb1 concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
           <span class="count"><%= @booking.older_bus_passes %></span></span> Older persons bus pass (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+          <div class="cancel-concession button extra-small-button negative ml05 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-3" class="mb1 concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
+        <div id="concession-3" class="bold mb1 concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
           <span class="count"><%= @booking.disabled_bus_passes %></span></span> Disabled persons bus pass (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+          <div class="cancel-concession button extra-small-button negative ml05 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
-        <div id="concession-4" class="mb1 concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
+        <div id="concession-4" class="bold mb1 concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
           <span class="count"><%= @booking.scholar_bus_passes %></span></span> Scholarly Season Ticket (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
+          <div class="cancel-concession button extra-small-button negative ml05 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
         </div>
 
 
@@ -44,8 +45,8 @@
         <div id="add-concession" class="add button small-button<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>">+ Add a Concessionary Fare</div>
 
         <div class="promo-code hidden mt2">
-          <%= form.label :promo_code %>
-          <%= form.text_field :promo_code %>
+          <%= form.label :promo_code, :class => "light" %>
+          <%= form.text_field :promo_code, :class => "white-input" %>
         </div>
 
         <div class="hidden">
@@ -60,16 +61,18 @@
         </div>
       </div>
 
-      <hr>
+      <hr class="dark-hr">
 
       <div id="special-req-button" class="button white-button small-button"><i class="fa fa-plus"></i> Add Special Requirements</div>
       <div id="special-req" class="hidden mt1">
-        <%= form.label :special_requirements, "Describe your special requirements:" %>
-        <%= form.text_field :special_requirements %>
+        <%= form.label :special_requirements, "Describe your special requirements:", :class => "light" %>
+        <%= form.text_field :special_requirements, :class => "white-input" %>
         <p class="small">Your transport provider will get in touch with you if they can't meet your needs</p>
       </div>
     </div>
   </div>
+
+
   <div class="container">
     <div class="inner">
       <%= form.submit 'Next', :class => 'button alt-button' %>

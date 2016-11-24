@@ -1,10 +1,8 @@
-<div class="center">
-  <div class="tabs-container full-width-tabs">
-    <div id="returnTab" class="return-tab tab selected radius border-left-radius">
-      Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-    </div>
-    <div id="singleTab" class="single-tab tab radius border-right-radius">
-      Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
-    </div>
+<div class="tabs-container full-width-tabs">
+  <div id="returnTab" class="return-tab tab selected radius border-left-radius">
+    Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
+  </div>
+  <div id="singleTab" class="single-tab tab radius border-right-radius">
+    Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
   </div>
 </div>
