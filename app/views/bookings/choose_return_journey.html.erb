@@ -13,7 +13,7 @@
         <%= render partial: 'display_journeys', locals: {form: form, field: :return_journey_id} %>
       </div>
       <div class="card single-ticket hidden">
-        <%= form.submit 'Next', :class => 'button alt-button single-ticket hidden wierdMarginFix' %>
+        <%= form.submit 'Next', name: "single_journey", :class => 'button alt-button single-ticket hidden wierdMarginFix' %>
       </div>
     </div>
   </div>
@@ -30,6 +30,7 @@
   <div class="fixed-spacer return-ticket"></div>
 <% end %>
 
+<%= console %>
 <script type="text/javascript">
   $(function() {
     clearRadios();

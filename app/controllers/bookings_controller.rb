@@ -44,7 +44,11 @@ class BookingsController < ApplicationController
 
   def save_journey
     @booking.update_attributes(booking_params)
-    redirect_to choose_return_journey_route_booking_path(@route, @booking)
+    if params[:single_journey]
+      redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+    else
+      redirect_to choose_return_journey_route_booking_path(@route, @booking)
+    end
   end
 
   def choose_return_journey
@@ -55,8 +59,12 @@ class BookingsController < ApplicationController
   end
 
   def save_return_journey
-    @booking.update_attributes(booking_params)
-    redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+    if params[:single_journey]
+      @booking.update_attribute(:return_journey_id, nil)
+    else
+      @booking.update_attributes(booking_params)
+    end
+    redirect_to choose_pickup_location_route_booking_path(@route, @booking)    
   end
 
   def choose_pickup_location
