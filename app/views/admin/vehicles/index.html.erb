@@ -9,6 +9,11 @@
               <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
               <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
               <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
+              <% if vehicle.photo? %>
+                <li>
+                  <%= image_tag vehicle.photo.url(:square), :id => 'vehicle-pic' %>
+                </li>
+              <% end %>
             </ul>
           </div>
           <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="button border-bottom-radius">Edit</div><% end %>

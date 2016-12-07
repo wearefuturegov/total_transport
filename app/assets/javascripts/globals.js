@@ -15,7 +15,7 @@ $(window).load(function() {
 });
 
 $(window).resize(function() {
-  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);
 });
 
 $(document).ready(function() {
@@ -46,13 +46,13 @@ $(document).ready(function() {
         return;
       closePopup();
     });
-    $('.pop-up-close').click(function() { 
+    $('.pop-up-close').click(function() {
       closePopup();
     });
-    $('#popup-continue').click(function() { 
+    $('#popup-continue').click(function() {
       closePopup();
     });
-    $('#cancel-booking').click(function() { 
+    $('#cancel-booking').click(function() {
       showPopup();
     });
   }
@@ -79,7 +79,7 @@ $(document).ready(function() {
     } else {
       var reverseParent = $('#' + parent.attr('id').replace('-reversed', ''));
     }
-      
+
 
     sortAcord(parent);
     if (reverseParent) {
@@ -124,7 +124,7 @@ $(document).ready(function() {
         labelVal = $label.html();
       $input.on( 'change', function( e ) {
         var files = e.target.files;
-        
+
         for (var i = 0, f; f = files[i]; i++) {
           if (!f.type.match('image.*')) {
             continue;
@@ -151,8 +151,8 @@ $(document).ready(function() {
 
         if( fileName ) {
           $label.find('span').html( fileName );
-          $label.addClass('active'); 
-          
+          $label.addClass('active');
+
         } else {
           $label.html( labelVal );
           $lavel.removeClass('active');
@@ -209,7 +209,7 @@ function drawLine(a, b, line) {
   var distance = lineDistance(pointA.left, pointA.top, pointB.left, pointB.top);
 
   // Set Width
-  $(line).css('height', distance + 'px');                  
+  $(line).css('height', distance + 'px');
 }
 
 function sortAcord(parentObj) {
@@ -234,7 +234,7 @@ function dropAcord(element, eleClass, reverse) {
         clearInterval();
       });
     }
-  } else {      
+  } else {
     $(eleClass).each(function(){
       $(this).removeClass('open').find('.acord').slideUp(function(){
       clearInterval();
@@ -302,5 +302,5 @@ function closePopup() {
 }
 function showPopup() {
   $('.pop-up').fadeIn(150);
-  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);
 }
