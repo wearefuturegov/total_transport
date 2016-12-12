@@ -12,7 +12,7 @@ $dot-width: 30px
     display: inline-block
     cursor: pointer
 
-#bookings-confirmation
+#bookings-confirmation, #bookings-show
   #profile-link
     display: inline-block
   #cancel-booking
@@ -354,4 +354,18 @@ $dot-width: 30px
 
 
 
+.single-booking-card
+  img 
+    margin-bottom: -6px
+  a
+    color: $base-font-color
+  .overview-bar
+    font-size: 16px
+  .overview-sub-bar
+    font-size: 13px
+.single-booking-card.expired
+  .overview-bar
+    background-color: $medium-gray
+  .overview-sub-bar
+    background-color: rgba($medium-gray, 0.2)
 

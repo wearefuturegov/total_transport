@@ -95,7 +95,7 @@ $(document).ready(function() {
   }
 
   $('input.delete').click(function(e) {
-    var c = confirm("Are you sure you want to delete this? Click OK to continue.");
+    var c = confirm("Are you sure you want to cancel this? Click OK to continue.");
     return c;
   });
 

@@ -40,7 +40,7 @@ class PassengersController < ApplicationController
     @back_path = routes_path
     @passenger = current_passenger
   end
-
+  
   def update
     @passenger = current_passenger
     @passenger.update_attributes(passenger_params)

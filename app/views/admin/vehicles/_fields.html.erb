@@ -8,6 +8,9 @@
 <%= form.check_box :wheelchair_accessible %>
 <%= form.label :colour %>
 <%= form.text_field :colour %>
+<% if @vehicle.photo? %>
+  <%= image_tag @vehicle.photo.url(:square), :class => 'vehicle-pic' %>
+<% end %>
 <%= form.label :photo, "Vehicle Photo" %>
 <%= form.file_field :photo, :class => 'inputfile' %>
 <%= form.label :photo, :class => 'inputfile-label button' do %>

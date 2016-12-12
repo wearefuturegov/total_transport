@@ -26,7 +26,11 @@
           <%= @page_title %>
         </div>
         <div id="mobile-title" class="no-desktop">
-          <%= @page_title %>
+          <% if @page_title == "" %>
+            &nbsp;
+          <% else %>
+            <%= @page_title %>
+          <% end %>
         </div>
       </div>
       <div class="right">

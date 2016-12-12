@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_filter :find_route
+  before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
 
   # Choose stops
@@ -137,12 +137,12 @@ class BookingsController < ApplicationController
     @booking.update_attributes(booking_params)
     @passenger = current_passenger
     @passenger.update_attributes(:name => @booking[:passenger_name])
-    @booking.send_notification!("You have booked a Pickup journey.")
+    @booking.send_notification!("Your Pickup boking from #{@passenger.bookings.last.pickup_stop.name} to #{@passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{@passenger.pickup_name} on <%= friendly_date @booking.journey.start_time %> between #{plus_minus_ten @booking.pickup_stop.time_for_journey(@booking.journey)}. You can review or cancel your booking here: #{passenger_booking_url(@passenger.bookings.last)}")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def confirmation
-    @page_title = " "
+    @page_title = ""
     @back_path = routes_path
   end
 
@@ -181,6 +181,11 @@ class BookingsController < ApplicationController
     else
       @suggested_edit_to_stop = SuggestedEditToStop.new
     end
+  end
+
+  def show
+    @page_title = "Booking Details"
+    @back_path = passenger_path
   end
 
   private

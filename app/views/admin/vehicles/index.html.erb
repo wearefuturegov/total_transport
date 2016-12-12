@@ -5,15 +5,16 @@
         <div class="card single_vehicle">
           <div class="inner">
             <ul>
+              <% if vehicle.photo? %>
+                <li>
+                  <%= image_tag vehicle.photo.url(:square), :class => 'vehicle-pic vehicle-admin' %>
+                </li>
+              <% end %>
               <li><h4>Reg - <%= vehicle.registration %></h4></li>
               <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
               <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
               <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
-              <% if vehicle.photo? %>
-                <li>
-                  <%= image_tag vehicle.photo.url(:square), :id => 'vehicle-pic' %>
-                </li>
-              <% end %>
+              
             </ul>
           </div>
           <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="button border-bottom-radius">Edit</div><% end %>
