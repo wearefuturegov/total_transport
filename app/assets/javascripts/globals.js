@@ -19,7 +19,7 @@ $(window).resize(function() {
 });
 
 $(document).ready(function() {
-  if ($('#returnTab')) {
+  if ($('#returnTab').length) {
     if (localStorage.returnJourney == "true") {
       $('.return-ticket').each(function() {
         $(this).removeClass('hidden');
@@ -40,7 +40,7 @@ $(document).ready(function() {
       $('#returnTab').removeClass('selected');
     }
   }
-  if ($('.pop-up')) {
+  if ($('.pop-up').length) {
     $('.pop-up').on('click', function(e) {
       if (e.target !== this)
         return;
@@ -57,7 +57,7 @@ $(document).ready(function() {
     });
   }
 
-  if ($('.alerts')) {
+  if ($('.alerts').length) {
     $('.alerts').slideDown();
   }
 
@@ -89,7 +89,7 @@ $(document).ready(function() {
   });
 
   //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
-  if ($('#move-to-top')) {
+  if ($('#move-to-top').length) {
     var content = $('#move-to-top').contents();
     $('.top-sec .inner').append(content);
   }
