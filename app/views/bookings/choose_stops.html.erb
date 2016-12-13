@@ -40,6 +40,7 @@
   // ToDo: change slideUp / sildeDown to a CSS animation
 
 $(document).ready(function() {
+  localStorage.setItem("returnJourney", "true");
   if ($("#passenger-stop-select").length) { //  CONDITIONAL STATEMENT SO IT ONLY WORKS ON ONE PAGE
     var activeDots = 0;
     var numOfStops = $('.stop').length;

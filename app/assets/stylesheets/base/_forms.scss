@@ -62,6 +62,7 @@ textarea {
 
 #filter {
   border-radius: $base-border-radius !important;
+  -webkit-appearance: textfield;
 }
 
 textarea {

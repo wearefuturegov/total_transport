@@ -34,12 +34,12 @@
         
         <div class="inner return-journey">
           <div class="half">
-            <p class="mb05"><span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
+            <p class="mb05"><span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
             <span class="small grey">+/- 10 min</span></p>
             <p class="small place"><%= @booking.dropoff_name %></p>
           </div>
           <div class="half">
-            <p class="mb05"><span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
+            <p class="mb05"><span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
             <span class="small grey">+/- 10 min</span></p>
             <p class="small place"><%= @booking.pickup_name %></p>
           </div>
