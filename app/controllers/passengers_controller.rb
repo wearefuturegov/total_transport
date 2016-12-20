@@ -39,8 +39,10 @@ class PassengersController < ApplicationController
     @page_title = "Edit Account"
     @back_path = routes_path
     @passenger = current_passenger
+    @future_bookings = @passenger.active_bookings
+    @past_bookings = @passenger.past_bookings
   end
-  
+
   def update
     @passenger = current_passenger
     @passenger.update_attributes(passenger_params)
