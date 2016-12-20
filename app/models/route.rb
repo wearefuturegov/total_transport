@@ -34,7 +34,7 @@ class Route < ActiveRecord::Base
     else
       journeys_in_direction = journeys.forwards
     end
-    journeys_in_direction.available.where("start_time > ?", from_time).each do |journey|
+    journeys_in_direction.available.where("start_time > ?", from_time).limit(20).each do |journey|
       available_journeys_by_date[journey.start_time.to_date] ||= []
       available_journeys_by_date[journey.start_time.to_date] << journey
     end
