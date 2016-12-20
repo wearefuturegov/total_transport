@@ -12,7 +12,7 @@ $dot-width: 30px
     display: inline-block
     cursor: pointer
 
-#bookings-confirmation
+#bookings-confirmation, #bookings-show
   #profile-link
     display: inline-block
   #cancel-booking
@@ -44,20 +44,20 @@ $dot-width: 30px
     width: 5px
     top: 30px
     left: 25px
-    height: 74px
+    height: 68px
 
   .acordBtn
     .button
       width: auto
       padding: 6px 10px
       text-transform: capitalize
-      font-size: 15px
+      font-size: 13px
       margin: 5px 0
       margin-left: 25px
     .arw
       transition: all 0.3s cubic-bezier(.25,.8,.25,1)
       display: inline-block
-      font-size: 20px
+      font-size: 15px
       transform: rotate(0deg)
 
   .acord
@@ -265,7 +265,8 @@ $dot-width: 30px
 
 .single-journey
   text-align: center
-  border: 2px solid $medium-gray
+  //border: 2px solid $medium-gray
+  transition: background-color 0.8s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s cubic-bezier(.25,.8,.25,1)
   border-radius: 4px
   label
     cursor: pointer
@@ -285,20 +286,27 @@ $dot-width: 30px
   opacity: 0.5
 
 .single-journey.selected
-  background-color: rgba($orange, 0.5)
-  border-color: rgba($orange, 0.6)
+  background-color: rgba($orange, 0.8)
+  transition: background-color 0.3s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s cubic-bezier(.25,.8,.25,1)
+  //border-color: rgba($orange, 0.6)
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
   color: $white
+  cursor: default !important
   .grey
     color: $white
   .seats-left, .fully-booked
     background-color: rgba($orange, 0.6)
+// .single-journey.selected:hover 
+//   box-shadow: 0 8px 28px rgba(0,0,0,0.2), 0 8px 10px rgba(0,0,0,0.22)
+ .single-journey.selected:active
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important
 .single-journey .wheelchair
   position: absolute
   top: 15px
   right: 15px
 
 
-.seats-left, .fully-booked
+.flagged-jrny
   background-color: $medium-gray
   color: $white
   padding: 3px
@@ -307,42 +315,13 @@ $dot-width: 30px
 .fully-booked
   font-weight: 600
 
-.journey-tabs
-  margin: 0 auto
-  text-align: center
-  margin-top: 15px
-  .tab
-    display: inline-block
-    padding: 10px 15px
-    border: 2px solid $blue
-    margin: 0
-    cursor: pointer
-    position: relative
-    z-index: 1
-  .tab.return-tab
-    margin-right: -3px
-  .tab.single-tab
-    margin-left: -3px
-  .tab.selected
-    background-color: rgba($orange, 0.3)
-    border: 2px solid $orange
-    z-index: 2
-  .tab.selected.return-tab
-    border-right-width: 3px
-  .tab.selected.single-tab
-    border-left-width: 3px
 
 .concession-cont
   .fa
     cursor: pointer
 
 
-#filter-cont 
-  margin-top: 15px
-
-
 .overview
-  border: 2px solid $blue
   .half
     line-height: 18px
   .overview-bar
@@ -362,11 +341,31 @@ $dot-width: 30px
   .breaker
     height: 2px
     width: 100%
-    background-color: $blue
+    background-color: rgba($blue, 0.2)
+
+
+#bookings-confirmation
+  header
+    background-color: transparent
+  .main-cont
+    margin-top: -57px
+  .container .inner
+    max-width: 700px
 
 
 
-
-
-
+.single-booking-card
+  img 
+    margin-bottom: -6px
+  a
+    color: $base-font-color
+  .overview-bar
+    font-size: 16px
+  .overview-sub-bar
+    font-size: 13px
+.single-booking-card.expired
+  .overview-bar
+    background-color: $medium-gray
+  .overview-sub-bar
+    background-color: rgba($medium-gray, 0.2)
 

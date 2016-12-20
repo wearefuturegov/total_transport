@@ -15,30 +15,59 @@ $(window).load(function() {
 });
 
 $(window).resize(function() {
-  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);
 });
 
 $(document).ready(function() {
-  if ($('.pop-up')) {
+  if ($('#returnTab').length) {
+    if (localStorage.returnJourney == "true") {
+      $('.return-ticket').each(function() {
+        $(this).removeClass('hidden');
+      });
+      $('.single-ticket').each(function() {
+        $(this).addClass('hidden');
+      });
+      $('#returnTab').addClass('selected');
+      $('#singleTab').removeClass('selected');
+    } else {
+      $('.single-ticket').each(function() {
+        $(this).removeClass('hidden');
+      });
+      $('.return-ticket').each(function() {
+        $(this).addClass('hidden');
+      });
+      $('#singleTab').addClass('selected');
+      $('#returnTab').removeClass('selected');
+    }
+  }
+  if ($('.pop-up').length) {
     $('.pop-up').on('click', function(e) {
       if (e.target !== this)
         return;
       closePopup();
     });
-    $('.pop-up-close').click(function() { 
+    $('.pop-up-close').click(function() {
       closePopup();
     });
-    $('#popup-continue').click(function() { 
+    $('#popup-continue').click(function() {
       closePopup();
     });
-    $('#cancel-booking').click(function() { 
+    $('#cancel-booking').click(function() {
       showPopup();
     });
   }
 
-  if ($('.alerts')) {
+  if ($('.alerts').length) {
     $('.alerts').slideDown();
   }
+
+
+  $("form").submit(function() {
+    $(this).submit(function() {
+        return false;
+    });
+    return true;
+  });
 
   $('.acordBtn').click(function() {
     var parent = $(this).closest('.route'),
@@ -50,7 +79,7 @@ $(document).ready(function() {
     } else {
       var reverseParent = $('#' + parent.attr('id').replace('-reversed', ''));
     }
-      
+
 
     sortAcord(parent);
     if (reverseParent) {
@@ -60,13 +89,13 @@ $(document).ready(function() {
   });
 
   //NEED TO FIX THIS - HACK TO MOVE CONTENT INSIDE THE TOP SECTION
-  if ($('#move-to-top')) {
+  if ($('#move-to-top').length) {
     var content = $('#move-to-top').contents();
     $('.top-sec .inner').append(content);
   }
 
   $('input.delete').click(function(e) {
-    var c = confirm("Are you sure you want to delete this? Click OK to continue.");
+    var c = confirm("Are you sure you want to cancel this? Click OK to continue.");
     return c;
   });
 
@@ -95,7 +124,7 @@ $(document).ready(function() {
         labelVal = $label.html();
       $input.on( 'change', function( e ) {
         var files = e.target.files;
-        
+
         for (var i = 0, f; f = files[i]; i++) {
           if (!f.type.match('image.*')) {
             continue;
@@ -122,8 +151,8 @@ $(document).ready(function() {
 
         if( fileName ) {
           $label.find('span').html( fileName );
-          $label.addClass('active'); 
-          
+          $label.addClass('active');
+
         } else {
           $label.html( labelVal );
           $lavel.removeClass('active');
@@ -136,6 +165,42 @@ $(document).ready(function() {
       .on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
     });
   }
+
+  $('#returnTab').click(function() {
+    localStorage.setItem("returnJourney", "true");
+  });
+  $('#singleTab').click(function() {
+    localStorage.setItem("returnJourney", "false");
+    clearRadios();
+  });
+
+  $('.tab').click(function() {
+    if (!$(this).hasClass('selected')) {
+      var parent = $(this).parent();
+      parent.children('.tab').each(function() {
+        if ($(this).hasClass('selected')) {
+          $(this).removeClass('selected');
+        }
+      });
+      // unique stuff for choose return journey
+      if (!$(this).hasClass('selected')) {
+        if ($(this).hasClass('single-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+          $('#hideReturn').slideUp().addClass('hidden');
+          if ($('#hideReturn').length) {
+            $('.single-journey.selected').removeClass('selected');
+            $('.return-btn').addClass('disabled').attr('disabled', true);
+          }
+        } else if ($(this).hasClass('return-tab')) {
+          $('.return-ticket').toggleClass('hidden');
+          $('.single-ticket').toggleClass('hidden');
+        }
+      }
+
+      $(this).toggleClass('selected');
+    }
+  });
 });
 
 function drawLine(a, b, line) {
@@ -144,7 +209,7 @@ function drawLine(a, b, line) {
   var distance = lineDistance(pointA.left, pointA.top, pointB.left, pointB.top);
 
   // Set Width
-  $(line).css('height', distance + 'px');                  
+  $(line).css('height', distance + 'px');
 }
 
 function sortAcord(parentObj) {
@@ -169,7 +234,7 @@ function dropAcord(element, eleClass, reverse) {
         clearInterval();
       });
     }
-  } else {      
+  } else {
     $(eleClass).each(function(){
       $(this).removeClass('open').find('.acord').slideUp(function(){
       clearInterval();
@@ -192,9 +257,8 @@ function dropAcord(element, eleClass, reverse) {
 }
 
 function lineDistance(x, y, x0, y0){
-    return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+  return Math.sqrt((x -= x0) * x + (y -= y0) * y);
 };
-
 
 
 function alertRails(alertTxt, inputObj) {
@@ -212,10 +276,31 @@ function alertRails(alertTxt, inputObj) {
   }
 }
 
+function checkPassengers(num) {
+  $('.single-journey').each(function() {
+    if (num > $(this).data('seats')) {
+      $(this).addClass('unavailable');
+      if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+        $('.continue-btn').slideDown().removeClass('hidden');
+        $('input[type="submit"]').addClass('disabled').attr('disabled', true)
+      }
+    } else {
+      $(this).removeClass('unavailable');
+    }
+  });
+}
+
+function clearRadios() {
+  $('.journey-select').each(function() {
+    $(this).prop('checked', false);
+  });
+}
+
 function closePopup() {
   $('.pop-up').fadeOut(150);
 }
 function showPopup() {
   $('.pop-up').fadeIn(150);
-  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);  
+  $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);
 }

@@ -1,77 +1,25 @@
-<div class="container">
+<div class="container blue-block fill-height">
   <div class="inner">
-    <h4 class="mb1">Your Booking is Confirmed</h4>
+    <h2 class="mb05 mt2 center ">Your Journey has been Booked!</h2>
+    <% if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo? %>
+      <div class="center mb1"><%= image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger' %></div>
+    <% end %>
 
-    <p>You booking has been confirmed, you will receive a text with more details the day before you travel. Wait for your driver at your pickup point: <%= @booking.pickup_name %>, at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> on <%= friendly_date @booking.journey.start_time %>.</p>
+    <p>Thanks<%= " #{@booking.passenger_name}" %>, your booking has been confirmed.</p> 
+    <p class="bold">A minivan will pick you up at your pickup point outside <%= @booking.pickup_name %> on <%= friendly_date @booking.journey.start_time %> between <%= plus_minus_ten @booking.pickup_stop.time_for_journey(@booking.journey) %>.</p>
 
-    <p>You can view or cancel your booking in your <%= link_to 'profile page', passenger_path %>.</p>
-
-    <div class="card no-click overview">
-      <div class="overview-bar title">
-        <%= @booking.dropoff_stop.name %>
-      </div>
-
-      <div class="overview-sub-bar">
-        Going There <%= friendly_date @booking.journey.start_time, true %>
-      </div>
-      <div class="inner out-journey">
-        <div class="half">
-          <p class="mb05"><span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
-          <span class="small grey">+/- 10 min</span></p>
-          <p class="small place"><%= @booking.pickup_name %></p>
-        </div>
-        <div class="half">
-          <p class="mb05"><span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %></span><br/>
-          <span class="small grey">+/- 10 min</span></p>
-          <p class="small place"><%= @booking.dropoff_name %></p>
-        </div>
-        <div class="clear"></div>
-      </div>
-      <% if @booking.return_journey? %>
-        <div class="overview-sub-bar">
-          Coming Back <%= friendly_date @booking.return_journey.start_time, true %>
-        </div>
-        <div class="inner return-journey">
-          <div class="half">
-            <p class="mb05"><span class="timeEst"><%= @booking.pickup_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
-            <span class="small grey">+/- 10 min</span></p>
-            <p class="small place"><%= @booking.dropoff_name %></p>
-          </div>
-          <div class="half">
-            <p class="mb05"><span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
-            <span class="small grey">+/- 10 min</span></p>
-            <p class="small place"><%= @booking.pickup_name %></p>
-          </div>
-          <div class="clear"></div>
-        </div>
-      <% end %>
-
-      <div class="breaker"></div>
-      <div class="inner price-breakdown">
-        <% if num_of_adults(@booking.number_of_passengers) == @booking.number_of_passengers %>
-          <p><%= pluralize @booking.number_of_passengers, 'adult fare' %> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
-        <% else %>
-          <p><strong><%= pluralize @booking.number_of_passengers, 'passenger' %></strong></p>
-          <% if num_of_adults(@booking.number_of_passengers) > 0 %>
-            <p>Adults: <%= num_of_adults(@booking.number_of_passengers) %> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
-          <% end %>
-          <% if @booking.child_tickets > 0 %>
-            <p>Child Fare: <%= @booking.child_tickets %> (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)</p>
-          <% end %>
-          <% if @booking.older_bus_passes > 0 %>
-            <p>Older persons bus pass: <%= @booking.older_bus_passes %> (£0.00 each)</p>
-          <% end %>
-          <% if @booking.disabled_bus_passes > 0 %>
-            <p>Disabled persons bus pass: <%= @booking.disabled_bus_passes %> (£0.00 each)</p>
-          <% end %>
-          <% if @booking.scholar_bus_passes > 0 %>
-            <p>Scholarly Season Ticket: <%= @booking.scholar_bus_passes %> (£0.00 each)</p>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="overview-bar price right-text">
-        <span>Total: <%= number_to_currency @booking.price, unit: '£' %></span>
-      </div>
-    </div>
+    <% if @booking.payment_method_id == 5 %>
+      <p class="bold">Please pay <%= number_to_currency @booking.price, unit: '£' %> to your driver.</p>
+      <p>If you need to cancel you can see this booking in:</p>
+    <% else %>
+      <p>You can cancel your booking up to 12 hours before your journey by going to:</p>
+    <% end %>
+    <%= link_to 'Your Bookings', passenger_path, :class => "button alt-button" %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#back-btn .no-mobile').html('Home');
+  });
+</script>

@@ -1,33 +1,26 @@
 <%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <h4><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h4>
-      <p>All times listed are estimates and may change based on who else schedules a ride.</p>
-        <p>
-        <%= form.label :number_of_passengers, :class => "inline mr1" %>
-        <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
-        </p>
-        <div id="special-req-button" class="button small-button"><i class="fa fa-plus"></i> Add Special Requirements</div>
-        <div id="special-req" class="hidden mt1">
-          <%= form.label :special_requirements, "Describe your special requirements:" %>
-          <%= form.text_field :special_requirements %>
-          <p class="small">Your transport provider will get in touch with you if they can't meet your needs</p>
-        </div>
+      <p class="center mb1">From <strong><%= @booking.pickup_stop.name %></span></strong> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></p>
+
+      <div class="center"><%= render partial: 'display_journey_tabs' %></div>
     </div>
   </div>
 
   <div class="container">
     <div class="inner">
-      <p class="center mb2"><strong>Choose Your Time Of Travel</strong><br/>
-      From <%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></p>
-      <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id} %>
+      <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id, returning: false} %>
     </div>
   </div>
-  <div class="fixed bottom white-block">
+  <div class="continue-btn fixed bottom white-block hidden">
     <div class="container">
       <div class="inner">
-        <div class="card">
-          <%= form.submit 'Next', :class => 'button alt-button disabled', :disabled => true %>
+
+        <div class="card return-ticket mb0">
+          <%= form.submit 'Next', :class => 'button alt-button disabled return-btn', :disabled => true %>
+        </div>
+        <div class="card single-ticket hidden">
+          <%= form.submit 'Next', name: "single_journey", :class => 'button alt-button single-ticket hidden' %>
         </div>
       </div>
     </div>
@@ -36,39 +29,10 @@
 <% end %>
 
 <script type="text/javascript">
-  $('#special-req-button').click(function() {
-    if ($(this).hasClass('negative')) {
-      $(this).removeClass('negative').html('<i class="fa fa-plus"></i> Add Special Requirements');
-      $('#special-req').addClass('hidden');
-      $('#special-req input').val('');
-    } else {
-      $(this).addClass('negative').html('<i class="fa fa-minus"></i> Remove Requirements');
-      $('#special-req').removeClass('hidden');
-    }
-  });
-
-  $('#booking_number_of_passengers').on('change', function() {
-    var noOfPassengers = $(this).val();
-    checkPassengers(noOfPassengers);
-  });
 
   $(document).ready(function() {
-    checkPassengers($('#booking_number_of_passengers').val());
+    checkPassengers(<%= @booking.number_of_passengers %>);
+    clearRadios();
   });
 
-  function checkPassengers(num) {
-    $('.single-journey').each(function() {
-      console.log($(this).data('seats'));
-      if (num > $(this).data('seats')) {
-        console.log($(this))
-        $(this).addClass('unavailable');
-        if ($(this).hasClass('selected')) {
-          $(this).removeClass('selected');
-          $('input[type="submit"]').addClass('disabled').attr('disabled', true)
-        }
-      } else {
-        $(this).removeClass('unavailable');
-      }
-    });
-  }
 </script>

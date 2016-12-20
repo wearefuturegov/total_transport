@@ -11,8 +11,47 @@ class Journey < ActiveRecord::Base
   scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
 
+  scope :past_or_future, ->(past_or_future) {
+    if past_or_future == 'past'
+      where('start_time < ?', Time.now)
+    elsif past_or_future == 'future'
+      where('start_time > ?', Time.now)
+    end
+  }
+  scope :on_date, ->(date) {
+    where('start_time >= ? AND start_time <= ?', Time.now.at_beginning_of_day, Time.now.at_end_of_day)
+  }
+  scope :booked_or_empty, ->(booked_or_empty) {
+    if booked_or_empty == 'booked'
+      joins(:outward_bookings).
+      select('journeys.*').
+      group('journeys.id').
+      having('count(bookings.id) > 0')
+    elsif booked_or_empty == 'empty'
+      joins('LEFT OUTER JOIN bookings ON (bookings.journey_id = journeys.id OR bookings.return_journey_id = journeys.id)').
+      select('journeys.*').
+      group('journeys.id').
+      having('count(bookings.id) = 0')
+    end
+  }
+
+  filterrific(
+    default_filter_params: {
+      past_or_future: 'future'
+    },
+    available_filters: [
+      :past_or_future,
+      :on_date,
+      :booked_or_empty
+    ]
+  )
+
   def bookings
     outward_bookings + return_bookings
+  end
+
+  def booked_bookings
+    outward_bookings.booked + return_bookings.booked
   end
 
   def editable_by_supplier?(supplier)
@@ -24,7 +63,7 @@ class Journey < ActiveRecord::Base
   end
 
   def seats_left
-    vehicle.seats - bookings.count
+    vehicle.seats - booked_bookings.sum {|x| x.number_of_passengers}
   end
 
   def full?

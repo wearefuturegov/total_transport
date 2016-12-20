@@ -15,7 +15,7 @@ class Team < ActiveRecord::Base
     suppliers.count < 2
   end
 
-  def empty?
+  def empty_team?
     suppliers.count == 0
   end
 

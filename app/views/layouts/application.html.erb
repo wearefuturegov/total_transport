@@ -26,7 +26,11 @@
           <%= @page_title %>
         </div>
         <div id="mobile-title" class="no-desktop">
-          <%= @page_title %>
+          <% if @page_title == "" %>
+            &nbsp;
+          <% else %>
+            <%= @page_title %>
+          <% end %>
         </div>
       </div>
       <div class="right">
@@ -48,10 +52,10 @@
     </div>
   </header>
 
-  <% if flash[:alert].present? %>
+  <% if flash[:alert].present? || @flash_alert.present? %>
     <div id="alerts" class="alerts container">
       <div class="inner">
-        <p class="alert"><%= flash[:alert] %></p>
+        <p class="alert"><%= flash[:alert] %><%= @flash_alert %></p>
       </div>
     </div>
   <% end %>
@@ -68,7 +72,7 @@
     <%= yield %>
   </div>
 
-  <div class="pop-up"> 
+  <div class="pop-up">
     <div class="pop-up-box card no-click">
       <div class="inner">
         <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
@@ -80,9 +84,11 @@
         <div class="button small-button" id="popup-continue">Continue Booking</div>
       </div>
 
-      
+
     </div>
   </div>
 </body>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+<% if @map_bool == true %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+<% end %>
 </html>

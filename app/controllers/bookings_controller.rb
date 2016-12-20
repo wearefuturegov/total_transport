@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
-  before_filter :find_route
+  before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
+  include ApplicationHelper
 
   # Choose stops
   def new
@@ -21,18 +22,34 @@ class BookingsController < ApplicationController
   # Save stops
   def create
     @booking = current_passenger.bookings.create(booking_params)
+    redirect_to choose_requirements_route_booking_path(@route, @booking)
+  end
+
+  def choose_requirements
+    @page_title = "Choose Your Requirements"
+    @back_path = new_route_booking_path(@route)
+    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
+  end
+
+  def save_requirements
+    @booking.set_promo_code(params[:booking][:promo_code])
+    @booking.update_attributes(booking_params)
     redirect_to choose_journey_route_booking_path(@route, @booking)
   end
 
   def choose_journey
-    @page_title = "Choose Your Options"
-    @back_path = new_route_booking_path(@route)
+    @page_title = "Choose Your Time Of Travel"
+    @back_path = choose_requirements_route_booking_path(@route, @booking)
     @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
   def save_journey
     @booking.update_attributes(booking_params)
-    redirect_to choose_return_journey_route_booking_path(@route, @booking)
+    if params[:single_journey]
+      redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+    else
+      redirect_to choose_return_journey_route_booking_path(@route, @booking)
+    end
   end
 
   def choose_return_journey
@@ -43,13 +60,17 @@ class BookingsController < ApplicationController
   end
 
   def save_return_journey
-    @booking.set_promo_code(params[:booking][:promo_code])
-    @booking.update_attributes(booking_params)
-    redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+    if params[:single_journey]
+      @booking.update_attribute(:return_journey_id, nil)
+    else
+      @booking.update_attributes(booking_params)
+    end
+    redirect_to choose_pickup_location_route_booking_path(@route, @booking)    
   end
 
   def choose_pickup_location
     @page_title = "Choose Pick Up Point"
+    @map_bool = true
     @back_path = choose_return_journey_route_booking_path(@route, @booking)
     @stop = @booking.pickup_stop
     @pickup_of_dropoff = 'pickup'
@@ -63,6 +84,7 @@ class BookingsController < ApplicationController
 
   def choose_dropoff_location
     @page_title = "Choose Drop Off Point"
+    @map_bool = true
     @back_path = choose_pickup_location_route_booking_path(@route, @booking)
     @stop = @booking.dropoff_stop
     @pickup_of_dropoff = 'dropoff'
@@ -114,11 +136,14 @@ class BookingsController < ApplicationController
 
   def save_confirm
     @booking.update_attributes(booking_params)
+    @passenger = current_passenger
+    @passenger.update_attributes(:name => @booking[:passenger_name])
+    @booking.send_notification!("Your Pickup booking from #{@passenger.bookings.last.pickup_stop.name} to #{@passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten(@booking.pickup_stop.time_for_journey(@booking.journey))}. You can review or cancel your booking here: #{passenger_booking_url(@passenger.bookings.last)}")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
 
   def confirmation
-    @page_title = "Booking Confirmed"
+    @page_title = ""
     @back_path = routes_path
   end
 
@@ -159,6 +184,11 @@ class BookingsController < ApplicationController
     end
   end
 
+  def show
+    @page_title = "Booking Details"
+    @back_path = passenger_path
+  end
+
   private
 
   def booking_params
@@ -175,6 +205,7 @@ class BookingsController < ApplicationController
       :dropoff_name,
       :state,
       :phone_number,
+      :passenger_name,
       :payment_method_id,
       :number_of_passengers,
       :special_requirements,

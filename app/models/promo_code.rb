@@ -18,11 +18,6 @@ class PromoCode < ActiveRecord::Base
 
   def self.find_by_code(code)
     code = SecretSanta.normalize(code)
-    pc = where("code = ?", code).first
-    if pc && pc.available?
-      pc
-    else
-      nil
-    end
+    where("code = ?", code).first
   end
 end

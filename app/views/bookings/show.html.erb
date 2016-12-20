@@ -1,14 +1,15 @@
 <div class="container">
   <div class="inner">
-    <h4 class="mb1">Your Journey</h4>
-
-    <div class="card no-click overview">
+    <div class="single-booking-card no-click card <% if @booking.future? %>future<% else %>expired<% end %> overview">
       <div class="overview-bar radius border-top-radius">
-        <%= @booking.dropoff_stop.name %>
+        <%= @booking.pickup_stop.name %> To <%= @booking.dropoff_stop.name %>
       </div>
 
       <div class="overview-sub-bar">
-        Going There <%= friendly_date @booking.journey.start_time, true %>
+        Outbound: <%= friendly_date @booking.journey.start_time, true %>
+      </div>
+      <div class="center">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.pickup_lat %>,<%= @booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.pickup_lat %>,<%= @booking.pickup_lng %>">
       </div>
       <div class="inner out-journey">
         <div class="half">
@@ -23,10 +24,14 @@
         </div>
         <div class="clear"></div>
       </div>
+      <div class="center">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.dropoff_lat %>,<%= @booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.dropoff_lat %>,<%= @booking.dropoff_lng %>">
+      </div>
       <% if @booking.return_journey? %>
         <div class="overview-sub-bar">
-          Coming Back <%= friendly_date @booking.return_journey.start_time, true %>
+          Return: <%= friendly_date @booking.return_journey.start_time, true %>
         </div>
+        
         <div class="inner return-journey">
           <div class="half">
             <p class="mb05"><span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(@booking.return_journey).strftime("%l:%M%P") %></span><br/>
@@ -41,7 +46,6 @@
           <div class="clear"></div>
         </div>
       <% end %>
-
       <div class="breaker"></div>
       <div class="inner price-breakdown">
         <% if num_of_adults(@booking.number_of_passengers) == @booking.number_of_passengers %>
@@ -66,39 +70,15 @@
         <% end %>
       </div>
       <div class="overview-bar price right-text radius border-bottom-radius">
-        <span>Total<% if @booking.payment_method_id == 5 %> to Pay<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
+        <span>Total<% if @booking.payment_method_id == 5 %> to Pay<% else %> Paid<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
       </div>
     </div>
-
-    <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
-      <%= form.hidden_field :state, value: 'booked' %>
-
-      <%= form.label :passenger_name, "Lead Passenger's Name" %>
-      <%= form.text_field :passenger_name, value: current_passenger.name, class: "white-input" %>
-
-      
-      <%= form.label :phone_number %>
-      <%= form.text_field :phone_number, value: current_passenger.phone_number, class: "white-input mb1" %>
-      <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
-      
-      <% PaymentMethod.types.each do |payment_method_id| %>
-        <%= form.radio_button :payment_method_id, payment_method_id, :class => "hidden" %>
-      <% end %>
-      <button id="paypal" class="pay-btn button alt-button mb1"><i class="fa fa-paypal"></i> Pay with PayPal</button>
-      <button id="cash" class="pay-btn button alt-button"><i class="fa fa-money"></i> Pay with Cash</button>
-      <%= form.submit "Confirm booking", :class => 'button alt-button hidden' %>
+    <% if @booking.future? %>
+      <div class="actions">
+        <%= form_for [@booking.route, @booking], method: :delete do |form| %>
+          <%= form.submit "Cancel Booking", :class => "negative delete" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
-
-<script type="text/javascript">
-  $('.pay-btn').click(function(e) {
-    e.preventDefault();
-    if ($(this).attr('id') == 'paypal') {
-      $('#booking_payment_method_id_paypal').prop("checked", true).val(1);
-    } else {
-      $('#booking_payment_method_id_cash').prop("checked", true).val(5);
-    }
-    $('.edit_booking').submit();
-  });
-</script>

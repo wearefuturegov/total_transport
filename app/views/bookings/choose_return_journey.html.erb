@@ -1,79 +1,24 @@
 <%= form_for [@route, @booking], url: save_return_journey_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <h4><span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></h4>
-      <p>On <%= friendly_date @booking.journey.start_time %><br/>
-      <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min) pickup in <%= @booking.pickup_stop.name %></p>
-      <p id="adult-tickets" class="<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
-      <div class="concessions">
-        <div id="concession-1" class="mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
-          <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
-        </div>
-        <div id="concession-2" class="mb1 concession-cont<%= " hidden" if @booking.older_bus_passes == 0 %>">
-          <span class="count"><%= @booking.older_bus_passes %></span></span> Older persons bus pass (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
-        </div>
-        <div id="concession-3" class="mb1 concession-cont<%= " hidden" if @booking.disabled_bus_passes == 0 %>">
-          <span class="count"><%= @booking.disabled_bus_passes %></span></span> Disabled persons bus pass (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
-        </div>
-        <div id="concession-4" class="mb1 concession-cont<%= " hidden" if @booking.scholar_bus_passes == 0 %>">
-          <span class="count"><%= @booking.scholar_bus_passes %></span></span> Scholarly Season Ticket (£0.00 each)
-          <div class="cancel-concession button extra-small-button negative ml1 inline" title="Delete Concession"><i class="fa fa-times" title="Delete Concession"></i> delete</div>
-        </div>
-
-        <select id="concession-list" class="hidden select full">
-          <option id="option-null" value="0">Select a Concession</option>
-          <option id="option-1" value="1">Child fare</option>
-          <option id="option-2" value="2">Older persons bus pass</option>
-          <option id="option-3" value="3">Disabled persons bus pass</option>
-          <option id="option-4" value="4">Scholarly Season Ticket</option>
-          <option id="promo" value="5">Add Promo Code</option>
-        </select>
-
-        <div id="add-concession" class="add button small-button<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>">+ Add a Concessionary Fare</div>
-
-        <div class="promo-code hidden mt2">
-          <%= form.label :promo_code %>
-          <%= form.text_field :promo_code %>
-        </div>
-
-        <div class="hidden">
-          <%= form.label :child_tickets, "Child fare" %>
-          <%= form.number_field :child_tickets, :id => "hidden-1" %>
-          <%= form.label :older_bus_passes %>
-          <%= form.number_field :older_bus_passes, :id => "hidden-2" %>
-          <%= form.label :disabled_bus_passes %>
-          <%= form.number_field :disabled_bus_passes, :id => "hidden-3" %>
-          <%= form.label :scholar_bus_passes %>
-          <%= form.number_field :scholar_bus_passes, :id => "hidden-4" %>
-        </div>
-      </div>
-
-      <div class="journey-tabs">
-        <div class="return-tab tab selected radius border-left-radius">
-          Return <span id="return_price"><%= number_to_currency @booking.return_price, unit: '£' %></span>
-        </div>
-        <div class="single-tab tab radius border-right-radius">
-          Single <span id="single_price"><%= number_to_currency @booking.single_price, unit: '£' %></span>
-        </div>
-      </div>
+      <p>You will be travelling from <span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span> on <strong><%= friendly_date @booking.journey.start_time %></strong> with your pickup at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min) in <%= @booking.pickup_stop.name %></p>
+      <p class="return-ticket"><strong>Return:</strong> <%= @booking.dropoff_stop.name %> to <%= @booking.pickup_stop.name %></p>
+      <div class="center"><%= render partial: 'display_journey_tabs' %></div>
     </div>
   </div>
 
   <div class="container">
     <div class="inner">
       <div class="return-ticket">
-        <%= render partial: 'display_journeys', locals: {form: form, field: :return_journey_id} %>
+        <%= render partial: 'display_journeys', locals: {form: form, field: :return_journey_id, returning: true} %>
       </div>
       <div class="card single-ticket hidden">
-        <%= form.submit 'Next', :class => 'button alt-button single-ticket hidden' %>
+        <%= form.submit 'Next', name: "single_journey", :class => 'button alt-button single-ticket hidden wierdMarginFix' %>
       </div>
     </div>
   </div>
 
-  <div class="fixed bottom white-block return-ticket">
+  <div id="hideReturn" class="continue-btn fixed bottom white-block" style="display: none;">
     <div class="container">
       <div class="inner">
         <div class="card">
@@ -86,110 +31,7 @@
 <% end %>
 
 <script type="text/javascript">
-  var maxConcessions = 4,
-      noOfAdults = 0;
-  $(document).ready(function() {
-    noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
-  });
-
-  // ADD CONCESSION BUTTON
-  $('#add-concession').click(function() {
-    $('#concession-list').removeClass('hidden');
-  });
-
-  // DELETE CONCESSION BUTTON
-  $('.cancel-concession').click(function() {
-    var parent = $(this).parent('.concession-cont');
-    parent.addClass('hidden');
-    var idNum = parent.attr('id').slice(-1);
-    parent.find('.count').html(0);
-    var numOfConcess = $('#hidden-'+idNum).val();
-    noOfAdults = parseInt($('#adult-ticket-no').html()) + parseInt(numOfConcess);
-    $('#adult-ticket-no').html(noOfAdults);
-    resetConcession(idNum, numOfConcess);
-    updateAdults(noOfAdults);
-    if ($('#add-concession').hasClass('hidden')) {
-      $('#add-concession').removeClass('hidden');
-    }
-  });
-
-  // ON SELECTION OF CONCESSION
-  $('#concession-list').on('change', function() {
-    if ($(this).val() > 0) {
-      $(this).addClass('hidden');
-      if ($(this).val() == 5) {
-        $('.promo-code').removeClass('hidden');
-        $('#concession-list #promo').hide();
-      } else {
-        if ( $('#concession-'+$(this).val()).hasClass('hidden')) {
-          $('#concession-'+$(this).val()).removeClass('hidden');
-          $('#concession-'+$(this).val()+ ' .count').html(1);
-          addOnetoTotal($(this).val());
-        } else {
-          var num = parseInt($('#concession-'+$(this).val()+ ' .count').html()) + 1;
-          $('#concession-'+$(this).val()+ ' .count').html(num);
-          addOnetoTotal($(this).val());
-        }
-        $(this).val(0);
-        noOfAdults--;
-        updateAdults(noOfAdults);
-        if (noOfAdults <= 0) {
-          $('#add-concession').addClass('hidden');
-        }
-      }
-    }
-  });
-
-  function addOnetoTotal(idNum) {
-    var num = parseInt($('#hidden-'+idNum).val()) + 1;
-    $('#hidden-'+idNum).val(parseInt(num));
-    $('form.edit_booking').trigger("change");
-  }
-
-  function resetConcession(idNum, numOfConcess) {
-    var num = parseInt($('#hidden-'+idNum).val()) - parseInt(numOfConcess);
-    $('#hidden-'+idNum).val(parseInt(num));
-    $('form.edit_booking').trigger("change");
-  }
-
-  function updateAdults(adults) {
-    $('#adult-ticket-no').html(adults + ' adult ticket');
-    if (adults > 1) {
-      $('#adult-ticket-no').append('s');
-    }
-    if (adults <= 0) {
-      $('#adult-tickets').addClass('hidden');
-    } else if ($('#adult-tickets').hasClass('hidden')) {
-      $('#adult-tickets').removeClass('hidden');
-    }
-  }
-
-  $('.journey-tabs .tab').click(function() {
-    if (!$(this).hasClass('selected')) {
-      $(this).toggleClass('selected');
-      if ($(this).hasClass('single-tab')) {
-        $('.return-ticket').toggleClass('hidden');
-        $('.single-ticket').toggleClass('hidden');
-        $('.return-tab').removeClass('selected');
-        $('.single-journey.selected').removeClass('selected');
-        $('.return-btn').addClass('disabled').attr('disabled', true);
-      } else {
-        $('.return-ticket').toggleClass('hidden');
-        $('.single-ticket').toggleClass('hidden');
-        $('.single-tab').removeClass('selected');
-      }
-    }
-  });
-
-  $('form.edit_booking').change(function() {
-    $.get(
-      "<%= price_api_route_booking_path(@route, @booking) %>",
-      $(this).serialize()
-    ).done(
-      function( data ) {
-        $("#single_price").html(data.single);
-        $("#return_price").html(data.return);
-      }
-    );
+  $(function() {
+    clearRadios();
   });
 </script>

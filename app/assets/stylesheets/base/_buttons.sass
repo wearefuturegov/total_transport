@@ -8,7 +8,7 @@
   cursor: pointer
   display: inline-block
   font-family: $heading-font-family
-  font-size: $base-font-size
+  font-size: 16px
   -webkit-font-smoothing: antialiased
   font-weight: 600
   line-height: 1
@@ -39,12 +39,21 @@
     background-color: $medium-gray
 
     &:hover 
-      background-color: darken($medium-gray, 5%)
+      background-color: darken($medium-gray, 10%)
+
+.white-button
+  background-color: #fff
+  color: $dark-gray
+.white-button:hover
+  background-color: darken($base-background-color, 10%)
+  color: $dark-gray
 
 .negative
   background-color: $red
+  color: #fff
 .negative:hover, .negative:focus
   background-color: $darker-red
+  color: #fff
 
 .alt-button 
   background-color: $orange
@@ -86,3 +95,12 @@
 .border-left-radius
   border-bottom-right-radius: 0
   border-top-right-radius: 0
+
+.border-left-inset
+  -webkit-box-shadow: inset 2px 2px 9px -1px rgba($base-font-color, 0.15)
+  -moz-box-shadow: inset 2px 2px 9px -1px rgba($base-font-color, 0.15)
+  box-shadow: inset 2px 2px 9px -1px rgba($base-font-color, 0.15)
+.border-right-inset
+  -webkit-box-shadow: inset -2px -2px 9px -1px rgba($base-font-color, 0.15)
+  -moz-box-shadow: inset -2px 2px 9px -1px rgba($base-font-color, 0.15)
+  box-shadow: inset -2px 2px 9px -1px rgba($base-font-color, 0.15)

@@ -38,25 +38,51 @@
         <h2>Bookings</h2>
         <p>This is a list of all of your future and past bookings:</p>
       </div>
-      <% @passenger.bookings.booked.each do |booking| %>
-        <div class="login-form card">
-          <div class="inner">
-            <h4>Your Journey - <%= friendly_date(booking.pickup_stop.time_for_journey(booking.journey)) %></h4>
-            <p><span class="bold">Pick Up Location:</span> <%= booking.pickup_stop.name %> - Est. <%= booking.pickup_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.pickup_lat %>,<%= booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.pickup_lat %>,<%= booking.pickup_lng %>"></p>
+      <% @passenger.bookings.booked.order(created_at: :desc).each do |booking| %>
+        <%= link_to passenger_booking_path(booking) do %>
+          <div class="single-booking-card card <% if booking.future? %>future<% else %>expired<% end %> overview">
+            <div class="overview-bar radius border-top-radius">
+              <%= booking.pickup_stop.name %> To <%= booking.dropoff_stop.name %>
+            </div>
 
-            <p><span class="bold">Drop Off Location:</span> <%= booking.dropoff_stop.name %> - Est. <%= booking.dropoff_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %><br/>
-            <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= booking.dropoff_lat %>,<%= booking.dropoff_lng %>"></p>
-
-
-            <% if booking.future? %>
-              <div class="actions">
-                <%= form_for [booking.route, booking], method: :delete do |form| %>
-                  <%= form.submit "Cancel", :class => "negative delete" %>
-                <% end %>
+            <div class="overview-sub-bar">
+              Outbound: <%= friendly_date booking.journey.start_time, true %>
+            </div>
+            <div class="inner out-journey">
+              <div class="half">
+                <p class="mb05"><span class="timeEst"><%= booking.pickup_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %></span><br/>
+                <span class="small grey">+/- 10 min</span></p>
+                <p class="small place"><%= booking.pickup_name %></p>
+              </div>
+              <div class="half">
+                <p class="mb05"><span class="timeEst"><%= booking.dropoff_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %></span><br/>
+                <span class="small grey">+/- 10 min</span></p>
+                <p class="small place"><%= booking.dropoff_name %></p>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <% if booking.return_journey? %>
+              <div class="overview-sub-bar">
+                Return: <%= friendly_date booking.return_journey.start_time, true %>
+              </div>
+              <div class="inner return-journey">
+                <div class="half">
+                  <p class="mb05"><span class="timeEst"><%= booking.dropoff_stop.time_for_journey(booking.return_journey).strftime("%l:%M%P") %></span><br/>
+                  <span class="small grey">+/- 10 min</span></p>
+                  <p class="small place"><%= booking.dropoff_name %></p>
+                </div>
+                <div class="half">
+                  <p class="mb05"><span class="timeEst"><%= booking.pickup_stop.time_for_journey(booking.return_journey).strftime("%l:%M%P") %></span><br/>
+                  <span class="small grey">+/- 10 min</span></p>
+                  <p class="small place"><%= booking.pickup_name %></p>
+                </div>
+                <div class="clear"></div>
               </div>
             <% end %>
-          </div>
+            <div class="overview-bar price right-text radius border-bottom-radius">
+              <span>Total<% if booking.payment_method_id == 5 %> to Pay<% end %>: <%= number_to_currency booking.price, unit: '£' %></span>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>
@@ -66,3 +92,9 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#back-btn .no-mobile').html('Home');
+  });
+</script>

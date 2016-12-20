@@ -20,6 +20,11 @@ module ApplicationHelper
     end
   end
 
+  def plus_minus_ten(time)
+    t = time.to_time
+    final_time = "#{(t - 10*60).strftime("%l:%M%P")} and #{(t + 10*60).strftime("%l:%M%P")}"
+  end
+
   def payment_class(payment_method_type)
     payment_method_type = payment_method_type.to_s
     if payment_method_type == 'paypal'
@@ -37,5 +42,13 @@ module ApplicationHelper
 
   def num_of_adults(num_of_passengers)
     num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
+  end
+
+  def grab_phone_number(phone, booking)
+    if phone == nil
+      final_phone = Passenger.find(booking.passenger_id).phone_number
+    else 
+      final_phone = "#{phone} - number possibly changed from passenger's original (#{Passenger.find(booking.passenger_id).phone_number})"
+    end
   end
 end

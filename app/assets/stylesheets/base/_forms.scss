@@ -25,8 +25,7 @@ textarea {
   font-size: $base-font-size;
 }
 
-#{$all-text-inputs},
-select[multiple] {
+#{$all-text-inputs}, select[multiple] {
   background-color: $base-background-color;
   border: $base-border;
   border-radius: $base-border-radius;
@@ -59,6 +58,11 @@ select[multiple] {
   &::placeholder {
     color: $medium-gray;
   }
+}
+
+#filter {
+  border-radius: $base-border-radius !important;
+  -webkit-appearance: textfield;
 }
 
 textarea {

@@ -29,6 +29,6 @@ class Admin::VehiclesController < AdminController
 
   private
   def vehicle_params
-    params.require(:vehicle).permit(:seats, :registration, :make_model, :colour, :wheelchair_accessible)
+    params.require(:vehicle).permit(:seats, :registration, :make_model, :colour, :wheelchair_accessible, :photo)
   end
 end

@@ -29,19 +29,22 @@
             <% else %>
               Supplier
             <% end %>
-            - Admin
+            - Pickup Admin
           <% end %>
         </div>
         <div class="right">
           <% if current_supplier %>
-            <%= link_to 'Account', admin_team_path %>
+            <%= link_to admin_team_path do %>
+              <i class="fa fa-user"></i>
+              <span class="no-mobile">Account</span>
+            <% end %>
           <% end %>
         </div>
       </div>
     </header>
     <% if alert.present? || notice.present? %>
       <div id="alerts" class="alerts">
-        <section>
+        <section class="inner">
           <p class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
         </section>
@@ -50,10 +53,11 @@
     <section class="supplier">
         <%= yield %>
 
-      <div class="supplier-suggestion">
+      <div id="supplier-suggestion" class="suggestion center grey">
+        <p>See something wrong, or have an idea for improvement?<br/>
         <%= link_to new_admin_supplier_suggestion_path(from_url: request.path) do %>
-          Suggest An Edit
-        <% end %>
+          Make a suggestion
+        <% end %></p>
       </div>
     </section>
   </div>

@@ -12,7 +12,7 @@ class PassengersController < ApplicationController
       redirect_to verify_passenger_path(id: @passenger.id)
     else
       @passenger = Passenger.new
-      flash[:alert] = "Phone number is not a valid, please try another one"
+      @flash_alert = "Phone number is not a valid, please try another one"
       render action: 'new'
     end
   end
@@ -30,7 +30,7 @@ class PassengersController < ApplicationController
         set_current_passenger(@passenger)
         redirect_to root_path
       else
-        flash[:alert] = "That verification code was incorrect. Please try again."
+        @flash_alert = "That verification code was incorrect. Please try again."
       end
     end
   end
@@ -40,7 +40,7 @@ class PassengersController < ApplicationController
     @back_path = routes_path
     @passenger = current_passenger
   end
-
+  
   def update
     @passenger = current_passenger
     @passenger.update_attributes(passenger_params)
