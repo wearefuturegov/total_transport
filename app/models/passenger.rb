@@ -43,6 +43,14 @@ class Passenger < ActiveRecord::Base
     false
   end
 
+  def active_bookings
+    bookings.booked.includes(:journey).order('journeys.start_time ASC').select {|x| x.future?}
+  end
+
+  def past_bookings
+    bookings.booked.includes(:journey).order('journeys.start_time DESC').select {|x| x.past?}
+  end
+
   private
 
   def generate_verfication_code

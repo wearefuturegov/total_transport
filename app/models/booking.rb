@@ -19,11 +19,19 @@ class Booking < ActiveRecord::Base
   end
 
   def past?
-    pickup_time < Time.now
+    last_dropoff_time < Time.now
   end
 
   def pickup_time
     pickup_stop.time_for_journey(journey)
+  end
+
+  def last_dropoff_time
+    if return_journey?
+      pickup_stop.time_for_journey(return_journey)
+    else
+      dropoff_stop.time_for_journey(journey)
+    end
   end
 
   def future?
