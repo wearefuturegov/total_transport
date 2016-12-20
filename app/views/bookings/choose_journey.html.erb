@@ -9,7 +9,7 @@
 
   <div class="container">
     <div class="inner">
-      <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id} %>
+      <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id, returning: false} %>
     </div>
   </div>
   <div class="continue-btn fixed bottom white-block hidden">
@@ -21,7 +21,7 @@
         </div>
         <div class="card single-ticket hidden">
           <%= form.submit 'Next', name: "single_journey", :class => 'button alt-button single-ticket hidden' %>
-        </div> 
+        </div>
       </div>
     </div>
   </div>

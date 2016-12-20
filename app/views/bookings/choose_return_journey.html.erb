@@ -10,7 +10,7 @@
   <div class="container">
     <div class="inner">
       <div class="return-ticket">
-        <%= render partial: 'display_return_journeys', locals: {form: form, field: :return_journey_id} %>
+        <%= render partial: 'display_journeys', locals: {form: form, field: :return_journey_id, returning: true} %>
       </div>
       <div class="card single-ticket hidden">
         <%= form.submit 'Next', name: "single_journey", :class => 'button alt-button single-ticket hidden wierdMarginFix' %>
