@@ -32,6 +32,11 @@
               </div>
             </div>
           <% end %>
+
+          <% if !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: @booking.dropoff_stop.time_for_journey(journey)).empty? %>
+            NO RETURN
+          <% end %>
+
           <% if journey.vehicle.wheelchair_accessible? %>
             <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
           <% end %>
