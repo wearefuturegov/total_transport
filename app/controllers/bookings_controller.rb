@@ -104,7 +104,6 @@ class BookingsController < ApplicationController
   def save_confirm
     @booking.update_attributes(booking_params)
     @passenger = current_passenger
-    @passenger.update_attributes(:name => @booking[:passenger_name])
     @booking.send_notification!("Your Pickup booking from #{@passenger.bookings.last.pickup_stop.name} to #{@passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten(@booking.pickup_stop.time_for_journey(@booking.journey))}. You can review or cancel your booking here: #{passenger_booking_url(@passenger.bookings.last)}")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
