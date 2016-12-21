@@ -13,9 +13,9 @@ class Journey < ActiveRecord::Base
 
   scope :past_or_future, ->(past_or_future) {
     if past_or_future == 'past'
-      where('start_time < ?', Time.now)
+      where('start_time < ?', Time.now).order('start_time DESC')
     elsif past_or_future == 'future'
-      where('start_time > ?', Time.now)
+      where('start_time > ?', Time.now).order('start_time ASC')
     end
   }
   scope :on_date, ->(date) {
