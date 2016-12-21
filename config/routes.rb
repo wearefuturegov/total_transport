@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
     resources :bookings, only: :show
   end
-  devise_for :suppliers
+  devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :routes do
     collection do
       get :suggest_route
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   root 'routes#index'
 
   namespace :admin do
+    get 'pending' => 'suppliers#pending'
     root 'journeys#index'
     resource :team
     resources :vehicles
