@@ -3,7 +3,6 @@ class Passenger < ActiveRecord::Base
   has_many :suggested_journeys, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
   has_many :suggested_routes, dependent: :destroy
-  has_many :payment_methods, dependent: :destroy
 
   has_attached_file :photo, styles: {
     thumb: '100x100>',

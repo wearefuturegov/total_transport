@@ -4,7 +4,6 @@ class Booking < ActiveRecord::Base
   belongs_to :pickup_stop, class_name: 'Stop'
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
-  belongs_to :payment_method
   belongs_to :promo_code
 
   scope :booked, -> { where(state: 'booked') }

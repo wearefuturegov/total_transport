@@ -66,7 +66,7 @@
         <% end %>
       </div>
       <div class="overview-bar price right-text radius border-bottom-radius">
-        <span>Total<% if @booking.payment_method_id == 5 %> to Pay<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
+        <span>Total<% if @booking.payment_method == 'cash' %> to Pay<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
       </div>
     </div>
 
@@ -76,14 +76,12 @@
       <%= form.label :passenger_name, "Lead Passenger's Name" %>
       <%= form.text_field :passenger_name, value: current_passenger.name, class: "white-input" %>
 
-      
+
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, value: current_passenger.phone_number, class: "white-input mb1" %>
       <p>Let us know your phone number so that we can notify you when your vehicle is on its way.</p>
-      
-      <% PaymentMethod.types.each do |payment_method_id| %>
-        <%= form.radio_button :payment_method_id, payment_method_id, :class => "hidden" %>
-      <% end %>
+
+      <%= form.hidden_field :payment_method %>
       <button id="paypal" class="pay-btn button alt-button mb1"><i class="fa fa-paypal"></i> Pay with PayPal</button>
       <button id="cash" class="pay-btn button alt-button"><i class="fa fa-money"></i> Pay with Cash</button>
       <%= form.submit "Confirm booking", :class => 'button alt-button hidden' %>
@@ -95,9 +93,9 @@
   $('.pay-btn').click(function(e) {
     e.preventDefault();
     if ($(this).attr('id') == 'paypal') {
-      $('#booking_payment_method_id_paypal').prop("checked", true).val(1);
+      $('#booking_payment_method').val('paypal');
     } else {
-      $('#booking_payment_method_id_cash').prop("checked", true).val(5);
+      $('#booking_payment_method').val('cash');
     }
     $('.edit_booking').submit();
   });
