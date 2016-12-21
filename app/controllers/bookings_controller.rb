@@ -65,7 +65,7 @@ class BookingsController < ApplicationController
     else
       @booking.update_attributes(booking_params)
     end
-    redirect_to choose_pickup_location_route_booking_path(@route, @booking)    
+    redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end
 
   def choose_pickup_location
@@ -94,39 +94,6 @@ class BookingsController < ApplicationController
   def save_dropoff_location
     @booking.update_attributes(booking_params)
     redirect_to confirm_route_booking_path(@route, @booking)
-    # if current_passenger.payment_methods.any?
-    #   redirect_to choose_payment_method_route_booking_path(@route, @booking)
-    # else
-    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
-    # end
-  end
-
-  def choose_payment_method
-    @page_title = "Choose Your Payment Method"
-    @back_path = confirm_route_booking_path(@route, @booking)
-  end
-
-  def save_payment_method
-    # if params[:booking][:payment_method_id] == 'new'
-    #   redirect_to add_payment_method_route_booking_path(@route, @booking)
-    # else
-    #   @booking.update_attributes(booking_params)
-    #   redirect_to confirm_route_booking_path(@route, @booking)
-    # end
-    @booking.update_attributes(booking_params)
-    redirect_to confirmation_route_booking_path(@route, @booking)
-  end
-
-  def add_payment_method
-    @page_title = "New Payment Method"
-    @back_path = choose_payment_method_route_booking_path(@route, @booking)
-    @payment_method = current_passenger.payment_methods.new
-  end
-
-  def create_payment_method
-    @payment_method = current_passenger.payment_methods.create!(payment_method_params)
-    @booking.update_attribute(:payment_method, @payment_method)
-    redirect_to confirm_route_booking_path(@route, @booking)
   end
 
   def confirm
@@ -137,7 +104,6 @@ class BookingsController < ApplicationController
   def save_confirm
     @booking.update_attributes(booking_params)
     @passenger = current_passenger
-    @passenger.update_attributes(:name => @booking[:passenger_name])
     @booking.send_notification!("Your Pickup booking from #{@passenger.bookings.last.pickup_stop.name} to #{@passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten(@booking.pickup_stop.time_for_journey(@booking.journey))}. You can review or cancel your booking here: #{passenger_booking_url(@passenger.bookings.last)}")
     redirect_to confirmation_route_booking_path(@route, @booking)
   end
@@ -206,7 +172,7 @@ class BookingsController < ApplicationController
       :state,
       :phone_number,
       :passenger_name,
-      :payment_method_id,
+      :payment_method,
       :number_of_passengers,
       :special_requirements,
       :child_tickets,
@@ -214,10 +180,6 @@ class BookingsController < ApplicationController
       :disabled_bus_passes,
       :scholar_bus_passes
     )
-  end
-
-  def payment_method_params
-    params.require(:payment_method).permit(:name)
   end
 
   def suggested_journey_params

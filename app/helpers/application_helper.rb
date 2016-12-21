@@ -10,8 +10,8 @@ module ApplicationHelper
       else
         date.strftime("%A, %-d %B")
       end
-      
-    else  
+
+    else
       if length
         date.strftime("%a, %-d %B, %Y")
       else
@@ -25,21 +25,6 @@ module ApplicationHelper
     final_time = "#{(t - 10*60).strftime("%l:%M%P")} and #{(t + 10*60).strftime("%l:%M%P")}"
   end
 
-  def payment_class(payment_method_type)
-    payment_method_type = payment_method_type.to_s
-    if payment_method_type == 'paypal'
-      'fa-paypal'
-    elsif payment_method_type == 'apple_pay'
-      'fa-apple'
-    elsif payment_method_type == 'credit_card'
-      'fa-credit-card-alt'
-    elsif payment_method_type == 'google_pay'
-      'fa-google-wallet'
-    elsif payment_method_type == 'cash'
-      'fa-money'
-    end
-  end
-
   def num_of_adults(num_of_passengers)
     num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
   end
@@ -47,7 +32,7 @@ module ApplicationHelper
   def grab_phone_number(phone, booking)
     if phone == nil
       final_phone = Passenger.find(booking.passenger_id).phone_number
-    else 
+    else
       final_phone = "#{phone} - number possibly changed from passenger's original (#{Passenger.find(booking.passenger_id).phone_number})"
     end
   end

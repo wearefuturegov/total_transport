@@ -4,7 +4,6 @@ class Booking < ActiveRecord::Base
   belongs_to :pickup_stop, class_name: 'Stop'
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
-  belongs_to :payment_method
   belongs_to :promo_code
 
   scope :booked, -> { where(state: 'booked') }
@@ -19,11 +18,19 @@ class Booking < ActiveRecord::Base
   end
 
   def past?
-    pickup_time < Time.now
+    last_dropoff_time < Time.now
   end
 
   def pickup_time
     pickup_stop.time_for_journey(journey)
+  end
+
+  def last_dropoff_time
+    if return_journey?
+      pickup_stop.time_for_journey(return_journey)
+    else
+      dropoff_stop.time_for_journey(journey)
+    end
   end
 
   def future?

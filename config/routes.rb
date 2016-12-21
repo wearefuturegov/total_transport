@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
     resources :bookings, only: :show
   end
-  devise_for :suppliers
+  devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :routes do
     collection do
       get :suggest_route
@@ -24,10 +24,6 @@ Rails.application.routes.draw do
         patch :save_pickup_location
         get :choose_dropoff_location
         patch :save_dropoff_location
-        get :choose_payment_method
-        patch :save_payment_method
-        get :add_payment_method
-        post :create_payment_method
         get :confirm
         patch :save_confirm
         get :confirmation
@@ -45,6 +41,7 @@ Rails.application.routes.draw do
   root 'routes#index'
 
   namespace :admin do
+    get 'pending' => 'suppliers#pending'
     root 'journeys#index'
     resource :team
     resources :vehicles

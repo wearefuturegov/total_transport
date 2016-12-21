@@ -5,7 +5,6 @@ FactoryGirl.define do
     dropoff_stop factory: :stop
     journey
     passenger
-    payment_method
     phone_number nil
     pickup_lat nil
     pickup_lng nil

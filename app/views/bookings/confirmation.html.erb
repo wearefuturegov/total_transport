@@ -5,10 +5,10 @@
       <div class="center mb1"><%= image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger' %></div>
     <% end %>
 
-    <p>Thanks<%= " #{@booking.passenger_name}" %>, your booking has been confirmed.</p> 
+    <p>Thanks<%= " #{@booking.passenger_name}" %>, your booking has been confirmed.</p>
     <p class="bold">A minivan will pick you up at your pickup point outside <%= @booking.pickup_name %> on <%= friendly_date @booking.journey.start_time %> between <%= plus_minus_ten @booking.pickup_stop.time_for_journey(@booking.journey) %>.</p>
 
-    <% if @booking.payment_method_id == 5 %>
+    <% if @booking.payment_method == 'cash' %>
       <p class="bold">Please pay <%= number_to_currency @booking.price, unit: '£' %> to your driver.</p>
       <p>If you need to cancel you can see this booking in:</p>
     <% else %>

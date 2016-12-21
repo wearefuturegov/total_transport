@@ -3,7 +3,6 @@ class Passenger < ActiveRecord::Base
   has_many :suggested_journeys, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
   has_many :suggested_routes, dependent: :destroy
-  has_many :payment_methods, dependent: :destroy
 
   has_attached_file :photo, styles: {
     thumb: '100x100>',
@@ -41,6 +40,14 @@ class Passenger < ActiveRecord::Base
     end
   rescue Twilio::REST::RequestError => e
     false
+  end
+
+  def active_bookings
+    bookings.booked.includes(:journey).order('journeys.start_time ASC').select {|x| x.future?}
+  end
+
+  def past_bookings
+    bookings.booked.includes(:journey).order('journeys.start_time DESC').select {|x| x.past?}
   end
 
   private

@@ -42,7 +42,7 @@
         <% end %>
       </div>
       <div class="overview-bar price right-text radius border-bottom-radius">
-        <span>Total<% if @booking.payment_method_id == 5 %> to Pay<% else %> Paid<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
+        <span>Total<% if @booking.payment_method == 'cash' %> to Pay<% else %> Paid<% end %>: <%= number_to_currency @booking.price, unit: '£' %></span>
       </div>
     </div>
   </div>

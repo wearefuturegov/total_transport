@@ -1,0 +1,45 @@
+<%= link_to passenger_booking_path(booking) do %>
+  <div class="single-booking-card card <% if booking.future? %>future<% else %>expired<% end %> overview">
+    <div class="overview-bar radius border-top-radius">
+      <%= booking.pickup_stop.name %> To <%= booking.dropoff_stop.name %>
+    </div>
+
+    <div class="overview-sub-bar">
+      Outbound: <%= friendly_date booking.journey.start_time, true %>
+    </div>
+    <div class="inner out-journey">
+      <div class="half">
+        <p class="mb05"><span class="timeEst"><%= booking.pickup_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %></span><br/>
+        <span class="small grey">+/- 10 min</span></p>
+        <p class="small place"><%= booking.pickup_name %></p>
+      </div>
+      <div class="half">
+        <p class="mb05"><span class="timeEst"><%= booking.dropoff_stop.time_for_journey(booking.journey).strftime("%l:%M%P") %></span><br/>
+        <span class="small grey">+/- 10 min</span></p>
+        <p class="small place"><%= booking.dropoff_name %></p>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <% if booking.return_journey? %>
+      <div class="overview-sub-bar">
+        Return: <%= friendly_date booking.return_journey.start_time, true %>
+      </div>
+      <div class="inner return-journey">
+        <div class="half">
+          <p class="mb05"><span class="timeEst"><%= booking.dropoff_stop.time_for_journey(booking.return_journey).strftime("%l:%M%P") %></span><br/>
+          <span class="small grey">+/- 10 min</span></p>
+          <p class="small place"><%= booking.dropoff_name %></p>
+        </div>
+        <div class="half">
+          <p class="mb05"><span class="timeEst"><%= booking.pickup_stop.time_for_journey(booking.return_journey).strftime("%l:%M%P") %></span><br/>
+          <span class="small grey">+/- 10 min</span></p>
+          <p class="small place"><%= booking.pickup_name %></p>
+        </div>
+        <div class="clear"></div>
+      </div>
+    <% end %>
+    <div class="overview-bar price right-text radius border-bottom-radius">
+      <span>Total<% if booking.payment_method == 'cash' %> to Pay<% end %>: <%= number_to_currency booking.price, unit: '£' %></span>
+    </div>
+  </div>
+<% end %>
