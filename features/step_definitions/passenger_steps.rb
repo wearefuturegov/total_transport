@@ -1,11 +1,11 @@
 When(/^I submit the correct verification code$/) do
   verification_code = Passenger.last.verification_code
-  fill_in('verification_code', with: verification_code)
+  first('input#verification_code', visible: false).set(verification_code)
   click_button("Verify")
 end
 
 When(/^I submit an incorrect verification code$/) do
-  fill_in('verification_code', with: 'xxx')
+  first('input#verification_code', visible: false).set("xxxx")
   click_button("Verify")
 end
 
