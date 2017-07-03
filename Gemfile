@@ -24,13 +24,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # include bourbon/neat/bitters for basic template
 gem 'bourbon'
-gem 'neat'
+gem 'neat', '< 2.0'
 gem 'bitters'
 # other starter gems
 gem 'high_voltage'
 gem 'normalize-rails'
 gem 'font-awesome-sass', '~> 4.6.2'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '< 6.0.0'
 
 gem 'geokit'
 
