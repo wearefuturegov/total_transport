@@ -5,7 +5,7 @@
       <input id="filter" type="search">
       <!-- <select name="filter" id="filter">
         <option value="0">View All</option>
-        
+
       </select> -->
     </label>
     <p class="mb0">Browse <strong><span id="total-route-number"><%= Route.bookable_routes.count %></span></strong> total routes<span class="hidden" id="route-location"></span>:</p>
@@ -14,7 +14,7 @@
 
 <div class="card-cont container">
   <div class="inner">
-    <% Route.bookable_routes.each do |route| %>
+    <% @routes.each do |route| %>
       <div class="full-route" id="full-<%= route.id %>">
         <div class="route card<%= ' has_routes' if route.has_available_journeys? %> non-reverse" id="<%= route.id %>">
           <div class="inner">
@@ -150,7 +150,7 @@
 
   function resetRoutes() {
     $('.full-route').each(function() {
-      // the text is 2 char or below, reveal any hidden routes 
+      // the text is 2 char or below, reveal any hidden routes
       $(this).slideDown();
       $(this).removeClass('filtered');
     });
@@ -160,12 +160,12 @@
 
   function checkRoutes(tempTxt) {
     var exception = [];
-    
+
     $('.full-route .non-reverse .acord li').each(function() {
       // for each list item
       if ($(this).html().toLowerCase().indexOf(tempTxt.toLowerCase()) >= 0) {
-        // check if it contains the same text 
-        // if so add to id array 
+        // check if it contains the same text
+        // if so add to id array
         exception.push($(this).closest('.full-route').attr('id'));
       } else {
         // if not remove vis class
@@ -189,5 +189,3 @@
     $('#route-location').html(' via ' + tempTxt).removeClass('hidden');
   }
 </script>
-
-
