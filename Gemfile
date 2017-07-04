@@ -72,6 +72,7 @@ group :development, :test do
   gem 'launchy'
   gem 'webmock'
   gem 'vcr'
+  gem 'simplecov'
 end
 
 group :development do
