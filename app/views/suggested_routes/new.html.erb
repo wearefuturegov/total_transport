@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="card no-click">
       <div class="inner">
-        <%= form_for @suggested_route, url: suggest_route_routes_path do |form| %>
+        <%= form_for @suggested_route, url: suggested_routes_path do |form| %>
           <p>If you can't find a route that is perfect for you, feel free to suggest a new route below and we will take it into account when we are creating our next routes.</p>
           <%= form.label :description, "Description of Suggested Route" %>
           <%= form.text_area :description %>

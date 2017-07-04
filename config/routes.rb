@@ -7,11 +7,8 @@ Rails.application.routes.draw do
     resources :bookings, only: :show
   end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
+  resources :suggested_routes, only: [:new, :create]
   resources :routes do
-    collection do
-      get :suggest_route
-      post :suggest_route
-    end
     resources :bookings do
       member do
         get :choose_requirements
