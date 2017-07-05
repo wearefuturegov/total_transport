@@ -31,10 +31,6 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.journeys.values.flatten).to eq(journeys)
     end
     
-    it 'returns a map_bool' do
-      expect(subject.map_bool).to eq(false)
-    end
-    
     it 'returns a template' do
       expect(subject.template).to eq('bookings/choose_requirements')
     end
@@ -65,10 +61,6 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_requirements_route_booking_path(route, booking))
     end
     
-    it 'returns a map_bool of false' do
-      expect(subject.map_bool).to eq(false)
-    end
-    
     it 'returns pickup_of_dropoff' do
       expect(subject.pickup_of_dropoff).to eq(nil)
     end
@@ -92,10 +84,6 @@ RSpec.describe BookingsWorkflow, type: :model do
     
     it 'returns the correct back path' do
       expect(subject.back_path).to eq(choose_journey_route_booking_path(route, booking))
-    end
-    
-    it 'returns a map_bool of false' do
-      expect(subject.map_bool).to eq(false)
     end
     
     it 'returns pickup_of_dropoff' do
@@ -123,10 +111,6 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_return_journey_route_booking_path(route, booking))
     end
     
-    it 'returns a map_bool of true' do
-      expect(subject.map_bool).to eq(true)
-    end
-    
     it 'returns pickup_of_dropoff' do
       expect(subject.pickup_of_dropoff).to eq('pickup')
     end
@@ -136,7 +120,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :map_bool, :stop, :pickup_of_dropoff])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :pickup_of_dropoff])
     end
     
   end
@@ -152,10 +136,6 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_pickup_location_route_booking_path(route, booking))
     end
     
-    it 'returns a map_bool of true' do
-      expect(subject.map_bool).to eq(true)
-    end
-    
     it 'returns pickup_of_dropoff' do
       expect(subject.pickup_of_dropoff).to eq('dropoff')
     end
@@ -165,7 +145,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :map_bool, :stop, :pickup_of_dropoff])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :pickup_of_dropoff])
     end
 
   end
@@ -179,10 +159,6 @@ RSpec.describe BookingsWorkflow, type: :model do
     
     it 'returns the return journey path' do
       expect(subject.back_path).to eq(choose_dropoff_location_route_booking_path(route, booking))
-    end
-    
-    it 'returns a map_bool of false' do
-      expect(subject.map_bool).to eq(false)
     end
     
     it 'returns pickup_of_dropoff' do

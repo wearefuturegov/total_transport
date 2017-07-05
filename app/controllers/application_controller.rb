@@ -78,10 +78,6 @@ class ApplicationController < ActionController::Base
     @top_sec = false
   end
 
-  def set_map_bool
-    @map_bool = false
-  end
-
   def create_body_id
     @body_id = "#{params[:controller]}-#{params[:action]}"
   end

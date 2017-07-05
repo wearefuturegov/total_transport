@@ -88,7 +88,5 @@
     </div>
   </div>
 </body>
-<% if @map_bool == true %>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
-<% end %>
+<%= yield(:js) %>
 </html>

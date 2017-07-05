@@ -55,13 +55,6 @@ class BookingsWorkflow
     return @route.available_journeys_by_date(params)
   end
   
-  def map_bool
-    [
-      :choose_pickup_location,
-      :choose_dropoff_location
-    ].include?(@step)
-  end
-  
   def pickup_of_dropoff
     {
       choose_pickup_location: 'pickup',
@@ -86,7 +79,7 @@ class BookingsWorkflow
     when :choose_requirements, :choose_journey, :choose_return_journey
       vars << :journeys
     when :choose_pickup_location, :choose_dropoff_location
-      vars += [:map_bool, :stop, :pickup_of_dropoff]
+      vars += [:stop, :pickup_of_dropoff]
     end
     vars
   end

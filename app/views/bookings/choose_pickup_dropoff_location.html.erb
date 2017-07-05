@@ -1,89 +1,92 @@
-<script type="text/javascript">
-var map
-  function initMap() {
-    var geoJson = <%= @stop.polygon.to_json.html_safe %>;
-    map = new google.maps.Map(document.getElementById("map"), {
-      scrollwheel: false,
-      streetViewControl: false
-    });
-    map.data.addGeoJson(geoJson);
-    var polygon_feature;
-    map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
-    var bounds = new google.maps.LatLngBounds();
-    polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
-    tightFitBounds(map, bounds);
-
-    var polygon = new google.maps.Polygon({
-      paths: polygon_feature.getArray()[0].getArray()
-    });
-
-    <% if @pickup_of_dropoff == 'pickup' %>
-      $('<div/>').addClass('centerMarker').html('Pickup').appendTo(map.getDiv());
-    <% else %>
-      $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
-    <% end %>
-
-    var last_position = map.getCenter();
-
-    map.addListener('center_changed', function() {
-      if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
-        map.setCenter(last_position);
-      } else {
-        last_position = map.getCenter();
-        <% if @pickup_of_dropoff == 'pickup' %>
-          $('#booking_pickup_lat').val(map.getCenter().lat());
-          $('#booking_pickup_lng').val(map.getCenter().lng());
-        <% else %>
-          $('#booking_dropoff_lat').val(map.getCenter().lat());
-          $('#booking_dropoff_lng').val(map.getCenter().lng());
-        <% end %>
-      }
-    });
-
-    google.maps.event.addListenerOnce(map, 'idle', function(){
-      $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
-      $('#map .centerMarker').css('margin-top', ($('#map .centerMarker').outerHeight()+10)*-1);
-    });
-
-    map.addListener('dragstart', function() {
-      $('.single-landmark').each(function() {
-        $(this).removeClass('chosen hover');
+<% content_for :js do %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+  <script type="text/javascript">
+  var map
+    function initMap() {
+      var geoJson = <%= @stop.polygon.to_json.html_safe %>;
+      map = new google.maps.Map(document.getElementById("map"), {
+        scrollwheel: false,
+        streetViewControl: false
       });
-      $('#choose-stop').click().removeClass('searching');
-      $('#choose-stop .dot').removeClass('loader');
+      map.data.addGeoJson(geoJson);
+      var polygon_feature;
+      map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
+      var bounds = new google.maps.LatLngBounds();
+      polygon_feature.forEachLatLng(function(ll) {bounds.extend(ll)});
+      tightFitBounds(map, bounds);
 
-      $('#choose-stop').addClass('chosen').addClass('searching');
-      $('#choose-stop .dot').addClass('loader');
-      $('#choose-stop span').html('Searching for place...');
-    })
+      var polygon = new google.maps.Polygon({
+        paths: polygon_feature.getArray()[0].getArray()
+      });
 
-    map.addListener('dragend', function() {
-      var geocoder = new google.maps.Geocoder;
-      geocoder.geocode({'location': map.getCenter()}, function(results, status) {
-        $('#choose-stop').removeClass('searching').addClass('final');
-        $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
+      <% if @pickup_of_dropoff == 'pickup' %>
+        $('<div/>').addClass('centerMarker').html('Pickup').appendTo(map.getDiv());
+      <% else %>
+        $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
+      <% end %>
+
+      var last_position = map.getCenter();
+
+      map.addListener('center_changed', function() {
+        if(!google.maps.geometry.poly.containsLocation(map.getCenter(), polygon)) {
+          map.setCenter(last_position);
+        } else {
+          last_position = map.getCenter();
+          <% if @pickup_of_dropoff == 'pickup' %>
+            $('#booking_pickup_lat').val(map.getCenter().lat());
+            $('#booking_pickup_lng').val(map.getCenter().lng());
+          <% else %>
+            $('#booking_dropoff_lat').val(map.getCenter().lat());
+            $('#booking_dropoff_lng').val(map.getCenter().lng());
+          <% end %>
+        }
+      });
+
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+        $('#map .centerMarker').css('margin-left', ($('#map .centerMarker').outerWidth()/2)*-1);
+        $('#map .centerMarker').css('margin-top', ($('#map .centerMarker').outerHeight()+10)*-1);
+      });
+
+      map.addListener('dragstart', function() {
+        $('.single-landmark').each(function() {
+          $(this).removeClass('chosen hover');
+        });
+        $('#choose-stop').click().removeClass('searching');
         $('#choose-stop .dot').removeClass('loader');
-        var pin_name
-        if (status === 'OK') {
-          console.log(results);
-          if (results[0]) {
-            pin_name = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name + ', ' + results[0].address_components[2].long_name;
+
+        $('#choose-stop').addClass('chosen').addClass('searching');
+        $('#choose-stop .dot').addClass('loader');
+        $('#choose-stop span').html('Searching for place...');
+      })
+
+      map.addListener('dragend', function() {
+        var geocoder = new google.maps.Geocoder;
+        geocoder.geocode({'location': map.getCenter()}, function(results, status) {
+          $('#choose-stop').removeClass('searching').addClass('final');
+          $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
+          $('#choose-stop .dot').removeClass('loader');
+          var pin_name
+          if (status === 'OK') {
+            console.log(results);
+            if (results[0]) {
+              pin_name = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name + ', ' + results[0].address_components[2].long_name;
+            } else {
+              pin_name = 'Your pin location';
+            }
           } else {
             pin_name = 'Your pin location';
           }
-        } else {
-          pin_name = 'Your pin location';
-        }
-        $('#choose-stop span').html(pin_name);
-        <% if @pickup_of_dropoff == 'pickup' %>
-          $('#booking_pickup_name').val(pin_name);
-        <% else %>
-          $('#booking_dropoff_name').val(pin_name);
-        <% end %>
-      });
-    } );
-  }
-</script>
+          $('#choose-stop span').html(pin_name);
+          <% if @pickup_of_dropoff == 'pickup' %>
+            $('#booking_pickup_name').val(pin_name);
+          <% else %>
+            $('#booking_dropoff_name').val(pin_name);
+          <% end %>
+        });
+      } );
+    }
+  </script>
+<% end %>
 
 <div class="top-sec white-block container">
   <div class="inner">
