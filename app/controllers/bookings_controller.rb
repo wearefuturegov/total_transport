@@ -26,7 +26,7 @@ class BookingsController < ApplicationController
   end
   
   def edit
-    workflow = BookingsWorkflow.new(params['step'].to_sym, 'edit', @route, @booking)
+    workflow = BookingsWorkflow::Edit.new(params['step'].to_sym, @route, @booking)
     workflow.allowed_vars.each do |var|
       instance_variable_set("@#{var.to_s}", workflow.send(var))
     end

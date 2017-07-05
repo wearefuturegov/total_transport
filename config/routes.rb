@@ -15,12 +15,16 @@ Rails.application.routes.draw do
           get "edit_#{route}", action: :edit, as: "edit_#{route}", step: route
         end
         
-        patch :save_requirements
-        patch :save_journey
-        patch :save_return_journey
-        patch :save_pickup_location
-        patch :save_dropoff_location
-        patch :save_confirm
+        BookingsWorkflow::STEPS.each do |route|
+          patch "save_#{route}", action: :update, as: "save_#{route}", step: route
+        end
+        
+        # patch :save_requirements
+        # patch :save_journey
+        # patch :save_return_journey
+        # patch :save_pickup_location
+        # patch :save_dropoff_location
+        # patch :save_confirm
         
         get :confirmation
 

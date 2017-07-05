@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe BookingsWorkflow, type: :model do
+RSpec.describe BookingsWorkflow::Edit, type: :model do
   include Rails.application.routes.url_helpers
 
   let(:route) { FactoryGirl.create(:route) }
   let(:booking) { FactoryGirl.create(:booking) }
-  let(:subject) { BookingsWorkflow.new(step, 'edit', route, booking) }
+  let(:subject) { BookingsWorkflow::Edit.new(step, route, booking) }
   
   context 'if the step is not present in the steps constant' do
     let(:step) { :make_cake }
@@ -14,8 +14,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect { subject }.to raise_error("Invalid step key!")
     end
   end
-  
-  context 'with edit_requirements step' do
+    
+  context 'with requirements step' do
     let(:step) { :requirements }
     
     it 'gets a page title' do
@@ -50,7 +50,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
   end
   
-  context 'with edit_journey step' do
+  context 'with journey step' do
     let(:step) { :journey }
     
     it 'gets a page title' do
@@ -75,7 +75,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     
   end
   
-  context 'with edit_return_journey step' do
+  context 'with return_journey step' do
     let(:step) { :return_journey }
     
     it 'gets a page title' do
@@ -100,7 +100,7 @@ RSpec.describe BookingsWorkflow, type: :model do
 
   end
   
-  context 'with edit_pickup_location' do
+  context 'with pickup_location' do
     let(:step) { :pickup_location }
     
     it 'gets a page title' do
@@ -125,7 +125,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     
   end
   
-  context 'with edit_dropoff_location step' do
+  context 'with dropoff_location step' do
     let(:step) { :dropoff_location }
     
     it 'gets a page title' do
