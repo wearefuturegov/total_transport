@@ -61,8 +61,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_requirements_route_booking_path(route, booking))
     end
     
-    it 'returns pickup_of_dropoff' do
-      expect(subject.pickup_of_dropoff).to eq(nil)
+    it 'returns map_type' do
+      expect(subject.map_type).to eq(nil)
     end
     
     it 'returns a template' do
@@ -86,8 +86,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_journey_route_booking_path(route, booking))
     end
     
-    it 'returns pickup_of_dropoff' do
-      expect(subject.pickup_of_dropoff).to eq(nil)
+    it 'returns map_type' do
+      expect(subject.map_type).to eq(nil)
     end
     
     it 'returns a template' do
@@ -111,8 +111,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_return_journey_route_booking_path(route, booking))
     end
     
-    it 'returns pickup_of_dropoff' do
-      expect(subject.pickup_of_dropoff).to eq('pickup')
+    it 'returns map_type' do
+      expect(subject.map_type).to eq('pickup')
     end
     
     it 'returns a template' do
@@ -120,7 +120,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :pickup_of_dropoff])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :map_type])
     end
     
   end
@@ -136,8 +136,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_pickup_location_route_booking_path(route, booking))
     end
     
-    it 'returns pickup_of_dropoff' do
-      expect(subject.pickup_of_dropoff).to eq('dropoff')
+    it 'returns map_type' do
+      expect(subject.map_type).to eq('dropoff')
     end
     
     it 'returns a template' do
@@ -145,7 +145,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :pickup_of_dropoff])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :map_type])
     end
 
   end
@@ -161,8 +161,8 @@ RSpec.describe BookingsWorkflow, type: :model do
       expect(subject.back_path).to eq(choose_dropoff_location_route_booking_path(route, booking))
     end
     
-    it 'returns pickup_of_dropoff' do
-      expect(subject.pickup_of_dropoff).to eq(nil)
+    it 'returns map_type' do
+      expect(subject.map_type).to eq(nil)
     end
     
     it 'returns a template' do

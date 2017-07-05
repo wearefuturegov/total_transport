@@ -19,7 +19,7 @@
         paths: polygon_feature.getArray()[0].getArray()
       });
 
-      <% if @pickup_of_dropoff == 'pickup' %>
+      <% if @map_type == 'pickup' %>
         $('<div/>').addClass('centerMarker').html('Pickup').appendTo(map.getDiv());
       <% else %>
         $('<div/>').addClass('centerMarker dropoff').html('Dropoff').appendTo(map.getDiv());
@@ -32,7 +32,7 @@
           map.setCenter(last_position);
         } else {
           last_position = map.getCenter();
-          <% if @pickup_of_dropoff == 'pickup' %>
+          <% if @map_type == 'pickup' %>
             $('#booking_pickup_lat').val(map.getCenter().lat());
             $('#booking_pickup_lng').val(map.getCenter().lng());
           <% else %>
@@ -77,7 +77,7 @@
             pin_name = 'Your pin location';
           }
           $('#choose-stop span').html(pin_name);
-          <% if @pickup_of_dropoff == 'pickup' %>
+          <% if @map_type == 'pickup' %>
             $('#booking_pickup_name').val(pin_name);
           <% else %>
             $('#booking_dropoff_name').val(pin_name);
@@ -91,7 +91,7 @@
 <div class="top-sec white-block container">
   <div class="inner">
     <div class="stop-information">
-      <% if @pickup_of_dropoff == 'pickup' %>
+      <% if @map_type == 'pickup' %>
         <% if @stop.landmarks.present? %>
           <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
         <% end %>
@@ -108,7 +108,7 @@
         <% if @stop.landmarks.present? %>
           <span>Drag the map to choose your own point</span>
         <% else %>
-          <% if @pickup_of_dropoff == 'pickup' %>
+          <% if @map_type == 'pickup' %>
             <span>Drag the map to choose a pickup point</span>
           <% else %>
             <span>Drag the map to choose a drop off point</span>
@@ -134,7 +134,7 @@
   <div id="map" style="margin-bottom:0"></div>
 
   <div id="confirmation">
-    <% if @pickup_of_dropoff == 'pickup' %>
+    <% if @map_type == 'pickup' %>
       <%= form_for [@route, @booking], url: save_pickup_location_route_booking_path(@route, @booking) do |form| %>
         <%= form.hidden_field :pickup_lat %>
         <%= form.hidden_field :pickup_lng %>
@@ -173,7 +173,7 @@
             $('.edit_booking input[type="submit"]').attr("disabled", false).removeClass('disabled');
             $('#choose-stop span').html('Choose your own');
 
-            <% if @pickup_of_dropoff == 'pickup' %>
+            <% if @map_type == 'pickup' %>
               $('#booking_pickup_name').val($(this).find('span').html())
             <% else %>
               $('#booking_dropoff_name').val($(this).find('span').html())
