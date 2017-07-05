@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :bookings do
       member do
         BookingsWorkflow::STEPS.each do |route|
-          get route, action: :edit, as: route, step: route
+          get "edit_#{route}", action: :edit, as: "edit_#{route}", step: route
         end
         
         patch :save_requirements

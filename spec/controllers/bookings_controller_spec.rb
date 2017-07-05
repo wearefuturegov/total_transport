@@ -66,9 +66,9 @@ RSpec.describe BookingsController, type: :controller do
       )
     }
     
-    it 'choose_requirements sets the right variables' do
+    it 'edit_requirements sets the right variables' do
       get :edit, {
-        'step' => :choose_requirements,
+        'step' => :requirements,
         'route_id' => route,
         'id' => booking
       },
@@ -80,13 +80,13 @@ RSpec.describe BookingsController, type: :controller do
       expect(assigns(:back_path)).to eq(new_route_booking_path(route))
     end
     
-    context 'choose_journey' do
+    context 'edit_journey' do
       let!(:journeys) { FactoryGirl.create_list(:journey, 3, route: route) }
       let!(:reversed_journeys) { FactoryGirl.create_list(:journey, 5, route: route, reversed: true) }
       
       it 'sets the right variables' do
         get :edit, {
-          'step' => :choose_journey,
+          'step' => :journey,
           'route_id' => route,
           'id' => booking
         },
@@ -95,7 +95,7 @@ RSpec.describe BookingsController, type: :controller do
         }
         
         expect(assigns(:page_title)).to eq('Choose Your Time Of Travel')
-        expect(assigns(:back_path)).to eq(choose_requirements_route_booking_path(route, booking))
+        expect(assigns(:back_path)).to eq(edit_requirements_route_booking_path(route, booking))
         expect(assigns(:journeys).values.flatten).to eq(journeys)
       end
       
@@ -103,7 +103,7 @@ RSpec.describe BookingsController, type: :controller do
         booking = FactoryGirl.create(:booking, pickup_stop: route.stops.last, dropoff_stop: route.stops.first, passenger: passenger)
 
         get :edit, {
-          'step' => :choose_journey,
+          'step' => :journey,
           'route_id' => route,
           'id' => booking
         },
@@ -115,7 +115,7 @@ RSpec.describe BookingsController, type: :controller do
       end
     end
     
-    context 'choose_return_journey' do
+    context 'edit_return_journey' do
       before do
         booking.journey = FactoryGirl.create(:journey, start_time: DateTime.now)
         booking.save
@@ -126,7 +126,7 @@ RSpec.describe BookingsController, type: :controller do
       
       it 'sets the right variables' do
         get :edit, {
-          'step' => :choose_return_journey,
+          'step' => :return_journey,
           'route_id' => route,
           'id' => booking
         },
@@ -135,7 +135,7 @@ RSpec.describe BookingsController, type: :controller do
         }
                 
         expect(assigns(:page_title)).to eq('Pick Your Return Time')
-        expect(assigns(:back_path)).to eq(choose_journey_route_booking_path(route, booking))
+        expect(assigns(:back_path)).to eq(edit_journey_route_booking_path(route, booking))
         expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
       end
       
@@ -145,7 +145,7 @@ RSpec.describe BookingsController, type: :controller do
         booking.save
 
         get :edit, {
-          'step' => :choose_return_journey,
+          'step' => :return_journey,
           'route_id' => route,
           'id' => booking
         },
@@ -157,9 +157,9 @@ RSpec.describe BookingsController, type: :controller do
       end
     end
     
-    it 'choose_pickup_location sets the right variables' do
+    it 'edit_pickup_location sets the right variables' do
       get :edit, {
-        'step' => :choose_pickup_location,
+        'step' => :pickup_location,
         'route_id' => route,
         'id' => booking
       },
@@ -168,15 +168,14 @@ RSpec.describe BookingsController, type: :controller do
       }
       
       expect(assigns(:page_title)).to eq('Choose Pick Up Point')
-      expect(assigns(:back_path)).to eq(choose_return_journey_route_booking_path(route, booking))
-      expect(assigns(:map_bool)).to eq(true)
+      expect(assigns(:back_path)).to eq(edit_return_journey_route_booking_path(route, booking))
       expect(assigns(:stop)).to eq(booking.pickup_stop)
-      expect(assigns(:pickup_of_dropoff)).to eq('pickup')
+      expect(assigns(:map_type)).to eq('pickup')
     end
     
-    it 'choose_dropoff_location sets the right variables' do
+    it 'edit_dropoff_location sets the right variables' do
       get :edit, {
-        'step' => :choose_dropoff_location,
+        'step' => :dropoff_location,
         'route_id' => route,
         'id' => booking
       },
@@ -185,10 +184,9 @@ RSpec.describe BookingsController, type: :controller do
       }
       
       expect(assigns(:page_title)).to eq('Choose Drop Off Point')
-      expect(assigns(:back_path)).to eq(choose_pickup_location_route_booking_path(route, booking))
-      expect(assigns(:map_bool)).to eq(true)
+      expect(assigns(:back_path)).to eq(edit_pickup_location_route_booking_path(route, booking))
       expect(assigns(:stop)).to eq(booking.dropoff_stop)
-      expect(assigns(:pickup_of_dropoff)).to eq('dropoff')
+      expect(assigns(:map_type)).to eq('dropoff')
     end
     
     it 'confirm sets the right variables' do
@@ -202,7 +200,7 @@ RSpec.describe BookingsController, type: :controller do
       }
       
       expect(assigns(:page_title)).to eq('Overview')
-      expect(assigns(:back_path)).to eq(choose_dropoff_location_route_booking_path(route, booking))
+      expect(assigns(:back_path)).to eq(edit_dropoff_location_route_booking_path(route, booking))
     end
     
   end

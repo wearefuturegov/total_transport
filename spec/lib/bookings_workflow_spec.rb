@@ -5,7 +5,7 @@ RSpec.describe BookingsWorkflow, type: :model do
 
   let(:route) { FactoryGirl.create(:route) }
   let(:booking) { FactoryGirl.create(:booking) }
-  let(:subject) { BookingsWorkflow.new(step, route, booking) }
+  let(:subject) { BookingsWorkflow.new(step, 'edit', route, booking) }
   
   context 'if the step is not present in the steps constant' do
     let(:step) { :make_cake }
@@ -15,8 +15,8 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
   end
   
-  context 'with choose_requirements step' do
-    let(:step) { :choose_requirements }
+  context 'with edit_requirements step' do
+    let(:step) { :requirements }
     
     it 'gets a page title' do
       expect(subject.page_title).to eq('Choose Your Requirements')
@@ -32,7 +32,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns a template' do
-      expect(subject.template).to eq('bookings/choose_requirements')
+      expect(subject.template).to eq('bookings/edit_requirements')
     end
     
     it 'returns allowed vars' do
@@ -50,15 +50,15 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
   end
   
-  context 'with choose_journey step' do
-    let(:step) { :choose_journey }
+  context 'with edit_journey step' do
+    let(:step) { :journey }
     
     it 'gets a page title' do
       expect(subject.page_title).to eq('Choose Your Time Of Travel')
     end
     
     it 'returns the correct back path' do
-      expect(subject.back_path).to eq(choose_requirements_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_requirements_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do
@@ -66,7 +66,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns a template' do
-      expect(subject.template).to eq('bookings/choose_journey')
+      expect(subject.template).to eq('bookings/edit_journey')
     end
     
     it 'returns allowed vars' do
@@ -75,15 +75,15 @@ RSpec.describe BookingsWorkflow, type: :model do
     
   end
   
-  context 'with choose_return_journey step' do
-    let(:step) { :choose_return_journey }
+  context 'with edit_return_journey step' do
+    let(:step) { :return_journey }
     
     it 'gets a page title' do
       expect(subject.page_title).to eq('Pick Your Return Time')
     end
     
     it 'returns the correct back path' do
-      expect(subject.back_path).to eq(choose_journey_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_journey_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do
@@ -91,7 +91,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns a template' do
-      expect(subject.template).to eq('bookings/choose_return_journey')
+      expect(subject.template).to eq('bookings/edit_return_journey')
     end
     
     it 'returns allowed vars' do
@@ -100,15 +100,15 @@ RSpec.describe BookingsWorkflow, type: :model do
 
   end
   
-  context 'with choose_pickup_location' do
-    let(:step) { :choose_pickup_location }
+  context 'with edit_pickup_location' do
+    let(:step) { :pickup_location }
     
     it 'gets a page title' do
       expect(subject.page_title).to eq('Choose Pick Up Point')
     end
     
     it 'returns the return journey path' do
-      expect(subject.back_path).to eq(choose_return_journey_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_return_journey_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do
@@ -116,7 +116,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns a template' do
-      expect(subject.template).to eq('bookings/choose_pickup_dropoff_location')
+      expect(subject.template).to eq('bookings/edit_pickup_dropoff_location')
     end
     
     it 'returns allowed vars' do
@@ -125,15 +125,15 @@ RSpec.describe BookingsWorkflow, type: :model do
     
   end
   
-  context 'with choose_dropoff_location step' do
-    let(:step) { :choose_dropoff_location }
+  context 'with edit_dropoff_location step' do
+    let(:step) { :dropoff_location }
     
     it 'gets a page title' do
       expect(subject.page_title).to eq('Choose Drop Off Point')
     end
     
     it 'returns the return journey path' do
-      expect(subject.back_path).to eq(choose_pickup_location_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_pickup_location_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do
@@ -141,7 +141,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns a template' do
-      expect(subject.template).to eq('bookings/choose_pickup_dropoff_location')
+      expect(subject.template).to eq('bookings/edit_pickup_dropoff_location')
     end
     
     it 'returns allowed vars' do
@@ -158,7 +158,7 @@ RSpec.describe BookingsWorkflow, type: :model do
     end
     
     it 'returns the return journey path' do
-      expect(subject.back_path).to eq(choose_dropoff_location_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_dropoff_location_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do

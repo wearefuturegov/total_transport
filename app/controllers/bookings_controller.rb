@@ -16,21 +16,24 @@ class BookingsController < ApplicationController
       @reversed = false
       @stops = @route.stops
     end
-    render template: 'bookings/choose_stops'
+    render template: 'bookings/edit_stops'
   end
 
   # Save stops
   def create
     @booking = current_passenger.bookings.create(booking_params)
-    redirect_to choose_requirements_route_booking_path(@route, @booking)
+    redirect_to edit_requirements_route_booking_path(@route, @booking)
   end
   
   def edit
-    workflow = BookingsWorkflow.new(params['step'].to_sym, @route, @booking)
+    workflow = BookingsWorkflow.new(params['step'].to_sym, 'edit', @route, @booking)
     workflow.allowed_vars.each do |var|
       instance_variable_set("@#{var.to_s}", workflow.send(var))
     end
     render template: workflow.template
+  end
+  
+  def update
   end
 
   def save_requirements
