@@ -11,18 +11,17 @@ Rails.application.routes.draw do
   resources :routes do
     resources :bookings do
       member do
-        get :choose_requirements
+        BookingsWorkflow::STEPS.each do |route|
+          get route, action: :edit, as: route, step: route
+        end
+        
         patch :save_requirements
-        get :choose_journey
         patch :save_journey
-        get :choose_return_journey
         patch :save_return_journey
-        get :choose_pickup_location
         patch :save_pickup_location
-        get :choose_dropoff_location
         patch :save_dropoff_location
-        get :confirm
         patch :save_confirm
+        
         get :confirmation
 
         get :suggest_journey

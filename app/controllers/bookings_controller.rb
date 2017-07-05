@@ -24,23 +24,19 @@ class BookingsController < ApplicationController
     @booking = current_passenger.bookings.create(booking_params)
     redirect_to choose_requirements_route_booking_path(@route, @booking)
   end
-
-  def choose_requirements
-    @page_title = "Choose Your Requirements"
-    @back_path = new_route_booking_path(@route)
-    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
+  
+  def edit
+    workflow = BookingsWorkflow.new(params['step'].to_sym, @route, @booking)
+    workflow.allowed_vars.each do |var|
+      instance_variable_set("@#{var.to_s}", workflow.send(var))
+    end
+    render template: workflow.template
   end
 
   def save_requirements
     @booking.set_promo_code(params[:booking][:promo_code])
     @booking.update_attributes(booking_params)
     redirect_to choose_journey_route_booking_path(@route, @booking)
-  end
-
-  def choose_journey
-    @page_title = "Choose Your Time Of Travel"
-    @back_path = choose_requirements_route_booking_path(@route, @booking)
-    @journeys = @route.available_journeys_by_date(reversed: @booking.reversed?)
   end
 
   def save_journey
@@ -52,13 +48,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  def choose_return_journey
-    @page_title = "Pick Your Return Time"
-    @back_path = choose_journey_route_booking_path(@route, @booking)
-    from_time = @booking.dropoff_stop.time_for_journey(@booking.journey)
-    @journeys = @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: from_time)
-  end
-
   def save_return_journey
     if params[:single_journey]
       @booking.update_attribute(:return_journey_id, nil)
@@ -68,37 +57,14 @@ class BookingsController < ApplicationController
     redirect_to choose_pickup_location_route_booking_path(@route, @booking)
   end
 
-  def choose_pickup_location
-    @page_title = "Choose Pick Up Point"
-    @map_bool = true
-    @back_path = choose_return_journey_route_booking_path(@route, @booking)
-    @stop = @booking.pickup_stop
-    @pickup_of_dropoff = 'pickup'
-    render template: 'bookings/choose_pickup_dropoff_location'
-  end
-
   def save_pickup_location
     @booking.update_attributes(booking_params)
     redirect_to choose_dropoff_location_route_booking_path(@route, @booking)
   end
 
-  def choose_dropoff_location
-    @page_title = "Choose Drop Off Point"
-    @map_bool = true
-    @back_path = choose_pickup_location_route_booking_path(@route, @booking)
-    @stop = @booking.dropoff_stop
-    @pickup_of_dropoff = 'dropoff'
-    render template: 'bookings/choose_pickup_dropoff_location'
-  end
-
   def save_dropoff_location
     @booking.update_attributes(booking_params)
     redirect_to confirm_route_booking_path(@route, @booking)
-  end
-
-  def confirm
-    @page_title = "Overview"
-    @back_path = choose_dropoff_location_route_booking_path(@route, @booking)
   end
 
   def save_confirm

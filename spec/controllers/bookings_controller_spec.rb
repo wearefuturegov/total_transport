@@ -56,5 +56,154 @@ RSpec.describe BookingsController, type: :controller do
     end
     
   end
+  
+  describe 'GET edit' do
+    let(:booking) {
+      FactoryGirl.create(:booking,
+        passenger: passenger,
+        pickup_stop_id: route.stops.first.id,
+        dropoff_stop_id: route.stops.first.id,
+      )
+    }
+    
+    it 'choose_requirements sets the right variables' do
+      get :edit, {
+        'step' => :choose_requirements,
+        'route_id' => route,
+        'id' => booking
+      },
+      {
+        current_passenger: passenger.id
+      }
+      
+      expect(assigns(:page_title)).to eq('Choose Your Requirements')
+      expect(assigns(:back_path)).to eq(new_route_booking_path(route))
+    end
+    
+    context 'choose_journey' do
+      let!(:journeys) { FactoryGirl.create_list(:journey, 3, route: route) }
+      let!(:reversed_journeys) { FactoryGirl.create_list(:journey, 5, route: route, reversed: true) }
+      
+      it 'sets the right variables' do
+        get :edit, {
+          'step' => :choose_journey,
+          'route_id' => route,
+          'id' => booking
+        },
+        {
+          current_passenger: passenger.id
+        }
+        
+        expect(assigns(:page_title)).to eq('Choose Your Time Of Travel')
+        expect(assigns(:back_path)).to eq(choose_requirements_route_booking_path(route, booking))
+        expect(assigns(:journeys).values.flatten).to eq(journeys)
+      end
+      
+      it 'sets reversed journey when the booking is reversed' do
+        booking = FactoryGirl.create(:booking, pickup_stop: route.stops.last, dropoff_stop: route.stops.first, passenger: passenger)
 
+        get :edit, {
+          'step' => :choose_journey,
+          'route_id' => route,
+          'id' => booking
+        },
+        {
+          current_passenger: passenger.id
+        }
+        
+        expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
+      end
+    end
+    
+    context 'choose_return_journey' do
+      before do
+        booking.journey = FactoryGirl.create(:journey, start_time: DateTime.now)
+        booking.save
+      end
+      
+      let!(:journeys) { FactoryGirl.create_list(:journey, 3, route: route) }
+      let!(:reversed_journeys) { FactoryGirl.create_list(:journey, 5, route: route, reversed: true) }
+      
+      it 'sets the right variables' do
+        get :edit, {
+          'step' => :choose_return_journey,
+          'route_id' => route,
+          'id' => booking
+        },
+        {
+          current_passenger: passenger.id
+        }
+                
+        expect(assigns(:page_title)).to eq('Pick Your Return Time')
+        expect(assigns(:back_path)).to eq(choose_journey_route_booking_path(route, booking))
+        expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
+      end
+      
+      it 'sets journeys when the booking is reversed' do
+        booking.pickup_stop = route.stops.last
+        booking.dropoff_stop = route.stops.first
+        booking.save
+
+        get :edit, {
+          'step' => :choose_return_journey,
+          'route_id' => route,
+          'id' => booking
+        },
+        {
+          current_passenger: passenger.id
+        }
+        
+        expect(assigns(:journeys).values.flatten).to eq(journeys)
+      end
+    end
+    
+    it 'choose_pickup_location sets the right variables' do
+      get :edit, {
+        'step' => :choose_pickup_location,
+        'route_id' => route,
+        'id' => booking
+      },
+      {
+        current_passenger: passenger.id
+      }
+      
+      expect(assigns(:page_title)).to eq('Choose Pick Up Point')
+      expect(assigns(:back_path)).to eq(choose_return_journey_route_booking_path(route, booking))
+      expect(assigns(:map_bool)).to eq(true)
+      expect(assigns(:stop)).to eq(booking.pickup_stop)
+      expect(assigns(:pickup_of_dropoff)).to eq('pickup')
+    end
+    
+    it 'choose_dropoff_location sets the right variables' do
+      get :edit, {
+        'step' => :choose_dropoff_location,
+        'route_id' => route,
+        'id' => booking
+      },
+      {
+        current_passenger: passenger.id
+      }
+      
+      expect(assigns(:page_title)).to eq('Choose Drop Off Point')
+      expect(assigns(:back_path)).to eq(choose_pickup_location_route_booking_path(route, booking))
+      expect(assigns(:map_bool)).to eq(true)
+      expect(assigns(:stop)).to eq(booking.dropoff_stop)
+      expect(assigns(:pickup_of_dropoff)).to eq('dropoff')
+    end
+    
+    it 'confirm sets the right variables' do
+      get :edit, {
+        'step' => :confirm,
+        'route_id' => route,
+        'id' => booking
+      },
+      {
+        current_passenger: passenger.id
+      }
+      
+      expect(assigns(:page_title)).to eq('Overview')
+      expect(assigns(:back_path)).to eq(choose_dropoff_location_route_booking_path(route, booking))
+    end
+    
+  end
 end
