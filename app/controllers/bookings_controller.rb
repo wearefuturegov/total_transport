@@ -34,47 +34,9 @@ class BookingsController < ApplicationController
   end
   
   def update
-  end
-
-  def save_requirements
-    @booking.set_promo_code(params[:booking][:promo_code])
-    @booking.update_attributes(booking_params)
-    redirect_to choose_journey_route_booking_path(@route, @booking)
-  end
-
-  def save_journey
-    @booking.update_attributes(booking_params)
-    if params[:single_journey]
-      redirect_to choose_pickup_location_route_booking_path(@route, @booking)
-    else
-      redirect_to choose_return_journey_route_booking_path(@route, @booking)
-    end
-  end
-
-  def save_return_journey
-    if params[:single_journey]
-      @booking.update_attribute(:return_journey_id, nil)
-    else
-      @booking.update_attributes(booking_params)
-    end
-    redirect_to choose_pickup_location_route_booking_path(@route, @booking)
-  end
-
-  def save_pickup_location
-    @booking.update_attributes(booking_params)
-    redirect_to choose_dropoff_location_route_booking_path(@route, @booking)
-  end
-
-  def save_dropoff_location
-    @booking.update_attributes(booking_params)
-    redirect_to confirm_route_booking_path(@route, @booking)
-  end
-
-  def save_confirm
-    @booking.update_attributes(booking_params)
-    @passenger = current_passenger
-    @booking.send_notification!("Your Pickup booking from #{@passenger.bookings.last.pickup_stop.name} to #{@passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten(@booking.pickup_stop.time_for_journey(@booking.journey))}. You can review or cancel your booking here: #{passenger_booking_url(@passenger.bookings.last)}")
-    redirect_to confirmation_route_booking_path(@route, @booking)
+    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking])
+    workflow.perform_actions!
+    redirect_to workflow.redirect_path
   end
 
   def confirmation
@@ -99,10 +61,10 @@ class BookingsController < ApplicationController
 
   def suggest_journey
     @page_title = "Suggest A New Time"
-    @back_path = choose_journey_route_booking_path(@route, @booking)
+    @back_path = edit_journey_route_booking_path(@route, @booking)
     if request.method == 'POST'
       @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
-      redirect_to choose_journey_route_booking_path(@route, @booking)
+      redirect_to edit_journey_route_booking_path(@route, @booking)
     else
       @suggested_journey = SuggestedJourney.new
     end
@@ -113,7 +75,7 @@ class BookingsController < ApplicationController
     @stop = Stop.find(params[:stop_id])
     if request.method == 'POST'
       @suggested_edit_to_stop = SuggestedEditToStop.create!(suggested_edit_to_stop_params)
-      redirect_to choose_pickup_location_route_booking_path(@route, @booking)
+      redirect_to edit_pickup_location_route_booking_path(@route, @booking)
     else
       @suggested_edit_to_stop = SuggestedEditToStop.new
     end

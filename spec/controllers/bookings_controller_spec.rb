@@ -57,6 +57,125 @@ RSpec.describe BookingsController, type: :controller do
     
   end
   
+  describe 'PUT update' do
+    let(:booking) {
+      FactoryGirl.create(:booking,
+        passenger: passenger,
+        pickup_stop_id: route.stops.first.id,
+        dropoff_stop_id: route.stops.first.id,
+      )
+    }
+    let(:params) {
+      {
+        'booking' => {},
+        'id' => booking,
+        'route_id' => route
+      }
+    }
+    let(:journey) { FactoryGirl.create(:journey) }
+    
+    it 'save_requirements updates the correct things' do
+      booking_params = {
+        'number_of_passengers' => 2,
+        'child_tickets' => 1,
+        'older_bus_passes' => 0,
+        'disabled_bus_passes' => 0,
+        'scholar_bus_passes' => 0,
+        'special_requirements' => 'Some text here'
+      }
+      params['booking'] = booking_params
+      params['step'] = :requirements
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+    
+    it 'save_journey updates the correct things' do
+      booking_params = {
+        journey_id: journey.id
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :journey
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+    
+    it 'save_return_journey updates the correct things' do
+      booking_params = {
+        journey_id: journey.id
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :return_journey
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+    
+    it 'save_pickup_location updates the correct things' do
+      booking_params = {
+        pickup_lat: 52.4323,
+        pickup_lng: -1.4234,
+        pickup_name: 'Somewhere'
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :pickup_location
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+    
+    it 'save_dropoff_location updates the correct things' do
+      booking_params = {
+        dropoff_lat: 52.4323,
+        dropoff_lng: -1.4234,
+        dropoff_name: 'Somewhere'
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :dropoff_location
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+    
+    it 'save_confirm updates the correct things' do
+      booking_params = {
+        state: 'confirmed',
+        passenger_name: 'Me',
+        phone_number: '1234',
+        payment_method: 'cash'
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :confirm
+      put :update, params, { current_passenger: passenger.id }
+      
+      booking.reload
+      booking_params.each do |k,v|
+        expect(booking.send(k.to_sym)).to eq(v)
+      end
+    end
+  end
+  
   describe 'GET edit' do
     let(:booking) {
       FactoryGirl.create(:booking,

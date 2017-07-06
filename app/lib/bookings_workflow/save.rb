@@ -12,7 +12,7 @@ module BookingsWorkflow
     end
     
     def perform_actions!
-      @booking.set_promo_code(@params[:promo_code]) if @step == :requirements
+      @booking.set_promo_code(@params['promo_code'].to_s) if @step == :requirements
       @booking.update_attributes(params)
       @booking.send_confirmation! if @step == :confirm
     end
