@@ -14,20 +14,15 @@ class Passenger < ActiveRecord::Base
 
   def send_verification!
     set_verification_code
-    send_notification!("Your verification code is #{self.verification_code}")
+    send_notification!
   end
 
   def set_verification_code
     self.update_attribute(:verification_code, generate_verfication_code)
   end
-
-  def send_notification!(message)
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
-      from: TWILIO_PHONE_NUMBER,
-      to: self.phone_number,
-      body: message
-    )
+  
+  def send_notification!
+    SmsService.new(to: phone_number, template: :verification_code, passenger: self).perform
   end
 
   def self.formatted_phone_number(phone_number)
