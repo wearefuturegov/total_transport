@@ -77,6 +77,7 @@ GEM
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -165,6 +166,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.6)
       mime-types (>= 1.16, < 4)
+    method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -187,8 +189,15 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.21.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     public_suffix (2.0.5)
     puma (3.9.1)
+    que (0.13.1)
+    que-testing (0.2.0)
+      que
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -259,6 +268,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.1)
+    slop (3.6.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -324,7 +334,10 @@ DEPENDENCIES
   normalize-rails
   paperclip
   pg (~> 0.15)
+  pry
   puma
+  que
+  que-testing
   rails (= 4.2.6)
   rails_12factor
   rspec-rails

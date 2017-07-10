@@ -51,6 +51,7 @@ gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific'
 gem 'kaminari'
+gem 'que'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -64,6 +65,7 @@ gem 'kaminari'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'pry'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
@@ -73,6 +75,7 @@ group :development, :test do
   gem 'webmock'
   gem 'vcr'
   gem 'simplecov'
+  gem 'que-testing'
 end
 
 group :development do
