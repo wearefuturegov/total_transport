@@ -57,12 +57,9 @@ class Admin::JourneysController < AdminController
   end
 
   def send_message
-    if params[:to] == "all"
-      @journey.bookings.each do |booking|
-        booking.send_notification!(params[:notification_message])
-      end
-    else
-      @journey.bookings.find(params[:to]).send_notification!(params[:notification_message])
+    bookings = params[:to] == 'all' ? @journey.bookings : [ @journey.bookings.find(params[:to]) ]
+    bookings.each do |booking|
+      SmsService.new(to: booking.phone_number, message: params[:notification_message]).perform
     end
     flash[:notice] = "Message sent!"
     redirect_to admin_journey_path(@journey)
