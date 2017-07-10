@@ -194,7 +194,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     end
     
     it 'sends a confirmation' do
-      expect(booking).to receive(:send_confirmation!)
+      expect(booking).to receive(:confirm!)
       subject.perform_actions!
     end
   end

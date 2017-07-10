@@ -19,6 +19,7 @@ class Journey < ActiveRecord::Base
       where('start_time > ?', Time.now).order('start_time ASC')
     end
   }
+  
   scope :on_date, ->(date) {
     where('start_time >= ? AND start_time <= ?', Time.now.at_beginning_of_day, Time.now.at_end_of_day)
   }
@@ -48,7 +49,7 @@ class Journey < ActiveRecord::Base
   )
 
   def booked_bookings
-    outward_bookings.booked + return_bookings.booked
+    bookings.where(booked: true)
   end
 
   def editable_by_supplier?(supplier)

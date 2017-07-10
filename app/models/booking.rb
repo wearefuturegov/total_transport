@@ -12,11 +12,6 @@ class Booking < ActiveRecord::Base
     journey.route
   end
 
-  def self.pickup_between_times(start_time, end_time)
-    bookings = booked.joins(:journey).where('journeys.start_time > ? AND journeys.start_time < ?', start_time - 12.hours, end_time + 12.hours)
-    bookings.select {|booking| booking.pickup_time >= start_time && booking.pickup_time <= end_time}
-  end
-
   def past?
     last_dropoff_time < Time.now
   end
@@ -127,8 +122,18 @@ class Booking < ActiveRecord::Base
     !!return_journey
   end
   
+  def confirm!
+    send_confirmation!
+    queue_alerts
+  end
+  
   def send_confirmation!
     SmsService.new(to: self.phone_number, template: :booking_notification, booking: self).perform
+  end
+  
+  def queue_alerts
+    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self, run_at: pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self, run_at: pickup_time - 1.hours)
   end
 
 end
