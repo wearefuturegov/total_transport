@@ -22,7 +22,7 @@ class Passenger < ActiveRecord::Base
   end
   
   def send_notification!
-    SmsService.new(to: phone_number, template: :verification_code, passenger: self).perform
+    SendSMS.enqueue(to: phone_number, template: :verification_code, passenger: self)
   end
 
   def self.formatted_phone_number(phone_number)

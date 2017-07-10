@@ -59,7 +59,7 @@ class Admin::JourneysController < AdminController
   def send_message
     bookings = params[:to] == 'all' ? @journey.bookings : [ @journey.bookings.find(params[:to]) ]
     bookings.each do |booking|
-      SmsService.new(to: booking.phone_number, message: params[:notification_message]).perform
+      SendSMS.enqueue(to: booking.phone_number, message: params[:notification_message])
     end
     flash[:notice] = "Message sent!"
     redirect_to admin_journey_path(@journey)
