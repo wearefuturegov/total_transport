@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Booking, type: :model do
+  
+  it 'sends a confirmation' do
+    booking = FactoryGirl.create(:booking)
+    expect { booking.send_confirmation! }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq(booking.phone_number)
+  end
 
   describe "pickup_between_times" do
     before do

@@ -128,16 +128,7 @@ class Booking < ActiveRecord::Base
   end
   
   def send_confirmation!
-    # This is just a stub for now. I'm thinking this might be nicer if we use a mailer or something
-    #send_notification!("Your Pickup booking from #{passenger.bookings.last.pickup_stop.name} to #{passenger.bookings.last.dropoff_stop.name} is confirmed. Your vehicle will pick you up from #{pickup_name} on #{friendly_date journey.start_time} between #{plus_minus_ten(pickup_stop.time_for_journey(journey))}. You can review or cancel your booking here: #{passenger_booking_url(passenger.bookings.last)}")
+    SmsService.new(to: self.phone_number, template: :booking_notification, booking: self).perform
   end
 
-  def send_notification!(message)
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
-      from: TWILIO_PHONE_NUMBER,
-      to: self.phone_number,
-      body: message
-    )
-  end
 end

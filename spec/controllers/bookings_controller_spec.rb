@@ -174,6 +174,21 @@ RSpec.describe BookingsController, type: :controller do
         expect(booking.send(k.to_sym)).to eq(v)
       end
     end
+    
+    it 'save_confirm sends an SMS' do
+      booking_params = {
+        state: 'confirmed',
+        passenger_name: 'Me',
+        phone_number: '1234',
+        payment_method: 'cash'
+      }
+      
+      params['booking'] = booking_params
+      params['step'] = :confirm
+      expect {
+        put :update, params, { current_passenger: passenger.id }
+      }.to change { FakeSMS.messages.count }.by(1)
+    end
   end
   
   describe 'GET edit' do
