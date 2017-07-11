@@ -1,4 +1,6 @@
 class Passenger < ActiveRecord::Base
+  #acts_as_token_authenticatable
+  
   has_many :bookings, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
@@ -22,7 +24,7 @@ class Passenger < ActiveRecord::Base
   end
   
   def send_notification!
-    SendSMS.enqueue(to: phone_number, template: :verification_code, passenger: self)
+    SendSMS.enqueue(to: phone_number, template: :verification_code, passenger: self.id)
   end
 
   def self.formatted_phone_number(phone_number)

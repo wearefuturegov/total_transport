@@ -128,12 +128,12 @@ class Booking < ActiveRecord::Base
   end
   
   def send_confirmation!
-    SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self)
+    SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
   end
   
   def queue_alerts
-    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self, run_at: pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self, run_at: pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self.id, run_at: pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self.id, run_at: pickup_time - 1.hours)
   end
 
 end

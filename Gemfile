@@ -75,7 +75,7 @@ group :development, :test do
   gem 'webmock'
   gem 'vcr'
   gem 'simplecov'
-  gem 'que-testing'
+  gem 'que-testing', :require => false
 end
 
 group :development do
