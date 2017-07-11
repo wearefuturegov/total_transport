@@ -34,8 +34,7 @@ class SmsService
       """
         Your Pickup booking from #{@booking.pickup_stop.name} to #{@booking.dropoff_stop.name}
         is confirmed. Your vehicle will pick you up from #{@booking.pickup_name}
-        on #{friendly_date(@booking.journey.start_time)} between
-        #{plus_minus_ten(@booking.pickup_stop.time_for_journey(@booking.journey))}.
+        on #{friendly_date(@booking.journey.start_time)} between #{plus_minus_ten(@booking.pickup_time)}.
         You can review or cancel your booking here: #{passenger_booking_url(@booking)}
       """.squish
     end
