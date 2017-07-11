@@ -49,7 +49,7 @@ class Journey < ActiveRecord::Base
   )
 
   def booked_bookings
-    bookings.where(booked: true)
+    bookings.booked
   end
 
   def editable_by_supplier?(supplier)
@@ -61,7 +61,7 @@ class Journey < ActiveRecord::Base
   end
 
   def seats_left
-    vehicle.seats - booked_bookings.sum {|x| x.number_of_passengers}
+    vehicle.seats - booked_bookings.sum(:number_of_passengers)
   end
 
   def full?
