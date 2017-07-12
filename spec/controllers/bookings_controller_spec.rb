@@ -12,7 +12,6 @@ RSpec.describe BookingsController, type: :controller do
       
       expect(assigns(:page_title)).to eq('Choose Your Pick Up Area')
       expect(assigns(:back_path)).to eq(routes_path)
-      expect(assigns(:top_sec)).to eq('Choose your pick up and drop off areas.')
       expect(assigns(:booking)).to be_a(Booking)
       expect(assigns(:booking).passenger).to eq(passenger)
       expect(assigns(:stops).first.name).to eq("stop_1")

@@ -59,11 +59,11 @@
       </div>
     </div>
   <% end %>
-
-  <% if @top_sec != false %>
+  
+  <% if content_for?(:top_sec) %>
     <div class="top-sec container white-block">
       <div class="inner">
-        <span><%= @top_sec %></span>
+        <span><%= yield(:top_sec) %></span>
       </div>
     </div>
   <% end %>

@@ -4,7 +4,6 @@ class PublicController < ApplicationController
   before_action :authenticate_passenger!
   
   before_action :set_page_title
-  before_action :set_top_sec
   before_filter :create_body_id
 
   helper_method :current_passenger
@@ -32,10 +31,6 @@ class PublicController < ApplicationController
 
   def set_page_title
     @page_title = "Pickup"
-  end
-
-  def set_top_sec
-    @top_sec = false
   end
 
   def create_body_id

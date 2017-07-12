@@ -7,7 +7,6 @@ class BookingsController < PublicController
   def new
     @page_title = "Choose Your Pick Up Area"
     @back_path = routes_path
-    @top_sec = "Choose your pick up and drop off areas."
     @booking = current_passenger.bookings.new
     if params[:reversed] == 'true'
       @reversed = true
