@@ -21,19 +21,6 @@ class PassengersController < PublicController
     redirect_to root_path
   end
 
-  def verify
-    @back_path = new_passenger_path
-    @passenger = Passenger.find(params[:id])
-    if request.method == 'POST'
-      if @passenger.verification_code == params[:verification_code]
-        set_current_passenger(@passenger)
-        redirect_to root_path
-      else
-        @flash_alert = "That verification code was incorrect. Please try again."
-      end
-    end
-  end
-
   def show
     @page_title = "Edit Account"
     @back_path = routes_path
