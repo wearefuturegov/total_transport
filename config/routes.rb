@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-  resource :passenger do
-    member do
-      get :verify
-      post :verify
-    end
+  resources :passengers do
+    resources :sessions, only: [:new, :create]
     resources :bookings, only: :show
   end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }

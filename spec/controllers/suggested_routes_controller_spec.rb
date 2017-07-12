@@ -7,7 +7,7 @@ RSpec.describe SuggestedRoutesController, type: :controller do
   describe 'GET new' do
 
     it 'sets the correct vars' do
-      get :new, nil, { current_passenger: passenger.id }
+      get :new, nil, { current_passenger: passenger.session_token }
 
       expect(assigns(:page_title)).to eq('Suggest A Route')
       expect(assigns(:back_path)).to eq(routes_path)
@@ -27,7 +27,7 @@ RSpec.describe SuggestedRoutesController, type: :controller do
     }
 
     it 'creates a suggested route' do
-      post :create, params, { current_passenger: passenger.id }
+      post :create, params, { current_passenger: passenger.session_token }
       
       expect(SuggestedRoute.count).to eq(1)
       expect(SuggestedRoute.first.description).to eq(description)
@@ -36,7 +36,7 @@ RSpec.describe SuggestedRoutesController, type: :controller do
     
     it 'redirects to the routes index' do
       expect(
-        post :create, params, { current_passenger: passenger.id }
+        post :create, params, { current_passenger: passenger.session_token }
       ).to redirect_to(routes_path)
     end
     

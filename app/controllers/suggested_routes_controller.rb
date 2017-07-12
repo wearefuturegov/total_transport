@@ -1,4 +1,4 @@
-class SuggestedRoutesController < ApplicationController
+class SuggestedRoutesController < PublicController
 
   def new
     @page_title = "Suggest A Route"

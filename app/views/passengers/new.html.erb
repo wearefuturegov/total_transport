@@ -5,7 +5,7 @@
     <p>Welcome to Pickup, a new rural transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.</p>
     <!-- <p>Instead of running fixed routes with fixed stops, Pickup lets you book trips in advance. Passengers can be picked up anywhere they like - a bus stop, a local place of interest, or even a home. It's safe, convenient and easy to use.</p> -->
 
-    <%= form_for @passenger, url: passenger_path do |form| %>
+    <%= form_for @passenger do |form| %>
       <%= form.label :phone_number, "Get started with your mobile number" %>
       <%= form.number_field :phone_number, autofocus: true, :pattern => "\\d*", :step => "0" %>
       <div class="actions">
@@ -47,7 +47,7 @@
       <h3>Travel</h3>
       <p>Pickup will send you a text a few hours before your trip to let you know we’re on our way.</p>
 
-      <%= form_for @passenger, :html => {class: 'center'}, url: passenger_path do |form| %>
+      <%= form_for @passenger, :html => {class: 'center'} do |form| %>
         <%= form.label :phone_number, "Get started with your mobile number" %>
       <%= form.number_field :phone_number, :pattern => "\\d*", :step => "0" %>
         <div class="actions">

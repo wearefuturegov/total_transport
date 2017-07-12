@@ -1,4 +1,4 @@
-class BookingsController < ApplicationController
+class BookingsController < PublicController
   before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
   include ApplicationHelper

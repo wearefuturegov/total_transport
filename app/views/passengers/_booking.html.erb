@@ -1,4 +1,4 @@
-<%= link_to passenger_booking_path(booking) do %>
+<%= link_to passenger_booking_path(current_passenger, booking) do %>
   <div class="single-booking-card card <% if booking.future? %>future<% else %>expired<% end %> overview">
     <div class="overview-bar radius border-top-radius">
       <%= booking.pickup_stop.name %> To <%= booking.dropoff_stop.name %>

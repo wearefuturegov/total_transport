@@ -8,7 +8,7 @@ RSpec.describe BookingsController, type: :controller do
   describe 'GET new' do
     
     it 'sets the correct vars' do
-      get :new, { route_id: route.id }, { current_passenger: passenger.id }
+      get :new, { route_id: route.id }, { current_passenger: passenger.session_token }
       
       expect(assigns(:page_title)).to eq('Choose Your Pick Up Area')
       expect(assigns(:back_path)).to eq(routes_path)
@@ -19,13 +19,13 @@ RSpec.describe BookingsController, type: :controller do
     end
     
     it 'shows the normal order of stops' do
-      get :new, { route_id: route.id }, { current_passenger: passenger.id }
+      get :new, { route_id: route.id }, { current_passenger: passenger.session_token }
       expect(assigns(:stops).first).to eq(route.stops.first)
       expect(assigns(:stops).last).to eq(route.stops.last)
     end
     
     it 'reverses the order of stops' do
-      get :new, { route_id: route.id, reversed: 'true' }, { current_passenger: passenger.id }
+      get :new, { route_id: route.id, reversed: 'true' }, { current_passenger: passenger.session_token }
       expect(assigns(:stops).first).to eq(route.stops.last)
       expect(assigns(:stops).last).to eq(route.stops.first)
     end
@@ -44,7 +44,7 @@ RSpec.describe BookingsController, type: :controller do
     }
     
     it 'creates a booking' do
-      post :create, params, { current_passenger: passenger.id }
+      post :create, params, { current_passenger: passenger.session_token }
       
       expect(Booking.count).to eq(1)
       
@@ -85,7 +85,7 @@ RSpec.describe BookingsController, type: :controller do
       }
       params['booking'] = booking_params
       params['step'] = :requirements
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -100,7 +100,7 @@ RSpec.describe BookingsController, type: :controller do
       
       params['booking'] = booking_params
       params['step'] = :journey
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -115,7 +115,7 @@ RSpec.describe BookingsController, type: :controller do
       
       params['booking'] = booking_params
       params['step'] = :return_journey
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -132,7 +132,7 @@ RSpec.describe BookingsController, type: :controller do
       
       params['booking'] = booking_params
       params['step'] = :pickup_location
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -149,7 +149,7 @@ RSpec.describe BookingsController, type: :controller do
       
       params['booking'] = booking_params
       params['step'] = :dropoff_location
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -167,7 +167,7 @@ RSpec.describe BookingsController, type: :controller do
       
       params['booking'] = booking_params
       params['step'] = :confirm
-      put :update, params, { current_passenger: passenger.id }
+      put :update, params, { current_passenger: passenger.session_token }
       
       booking.reload
       booking_params.each do |k,v|
@@ -186,7 +186,7 @@ RSpec.describe BookingsController, type: :controller do
       params['booking'] = booking_params
       params['step'] = :confirm
       expect {
-        put :update, params, { current_passenger: passenger.id }
+        put :update, params, { current_passenger: passenger.session_token }
       }.to change { FakeSMS.messages.count }.by(1)
     end
   end
@@ -207,7 +207,7 @@ RSpec.describe BookingsController, type: :controller do
         'id' => booking
       },
       {
-        current_passenger: passenger.id
+        current_passenger: passenger.session_token
       }
       
       expect(assigns(:page_title)).to eq('Choose Your Requirements')
@@ -225,7 +225,7 @@ RSpec.describe BookingsController, type: :controller do
           'id' => booking
         },
         {
-          current_passenger: passenger.id
+          current_passenger: passenger.session_token
         }
         
         expect(assigns(:page_title)).to eq('Choose Your Time Of Travel')
@@ -242,7 +242,7 @@ RSpec.describe BookingsController, type: :controller do
           'id' => booking
         },
         {
-          current_passenger: passenger.id
+          current_passenger: passenger.session_token
         }
         
         expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
@@ -265,7 +265,7 @@ RSpec.describe BookingsController, type: :controller do
           'id' => booking
         },
         {
-          current_passenger: passenger.id
+          current_passenger: passenger.session_token
         }
                 
         expect(assigns(:page_title)).to eq('Pick Your Return Time')
@@ -284,7 +284,7 @@ RSpec.describe BookingsController, type: :controller do
           'id' => booking
         },
         {
-          current_passenger: passenger.id
+          current_passenger: passenger.session_token
         }
         
         expect(assigns(:journeys).values.flatten).to eq(journeys)
@@ -298,7 +298,7 @@ RSpec.describe BookingsController, type: :controller do
         'id' => booking
       },
       {
-        current_passenger: passenger.id
+        current_passenger: passenger.session_token
       }
       
       expect(assigns(:page_title)).to eq('Choose Pick Up Point')
@@ -314,7 +314,7 @@ RSpec.describe BookingsController, type: :controller do
         'id' => booking
       },
       {
-        current_passenger: passenger.id
+        current_passenger: passenger.session_token
       }
       
       expect(assigns(:page_title)).to eq('Choose Drop Off Point')
@@ -330,7 +330,7 @@ RSpec.describe BookingsController, type: :controller do
         'id' => booking
       },
       {
-        current_passenger: passenger.id
+        current_passenger: passenger.session_token
       }
       
       expect(assigns(:page_title)).to eq('Overview')

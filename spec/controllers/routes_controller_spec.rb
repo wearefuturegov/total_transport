@@ -6,7 +6,7 @@ RSpec.describe RoutesController, type: :controller do
 
   describe "GET index" do
     it 'shows the correct title' do
-      get :index, nil, { current_passenger: passenger.id }
+      get :index, nil, { current_passenger: passenger.session_token }
 
       expect(assigns(:page_title)).to eq('Choose Your Route')
     end
@@ -15,7 +15,7 @@ RSpec.describe RoutesController, type: :controller do
       route1 = FactoryGirl.create(:route, stops_count: 5)
       route2 = FactoryGirl.create(:route, stops_count: 1)
 
-      get :index, nil, { current_passenger: passenger.id }
+      get :index, nil, { current_passenger: passenger.session_token }
 
       routes = assigns(:routes)
       expect(routes.count).to eq(1)

@@ -1,5 +1,5 @@
-class PassengersController < ApplicationController
-  skip_before_action :authenticate_passenger!, only: [:new, :create, :verify]
+class PassengersController < PublicController
+  skip_before_action :authenticate_passenger!, only: [:new, :create]
 
   def new
     @passenger = Passenger.new
@@ -7,9 +7,8 @@ class PassengersController < ApplicationController
 
   def create
     if formatted_phone_number = Passenger.formatted_phone_number(params[:passenger][:phone_number])
-      @passenger = Passenger.find_or_create_by(phone_number: formatted_phone_number)
-      @passenger.send_verification!
-      redirect_to verify_passenger_path(id: @passenger.id)
+      @passenger = Passenger.setup(formatted_phone_number)
+      redirect_to new_passenger_session_path(@passenger.id)
     else
       @passenger = Passenger.new
       @flash_alert = "Phone number is not a valid, please try another one"
