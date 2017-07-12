@@ -28,6 +28,10 @@ class SmsService
     @template.nil? ? @message : send(@template)
   end
   
+  def default_url_options
+    Rails.application.config.action_mailer.default_url_options
+  end
+  
   private
     
     def booking_notification

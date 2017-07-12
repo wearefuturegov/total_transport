@@ -30,6 +30,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'example.org' }
 
   # Randomize the order test cases are executed.
   config.active_support.test_order = :random
@@ -42,6 +43,4 @@ Rails.application.configure do
 
   config.logger = Logger.new(STDOUT)
   config.log_level = :ERROR
-  
-  SmsService.default_url_options = { host: 'example.com' }
 end
