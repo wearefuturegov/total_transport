@@ -1,5 +1,5 @@
 <h2>Suggest an edit to the stop <%= @stop.name %></h2>
-<%= form_for @suggested_edit_to_stop, url: suggest_edit_to_stop_route_booking_path(@route, @booking, stop_id: params[:stop_id]) do |form| %>
+<%= form_for @suggested_edit_to_stop, url: route_suggested_edit_to_stop_index_path(@route, @booking, stop_id: params[:stop_id]) do |form| %>
   <%= form.label :description %>
   <%= form.text_area :description %>
   <%= form.submit %>

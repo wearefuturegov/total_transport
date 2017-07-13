@@ -58,18 +58,6 @@ class BookingsController < PublicController
     redirect_to passenger_path
   end
 
-
-  def suggest_edit_to_stop
-    @page_title = "Suggest A Stop Area Edit"
-    @stop = Stop.find(params[:stop_id])
-    if request.method == 'POST'
-      @suggested_edit_to_stop = SuggestedEditToStop.create!(suggested_edit_to_stop_params)
-      redirect_to edit_pickup_location_route_booking_path(@route, @booking)
-    else
-      @suggested_edit_to_stop = SuggestedEditToStop.new
-    end
-  end
-
   def show
     @page_title = "Booking Details"
     @back_path = passenger_path
@@ -100,11 +88,6 @@ class BookingsController < PublicController
       :disabled_bus_passes,
       :scholar_bus_passes
     )
-  end
-
-
-  def suggested_edit_to_stop_params
-    params.require(:suggested_edit_to_stop).permit(:description).merge(stop: @stop, passenger: current_passenger)
   end
 
   def find_route

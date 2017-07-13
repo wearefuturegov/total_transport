@@ -17,11 +17,9 @@ Rails.application.routes.draw do
         end
                 
         resources :suggested_journey, only: [:new, :create]
+        resources :suggested_edit_to_stop, only: [:new, :create]
         
         get :confirmation
-        get :suggest_edit_to_stop
-        post :suggest_edit_to_stop
-
         get :price_api
       end
     end
