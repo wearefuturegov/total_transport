@@ -23,4 +23,10 @@ RSpec.describe SessionsController, type: :controller do
     expect(assigns(:flash_alert)).to eq('That verification code was incorrect. Please try again.')
   end
   
+  it 'logs a passenger out' do
+    delete :destroy, {}, { current_passenger: passenger.session_token }
+    expect(session[:current_passenger]).to eq(nil)
+    expect(response).to redirect_to(root_path)
+  end
+  
 end

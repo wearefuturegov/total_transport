@@ -15,10 +15,6 @@ class PublicController < ApplicationController
     session[:current_passenger] = passenger.session_token
   end
 
-  def logout_current_passenger
-    @current_passenger = session[:current_passenger] = nil
-  end
-
   protected
   
   def authenticate_passenger!

@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  resources :passengers do
+  resources :passengers, except: :destroy do
     resources :sessions, only: [:new, :create]
+    collection do
+      delete :sign_out, to: 'sessions#destroy'
+    end
     resources :bookings, only: :show
   end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }

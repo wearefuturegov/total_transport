@@ -48,8 +48,8 @@
       <% end %>
     <% end %>
 
-    <%= form_for current_passenger, method: :delete do |form| %>
-      <%= form.submit "Logout", :class => "button alt-button" %>
+    <%= form_tag sign_out_passengers_path, method: :delete do  %>
+      <%= submit_tag "Logout", :class => "button alt-button" %>
     <% end %>
   </div>
 </div>

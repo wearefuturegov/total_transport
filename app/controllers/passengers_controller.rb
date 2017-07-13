@@ -16,11 +16,6 @@ class PassengersController < PublicController
     end
   end
 
-  def destroy
-    logout_current_passenger
-    redirect_to root_path
-  end
-
   def show
     @page_title = "Edit Account"
     @back_path = routes_path
