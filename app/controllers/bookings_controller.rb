@@ -58,16 +58,6 @@ class BookingsController < PublicController
     redirect_to passenger_path
   end
 
-  def suggest_journey
-    @page_title = "Suggest A New Time"
-    @back_path = edit_journey_route_booking_path(@route, @booking)
-    if request.method == 'POST'
-      @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
-      redirect_to edit_journey_route_booking_path(@route, @booking)
-    else
-      @suggested_journey = SuggestedJourney.new
-    end
-  end
 
   def suggest_edit_to_stop
     @page_title = "Suggest A Stop Area Edit"
@@ -112,9 +102,6 @@ class BookingsController < PublicController
     )
   end
 
-  def suggested_journey_params
-    params.require(:suggested_journey).permit(:start_time, :description).merge(route: @route, passenger: current_passenger)
-  end
 
   def suggested_edit_to_stop_params
     params.require(:suggested_edit_to_stop).permit(:description).merge(stop: @stop, passenger: current_passenger)

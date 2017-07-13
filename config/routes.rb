@@ -15,18 +15,10 @@ Rails.application.routes.draw do
         BookingsWorkflow::STEPS.each do |route|
           patch "save_#{route}", action: :update, as: "save_#{route}", step: route
         end
-        
-        # patch :save_requirements
-        # patch :save_journey
-        # patch :save_return_journey
-        # patch :save_pickup_location
-        # patch :save_dropoff_location
-        # patch :save_confirm
+                
+        resources :suggested_journey, only: [:new, :create]
         
         get :confirmation
-
-        get :suggest_journey
-        post :suggest_journey
         get :suggest_edit_to_stop
         post :suggest_edit_to_stop
 
