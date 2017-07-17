@@ -1,7 +1,7 @@
 Total Transport
 ===============
 
-Install
+Install 
 -------
 
 You will need the following environment variables in .env:
