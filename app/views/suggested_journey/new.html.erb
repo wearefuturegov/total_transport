@@ -5,7 +5,7 @@
         <%= form_for @suggested_journey, url: route_suggested_journey_index_path(@route, @booking) do |form| %>
           <p>If you can't find a time for this journey that is perfect for you, feel free to suggest a new time below and we will take it into account when we are creating our next routes. Pick a time, and give any reason or further information below.</p>
           <%= form.label :start_time %>
-          <%= form.datetime_local_field :start_time, value: Time.now.strftime("%Y-%m-%dT%H:%M") %>
+          <%= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M") %>
           <%= form.label :description %>
           <%= form.text_area :description %>
           <%= form.submit "Suggest Time" %>
@@ -14,3 +14,11 @@
     </div>
   </div>
 </div>
+
+<% content_for :js do %>
+<script type="text/javascript">
+  $('#suggested_journey_start_time').datetimepicker({
+    format:'d/m/Y H:i'
+  });
+</script>
+<% end %>
