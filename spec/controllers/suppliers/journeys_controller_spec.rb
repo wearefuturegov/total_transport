@@ -9,6 +9,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
       outward_bookings: FactoryGirl.create_list(:booking, 5)
     )
   end
+  let(:route) { FactoryGirl.create(:route) }
   
   context '#index' do
     it 'gets all journeys for a supplier' do
@@ -55,6 +56,97 @@ RSpec.describe Admin::JourneysController, type: :controller do
       }
       expect(assigns(:journeys).to_a.count).to eq(3)
     end
+  end
+  
+  context '#new' do
+    
+    it 'renders a route chooser if route_id is nil' do
+      get :new
+      expect(response).to render_template('admin/journeys/new_choose_route')
+      expect(assigns(:back_path)).to eq(admin_root_path)
+    end
+    
+    it 'gets the correct route and initializes a journey when route_id is defined' do
+      get :new, { route_id: route.id, reversed: false }
+      expect(assigns(:route)).to eq(route)
+      journey = assigns(:journey)
+      expect(journey.route).to eq(route)
+      expect(journey.supplier).to eq(@supplier)
+      expect(journey.reversed).to eq(false)
+    end
+
+  end
+  
+  context '#create' do
+    
+    it 'creates a new journey' do
+      start_time = DateTime.now + 4.days
+      vehicle = FactoryGirl.create(:vehicle)
+      post :create, {
+        journey: {
+          start_time: start_time,
+          vehicle_id: vehicle.id,
+          supplier_id: @supplier.id,
+          route_id: route.id,
+          open_to_bookings: true,
+          reversed: true
+        }
+      }
+      expect(Journey.all.count).to eq(1)
+      journey = Journey.last
+      expect(journey.start_time.to_i).to eq(start_time.to_i)
+      expect(journey.vehicle).to eq(vehicle)
+      expect(journey.supplier).to eq(@supplier)
+      expect(journey.route).to eq(route)
+      expect(journey.open_to_bookings).to eq(true)
+      expect(journey.reversed).to eq(true)
+    end
+  
+  end
+  
+  context '#edit' do
+    
+    it 'gets a journey' do
+      get :edit, { id: journey.id }
+      expect(assigns(:journey)).to eq(journey)
+    end
+        
+  end
+  
+  context '#show' do
+    
+    it 'gets a journey' do
+      get :show, { id: journey.id }
+      expect(assigns(:journey)).to eq(journey)
+    end
+        
+  end
+  
+  context '#update' do
+    
+    it 'updates a journey' do
+      vehicle = FactoryGirl.create(:vehicle, registration: 'ABC 1234')
+      put :update, {
+        id: journey.id,
+        journey: {
+          vehicle_id: vehicle.id,
+        }
+      }
+      journey.reload
+      expect(journey.vehicle.registration).to eq('ABC 1234')
+    end
+        
+  end
+  
+  context '#destroy' do
+    
+    it 'destroys a journey' do
+      journey = FactoryGirl.create(:journey, supplier: @supplier)
+      expect {
+        delete :destroy, { id: journey.id }
+      }.to change(Journey, :count).by(-1)
+    end
+            
   end
   
   context '#send_message' do
