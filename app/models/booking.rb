@@ -8,7 +8,7 @@ class Booking < ActiveRecord::Base
 
   scope :booked, -> { where(state: 'booked') }
   
-  after_destroy :remove_alerts
+  after_destroy :remove_alerts, :set_journey_booked_status
   
   def route
     journey.route
@@ -127,6 +127,7 @@ class Booking < ActiveRecord::Base
   def confirm!
     send_confirmation!
     queue_alerts
+    journey.update_attribute(:booked, true)
   end
   
   def send_confirmation!
@@ -140,6 +141,10 @@ class Booking < ActiveRecord::Base
   
   def remove_alerts
     #????
+  end
+  
+  def set_journey_booked_status
+    journey.update_attribute(:booked, false) if journey.bookings.count == 0
   end
 
 end

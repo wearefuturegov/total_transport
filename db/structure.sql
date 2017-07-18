@@ -99,7 +99,8 @@ CREATE TABLE journeys (
     vehicle_id integer,
     supplier_id integer,
     open_to_bookings boolean DEFAULT true,
-    reversed boolean
+    reversed boolean,
+    booked boolean
 );
 
 
@@ -1227,4 +1228,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170711125411');
 INSERT INTO schema_migrations (version) VALUES ('20170712092230');
 
 INSERT INTO schema_migrations (version) VALUES ('20170712111051');
+
+INSERT INTO schema_migrations (version) VALUES ('20170718094200');
 

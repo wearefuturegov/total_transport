@@ -15,6 +15,32 @@ RSpec.describe Booking, type: :model do
       expect(SendSMS.jobs.first.run_at).to eq(booking.pickup_time - 24.hours)
       expect(SendSMS.jobs.last.run_at).to eq(booking.pickup_time - 1.hours)
     end
+    
+    it 'sets the journey to booked' do
+      booking.confirm!
+      expect(booking.journey.booked).to eq(true)
+    end
+  end
+  
+  context 'sets the journey boolean' do
+    
+    let(:journey) { booking.journey }
+    before { booking.confirm! }
+    
+    it 'to false if there are no more bookings' do
+      booking.destroy
+      journey.reload
+      expect(journey.booked).to eq(false)
+    end
+    
+    it 'to true if there still other bookings' do
+      journey.bookings << FactoryGirl.create_list(:booking, 2)
+      journey.save
+      booking.destroy
+      journey.reload
+      expect(journey.booked).to eq(true)
+    end
+    
   end
 
   describe "pricing" do
