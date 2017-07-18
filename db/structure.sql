@@ -100,7 +100,7 @@ CREATE TABLE journeys (
     supplier_id integer,
     open_to_bookings boolean DEFAULT true,
     reversed boolean,
-    booked boolean
+    booked boolean DEFAULT false
 );
 
 

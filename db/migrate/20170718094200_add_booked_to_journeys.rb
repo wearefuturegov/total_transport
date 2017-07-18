@@ -1,11 +1,8 @@
 class AddBookedToJourneys < ActiveRecord::Migration
   def change
-    add_column :journeys, :booked, :boolean
-    Booking.all.each do |b|
-      if b.journey
-        b.journey.booked = true
-        b.journey.save
-      end
+    add_column :journeys, :booked, :boolean, default: false
+    Journey.all.each do |journey|
+      journey.update_column(:booked, journey.bookings.count > 0)
     end
   end
 end
