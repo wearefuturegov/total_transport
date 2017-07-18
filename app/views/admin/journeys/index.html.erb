@@ -112,6 +112,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.tab').click(function() {
@@ -124,3 +125,4 @@
     });
   });
 </script>
+<% end %>

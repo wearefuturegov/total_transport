@@ -1,3 +1,4 @@
+<% content_for :js do %>
 <script type="text/javascript">
   var map;
   var polygon;
@@ -99,6 +100,7 @@
   height: 300px;
 }
 </style>
+<% end %>
 
 <%= form.label :name %>
 <%= form.text_field :name %>

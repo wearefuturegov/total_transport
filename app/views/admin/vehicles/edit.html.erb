@@ -11,6 +11,7 @@
         <%= form_for [:admin, @vehicle], method: :delete do |form| %>
           <%= form.submit "Delete vehicle", :class => "button negative delete half border-bottom-right-radius" %>
         <% end %>
+        <% content_for :js do %>
         <script type="text/javascript">
           $('.button').each(function() {
             if (!$(this).hasClass('half')) {
@@ -18,8 +19,8 @@
             }
           });
         </script>
+        <% end %>
       <% end %>
     </div>
   </div>
 </div>
-

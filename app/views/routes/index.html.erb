@@ -88,6 +88,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $('.reverse-btn').click(function() {
     var parent = $(this).closest('.route');
@@ -189,3 +190,4 @@
     $('#route-location').html(' via ' + tempTxt).removeClass('hidden');
   }
 </script>
+<% end %>

@@ -30,8 +30,10 @@
   <div class="fixed-spacer return-ticket"></div>
 <% end %>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(function() {
     clearRadios();
   });
 </script>
+<% end %>

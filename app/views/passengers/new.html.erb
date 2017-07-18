@@ -58,6 +58,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(function() {
     $('#passenger_phone_number').keydown(function (evt) {
@@ -68,3 +69,4 @@
     });
 });
 </script>
+<% end %>

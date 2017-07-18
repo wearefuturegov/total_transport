@@ -89,6 +89,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $('.pay-btn').click(function(e) {
     e.preventDefault();
@@ -100,3 +101,4 @@
     $('.edit_booking').submit();
   });
 </script>
+<% end %>

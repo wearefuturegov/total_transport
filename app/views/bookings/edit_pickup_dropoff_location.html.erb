@@ -149,6 +149,7 @@
         <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled'  %>
       <% end %>
     <% end %>
+    <% content_for :js do %>
     <script type="text/javascript">
       $(document).ready(function() {
         $('.drop_off_change').html('drop off');
@@ -200,6 +201,7 @@
         });
       }
     </script>
+    <% end %>
   </div>
 </div>
 <!--

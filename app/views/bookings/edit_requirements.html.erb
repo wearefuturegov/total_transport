@@ -80,8 +80,9 @@
   </div>
 <% end %>
 
+<% content_for :js do %>
 <script type="text/javascript">
-  var noOfAdults = 0, 
+  var noOfAdults = 0,
   previousPassengers = 0,
   currentConcessions = 0;
   $(document).ready(function() {
@@ -251,3 +252,4 @@
     );
   });
 </script>
+<% end %>

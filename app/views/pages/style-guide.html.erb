@@ -246,13 +246,13 @@
     </div>
   </section>
 <!--
-  <section class="styleGuideSec" id="headings">    
+  <section class="styleGuideSec" id="headings">
     <h2>Headings <i class="fa fa-chevron-down styleGuideArw"></i></h2>
     <h1>h1. Heading</h1>
     <h2>h2. Heading</h2>
     <h3>h3. Heading</h3>
     <h4>h4. Heading</h4>
-    <h5>h5. Heading</h5> 
+    <h5>h5. Heading</h5>
     <h6>h6. Heading</h6>
     
   </section>
@@ -376,6 +376,7 @@
 -->
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.styleGuideSec h2').click(function() {
@@ -444,3 +445,4 @@
   });
   
 </script>
+<% end %>

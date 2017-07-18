@@ -69,6 +69,7 @@
   <p>We are sorry, currently there are no possible journeys avaliable for this route. Please try again later or <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>, so that we can help tailor this service for you.</p>
 <% end %>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $('.single-journey label').click(function(e) {
     var parent = $(this).parent();
@@ -84,3 +85,4 @@
     }
   });
 </script>
+<% end %>
