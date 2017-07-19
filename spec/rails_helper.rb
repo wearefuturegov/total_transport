@@ -9,6 +9,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
 require 'que/testing'
+require 'timecop'
 
 require 'support/fake_sms'
 require 'support/controller_macros'
