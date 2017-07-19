@@ -45,6 +45,7 @@ class Admin::JourneysController < AdminController
     redirect_to admin_journeys_path
   end
 
+  # TODO: What does this do? This should be moved to the RoutesController anyway
   def surrounding_journeys
     @route = Route.find(params[:route_id])
     @previous_journeys = @route.journeys.where('start_time < ?', params[:datetime]).order('start_time DESC').limit(2)
