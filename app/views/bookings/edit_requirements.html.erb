@@ -13,7 +13,7 @@
       <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
       </p>
 
-      <p id="adult-tickets" class="bold <%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>"><span id="adult-ticket-no"><%= pluralize num_of_adults(@booking.number_of_passengers), "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
+      <p id="adult-tickets" class="bold <%= " hidden" if @booking.number_of_adults == 0 %>"><span id="adult-ticket-no"><%= pluralize @booking.number_of_adults, "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">
         <div id="concession-1" class="bold mb1 concession-cont<%= " hidden" if @booking.child_tickets == 0 %>">
           <span class="count"><%= @booking.child_tickets %></span> Child fare (<%= number_to_currency(@booking.child_single_price, :unit => "£") %> each)
@@ -42,7 +42,7 @@
           <option id="promo" value="5">Add Promo Code</option>
         </select>
 
-        <div id="add-concession" class="add button small-button<%= " hidden" if num_of_adults(@booking.number_of_passengers) == 0 %>">+ Add a Concessionary Fare</div>
+        <div id="add-concession" class="add button small-button<%= " hidden" if @booking.number_of_adults == 0 %>">+ Add a Concessionary Fare</div>
 
         <div class="promo-code hidden mt2">
           <%= form.label :promo_code, :class => "light" %>
@@ -90,9 +90,9 @@
       localStorage.setItem("returnJourney", "true");
     }
     checkPassengers(<%= @booking.number_of_passengers %>);
-    updateAdults(<%= num_of_adults(@booking.number_of_passengers) %>);
+    updateAdults(<%= @booking.number_of_adults %>);
     noOfAdults = parseInt($('#adult-ticket-no').html().charAt(0));
-    currentConcessions = <%= @booking.number_of_passengers - num_of_adults(@booking.number_of_passengers) %>
+    currentConcessions = <%= @booking.number_of_passengers - @booking.number_of_adults %>
   });
 
 

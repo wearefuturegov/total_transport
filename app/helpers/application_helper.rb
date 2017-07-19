@@ -25,8 +25,6 @@ module ApplicationHelper
     final_time = "#{(t - 10*60).strftime("%l:%M%P")} and #{(t + 10*60).strftime("%l:%M%P")}"
   end
 
-  def num_of_adults(num_of_passengers)
-    num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
   end
 
   def grab_phone_number(phone, booking)

@@ -119,6 +119,14 @@ class Booking < ActiveRecord::Base
   def number_of_adult_tickets
     number_of_passengers - number_of_free_tickets - child_tickets
   end
+  
+  def number_of_adults
+    number_of_passengers - number_of_concessions
+  end
+  
+  def number_of_concessions
+    child_tickets + older_bus_passes + disabled_bus_passes + scholar_bus_passes
+  end
 
   def return_journey?
     !!return_journey

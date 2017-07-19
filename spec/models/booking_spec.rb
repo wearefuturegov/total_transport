@@ -42,6 +42,47 @@ RSpec.describe Booking, type: :model do
     end
     
   end
+  
+  describe 'number_of_adults' do
+    
+    let(:booking) { FactoryGirl.create(:booking) }
+
+    it 'with only adults' do
+      booking.number_of_passengers = 4
+      expect(booking.number_of_adults).to eq(4)
+    end
+    
+    it 'with children' do
+      booking.number_of_passengers = 4
+      booking.child_tickets = 1
+      expect(booking.number_of_adults).to eq(3)
+    end
+    
+    it 'with children and oaps' do
+      booking.number_of_passengers = 4
+      booking.child_tickets = 1
+      booking.older_bus_passes = 1
+      expect(booking.number_of_adults).to eq(2)
+    end
+    
+    it 'with children, oaps and disabled bus passes' do
+      booking.number_of_passengers = 4
+      booking.child_tickets = 1
+      booking.older_bus_passes = 1
+      booking.disabled_bus_passes = 1
+      expect(booking.number_of_adults).to eq(1)
+    end
+    
+    it 'with children, oaps, disabled bus passes and school bus passes' do
+      booking.number_of_passengers = 4
+      booking.child_tickets = 1
+      booking.older_bus_passes = 1
+      booking.disabled_bus_passes = 1
+      booking.scholar_bus_passes = 1
+      expect(booking.number_of_adults).to eq(0)
+    end
+    
+  end
 
   describe "pricing" do
     let(:booking) {Booking.new}
