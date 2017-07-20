@@ -135,6 +135,7 @@ class Booking < ActiveRecord::Base
   def confirm!
     send_confirmation!
     queue_alerts
+    update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
   end
   

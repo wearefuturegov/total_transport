@@ -20,6 +20,11 @@ RSpec.describe Booking, type: :model do
       booking.confirm!
       expect(booking.journey.booked).to eq(true)
     end
+    
+    it 'sets the booking state to booked' do
+      booking.confirm!
+      expect(booking.state).to eq('booked')
+    end
   end
   
   context 'sets the journey boolean' do
