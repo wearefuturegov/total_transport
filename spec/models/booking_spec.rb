@@ -16,7 +16,7 @@ RSpec.describe Booking, type: :model do
       expect(jobs.first.run_at).to eq(booking.pickup_time - 24.hours)
       expect(jobs.first.args[0]['template']).to eq('first_alert')
       expect(jobs.last.run_at).to eq(booking.pickup_time - 1.hours)
-      expect(jobs.last.args[0]['template']).to eq('second_alert')      
+      expect(jobs.last.args[0]['template']).to eq('second_alert')
     end
     
     it 'sets the journey to booked' do
@@ -28,6 +28,85 @@ RSpec.describe Booking, type: :model do
       booking.confirm!
       expect(booking.state).to eq('booked')
     end
+  end
+  
+  context '#past?' do
+    
+    it 'returns false if the journey is in the future' do
+      booking.journey.start_time = DateTime.now + 1.day
+      expect(booking.past?).to eq(false)
+    end
+    
+    it 'returns true if the journey is in the past' do
+      booking.journey.start_time = DateTime.now - 1.day
+      expect(booking.past?).to eq(true)
+    end
+    
+  end
+  
+  
+  context '#future?' do
+    
+    it 'returns true if the journey is in the future' do
+      booking.journey.start_time = DateTime.now + 1.day
+      expect(booking.future?).to eq(true)
+    end
+    
+    it 'returns false if the journey is in the past' do
+      booking.journey.start_time = DateTime.now - 1.day
+      expect(booking.future?).to eq(false)
+    end
+    
+  end
+  
+  context '#route' do
+    
+    it 'returns the route' do
+      route = FactoryGirl.create(:route)
+      booking.journey.route = route
+      expect(booking.route).to eq(route)
+    end
+    
+  end
+  
+  context '#price_distance' do
+    
+    it 'returns the distance between stops' do
+      booking.pickup_stop.latitude = 51.7239162277052
+      booking.pickup_stop.longitude = 0.899999141693115
+      
+      booking.dropoff_stop.latitude = 51.6275191853741
+      booking.dropoff_stop.longitude = 0.814597606658936
+      
+      expect(booking.price_distance.round(1)).to eq(7.6)
+    end
+    
+  end
+  
+  context '#last_dropoff_time' do
+    
+    before do
+      booking.journey.route.stops = [
+        FactoryGirl.create(:stop, name: 'First Stop'),
+        FactoryGirl.create(:stop, name: 'Second Stop', minutes_from_last_stop: 40),
+        FactoryGirl.create(:stop, name: 'Third Stop', minutes_from_last_stop: 20),
+        FactoryGirl.create(:stop, name: 'Fourth Stop', minutes_from_last_stop: 10),
+        FactoryGirl.create(:stop, name: 'Last Stop', minutes_from_last_stop: 15)
+      ]
+      booking.pickup_stop = booking.journey.stops.first
+      booking.dropoff_stop = booking.journey.stops.last
+      booking.journey.start_time = DateTime.parse('2017-01-01T10:00:00')
+    end
+    
+    it 'gets the last dropoff time for a non-return booking' do
+      expect(booking.last_dropoff_time).to eq(DateTime.parse('2017-01-01T11:25:00'))
+    end
+    
+    it 'gets the last dropoff time for a return booking' do
+      booking.return_journey = booking.journey
+      expect(booking.last_dropoff_time).to eq(DateTime.parse('2017-01-01T11:25:00'))
+    end
+    
   end
   
   context 'sets the journey boolean' do
