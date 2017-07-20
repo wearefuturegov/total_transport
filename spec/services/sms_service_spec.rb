@@ -33,14 +33,26 @@ RSpec.describe SmsService, type: :model do
     expect(FakeSMS.messages.last[:body]).to eq('Your verification code is abcd')
   end
   
-  it 'sends a reminder' do
+  it 'sends a first reminder' do
     booking = FactoryGirl.create(:booking,
-      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z'))
+      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
     )
-    sms = SmsService.new(to: '1234', template: :pickup_alert, booking: booking)
+    sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to eq('Reminder: you will be picked up at 10:40 AM')
+    expect(FakeSMS.messages.last[:body]).to match(/This is a reminder that you will be picked up from The Red Lion tomorrow at 10:40 AM/)
+  end
+  
+  it 'sends a second reminder' do
+    booking = FactoryGirl.create(:booking,
+      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
+    )
+    sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to eq('You will be picked up from The Red Lion today at 10:40 AM')
   end
   
 end

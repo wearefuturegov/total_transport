@@ -47,8 +47,19 @@ class SmsService
       "Your verification code is #{@passenger.verification_code}"
     end
     
-    def pickup_alert
-      "Reminder: you will be picked up at #{@booking.pickup_time.strftime("%I:%M %p")}"
+    def first_alert
+      """
+        This is a reminder that you will be picked up from #{@booking.pickup_stop.name}
+        tomorrow at #{@booking.pickup_time.strftime("%I:%M %p")}. You can review
+        or cancel your booking here: #{passenger_booking_url(@booking.passenger, @booking)}
+      """.squish
+    end
+    
+    def second_alert
+      """
+        You will be picked up from #{@booking.pickup_stop.name} today at
+        #{@booking.pickup_time.strftime("%I:%M %p")}
+      """.squish
     end
   
 end

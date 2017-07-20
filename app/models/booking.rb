@@ -144,8 +144,8 @@ class Booking < ActiveRecord::Base
   end
   
   def queue_alerts
-    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self.id, run_at: pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :pickup_alert, booking: self.id, run_at: pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: pickup_time - 1.hours)
   end
   
   def remove_alerts
