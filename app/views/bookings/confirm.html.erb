@@ -71,8 +71,6 @@
     </div>
 
     <%= form_for [@route, @booking], url: save_confirm_route_booking_path(@route, @booking) do |form| %>
-      <%= form.hidden_field :state, value: 'booked' %>
-
       <%= form.label :passenger_name, "Lead Passenger's Name" %>
       <%= form.text_field :passenger_name, value: current_passenger.name, class: "white-input" %>
 

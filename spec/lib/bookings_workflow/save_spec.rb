@@ -24,7 +24,6 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       dropoff_lat: 52.4323,
       dropoff_lng: -1.4234,
       dropoff_name: 'Somewhere',
-      state: 'confirmed',
       passenger_name: 'Me',
       phone_number: '1234',
       payment_method: 'cash'
@@ -179,7 +178,6 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     
     it 'returns the correct params' do
       expect(subject.params).to eq(ActionController::Parameters.new({
-        state: 'confirmed',
         passenger_name: 'Me',
         phone_number: '1234',
         payment_method: 'cash'

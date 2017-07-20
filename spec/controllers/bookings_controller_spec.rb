@@ -158,7 +158,6 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'save_confirm updates the correct things' do
       booking_params = {
-        state: 'confirmed',
         passenger_name: 'Me',
         phone_number: '1234',
         payment_method: 'cash'
@@ -176,7 +175,6 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'save_confirm sends an SMS' do
       booking_params = {
-        state: 'confirmed',
         passenger_name: 'Me',
         phone_number: '1234',
         payment_method: 'cash'

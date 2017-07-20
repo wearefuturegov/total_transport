@@ -64,7 +64,6 @@ module BookingsWorkflow
           ]
         when :confirm
           [
-            :state,
             :passenger_name,
             :phone_number,
             :payment_method

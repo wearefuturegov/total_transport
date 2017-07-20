@@ -77,7 +77,6 @@ class BookingsController < PublicController
       :dropoff_lat,
       :dropoff_lng,
       :dropoff_name,
-      :state,
       :phone_number,
       :passenger_name,
       :payment_method,
