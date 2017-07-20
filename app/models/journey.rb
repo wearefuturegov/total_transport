@@ -21,7 +21,7 @@ class Journey < ActiveRecord::Base
   }
   
   scope :on_date, ->(date) {
-    where('start_time >= ? AND start_time <= ?', Time.now.at_beginning_of_day, Time.now.at_end_of_day)
+    where('start_time >= ? AND start_time <= ?', date.at_beginning_of_day, date.at_end_of_day)
   }
   scope :booked_or_empty, ->(booked_or_empty) {
     where(booked: booked_or_empty == 'booked')
@@ -37,6 +37,9 @@ class Journey < ActiveRecord::Base
       :booked_or_empty
     ]
   )
+  
+  after_create :close_before_end
+  after_update :change_close_time, if: :start_time_changed?
 
   def booked_bookings
     bookings.booked
@@ -59,36 +62,22 @@ class Journey < ActiveRecord::Base
   end
 
   def route_name
-    if self.reversed?
-      backwards_name
-    else
-      forwards_name
-    end
+    "#{stops_in_direction.first.name} - #{stops_in_direction.last.name}"
   end
 
   def stops_in_direction
-    if self.reversed?
-      stops.reverse
-    else
-      stops
+    reversed? ? stops.reverse : stops
+  end
+  
+  private
+    
+    def close_before_end
+      CloseBeforeEnd.enqueue(id, run_at: start_time - 6.hours)
     end
-  end
-
-  def forwards_name
-    "#{stops.first.name} - #{stops.last.name}"
-  end
-
-  def backwards_name
-    "#{stops.last.name} - #{stops.first.name}"
-  end
-
-  def self.close_near_journeys
-    number_of_hours_ahead = 6
-    beginning_of_hour = Time.now.at_beginning_of_hour
-    from_time = beginning_of_hour + number_of_hours_ahead.hours
-    to_time = beginning_of_hour + number_of_hours_ahead.hours + 59.minutes
-    where('start_time > ? AND start_time < ?', from_time, to_time).each do |journey|
-      journey.update_attribute(:open_to_bookings, false)
+    
+    def change_close_time
+      QueJob.where("args::json->>0 = '?' AND job_class = 'CloseBeforeEnd'", 1).destroy_all
+      close_before_end
     end
-  end
+
 end
