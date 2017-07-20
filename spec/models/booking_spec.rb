@@ -11,9 +11,10 @@ RSpec.describe Booking, type: :model do
     end
     
     it 'queues alerts' do
-      expect { booking.confirm! }.to change { SendSMS.jobs.count }.by(2)
-      expect(SendSMS.jobs.first.run_at).to eq(booking.pickup_time - 24.hours)
-      expect(SendSMS.jobs.last.run_at).to eq(booking.pickup_time - 1.hours)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(2)
+      jobs = QueJob.where(job_class: 'SendSMS')
+      expect(jobs.first.run_at).to eq(booking.pickup_time - 24.hours)
+      expect(jobs.last.run_at).to eq(booking.pickup_time - 1.hours)
     end
     
     it 'sets the journey to booked' do

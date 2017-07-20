@@ -197,8 +197,6 @@ GEM
     public_suffix (2.0.5)
     puma (3.9.1)
     que (0.13.1)
-    que-testing (0.2.0)
-      que
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -347,7 +345,6 @@ DEPENDENCIES
   pry
   puma
   que
-  que-testing
   rails (= 4.2.6)
   rails-assets-datetimepicker!
   rails-assets-jquery (~> 1.12)!

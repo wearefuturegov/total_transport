@@ -8,7 +8,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
-require 'que/testing'
 require 'timecop'
 
 require 'support/fake_sms'
@@ -21,7 +20,6 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.before :each do
     FakeSMS.messages = []
-    SendSMS.jobs.clear
   end
   
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
