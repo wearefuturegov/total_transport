@@ -8,7 +8,7 @@ class Stop < ActiveRecord::Base
 
   validates_presence_of :route, :latitude, :longitude, :polygon
 
-  def previous_stops(reversed: false)
+  def previous_stops(reversed = false)
     if reversed
       route.stops.where('position >= ?', self.position)
     else
@@ -16,16 +16,16 @@ class Stop < ActiveRecord::Base
     end
   end
 
-  def minutes_from_first_stop(reversed: false)
+  def minutes_from_first_stop(reversed = false)
     m = 0
-    previous_stops(reversed: reversed)[1..-1].each do |s|
+    previous_stops(reversed)[1..-1].each do |s|
       m += s.minutes_from_last_stop if s.minutes_from_last_stop
     end
     m
   end
 
   def time_for_journey(journey)
-    journey.start_time + minutes_from_first_stop(reversed: journey.reversed?).minutes
+    journey.start_time + minutes_from_first_stop(journey.reversed?).minutes
   end
 
   def lat_lng

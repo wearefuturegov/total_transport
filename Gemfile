@@ -76,6 +76,8 @@ group :development, :test do
   gem 'vcr'
   gem 'simplecov'
   gem 'timecop'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 end
 
 group :development do

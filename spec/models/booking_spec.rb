@@ -85,26 +85,32 @@ RSpec.describe Booking, type: :model do
   
   context '#last_dropoff_time' do
     
-    before do
-      booking.journey.route.stops = [
-        FactoryGirl.create(:stop, name: 'First Stop'),
-        FactoryGirl.create(:stop, name: 'Second Stop', minutes_from_last_stop: 40),
-        FactoryGirl.create(:stop, name: 'Third Stop', minutes_from_last_stop: 20),
-        FactoryGirl.create(:stop, name: 'Fourth Stop', minutes_from_last_stop: 10),
-        FactoryGirl.create(:stop, name: 'Last Stop', minutes_from_last_stop: 15)
+    let(:stops) {
+      [
+        FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1),
+        FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
+        FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
+        FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
+        FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5)
       ]
-      booking.pickup_stop = booking.journey.stops.first
-      booking.dropoff_stop = booking.journey.stops.last
-      booking.journey.start_time = DateTime.parse('2017-01-01T10:00:00')
-    end
+    }
+    let(:route) { FactoryGirl.create(:route, stops: stops) }
+    let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+    let(:booking) {
+      FactoryGirl.create(:booking,
+        journey: journey,
+        pickup_stop: stops.first,
+        dropoff_stop: stops.last
+      )
+    }
     
     it 'gets the last dropoff time for a non-return booking' do
-      expect(booking.last_dropoff_time).to eq(DateTime.parse('2017-01-01T11:25:00'))
+      expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 11:25:00 UTC')
     end
     
     it 'gets the last dropoff time for a return booking' do
-      booking.return_journey = booking.journey
-      expect(booking.last_dropoff_time).to eq(DateTime.parse('2017-01-01T11:25:00'))
+      booking.return_journey = FactoryGirl.create(:journey, route: route, reversed: true, start_time: DateTime.parse('2017-01-01T17:00:00'))
+      expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 18:25:00 UTC')
     end
     
   end
