@@ -12,22 +12,22 @@
           <% if returning %>
             <div class="inner">
               <div class="half">
-                <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.dropoff_stop).strftime("%H:%M") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
               <div class="half">
-                <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.pickup_stop).strftime("%H:%M") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
             </div>
           <% else %>
             <div class="inner">
               <div class="half">
-                <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
               <div class="half">
-                <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="fully-booked flagged-jrny">
               <span>Fully booked</span>
             </div>
-          <% elsif !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: @booking.dropoff_stop.time_for_journey(journey)).empty? %>
+          <% elsif !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: journey.time_at_stop(@booking.dropoff_stop)).empty? %>
             <div class="seats-left flagged-jrny return-ticket">
               <span>No Return Journey Available</span>
             </div>

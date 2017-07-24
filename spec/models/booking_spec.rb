@@ -83,7 +83,7 @@ RSpec.describe Booking, type: :model do
     
   end
   
-  context '#last_dropoff_time' do
+  context 'pickup and dropoff times' do
     
     let(:stops) {
       [
@@ -104,13 +104,45 @@ RSpec.describe Booking, type: :model do
       )
     }
     
-    it 'gets the last dropoff time for a non-return booking' do
-      expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 11:25:00 UTC')
+    context '#last_dropoff_time' do
+      
+      it 'gets the last dropoff time for a non-return booking' do
+        expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 11:25:00 UTC')
+      end
+      
+      it 'gets the last dropoff time for a return booking' do
+        booking.return_journey = FactoryGirl.create(:journey, route: route, reversed: true, start_time: DateTime.parse('2017-01-01T17:00:00'))
+        expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 18:25:00 UTC')
+      end
+      
     end
     
-    it 'gets the last dropoff time for a return booking' do
-      booking.return_journey = FactoryGirl.create(:journey, route: route, reversed: true, start_time: DateTime.parse('2017-01-01T17:00:00'))
-      expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 18:25:00 UTC')
+    context '#pickup_time' do
+      
+      it 'gets the correct pickup time' do
+        booking.pickup_stop = stops[1]
+        expect(booking.pickup_time).to eq(DateTime.parse('2017-01-01T10:40:00'))
+      end
+      
+      it 'gets the correct pickup time for reversed journey' do
+        booking.dropoff_stop = stops[3]
+        expect(booking.pickup_time true).to eq(DateTime.parse('2017-01-01T11:10:00'))
+      end
+      
+    end
+    
+    context '#dropoff_time' do
+      
+      it 'gets the correct dropoff time' do
+        booking.dropoff_stop = stops[3]
+        expect(booking.dropoff_time).to eq(DateTime.parse('2017-01-01T11:10:00'))
+      end
+      
+      it 'gets the correct dropoff time' do
+        booking.dropoff_stop = stops[1]
+        expect(booking.dropoff_time true).to eq(DateTime.parse('2017-01-01T10:40:00'))
+      end
+      
     end
     
   end

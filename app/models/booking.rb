@@ -18,15 +18,21 @@ class Booking < ActiveRecord::Base
     last_dropoff_time < Time.now
   end
 
-  def pickup_time
-    pickup_stop.time_for_journey(journey)
+  def pickup_time(reversed = false)
+    stop = reversed ? dropoff_stop : pickup_stop
+    journey.time_at_stop(stop)
+  end
+  
+  def dropoff_time(reversed = false)
+    stop = reversed ? pickup_stop : dropoff_stop
+    journey.time_at_stop(dropoff_stop)
   end
 
   def last_dropoff_time
     if return_journey?
-      pickup_stop.time_for_journey(return_journey)
+      return_journey.time_at_stop(pickup_stop)
     else
-      dropoff_stop.time_for_journey(journey)
+      journey.time_at_stop(dropoff_stop)
     end
   end
 

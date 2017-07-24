@@ -12,7 +12,7 @@
         <p><% @journey.stops.each do |stop| %></p>
           <p>
             <%= stop.name %>:
-            <%= stop.time_for_journey(@journey).strftime("%H:%M") %>
+            <%= @journey.time_at_stop(stop).strftime("%H:%M") %>
           </p>
         <% end %>
       </div>

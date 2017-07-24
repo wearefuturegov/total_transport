@@ -1,7 +1,7 @@
 <%= form_for [@route, @booking], url: save_return_journey_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <p>You will be travelling from <span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span> on <strong><%= friendly_date @booking.journey.start_time %></strong> with your pickup at <%= @booking.pickup_stop.time_for_journey(@booking.journey).strftime("%l:%M%P") %> (+/- 10 min) in <%= @booking.pickup_stop.name %></p>
+      <p>You will be travelling from <span class="pickup"><%= @booking.pickup_stop.name %></span> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span> on <strong><%= friendly_date @booking.journey.start_time %></strong> with your pickup at <%= @booking.pickup_time.strftime("%l:%M%P") %> (+/- 10 min) in <%= @booking.pickup_stop.name %></p>
       <p class="return-ticket"><strong>Return:</strong> <%= @booking.dropoff_stop.name %> to <%= @booking.pickup_stop.name %></p>
       <div class="center"><%= render partial: 'display_journey_tabs' %></div>
     </div>

@@ -84,7 +84,7 @@ module BookingsWorkflow
     private
     
       def from_time
-        @booking.dropoff_stop.time_for_journey(@booking.journey)
+        @booking.journey.time_at_stop(@booking.dropoff_stop)
       end
   end
 end
