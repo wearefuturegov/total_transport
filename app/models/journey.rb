@@ -69,6 +69,10 @@ class Journey < ActiveRecord::Base
     reversed? ? stops.reverse : stops
   end
   
+  def time_at_stop(stop)
+    start_time + stop.minutes_from_first_stop(reversed?).minutes
+  end
+  
   private
     
     def close_before_end

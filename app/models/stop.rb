@@ -17,10 +17,6 @@ class Stop < ActiveRecord::Base
   end
 
   def minutes_from_first_stop(reversed = false)
-  end
-
-  def time_for_journey(journey)
-    journey.start_time + minutes_from_first_stop(journey.reversed?).minutes
     previous_stops(reversed).drop(1).sum { |s| s.try(:minutes_from_last_stop) || 0 }
   end
 
