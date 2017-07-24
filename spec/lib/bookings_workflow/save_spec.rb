@@ -6,6 +6,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
   let(:route) { FactoryGirl.create(:route) }
   let(:booking) { FactoryGirl.create(:booking) }
   let(:journey) { FactoryGirl.create(:journey) }
+  let(:return_journey) { FactoryGirl.create(:journey) }
   let(:subject) { BookingsWorkflow::Save.new(step, route, booking, params) }
   let(:promo_code) { FactoryGirl.create(:promo_code) }
   let(:params) {
@@ -18,6 +19,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       scholar_bus_passes: 1,
       special_requirements: 'Foo bar baz',
       journey_id: journey.id,
+      return_journey_id: return_journey.id,
       pickup_lat: 52.4323,
       pickup_lng: -1.4234,
       pickup_name: 'Somewhere',
@@ -111,7 +113,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     
     it 'returns the correct params' do
       expect(subject.params).to eq(ActionController::Parameters.new({
-        journey_id: journey.id
+        return_journey_id: return_journey.id
       }))
     end
     

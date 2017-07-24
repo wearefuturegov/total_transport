@@ -109,7 +109,7 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'save_return_journey updates the correct things' do
       booking_params = {
-        journey_id: journey.id
+        return_journey_id: journey.id
       }
       
       params['booking'] = booking_params
