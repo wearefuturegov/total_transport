@@ -7,5 +7,6 @@ FactoryGirl.define do
     minutes_from_last_stop 20
 
     sequence(:name) { |n| "stop_#{n}" }
+    sequence(:position) { |n| n }
   end
 end

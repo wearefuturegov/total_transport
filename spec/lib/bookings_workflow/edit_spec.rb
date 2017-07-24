@@ -4,7 +4,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
   include Rails.application.routes.url_helpers
 
   let(:route) { FactoryGirl.create(:route) }
-  let(:booking) { FactoryGirl.create(:booking) }
+  let(:booking) { FactoryGirl.create(:booking, pickup_stop: route.stops.first, dropoff_stop: route.stops.last) }
   let(:subject) { BookingsWorkflow::Edit.new(step, route, booking) }
   
   context 'if the step is not present in the steps constant' do
