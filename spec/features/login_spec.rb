@@ -7,8 +7,12 @@ feature 'User logs in', type: :feature, js: true do
   end
 
   it 'Successful login for new user' do
-    enter_phone_number('+15005550006')
-    enter_verification_code(Passenger.last.verification_code)
+    expect {
+      enter_phone_number('+15005550006')
+    }.to change { FakeSMS.messages.count }.by(1)
+    verification_code = Passenger.last.verification_code
+    expect(FakeSMS.messages.first[:body]).to eq("Your verification code is #{verification_code}")
+    enter_verification_code(verification_code)
     expect(page).to have_content('Choose Your Route')
   end
   

@@ -15,7 +15,7 @@ feature 'User books journey', type: :feature, js: true do
 
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(1)
+    choose_requirements(1, 0)
     choose_journey('outward', outward_journey.id)
     choose_journey('return', return_journey.id)
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
@@ -38,13 +38,42 @@ feature 'User books journey', type: :feature, js: true do
 
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(1, true)
-    choose_journey('outward', outward_journey.id, true)
+    choose_requirements(1, 0, true)
+    choose_journey('outward', outward_journey.id)
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
     set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
     expect {
       click_button 'Pay with Cash'
     }.to change { FakeSMS.messages.count }.by(1)
+  end
+  
+  scenario 'Booking a journey with multiple passengers' do
+    visit '/'
+
+    choose_route(route)
+    select_stops(route.stops.first.id, route.stops.last.id)
+    choose_requirements(3, 0, false)
+    choose_journey('outward', outward_journey.id)
+    choose_journey('return', return_journey.id)
+    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
+    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    click_button 'Pay with Cash'
+    expect(Booking.first.number_of_passengers).to eq(3)
+  end
+  
+  scenario 'Booking a journey with child tickets' do
+    visit '/'
+
+    choose_route(route)
+    select_stops(route.stops.first.id, route.stops.last.id)
+    choose_requirements(2, 1, false)
+    choose_journey('outward', outward_journey.id)
+    choose_journey('return', return_journey.id)
+    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
+    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    click_button 'Pay with Cash'
+    expect(Booking.first.number_of_passengers).to eq(2)
+    expect(Booking.first.child_tickets).to eq(1)
   end
   
   private
@@ -59,9 +88,14 @@ feature 'User books journey', type: :feature, js: true do
       click_button 'Verify'
     end
   
-    def choose_requirements(number_of_passengers, single = false)
+    def choose_requirements(number_of_passengers, child_tickets, single = false)
       first('#singleTab').click if single === true
       select(number_of_passengers, from: 'booking[number_of_passengers]')
+      if child_tickets > 0
+        first('#add-concession').click
+        expect(page).to have_css('#concession-list')
+        select 'Child fare', from: 'concession-list'
+      end
       click_button 'Next'
     end
     
@@ -76,7 +110,7 @@ feature 'User books journey', type: :feature, js: true do
       click_button 'Confirm Route'
     end
     
-    def choose_journey(type, journey_id, single = false)
+    def choose_journey(type, journey_id)
       if type == 'return'
         selector = "booking_return_journey_id_#{journey_id}"
       else
