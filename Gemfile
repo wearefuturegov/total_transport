@@ -78,6 +78,8 @@ group :development, :test do
   gem 'timecop'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
 end
 
 group :development do

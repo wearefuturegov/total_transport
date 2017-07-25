@@ -44,6 +44,8 @@ GEM
     airbrake (4.3.8)
       builder
       multi_json
+    archive-zip (0.7.0)
+      io-like (~> 0.3.0)
     arel (6.0.4)
     aws-sdk (2.10.7)
       aws-sdk-resources (= 2.10.7)
@@ -72,9 +74,17 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-selenium (0.0.6)
+      capybara
+      selenium-webdriver
     capybara-webkit (1.1.0)
       capybara (~> 2.0, >= 2.0.2)
       json
+    childprocess (0.7.1)
+      ffi (~> 1.0, >= 1.0.11)
+    chromedriver-helper (1.1.0)
+      archive-zip (~> 0.7.0)
+      nokogiri (~> 1.6)
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -127,6 +137,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
+    ffi (1.9.18)
     filterrific (2.1.2)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
@@ -136,8 +147,9 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (0.3.4)
     high_voltage (3.0.0)
-    i18n (0.8.4)
+    i18n (0.8.6)
     interception (0.5)
+    io-like (0.3.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -174,7 +186,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.2.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     multi_json (1.12.1)
     multi_test (0.1.2)
     neat (1.8.0)
@@ -266,6 +278,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    rubyzip (1.2.1)
     safe_yaml (1.0.4)
     sass (3.4.24)
     sass-rails (5.0.6)
@@ -277,6 +290,9 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    selenium-webdriver (3.4.4)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
     simplecov (0.14.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -329,7 +345,9 @@ DEPENDENCIES
   bitters
   bourbon
   byebug
+  capybara-selenium
   capybara-webkit
+  chromedriver-helper
   coffee-rails (~> 4.1.0)
   cucumber-rails
   database_cleaner
@@ -374,4 +392,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
