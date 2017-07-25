@@ -46,9 +46,13 @@ module BookingsWorkflow
             :scholar_bus_passes,
             :special_requirements
           ]
-        when :journey, :return_journey
+        when :journey
           [
             :journey_id
+          ]
+        when :return_journey
+          [
+            :return_journey_id
           ]
         when :pickup_location
           [

@@ -85,7 +85,8 @@ class BookingsController < PublicController
       :child_tickets,
       :older_bus_passes,
       :disabled_bus_passes,
-      :scholar_bus_passes
+      :scholar_bus_passes,
+      :single_journey
     )
   end
 
