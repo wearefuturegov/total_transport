@@ -55,6 +55,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
+    FactoryGirl.reload
   end
 
   config.before(:each, type: :feature) do
