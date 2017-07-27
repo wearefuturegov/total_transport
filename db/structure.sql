@@ -392,7 +392,8 @@ CREATE TABLE suggested_journeys (
     start_time timestamp without time zone,
     description text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    booking_id integer
 );
 
 
@@ -924,6 +925,13 @@ CREATE INDEX index_suggested_edit_to_stops_on_stop_id ON suggested_edit_to_stops
 
 
 --
+-- Name: index_suggested_journeys_on_booking_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_suggested_journeys_on_booking_id ON suggested_journeys USING btree (booking_id);
+
+
+--
 -- Name: index_suggested_journeys_on_passenger_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1230,4 +1238,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170712092230');
 INSERT INTO schema_migrations (version) VALUES ('20170712111051');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718094200');
+
+INSERT INTO schema_migrations (version) VALUES ('20170726154635');
 

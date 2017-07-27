@@ -5,7 +5,8 @@ class Booking < ActiveRecord::Base
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
   belongs_to :promo_code
-
+  has_one :suggested_journey
+  
   scope :booked, -> { where(state: 'booked') }
   
   after_destroy :remove_alerts, :set_journey_booked_status

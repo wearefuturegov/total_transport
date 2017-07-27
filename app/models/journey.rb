@@ -6,8 +6,8 @@ class Journey < ActiveRecord::Base
   has_many :bookings, dependent: :destroy, class_name: 'Booking'
   belongs_to :vehicle
   belongs_to :supplier
-  validates_presence_of :vehicle, :supplier, :start_time, :route
-
+  validates_presence_of :start_time, :route, :vehicle, :supplier
+  
   scope :forwards, -> {where("reversed IS NOT TRUE")}
   scope :backwards, -> {where("reversed IS TRUE")}
   scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
