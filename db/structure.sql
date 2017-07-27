@@ -63,7 +63,8 @@ CREATE TABLE bookings (
     scholar_bus_passes integer DEFAULT 0,
     promo_code_id integer,
     passenger_name character varying,
-    payment_method character varying DEFAULT 'cash'::character varying
+    payment_method character varying DEFAULT 'cash'::character varying,
+    generated_journey_id integer
 );
 
 
@@ -84,6 +85,49 @@ CREATE SEQUENCE bookings_id_seq
 --
 
 ALTER SEQUENCE bookings_id_seq OWNED BY bookings.id;
+
+
+--
+-- Name: generated_journeys; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE generated_journeys (
+    id integer NOT NULL,
+    route_id integer,
+    start_time timestamp without time zone,
+    bookings_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: generated_journeys_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE generated_journeys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: generated_journeys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE generated_journeys_id_seq OWNED BY generated_journeys.id;
+
+
+--
+-- Name: generated_journeys_vehicles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE generated_journeys_vehicles (
+    generated_journey_id integer,
+    vehicle_id integer
+);
 
 
 --
@@ -609,6 +653,13 @@ ALTER TABLE ONLY bookings ALTER COLUMN id SET DEFAULT nextval('bookings_id_seq':
 
 
 --
+-- Name: generated_journeys id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY generated_journeys ALTER COLUMN id SET DEFAULT nextval('generated_journeys_id_seq'::regclass);
+
+
+--
 -- Name: journeys id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -712,6 +763,14 @@ ALTER TABLE ONLY vehicles ALTER COLUMN id SET DEFAULT nextval('vehicles_id_seq':
 
 ALTER TABLE ONLY bookings
     ADD CONSTRAINT bookings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: generated_journeys generated_journeys_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY generated_journeys
+    ADD CONSTRAINT generated_journeys_pkey PRIMARY KEY (id);
 
 
 --
@@ -834,6 +893,13 @@ CREATE INDEX index_bookings_on_dropoff_stop_id ON bookings USING btree (dropoff_
 
 
 --
+-- Name: index_bookings_on_generated_journey_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_bookings_on_generated_journey_id ON bookings USING btree (generated_journey_id);
+
+
+--
 -- Name: index_bookings_on_journey_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -859,6 +925,34 @@ CREATE INDEX index_bookings_on_pickup_stop_id ON bookings USING btree (pickup_st
 --
 
 CREATE INDEX index_bookings_on_promo_code_id ON bookings USING btree (promo_code_id);
+
+
+--
+-- Name: index_generated_journeys_on_bookings_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_generated_journeys_on_bookings_id ON generated_journeys USING btree (bookings_id);
+
+
+--
+-- Name: index_generated_journeys_on_route_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_generated_journeys_on_route_id ON generated_journeys USING btree (route_id);
+
+
+--
+-- Name: index_generated_journeys_vehicles_on_generated_journey_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_generated_journeys_vehicles_on_generated_journey_id ON generated_journeys_vehicles USING btree (generated_journey_id);
+
+
+--
+-- Name: index_generated_journeys_vehicles_on_vehicle_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_generated_journeys_vehicles_on_vehicle_id ON generated_journeys_vehicles USING btree (vehicle_id);
 
 
 --
@@ -1082,6 +1176,14 @@ ALTER TABLE ONLY landmarks
 
 
 --
+-- Name: generated_journeys fk_rails_85a068b9d0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY generated_journeys
+    ADD CONSTRAINT fk_rails_85a068b9d0 FOREIGN KEY (route_id) REFERENCES routes(id);
+
+
+--
 -- Name: vehicles fk_rails_8b6303dec0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1240,4 +1342,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170712111051');
 INSERT INTO schema_migrations (version) VALUES ('20170718094200');
 
 INSERT INTO schema_migrations (version) VALUES ('20170726154635');
+
+INSERT INTO schema_migrations (version) VALUES ('20170727154644');
 
