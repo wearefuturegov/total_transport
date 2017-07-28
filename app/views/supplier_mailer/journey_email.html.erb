@@ -1,0 +1,25 @@
+<h1>A journey is available for approval</h1>
+
+<p>Hi,</p>
+
+<p>
+  Enough people have signed up for pickups to be able to run a journey on the
+  <%= @journey.reversed? ? @journey.route.backwards_name : @journey.route.forwards_name %> route, starting
+  at <%= @journey.start_time.strftime('%A %e %B') %> at <%= @journey.start_time.strftime('%l:%M%P') %>
+</p>
+
+<p>
+  According to the system the following vehicles have enough capacity to run a service:
+</p>
+
+<ul>
+  <% @vehicles.each do |vehicle| %>
+    <li><%= vehicle.make_model %> - <%= vehicle.registration %></li>
+  <% end %>
+</ul>
+
+<p>
+  To view the journey and approve / decline it, access the Pickup admin panel via the link below:
+</p>
+
+<p><%= edit_admin_generated_journey_url(@journey) %></p>

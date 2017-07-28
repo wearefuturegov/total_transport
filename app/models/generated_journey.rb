@@ -4,6 +4,7 @@ class GeneratedJourney < ActiveRecord::Base
   has_and_belongs_to_many :vehicles
   has_many :teams, through: :vehicles
   
+  after_create :send_notification!
   
   def vehicles_by_team
     vehicles.group_by(&:team)
@@ -16,4 +17,13 @@ class GeneratedJourney < ActiveRecord::Base
   def reversed?
     bookings.first.reversed?
   end
+  
+  private
+  
+    def send_notification!
+      teams.uniq.each do |t|
+        SupplierMailer.journey_email(t.suppliers, self, vehicles_for_team(t)).deliver_now
+      end
+    end
+  
 end
