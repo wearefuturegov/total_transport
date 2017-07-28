@@ -1,28 +1,27 @@
 <div class="container">
   <div class="inner">
-    <div class="card">
-      <table>
-        <tr>
-          <th>Email</th>
-          <th>Name</th>
-          <th>Phone Number</th>
-          <th>Team</th>
-          <th>Approved?</th>
-          <th>Super admin?</th>
-          <th></th>
-        </tr>
-        <% @suppliers.each do |supplier| %>
-          <tr>
-            <td><%= supplier.email %></td>
-            <td><%= supplier.name %></td>
-            <td><%= supplier.phone_number %></td>
-            <td><%= supplier.team.name %></td>
-            <td><%= supplier.approved? %></td>
-            <td><%= supplier.admin? %></td>
-            <td><%= link_to "edit", edit_admin_supplier_path(supplier) %></td>
-          </tr>
-        <% end %>
-      </table>
+    <div class="card no-click wide-btn">
+      <%= form_tag approve_admin_generated_journey_path(@generated_journey), method: :put do %>
+        <div class="inner">
+          <h4>Review / Edit Generated Journey</h4>
+          <%= label_tag :generated_journey_start_time, "Start Date / Time" %>
+          <%= text_field :generated_journey, :start_time, value: @generated_journey.start_time.strftime("%d/%m/%Y %H:%M") %>
+          
+          <%= label_tag :generated_journey_vehicle, "Choose Vehicle" %>
+          <%= select_tag "generated_journey[vehicle_id]", options_for_select(@generated_journey.vehicles_for_team(current_team).collect { |v|
+            [ "#{v.make_model} - #{v.registration}", v.id ]
+          }), { include_blank: true } %>
+        </div>
+        <%= submit_tag "Approve", :class => "button border-bottom-left-radius border-bottom-right-radius"  %>
+      <% end %>
     </div>
   </div>
 </div>
+
+<% content_for :js do %>
+<script type="text/javascript">
+  $('#generated_journey_start_time').datetimepicker({
+    format:'d/m/Y H:i'
+  });
+</script>
+<% end %>

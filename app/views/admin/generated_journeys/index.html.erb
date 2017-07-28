@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="inner">
+    <div class="card">
+      <table>
+        <tr>
+          <th>Route</th>
+          <th>Start Date / Time</th>
+          <th></th>
+        </tr>
+        <% @generated_journeys.each do |journey| %>
+          <tr>
+            <td><%= journey.reversed? ? journey.route.backwards_name : journey.route.forwards_name %></td>
+            <td><%= journey.start_time %></td>
+            <td><%= link_to 'Review / Edit', edit_admin_generated_journey_path(journey) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>
