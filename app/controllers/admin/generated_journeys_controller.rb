@@ -14,7 +14,7 @@ class Admin::GeneratedJourneysController < AdminController
       vehicle_id: generated_journey_params[:vehicle_id],
       start_time: (generated_journey_params[:start_time] || @generated_journey.start_time),
       open_to_bookings: generated_journey_params[:open_to_bookings],
-      reversed: @generated_journey.bookings.first.reversed?,
+      reversed: @generated_journey.reversed?,
       bookings: @generated_journey.bookings
     )
     redirect_to admin_root_path
