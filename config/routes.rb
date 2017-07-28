@@ -57,6 +57,11 @@ Rails.application.routes.draw do
     resources :supplier_suggestions
     resources :promo_codes
     resources :bookings, only: :show
+    resources :generated_journeys, only: [:index, :edit] do
+      member do
+        put :approve
+      end
+    end
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
 
