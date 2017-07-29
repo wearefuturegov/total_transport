@@ -72,7 +72,7 @@ RSpec.describe Admin::GeneratedJourneysController, type: :controller do
       subject
       journey = Journey.last
       expect(journey.vehicle).to eq(team_1_vehicle_1)
-      expect(journey.start_time).to eq(generated_journey.start_time)
+      expect(journey.start_time.to_s).to eq(generated_journey.start_time.to_s)
       expect(journey.bookings).to eq(bookings)
       expect(journey.reversed?).to eq(false)
     end
