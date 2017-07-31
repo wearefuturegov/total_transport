@@ -1,39 +1,33 @@
 module ApplicationHelper
+  
   def friendly_date(date, length=false)
     if date == Date.today
-      "Today"
+      'Today'
     elsif date == Date.tomorrow
-      "Tomorrow"
-    elsif (date > Date.today.beginning_of_year) && (date < Date.today.end_of_year)
-      if length
-        date.strftime("%a, %-d %B")
-      else
-        date.strftime("%A, %-d %B")
-      end
-
+      'Tomorrow'
     else
-      if length
-        date.strftime("%a, %-d %B, %Y")
-      else
-        date.strftime("%A, %-d %B, %Y")
-      end
+      day_format = length ? '%a' : '%A'
+      strf_format = "#{day_format}, %-d %B"
+      # Append the year if the date we want to parse is next year
+      strf_format += ", %Y" if date > Date.today.end_of_year
+      date.strftime(strf_format)
     end
   end
 
   def plus_minus_ten(time)
     t = time.to_time
-    final_time = "#{(t - 10*60).strftime("%l:%M%P")} and #{(t + 10*60).strftime("%l:%M%P")}"
-  end
-
-  def num_of_adults(num_of_passengers)
-    num_of_adults = num_of_passengers - @booking.child_tickets - @booking.older_bus_passes - @booking.disabled_bus_passes - @booking.scholar_bus_passes
+    final_time = "#{format_time(t - 10.minutes)} and #{format_time(t + 10.minutes)}"
   end
 
   def grab_phone_number(phone, booking)
-    if phone == nil
-      final_phone = Passenger.find(booking.passenger_id).phone_number
-    else
-      final_phone = "#{phone} - number possibly changed from passenger's original (#{Passenger.find(booking.passenger_id).phone_number})"
-    end
+    original = Passenger.find(booking.passenger_id).phone_number
+    phone.nil? ? original : "#{phone} - number possibly changed from passenger's original (#{original})"
   end
+  
+  private
+  
+    def format_time(time)
+      (time).strftime("%l:%M%P")
+    end
+  
 end

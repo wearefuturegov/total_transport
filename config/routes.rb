@@ -1,38 +1,28 @@
 Rails.application.routes.draw do
-  resource :passenger do
-    member do
-      get :verify
-      post :verify
+  resources :passengers, except: :destroy do
+    resources :sessions, only: [:new, :create]
+    collection do
+      delete :sign_out, to: 'sessions#destroy'
     end
     resources :bookings, only: :show
   end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
+  resources :suggested_routes, only: [:new, :create]
   resources :routes do
-    collection do
-      get :suggest_route
-      post :suggest_route
-    end
     resources :bookings do
       member do
-        get :choose_requirements
-        patch :save_requirements
-        get :choose_journey
-        patch :save_journey
-        get :choose_return_journey
-        patch :save_return_journey
-        get :choose_pickup_location
-        patch :save_pickup_location
-        get :choose_dropoff_location
-        patch :save_dropoff_location
-        get :confirm
-        patch :save_confirm
+        BookingsWorkflow::STEPS.each do |route|
+          get "edit_#{route}", action: :edit, as: "edit_#{route}", step: route
+        end
+        
+        BookingsWorkflow::STEPS.each do |route|
+          patch "save_#{route}", action: :update, as: "save_#{route}", step: route
+        end
+                
+        resources :suggested_journey, only: [:new, :create]
+        resources :suggested_edit_to_stop, only: [:new, :create]
+        
         get :confirmation
-
-        get :suggest_journey
-        post :suggest_journey
-        get :suggest_edit_to_stop
-        post :suggest_edit_to_stop
-
         get :price_api
       end
     end

@@ -3,6 +3,7 @@ class Journey < ActiveRecord::Base
   has_many :stops, through: :route
   has_many :outward_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'journey_id'
   has_many :return_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'return_journey_id'
+  has_many :bookings, dependent: :destroy, class_name: 'Booking'
   belongs_to :vehicle
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
@@ -18,21 +19,12 @@ class Journey < ActiveRecord::Base
       where('start_time > ?', Time.now).order('start_time ASC')
     end
   }
+  
   scope :on_date, ->(date) {
-    where('start_time >= ? AND start_time <= ?', Time.now.at_beginning_of_day, Time.now.at_end_of_day)
+    where('start_time >= ? AND start_time <= ?', date.at_beginning_of_day, date.at_end_of_day)
   }
   scope :booked_or_empty, ->(booked_or_empty) {
-    if booked_or_empty == 'booked'
-      joins(:outward_bookings).
-      select('journeys.*').
-      group('journeys.id').
-      having('count(bookings.id) > 0')
-    elsif booked_or_empty == 'empty'
-      joins('LEFT OUTER JOIN bookings ON (bookings.journey_id = journeys.id OR bookings.return_journey_id = journeys.id)').
-      select('journeys.*').
-      group('journeys.id').
-      having('count(bookings.id) = 0')
-    end
+    where(booked: booked_or_empty == 'booked')
   }
 
   filterrific(
@@ -45,13 +37,12 @@ class Journey < ActiveRecord::Base
       :booked_or_empty
     ]
   )
-
-  def bookings
-    outward_bookings + return_bookings
-  end
+  
+  after_create :close_before_end
+  after_update :change_close_time, if: :start_time_changed?
 
   def booked_bookings
-    outward_bookings.booked + return_bookings.booked
+    bookings.booked
   end
 
   def editable_by_supplier?(supplier)
@@ -63,7 +54,7 @@ class Journey < ActiveRecord::Base
   end
 
   def seats_left
-    vehicle.seats - booked_bookings.sum {|x| x.number_of_passengers}
+    vehicle.seats - booked_bookings.sum(:number_of_passengers)
   end
 
   def full?
@@ -71,36 +62,26 @@ class Journey < ActiveRecord::Base
   end
 
   def route_name
-    if self.reversed?
-      backwards_name
-    else
-      forwards_name
-    end
+    "#{stops_in_direction.first.name} - #{stops_in_direction.last.name}"
   end
 
   def stops_in_direction
-    if self.reversed?
-      stops.reverse
-    else
-      stops
+    reversed? ? stops.reverse : stops
+  end
+  
+  def time_at_stop(stop)
+    start_time + stop.minutes_from_first_stop(reversed?).minutes
+  end
+  
+  private
+    
+    def close_before_end
+      CloseBeforeEnd.enqueue(id, run_at: start_time - 6.hours)
     end
-  end
-
-  def forwards_name
-    "#{stops.first.name} - #{stops.last.name}"
-  end
-
-  def backwards_name
-    "#{stops.last.name} - #{stops.first.name}"
-  end
-
-  def self.close_near_journeys
-    number_of_hours_ahead = 6
-    beginning_of_hour = Time.now.at_beginning_of_hour
-    from_time = beginning_of_hour + number_of_hours_ahead.hours
-    to_time = beginning_of_hour + number_of_hours_ahead.hours + 59.minutes
-    where('start_time > ? AND start_time < ?', from_time, to_time).each do |journey|
-      journey.update_attribute(:open_to_bookings, false)
+    
+    def change_close_time
+      QueJob.where("args::json->>0 = '?' AND job_class = 'CloseBeforeEnd'", 1).destroy_all
+      close_before_end
     end
-  end
+
 end

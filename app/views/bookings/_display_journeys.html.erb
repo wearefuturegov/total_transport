@@ -12,22 +12,22 @@
           <% if returning %>
             <div class="inner">
               <div class="half">
-                <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.dropoff_stop).strftime("%H:%M") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
               <div class="half">
-                <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.pickup_stop).strftime("%H:%M") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
             </div>
           <% else %>
             <div class="inner">
               <div class="half">
-                <span class="timeEst"><%= @booking.pickup_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
               <div class="half">
-                <span class="timeEst"><%= @booking.dropoff_stop.time_for_journey(journey).strftime("%l:%M%P") %></span><br/>
+                <span class="timeEst"><%= journey.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P") %></span><br/>
                 <span class="small grey">+/- 10 min</span>
               </div>
             </div>
@@ -40,19 +40,19 @@
             <div class="fully-booked flagged-jrny">
               <span>Fully booked</span>
             </div>
-          <% elsif !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: @booking.dropoff_stop.time_for_journey(journey)).empty? %>
+          <% elsif !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: journey.time_at_stop(@booking.dropoff_stop)).empty? %>
             <div class="seats-left flagged-jrny return-ticket">
               <span>No Return Journey Available</span>
             </div>
             <% if journey.seats_left < 5 && journey.seats_left > 0 %>
             <div class="seats-left flagged-jrny single-ticket">
               <span>Only <%= pluralize journey.seats_left, "seat" %> left!</span>
-            </div> 
+            </div>
           <% end %>
           <% elsif journey.seats_left < 5 && journey.seats_left > 0 %>
             <div class="seats-left flagged-jrny">
               <span>Only <%= pluralize journey.seats_left, "seat" %> left!</span>
-            </div> 
+            </div>
           <% end %>
 
           
@@ -63,12 +63,13 @@
   <% end %>
   <div class="suggestion center grey">
     <p>Don't see a time good for you?<br>
-    <%= link_to "Suggest a new time", suggest_journey_route_booking_path(@route, @booking) %></p>
+    <%= link_to "Suggest a new time", new_route_suggested_journey_path(@route, @booking) %></p>
   </div>
 <% else %>
-  <p>We are sorry, currently there are no possible journeys avaliable for this route. Please try again later or <%= link_to "suggest a new time", suggest_journey_route_booking_path(@route, @booking) %>, so that we can help tailor this service for you.</p>
+  <p>We are sorry, currently there are no possible journeys avaliable for this route. Please try again later or <%= link_to "suggest a new time", new_route_suggested_journey_path(@route, @booking) %>, so that we can help tailor this service for you.</p>
 <% end %>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $('.single-journey label').click(function(e) {
     var parent = $(this).parent();
@@ -84,3 +85,4 @@
     }
   });
 </script>
+<% end %>

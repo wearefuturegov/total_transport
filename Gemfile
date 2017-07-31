@@ -1,4 +1,4 @@
-ruby '2.3.1'
+ruby '2.3.4'
 source 'https://rubygems.org'
 
 
@@ -51,6 +51,7 @@ gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific'
 gem 'kaminari'
+gem 'que'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -64,14 +65,18 @@ gem 'kaminari'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails'
+  gem 'pry'
+  gem 'rspec-rails', '~> 3.5.2'
   gem 'factory_girl_rails'
-  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
-  gem 'capybara-webkit'
   gem 'launchy'
   gem 'webmock'
-  gem 'vcr'
+  gem 'simplecov'
+  gem 'timecop'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
 end
 
 group :development do
@@ -80,4 +85,9 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-datetimepicker'
+  gem 'rails-assets-jquery', '~> 1.12'
 end

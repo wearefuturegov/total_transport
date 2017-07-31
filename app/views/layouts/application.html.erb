@@ -36,7 +36,7 @@
       <div class="right">
         <% if current_passenger %>
           <div id="profile-link">
-            <%= link_to passenger_path do %>
+            <%= link_to current_passenger do %>
               <i class="fa fa-user"></i>
             <% end %>
           </div>
@@ -44,8 +44,8 @@
             <i class="fa fa-times"></i>
           </div>
           <!--<div class="no-mobile">
-            <%= link_to current_passenger.phone_number, passenger_path %>
-            <%= link_to 'logout', passenger_path, method: :delete %>
+            <%= link_to current_passenger.phone_number, current_passenger %>
+            <%= link_to 'logout', current_passenger, method: :delete %>
           </div>-->
         <% end %>
       </div>
@@ -59,11 +59,11 @@
       </div>
     </div>
   <% end %>
-
-  <% if @top_sec != false %>
+  
+  <% if content_for?(:top_sec) %>
     <div class="top-sec container white-block">
       <div class="inner">
-        <span><%= @top_sec %></span>
+        <span><%= yield(:top_sec) %></span>
       </div>
     </div>
   <% end %>
@@ -88,7 +88,5 @@
     </div>
   </div>
 </body>
-<% if @map_bool == true %>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
-<% end %>
+<%= yield(:js) %>
 </html>

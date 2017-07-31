@@ -36,6 +36,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   function initMap() {
     $('.route_preview').each(function(i, m) {
@@ -53,3 +54,4 @@
     });
   }
 </script>
+<% end %>

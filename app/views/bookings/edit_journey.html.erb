@@ -1,0 +1,40 @@
+<%= form_for [@route, @booking], url: save_journey_route_booking_path(@route, @booking) do |form| %>
+  <div class="top-sec container white-block">
+    <div class="inner">
+      <p class="center mb1">From <strong><%= @booking.pickup_stop.name %></span></strong> to <span class="dropoff"><%= @booking.dropoff_stop.name %></span></p>
+
+      <div class="center"><%= render partial: 'display_journey_tabs' %></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="inner">
+      <%= render partial: 'display_journeys', locals: {form: form, field: :journey_id, returning: false} %>
+    </div>
+  </div>
+  <div class="continue-btn fixed bottom white-block hidden">
+    <div class="container">
+      <div class="inner">
+
+        <div class="card return-ticket mb0">
+          <%= form.submit 'Next', :class => 'button alt-button disabled return-btn', :disabled => true %>
+        </div>
+        <div class="card single-ticket hidden">
+          <%= form.submit 'Next', name: "booking[single_journey]", :class => 'button alt-button single-ticket hidden' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-spacer"></div>
+<% end %>
+
+<% content_for :js do %>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    checkPassengers(<%= @booking.number_of_passengers %>);
+    clearRadios();
+  });
+
+</script>
+<% end %>

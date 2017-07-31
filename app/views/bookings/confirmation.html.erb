@@ -6,7 +6,7 @@
     <% end %>
 
     <p>Thanks<%= " #{@booking.passenger_name}" %>, your booking has been confirmed.</p>
-    <p class="bold">A minivan will pick you up at your pickup point outside <%= @booking.pickup_name %> on <%= friendly_date @booking.journey.start_time %> between <%= plus_minus_ten @booking.pickup_stop.time_for_journey(@booking.journey) %>.</p>
+    <p class="bold">A minivan will pick you up at your pickup point outside <%= @booking.pickup_name %> on <%= friendly_date @booking.journey.start_time %> between <%= plus_minus_ten @booking.pickup_time %>.</p>
 
     <% if @booking.payment_method == 'cash' %>
       <p class="bold">Please pay <%= number_to_currency @booking.price, unit: '£' %> to your driver.</p>
@@ -18,8 +18,10 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(function() {
     $('#back-btn .no-mobile').html('Home');
   });
 </script>
+<% end %>
