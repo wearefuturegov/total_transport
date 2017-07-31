@@ -27,6 +27,7 @@ class GeneratedJourney < ActiveRecord::Base
       reversed: reversed?,
       bookings: bookings
     )
+    notify_passengers(bookings)
     destroy
     journey
   end
@@ -36,6 +37,12 @@ class GeneratedJourney < ActiveRecord::Base
     def send_notification!
       teams.uniq.each do |t|
         SupplierMailer.journey_email(t.suppliers, self, vehicles_for_team(t)).deliver_now
+      end
+    end
+    
+    def notify_passengers(bookings)
+      bookings.each do |booking|
+        SendSMS.enqueue(to: booking.phone_number, template: :generated_journey, booking: booking.id)
       end
     end
   
