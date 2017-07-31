@@ -18,6 +18,19 @@ class GeneratedJourney < ActiveRecord::Base
     bookings.first.reversed?
   end
   
+  def approve(supplier, vehicle, options = {})
+    journey = supplier.journeys.create(
+      route: route,
+      vehicle: vehicle,
+      start_time: (options[:start_time] || start_time),
+      open_to_bookings: options[:open_to_bookings],
+      reversed: reversed?,
+      bookings: bookings
+    )
+    destroy
+    journey
+  end
+  
   private
   
     def send_notification!
