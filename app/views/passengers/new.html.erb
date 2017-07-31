@@ -1,8 +1,8 @@
 <div class="onboarding-header blue-block">
   <div class="inner center">
     <h1><%= @page_title %></h1>
-    <h2>Direct transport for rural Essex</h2>
-    <p>Welcome to Pickup, a new rural transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.</p>
+    <h2><%= t("homepage.title.#{Rails.configuration.x.pickup.council}") =%></h2>
+    <p><%= t("homepage.intro.#{Rails.configuration.x.pickup.council}") =%></p>
     <!-- <p>Instead of running fixed routes with fixed stops, Pickup lets you book trips in advance. Passengers can be picked up anywhere they like - a bus stop, a local place of interest, or even a home. It's safe, convenient and easy to use.</p> -->
 
     <%= form_for @passenger do |form| %>
@@ -20,7 +20,7 @@
   <div id="step-1" class="grey-block">
     <div class="inner">
       <h3>Choose a route</h3>
-      <p>Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance.</p>
+      <p><%= t("homepage.route_intro.#{Rails.configuration.x.pickup.council}") =%></p>
       <p>All times listed are estimates and may change based on who else schedules a ride.</p>
       <!-- <h4><a href="#step-2" title="Step 2"> <i class="fa fa-long-arrow-down"></i> Step 2</a></h4> -->
     </div>

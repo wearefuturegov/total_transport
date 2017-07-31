@@ -21,3 +21,14 @@
 
 en:
   hello: "Hello world"
+  
+  homepage:
+    title:
+      essex: 'Direct transport for rural Essex'
+      suffolk: 'Direct transport for rural Suffolk'
+    intro:
+      essex: 'Welcome to Pickup, a new rural transport service sponsored by Essex County Council. It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.'
+      suffolk: 'Welcome to Pickup, a new rural transport service sponsored by Suffolk County Council. It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.'
+    route_intro:
+      essex: 'Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance.'
+      suffolk: 'Start by exploring the routes on offer. Pickup travels all across rural Suffolk. Trips can be booked any time from a month to a day in advance.'

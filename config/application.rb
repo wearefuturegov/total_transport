@@ -32,6 +32,8 @@ module TotalTransport
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
+    
+    config.x.pickup.council = ENV.fetch('PICKUP_COUNCIL', 'essex')
 
     if ENV["AWS_SECRET_ACCESS_KEY"]
       s3_conf = {access_key_id: ENV["AWS_SECRET_ACCESS_KEY"], secret_access_key: ENV["AWS_ACCESS_KEY_ID"], bucket: ENV.fetch('S3_BUCKET_NAME') }
