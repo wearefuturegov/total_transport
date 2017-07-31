@@ -9,14 +9,11 @@ class Admin::GeneratedJourneysController < AdminController
   end
   
   def approve
-    journey = current_supplier.journeys.create(
-      route: @generated_journey.route,
-      vehicle_id: generated_journey_params[:vehicle_id],
-      start_time: (generated_journey_params[:start_time] || @generated_journey.start_time),
-      open_to_bookings: generated_journey_params[:open_to_bookings],
-      reversed: @generated_journey.reversed?,
-      bookings: @generated_journey.bookings
-    )
+    vehicle = Vehicle.find(generated_journey_params[:vehicle_id])
+    @generated_journey.approve(current_supplier, vehicle, {
+      start_time: generated_journey_params[:start_time],
+      open_to_bookings: generated_journey_params[:open_to_bookings]
+    })
     redirect_to admin_root_path
   end
   
