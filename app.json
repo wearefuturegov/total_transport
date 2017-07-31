@@ -22,7 +22,8 @@
       "required": true
     },
     "QUE_MODE": {
-      "required": true
+      "required": true,
+      "value": "off"
     },
     "RACK_ENV": {
       "required": true
