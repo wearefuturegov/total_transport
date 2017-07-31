@@ -54,6 +54,10 @@ RSpec.describe GeneratedJourney, type: :model do
       it 'deletes the generated journey' do
         expect { subject }.to change { GeneratedJourney.count }.by(-1)
       end
+      
+      it 'notifies all the passengers' do
+        expect { subject }.to change { FakeSMS.messages.count }.by(generated_journey.bookings.count)
+      end
     end
     
     context 'with options' do

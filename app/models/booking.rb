@@ -48,7 +48,7 @@ class Booking < ActiveRecord::Base
   def reversed?
     pickup_stop.position > dropoff_stop.position
   end
-
+  
   def set_promo_code(code)
     self.promo_code = PromoCode.find_by_code(code)
   end
