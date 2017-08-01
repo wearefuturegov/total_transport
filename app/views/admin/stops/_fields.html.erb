@@ -6,12 +6,14 @@
   function initMap() {
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: new google.maps.LatLng(51.68149662336043, 0.8797645568847656),
+        zoom: 4,
+        center: new google.maps.LatLng(54.559322,-4.174804),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true,
         zoomControl: true
       });
+      var input = document.getElementById('search_map');
+      var searchBox = new google.maps.places.SearchBox(input);
 
       map.data.setControls(['Polygon']);
       map.data.setDrawingMode('Polygon');
@@ -19,7 +21,32 @@
         editable: true,
         draggable: true
       });
-
+      
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+      
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+        var selectedPlace = places[0];
+        
+        map.setZoom(10);
+        map.panTo(selectedPlace.geometry.location);
+      })
+      
+      // Prevent form being submitted if user uses keyboard to select a place
+      function stopFormSubmit(e) {
+        if (e.which == 13) e.preventDefault();
+      }
+      
+      input.addEventListener('focus', function() {
+        document.addEventListener('keypress', stopFormSubmit);
+      });
+      
+      input.addEventListener('blur', function() {
+        document.removeEventListener('keypress', stopFormSubmit, true);
+      })
+      
       function savePolygon() {
         map.data.setControls(null);
         map.data.setDrawingMode(null);
@@ -108,5 +135,8 @@
 <%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
 <%= form.hidden_field :latitude %>
 <%= form.hidden_field :longitude %>
-<div id="map"></div>
+<div id="map_wrapper">
+  <input type="text" id="search_map" placeholder="Search the map..." autocomplete="off" formaction="" >
+  <div id="map"></div>
+</div>
 <div id="resetMapBtn" class="button negative" disabled type="button" onclick="resetMap()">Clear Map</div>
