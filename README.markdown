@@ -1,13 +1,32 @@
 Total Transport
 ===============
 
-Install
--------
+Requirements
+------------
 
-You will need the following environment variables in .env:
-`AIRBRAKE_API_KEY, TWILIO_ID, TWILIO_TOKEN, TWILIO_TEST_ID, TWILIO_TEST_TOKEN, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, S3_BUCKET_NAME`
+* Ruby 2.3.4
+* Postgresql 9.0 +
 
-Everything is pretty much normal Rails.
+Installation
+------------
+
+Clone the repo:
+
+```
+git clone git@github.com:wearefuturegov/total_transport.git
+```
+
+Run `bundle install`
+
+Copy the contents of `.env.example` to `.env` and replace the dummy variables with real ones
+
+Run `bundle exec rake db:migrate` to set up the database
+
+Run the tests with `bundle exec rake`
+
+If you don't already have any data in the database, run `bundle exec rake admin:create` and follow the onscreen prompts to set up an admin user.
+
+Spin up the server with `bundle exec rails server` and login to the admin interface at `http://localhost:3000/admin` to start adding routes.
 
 Overview
 -------
@@ -43,10 +62,3 @@ The `Booking` model calculates the price, based on number of passengers, distanc
 As routes will be managed centrally (something I *strongly* suggest stays in the future, headaches will ensue otherwise), we have various places where both passengers and suppliers can manually suggest changes to the routes. That's what the \*\_suggestions models and controllers do.
 
 `Supplier` does not necessarily mean Driver. A supplier can be a driver, but it can also be dispatcher or manager of a cab company. The creator of a journey on the system might not be the same person who drives it. Suppliers are grouped, along with the vehicles they own, in `Team`s, and can edit each others vehicles and journeys.
-
-Tests
------
-
-I'm really so sorry. This project was more of a design project which moved very fast as we user tested as we went, with not much time in between. I tried, but those tests will now be failing. This is therefore clearly not production ready code. I suspect that it could be made production ready with some really boring work though, rather than starting again, but that will be your call.
-
-If you have any questions, contact me: james@abscond.org.
