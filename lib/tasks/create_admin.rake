@@ -30,6 +30,7 @@ def create_user
   ActiveRecord::Base.logger.silence do
     s = Supplier.create(details)
     s.admin = true
+    s.approved = true
     s.password = password
     s.password_confirmation = password
     if s.save
