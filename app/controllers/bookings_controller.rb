@@ -1,7 +1,7 @@
 class BookingsController < PublicController
-  before_filter :authenticate_passenger!, only: [:show, :destroy]
-  before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
+  before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
+  before_filter :find_route, except: [:show]
   include ApplicationHelper
 
   # Choose stops
@@ -91,12 +91,20 @@ class BookingsController < PublicController
       :verification_code
     )
   end
+  
+  def get_passenger
+    unless current_passenger
+      passenger = Passenger.setup(@booking.passenger.phone_number)
+      session[:return_to] = request.url
+      redirect_to new_passenger_session_path(passenger.id)
+    end
+  end
 
   def find_route
     @route = Route.find(params[:route_id])
   end
 
   def find_booking
-    @booking = Booking.find(params[:id])
+    @booking = current_passenger ? current_passenger.bookings.find(params[:id]) : Booking.find(params[:id])
   end
 end

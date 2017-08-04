@@ -9,7 +9,7 @@ class SessionsController < PublicController
   def create
     if @passenger.verification_code == params[:verification_code]
       set_current_passenger(@passenger)
-      redirect_to root_path
+      redirect_to session[:return_to] || root_path
     else
       @flash_alert = "That verification code was incorrect. Please try again."
       render :new

@@ -23,10 +23,6 @@
         </div>
       <% end %>
     </div>
-
-    <div id="no-verify">
-      <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", request.referer.present? ? request.referer : default_path, title: "Try sending verification code again" %></strong></p>
-    </div>
   </div>
 </div>
 
