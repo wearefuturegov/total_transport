@@ -34,7 +34,7 @@ class BookingsController < PublicController
   end
   
   def update
-    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking])
+    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking], session)
     workflow.perform_actions!
     redirect_to workflow.redirect_path, alert: workflow.flash_alert
   end

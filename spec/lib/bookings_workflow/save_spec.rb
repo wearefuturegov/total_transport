@@ -7,7 +7,8 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
   let(:booking) { FactoryGirl.create(:booking) }
   let(:journey) { FactoryGirl.create(:journey) }
   let(:return_journey) { FactoryGirl.create(:journey) }
-  let(:subject) { BookingsWorkflow::Save.new(step, route, booking, params) }
+  let(:session) { Hash.new }
+  let(:subject) { BookingsWorkflow::Save.new(step, route, booking, params, session) }
   let(:promo_code) { FactoryGirl.create(:promo_code) }
   let(:params) {
     ActionController::Parameters.new({
@@ -96,7 +97,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
         single_params = params.merge(ActionController::Parameters.new({
           single_journey: 1
         }))
-        BookingsWorkflow::Save.new(step, route, booking, single_params)
+        BookingsWorkflow::Save.new(step, route, booking, single_params, session)
       }
       
       it 'skips the return journey' do

@@ -4,13 +4,14 @@ module BookingsWorkflow
     
     attr_reader :flash_alert
 
-    def initialize(step, route, booking, params)
+    def initialize(step, route, booking, params, session)
       raise 'Invalid step key!' unless STEPS.include?(step)
       @step = step
       @step_with_action = "save_#{step}".to_sym
       @route = route
       @booking = booking
       @params = params
+      @session = session
     end
     
     def perform_actions!
@@ -35,6 +36,7 @@ module BookingsWorkflow
     def create_passenger
       formatted_phone_number = Passenger.formatted_phone_number(params[:phone_number])
       @booking.passenger = Passenger.setup(formatted_phone_number)
+      @session[:current_passenger] = @booking.passenger.session_token
     end
     
     def params
