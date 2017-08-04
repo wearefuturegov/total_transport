@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'routes#index'
+  root 'public#index'
 
   namespace :admin do
     get 'pending' => 'suppliers#pending'

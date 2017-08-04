@@ -1,4 +1,5 @@
 class BookingsController < PublicController
+  before_filter :authenticate_passenger!, only: [:show, :destroy]
   before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
   include ApplicationHelper
@@ -7,7 +8,7 @@ class BookingsController < PublicController
   def new
     @page_title = "Choose Your Pick Up Area"
     @back_path = routes_path
-    @booking = current_passenger.bookings.new
+    @booking = Booking.new
     if params[:reversed] == 'true'
       @reversed = true
       @stops = @route.stops.reverse
@@ -20,7 +21,7 @@ class BookingsController < PublicController
 
   # Save stops
   def create
-    @booking = current_passenger.bookings.create(booking_params)
+    @booking = Booking.create(booking_params)
     redirect_to edit_requirements_route_booking_path(@route, @booking)
   end
   
@@ -35,7 +36,7 @@ class BookingsController < PublicController
   def update
     workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking])
     workflow.perform_actions!
-    redirect_to workflow.redirect_path
+    redirect_to workflow.redirect_path, alert: workflow.flash_alert
   end
 
   def confirmation
@@ -86,7 +87,8 @@ class BookingsController < PublicController
       :older_bus_passes,
       :disabled_bus_passes,
       :scholar_bus_passes,
-      :single_journey
+      :single_journey,
+      :verification_code
     )
   end
 
@@ -95,6 +97,6 @@ class BookingsController < PublicController
   end
 
   def find_booking
-    @booking = current_passenger.bookings.find(params[:id])
+    @booking = Booking.find(params[:id])
   end
 end
