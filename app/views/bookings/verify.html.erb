@@ -1,0 +1,88 @@
+<div id="verify" class="grey-block fill-space container center">
+  <div class="inner">
+    <div id="verify-loading" class="center">
+      <i class="fa fa-spinner fa-spin fa-3x"></i>
+      <p>Sending verification code...</p>
+    </div>
+
+    <h2>Verify Your Phone Number</h2>
+    <p>Type in the verification code we sent to your phone number</p>
+
+    <div id="digit-input">
+      <input id="digit1" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1" autofocus="true">
+      <input id="digit2" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+      <input id="digit3" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+      <input id="digit4" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+
+      <%-# Need to swap this form with inputs similar to above -%>
+      <%= form_tag save_verify_route_booking_path(@route, @booking), method: :patch do %>
+        <%= hidden_field_tag 'booking[verification_code]' %>
+        <div class="actions">
+          <%= submit_tag "Verify" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="no-verify">
+      <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", @back_path, title: "Try sending verification code again" %></strong></p>
+    </div>
+  </div>
+</div>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      if (sessionStorage.getItem("is_sent")) {
+        $('#verify-loading').addClass('hidden');
+      } else {
+        setTimeout(function() {
+          $('#verify-loading').slideUp();
+          sessionStorage.setItem("is_sent", true);
+        }, 3500);
+      }
+      var keys = {};
+
+      $('.single-digit').on("keydown", function(e){
+        if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+          keys[e.which] = true;
+          if (Object.keys(keys).length > 1) {
+            $(this).next('input').val('').focus();
+          } else {
+            if($(this).val()){
+              $(this).val('');
+            }
+          }
+        } else if(e.keyCode == 8) {
+          if(!$(this).val()){
+            $(this).prev('input').val('').focus();
+          }
+        } else {
+          event.preventDefault();
+        }
+      });
+
+      $('.single-digit').on("keyup", function(e){
+        if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+          if($(this).val()) {
+            if (Object.keys(keys).length == 1) {
+              if($(this).attr('id') == "digit4") {
+                //$(this).blur();
+                $('input[type=submit]').focus();
+              } else {
+                $(this).next('input').focus();
+              }
+            }
+            
+            var digit1 = $('#digit1').val(),
+                digit2 = $('#digit2').val(),
+                digit3 = $('#digit3').val(),
+                digit4 = $('#digit4').val();
+            var code = digit1.toString() + digit2.toString() + digit3.toString() + digit4.toString();
+            $('#booking_verification_code').val(code);
+          }
+        }
+        delete keys[e.which];
+      });
+    });
+  </script>
+<% end %>

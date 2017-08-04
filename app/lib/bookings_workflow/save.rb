@@ -1,6 +1,8 @@
 module BookingsWorkflow
   class Save
     include Rails.application.routes.url_helpers
+    
+    attr_reader :flash_alert
 
     def initialize(step, route, booking, params)
       raise 'Invalid step key!' unless STEPS.include?(step)
@@ -13,14 +15,15 @@ module BookingsWorkflow
     
     def perform_actions!
       @booking.set_promo_code(@params['promo_code'].to_s) if @step == :requirements
+      create_passenger if @step == :confirm
+      @verified = verify_booking if @step == :verify
       @booking.update_attributes(params)
-      @booking.confirm! if @step == :confirm
     end
     
     def redirect_path
       i = single_journey? ? 2 : 1
       if @step == STEPS.last
-        confirmation_route_booking_path(@route, @booking)
+        @verified ? confirmation_route_booking_path(@route, @booking) : edit_verify_route_booking_path(@route, @booking)
       else
         index = STEPS.find_index(@step)
         step = STEPS[index + i]
@@ -29,8 +32,22 @@ module BookingsWorkflow
       end
     end
     
+    def create_passenger
+      formatted_phone_number = Passenger.formatted_phone_number(params[:phone_number])
+      @booking.passenger = Passenger.setup(formatted_phone_number)
+    end
+    
     def params
       @params.permit(permitted_params)
+    end
+    
+    def verify_booking
+      if @params[:verification_code] == @booking.passenger.verification_code
+        @booking.confirm! && true
+      else
+        @flash_alert = "Phone number is not valid, please try another one"
+        false
+      end
     end
     
     private

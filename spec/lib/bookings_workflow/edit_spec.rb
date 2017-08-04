@@ -175,4 +175,29 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
 
   end
   
+  context 'with verify step' do
+    let(:step) { :verify }
+
+    it 'gets a page title' do
+      expect(subject.page_title).to eq('Verify your phone number')
+    end
+    
+    it 'returns the return journey path' do
+      expect(subject.back_path).to eq(edit_confirm_route_booking_path(route, booking))
+    end
+    
+    it 'returns map_type' do
+      expect(subject.map_type).to eq(nil)
+    end
+    
+    it 'returns a template' do
+      expect(subject.template).to eq('bookings/verify')
+    end
+    
+    it 'returns allowed vars' do
+      expect(subject.allowed_vars).to eq([:page_title, :back_path])
+    end
+    
+  end
+  
 end

@@ -7,12 +7,13 @@ feature 'User books journey', type: :feature, js: true do
   let!(:return_journey) { FactoryGirl.create(:journey, route: route, reversed: true, start_time: outward_journey.start_time + 5.hours) }
   
   before(:each) do
-    log_in_passenger
+    visit '/'
+    within('.onboarding-header') do
+      click_on 'Explore and book...'
+    end
   end
   
   scenario 'Booking a return journey' do
-    visit '/'
-
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
     choose_requirements(1, 0)
@@ -20,8 +21,13 @@ feature 'User books journey', type: :feature, js: true do
     choose_journey('return', return_journey.id)
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
     set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    fill_details('My Name', '+15005550006')
     expect {
-      click_button 'Pay with Cash'
+      click_button 'Confirm phone number'
+    }.to change { FakeSMS.messages.count }.by(1)
+    
+    expect {
+      enter_verification_code(Passenger.last.verification_code)
     }.to change { FakeSMS.messages.count }.by(1)
     
     expect(Booking.count).to eq(1)
@@ -34,8 +40,6 @@ feature 'User books journey', type: :feature, js: true do
   end
   
   scenario 'Booking a single journey' do
-    visit '/'
-
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
     choose_requirements(1, 0, true)
@@ -43,13 +47,15 @@ feature 'User books journey', type: :feature, js: true do
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
     set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
     expect {
-      click_button 'Pay with Cash'
+      click_button 'Confirm phone number'
+    }.to change { FakeSMS.messages.count }.by(1)
+    
+    expect {
+      enter_verification_code(Passenger.last.verification_code)
     }.to change { FakeSMS.messages.count }.by(1)
   end
   
   scenario 'Booking a journey with multiple passengers' do
-    visit '/'
-
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
     choose_requirements(3, 0, false)
@@ -57,13 +63,12 @@ feature 'User books journey', type: :feature, js: true do
     choose_journey('return', return_journey.id)
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
     set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
-    click_button 'Pay with Cash'
+    click_button 'Confirm phone number'
+    enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(3)
   end
   
   scenario 'Booking a journey with child tickets' do
-    visit '/'
-
     choose_route(route)
     select_stops(route.stops.first.id, route.stops.last.id)
     choose_requirements(2, 1, false)
@@ -71,22 +76,13 @@ feature 'User books journey', type: :feature, js: true do
     choose_journey('return', return_journey.id)
     set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
     set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
-    click_button 'Pay with Cash'
+    click_button 'Confirm phone number'
+    enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(2)
     expect(Booking.first.child_tickets).to eq(1)
   end
   
   private
-  
-    def log_in_passenger
-      visit '/'
-      first(:css, '#passenger_phone_number').set('+15005550006')
-      first('input[value="Verify Number"]').click
-      Passenger.last.verification_code.split('').each_with_index do |num, i|
-        fill_in "digit#{i + 1}", with: num
-      end
-      click_button 'Verify'
-    end
   
     def choose_requirements(number_of_passengers, child_tickets, single = false)
       first('#singleTab').click if single === true
@@ -125,6 +121,18 @@ feature 'User books journey', type: :feature, js: true do
       page.execute_script("$('#booking_#{type}_lng').val('#{lng}')")
       page.execute_script("$('.disabled').attr('disabled', false)")
       click_button 'Next'
+    end
+    
+    def fill_details(name, phone_number)
+      fill_in 'booking_passenger_name', with: name
+      fill_in 'booking_phone_number', with: phone_number
+    end
+    
+    def enter_verification_code(code)
+      code.split('').each_with_index do |num, i|
+        fill_in "digit#{i + 1}", with: num
+      end
+      click_button 'Verify'
     end
   
 end

@@ -27,8 +27,9 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       dropoff_lng: -1.4234,
       dropoff_name: 'Somewhere',
       passenger_name: 'Me',
-      phone_number: '1234',
-      payment_method: 'cash'
+      phone_number: '+15005550006',
+      payment_method: 'cash',
+      verification_code: '1234'
     })
   }
     
@@ -175,13 +176,13 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     let(:step) { :confirm }
     
     it 'returns the correct redirect path' do
-      expect(subject.redirect_path).to eq(confirmation_route_booking_path(route, booking))
+      expect(subject.redirect_path).to eq(edit_verify_route_booking_path(route, booking))
     end
     
     it 'returns the correct params' do
       expect(subject.params).to eq(ActionController::Parameters.new({
         passenger_name: 'Me',
-        phone_number: '1234',
+        phone_number: '+15005550006',
         payment_method: 'cash'
       }))
     end
@@ -193,10 +194,46 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       end
     end
     
+    it 'sends a verification code' do
+      expect { subject.perform_actions! }.to change { FakeSMS.messages.count }.by(1)
+      expect(FakeSMS.messages.last[:to]).to eq(booking.phone_number)
+    end
+    
+    it 'creates a passenger' do
+      subject.perform_actions!
+      expect(booking.passenger).to_not be_nil
+    end
+
+  end
+  
+  context 'with verify step' do
+    before { booking.passenger = FactoryGirl.create(:passenger, verification_code: '1234')}
+    let(:step) { :verify }
+    
+    it 'returns the correct redirect path' do
+      subject.perform_actions!
+      expect(subject.redirect_path).to eq(confirmation_route_booking_path(route, booking))
+    end
+    
     it 'sends a confirmation' do
       expect(booking).to receive(:confirm!)
       subject.perform_actions!
     end
+    
+    context 'with invalid verification_code' do
+      before { booking.passenger = FactoryGirl.create(:passenger, verification_code: '2345')}
+      
+      it 'returns the correct redirect path' do
+        subject.perform_actions!
+        expect(subject.redirect_path).to eq(edit_verify_route_booking_path(route, booking))
+      end
+      
+      it 'returns an alert' do
+        subject.perform_actions!
+        expect(subject.flash_alert).to eq('Phone number is not valid, please try another one')
+      end
+    end
+
   end
   
 end

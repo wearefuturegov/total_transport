@@ -17,6 +17,7 @@ module BookingsWorkflow
         edit_return_journey: 'Pick Your Return Time',
         edit_pickup_location: 'Choose Pick Up Point',
         edit_dropoff_location: 'Choose Drop Off Point',
+        edit_verify: 'Verify your phone number',
         edit_confirm: 'Overview',
       }[@step_with_action]
     end
@@ -62,6 +63,7 @@ module BookingsWorkflow
         edit_return_journey: 'bookings/edit_return_journey',
         edit_pickup_location: 'bookings/edit_pickup_dropoff_location',
         edit_dropoff_location: 'bookings/edit_pickup_dropoff_location',
+        edit_verify: 'bookings/verify',
         edit_confirm: 'bookings/confirm'
       }[@step_with_action]
     end
