@@ -20,7 +20,7 @@ Run `bundle install`
 
 Copy the contents of `.env.example` to `.env` and replace the dummy variables with real ones
 
-Run `bundle exec rake db:migrate` to set up the database
+Run `bundle exec rake db:create`, then `bundle exec rake db:migrate` to set up the database
 
 Run the tests with `bundle exec rake`
 
