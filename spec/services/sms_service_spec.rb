@@ -55,4 +55,19 @@ RSpec.describe SmsService, type: :model do
     expect(FakeSMS.messages.last[:body]).to eq('You will be picked up from The Red Lion today at 10:40 AM')
   end
   
+  it 'sends a generated journey notification' do
+    booking = FactoryGirl.create(:booking,
+      pickup_stop: FactoryGirl.create(:stop, name: 'Sudbury'),
+      dropoff_stop: FactoryGirl.create(:stop, name: 'Saffron Walden'),
+      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-03-01T10:30:00'))
+    )
+    sms = SmsService.new(to: '1234', template: :generated_journey, booking: booking)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to match /from Sudbury to Saffron Walden/
+    expect(FakeSMS.messages.last[:body]).to match /on Wednesday, 1 March/
+    expect(FakeSMS.messages.last[:body]).to match /The rough time for your pickup will be 12:10 PM/
+    expect(FakeSMS.messages.last[:body]).to match /routes\/#{booking.route.id}\/bookings\/#{booking.id}\/edit_pickup_location/
+  end
+  
 end

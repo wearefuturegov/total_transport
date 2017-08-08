@@ -2,7 +2,7 @@ class Vehicle < ActiveRecord::Base
   belongs_to :team
   has_many :journeys, dependent: :destroy
   validates_presence_of :team, :seats, :registration
-
+  has_and_belongs_to_many :generated_journeys
 
   has_attached_file :photo, styles: {
     thumb: '100x100>',

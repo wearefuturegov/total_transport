@@ -34,6 +34,10 @@ end
 
 Capybara.javascript_driver = :headless_chrome
 
+FactoryGirl::SyntaxRunner.class_eval do
+  include RSpec::Mocks::ExampleMethods
+end
+
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
 

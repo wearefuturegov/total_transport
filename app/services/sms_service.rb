@@ -61,5 +61,17 @@ class SmsService
         #{@booking.pickup_time.strftime("%I:%M %p")}
       """.squish
     end
+    
+    def generated_journey
+      """
+        Good news! We've managed to find a vehicle for your journey from
+        #{@booking.pickup_stop.name} to #{@booking.dropoff_stop.name} on
+        #{friendly_date(@booking.journey.start_time)}. The rough time for your
+        pickup will be #{@booking.pickup_time.strftime("%I:%M %p")}.
+        
+        To confirm and pay for your booking, please go to
+        #{edit_pickup_location_route_booking_url(@booking.route, @booking)}.
+      """.squish
+    end
   
 end
