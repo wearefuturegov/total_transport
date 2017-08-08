@@ -52,6 +52,7 @@ gem 'aws-sdk', '~> 2.3'
 gem 'filterrific'
 gem 'kaminari'
 gem 'que'
+gem 'platform-api'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

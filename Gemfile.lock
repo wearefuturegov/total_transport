@@ -111,6 +111,7 @@ GEM
       dotenv (= 2.2.1)
       railties (>= 3.2, < 5.2)
     erubis (2.7.0)
+    excon (0.58.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -125,6 +126,10 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashdiff (0.3.4)
+    heroics (0.0.23)
+      erubis (~> 2.0)
+      excon
+      multi_json (>= 1.9.2)
     high_voltage (3.0.0)
     i18n (0.8.6)
     interception (0.5)
@@ -166,6 +171,7 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    moneta (0.8.1)
     multi_json (1.12.1)
     neat (1.8.0)
       sass (>= 3.3)
@@ -181,6 +187,9 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     pg (0.20.0)
+    platform-api (2.1.0)
+      heroics (~> 0.0.23)
+      moneta (~> 0.8.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -342,6 +351,7 @@ DEPENDENCIES
   normalize-rails
   paperclip
   pg (= 0.20)
+  platform-api
   pry
   pry-rescue
   pry-stack_explorer
