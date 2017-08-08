@@ -1,7 +1,7 @@
 {
   "name": "total_transport",
   "scripts": {
-    "postdeploy":"bin/rake dev:bootstrap"
+    "postdeploy":"bundle exec rake bootstrap"
   },
   "env": {
     "HEROKU_APP_NAME": {
