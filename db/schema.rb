@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710160759) do
+ActiveRecord::Schema.define(version: 20170718094200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,12 +52,13 @@ ActiveRecord::Schema.define(version: 20170710160759) do
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
     t.datetime "start_time"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "vehicle_id"
     t.integer  "supplier_id"
     t.boolean  "open_to_bookings", default: true
     t.boolean  "reversed"
+    t.boolean  "booked",           default: false
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
@@ -80,14 +81,17 @@ ActiveRecord::Schema.define(version: 20170710160759) do
     t.string   "verification_code"
     t.datetime "verification_code_generated_at"
     t.boolean  "verified"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "name"
+    t.string   "session_token",                  limit: 40
   end
+
+  add_index "passengers", ["session_token"], name: "index_passengers_on_session_token", unique: true, using: :btree
 
   create_table "promo_codes", force: :cascade do |t|
     t.decimal  "price_deduction"
