@@ -1,12 +1,16 @@
 {
   "name": "total_transport",
   "scripts": {
+    "postdeploy":"bin/rake dev:bootstrap"
   },
   "env": {
     "HEROKU_APP_NAME": {
       "required": true
     },
     "HEROKU_PARENT_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_API_TOKEN": {
       "required": true
     },
     "AIRBRAKE_API_KEY": {
