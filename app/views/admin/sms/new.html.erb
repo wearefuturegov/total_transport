@@ -1,0 +1,16 @@
+<div id="sup_new_sms" class="container">
+  <div class="inner">
+    <div class="card no-click">
+      <div class="inner">
+        <h2>Send an SMS:</h2>
+        <%= form_tag admin_sms_path do %>
+          <%= label_tag 'sms[to]', 'To' %>
+          <%= text_field :sms, :to %>
+          <%= label_tag 'sms[body]', 'Body' %>
+          <%= text_area :sms, :body, rows: 5 %>
+      </div>
+      <%= submit_tag "Send SMS", :class => "button name_validation border-bottom-radius" %>
+      <% end %>
+    </div>
+  </div>
+</div>
