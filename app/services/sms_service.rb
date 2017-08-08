@@ -58,7 +58,9 @@ class SmsService
     def second_alert
       """
         You will be picked up from #{@booking.pickup_stop.name} today at
-        #{@booking.pickup_time.strftime("%I:%M %p")}
+        #{@booking.pickup_time.strftime("%I:%M %p")}. Look out for a
+        #{@booking.journey.vehicle.colour} #{@booking.journey.vehicle.make_model}
+        with the registration number #{@booking.journey.vehicle.registration}.
       """.squish
     end
   

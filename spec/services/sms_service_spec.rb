@@ -52,7 +52,8 @@ RSpec.describe SmsService, type: :model do
     sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to eq('You will be picked up from The Red Lion today at 10:40 AM')
+    expect(FakeSMS.messages.last[:body]).to match /You will be picked up from The Red Lion today at 10:40 AM/
+    expect(FakeSMS.messages.last[:body]).to match /Look out for a Red Supermodel with the registration number 12121/
   end
   
 end
