@@ -1,13 +1,14 @@
 class BookingsController < PublicController
-  before_filter :find_route, except: [:show]
   before_filter :find_booking, except: [:new, :create]
+  before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
+  before_filter :find_route, except: [:show]
   include ApplicationHelper
 
   # Choose stops
   def new
     @page_title = "Choose Your Pick Up Area"
     @back_path = routes_path
-    @booking = current_passenger.bookings.new
+    @booking = Booking.new
     if params[:reversed] == 'true'
       @reversed = true
       @stops = @route.stops.reverse
@@ -20,7 +21,7 @@ class BookingsController < PublicController
 
   # Save stops
   def create
-    @booking = current_passenger.bookings.create(booking_params)
+    @booking = Booking.create(booking_params)
     redirect_to edit_requirements_route_booking_path(@route, @booking)
   end
   
@@ -33,9 +34,9 @@ class BookingsController < PublicController
   end
   
   def update
-    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking])
+    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking], session)
     workflow.perform_actions!
-    redirect_to workflow.redirect_path
+    redirect_to workflow.redirect_path, alert: workflow.flash_alert
   end
 
   def confirmation
@@ -86,8 +87,17 @@ class BookingsController < PublicController
       :older_bus_passes,
       :disabled_bus_passes,
       :scholar_bus_passes,
-      :single_journey
+      :single_journey,
+      :verification_code
     )
+  end
+  
+  def get_passenger
+    unless current_passenger
+      passenger = Passenger.setup(@booking.passenger.phone_number)
+      session[:return_to] = request.url
+      redirect_to new_passenger_session_path(passenger.id)
+    end
   end
 
   def find_route
@@ -95,6 +105,6 @@ class BookingsController < PublicController
   end
 
   def find_booking
-    @booking = current_passenger.bookings.find(params[:id])
+    @booking = current_passenger ? current_passenger.bookings.find(params[:id]) : Booking.find(params[:id])
   end
 end

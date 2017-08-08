@@ -13,7 +13,6 @@ RSpec.describe BookingsController, type: :controller do
       expect(assigns(:page_title)).to eq('Choose Your Pick Up Area')
       expect(assigns(:back_path)).to eq(routes_path)
       expect(assigns(:booking)).to be_a(Booking)
-      expect(assigns(:booking).passenger).to eq(passenger)
       expect(assigns(:stops).first.name).to eq("stop_1")
     end
     
@@ -49,7 +48,6 @@ RSpec.describe BookingsController, type: :controller do
       
       booking = Booking.first
       
-      expect(booking.passenger).to eq(passenger)
       expect(booking.pickup_stop_id).to eq(route.stops.first.id)
       expect(booking.dropoff_stop_id).to eq(route.stops.last.id)
     end

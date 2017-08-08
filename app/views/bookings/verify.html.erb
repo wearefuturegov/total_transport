@@ -15,13 +15,16 @@
       <input id="digit4" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
 
       <%-# Need to swap this form with inputs similar to above -%>
-      <%= form_tag passenger_sessions_path(@passenger) do %>
-        <%= hidden_field_tag :id, @passenger.id %>
-        <%= hidden_field_tag :verification_code %>
+      <%= form_tag save_verify_route_booking_path(@route, @booking), method: :patch do %>
+        <%= hidden_field_tag 'booking[verification_code]' %>
         <div class="actions">
           <%= submit_tag "Verify" %>
         </div>
       <% end %>
+    </div>
+
+    <div id="no-verify">
+      <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", @back_path, title: "Try sending verification code again" %></strong></p>
     </div>
   </div>
 </div>
@@ -75,7 +78,7 @@
                 digit3 = $('#digit3').val(),
                 digit4 = $('#digit4').val();
             var code = digit1.toString() + digit2.toString() + digit3.toString() + digit4.toString();
-            $('#verification_code').val(code);
+            $('#booking_verification_code').val(code);
           }
         }
         delete keys[e.which];
