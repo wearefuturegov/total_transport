@@ -5,7 +5,8 @@ class Booking < ActiveRecord::Base
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
   belongs_to :promo_code
-
+  has_one :suggested_journey
+  
   scope :booked, -> { where(state: 'booked') }
   
   after_destroy :remove_alerts, :set_journey_booked_status
@@ -47,7 +48,7 @@ class Booking < ActiveRecord::Base
   def reversed?
     pickup_stop.position > dropoff_stop.position
   end
-
+  
   def set_promo_code(code)
     self.promo_code = PromoCode.find_by_code(code)
   end

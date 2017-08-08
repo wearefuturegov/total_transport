@@ -8,7 +8,7 @@ class SuggestedJourneyController < PublicController
   end
   
   def create
-    @suggested_journey = SuggestedJourney.create!(suggested_journey_params)
+    @suggested_journey = @booking.create_suggested_journey(suggested_journey_params)
     redirect_to @back_path
   end
   
