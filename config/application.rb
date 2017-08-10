@@ -36,7 +36,7 @@ module TotalTransport
     config.x.pickup.council = ENV.fetch('PICKUP_COUNCIL', 'essex')
 
     if ENV["AWS_SECRET_ACCESS_KEY"]
-      s3_conf = {access_key_id: ENV["AWS_SECRET_ACCESS_KEY"], secret_access_key: ENV["AWS_ACCESS_KEY_ID"], bucket: ENV.fetch('S3_BUCKET_NAME') }
+      s3_conf = {access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"], bucket: ENV.fetch('S3_BUCKET_NAME') }
       config.paperclip_defaults = {
         storage: :s3,
         s3_credentials: s3_conf,
