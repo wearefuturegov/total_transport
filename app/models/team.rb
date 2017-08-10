@@ -2,14 +2,8 @@ class Team < ActiveRecord::Base
   has_many :suppliers
   has_many :vehicles
   has_many :journeys, through: :suppliers
-
-  def name
-    if attributes[:name].blank?
-      suppliers.first.name + "'s Team"
-    else
-      super
-    end
-  end
+  
+  after_create :set_name
 
   def solo_team?
     suppliers.count < 2
@@ -22,4 +16,12 @@ class Team < ActiveRecord::Base
   def single_vehicle?
     vehicles.count < 2
   end
+  
+  private
+  
+    def set_name
+      if name.blank? && suppliers.length > 0
+        update(name: "#{suppliers.first.name}'s Team")
+      end
+    end
 end
