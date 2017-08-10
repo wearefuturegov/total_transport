@@ -105,6 +105,6 @@ class BookingsController < PublicController
   end
 
   def find_booking
-    @booking = current_passenger ? current_passenger.bookings.find(params[:id]) : Booking.find(params[:id])
+    @booking = Booking.find(params[:id])
   end
 end
