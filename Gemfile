@@ -78,6 +78,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'capybara-selenium'
   gem 'chromedriver-helper'
+  gem 'brakeman', require: false
 end
 
 group :development do
