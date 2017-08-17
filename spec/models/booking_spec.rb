@@ -13,10 +13,10 @@ RSpec.describe Booking, type: :model do
     it 'queues alerts' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(2)
       jobs = QueJob.where(job_class: 'SendSMS')
-      expect(jobs.first.run_at).to eq(booking.pickup_time - 24.hours)
-      expect(jobs.first.args[0]['template']).to eq('first_alert')
-      expect(jobs.last.run_at).to eq(booking.pickup_time - 1.hours)
-      expect(jobs.last.args[0]['template']).to eq('second_alert')
+      first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
+      second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
+      expect(first_alert.run_at).to eq(booking.pickup_time - 24.hours)
+      expect(second_alert.run_at).to eq(booking.pickup_time - 1.hours)
     end
     
     it 'sets the journey to booked' do
