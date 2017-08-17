@@ -5,7 +5,7 @@ class Admin::SupplierSuggestionsController < AdminController
 
   def create
     @supplier_suggestion = SupplierSuggestion.create!(supplier_params)
-    redirect_to @supplier_suggestion.url
+    redirect_to URI.parse(@supplier_suggestion.url).path
   end
 
   private
