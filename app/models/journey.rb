@@ -80,7 +80,7 @@ class Journey < ActiveRecord::Base
     end
     
     def change_close_time
-      QueJob.where("args::json->>0 = '?' AND job_class = 'CloseBeforeEnd'", 1).destroy_all
+      QueJob.where("args::json->>0 = '?' AND job_class = 'CloseBeforeEnd'", id).destroy_all
       close_before_end
     end
 

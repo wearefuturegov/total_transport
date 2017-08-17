@@ -24,11 +24,13 @@ RSpec.describe Journey, type: :model do
     Timecop.return
   end
   
-  it 'queues a job if the journey start time is changed' do
+  it 'deletes and creates a new job if the journey time is changed' do
     Timecop.freeze('2016-12-23T09:00:00')
     start_time = DateTime.parse('2017-01-01T18:00:00')
     journey = FactoryGirl.create(:journey)
-    expect { journey.start_time = start_time ; journey.save }.to change { QueJob.count }.by(1)
+    journey.start_time = start_time
+    journey.save
+    expect(QueJob.count).to eq(1)
     expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T12:00:00'))
     Timecop.return
   end
