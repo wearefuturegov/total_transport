@@ -24,6 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # include bourbon/neat/bitters for basic template
 gem 'bourbon'
+# refer to older documentation http://neat.bourbon.io/docs/1.7.1/
 gem 'neat', '< 2.0'
 gem 'bitters'
 # other starter gems

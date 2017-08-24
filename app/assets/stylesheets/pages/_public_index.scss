@@ -1,0 +1,39 @@
+/* public_index page specific style. Named as the body id "public-index" */
+
+#public-index {
+  background-color: $white;
+  text-align: center;
+  .header {
+    background-color: $white;
+    color: $black;
+  }
+  .hero {
+    .heading {
+      h1 span {
+        color: $brand;
+      }
+      // h1 {
+      //   font-size: 60px;
+      //   font-weight: 600;
+      //   line-height: 65px;
+      //   margin-bottom: $baseline;
+      // }
+      // h2 {
+      //   font-size: 28px;
+      //   font-weight: 600;
+      //   line-height: 30px;
+      //   margin-bottom: $baseline;
+      // }
+    }
+  }
+  .main {
+    background-color: $brand;
+    color: $white;
+  }
+  .button {
+    width: auto;
+  }
+  .footer {
+    background-color: $darken-brand;
+  }
+}

@@ -1,0 +1,33 @@
+/* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
+
+.hero {
+  width: 100%;
+  padding: 0;
+  .heading,
+  .action,
+  .more {
+    @include span-columns(10);
+    @include shift(1);
+  }
+}
+
+.main {
+  @include span-columns(12);
+  .section {
+    @include span-columns(10);
+    @include shift(1);
+  }
+}
+
+.section {
+  @include pad(0 default);
+}
+
+.action {
+  @include span-columns(10);
+  @include shift(1);
+}
+
+.footer {
+  @include span-columns(12);
+}
