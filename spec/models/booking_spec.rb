@@ -72,11 +72,11 @@ RSpec.describe Booking, type: :model do
   context '#price_distance' do
     
     it 'returns the distance between stops' do
-      booking.pickup_stop.latitude = 51.7239162277052
-      booking.pickup_stop.longitude = 0.899999141693115
+      booking.pickup_stop.place.latitude = 51.7239162277052
+      booking.pickup_stop.place.longitude = 0.899999141693115
       
-      booking.dropoff_stop.latitude = 51.6275191853741
-      booking.dropoff_stop.longitude = 0.814597606658936
+      booking.dropoff_stop.place.latitude = 51.6275191853741
+      booking.dropoff_stop.place.longitude = 0.814597606658936
       
       expect(booking.price_distance.round(1)).to eq(7.6)
     end

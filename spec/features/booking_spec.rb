@@ -19,8 +19,8 @@ feature 'User books journey', type: :feature, js: true do
     choose_requirements(1, 0)
     choose_journey('outward', outward_journey.id)
     choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     fill_details('My Name', '+15005550006')
     expect {
       click_button 'Confirm phone number'
@@ -44,8 +44,8 @@ feature 'User books journey', type: :feature, js: true do
     select_stops(route.stops.first.id, route.stops.last.id)
     choose_requirements(1, 0, true)
     choose_journey('outward', outward_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     expect {
       click_button 'Confirm phone number'
     }.to change { FakeSMS.messages.count }.by(1)
@@ -61,8 +61,8 @@ feature 'User books journey', type: :feature, js: true do
     choose_requirements(3, 0, false)
     choose_journey('outward', outward_journey.id)
     choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     click_button 'Confirm phone number'
     enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(3)
@@ -74,8 +74,8 @@ feature 'User books journey', type: :feature, js: true do
     choose_requirements(2, 1, false)
     choose_journey('outward', outward_journey.id)
     choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     click_button 'Confirm phone number'
     enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(2)

@@ -11,8 +11,8 @@ RSpec.describe SmsService, type: :model do
   
   it 'sends booking notification' do
     booking = FactoryGirl.create(:booking,
-      pickup_stop: FactoryGirl.create(:stop, name: 'Sudbury'),
-      dropoff_stop: FactoryGirl.create(:stop, name: 'Saffron Walden'),
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
+      dropoff_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Saffron Walden')),
       pickup_name: 'The Red Lion',
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-02T09:00:00Z')),
     )
@@ -36,7 +36,7 @@ RSpec.describe SmsService, type: :model do
   it 'sends a first reminder' do
     booking = FactoryGirl.create(:booking,
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'The Red Lion'))
     )
     sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
@@ -47,7 +47,7 @@ RSpec.describe SmsService, type: :model do
   it 'sends a second reminder' do
     booking = FactoryGirl.create(:booking,
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'The Red Lion'))
     )
     sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)

@@ -1,12 +1,13 @@
 class Stop < ActiveRecord::Base
   belongs_to :route
+  belongs_to :place
   acts_as_list scope: :route
   has_many :pickup_stops, class_name: 'Booking', foreign_key: 'pickup_stop_id', dependent: :destroy
   has_many :dropoff_stops, class_name: 'Booking', foreign_key: 'dropoff_stop_id', dependent: :destroy
   has_many :landmarks, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
 
-  validates_presence_of :route, :latitude, :longitude, :polygon
+  validates_presence_of :place, :route, :polygon
 
   def previous_stops(reversed = false)
     if reversed
@@ -20,12 +21,12 @@ class Stop < ActiveRecord::Base
     previous_stops(reversed).drop(1).sum { |s| s.try(:minutes_from_last_stop) || 0 }
   end
 
-  def lat_lng
-    Geokit::LatLng.new(self.latitude, self.longitude)
-  end
-
   def distance_to(stop)
-    self.lat_lng.distance_to(stop.lat_lng, units: :miles)
+    place.lat_lng.distance_to(stop.place.lat_lng, units: :miles)
+  end
+  
+  def name
+    place.name
   end
 
   def position_in_order(reversed: false)

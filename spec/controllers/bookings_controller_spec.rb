@@ -13,7 +13,7 @@ RSpec.describe BookingsController, type: :controller do
       expect(assigns(:page_title)).to eq('Choose Your Pick Up Area')
       expect(assigns(:back_path)).to eq(routes_path)
       expect(assigns(:booking)).to be_a(Booking)
-      expect(assigns(:stops).first.name).to eq("stop_1")
+      expect(assigns(:stops).first.place.name).to eq("place_1")
     end
     
     it 'shows the normal order of stops' do

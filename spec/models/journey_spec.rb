@@ -98,8 +98,8 @@ RSpec.describe Journey, type: :model do
   context '#route_name' do
     
     before do
-      journey.route.stops.first.update_attribute(:name, 'First Stop')
-      journey.route.stops.last.update_attribute(:name, 'Last Stop')
+      journey.route.stops.first.place.update_attribute(:name, 'First Stop')
+      journey.route.stops.last.place.update_attribute(:name, 'Last Stop')
     end
     
     it 'returns first to last for non-reversed route' do

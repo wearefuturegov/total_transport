@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718094200) do
+ActiveRecord::Schema.define(version: 20170918085209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,14 @@ ActiveRecord::Schema.define(version: 20170718094200) do
 
   add_index "passengers", ["session_token"], name: "index_passengers_on_session_token", unique: true, using: :btree
 
+  create_table "places", force: :cascade do |t|
+    t.string   "name"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "promo_codes", force: :cascade do |t|
     t.decimal  "price_deduction"
     t.string   "code"
@@ -101,14 +109,14 @@ ActiveRecord::Schema.define(version: 20170718094200) do
   end
 
   create_table "que_jobs", id: false, force: :cascade do |t|
-    t.integer  "priority",    limit: 2, default: 100,                                        null: false
-    t.datetime "run_at",                default: "now()",                                    null: false
-    t.integer  "job_id",      limit: 8, default: "nextval('que_jobs_job_id_seq'::regclass)", null: false
-    t.text     "job_class",                                                                  null: false
-    t.json     "args",                  default: [],                                         null: false
-    t.integer  "error_count",           default: 0,                                          null: false
+    t.integer  "priority",    limit: 2, default: 100,                   null: false
+    t.datetime "run_at",                default: '2017-08-08 11:59:35', null: false
+    t.integer  "job_id",      limit: 8, default: 0,                     null: false
+    t.text     "job_class",                                             null: false
+    t.json     "args",                  default: [],                    null: false
+    t.integer  "error_count",           default: 0,                     null: false
     t.text     "last_error"
-    t.text     "queue",                 default: "",                                         null: false
+    t.text     "queue",                 default: "",                    null: false
   end
 
   create_table "routes", force: :cascade do |t|
@@ -116,18 +124,26 @@ ActiveRecord::Schema.define(version: 20170718094200) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "stop_routes", force: :cascade do |t|
+    t.integer "stop_id"
+    t.integer "route_id"
+    t.integer "position"
+  end
+
+  add_index "stop_routes", ["route_id"], name: "index_stop_routes_on_route_id", using: :btree
+  add_index "stop_routes", ["stop_id"], name: "index_stop_routes_on_stop_id", using: :btree
+
   create_table "stops", force: :cascade do |t|
-    t.string   "name"
     t.integer  "route_id"
-    t.float    "latitude"
-    t.float    "longitude"
     t.json     "polygon"
     t.integer  "position"
     t.integer  "minutes_from_last_stop"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "place_id"
   end
 
+  add_index "stops", ["place_id"], name: "index_stops_on_place_id", using: :btree
   add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
 
   create_table "suggested_edit_to_stops", force: :cascade do |t|
@@ -233,6 +249,7 @@ ActiveRecord::Schema.define(version: 20170718094200) do
   add_foreign_key "journeys", "suppliers"
   add_foreign_key "journeys", "vehicles"
   add_foreign_key "landmarks", "stops"
+  add_foreign_key "stops", "places"
   add_foreign_key "stops", "routes"
   add_foreign_key "suggested_edit_to_stops", "passengers"
   add_foreign_key "suggested_edit_to_stops", "stops"
