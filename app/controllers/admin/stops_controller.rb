@@ -1,5 +1,6 @@
 class Admin::StopsController < AdminController
   before_filter :find_route
+  before_filter :get_places, only: [:new, :edit]
   def new
     @stop = @route.stops.new
     @back_path = admin_route_path(@route)
@@ -36,10 +37,14 @@ class Admin::StopsController < AdminController
   private
 
   def stop_params
-    params.require(:stop).permit(:name, :polygon, :latitude, :longitude, :minutes_from_last_stop)
+    params.require(:stop).permit(:place_id, :polygon, :minutes_from_last_stop)
   end
 
   def find_route
     @route = Route.find(params[:route_id])
+  end
+  
+  def get_places
+    @places = Place.all
   end
 end
