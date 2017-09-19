@@ -61,4 +61,12 @@ RSpec.describe Stop, type: :model do
     
   end
   
+  it 'runs the CalculateMinutesFromLastStop job after creation', :que do
+    expect {
+      FactoryGirl.create(:stop_with_callback) 
+    }.to change {
+      QueJob.where(job_class: 'CalculateMinutesFromLastStop').count
+    }.by(1)
+  end
+  
 end

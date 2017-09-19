@@ -8,12 +8,22 @@ class Stop < ActiveRecord::Base
   has_many :suggested_edit_to_stops, dependent: :destroy
 
   validates_presence_of :place, :route, :polygon
+  
+  after_create :queue_minutes_from_last_stop
 
   def previous_stops(reversed = false)
     if reversed
       route.stops.where('position >= ?', position)
     else
       route.stops.where('position <= ?', position)
+    end
+  end
+  
+  def previous_stop(reversed = false)
+    if reversed
+      route.stops.find_by(position: position + 1)
+    else
+      route.stops.find_by(position: position - 1)
     end
   end
 
@@ -36,4 +46,9 @@ class Stop < ActiveRecord::Base
       position
     end
   end
+  
+  def queue_minutes_from_last_stop
+    CalculateMinutesFromLastStop.enqueue(id)
+  end
+  
 end
