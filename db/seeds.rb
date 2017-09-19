@@ -21,6 +21,11 @@ WHERE {
      { ?uri open:populatedPlace open:City }
        UNION
      { ?uri open:populatedPlace open:Hamlet }
+       UNION
+     {
+       ?uri open:populatedPlace ?x .
+       FILTER (str(?x) = 'http://data.ordnancesurvey.co.uk/ontology/OpenNames/Suburban Area') .
+     }
   } .
   ?uri foaf:name ?label.
   ?uri open:populatedPlace ?type.
