@@ -4,7 +4,7 @@
 
    <select multiple id="select_<%= route.id %>" class="waypoints" style="display:none;">
      <% route.stops.each do |stop| %>
-       <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+       <option value="<%= stop.place.latitude %>, <%= stop.place.longitude %>" selected><%= stop.name %></option>
      <% end %>
    </select>
 
