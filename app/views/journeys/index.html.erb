@@ -62,6 +62,12 @@
 
       if(data.length > 0) {
         $('#to').removeAttr('disabled');
+        options.list.onClickEvent = function() {
+          var data = $("#to").getSelectedItemData();
+          var lat = data.latitude
+          var lng = data.longitude
+          _addCircle([lat, lng])
+        }
         $('#to').easyAutocomplete(options);
       } else {
         $('#to').attr('placeholder', 'No destinations');
