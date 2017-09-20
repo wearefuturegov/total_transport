@@ -1,11 +1,26 @@
-<%= form_tag do %>
-  <%= text_field_tag :from, nil, placeholder: 'From' %>
-  <%= text_field_tag :to, nil, placeholder: 'To' %>
-  <%= submit_tag 'See available journeys' %>
-<% end %>
+<div class='container'>
+  <div class='inner'>
+    <%= form_tag do %>
+      <%= text_field_tag :from, nil, placeholder: 'From' %>
+      <%= text_field_tag :to, nil, placeholder: 'To' %>
+      <%= submit_tag 'See available journeys' %>
+    <% end %>
+  </div>
+</div>
 
 <% content_for :js do %>
-<script type="text/javascript">
-  
+<script type='text/javascript'>
+  var options = {
+      url: "/places.json",
+      getValue: "name",
+      list: {	
+        match: {
+          enabled: true
+        }
+      },
+      theme: "square"
+    };
+    $("#from").easyAutocomplete(options);
+    $("#to").easyAutocomplete(options);
 </script>
 <% end %>
