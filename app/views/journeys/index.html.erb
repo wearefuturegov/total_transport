@@ -15,7 +15,6 @@
   var enableTo = function() {
     var id = $("#from").getSelectedItemData().id;
     $('#from_id').val(id);
-    $('#to').removeAttr('disabled');
     options.url = function() {
       id = $('#from_id').val();
       return 'places.json?origin_id=' + id
@@ -24,11 +23,20 @@
       var id = $("#to").getSelectedItemData().id;
       $('#to_id').val(id);
     };
-    $("#to").easyAutocomplete(options);
+    $.getJSON(options.url(), function(data) {
+      console.log(data);
+      if(data.length > 0) {
+        $('#to').removeAttr('disabled');
+        $('#to').easyAutocomplete(options);
+      } else {
+        $('#to').attr('placeholder', 'No destinations');
+        $('#to').attr('disabled', 'disabled');
+      }
+    });
   };
-  
+
   var options = {
-    url: "/places.json",
+    url: '/places.json',
     getValue: "name",
     list: {
       match: {
@@ -36,10 +44,10 @@
       },
       onClickEvent: enableTo
     },
-    theme: "square"
+    theme: 'square'
   };
-  
+
   options.url = '/places.json';
-  $("#from").easyAutocomplete(options);
+  $('#from').easyAutocomplete(options);
 </script>
 <% end %>
