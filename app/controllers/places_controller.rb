@@ -1,7 +1,13 @@
 class PlacesController < PublicController
   
   def index
-    places = places_params[:origin_id].present? ? get_destinations(places_params[:origin_id]) : Place.all
+    query = "#{places_params[:query]}%"
+    places = if places_params[:origin_id].present?
+      get_destinations(places_params[:origin_id], query)
+    else
+      Place.where('name ILIKE ?', query)
+    end
+    
     respond_to do |format|
       format.json do
         render json: places.as_json
@@ -12,12 +18,13 @@ class PlacesController < PublicController
   private
   
     def places_params
-      params.permit(:origin_id)
+      params.permit(:origin_id, :query)
     end
     
-    def get_destinations(origin)
+    def get_destinations(origin, query)
       routes = Place.find(origin).routes
-      routes.map { |r| r.places }.flatten.reject { |p| p.id == origin }
+      places = routes.map { |r| r.places.where('name ILIKE ?', query) }
+      places.flatten.reject { |p| p.id == origin }
     end
 
 end
