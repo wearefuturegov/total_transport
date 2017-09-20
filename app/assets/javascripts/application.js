@@ -15,5 +15,4 @@
 //= require jquery-ui
 //= require jquery-ui/sortable
 //= require datetimepicker
-//= require corejs-typeahead
 //= require_tree .
