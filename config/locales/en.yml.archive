@@ -23,12 +23,11 @@ en:
   hello: "Hello world"
 
   service: Journey
-  # This also changes @page_title everywhere
   
   homepage:
     title:
-      essex: 'The direct transport soloution'
-      suffolk: 'The direct transport soloution'
+      essex: ', the direct transport soloution for rural Essex'
+      suffolk: ', the direct transport soloution for rural Suffolk'
     intro:
       essex: 'Welcome to Pickup, a new rural transport service sponsored by Essex County Council.'
       suffolk: 'Welcome to Pickup, a new rural transport service sponsored by Suffolk County Council.'
