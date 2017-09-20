@@ -1,0 +1,43 @@
+%section.hero
+  %section.heading
+    %h1 
+      %span
+        = @page_title
+      = t("homepage.title.#{Rails.configuration.x.pickup.council}")
+    %p 
+      = t("homepage.intro.#{Rails.configuration.x.pickup.council}")
+
+  %section.action
+    = link_to 'Explore and book...', routes_path, class: 'button alt-button'
+
+  %section.more
+    %h4
+      = link_to '#step-1', title: 'How It Works...' do
+        %i.fa.fa-long-arrow-down
+        = t('button.explore')
+
+%main.main
+  %section.section#step-1
+    %h3
+      = t('steps.step_1.title')
+    %p
+      = t("homepage.route_intro.#{Rails.configuration.x.pickup.council}")
+    %p
+      = t('steps.step_1.info')
+
+  %section.section
+    %h3
+      = t('steps.step_2.title')
+    %p
+      = t('steps.step_2.info')
+
+  %section.section
+    %h3
+      = t('steps.step_3.title')
+    %p
+      = t('steps.step_3.info')
+
+%section.action
+  %h4
+    = t('homepage.intro_extend.intro')
+  = link_to 'Explore and book...', routes_path, class: 'button alt-button'
