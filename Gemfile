@@ -27,6 +27,8 @@ gem 'bourbon'
 # refer to older documentation http://neat.bourbon.io/docs/1.7.1/
 gem 'neat', '< 2.0'
 gem 'bitters'
+# Haml is the way
+gem 'haml-rails', '~> 0.9'
 # other starter gems
 gem 'high_voltage'
 gem 'normalize-rails'
