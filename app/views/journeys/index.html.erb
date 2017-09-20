@@ -1,6 +1,6 @@
 <div class='container'>
   <div class='inner'>
-    <%= form_tag do %>
+    <%= form_tag journeys_path, method: :get do %>
       <%= text_field_tag :from, nil, placeholder: 'From' %>
       <%= hidden_field_tag :from_id %>
       <%= text_field_tag :to, nil, placeholder: 'To', disabled: true %>
@@ -10,6 +10,12 @@
     <div id="map"></div>
   </div>
 </div>
+
+<% if @journeys %>
+
+  FOUND SOME
+
+<% end %>
 
 <% content_for :js do %>
 <script type='text/javascript'>
