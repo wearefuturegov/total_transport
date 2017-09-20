@@ -24,7 +24,7 @@ en:
 
   service: Journey
   # This also changes @page_title everywhere
-  
+
   homepage:
     title:
       essex: 'The direct transport soloution'
