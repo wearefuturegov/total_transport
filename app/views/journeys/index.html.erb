@@ -49,5 +49,9 @@
 
   options.url = '/places.json';
   $('#from').easyAutocomplete(options);
+
+  $('#from').change(function() {
+    $('#to').val('');
+  });
 </script>
 <% end %>
