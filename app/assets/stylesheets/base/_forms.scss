@@ -26,10 +26,9 @@ textarea {
 }
 
 #{$all-text-inputs}, select[multiple] {
-  background-color: $base-background-color;
+  background-color: white;
   border: $base-border;
   border-radius: $base-border-radius;
-  box-shadow: $form-box-shadow;
   box-sizing: border-box;
   margin-bottom: $small-spacing;
   padding: $base-spacing / 3;
@@ -42,13 +41,13 @@ textarea {
 
   &:focus {
     border-color: $action-color;
-    box-shadow: $form-box-shadow-focus;
     outline: none;
   }
 
   &:disabled {
-    background-color: shade($base-background-color, 5%);
+    background-color: shade($base-background-color, 10%);
     cursor: not-allowed;
+    border: 1px solid shade($base-background-color, 10%);
 
     &:hover {
       border: $base-border;

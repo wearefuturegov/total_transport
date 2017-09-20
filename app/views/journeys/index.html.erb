@@ -7,24 +7,53 @@
       <%= hidden_field_tag :to_id %>
       <%= submit_tag 'See available journeys' %>
     <% end %>
+    <div id="map"></div>
   </div>
 </div>
 
 <% content_for :js do %>
 <script type='text/javascript'>
+  var centreMap = L.map('map', {
+    zoomControl: false
+  }).setView([52.0891, 0.5600], 9);
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
+  }).addTo(centreMap);
+
+  function _addCircle(coords) {
+    L.circle(coords, {
+      color: '#1565c0',
+      fillColor: '#1565c0',
+      fillOpacity: 0.25,
+      radius: 1000
+    }).addTo(centreMap);
+    centreMap.setView(coords, 10);
+  }
+
+  function _changeOrigin() {
+    $('#to').val('');
+  }
+
   var enableTo = function() {
     var id = $("#from").getSelectedItemData().id;
     $('#from_id').val(id);
+
     options.url = function() {
       id = $('#from_id').val();
       return 'places.json?origin_id=' + id
     }
+
     options.list.onClickEvent = function() {
       var id = $("#to").getSelectedItemData().id;
       $('#to_id').val(id);
     };
+
     $.getJSON(options.url(), function(data) {
-      console.log(data);
+      var chosenItem = data.find(item => item.id == id);
+      _addCircle([chosenItem.latitude, chosenItem.longitude]);
+
       if(data.length > 0) {
         $('#to').removeAttr('disabled');
         $('#to').easyAutocomplete(options);
@@ -47,11 +76,11 @@
     theme: 'square'
   };
 
-  options.url = '/places.json';
   $('#from').easyAutocomplete(options);
 
   $('#from').change(function() {
-    $('#to').val('');
+    _changeOrigin();
   });
+
 </script>
 <% end %>
