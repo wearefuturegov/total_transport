@@ -28,7 +28,6 @@ textarea {
 #{$all-text-inputs}, select[multiple] {
   background-color: $base-background-color;
   border: $base-border;
-  border-radius: $base-border-radius;
   box-shadow: $form-box-shadow;
   box-sizing: border-box;
   margin-bottom: $small-spacing;
@@ -61,7 +60,6 @@ textarea {
 }
 
 #filter {
-  border-radius: $base-border-radius !important;
   -webkit-appearance: textfield;
 }
 
