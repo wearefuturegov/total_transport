@@ -124,15 +124,6 @@ ActiveRecord::Schema.define(version: 20170918085209) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "stop_routes", force: :cascade do |t|
-    t.integer "stop_id"
-    t.integer "route_id"
-    t.integer "position"
-  end
-
-  add_index "stop_routes", ["route_id"], name: "index_stop_routes_on_route_id", using: :btree
-  add_index "stop_routes", ["stop_id"], name: "index_stop_routes_on_stop_id", using: :btree
-
   create_table "stops", force: :cascade do |t|
     t.integer  "route_id"
     t.json     "polygon"
