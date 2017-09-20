@@ -34,3 +34,21 @@ en:
     route_intro:
       essex: 'Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance.'
       suffolk: 'Start by exploring the routes on offer. Pickup travels all across rural Suffolk. Trips can be booked any time from a month to a day in advance.'
+  
+  steps:
+    step_1:
+      title: 'Choose a route'
+      info: 'All times listed are estimates and may change based on who else schedules a ride.'
+    step_2:
+      title: 'Select pickup and dropoff points'
+      info: 'Start from a house, a shop, or anywhere else that’s convenient.'
+    step_3:
+      title: 'Pick a payment method'
+      info: 'You can pay for Pickup online, with cash, or with your bus pass. All online transactions use Paypal and all cash must be paid directly to your driver.'
+    step_4:
+      title: 'Travel'
+      info: 'Pickup will send you a text a few hours before your trip to let you know we’re on our way.'
+
+  button:
+    explore: 'Explore'
+  
