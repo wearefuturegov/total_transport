@@ -17,6 +17,10 @@
     @include span-columns(10);
     @include shift(1);
   }
+  .journey .section {
+    @include span-columns(4);
+    @include shift(0);
+  }
 }
 
 .section {

@@ -4,13 +4,37 @@
   background-color: $white;
   text-align: center;
   .header {
-    background-color: $white;
-    color: $black;
+    background-color: transparent;
+    color: $white;
+    position: absolute;
   }
   .hero {
+    background: linear-gradient(45deg, #7b8388, #cedee8);
+    padding-top: $baseline*2;
     .heading {
       h1 span {
-        color: $brand;
+        color: $white;
+      }
+      h1 {
+        $h1: 60px; // no to variables here, but in this case I think yes.
+        font-size: $h1;
+        line-height: calc(#{$h1} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$h1} * 2);
+      }
+      h2 {
+        $h2: 40px; // no to variables here, but in this case I think yes.
+        font-size: $h2;
+        line-height: calc(#{$h2} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$h2});
+      }
+      p {
+        $p: 20px; // no to variables here, but in this case I think yes.
+        font-size: $p;
+        line-height: calc(#{$p} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$p} * 1.2);
       }
       // h1 {
       //   font-size: 60px;
@@ -25,15 +49,14 @@
       //   margin-bottom: $baseline;
       // }
     }
+    .cta {
+      color: $white;
+      border-color: $white;
+    }
   }
   .main {
-    background-color: $brand;
-    color: $white;
-  }
-  .button {
-    width: auto;
   }
   .footer {
-    background-color: $darken-brand;
+    background-color: $white;
   }
 }

@@ -4,11 +4,12 @@ body {
   font-size: $body;
   font-weight: 400;
   line-height: $baseline;
+  -webkit-font-smoothing: antialiased;
 }
 
 p {
   margin-top: 0;
-  margin-bottom: calc(#{$baseline} * 0.5)
+  margin-bottom: calc(#{$baseline} * 0.5);
 }
 
 a {
@@ -23,7 +24,7 @@ a {
 }
 
 h1 {
-  $h1: 40px; // normally no, but in this case I think yes.
+  $h1: 40px; // no to variables here, but in this case I think yes.
   font-size: $h1;
   line-height: calc(#{$h1} * 1.2);
   margin-top: 0;
