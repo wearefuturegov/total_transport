@@ -2,7 +2,9 @@
   <div class='inner'>
     <%= form_tag do %>
       <%= text_field_tag :from, nil, placeholder: 'From' %>
-      <%= text_field_tag :to, nil, placeholder: 'To' %>
+      <%= hidden_field_tag :from_id %>
+      <%= text_field_tag :to, nil, placeholder: 'To', disabled: true %>
+      <%= hidden_field_tag :to_id %>
       <%= submit_tag 'See available journeys' %>
     <% end %>
   </div>
@@ -10,17 +12,34 @@
 
 <% content_for :js do %>
 <script type='text/javascript'>
-  var options = {
-      url: "/places.json",
-      getValue: "name",
-      list: {	
-        match: {
-          enabled: true
-        }
-      },
-      theme: "square"
+  var enableTo = function() {
+    var id = $("#from").getSelectedItemData().id;
+    $('#from_id').val(id);
+    $('#to').removeAttr('disabled');
+    options.url = function() {
+      id = $('#from_id').val();
+      return 'places.json?origin_id=' + id
+    }
+    options.list.onClickEvent = function() {
+      var id = $("#to").getSelectedItemData().id;
+      $('#to_id').val(id);
     };
-    $("#from").easyAutocomplete(options);
     $("#to").easyAutocomplete(options);
+  };
+  
+  var options = {
+    url: "/places.json",
+    getValue: "name",
+    list: {
+      match: {
+        enabled: true
+      },
+      onClickEvent: enableTo
+    },
+    theme: "square"
+  };
+  
+  options.url = '/places.json';
+  $("#from").easyAutocomplete(options);
 </script>
 <% end %>
