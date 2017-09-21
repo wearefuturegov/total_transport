@@ -2,7 +2,7 @@
 
 .section {
   @include pad(0 default);
-  @include outer-container(90%);
+  @include outer-container(80%);
 }
 
 .hero {
@@ -30,9 +30,9 @@
     @include shift(0);
   }
   .collection .single {
-    @include span-columns(3);
+    @include span-columns(4);
     @include shift(0);
-    &:nth-child(4) {
+    &:nth-child(3n) {
       margin-right: 0;
     }
   }
