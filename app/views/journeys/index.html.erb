@@ -14,6 +14,9 @@
       <div class="options">
         <% @journeys.each do |journey| %>
           <%= form_for [journey.route, @booking] do |form| %>
+          <%= form.hidden_field :journey_id, value: journey.id %>
+          <%= form.hidden_field :pickup_stop_id, value: journey.pickup_stop.id %>
+          <%= form.hidden_field :dropoff_stop_id, value: journey.dropoff_stop.id %>
             <%= form.label :journey_id, :value => journey.id do %>
               <div class="single">
                 <div class="details">
@@ -23,6 +26,8 @@
                       <%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %>
                       <small>+/- 10 min</small>
                   </div>
+                      <%= form.label :number_of_passengers, "Number of Passengers:", :class => "inline mr05 light" %>
+                      <%= form.select :number_of_passengers, 1..(journey.seats_left), {}, { :class => "select inline center" } %>
                   <% if journey.vehicle.wheelchair_accessible? %>
                     <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
                   <% end %>
@@ -126,6 +131,7 @@
         $('#to').val(chosenTo.name);
         _addCircle([chosenFrom.latitude, chosenFrom.longitude], blue);
         _addCircle([chosenTo.latitude, chosenTo.longitude], green);
+        // Remove disbaled
       });
     }
   });
