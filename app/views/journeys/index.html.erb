@@ -34,10 +34,21 @@
                     <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
                   <% end %>
                 </div>
+                
+                <% if journey.route.available_journeys_by_date(reversed: !journey.reversed?, from_time: journey.time_at_stop(journey.dropoff_stop)).empty? %>
+                  <%= form.hidden_field :return_available, value: false %>
+                  <p class="seats-left flagged-jrny return-ticket">
+                    <span>No Return Journey Available</span>
+                  </p>
+                <% else %>
+                  <%= form.hidden_field :return_available, value: true %>
+                <% end %>
+                
                 <%= form.submit 'Request journey' %>
               </div>
             <% end %>
           <% end %>
+
         <% end %>
       </div>
     <% end %>
