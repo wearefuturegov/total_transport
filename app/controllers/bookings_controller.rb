@@ -4,21 +4,6 @@ class BookingsController < PublicController
   before_filter :find_route, except: [:show]
   include ApplicationHelper
 
-  # Choose stops
-  def new
-    @page_title = "Choose Your Pick Up Area"
-    @back_path = routes_path
-    @booking = Booking.new
-    if params[:reversed] == 'true'
-      @reversed = true
-      @stops = @route.stops.reverse
-    else
-      @reversed = false
-      @stops = @route.stops
-    end
-    render template: 'bookings/edit_stops'
-  end
-
   # Save stops
   def create
     @booking = Booking.create(booking_params)

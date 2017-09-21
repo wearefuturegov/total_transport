@@ -5,31 +5,6 @@ RSpec.describe BookingsController, type: :controller do
   let(:passenger) { FactoryGirl.create(:passenger) }
   let(:route) { FactoryGirl.create(:route) }
   
-  describe 'GET new' do
-    
-    it 'sets the correct vars' do
-      get :new, { route_id: route.id }, { current_passenger: passenger.session_token }
-      
-      expect(assigns(:page_title)).to eq('Choose Your Pick Up Area')
-      expect(assigns(:back_path)).to eq(routes_path)
-      expect(assigns(:booking)).to be_a(Booking)
-      expect(assigns(:stops).first.place.name).to eq("place_1")
-    end
-    
-    it 'shows the normal order of stops' do
-      get :new, { route_id: route.id }, { current_passenger: passenger.session_token }
-      expect(assigns(:stops).first).to eq(route.stops.first)
-      expect(assigns(:stops).last).to eq(route.stops.last)
-    end
-    
-    it 'reverses the order of stops' do
-      get :new, { route_id: route.id, reversed: 'true' }, { current_passenger: passenger.session_token }
-      expect(assigns(:stops).first).to eq(route.stops.last)
-      expect(assigns(:stops).last).to eq(route.stops.first)
-    end
-    
-  end
-  
   describe 'POST create' do
     let(:params) {
       {
