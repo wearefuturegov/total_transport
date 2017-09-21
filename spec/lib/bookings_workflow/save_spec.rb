@@ -42,11 +42,32 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     end
   end
   
+  context 'with return_journey step' do
+    let(:step) { :return_journey }
+    
+    it 'returns the correct redirect path' do
+      expect(subject.redirect_path).to eq(edit_requirements_route_booking_path(route, booking))
+    end
+    
+    it 'returns the correct params' do
+      expect(subject.params).to eq(ActionController::Parameters.new({
+        return_journey_id: return_journey.id
+      }))
+    end
+    
+    it 'updates the correct atttributes' do
+      subject.perform_actions!
+      subject.params.each do |k,v|
+        expect(booking.send(k)).to eq(v)
+      end
+    end
+  end
+  
   context 'with requirements step' do
     let(:step) { :requirements }
     
     it 'returns the correct redirect path' do
-      expect(subject.redirect_path).to eq(edit_journey_route_booking_path(route, booking))
+      expect(subject.redirect_path).to eq(edit_pickup_location_route_booking_path(route, booking))
     end
     
     it 'returns the correct params' do
@@ -70,61 +91,6 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     # it 'sets the promo code' do
     #   expect(booking.promo_code).to eq(promo_code)
     # end
-  end
-  
-  context 'with journey step' do
-    let(:step) { :journey }
-    
-    it 'returns the correct redirect path' do
-      expect(subject.redirect_path).to eq(edit_return_journey_route_booking_path(route, booking))
-    end
-    
-    it 'returns the correct params' do
-      expect(subject.params).to eq(ActionController::Parameters.new({
-        journey_id: journey.id
-      }))
-    end
-    
-    it 'updates the correct atttributes' do
-      subject.perform_actions!
-      subject.params.each do |k,v|
-        expect(booking.send(k)).to eq(v)
-      end
-    end
-    
-    context 'single journeys' do
-      let(:subject) {
-        single_params = params.merge(ActionController::Parameters.new({
-          single_journey: 1
-        }))
-        BookingsWorkflow::Save.new(step, route, booking, single_params, session)
-      }
-      
-      it 'skips the return journey' do
-        expect(subject.redirect_path).to eq(edit_pickup_location_route_booking_path(route, booking))
-      end
-    end
-  end
-  
-  context 'with return_journey step' do
-    let(:step) { :return_journey }
-    
-    it 'returns the correct redirect path' do
-      expect(subject.redirect_path).to eq(edit_pickup_location_route_booking_path(route, booking))
-    end
-    
-    it 'returns the correct params' do
-      expect(subject.params).to eq(ActionController::Parameters.new({
-        return_journey_id: return_journey.id
-      }))
-    end
-    
-    it 'updates the correct atttributes' do
-      subject.perform_actions!
-      subject.params.each do |k,v|
-        expect(booking.send(k)).to eq(v)
-      end
-    end
   end
   
   context 'with pickup_location step' do
