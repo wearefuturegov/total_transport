@@ -12,9 +12,8 @@ module BookingsWorkflow
     
     def page_title
       {
-        edit_requirements: 'Choose Your Requirements',
-        edit_journey: 'Choose Your Time Of Travel',
         edit_return_journey: 'Pick Your Return Time',
+        edit_requirements: 'Choose Your Requirements',
         edit_pickup_location: 'Choose Pick Up Point',
         edit_dropoff_location: 'Choose Drop Off Point',
         edit_verify: 'Verify your phone number',
@@ -24,8 +23,8 @@ module BookingsWorkflow
     
     def back_path
       index = STEPS.find_index(@step)
-      if index.zero?
-        new_route_booking_path(@route)
+      if index.zero? || (index == 1 && @booking.return_journey_id.nil?)
+        journeys_path
       else
         step = STEPS[index - 1]
         path = "edit_#{step}_route_booking_path".to_sym

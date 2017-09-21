@@ -14,6 +14,31 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
       expect { subject }.to raise_error("Invalid step key!")
     end
   end
+  
+  context 'with return_journey step' do
+    let(:step) { :return_journey }
+    
+    it 'gets a page title' do
+      expect(subject.page_title).to eq('Pick Your Return Time')
+    end
+    
+    it 'returns the correct back path' do
+      expect(subject.back_path).to eq(journeys_path)
+    end
+    
+    it 'returns map_type' do
+      expect(subject.map_type).to eq(nil)
+    end
+    
+    it 'returns a template' do
+      expect(subject.template).to eq('bookings/edit_return_journey')
+    end
+    
+    it 'returns allowed vars' do
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :journeys])
+    end
+
+  end
     
   context 'with requirements step' do
     let(:step) { :requirements }
@@ -23,7 +48,13 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     end
     
     it 'returns the correct back path' do
-      expect(subject.back_path).to eq(new_route_booking_path(route))
+      expect(subject.back_path).to eq(journeys_path)
+    end
+    
+    it 'returns the correct back path with a return journey' do
+      booking.return_journey = FactoryGirl.create(:journey, reversed: true)
+      booking.save
+      expect(subject.back_path).to eq(edit_return_journey_route_booking_path(route, booking))
     end
     
     it 'returns journeys' do
@@ -50,56 +81,6 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     end
   end
   
-  context 'with journey step' do
-    let(:step) { :journey }
-    
-    it 'gets a page title' do
-      expect(subject.page_title).to eq('Choose Your Time Of Travel')
-    end
-    
-    it 'returns the correct back path' do
-      expect(subject.back_path).to eq(edit_requirements_route_booking_path(route, booking))
-    end
-    
-    it 'returns map_type' do
-      expect(subject.map_type).to eq(nil)
-    end
-    
-    it 'returns a template' do
-      expect(subject.template).to eq('bookings/edit_journey')
-    end
-    
-    it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :journeys])
-    end
-    
-  end
-  
-  context 'with return_journey step' do
-    let(:step) { :return_journey }
-    
-    it 'gets a page title' do
-      expect(subject.page_title).to eq('Pick Your Return Time')
-    end
-    
-    it 'returns the correct back path' do
-      expect(subject.back_path).to eq(edit_journey_route_booking_path(route, booking))
-    end
-    
-    it 'returns map_type' do
-      expect(subject.map_type).to eq(nil)
-    end
-    
-    it 'returns a template' do
-      expect(subject.template).to eq('bookings/edit_return_journey')
-    end
-    
-    it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :journeys])
-    end
-
-  end
-  
   context 'with pickup_location' do
     let(:step) { :pickup_location }
     
@@ -108,7 +89,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     end
     
     it 'returns the return journey path' do
-      expect(subject.back_path).to eq(edit_return_journey_route_booking_path(route, booking))
+      expect(subject.back_path).to eq(edit_requirements_route_booking_path(route, booking))
     end
     
     it 'returns map_type' do
