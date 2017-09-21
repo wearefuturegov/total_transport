@@ -2,7 +2,7 @@
 
 #public-index {
   background-color: $white;
-  text-align: center;
+  text-align: left;
   .main-cont {
     position: absolute;
   }
@@ -12,6 +12,8 @@
     position: absolute;
   }
   .hero {
+    float: none;
+    display: inline-block;
     background-color: rgba($gray,0.9);
     background: linear-gradient(45deg, $gradient-1, $gradient-2);
     position: relative;
@@ -50,12 +52,12 @@
     .map {
       background-image: url('snazzy-image.png');
       background-size: cover;
-      height: $baseline*10;
-      + h3 {
+      height: $baseline*14;
+      + .section {
         position: absolute;
-        top: 50%;
-        left: $gutter;
-        right: $gutter;
+        top: 25%;
+        left: 0;
+        right: 0;
       }
     }
   }

@@ -36,8 +36,9 @@
   %section.hero
     .overlay
     .map
-    %h3
-      = t('public-index.map_title')
+    %section.section
+      %h3
+        = t('public-index.map_title')
 
   %section.section
     %h3
@@ -45,7 +46,16 @@
     %p
       = t('public-index.about.info')
     %p
+      = t('public-index.about.extra')
+
+  %section.section
+    %h3
+      = t('public-index.about.title_extra')
+    %p
+      = t('public-index.about.extra')
+    %p
       = t('public-index.about.info')
+
 
   %section.section
     %h3
@@ -72,9 +82,38 @@
         %p
           = t('public-index.dummy.title')
 
+  %section.section
+    %h3
+      = t('public-index.list.title')
+    %section.collection
+      %ul
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
+        %li.single
+          = t('public-index.dummy.info')
 
 
-%section.action
-  %h4
-    = t('public-index.intro_extend.intro')
-  = link_to 'Explore and book...', routes_path, class: 'button cta'
+
+  %section.section
+    .action
+      = link_to 'Explore and book...', routes_path, class: 'button cta'

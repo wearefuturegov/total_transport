@@ -7,6 +7,7 @@
 
 .hero {
    @include span-columns(12);
+   margin-right: 0;
   // .heading,
   // .action,
   // .more {
@@ -22,9 +23,6 @@
   //   @include span-columns(10);
   //   @include shift(1);
   // }
-  .section {
-    display: inline-block;
-  }
   .journey .single {
     @include span-columns(4);
     @include shift(0);
