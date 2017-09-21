@@ -1,0 +1,9 @@
+/* single */
+
+.collection {
+  display: flex;
+  flex-wrap: wrap;
+  .single {
+    margin-bottom: $baseline;
+  }
+}
