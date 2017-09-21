@@ -7,38 +7,42 @@
       <%= hidden_field_tag :to_id %>
       <%= submit_tag 'See available journeys' %>
     <% end %>
+
     <div id="map"></div>
-    
+
     <% if @journeys %>
-      
-      <% @journeys.each do |journey| %>
-        <%= form_for [journey.route, @booking] do |form| %>
-          <%= form.label :journey_id, :value => journey.id do %>
-            <div class="inner">
-              <h2><%= friendly_date(journey.start_time) %></h2>
-              <div class="half">
-                <span class="timeEst"><%= journey.time_at_stop(journey.pickup_stop).strftime("%l:%M%P") %></span><br/>
-                <span class="small grey">+/- 10 min</span>
+      <div class="options">
+        <% @journeys.each do |journey| %>
+          <%= form_for [journey.route, @booking] do |form| %>
+            <%= form.label :journey_id, :value => journey.id do %>
+              <div class="single">
+                <div class="details">
+                  <h2><%= friendly_date(journey.start_time) %></h2>
+                  <div class="time">
+                      <%= journey.time_at_stop(journey.pickup_stop).strftime("%l:%M%P") %> -
+                      <%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %>
+                      <small>+/- 10 min</small>
+                  </div>
+                  <% if journey.vehicle.wheelchair_accessible? %>
+                    <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
+                  <% end %>
+                </div>
+                <%= form.submit 'Request journey' %>
               </div>
-              <div class="half">
-                <span class="timeEst"><%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %></span><br/>
-                <span class="small grey">+/- 10 min</span>
-              </div>
-            </div>
-            <% if journey.vehicle.wheelchair_accessible? %>
-              <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
             <% end %>
-            <%= form.submit 'Book' %>
           <% end %>
         <% end %>
-      <% end %>
-
+      </div>
     <% end %>
   </div>
 </div>
 
 <% content_for :js do %>
+
 <script type='text/javascript'>
+  var blue = '#1565c0',
+      green = '#45B554';
+
   var centreMap = L.map('map', {
     zoomControl: false
   }).setView([52.0891, 0.5600], 9);
@@ -60,9 +64,10 @@
 
   function _changeOrigin() {
     $('#to').val('');
+    // TODO: Remove destination circles
   }
 
-  var enableTo = function() {
+  var enableTo = () => {
     var id = $("#from").getSelectedItemData().id;
     $('#from_id').val(id);
 
@@ -73,7 +78,7 @@
 
     $.getJSON(options.url(), function(data) {
       var chosenItem = data.find(item => item.id == id);
-      _addCircle([chosenItem.latitude, chosenItem.longitude], '#1565c0');
+      _addCircle([chosenItem.latitude, chosenItem.longitude], blue);
 
       if(data.length > 0) {
         $('#to').removeAttr('disabled');
@@ -81,7 +86,7 @@
           var data = $("#to").getSelectedItemData();
           var lat = data.latitude
           var lng = data.longitude
-          _addCircle([lat, lng], '#45B554')
+          _addCircle([lat, lng], green)
           $('#to_id').val(data.id);
         }
         $('#to').easyAutocomplete(options);
@@ -106,8 +111,23 @@
 
   $('#from').easyAutocomplete(options);
 
-  $('#from').change(function() {
+  $('#from').change(() => {
     _changeOrigin();
+  });
+
+  $(() => {
+    if($.urlParam('from_id')) {
+      var fromId = $.urlParam('from_id');
+      var toId = $.urlParam('to_id');
+      $.getJSON('places.json?origin_id=' + fromId, function(data) {
+        var chosenFrom = data.find(item => item.id == fromId);
+        var chosenTo = data.find(item => item.id == toId);
+        $('#from').val(chosenFrom.name);
+        $('#to').val(chosenTo.name);
+        _addCircle([chosenFrom.latitude, chosenFrom.longitude], blue);
+        _addCircle([chosenTo.latitude, chosenTo.longitude], green);
+      });
+    }
   });
 
 </script>

@@ -7,7 +7,7 @@ module ApplicationHelper
       'Tomorrow'
     else
       day_format = length ? '%a' : '%A'
-      strf_format = "#{day_format}, %-d %B"
+      strf_format = "#{day_format}, %-d %b"
       # Append the year if the date we want to parse is next year
       strf_format += ", %Y" if date > Date.today.end_of_year
       date.strftime(strf_format)
