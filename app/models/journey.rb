@@ -7,6 +7,8 @@ class Journey < ActiveRecord::Base
   belongs_to :vehicle
   belongs_to :supplier
   validates_presence_of :vehicle, :supplier, :start_time, :route
+  
+  attr_accessor :pickup_stop, :dropoff_stop
 
   scope :forwards, -> {where("reversed IS NOT TRUE")}
   scope :backwards, -> {where("reversed IS TRUE")}
@@ -48,7 +50,11 @@ class Journey < ActiveRecord::Base
       Journey.available.where(
         route_id: route.id,
         reversed: stops.first.position > stops.last.position
-      )
+      ).map do |j|
+        j.pickup_stop = stops.first
+        j.dropoff_stop = stops.last
+        j
+      end
     end.flatten.uniq
   end
 

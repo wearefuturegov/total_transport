@@ -8,14 +8,34 @@
       <%= submit_tag 'See available journeys' %>
     <% end %>
     <div id="map"></div>
+    
+    <% if @journeys %>
+      
+      <% @journeys.each do |journey| %>
+        <%= form_for [journey.route, @booking] do |form| %>
+          <%= form.label :journey_id, :value => journey.id do %>
+            <div class="inner">
+              <h2><%= friendly_date(journey.start_time) %></h2>
+              <div class="half">
+                <span class="timeEst"><%= journey.time_at_stop(journey.pickup_stop).strftime("%l:%M%P") %></span><br/>
+                <span class="small grey">+/- 10 min</span>
+              </div>
+              <div class="half">
+                <span class="timeEst"><%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %></span><br/>
+                <span class="small grey">+/- 10 min</span>
+              </div>
+            </div>
+            <% if journey.vehicle.wheelchair_accessible? %>
+              <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
+            <% end %>
+            <%= form.submit 'Book' %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    <% end %>
   </div>
 </div>
-
-<% if @journeys %>
-
-  FOUND SOME
-
-<% end %>
 
 <% content_for :js do %>
 <script type='text/javascript'>
