@@ -1,69 +1,92 @@
 %section.hero
-  %section.heading
+  %section.section.heading
     %h1 
       %span
         = @page_title
     %h2
-      = t("homepage.title.#{Rails.configuration.x.pickup.council}")
+      = t("public-index.title.#{Rails.configuration.x.pickup.council}")
     %p 
-      = t("homepage.intro.#{Rails.configuration.x.pickup.council}")
+      = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
 
-  %section.action
-    = link_to 'Explore and book...', routes_path, class: 'button cta'
-
-  / %section.more
-  /   = link_to '#step-1', title: 'More' do
-  /     = fa_icon 'angle-down'
+    %section.action
+      = link_to I18n.t('button.book'), routes_path, class: 'button cta'
 
 %main.main
-  %section.journey
-    %section.section
+  -# class steps was taken, so journey
+  %section.section.journey 
+    %section.single
       %h3
         = t('steps.step_1.title')
       %p
         = t('steps.step_1.info')
 
-    %section.section
+    %section.single
       %h3
         = t('steps.step_2.title')
       %p
         = t('steps.step_2.info')
 
-    %section.section
+    %section.single
       %h3
-        = t('steps.step_4.title')
+        = t('steps.step_3.title')
       %p
-        = t('steps.step_4.info')
+        = t('steps.step_3.info')
 
-/ %main.main
-/   %section.section#step-1
-/     %h3
-/       = t('steps.step_1.title')
-/     %p
-/       = t("homepage.route_intro.#{Rails.configuration.x.pickup.council}")
-/     %p
-/       = t('steps.step_1.info')
+  
+  %section.hero
+    .overlay
+    .map
+    %h3
+      = t('public-index.map_title')
 
-/   %section.section
-/     %h3
-/       = t('steps.step_2.title')
-/     %p
-/       = t('steps.step_2.info')
+  %section.section
+    %h3
+      = t('public-index.about.title')
+    %p
+      = t('public-index.about.info')
+    %p
+      = t('public-index.about.info')
 
-/   %section.section
-/     %h3
-/       = t('steps.step_3.title')
-/     %p
-/       = t('steps.step_3.info')
+  %section.section
+    %h3
+      = t('public-index.collection.title')
+    %section.collection
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
+      %section.single
+        = image_tag 'suffolk.png', alt: 'suffolk'
+        %h4
+          = t('public-index.dummy.title')
 
-/   %section.section
-/     %h3
-/       = t('steps.step_4.title')
-/     %p
-/       = t('steps.step_4.info')
 
 
 %section.action
-  %h4
-    = t('homepage.intro_extend.intro')
+  %h3
+    = t('public-index.intro_extend.intro')
   = link_to 'Explore and book...', routes_path, class: 'button cta'

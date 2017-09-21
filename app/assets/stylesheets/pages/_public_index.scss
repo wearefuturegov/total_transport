@@ -3,14 +3,18 @@
 #public-index {
   background-color: $white;
   text-align: center;
+  .main-cont {
+    position: absolute;
+  }
   .header {
     background-color: transparent;
     color: $white;
     position: absolute;
   }
   .hero {
-    background: linear-gradient(45deg, #7b8388, #cedee8);
-    padding-top: $baseline*2;
+    background-color: rgba($gray,0.9);
+    background: linear-gradient(45deg, $gradient-1, $gradient-2);
+    position: relative;
     .heading {
       h1 span {
         color: $white;
@@ -19,8 +23,8 @@
         $h1: 60px; // no to variables here, but in this case I think yes.
         font-size: $h1;
         line-height: calc(#{$h1} * 1.2);
-        margin-top: 0;
-        margin-bottom: calc(#{$h1} * 2);
+        margin-top: calc(#{$h1});
+        margin-bottom: calc(#{$h1});
       }
       h2 {
         $h2: 40px; // no to variables here, but in this case I think yes.
@@ -36,18 +40,6 @@
         margin-top: 0;
         margin-bottom: calc(#{$p} * 1.2);
       }
-      // h1 {
-      //   font-size: 60px;
-      //   font-weight: 600;
-      //   line-height: 65px;
-      //   margin-bottom: $baseline;
-      // }
-      // h2 {
-      //   font-size: 28px;
-      //   font-weight: 600;
-      //   line-height: 30px;
-      //   margin-bottom: $baseline;
-      // }
     }
     .cta {
       color: $white;
@@ -55,6 +47,17 @@
     }
   }
   .main {
+    .map {
+      background-image: url('snazzy-image.png');
+      background-size: cover;
+      height: $baseline*10;
+      + h3 {
+        position: absolute;
+        top: 50%;
+        left: $gutter;
+        right: $gutter;
+      }
+    }
   }
   .footer {
     background-color: $white;

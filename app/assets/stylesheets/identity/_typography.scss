@@ -48,7 +48,8 @@ h4 {
   font-size: $h4;
   line-height: calc(#{$h4} * 1.2);
   margin-top: 0;
-  margin-bottom: calc(#{$h4} * 1.2); 
+  margin-bottom: calc(#{$h4} * 1.2);
+  text-align: left;
 }
 
 a {
