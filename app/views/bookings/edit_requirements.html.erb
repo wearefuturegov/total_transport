@@ -1,7 +1,12 @@
 <%= form_for [@route, @booking], url: save_requirements_route_booking_path(@route, @booking) do |form| %>
   <div class="top-sec container white-block">
     <div class="inner">
-      <p class="">Your journey is from <span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff bold"><%= @booking.dropoff_stop.name %></span>. Select the number of passengers that you want to book this journey for and enter any concessionary fares for example a bus pass.</p>
+      <!-- <p class="">Your journey is from <span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff bold"><%= @booking.dropoff_stop.name %></span>. Select the number of passengers that you want to book this journey for and enter any concessionary fares for example a bus pass.</p> -->
+      <ul class="summary">
+          <li><i class="fa fa-fw fa-map-marker start"></i> <%= @booking.pickup_stop.name %></li>
+          <li><i class="fa fa-fw fa-flag start"></i> <%= @booking.dropoff_stop.name %></li>
+          <li><i class="fa fa-fw fa-users start"></i> <%= @booking.number_of_passengers %> People</li>
+      </ul>
     </div>
   </div>
   <div class="container">

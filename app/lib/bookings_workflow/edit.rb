@@ -12,9 +12,9 @@ module BookingsWorkflow
     
     def page_title
       {
-        edit_requirements: 'Choose Your Requirements',
-        edit_journey: 'Choose Your Time Of Travel',
-        edit_return_journey: 'Pick Your Return Time',
+        edit_requirements: 'Requirements',
+        edit_journey: 'Time & Direction',
+        edit_return_journey: 'Return Journey',
         edit_pickup_location: 'Choose Pick Up Point',
         edit_dropoff_location: 'Choose Drop Off Point',
         edit_verify: 'Verify your phone number',

@@ -12,42 +12,46 @@
 
     <% if @journeys %>
       <div class="options">
-        <% @journeys.each do |journey| %>
-          <%= form_for [journey.route, @booking] do |form| %>
-          <%= form.hidden_field :journey_id, value: journey.id %>
-          <%= form.hidden_field :pickup_stop_id, value: journey.pickup_stop.id %>
-          <%= form.hidden_field :dropoff_stop_id, value: journey.dropoff_stop.id %>
-            <%= form.label :journey_id, :value => journey.id do %>
-              <div class="single">
-                <div class="details">
-                  <div class="time">
-                      <h2><%= friendly_date(journey.start_time) %></h2>
-                      <%= journey.time_at_stop(journey.pickup_stop).strftime("%l:%M%P") %> -
-                      <%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %>
-                      <small>+/- 10 min</small>
+        <% if @journeys.length > 0 %>
+          <% @journeys.each do |journey| %>
+            <%= form_for [journey.route, @booking] do |form| %>
+            <%= form.hidden_field :journey_id, value: journey.id %>
+            <%= form.hidden_field :pickup_stop_id, value: journey.pickup_stop.id %>
+            <%= form.hidden_field :dropoff_stop_id, value: journey.dropoff_stop.id %>
+              <%= form.label :journey_id, :value => journey.id do %>
+                <div class="single">
+                  <div class="details">
+                    <div class="time">
+                        <h2><%= friendly_date(journey.start_time) %></h2>
+                        <%= journey.time_at_stop(journey.pickup_stop).strftime("%l:%M%P") %> -
+                        <%= journey.time_at_stop(journey.dropoff_stop).strftime("%l:%M%P") %>
+                        <small>+/- 10 min</small>
+                    </div>
+                    <div class="seats">
+                        <i class="inline mr05 light fa fa-users"></i>
+                        <%= form.select :number_of_passengers, 1..(journey.seats_left), {}, { :class => "select inline center" } %>
+                    </div>
+                    <% if journey.vehicle.wheelchair_accessible? %>
+                      <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
+                    <% end %>
                   </div>
-                  <div class="seats">
-                      <i class="inline mr05 light fa fa-users"></i>
-                      <%= form.select :number_of_passengers, 1..(journey.seats_left), {}, { :class => "select inline center" } %>
-                  </div>
-                  <% if journey.vehicle.wheelchair_accessible? %>
-                    <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
+
+                  <% if journey.route.available_journeys_by_date(reversed: !journey.reversed?, from_time: journey.time_at_stop(journey.dropoff_stop)).empty? %>
+                    <%= form.hidden_field :return_available, value: false %>
+                    <%= form.submit 'Request one way only' %>
+                  <% else %>
+                    <%= form.hidden_field :return_available, value: true %>
+                    <%= form.submit 'Request one way or return' %>
                   <% end %>
                 </div>
-
-                <% if journey.route.available_journeys_by_date(reversed: !journey.reversed?, from_time: journey.time_at_stop(journey.dropoff_stop)).empty? %>
-                  <%= form.hidden_field :return_available, value: false %>
-                  <%= form.submit 'Request one way only' %>
-                <% else %>
-                  <%= form.hidden_field :return_available, value: true %>
-                  <%= form.submit 'Request one way or return' %>
-                <% end %>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
 
-        <% end %>
-      </div>
+          <% end %>
+        </div>
+      <% else %>
+        <span>No journeys available.</span>
+      <% end %>
     <% end %>
   </div>
 </div>
