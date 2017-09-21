@@ -79,6 +79,7 @@ group :development, :test do
   gem 'capybara-selenium'
   gem 'chromedriver-helper'
   gem 'brakeman', require: false
+  gem 'coveralls', require: false
 end
 
 group :development do
