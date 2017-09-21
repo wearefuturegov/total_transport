@@ -2,16 +2,10 @@
   <div class="top-sec container white-block">
     <div class="inner">
       <p class="">Your journey is from <span class="pickup bold"><%= @booking.pickup_stop.name %></span> to <span class="dropoff bold"><%= @booking.dropoff_stop.name %></span>. Select the number of passengers that you want to book this journey for and enter any concessionary fares for example a bus pass.</p>
-      <div class="center"><%= render partial: 'display_journey_tabs' %></div>
     </div>
   </div>
   <div class="container">
     <div class="inner">
-
-      <p>
-      <%= form.label :number_of_passengers, "Number of Passengers:", :class => "inline mr05 light" %>
-      <%= form.select :number_of_passengers, [1,2,3,4,5], {}, { :class => "select inline center" } %>
-      </p>
 
       <p id="adult-tickets" class="bold <%= " hidden" if @booking.number_of_adults == 0 %>"><span id="adult-ticket-no"><%= pluralize @booking.number_of_adults, "adult ticket" %></span> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> each)</p>
       <div class="concessions">

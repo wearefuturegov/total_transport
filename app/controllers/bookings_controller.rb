@@ -22,7 +22,11 @@ class BookingsController < PublicController
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    redirect_to edit_requirements_route_booking_path(@route, @booking)
+    if params[:booking][:return_available] === 'true'
+      redirect_to edit_return_journey_route_booking_path(@route, @booking)
+    else
+      redirect_to edit_requirements_route_booking_path(@route, @booking)
+    end
   end
   
   def edit
