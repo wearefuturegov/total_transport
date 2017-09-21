@@ -174,7 +174,7 @@ RSpec.describe BookingsController, type: :controller do
           current_passenger: passenger.session_token
         }
                 
-        expect(assigns(:page_title)).to eq('Pick Your Return Time')
+        expect(assigns(:page_title)).to eq('Return Journey')
         expect(assigns(:back_path)).to eq(journeys_path)
         expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
       end
@@ -208,7 +208,7 @@ RSpec.describe BookingsController, type: :controller do
           current_passenger: passenger.session_token
         }
         
-        expect(assigns(:page_title)).to eq('Choose Your Requirements')
+        expect(assigns(:page_title)).to eq('Requirements')
         expect(assigns(:back_path)).to eq(journeys_path)
       end
       
@@ -225,7 +225,7 @@ RSpec.describe BookingsController, type: :controller do
           current_passenger: passenger.session_token
         }
         
-        expect(assigns(:page_title)).to eq('Choose Your Requirements')
+        expect(assigns(:page_title)).to eq('Requirements')
         expect(assigns(:back_path)).to eq(edit_return_journey_route_booking_path(route, booking))
       end
     end
