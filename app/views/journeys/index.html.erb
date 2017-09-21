@@ -13,6 +13,7 @@
       
       <% @journeys.each do |journey| %>
         <%= form_for [journey.route, @booking] do |form| %>
+          <%= form.hidden_field :journey_id, value: journey.id %>
           <%= form.hidden_field :pickup_stop_id, value: journey.pickup_stop.id %>
           <%= form.hidden_field :dropoff_stop_id, value: journey.dropoff_stop.id %>
           <div class="inner">
