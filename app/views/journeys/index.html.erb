@@ -1,10 +1,10 @@
 <div class='container'>
   <div class='inner'>
     <%= form_tag journeys_path, method: :get do %>
-      <%= text_field_tag :from, nil, placeholder: 'From' %>
-      <%= hidden_field_tag :from_id %>
-      <%= text_field_tag :to, nil, placeholder: 'To', disabled: true %>
-      <%= hidden_field_tag :to_id %>
+      <%= text_field_tag nil, nil, placeholder: 'From', id: :from_name %>
+      <%= hidden_field_tag :from %>
+      <%= text_field_tag nil, nil, placeholder: 'To', disabled: true, id: :to_name %>
+      <%= hidden_field_tag :to %>
       <%= submit_tag 'See available journeys' %>
     <% end %>
 
@@ -40,36 +40,36 @@
   }
 
   function _changeOrigin() {
-    $('#to').val('');
+    $('#to_name').val('');
     // TODO: Remove destination circles
   }
 
   var enableTo = () => {
-    var id = $("#from").getSelectedItemData().id;
-    $('#from_id').val(id);
+    var chosenItem = $("#from_name").getSelectedItemData();
+    var slug = chosenItem.slug;
+    $('#from').val(slug);
 
     options.url = function() {
-      id = $('#from_id').val();
-      return 'places.json?origin_id=' + id
+      slug = $('#from').val();
+      return 'places.json?origin=' + slug
     }
 
     $.getJSON(options.url(), function(data) {
-      var chosenItem = data.find(item => item.id == id);
       _addCircle([chosenItem.latitude, chosenItem.longitude], blue);
 
       if(data.length > 0) {
-        $('#to').removeAttr('disabled');
+        $('#to_name').removeAttr('disabled');
         options.list.onClickEvent = function() {
-          var data = $("#to").getSelectedItemData();
+          var data = $("#to_name").getSelectedItemData();
           var lat = data.latitude
           var lng = data.longitude
           _addCircle([lat, lng], green)
-          $('#to_id').val(data.id);
+          $('#to').val(data.slug);
         }
-        $('#to').easyAutocomplete(options);
+        $('#to_name').easyAutocomplete(options);
       } else {
-        $('#to').attr('placeholder', 'No destinations');
-        $('#to').attr('disabled', 'disabled');
+        $('#to_name').attr('placeholder', 'No destinations');
+        $('#to_name').attr('disabled', 'disabled');
       }
     });
   };
@@ -86,24 +86,24 @@
     theme: 'square'
   };
 
-  $('#from').easyAutocomplete(options);
+  $('#from_name').easyAutocomplete(options);
 
-  $('#from').change(() => {
+  $('#from_name').change(() => {
     _changeOrigin();
   });
 
   $(() => {
-    if($.urlParam('from_id')) {
-      var fromId = $.urlParam('from_id');
-      var toId = $.urlParam('to_id');
+    if($.urlParam('from')) {
+      var fromId = $.urlParam('from');
+      var toId = $.urlParam('to');
       $.getJSON('places.json?origin_id=' + fromId, function(data) {
         var chosenFrom = data.find(item => item.id == fromId);
         var chosenTo = data.find(item => item.id == toId);
-        $('#from').val(chosenFrom.name);
-        $('#to').val(chosenTo.name);
+        $('#from_name').val(chosenFrom.name);
+        $('#to_name').val(chosenTo.name);
         _addCircle([chosenFrom.latitude, chosenFrom.longitude], blue);
         _addCircle([chosenTo.latitude, chosenTo.longitude], green);
-        $('#to').removeAttr('disabled');
+        $('#to_name').removeAttr('disabled');
       });
     }
   });
