@@ -1,12 +1,8 @@
 <div class='container'>
   <div class='inner'>
-    <%= form_tag journeys_path, method: :get do %>
-      <%= text_field_tag nil, nil, placeholder: 'From', id: :from_name %>
-      <%= hidden_field_tag :from %>
-      <%= text_field_tag nil, nil, placeholder: 'To', disabled: true, id: :to_name %>
-      <%= hidden_field_tag :to %>
-      <%= submit_tag 'See available journeys' %>
-    <% end %>
+    <%= text_field_tag :from, nil, placeholder: 'From', id: :from, value: @from.try(:name) %>
+    <%= text_field_tag :to, nil, placeholder: 'To', disabled: @from.nil?, id: :to, value: @to.try(:name) %>
+    <a id='submit' class='button <%= @from.nil? ? 'hidden' : '' %>'>See available journeys</a>
 
     <div id="map"></div>
     
@@ -40,36 +36,41 @@
   }
 
   function _changeOrigin() {
-    $('#to_name').val('');
+    $('#to').val('');
     // TODO: Remove destination circles
   }
 
   var enableTo = () => {
-    var chosenItem = $("#from_name").getSelectedItemData();
+    var chosenItem = $("#from").getSelectedItemData();
     var slug = chosenItem.slug;
-    $('#from').val(slug);
+    $('#from').data('slug', slug);
 
     options.url = function() {
-      slug = $('#from').val();
-      return 'places.json?origin=' + slug
+      slug = $('#from').data('slug');
+      return '/places.json?origin=' + slug
     }
 
     $.getJSON(options.url(), function(data) {
       _addCircle([chosenItem.latitude, chosenItem.longitude], blue);
 
       if(data.length > 0) {
-        $('#to_name').removeAttr('disabled');
+        $('#to').removeAttr('disabled');
         options.list.onClickEvent = function() {
-          var data = $("#to_name").getSelectedItemData();
+          var data = $("#to").getSelectedItemData();
           var lat = data.latitude
           var lng = data.longitude
-          _addCircle([lat, lng], green)
-          $('#to').val(data.slug);
+          var $submit = $('#submit');
+        
+          _addCircle([lat, lng], green);
+          $('#to').data('slug', data.slug);
+          
+          $submit.removeClass('hidden');
+          $submit.attr('href', '/journeys/' + $('#from').data('slug') + '/' + data.slug )
         }
-        $('#to_name').easyAutocomplete(options);
+        $('#to').easyAutocomplete(options);
       } else {
-        $('#to_name').attr('placeholder', 'No destinations');
-        $('#to_name').attr('disabled', 'disabled');
+        $('#to').attr('placeholder', 'No destinations');
+        $('#to').attr('disabled', 'disabled');
       }
     });
   };

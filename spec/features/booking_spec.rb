@@ -77,7 +77,7 @@ feature 'User books journey', type: :feature, js: true do
     def choose_journey(from, to, number_of_passengers = 1)
       choose_from(from)
       choose_to(to)
-      click_button 'See available journeys'
+      find('#submit').click
       select(number_of_passengers, from: 'booking[number_of_passengers]')
       click_button 'Request one way or return'
     end
@@ -85,13 +85,13 @@ feature 'User books journey', type: :feature, js: true do
     def choose_from(place)
       fill_in 'from', with: place.name
       wait_for_ajax
-      first('.easy-autocomplete-container li').click
+      find('.easy-autocomplete-container li').click
     end
     
     def choose_to(place)
       fill_in 'to', with: place.name
       wait_for_ajax
-      first('.easy-autocomplete-container li').click
+      find('.easy-autocomplete-container li').click
     end
   
     def choose_requirements(child_tickets)

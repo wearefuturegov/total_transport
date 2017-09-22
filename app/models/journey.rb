@@ -44,8 +44,8 @@ class Journey < ActiveRecord::Base
   after_update :change_close_time, if: :start_time_changed?
   
   def self.available_for_places(start_place, destination_place)
-    from = Stop.where(place_id: start_place)
-    to = Stop.where(place_id: destination_place)
+    from = Stop.where(place: start_place)
+    to = Stop.where(place: destination_place)
     (from + to).group_by(&:route).map do |route, stops|
       Journey.available.where(
         route_id: route.id,

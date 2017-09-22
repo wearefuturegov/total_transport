@@ -1,8 +1,9 @@
 class JourneysController < PublicController
+  before_filter :find_places
   
   def index
-    if journey_params[:from_id] && journey_params[:to_id]
-      @journeys = Journey.available_for_places(journey_params[:from_id], journey_params[:to_id])
+    if @from && @to
+      @journeys = Journey.available_for_places(@from, @to)
       @booking = Booking.new
     end
   end
@@ -10,7 +11,14 @@ class JourneysController < PublicController
   private
   
     def journey_params
-      params.permit(:from_id, :to_id)
+      params.permit(:from, :to)
+    end
+    
+    def find_places
+      if journey_params[:from] && journey_params[:to]
+        @from = Place.friendly.find(journey_params[:from])
+        @to = Place.friendly.find(journey_params[:to])
+      end
     end
   
 end
