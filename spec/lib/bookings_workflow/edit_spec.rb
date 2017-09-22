@@ -19,7 +19,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     let(:step) { :return_journey }
     
     it 'gets a page title' do
-      expect(subject.page_title).to eq('Pick Your Return Time')
+      expect(subject.page_title).to eq('Return Journey')
     end
     
     it 'returns the correct back path' do
@@ -44,7 +44,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     let(:step) { :requirements }
     
     it 'gets a page title' do
-      expect(subject.page_title).to eq('Choose Your Requirements')
+      expect(subject.page_title).to eq('Requirements')
     end
     
     it 'returns the correct back path' do
