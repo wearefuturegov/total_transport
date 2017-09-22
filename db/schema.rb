@@ -110,9 +110,9 @@ ActiveRecord::Schema.define(version: 20170922104353) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "slug"
   end
 
   add_index "places", ["slug"], name: "index_places_on_slug", unique: true, using: :btree
