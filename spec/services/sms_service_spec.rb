@@ -11,8 +11,8 @@ RSpec.describe SmsService, type: :model do
   
   it 'sends booking notification' do
     booking = FactoryGirl.create(:booking,
-      pickup_stop: FactoryGirl.create(:stop, name: 'Sudbury'),
-      dropoff_stop: FactoryGirl.create(:stop, name: 'Saffron Walden'),
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
+      dropoff_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Saffron Walden')),
       pickup_name: 'The Red Lion',
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-02T09:00:00Z')),
     )
@@ -22,7 +22,7 @@ RSpec.describe SmsService, type: :model do
     body = FakeSMS.messages.last[:body]
     expect(body).to match(/Your Pickup booking from Sudbury to Saffron Walden is confirmed/)
     expect(body).to match(/Your vehicle will pick you up from The Red Lion/)
-    expect(body).to match(/Monday, 2 January between 10:30am and 10:50am/)
+    expect(body).to match(/Monday, 2 Jan between 10:30am and 10:50am/)
   end
   
   it 'sends a verification code' do
@@ -36,7 +36,7 @@ RSpec.describe SmsService, type: :model do
   it 'sends a first reminder' do
     booking = FactoryGirl.create(:booking,
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'The Red Lion'))
     )
     sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
@@ -47,7 +47,7 @@ RSpec.describe SmsService, type: :model do
   it 'sends a second reminder' do
     booking = FactoryGirl.create(:booking,
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, name: 'The Red Lion')
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'The Red Lion'))
     )
     sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)

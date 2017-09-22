@@ -58,6 +58,7 @@ gem 'filterrific'
 gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
+gem 'friendly_id'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

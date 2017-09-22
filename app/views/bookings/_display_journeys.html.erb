@@ -42,7 +42,7 @@
             </div>
           <% elsif !returning && @route.available_journeys_by_date(reversed: !@booking.reversed?, from_time: journey.time_at_stop(@booking.dropoff_stop)).empty? %>
             <div class="seats-left flagged-jrny return-ticket">
-              <span>No Return Journey Available</span>
+              <span>One way journey only</span>
             </div>
             <% if journey.seats_left < 5 && journey.seats_left > 0 %>
             <div class="seats-left flagged-jrny single-ticket">

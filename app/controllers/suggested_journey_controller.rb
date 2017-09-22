@@ -21,7 +21,7 @@ class SuggestedJourneyController < PublicController
     def find_route_and_booking
       @route = Route.find(params[:route_id])
       @booking = current_passenger.bookings.find(params[:id])
-      @back_path = edit_journey_route_booking_path(@route, @booking)
+      @back_path = journeys_path
     end
 
 end

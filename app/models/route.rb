@@ -2,6 +2,7 @@ class Route < ActiveRecord::Base
   has_many :stops, -> { order(position: :asc) }, dependent: :destroy
   has_many :journeys, -> { order(start_time: :asc) }, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
+  has_many :places, through: :stops
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}

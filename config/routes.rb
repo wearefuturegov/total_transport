@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :suggested_routes, only: [:new, :create]
+  resources :places, only: [:index]
+  resources :journeys, only: [:index] do
+    collection do
+      get ':from/:to' => 'journeys#index', as: :from_to
+    end
+  end
   resources :routes do
     resources :bookings do
       member do

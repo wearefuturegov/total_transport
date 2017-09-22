@@ -1,19 +1,19 @@
 %section.hero
   %section.section.heading
-    %h1 
+    %h1
       %span
         = @page_title
     %h2
       = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-    %p 
+    %p
       = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
 
     %section.action
-      = link_to I18n.t('button.book'), routes_path, class: 'button cta'
+      = link_to I18n.t('button.book'), journeys_path, class: 'button cta'
 
 %main.main
   -# class steps was taken, so journey
-  %section.section.journey 
+  %section.section.journey
     %section.single
       %h3
         = t('steps.step_1.title')
@@ -108,4 +108,4 @@
 
   %section.section
     .action
-      = link_to I18n.t('button.book'), routes_path, class: 'button cta'
+      = link_to I18n.t('button.book'), journeys_path, class: 'button cta'

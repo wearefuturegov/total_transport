@@ -11,6 +11,7 @@ require 'timecop'
 
 require 'support/fake_sms'
 require 'support/controller_macros'
+require 'support/wait_for_ajax'
 require 'selenium/webdriver'
 
 SmsService.client = FakeSMS

@@ -28,11 +28,11 @@ RSpec.describe ApplicationHelper, type: :helper do
       let(:date) { DateTime.parse('2018-04-17') }
       
       it 'parses date and appends year' do
-        expect(friendly_date date).to eq('Tuesday, 17 April, 2018')
+        expect(friendly_date date).to eq('Tuesday, 17 Apr, 2018')
       end
       
       it 'parses date with length parameter and appends year' do
-        expect(friendly_date date, true).to eq('Tue, 17 April, 2018')
+        expect(friendly_date date, true).to eq('Tue, 17 Apr, 2018')
       end
       
     end

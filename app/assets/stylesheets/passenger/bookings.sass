@@ -1,0 +1,115 @@
+.journeys
+  .easy-autocomplete-container
+    ul
+      background: $blue
+      border-radius: 3px
+      li
+        margin-bottom: 0
+        padding: 0.75em
+        color: white
+      &:not(:empty)
+        margin-top: -0.5em
+        margin-bottom: 1em
+  #map
+    position: absolute
+    top: 0
+    left: 0
+    height: 100vh
+    width: 100vw
+    z-index: -1
+  .options
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    padding: 15px
+    background: white
+    box-shadow: 0 -2px 2px lightgrey
+    max-height: 50vh
+    overflow: scroll
+    form:not(:last-child)
+      margin-bottom: 1.5em
+    .single
+      background: white
+      .details
+        overflow: auto
+      h2
+        font-size: 1em
+        margin-bottom: 0
+        text-transform: uppercase
+        font-weight: bold
+      .time
+        margin-bottom: 0.5em
+        font-size: 0.75em
+        float: left
+      .seats
+        float: right
+        i.fa-users
+          font-size: 14px
+        .select
+          font-size: 14px
+    input[type=submit]
+      font-size: 12px
+
+.bookings
+  .summary
+    i
+      color: $blue
+  #map
+    top: 0
+    left: 0
+  .map-cont
+    #confirmation
+      padding: 0
+    .next
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      border-radius: 0
+  &#bookings-edit
+    .top-sec
+      margin-bottom: 0
+    i.fa-circle-o
+      margin-right: 0.25em
+    .box
+      padding: 15px
+      background: white
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      box-shadow: 0 -2px 2px lightgrey
+      .next
+        position: relative
+        border-radius: 3px
+    .single-landmark
+      i.fa-circle-o
+        color: #999999
+        &.origin
+          color: $blue
+      &.searching i.fa-circle-o
+        animation-duration: 0.5s
+        animation-name: pulse-blue
+        animation-iteration-count: infinite
+        animation-direction: alternate
+        &.destination
+          animation-name: pulse-green
+      &.final i.fa-circle-o
+        color: $blue
+        &.destination
+          color: $green
+      .stage-2
+        margin-top: 10px
+
+@keyframes pulse-blue
+  from
+    color: transparentize($blue, 0.5)
+  to
+    color: $blue
+
+@keyframes pulse-green
+  from
+    color: transparentize($green, 0.5)
+  to
+    color: $green

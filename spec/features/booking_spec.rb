@@ -3,31 +3,26 @@ require 'rails_helper'
 feature 'User books journey', type: :feature, js: true do
   
   let!(:route) { FactoryGirl.create(:route) }
-  let!(:outward_journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.now + 3.days) }
+  let!(:outward_journey) { FactoryGirl.create(:journey, route: route, reversed: false, start_time: DateTime.now + 3.days) }
   let!(:return_journey) { FactoryGirl.create(:journey, route: route, reversed: true, start_time: outward_journey.start_time + 5.hours) }
   
   before(:each) do
-    visit '/'
-    within('.onboarding-header') do
-      click_on 'Explore and book...'
-    end
+    visit journeys_path
   end
   
   scenario 'Booking a return journey' do
-    choose_route(route)
-    select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(1, 0)
-    choose_journey('outward', outward_journey.id)
-    choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    choose_journey(route.stops.first.place, route.stops.last.place, 1)
+    choose_return_journey(return_journey.id)
+    choose_requirements(0)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     fill_details('My Name', '+15005550006')
     expect {
-      click_button 'Confirm phone number'
+     click_button 'Confirm phone number'
     }.to change { FakeSMS.messages.count }.by(1)
     
     expect {
-      enter_verification_code(Passenger.last.verification_code)
+     enter_verification_code(Passenger.last.verification_code)
     }.to change { FakeSMS.messages.count }.by(1)
     
     expect(Booking.count).to eq(1)
@@ -40,12 +35,11 @@ feature 'User books journey', type: :feature, js: true do
   end
   
   scenario 'Booking a single journey' do
-    choose_route(route)
-    select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(1, 0, true)
-    choose_journey('outward', outward_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    choose_journey(route.stops.first.place, route.stops.last.place, 1)
+    choose_single_journey
+    choose_requirements(0)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     expect {
       click_button 'Confirm phone number'
     }.to change { FakeSMS.messages.count }.by(1)
@@ -56,26 +50,22 @@ feature 'User books journey', type: :feature, js: true do
   end
   
   scenario 'Booking a journey with multiple passengers' do
-    choose_route(route)
-    select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(3, 0, false)
-    choose_journey('outward', outward_journey.id)
-    choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    choose_journey(route.stops.first.place, route.stops.last.place, 3)
+    choose_return_journey(return_journey.id)
+    choose_requirements(0)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     click_button 'Confirm phone number'
     enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(3)
   end
   
   scenario 'Booking a journey with child tickets' do
-    choose_route(route)
-    select_stops(route.stops.first.id, route.stops.last.id)
-    choose_requirements(2, 1, false)
-    choose_journey('outward', outward_journey.id)
-    choose_journey('return', return_journey.id)
-    set_location('pickup', route.stops.first.latitude, route.stops.first.longitude)
-    set_location('dropoff', route.stops.last.latitude, route.stops.last.longitude)
+    choose_journey(route.stops.first.place, route.stops.last.place, 2)
+    choose_return_journey(return_journey.id)
+    choose_requirements(1)
+    set_location('pickup', route.stops.first.place.latitude, route.stops.first.place.longitude)
+    set_location('dropoff', route.stops.last.place.latitude, route.stops.last.place.longitude)
     click_button 'Confirm phone number'
     enter_verification_code(Passenger.last.verification_code)
     expect(Booking.first.number_of_passengers).to eq(2)
@@ -84,19 +74,33 @@ feature 'User books journey', type: :feature, js: true do
   
   private
   
-    def choose_requirements(number_of_passengers, child_tickets, single = false)
-      first('#singleTab').click if single === true
+    def choose_journey(from, to, number_of_passengers = 1)
+      choose_from(from)
+      choose_to(to)
+      find('#submit').click
       select(number_of_passengers, from: 'booking[number_of_passengers]')
+      click_button 'Request one way or return'
+    end
+  
+    def choose_from(place)
+      fill_in 'from', with: place.name
+      wait_for_ajax
+      find('.easy-autocomplete-container li').click
+    end
+    
+    def choose_to(place)
+      fill_in 'to', with: place.name
+      wait_for_ajax
+      find('.easy-autocomplete-container li').click
+    end
+  
+    def choose_requirements(child_tickets)
       if child_tickets > 0
         first('#add-concession').click
         expect(page).to have_css('#concession-list')
         select 'Child fare', from: 'concession-list'
       end
       click_button 'Next'
-    end
-    
-    def choose_route(route)
-      find("a[href='#{new_route_booking_path(route, reversed: false)}']").click
     end
     
     def select_stops(pickup_stop_id, dropoff_stop_id)
@@ -106,13 +110,15 @@ feature 'User books journey', type: :feature, js: true do
       click_button 'Confirm Route'
     end
     
-    def choose_journey(type, journey_id)
-      if type == 'return'
-        selector = "booking_return_journey_id_#{journey_id}"
-      else
-        selector = "booking_journey_id_#{journey_id}"
-      end
+    def choose_return_journey(journey_id)
+      find('#returnTab').click
+      selector = "booking_return_journey_id_#{journey_id}"
       first("label[for='#{selector}']").click
+      click_button 'Next'
+    end
+    
+    def choose_single_journey
+      find('#singleTab').click
       click_button 'Next'
     end
     

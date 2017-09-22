@@ -133,6 +133,8 @@ GEM
       railties (>= 3.2, < 5.2)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     geokit (1.11.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -390,6 +392,7 @@ DEPENDENCIES
   filterrific
   font-awesome-rails
   font-awesome-sass (~> 4.6.2)
+  friendly_id
   geokit
   haml-rails (~> 0.9)
   high_voltage
