@@ -18,7 +18,7 @@ class PassengersController < PublicController
 
   def show
     @page_title = "Edit Account"
-    @back_path = routes_path
+    @back_path = journeys_path
     @passenger = current_passenger
     @future_bookings = @passenger.active_bookings
     @past_bookings = @passenger.past_bookings

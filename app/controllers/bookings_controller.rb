@@ -30,7 +30,7 @@ class BookingsController < PublicController
 
   def confirmation
     @page_title = ""
-    @back_path = routes_path
+    @back_path = journeys_path
   end
 
   include ActionView::Helpers::NumberHelper
