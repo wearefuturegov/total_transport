@@ -42,3 +42,5 @@ coverage/
 /.gemtags
 
 public/sitemap.xml.gz
+
+.DS_Store
