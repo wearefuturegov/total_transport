@@ -55,3 +55,57 @@
   .summary
     i
       color: $blue
+  #map
+    top: 0
+    left: 0
+  .map-cont
+    #confirmation
+      padding: 0
+    .next
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      border-radius: 0
+  &#bookings-edit
+    .top-sec
+      margin-bottom: 0
+    i.fa-circle-o
+      margin-right: 0.25em
+    .box
+      padding: 15px
+      background: white
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      box-shadow: 0 -2px 2px lightgrey
+      .next
+        position: relative
+        border-radius: 3px
+    .single-landmark
+      i.fa-circle-o
+        color: #999999
+      &.searching i.fa-circle-o
+        animation-duration: 0.5s
+        animation-name: pulse-blue
+        animation-iteration-count: infinite
+        animation-direction: alternate
+        &.destination
+          animation-name: pulse-green
+      &.final i.fa-circle-o
+        color: $blue
+        &.destination
+          color: $green
+
+@keyframes pulse-blue
+  from
+    color: transparentize($blue, 0.5)
+  to
+    color: $blue
+
+@keyframes pulse-green
+  from
+    color: transparentize($green, 0.5)
+  to
+    color: $green

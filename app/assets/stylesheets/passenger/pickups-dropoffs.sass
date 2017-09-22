@@ -135,7 +135,16 @@
 
 
 .stop-information  
-  font-size: 14px
+  font-size: 17px
+  margin-bottom: 10px
+  i.fa-circle-o
+    &.origin
+      color: $blue
+    &.searching
+      animation-duration: 0.5s
+      animation-name: pulse-green
+      animation-iteration-count: infinite
+      animation-direction: alternate
 
 #bookings-choose_dropoff_location
   .loader 
