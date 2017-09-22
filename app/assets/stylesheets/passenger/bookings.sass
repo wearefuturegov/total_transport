@@ -86,6 +86,8 @@
     .single-landmark
       i.fa-circle-o
         color: #999999
+        &.origin
+          color: $blue
       &.searching i.fa-circle-o
         animation-duration: 0.5s
         animation-name: pulse-blue
@@ -97,6 +99,8 @@
         color: $blue
         &.destination
           color: $green
+      .stage-2
+        margin-top: 10px
 
 @keyframes pulse-blue
   from

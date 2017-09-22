@@ -91,6 +91,7 @@
 
 <div class="top-sec white-block container">
   <div class="inner">
+
     <div class="stop-information">
       <% if @map_type == 'pickup' %>
         <% if @stop.landmarks.present? %>
@@ -104,14 +105,18 @@
 
     <div class="landmarks">
       <div id="choose-stop" class="single-landmark chosen" data-lat="choose-own" data-long="choose-own">
-        <i class="fa fa-circle-o point destination"></i>
         <% if @stop.landmarks.present? %>
+        <i class="fa fa-circle-o point"></i>
           <span>Drag the map</span>
         <% else %>
           <% if @map_type == 'pickup' %>
+          <i class="fa fa-circle-o point"></i>
             <span>Drag the map</span>
           <% else %>
-            <span>Drag the map</span>
+            <div class="stage-2">
+              <i class="fa fa-circle-o point destination"></i>
+              <span>Drag the map</span>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -119,6 +124,7 @@
       <% if @stop.landmarks.present? %>
         <% @stop.landmarks.each do |landmark| %>
           <div class="single-landmark" data-lat="<%= landmark.latitude %>" data-long="<%= landmark.longitude %>">
+            <p>3</p>
             <i class="fa fa-circle-o point"></i>
             <span><%= landmark.name %></span>
           </div>
