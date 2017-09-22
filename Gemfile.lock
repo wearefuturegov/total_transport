@@ -123,6 +123,8 @@ GEM
     filterrific (2.1.2)
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     geokit (1.11.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -349,6 +351,7 @@ DEPENDENCIES
   factory_girl_rails (>= 4.8.0)
   filterrific
   font-awesome-sass (~> 4.6.2)
+  friendly_id
   geokit
   high_voltage
   jbuilder (~> 2.0)
