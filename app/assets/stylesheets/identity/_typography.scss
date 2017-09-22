@@ -1,0 +1,130 @@
+body {
+  color: $black;
+  font-family: $stack-1;
+  font-size: $body;
+  font-weight: 400;
+  line-height: $baseline;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: calc(#{$baseline} * 0.5);
+}
+
+a {
+  color: $action-color;
+  text-decoration: none;
+  transition: color $base-duration $base-timing;
+  &:active,
+  &:focus,
+  &:hover {
+    color: shade($action-color, 25%);
+  }
+}
+
+h1 {
+  $h1: 40px; // no to variables here, but in this case I think yes.
+  font-size: $h1;
+  line-height: calc(#{$h1} * 1.2);
+  margin-top: 0;
+  margin-bottom: calc(#{$h1} * 1.2);
+}
+
+h2 {
+
+}
+
+h3 {
+  $h3: 24px;
+  font-size: $h3;
+  line-height: calc(#{$h3} * 1.2);
+  margin-top: 0;
+  margin-bottom: calc(#{$h3} * 1.2);
+}
+
+h4 {
+  $h4: 20px;
+  font-size: $h4;
+  line-height: calc(#{$h4} * 1.2);
+  margin-top: 0;
+  margin-bottom: calc(#{$h4} * 1.2);
+}
+
+a {
+  color: rgba(21,101,192,0.8);
+  transition: color 1s cubic-bezier(.25,.8,.25,1);
+}
+
+a:hover {
+  color: rgba(21,101,192,1);
+  transition: color 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+// will check below this later
+
+p.highlight {
+  font-size: $base-font-size+2;
+}
+
+.subTxt {
+  font-size: 12px;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+#mobile-title {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+#desktop-title {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+hr {
+  border-bottom: $base-border;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  margin: $base-spacing 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.small {
+  font-size: 13px;
+}
+
+.grey {
+  color: $medium-gray;
+}
+
+.suggestion {
+  font-weight: 400;
+  margin-top: 15px;
+  a {
+    text-transform: uppercase;
+    font-family: $stack-1;
+    font-size: 15px;
+  }
+}
+
+.alt-link {
+  text-transform: uppercase;
+  font-family: $stack-1;
+  font-size: 15px;
+}
