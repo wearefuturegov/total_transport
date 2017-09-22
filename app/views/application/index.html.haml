@@ -62,23 +62,15 @@
       = t('public-index.collection.title')
     %section.collection
       %section.single
-        = image_tag 'suffolk.png', alt: 'suffolk'
+        = image_tag 'essex.png', alt: ''
         %p
           = t('public-index.dummy.title')
       %section.single
-        = image_tag 'suffolk.png', alt: 'suffolk'
+        = image_tag 'essex.png', alt: ''
         %p
           = t('public-index.dummy.title')
       %section.single
-        = image_tag 'suffolk.png', alt: 'suffolk'
-        %p
-          = t('public-index.dummy.title')
-      %section.single
-        = image_tag 'suffolk.png', alt: 'suffolk'
-        %p
-          = t('public-index.dummy.title')
-      %section.single
-        = image_tag 'suffolk.png', alt: 'suffolk'
+        = image_tag 'essex.png', alt: ''
         %p
           = t('public-index.dummy.title')
 
@@ -116,4 +108,4 @@
 
   %section.section
     .action
-      = link_to 'Explore and book...', routes_path, class: 'button cta'
+      = link_to I18n.t('button.book'), routes_path, class: 'button cta'
