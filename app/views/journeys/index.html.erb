@@ -30,6 +30,7 @@
                     <div class="seats">
                         <i class="inline mr05 light fa fa-users"></i>
                         <%= form.select :number_of_passengers, 1..(journey.seats_left), {}, { :class => "select inline center" } %>
+                        passenger(s)
                     </div>
                     <% if journey.vehicle.wheelchair_accessible? %>
                       <div class="wheelchair" title="This journey has wheelchair accessibility"><i class="fa fa-wheelchair"></i></div>
