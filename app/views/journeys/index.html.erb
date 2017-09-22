@@ -87,27 +87,16 @@
     theme: 'square'
   };
 
-  $('#from_name').easyAutocomplete(options);
+  $('#from').easyAutocomplete(options);
 
-  $('#from_name').change(() => {
+  $('#from').change(() => {
     _changeOrigin();
   });
-
-  $(() => {
-    if($.urlParam('from')) {
-      var fromId = $.urlParam('from');
-      var toId = $.urlParam('to');
-      $.getJSON('places.json?origin_id=' + fromId, function(data) {
-        var chosenFrom = data.find(item => item.id == fromId);
-        var chosenTo = data.find(item => item.id == toId);
-        $('#from_name').val(chosenFrom.name);
-        $('#to_name').val(chosenTo.name);
-        _addCircle([chosenFrom.latitude, chosenFrom.longitude], blue);
-        _addCircle([chosenTo.latitude, chosenTo.longitude], green);
-        $('#to_name').removeAttr('disabled');
-      });
-    }
-  });
+  
+  <% if @from && @to %>
+    _addCircle([<%= @from.latitude %>, <%= @from.longitude %>], blue);
+    _addCircle([<%= @to.latitude %>, <%= @to.longitude %>], green);
+  <% end %>
 
 </script>
 <% end %>
