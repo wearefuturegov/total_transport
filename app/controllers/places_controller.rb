@@ -13,17 +13,17 @@ class PlacesController < PublicController
   private
   
     def places_params
-      params.permit(:origin_id)
+      params.permit(:origin)
     end
     
     def get_places
-      if places_params[:origin_id].blank?
+      if places_params[:origin].blank?
         @places = Place.all
       else
-        origin = places_params[:origin_id]
-        routes = Place.find(origin).routes
+        origin = places_params[:origin]
+        routes = Place.friendly.find(origin).routes
         places = routes.map { |r| r.places }
-        @places = places.flatten.reject { |p| p.id == origin }
+        @places = places.flatten.reject { |p| p.slug == origin }
       end
     end
 

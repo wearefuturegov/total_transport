@@ -31,7 +31,7 @@ RSpec.describe PlacesController, type: :controller do
       FactoryGirl.create(:stop)
     ])
     
-    get 'index', format: :json, origin_id: origin.id
+    get 'index', format: :json, origin: origin.slug
     
     json = JSON.parse response.body
     expect(json.count).to eq(5)
