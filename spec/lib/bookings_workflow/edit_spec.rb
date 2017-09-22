@@ -23,7 +23,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     end
     
     it 'returns the correct back path' do
-      expect(subject.back_path).to eq(journeys_path)
+      expect(subject.back_path).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
     end
     
     it 'returns map_type' do
@@ -48,7 +48,7 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     end
     
     it 'returns the correct back path' do
-      expect(subject.back_path).to eq(journeys_path)
+      expect(subject.back_path).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
     end
     
     it 'returns the correct back path with a return journey' do

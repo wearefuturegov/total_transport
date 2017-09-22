@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :places, only: [:index]
   resources :journeys, only: [:index] do
     collection do
-      get ':from/:to' => 'journeys#index'
+      get ':from/:to' => 'journeys#index', as: :from_to
     end
   end
   resources :routes do

@@ -175,7 +175,7 @@ RSpec.describe BookingsController, type: :controller do
         }
                 
         expect(assigns(:page_title)).to eq('Return Journey')
-        expect(assigns(:back_path)).to eq(journeys_path)
+        expect(assigns(:back_path)).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
         expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
       end
       
@@ -209,7 +209,7 @@ RSpec.describe BookingsController, type: :controller do
         }
         
         expect(assigns(:page_title)).to eq('Requirements')
-        expect(assigns(:back_path)).to eq(journeys_path)
+        expect(assigns(:back_path)).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
       end
       
       it 'sets the right variables when a return journey is present' do
