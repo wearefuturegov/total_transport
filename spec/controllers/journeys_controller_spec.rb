@@ -34,13 +34,13 @@ RSpec.describe JourneysController, type: :controller do
   end
   
   it 'gets journeys from and to' do
-    get :index, from_id: origin, to_id: destination
+    get :index, from: origin, to: destination
     
     expect(assigns(:journeys).count).to eq(4)
   end
   
   it 'gets reversed journeys' do
-    get :index, from_id: destination, to_id: origin
+    get :index, from: destination, to: origin
     
     expect(assigns(:journeys).count).to eq(6)
   end
