@@ -1,0 +1,11 @@
+<% if journeys %>
+  <div class="options">
+    <% if journeys.length > 0 %>
+      <% journeys.each do |journey| %>
+        <%= render 'journey', journey: journey, booking: booking %>
+      <% end %>
+    <% else %>
+      <span>No journeys available.</span>
+    <% end %>
+  </div>
+<% end %>
