@@ -21,14 +21,14 @@ input,
 select,
 textarea {
   display: block;
-  font-family: $base-font-family;
+  font-family: $stack-1;
   font-size: $base-font-size;
 }
 
 #{$all-text-inputs}, select[multiple] {
   background-color: white;
   border: $base-border;
-  border-radius: $base-border-radius;
+  box-shadow: $form-box-shadow;
   box-sizing: border-box;
   margin-bottom: $small-spacing;
   padding: $base-spacing / 3;
@@ -60,7 +60,6 @@ textarea {
 }
 
 #filter {
-  border-radius: $base-border-radius !important;
   -webkit-appearance: textfield;
 }
 
@@ -89,8 +88,8 @@ select {
   width: auto;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

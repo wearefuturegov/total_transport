@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
-  <header>
+  <header class="header">
     <div class="inner">
       <div class="left">
         <% if @back_path %>
@@ -21,6 +21,7 @@
           <div id="spacer">&nbsp;</div>
         <% end %>
       </div>
+<!--  
       <div class="centre">
         <div id="desktop-title" class="no-mobile">
           <%= @page_title %>
@@ -33,6 +34,7 @@
           <% end %>
         </div>
       </div>
+-->
       <div class="right">
         <% if current_passenger %>
           <div id="profile-link">
@@ -87,6 +89,7 @@
 
     </div>
   </div>
+  <footer class="footer"></footer>
 </body>
 <%= yield(:js) %>
 </html>

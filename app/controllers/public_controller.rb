@@ -27,7 +27,7 @@ class PublicController < ApplicationController
   end
 
   def set_page_title
-    @page_title = "Pickup"
+    @page_title = t('service')
   end
 
   def create_body_id

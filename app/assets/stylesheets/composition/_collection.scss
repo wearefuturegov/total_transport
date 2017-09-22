@@ -1,0 +1,15 @@
+/* single */
+
+.collection {
+  display: flex;
+  flex-wrap: wrap;
+  ul {
+    width: 100%;
+    .single {
+      margin-bottom: $baseline*0.5;
+    }
+  }
+  .single {
+    margin-bottom: $baseline;
+  }
+}

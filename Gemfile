@@ -24,8 +24,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # include bourbon/neat/bitters for basic template
 gem 'bourbon'
+# refer to older documentation http://neat.bourbon.io/docs/1.7.1/
 gem 'neat', '< 2.0'
 gem 'bitters'
+# Haml is the way
+gem 'haml-rails', '~> 0.9'
+# Fontawesome is pretty awesome
+gem "font-awesome-rails"
 # other starter gems
 gem 'high_voltage'
 gem 'normalize-rails'
@@ -80,6 +85,7 @@ group :development, :test do
   gem 'capybara-selenium'
   gem 'chromedriver-helper'
   gem 'brakeman', require: false
+  gem 'coveralls', require: false
 end
 
 group :development do
