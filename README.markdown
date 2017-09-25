@@ -1,3 +1,7 @@
+[![Dependency Status](http://img.shields.io/gemnasium/wearefuturegov/total_transport.svg?style=flat-square)](https://gemnasium.com/wearefuturegov/total_transport)
+[![Coverage Status](http://img.shields.io/coveralls/wearefuturegov/total_transport.svg?style=flat-square)](https://coveralls.io/r/wearefuturegov/total_transport)
+[![CircleCI](https://img.shields.io/circleci/project/github/wearefuturegov/total_transport.svg?style=flat-square)](https://circleci.com/gh/wearefuturegov/total_transport)
+
 Total Transport
 ===============
 
@@ -26,21 +30,23 @@ Run the tests with `bundle exec rake`
 
 If you don't already have any data in the database, run `bundle exec rake admin:create` and follow the onscreen prompts to set up an admin user.
 
+You can also set up a bunch of new routes, stops and landmarks by running `rake db:seed`
+
 Spin up the server with `bundle exec rails server` and login to the admin interface at `http://localhost:3000/admin` to start adding routes.
 
 Overview
 -------
 
-You can find a [simplified model relation diagram here](https://docs.google.com/a/wearefuturegov.com/drawings/d/16yuR3xO2cEFFdOlnBHmZpD4yyLwnna6x_mYXh0MVN8M/edit?usp=sharing), which can help get and keep your mind around the structure of the application.
+You can find a [model relation diagram here](./docs/erd.png), which can help get and keep your mind around the structure of the application.
 
-A `Route` is a collection of stops, which are polygons on a map. A `Journey` is an instance of that route which happens at a particular time. A `Journey` can do the route forwards or in reverse. A `Journey` will have a `Vehicle`, which knows how many seats that vehicle had, and a `Supplier` who is the driver of the vehicle.
+A `Route` is a collection of stops, which are polygons on a map, which in turn have a `Place` (which usually refers to a town or village). A `Journey` is an instance of that route which happens at a particular time. A `Journey` can do the route forwards or in reverse. A `Journey` will have a `Vehicle`, which knows how many seats that vehicle had, and a `Supplier` who is the driver of the vehicle.
 
 A `Booking` will definitely have a `Journey`, a `Passenger`, a pickup and a dropoff `Stop` (which is the polygon) and a lat/long of where exactly in that polygon the passenger wants to be picked up/dropped off. The lat/long can either be a predefined `Landmark` of that `Stop`, or a manually selected lat/long.
 
 User Accounts
 -------------
 
-Suppliers and Passengers use two completely separate auth systems. Suppliers use a standard Devise setup, whereas Passngers use a custom written auth system using twilio to auth via SMS code.
+Suppliers and Passengers use two completely separate auth systems. Suppliers use a standard Devise setup, whereas Passngers use a custom written auth system using Twilio to auth via SMS code.
 
 Reverse Journeys, return bookings
 ---------------------------------
