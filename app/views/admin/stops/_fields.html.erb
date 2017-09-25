@@ -115,6 +115,7 @@
 <%= form.select :place_id, options_for_select(@places.map { |p|
   [p.name, p.id, { 'data-lat' => p.latitude, 'data-lng' => p.longitude }]
 }) %>
+<%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button small-button', id: 'add-place' %>
 <%= form.label :polygon, "Define the Stop Area" %>
 <%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
 <div id="map_wrapper">
