@@ -7,6 +7,8 @@ class Place < ActiveRecord::Base
   
   default_scope { order(name: :asc) }
   
+  validates_presence_of :name, :latitude, :longitude
+  
   def lat_lng
     Geokit::LatLng.new(self.latitude, self.longitude)
   end
