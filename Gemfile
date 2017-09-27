@@ -86,6 +86,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'brakeman', require: false
   gem 'coveralls', require: false
+  gem 'turnip'
 end
 
 group :development do
