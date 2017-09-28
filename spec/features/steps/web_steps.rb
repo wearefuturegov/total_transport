@@ -1,5 +1,46 @@
 module WebSteps
+  step 'I visit /journeys' do
+    visit '/journeys'
+  end
 
+  step :choose_place, 'I choose a :text_field point of :place'
+  step :click_see_available_journeys, 'I click See available journeys'
+  step :choose_passengers, 'I choose :num passengers'
+  step :click_request_one_way_or_return, 'I click on the first journey\'s request button'
+  step :choose_first_return_journey, 'I choose the first return option'
+  step :choose_single_journey, 'I don\'t choose a return journey'
+  step :click_next, 'I don\'t add any special requirements'
+  step :enter_first_passengers_confirmation_code, 'I enter my confirmation code'
+  step :choose_child_tickets, 'I choose :n child ticket(s)'
+
+  step 'I should see :n journey(s)' do |n|
+    expect(page).to have_css('.options form.new_booking', :count => n)
+  end
+
+  step 'I have chosen a journey' do
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_see_available_journeys
+    click_request_one_way_or_return
+  end
+
+  step 'I have chosen a journey with :n passengers' do |passengers|
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_see_available_journeys
+    choose_passengers(passengers)
+    click_request_one_way_or_return
+  end
+
+  step 'I choose a pickup and dropoff point' do
+    choose_pickup_dropoff_point('pickup', @route.stops.first.place.latitude, @route.stops.first.place.longitude)
+    choose_pickup_dropoff_point('dropoff', @route.stops.last.place.latitude, @route.stops.last.place.longitude)
+  end
+
+  step 'I fill in my details' do
+    fill_in_details('My Name', '+15005550006')
+  end
+  
   def choose_place(field, place)
     fill_in field, with: place
     wait_for_ajax
@@ -65,48 +106,6 @@ module WebSteps
       select 'Child fare', from: 'concession-list'
     end
     click_button 'Next'
-  end
-
-  step 'I visit /journeys' do
-    visit '/journeys'
-  end
-
-  step :choose_place, 'I choose a :text_field point of :place'
-  step :click_see_available_journeys, 'I click See available journeys'
-  step :choose_passengers, 'I choose :num passengers'
-  step :click_request_one_way_or_return, 'I click on the first journey\'s request button'
-  step :choose_first_return_journey, 'I choose the first return option'
-  step :choose_single_journey, 'I don\'t choose a return journey'
-  step :click_next, 'I don\'t add any special requirements'
-  step :enter_first_passengers_confirmation_code, 'I enter my confirmation code'
-  step :choose_child_tickets, 'I choose :n child ticket(s)'
-
-  step 'I should see :n journey(s)' do |n|
-    expect(page).to have_css('.options form.new_booking', :count => n)
-  end
-
-  step 'I have chosen a journey' do
-    choose_place('from', 'Newmarket')
-    choose_place('to', 'Haverhill')
-    click_see_available_journeys
-    click_request_one_way_or_return
-  end
-
-  step 'I have chosen a journey with :n passengers' do |passengers|
-    choose_place('from', 'Newmarket')
-    choose_place('to', 'Haverhill')
-    click_see_available_journeys
-    choose_passengers(passengers)
-    click_request_one_way_or_return
-  end
-
-  step 'I choose a pickup and dropoff point' do
-    choose_pickup_dropoff_point('pickup', @route.stops.first.place.latitude, @route.stops.first.place.longitude)
-    choose_pickup_dropoff_point('dropoff', @route.stops.last.place.latitude, @route.stops.last.place.longitude)
-  end
-
-  step 'I fill in my details' do
-    fill_in_details('My Name', '+15005550006')
   end
 
 end
