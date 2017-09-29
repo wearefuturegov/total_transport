@@ -10,7 +10,7 @@ RSpec.describe SuggestedRoutesController, type: :controller do
       get :new, nil, { current_passenger: passenger.session_token }
 
       expect(assigns(:page_title)).to eq('Suggest A Route')
-      expect(assigns(:back_path)).to eq(routes_path)
+      expect(assigns(:back_path)).to eq(journeys_path)
       expect(assigns(:suggested_route)).to be_a(SuggestedRoute)
     end
 
@@ -37,7 +37,7 @@ RSpec.describe SuggestedRoutesController, type: :controller do
     it 'redirects to the routes index' do
       expect(
         post :create, params, { current_passenger: passenger.session_token }
-      ).to redirect_to(routes_path)
+      ).to redirect_to(journeys_path)
     end
     
   end

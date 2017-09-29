@@ -4,25 +4,14 @@ class BookingsController < PublicController
   before_filter :find_route, except: [:show]
   include ApplicationHelper
 
-  # Choose stops
-  def new
-    @page_title = "Choose Your Pick Up Area"
-    @back_path = routes_path
-    @booking = Booking.new
-    if params[:reversed] == 'true'
-      @reversed = true
-      @stops = @route.stops.reverse
-    else
-      @reversed = false
-      @stops = @route.stops
-    end
-    render template: 'bookings/edit_stops'
-  end
-
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    redirect_to edit_requirements_route_booking_path(@route, @booking)
+    if params[:booking][:return_available] === 'true'
+      redirect_to edit_return_journey_route_booking_path(@route, @booking)
+    else
+      redirect_to edit_requirements_route_booking_path(@route, @booking)
+    end
   end
   
   def edit
@@ -41,7 +30,7 @@ class BookingsController < PublicController
 
   def confirmation
     @page_title = ""
-    @back_path = routes_path
+    @back_path = journeys_path
   end
 
   include ActionView::Helpers::NumberHelper

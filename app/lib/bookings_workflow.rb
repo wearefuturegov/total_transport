@@ -1,8 +1,7 @@
 module BookingsWorkflow
   STEPS = [
-    :requirements,
-    :journey,
     :return_journey,
+    :requirements,
     :pickup_location,
     :dropoff_location,
     :confirm,

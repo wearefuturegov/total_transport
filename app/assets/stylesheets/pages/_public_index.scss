@@ -2,38 +2,66 @@
 
 #public-index {
   background-color: $white;
-  text-align: center;
+  text-align: left;
+  .main-cont {
+    position: absolute;
+  }
   .header {
-    background-color: $white;
-    color: $black;
+    background-color: transparent;
+    color: $white;
+    position: absolute;
   }
   .hero {
+    float: none;
+    display: inline-block;
+    background-color: rgba($gray,0.9);
+    background: linear-gradient(45deg, $gradient-1, $gradient-2);
+    position: relative;
     .heading {
       h1 span {
-        color: $brand;
+        color: $white;
       }
-      // h1 {
-      //   font-size: 60px;
-      //   font-weight: 600;
-      //   line-height: 65px;
-      //   margin-bottom: $baseline;
-      // }
-      // h2 {
-      //   font-size: 28px;
-      //   font-weight: 600;
-      //   line-height: 30px;
-      //   margin-bottom: $baseline;
-      // }
+      h1 {
+        $h1: 60px; // no to variables here, but in this case I think yes.
+        font-size: $h1;
+        line-height: calc(#{$h1} * 1.2);
+        margin-top: calc(#{$h1});
+        margin-bottom: calc(#{$h1});
+      }
+      h2 {
+        $h2: 40px; // no to variables here, but in this case I think yes.
+        font-size: $h2;
+        line-height: calc(#{$h2} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$h2});
+      }
+      p {
+        $p: 20px; // no to variables here, but in this case I think yes.
+        font-size: $p;
+        line-height: calc(#{$p} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$p} * 1.2);
+      }
+    }
+    .cta {
+      color: $white;
+      border-color: $white;
     }
   }
   .main {
-    background-color: $brand;
-    color: $white;
-  }
-  .button {
-    width: auto;
+    .map {
+      background-image: url('snazzy-image.png');
+      background-size: cover;
+      height: $baseline*14;
+      + .section {
+        position: absolute;
+        top: 25%;
+        left: 0;
+        right: 0;
+      }
+    }
   }
   .footer {
-    background-color: $darken-brand;
+    background-color: $white;
   }
 }

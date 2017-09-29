@@ -1,4 +1,3 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../../config/environment', __FILE__)
@@ -12,6 +11,7 @@ require 'timecop'
 
 require 'support/fake_sms'
 require 'support/controller_macros'
+require 'support/wait_for_ajax'
 require 'selenium/webdriver'
 
 SmsService.client = FakeSMS

@@ -6,7 +6,8 @@
       var geoJson = <%= @stop.polygon.to_json.html_safe %>;
       map = new google.maps.Map(document.getElementById("map"), {
         scrollwheel: false,
-        streetViewControl: false
+        streetViewControl: false,
+        disableDefaultUI: true
       });
       map.data.addGeoJson(geoJson);
       var polygon_feature;
@@ -90,28 +91,32 @@
 
 <div class="top-sec white-block container">
   <div class="inner">
+
     <div class="stop-information">
       <% if @map_type == 'pickup' %>
         <% if @stop.landmarks.present? %>
           <span>Select a pickup point from the suggested landmarks in <%= @stop.name %>, or drag the map to choose your own.</span>
         <% end %>
       <% else %>
-        <span>Great we will pick you up from <i><%= @booking.pickup_name %></i> in <i><%= Stop.find(@booking.pickup_stop_id).name %></i>. Where in <%= @stop.name %> should we drop you off?.</span>
+        <i class="fa fa-circle-o point origin"></i>
+        <span><%= @booking.pickup_name %></span>
       <% end %>
     </div>
 
     <div class="landmarks">
       <div id="choose-stop" class="single-landmark chosen" data-lat="choose-own" data-long="choose-own">
-        <div class="dot">
-          <div class="dot-middle"></div>
-        </div>
         <% if @stop.landmarks.present? %>
-          <span>Drag the map to choose your own point</span>
+        <i class="fa fa-circle-o point"></i>
+          <span>Drag the map</span>
         <% else %>
           <% if @map_type == 'pickup' %>
-            <span>Drag the map to choose a pickup point</span>
+          <i class="fa fa-circle-o point"></i>
+            <span>Drag the map</span>
           <% else %>
-            <span>Drag the map to choose a drop off point</span>
+            <div class="stage-2">
+              <i class="fa fa-circle-o point destination"></i>
+              <span>Drag the map</span>
+            </div>
           <% end %>
         <% end %>
       </div>
@@ -119,9 +124,8 @@
       <% if @stop.landmarks.present? %>
         <% @stop.landmarks.each do |landmark| %>
           <div class="single-landmark" data-lat="<%= landmark.latitude %>" data-long="<%= landmark.longitude %>">
-            <div class="dot">
-              <div class="dot-middle"></div>
-            </div>
+            <p>3</p>
+            <i class="fa fa-circle-o point"></i>
             <span><%= landmark.name %></span>
           </div>
         <% end %>
@@ -139,16 +143,21 @@
         <%= form.hidden_field :pickup_lat %>
         <%= form.hidden_field :pickup_lng %>
         <%= form.hidden_field :pickup_name %>
-        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled' %>
+        <div class="box">
+          <%= form.submit "Next", disabled: true, :class => 'next button alt-button disabled' %>
+        </div>
       <% end %>
     <% else %>
       <%= form_for [@route, @booking], url: save_dropoff_location_route_booking_path(@route, @booking) do |form| %>
         <%= form.hidden_field :dropoff_lat %>
         <%= form.hidden_field :dropoff_lng %>
         <%= form.hidden_field :dropoff_name %>
-        <%= form.submit "Next", disabled: true, :class => 'button alt-button disabled'  %>
+        <div class="box">
+          <%= form.submit "Next", disabled: true, :class => 'next button alt-button disabled'  %>
+        </div>
       <% end %>
     <% end %>
+
     <% content_for :js do %>
     <script type="text/javascript">
       $(document).ready(function() {

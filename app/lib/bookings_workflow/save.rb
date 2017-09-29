@@ -18,7 +18,7 @@ module BookingsWorkflow
       @booking.set_promo_code(@params['promo_code'].to_s) if @step == :requirements
       create_passenger if @step == :confirm
       @verified = verify_booking if @step == :verify
-      @booking.update_attributes(params)
+      @booking.update_attributes(params) if params
     end
     
     def redirect_path
@@ -40,7 +40,7 @@ module BookingsWorkflow
     end
     
     def params
-      @params.permit(permitted_params)
+      @params.try(:permit, permitted_params)
     end
     
     def verify_booking
@@ -95,7 +95,7 @@ module BookingsWorkflow
       end
       
       def single_journey?
-        @params[:single_journey] && @step == :journey
+        @params.try(:[], :single_journey) && @step == :journey
       end
   end
 end

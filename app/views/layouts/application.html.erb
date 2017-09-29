@@ -21,6 +21,7 @@
           <div id="spacer">&nbsp;</div>
         <% end %>
       </div>
+<!--
       <div class="centre">
         <div id="desktop-title" class="no-mobile">
           <%= @page_title %>
@@ -33,6 +34,7 @@
           <% end %>
         </div>
       </div>
+-->
       <div class="right">
         <% if current_passenger %>
           <div id="profile-link">
@@ -78,7 +80,7 @@
         <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
         <h3>Are you sure you want to cancel?</h3>
         <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
-        <%= link_to routes_path do %>
+        <%= link_to journeys_path do %>
           <div class="button negative small-button">Cancel Booking</div>
         <% end %>
         <div class="button small-button" id="popup-continue">Continue Booking</div>

@@ -304,3 +304,13 @@ function showPopup() {
   $('.pop-up').fadeIn(150);
   $('.pop-up-box').css('margin-left', ($('.pop-up-box').width()/2)*-1).css('margin-top', ($('.pop-up-box').height()/2)*-1);
 }
+
+$.urlParam = function(name){
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  if (results==null){
+     return null;
+  }
+  else{
+     return results[1] || 0;
+  }
+}

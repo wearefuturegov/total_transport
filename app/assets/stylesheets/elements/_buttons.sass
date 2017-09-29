@@ -3,7 +3,6 @@
   appearance: none
   background-color: $action-color
   border: 0
-  border-radius: $base-border-radius
   color: #fff
   cursor: pointer
   display: inline-block
@@ -35,7 +34,7 @@
 
   &:disabled 
     cursor: not-allowed
-    opacity: 0.9
+    opacity: 1
     background-color: $medium-gray
 
     &:hover 
@@ -68,39 +67,3 @@
 .extra-small-button
   font-size: 12px
   padding: 0.25em 0.4em
-
-.radius
-  border-radius: $base-border-radius
-
-.border-bottom-left-radius
-  border-radius: 0
-  border-bottom-left-radius: $base-border-radius
-
-.border-bottom-right-radius
-  border-radius: 0
-  border-bottom-right-radius: $base-border-radius
-
-.border-bottom-radius
-  border-top-right-radius: 0
-  border-top-left-radius: 0
-
-.border-top-radius
-  border-bottom-right-radius: 0
-  border-bottom-left-radius: 0
-
-.border-right-radius
-  border-bottom-left-radius: 0
-  border-top-left-radius: 0
-
-.border-left-radius
-  border-bottom-right-radius: 0
-  border-top-right-radius: 0
-
-.border-left-inset
-  -webkit-box-shadow: inset 2px 2px 9px -1px rgba($black, 0.15)
-  -moz-box-shadow: inset 2px 2px 9px -1px rgba($black, 0.15)
-  box-shadow: inset 2px 2px 9px -1px rgba($black, 0.15)
-.border-right-inset
-  -webkit-box-shadow: inset -2px -2px 9px -1px rgba($black, 0.15)
-  -moz-box-shadow: inset -2px 2px 9px -1px rgba($black, 0.15)
-  box-shadow: inset -2px 2px 9px -1px rgba($black, 0.15)
