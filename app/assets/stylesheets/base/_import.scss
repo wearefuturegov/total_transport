@@ -3,14 +3,17 @@
 // Copyright 2013-2015 thoughtbot, inc.
 // MIT License
 
+/* Import the variables and mixin */
 @import "variables";
+@import "identity/variables"; // Identity variables
 @import "mixin"
 
+/* Import all imports */
 @import "elements/import"; // Elements: Buttons, links, nav drop down etc
-@import "identity/import"; // Identity: Colours, typogrpahy, fonts etc
 @import "components/import"; // Components: Cards, heros, navigation
 @import "composition/import"; // Composition: Arrangement of components
 @import "layout/import"; // Layout: Design principles, grid system, slide ins, baseline to sections etc
 @import "pages/import"; // Pages: Page specific, context driven design.
 
+/* This needs to go eventually */
 @import "styleguide";

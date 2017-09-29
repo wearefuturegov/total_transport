@@ -405,7 +405,7 @@ DEPENDENCIES
   jquery-ui-rails (>= 5.0.5, < 6.0.0)
   kaminari (>= 1.0.1)
   launchy
-  neat
+  neat (< 2.0)
   normalize-rails
   paperclip
   pg (= 0.21.0)

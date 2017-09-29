@@ -4,19 +4,12 @@ body {
   font-size: $body;
   font-weight: 400;
   line-height: $baseline;
-<<<<<<< HEAD
-=======
   -webkit-font-smoothing: antialiased;
->>>>>>> 9d2afe88e5f49e4c5183d1a4bdb90a0466fc7ba6
 }
 
 p {
   margin-top: 0;
-<<<<<<< HEAD
-  margin-bottom: calc(#{$baseline} * 0.5)
-=======
   margin-bottom: calc(#{$baseline} * 0.5);
->>>>>>> 9d2afe88e5f49e4c5183d1a4bdb90a0466fc7ba6
 }
 
 a {
@@ -31,11 +24,7 @@ a {
 }
 
 h1 {
-<<<<<<< HEAD
-  $h1: 40px; // normally no, but in this case I think yes.
-=======
   $h1: 40px; // no to variables here, but in this case I think yes.
->>>>>>> 9d2afe88e5f49e4c5183d1a4bdb90a0466fc7ba6
   font-size: $h1;
   line-height: calc(#{$h1} * 1.2);
   margin-top: 0;
@@ -59,11 +48,7 @@ h4 {
   font-size: $h4;
   line-height: calc(#{$h4} * 1.2);
   margin-top: 0;
-<<<<<<< HEAD
-  margin-bottom: calc(#{$h4} * 1.2); 
-=======
   margin-bottom: calc(#{$h4} * 1.2);
->>>>>>> 9d2afe88e5f49e4c5183d1a4bdb90a0466fc7ba6
 }
 
 a {
