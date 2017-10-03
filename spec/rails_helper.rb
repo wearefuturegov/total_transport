@@ -11,6 +11,7 @@ require 'timecop'
 
 require 'support/fake_sms'
 require 'support/controller_macros'
+require 'support/webmock'
 
 SmsService.client = FakeSMS
 
@@ -38,6 +39,14 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
     FactoryGirl.reload
+  end
+  
+  config.before(:each, que: true) do
+    Que.mode = :off
+  end
+  
+  config.after(:each, que: true) do
+    Que.mode = :off
   end
 
   config.before(:each, type: :feature) do
