@@ -13,11 +13,13 @@ class PlacesController < PublicController
   private
   
     def places_params
-      params.permit(:origin)
+      params.permit(:origin, :query)
     end
     
     def get_places
-      if places_params[:origin].blank?
+      if places_params[:query]
+        @places = PlacenamesService.new(places_params[:query]).search
+      elsif places_params[:origin].blank?
         @places = Place.all
       else
         origin = places_params[:origin]
