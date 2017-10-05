@@ -1,0 +1,12 @@
+{
+  "header" : {
+    "uri" : "https://api.ordnancesurvey.co.uk/opennames/v1/find?query=sdasdasdsadsadsadasdasd&bounds=537525%2C180625%2C625918%2C248940&fq=LOCAL_TYPE%3ATown%20LOCAL_TYPE%3ACity%20LOCAL_TYPE%3AVillage%20LOCAL_TYPE%3AHamlet",
+    "query" : "sdasdasdsadsadsadasdasd",
+    "format" : "JSON",
+    "maxresults" : 100,
+    "offset" : 0,
+    "totalresults" : 0,
+    "bounds" : "537525,180625,625918,248940",
+    "filter" : "fq=LOCAL_TYPE:Town LOCAL_TYPE:City LOCAL_TYPE:Village LOCAL_TYPE:Hamlet"
+  }
+}

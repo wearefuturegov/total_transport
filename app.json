@@ -61,6 +61,12 @@
     },
     "TWILIO_TOKEN": {
       "required": true
+    },
+    "MAPBOX_ACCESS_TOKEN": {
+      "required": true
+    },
+    "OPENNAMES_API_KEY": {
+      "required": true
     }
   },
   "formation": {
