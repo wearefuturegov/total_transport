@@ -70,3 +70,4 @@ Feature: Booking a journey
       """
       Sorry, we don't currently travel from Newmarket to Somewhere.
       """
+    And I should see a suggestion of a journey from Newmarket to Haverhill

@@ -75,11 +75,15 @@
       $submit.attr('href', '/journeys/' + $('#from').data('slug') + '/' + place.slug )
     }
     var fail = (osID) => {
-      template = HandlebarsTemplates['journeys/no_to']({
-        from: $('#from').data('placename'),
-        to: $('#to').data('placename')
+      $.getJSON('/places.json?origin=' + $('#from').data('slug'), function(data) {
+        template = HandlebarsTemplates['journeys/no_to']({
+          from: $('#from').data('placename'),
+          to: $('#to').data('placename'),
+          from_slug: $('#from').data('slug'),
+          destinations: data
+        });
+        $('#to_result').html(template);
       });
-      $('#to_result').html(template);
     }
     options.list.onClickEvent = getPlace(chosenItem.ID, success, fail);
   }

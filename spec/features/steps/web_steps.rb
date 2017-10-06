@@ -46,6 +46,11 @@ module WebSteps
     expect(body).to match(message)
   end
   
+  step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
+    wait_for_ajax
+    expect(body).to match("#{start_point} to #{destination}")
+  end
+  
   def choose_place(field, place)
     fill_in field, with: place
     wait_for_ajax
