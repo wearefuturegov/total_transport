@@ -1,7 +1,9 @@
 <div class='container'>
   <div class='inner'>
     <%= text_field_tag :from, nil, placeholder: 'From', id: :from, value: @from.try(:name) %>
+    <div id="from_result"></div>
     <%= text_field_tag :to, nil, placeholder: 'To', disabled: @from.nil?, id: :to, value: @to.try(:name) %>
+    <div id="to_result"></div>
     <a id='submit' class='button <%= @from.nil? ? 'hidden' : '' %>'>See available journeys</a>
 
     <div id="map"></div>
@@ -39,50 +41,56 @@
     $('#to').val('');
     // TODO: Remove destination circles
   }
-
-  var enableTo = () => {
+  
+  var getPlace = (osID, successFunction, failureFunction) => {
+    $.getJSON('/places/'+ osID +'.json', successFunction).fail(failureFunction);
+  }
+  
+  var chosenFrom = () => {
     var chosenItem = $("#from").getSelectedItemData();
-    var slug = chosenItem.slug;
-    $('#from').data('slug', slug);
-
-    options.url = function() {
-      slug = $('#from').data('slug');
-      return '/places.json?origin=' + slug
+    $('#from').data('placename', chosenItem.NAME1);
+    var success = (place) => {
+      _addCircle([place.latitude, place.longitude], blue);
+      $('#from').data('slug', place.slug);
+      $('#to').removeAttr('disabled');
+      options.list.onClickEvent = chosenTo;
+      $('#to').easyAutocomplete(options);
     }
-
-    $.getJSON(options.url(), function(data) {
-      _addCircle([chosenItem.latitude, chosenItem.longitude], blue);
-
-      if(data.length > 0) {
-        $('#to').removeAttr('disabled');
-        options.list.onClickEvent = function() {
-          var data = $("#to").getSelectedItemData();
-          var lat = data.latitude
-          var lng = data.longitude
-          var $submit = $('#submit');
-        
-          _addCircle([lat, lng], green);
-          $('#to').data('slug', data.slug);
-          
-          $submit.removeClass('hidden');
-          $submit.attr('href', '/journeys/' + $('#from').data('slug') + '/' + data.slug )
-        }
-        $('#to').easyAutocomplete(options);
-      } else {
-        $('#to').attr('placeholder', 'No destinations');
-        $('#to').attr('disabled', 'disabled');
-      }
-    });
-  };
+    var fail = (osID) => {
+      template = HandlebarsTemplates['journeys/no_from']({
+        place: $('#from').data('placename')
+      });
+      $('#from_result').html(template);
+    }
+    getPlace(chosenItem.ID, success, fail);
+  }
+  
+  var chosenTo = () => {
+    var chosenItem = $("#to").getSelectedItemData();
+    $('#to').data('placename', chosenItem.NAME1);
+    var success = (place) => {
+      _addCircle([place.latitude, place.longitude], blue);
+      var $submit = $('#submit');
+      $submit.removeClass('hidden');
+      $submit.attr('href', '/journeys/' + $('#from').data('slug') + '/' + place.slug )
+    }
+    var fail = (osID) => {
+      template = HandlebarsTemplates['journeys/no_to']({
+        from: $('#from').data('placename'),
+        to: $('#to').data('placename')
+      });
+      $('#to_result').html(template);
+    }
+    options.list.onClickEvent = getPlace(chosenItem.ID, success, fail);
+  }
 
   var options = {
-    url: '/places.json',
-    getValue: "name",
+    url: function(place) {
+      return '/places.json?query=' + place
+    },
+    getValue: "NAME1",
     list: {
-      match: {
-        enabled: true
-      },
-      onClickEvent: enableTo
+      onClickEvent: chosenFrom
     },
     theme: 'square'
   };

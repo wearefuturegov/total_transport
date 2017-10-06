@@ -149,6 +149,10 @@ GEM
       haml (>= 4.0.6, < 6.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    handlebars_assets (0.23.2)
+      execjs (~> 2.0)
+      sprockets (>= 2.0.0)
+      tilt (>= 1.2)
     hashdiff (0.3.4)
     heroics (0.0.23)
       erubis (~> 2.0)
@@ -407,6 +411,7 @@ DEPENDENCIES
   friendly_id
   geokit
   haml-rails (~> 1.0)
+  handlebars_assets
   high_voltage
   jbuilder (~> 2.0)
   jquery-rails (>= 4.3.1)

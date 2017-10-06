@@ -54,3 +54,19 @@ Feature: Booking a journey
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
     
+  Scenario: When a from point doesn't exist
+    Given the placename service has a place called Somewhere
+    When I choose a from point of Somewhere
+    Then I should see the message
+      """
+      Sorry, we don't currently travel from Somewhere.
+      """
+    
+  Scenario: When a destination doesn't exist
+    Given the placename service has a place called Somewhere
+    When I choose a from point of Newmarket
+    And I choose a to point of Somewhere
+    Then I should see the message
+      """
+      Sorry, we don't currently travel from Newmarket to Somewhere.
+      """

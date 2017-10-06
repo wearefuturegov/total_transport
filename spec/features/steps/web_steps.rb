@@ -41,10 +41,15 @@ module WebSteps
     fill_in_details('My Name', '+15005550006')
   end
   
+  step 'I should see the message' do |message|
+    wait_for_ajax
+    expect(body).to match(message)
+  end
+  
   def choose_place(field, place)
     fill_in field, with: place
     wait_for_ajax
-    find('.easy-autocomplete-container li').click
+    first('.easy-autocomplete-container li', text: /#{place}/).click
   end
 
   def click_see_available_journeys
