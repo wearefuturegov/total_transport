@@ -3,6 +3,11 @@ class PlacesController < PublicController
   before_filter :get_places, only: [:index]
   before_filter :get_place, only: [:show]
   
+  rescue_from ActiveRecord::RecordNotFound do
+    TrackFailedPlaceQuery.enqueue(params[:name], params[:type]) if params[:name] && params[:type]
+    head 404, "content_type" => 'text/plain'
+  end
+  
   def index
     respond_to do |format|
       format.json do
