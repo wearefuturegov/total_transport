@@ -52,7 +52,7 @@ gem 'airbrake', '~> 4.1'
 gem 'twilio-ruby'
 
 gem 'paperclip'
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk', '~> 3.0'
 
 gem 'filterrific'
 gem 'kaminari', '>= 1.0.1'
