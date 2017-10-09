@@ -34,7 +34,7 @@ gem "font-awesome-rails"
 # other starter gems
 gem 'high_voltage'
 gem 'normalize-rails'
-gem 'font-awesome-sass', '~> 4.6.2'
+gem 'font-awesome-sass', '~> 4.7.0'
 gem 'jquery-ui-rails', '>= 5.0.5', '< 6.0.0'
 
 gem 'geokit'
@@ -86,6 +86,7 @@ group :development, :test do
   gem 'chromedriver-helper'
   gem 'brakeman', require: false
   gem 'coveralls', require: false
+  gem 'turnip'
 end
 
 group :development do

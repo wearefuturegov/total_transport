@@ -11,28 +11,11 @@ require 'timecop'
 
 require 'support/fake_sms'
 require 'support/controller_macros'
-require 'support/wait_for_ajax'
-require 'selenium/webdriver'
+require 'support/webmock'
 
 SmsService.client = FakeSMS
 
 ActiveRecord::Migration.maintain_test_schema!
-
-Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
-end
-
-Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu) }
-  )
-
-  Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    desired_capabilities: capabilities
-end
-
-Capybara.javascript_driver = :headless_chrome
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -57,18 +40,17 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     FactoryGirl.reload
   end
+  
+  config.before(:each, que: true) do
+    Que.mode = :off
+  end
+  
+  config.after(:each, que: true) do
+    Que.mode = :off
+  end
 
   config.before(:each, type: :feature) do
-    # :rack_test driver's Rack app under test shares database connection
-    # with the specs, so continue to use transaction strategy for speed.
-    driver_shares_db_connection_with_specs = Capybara.current_driver == :rack_test
-
-    if !driver_shares_db_connection_with_specs
-      # Driver is probably for an external browser with an app
-      # under test that does *not* share a database connection with the
-      # specs, so use truncation strategy.
-      DatabaseCleaner.strategy = :truncation
-    end
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.before(:each) do
