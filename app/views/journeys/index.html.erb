@@ -42,8 +42,8 @@
     // TODO: Remove destination circles
   }
   
-  var getPlace = (osID, type, successFunction, failureFunction) => {
-    $.getJSON('/places/'+ osID +'.json', successFunction).fail(failureFunction);
+  var getPlace = (osID, type, name, successFunction, failureFunction) => {
+    $.getJSON('/places/'+ osID +'.json?type='+ type +'&name=' + name, successFunction).fail(failureFunction);
   }
   
   var chosenFrom = () => {
@@ -62,7 +62,7 @@
       });
       $('#from_result').html(template);
     }
-    getPlace(chosenItem.ID, 'origin', success, fail);
+    getPlace(chosenItem.ID, 'origin', chosenItem.NAME1, success, fail);
   }
   
   var chosenTo = () => {
@@ -85,7 +85,7 @@
         $('#to_result').html(template);
       });
     }
-    options.list.onClickEvent = getPlace(chosenItem.ID, 'destination', success, fail);
+    options.list.onClickEvent = getPlace(chosenItem.ID, 'destination', chosenItem.NAME1, success, fail);
   }
 
   var options = {
