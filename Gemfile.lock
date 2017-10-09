@@ -235,7 +235,7 @@ GEM
       pry (>= 0.9.11)
     public_suffix (2.0.5)
     puma (3.10.0)
-    que (0.13.1)
+    que (0.14.0)
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
