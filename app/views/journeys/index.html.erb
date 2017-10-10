@@ -5,8 +5,6 @@
     <%= text_field_tag :to, nil, placeholder: 'To', disabled: @from.nil?, id: :to, value: @to.try(:name) %>
     <div id="to_result"></div>
     <a id='submit' class='button <%= @from.nil? ? 'hidden' : '' %>'>See available journeys</a>
-
-    <div id="map"></div>
     
     <%= render 'journeys', journeys: @journeys, booking: @booking %>
   </div>
@@ -15,33 +13,6 @@
 <% content_for :js do %>
 
 <script type='text/javascript'>
-  var blue = '#1565c0',
-      green = '#45B554';
-
-  var centreMap = L.map('map', {
-    zoomControl: false
-  }).setView([52.0891, 0.5600], 9);
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    maxZoom: 18,
-    id: 'mapbox.light',
-    accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
-  }).addTo(centreMap);
-
-  function _addCircle(coords, color) {
-    L.circle(coords, {
-      color: color,
-      fillColor: color,
-      fillOpacity: 0.25,
-      radius: 1000
-    }).addTo(centreMap);
-    centreMap.setView(coords, 10);
-  }
-
-  function _changeOrigin() {
-    $('#to').val('');
-    // TODO: Remove destination circles
-  }
-  
   var getPlace = (osID, type, name, successFunction, failureFunction) => {
     $.getJSON('/places/'+ osID +'.json?type='+ type +'&name=' + name, successFunction).fail(failureFunction);
   }
@@ -51,7 +22,6 @@
     $('#from').data('placename', chosenItem.NAME1);
     $('#from_result').empty();
     var success = (place) => {
-      _addCircle([place.latitude, place.longitude], blue);
       $('#from').data('slug', place.slug);
       $('#to').removeAttr('disabled');
       options.list.onChooseEvent = chosenTo;
@@ -71,7 +41,6 @@
     $('#to').data('placename', chosenItem.NAME1);
     $('#to_result').empty();
     var success = (place) => {
-      _addCircle([place.latitude, place.longitude], green);
       var $submit = $('#submit');
       $submit.removeClass('hidden');
       $submit.attr('href', '/journeys/' + $('#from').data('slug') + '/' + place.slug )
@@ -102,15 +71,6 @@
   };
 
   $('#from').easyAutocomplete(options);
-
-  $('#from').change(() => {
-    _changeOrigin();
-  });
-  
-  <% if @from && @to %>
-    _addCircle([<%= @from.latitude %>, <%= @from.longitude %>], blue);
-    _addCircle([<%= @to.latitude %>, <%= @to.longitude %>], green);
-  <% end %>
 
 </script>
 <% end %>
