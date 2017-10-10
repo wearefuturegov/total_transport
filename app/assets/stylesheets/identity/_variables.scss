@@ -1,3 +1,9 @@
+/* older bits that need removing */
+
+$brand-1: #1565c0; // blue
+$brand-2: #c01b15; // red
+$brand-3: #FF8637; // orange
+
 /* Identity variables */
 
 // Typography
@@ -20,6 +26,7 @@ $heading-line-height: 1.3;
 
 // Colors
 $brand: #ff3f6b;
+$brand-2: #0cc7d0;
 
 $black: #000;
 $white: #fff;
@@ -29,7 +36,7 @@ $gradient-1: #7b8388;
 $gradient-2: #cedee8;
 
 $border-style: solid;
-$border-width: $baseline*0.125;
+$border-width: 3px;
 
 // Colors
 $prim-color: #1565c0;
@@ -44,10 +51,6 @@ $teal: #15bbc0;
 $darker-teal: #12a5a9;
 $coral: #ff5253;
 $pink: #ED5A82;
-
-$brand-1: #1565c0; // blue
-$brand-2: #c01b15; // red
-$brand-3: #FF8637; // orange
 
 $dark-gray: #231f30;
 $medium-gray: #999;

@@ -1,7 +1,7 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
 .section {
-  @include pad(0 default);
+  // @include pad(0 default);
   @include outer-container(80%);
 }
 
@@ -27,4 +27,5 @@
 
 .footer {
   @include span-columns(12);
+  background: red;
 }

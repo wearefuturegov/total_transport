@@ -3,6 +3,10 @@
 
 @media only screen and (max-width: 667px) {
 
+  .section {
+    @include outer-container(90%);
+  }
+
   .main {
     @include span-columns(12);
     .journey .single {

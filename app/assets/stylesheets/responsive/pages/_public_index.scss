@@ -1,0 +1,19 @@
+@media only screen and (max-width: 667px) {
+
+  #public-index {
+    .hero {
+      text-align: left;
+      .heading {
+        .action {
+          margin-top: $baseline*4;
+          h4 {
+            $h4: 20px;
+            float: left;
+            line-height: calc(#{$h4} * 1.2);
+          }
+        }
+      }
+    }
+  }
+
+}

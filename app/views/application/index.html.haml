@@ -1,108 +1,48 @@
 %section.hero
   %section.section.heading
     %h1
-      %span
-        = @page_title
+      = @page_title
     %h2
       = t("public-index.title.#{Rails.configuration.x.pickup.council}")
 
     %section.action
+      %h4
+        = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
       = link_to I18n.t('button.book'), journeys_path, class: 'button cta'
 
 %main.main
   -# class steps was taken, so journey
+
+
   %section.section.journey
-    %section.single
+    %section
+      %span
+        1
       %h3
         = t('steps.step_1.title')
       %p
         = t('steps.step_1.info')
 
-    %section.single
+    %section
+      %span
+        2
       %h3
         = t('steps.step_2.title')
       %p
         = t('steps.step_2.info')
 
-    %section.single
+    %section
+      %span
+        3
       %h3
         = t('steps.step_3.title')
       %p
         = t('steps.step_3.info')
 
-  
-  / %section.hero
-  /   .overlay
-  /   .map
-  /   %section.section
-  /     %h3
-  /       = t('public-index.map_title')
-
   %section.section
-    %h3
-      = t('public-index.about.title')
+
     %p
       = t('public-index.about.info')
-    %p
-      = t('public-index.about.extra')
-
-  %section.section
-    %h3
-      = t('public-index.about.title_extra')
-    %p
-      = t('public-index.about.extra')
-    %p
-      = t('public-index.about.info')
-
-
-  / %section.section
-  /   %h3
-  /     = t('public-index.collection.title')
-  /   %section.collection
-  /     %section.single
-  /       = image_tag 'essex.png', alt: ''
-  /       %p
-  /         = t('public-index.dummy.title')
-  /     %section.single
-  /       = image_tag 'essex.png', alt: ''
-  /       %p
-  /         = t('public-index.dummy.title')
-  /     %section.single
-  /       = image_tag 'essex.png', alt: ''
-  /       %p
-  /         = t('public-index.dummy.title')
-
-  / %section.section
-  /   %h3
-  /     = t('public-index.list.title')
-  /   %section.collection
-  /     %ul
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-  /       %li.single
-  /         = t('public-index.dummy.info')
-
-
 
   %section.section
     .action
