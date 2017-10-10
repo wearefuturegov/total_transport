@@ -132,11 +132,7 @@ GEM
     filterrific (2.1.2)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
-<<<<<<< HEAD
     font-awesome-sass (4.7.0)
-=======
-    font-awesome-sass (4.6.2)
->>>>>>> responsive
       sass (>= 3.2)
     friendly_id (5.2.3)
       activerecord (>= 4.0.0)
@@ -144,7 +140,6 @@ GEM
     gherkin (4.1.3)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-<<<<<<< HEAD
     haml (5.0.3)
       temple (>= 0.8.0)
       tilt
@@ -152,14 +147,6 @@ GEM
       actionpack (>= 4.0.1)
       activesupport (>= 4.0.1)
       haml (>= 4.0.6, < 6.0)
-=======
-    haml (4.0.7)
-      tilt
-    haml-rails (0.9.0)
-      actionpack (>= 4.0.1)
-      activesupport (>= 4.0.1)
-      haml (>= 4.0.6, < 5.0)
->>>>>>> responsive
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashdiff (0.3.4)
@@ -416,16 +403,10 @@ DEPENDENCIES
   factory_girl_rails (>= 4.8.0)
   filterrific
   font-awesome-rails
-<<<<<<< HEAD
   font-awesome-sass (~> 4.7.0)
   friendly_id
   geokit
   haml-rails (~> 1.0)
-=======
-  font-awesome-sass (~> 4.6.2)
-  geokit
-  haml-rails (~> 0.9)
->>>>>>> responsive
   high_voltage
   jbuilder (~> 2.0)
   jquery-rails (>= 4.3.1)
