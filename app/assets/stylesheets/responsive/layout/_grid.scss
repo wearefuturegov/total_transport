@@ -1,0 +1,16 @@
+/* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
+
+
+@media only screen and (max-width: 667px) {
+
+  .main {
+    @include span-columns(12);
+    .journey .single {
+      @include span-columns(12);
+    }
+    .collection .single {
+      @include span-columns(12);
+    }
+  }
+
+}

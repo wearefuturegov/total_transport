@@ -10,7 +10,8 @@
   padding: 0 $baseline;
   width: auto;
   &.cta {
-    background: none;
+    color: $white;
+    background: $brand;
     border: $border-width $border-style $brand;
   }
 }
