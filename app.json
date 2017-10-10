@@ -67,6 +67,10 @@
     },
     "OPENNAMES_API_KEY": {
       "required": true
+    },
+    "STATS_SPREADSHEET_KEY": {
+      "required": true,
+      "value": "1sGiSS0BpNnTeNa50ztYXp90deGccMWfNUlwfAobpZBc"
     }
   },
   "formation": {
