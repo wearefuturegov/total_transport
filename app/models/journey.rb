@@ -45,14 +45,18 @@ class Journey < ActiveRecord::Base
   
   def self.available_for_places(start_place, destination_place)
     from = Stop.where(place: start_place)
+    from_routes = from.map { |s| s.route }
     to = Stop.where(place: destination_place)
-    (from + to).group_by(&:route).map do |route, stops|
+    to_routes = to.map { |s| s.route }
+    (from_routes & to_routes).map do |route|
+      f = from.find { |s| route.stops.include?(s) }
+      t = to.find { |s| route.stops.include?(s) }
       Journey.available.where(
         route_id: route.id,
-        reversed: stops.first.position > stops.last.position
+        reversed: f.position > t.position
       ).map do |j|
-        j.pickup_stop = stops.first
-        j.dropoff_stop = stops.last
+        j.pickup_stop = f
+        j.dropoff_stop = t
         j
       end
     end.flatten.uniq
