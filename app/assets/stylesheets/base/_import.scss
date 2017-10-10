@@ -4,11 +4,13 @@
 // MIT License
 
 /* Import the variables and mixin */
-@import "variables";
 @import "identity/variables"; // Identity variables
-@import "mixin"
+@import "variables"; // Base variables
+@import "mixin";
+
 
 /* Import all imports */
+@import "identity/import"; // Identify: Type, colour, brand
 @import "elements/import"; // Elements: Buttons, links, nav drop down etc
 @import "components/import"; // Components: Cards, heros, navigation
 @import "composition/import"; // Composition: Arrangement of components

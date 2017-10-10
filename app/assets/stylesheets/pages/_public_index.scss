@@ -2,7 +2,6 @@
 
 #public-index {
   background-color: $white;
-  text-align: left;
   .main-cont {
     position: absolute;
   }
@@ -16,17 +15,26 @@
     display: inline-block;
     background-color: rgba($gray,0.9);
     background: linear-gradient(45deg, $gradient-1, $gradient-2);
+    background: none;
     position: relative;
+    text-align: center;
     .heading {
+      margin-top: $baseline*10;
+      margin-bottom: $baseline*8;
       h1 span {
-        color: $white;
+        color: $brand;
       }
       h1 {
-        $h1: 60px; // no to variables here, but in this case I think yes.
+        $h1: 30px; // no to variables here, but in this case I think yes.
         font-size: $h1;
         line-height: calc(#{$h1} * 1.2);
         margin-top: calc(#{$h1});
         margin-bottom: calc(#{$h1});
+        text-transform: uppercase;
+        position: fixed;
+        top: $baseline;
+        left: $baseline;
+        margin: 0;
       }
       h2 {
         $h2: 40px; // no to variables here, but in this case I think yes.
@@ -34,6 +42,7 @@
         line-height: calc(#{$h2} * 1.2);
         margin-top: 0;
         margin-bottom: calc(#{$h2});
+        text-align: center;
       }
       p {
         $p: 20px; // no to variables here, but in this case I think yes.
@@ -45,7 +54,9 @@
     }
     .cta {
       color: $white;
-      border-color: $white;
+      border-color: $brand;
+      background: $brand;
+      text-align: center;
     }
   }
   .main {
