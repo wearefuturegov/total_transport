@@ -27,8 +27,8 @@ en:
 
   public-index:
     title:
-      essex: 'Your Essex service helping you go places.'
-      suffolk: 'Your Suffolk service helping you go places.'
+      essex: 'Your local service that helps you go places in Essex'
+      suffolk: 'Your local service that helps you go places in Suffolk'
     intro:
       essex: 'Want a more flexible way to get around the Maldon and Dengie area?'
       suffolk: 'Want a more flexible way to get around the Maldon and Dengie area?'
@@ -40,7 +40,7 @@ en:
     map_title: 'Connecting residents to great locations in your area'
     about:
       title: '-'
-      info: 'Simply pre book journeys for you, your family or as a group of friends around Essex. Ride is an easy and reliable shared transport service, that helps get you to the shops, visit your friends or go to local events.'
+      info: 'Pre-book journeys for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events.'
     collection:
       title: 'Great destinations to visit in your area'
     list:
