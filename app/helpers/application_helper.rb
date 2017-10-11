@@ -20,8 +20,10 @@ module ApplicationHelper
   end
 
   def grab_phone_number(phone, booking)
-    original = Passenger.find(booking.passenger_id).phone_number
-    phone.nil? ? original : "#{phone} - number possibly changed from passenger's original (#{original})"
+    unless booking.passenger_id.nil?
+      original = Passenger.find(booking.passenger_id).phone_number
+      phone.nil? ? original : "#{phone} - number possibly changed from passenger's original (#{original})"
+    end
   end
   
   private

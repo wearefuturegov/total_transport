@@ -13,30 +13,6 @@ RSpec.describe PlacesController, type: :controller, que: true do
     expect(json.count).to eq(5)
   end
   
-  it 'filters places by origin' do
-    FactoryGirl.create_list(:route, 5, stops_count: 7)
-    
-    origin = FactoryGirl.create(:place, name: 'Haverhill')
-    
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop)
-    ])
-    
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin),
-      FactoryGirl.create(:stop)
-    ])
-    
-    get 'index', format: :json, origin: origin.slug
-    
-    json = JSON.parse response.body
-    expect(json.count).to eq(5)
-  end
-  
   it 'gets a place by its OS ID' do
     place = FactoryGirl.create(:place, os_id: 12345)
     get 'show', format: :json, id: 12345

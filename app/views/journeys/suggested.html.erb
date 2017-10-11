@@ -1,0 +1,9 @@
+<div class='container'>
+  <div class='inner'>
+    <%= render 'form', from: @from.try(:name), to: @placename %>
+    
+    <div id="results">
+      <%= render 'suggested_journeys', places: @places, from: @from, to: @placename %>
+    </div>
+  </div>
+</div>

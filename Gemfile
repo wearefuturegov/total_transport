@@ -59,7 +59,6 @@ gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
-gem 'handlebars_assets'
 gem 'google_drive'
 
 # Use ActiveModel has_secure_password

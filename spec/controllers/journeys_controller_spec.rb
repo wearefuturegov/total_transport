@@ -53,4 +53,27 @@ RSpec.describe JourneysController, type: :controller do
     expect(assigns(:journeys).count).to eq(0)
   end
   
+  it 'suggests journeys' do
+    FactoryGirl.create_list(:route, 5, stops_count: 7)
+    
+    origin = FactoryGirl.create(:place, name: 'Haverhill')
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: origin),
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop)
+    ])
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: origin),
+      FactoryGirl.create(:stop)
+    ])
+    
+    get 'suggested', from: origin.slug
+    
+    expect(assigns(:places).count).to eq(5)
+  end
+  
 end

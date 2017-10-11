@@ -1,9 +1,0 @@
-<p>Sorry, we don't currently travel from {{ from }} to {{ to }}.</p>
-<p>Here are some destinations from {{ from }} that might suit you:</p>
-  
-{{#each destinations}}
-  <h2>{{ ../from }} to {{ name }}</h2>
-  <a href="/journeys/{{ ../from_slug }}/{{ slug }}" class="button">See available journeys</a>
-{{/each}}
-
-<!-- TODO: Should we get people to sign up for email alerts? -->

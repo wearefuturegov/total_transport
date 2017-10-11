@@ -15,6 +15,4 @@
 //= require jquery-ui
 //= require jquery-ui/sortable
 //= require datetimepicker
-//= require handlebars
-//= require_tree ./templates
 //= require_tree .

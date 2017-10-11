@@ -35,11 +35,6 @@ class PlacesController < PublicController
         @places = PlacenamesService.new(places_params[:query]).search
       elsif places_params[:origin].blank?
         @places = Place.all
-      else
-        origin = places_params[:origin]
-        routes = Place.friendly.find(origin).routes
-        places = routes.map { |r| r.places }
-        @places = places.flatten.reject { |p| p.slug == origin }
       end
     end
     

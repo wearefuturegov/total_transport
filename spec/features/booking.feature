@@ -12,7 +12,6 @@ Feature: Booking a journey
   Scenario: Booking a return journey
     When I choose a from point of Newmarket
     And I choose a to point of Haverhill
-    And I click See available journeys
     And I click on the first journey's request button
     When I choose the first return option
     And I don't add any special requirements
