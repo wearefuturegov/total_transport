@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171011160921) do
+=======
+ActiveRecord::Schema.define(version: 20171011140041) do
+>>>>>>> Remove polygons from database
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,7 +146,6 @@ ActiveRecord::Schema.define(version: 20171011160921) do
 
   create_table "stops", force: :cascade do |t|
     t.integer  "route_id"
-    t.json     "polygon"
     t.integer  "position"
     t.integer  "minutes_from_last_stop"
     t.datetime "created_at",             null: false

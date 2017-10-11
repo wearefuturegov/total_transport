@@ -5,14 +5,12 @@
     <% if @landmark.latitude.present? && @landmark.longitude.present? %>
       var center = new google.maps.LatLng(<%= @landmark.latitude %>, <%= @landmark.longitude %>);
     <% else %>
-      var center = new google.maps.LatLng(<%= @stop.latitude %>, <%= @stop.longitude %>);
+      var center = new google.maps.LatLng(<%= @stop.place.latitude %>, <%= @stop.place.longitude %>);
     <% end %>
-    var geoJson = <%= @stop.polygon.to_json.html_safe %>;
     map = new google.maps.Map(document.getElementById("map"), {
       center: center,
       zoom: 15
     });
-    map.data.addGeoJson(geoJson);
     var polygon_feature;
     map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
     var bounds = new google.maps.LatLngBounds();

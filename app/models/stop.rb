@@ -7,7 +7,7 @@ class Stop < ActiveRecord::Base
   has_many :landmarks, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
 
-  validates_presence_of :place, :route, :polygon
+  validates_presence_of :place, :route
   
   after_create :queue_minutes_from_last_stop
 

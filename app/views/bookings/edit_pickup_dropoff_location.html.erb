@@ -3,13 +3,11 @@
   <script type="text/javascript">
   var map
     function initMap() {
-      var geoJson = <%= @stop.polygon.to_json.html_safe %>;
       map = new google.maps.Map(document.getElementById("map"), {
         scrollwheel: false,
         streetViewControl: false,
         disableDefaultUI: true
       });
-      map.data.addGeoJson(geoJson);
       var polygon_feature;
       map.data.forEach(function(feature) {polygon_feature = feature.getGeometry()});
       var bounds = new google.maps.LatLngBounds();

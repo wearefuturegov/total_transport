@@ -37,7 +37,7 @@ class Admin::StopsController < AdminController
   private
 
   def stop_params
-    params.require(:stop).permit(:place_id, :polygon, :minutes_from_last_stop)
+    params.require(:stop).permit(:place_id, :minutes_from_last_stop)
   end
 
   def find_route
