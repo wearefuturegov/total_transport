@@ -1,5 +1,5 @@
 <% if journeys %>
-  <div class="options">
+  <div class="options" aria-live="assertive" role="alert">
     <% if journeys.length > 0 %>
       <% journeys.each do |journey| %>
         <%= render 'journey', journey: journey, booking: booking %>

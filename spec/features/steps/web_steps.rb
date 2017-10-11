@@ -4,7 +4,6 @@ module WebSteps
   end
 
   step :choose_place, 'I choose a :text_field point of :place'
-  step :click_see_available_journeys, 'I click See available journeys'
   step :choose_passengers, 'I choose :num passengers'
   step :click_request_one_way_or_return, 'I click on the first journey\'s request button'
   step :choose_first_return_journey, 'I choose the first return option'
@@ -20,14 +19,12 @@ module WebSteps
   step 'I have chosen a journey' do
     choose_place('from', 'Newmarket')
     choose_place('to', 'Haverhill')
-    click_see_available_journeys
     click_request_one_way_or_return
   end
 
   step 'I have chosen a journey with :n passengers' do |passengers|
     choose_place('from', 'Newmarket')
     choose_place('to', 'Haverhill')
-    click_see_available_journeys
     choose_passengers(passengers)
     click_request_one_way_or_return
   end
@@ -41,14 +38,20 @@ module WebSteps
     fill_in_details('My Name', '+15005550006')
   end
   
+  step 'I should see the message' do |message|
+    wait_for_ajax
+    expect(page).to have_content(message)
+  end
+  
+  step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
+    wait_for_ajax
+    expect(body).to match("#{start_point} to #{destination}")
+  end
+  
   def choose_place(field, place)
     fill_in field, with: place
     wait_for_ajax
-    find('.easy-autocomplete-container li').click
-  end
-
-  def click_see_available_journeys
-    find('#submit').click
+    first('.easy-autocomplete-container li', text: /#{place}/).click
   end
 
   def click_request_one_way_or_return

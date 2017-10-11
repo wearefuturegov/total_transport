@@ -61,6 +61,19 @@
     },
     "TWILIO_TOKEN": {
       "required": true
+    },
+    "MAPBOX_ACCESS_TOKEN": {
+      "required": true
+    },
+    "OPENNAMES_API_KEY": {
+      "required": true
+    },
+    "STATS_SPREADSHEET_KEY": {
+      "required": true,
+      "value": "1sGiSS0BpNnTeNa50ztYXp90deGccMWfNUlwfAobpZBc"
+    },
+    "GDRIVE_AUTH": {
+      "required": true
     }
   },
   "formation": {

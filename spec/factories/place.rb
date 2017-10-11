@@ -3,5 +3,6 @@ FactoryGirl.define do
     sequence(:name) { |n| "place_#{n}" }
     latitude 51.729312451546
     longitude 0.892810821533203
+    os_id 12324232334
   end
 end

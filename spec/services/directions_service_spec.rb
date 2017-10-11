@@ -15,7 +15,7 @@ RSpec.describe DirectionsService, type: :model, webmock: true do
   
   before(:each) do
     stub_const('DirectionsService::ACCESS_TOKEN', 'someaccesstoken')
-    stub_request(:get, url).to_return(body: get_fixture('directions.json'))
+    stub_request(:get, url).to_return(body: get_fixture('directions_service/directions.json'))
   end
   
   it 'sets the correct url' do

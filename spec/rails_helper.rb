@@ -46,7 +46,7 @@ RSpec.configure do |config|
   end
   
   config.after(:each, que: true) do
-    Que.mode = :off
+    Que.mode = :sync
   end
 
   config.before(:each, type: :feature) do

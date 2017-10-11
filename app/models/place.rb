@@ -8,6 +8,7 @@ class Place < ActiveRecord::Base
   default_scope { order(name: :asc) }
   
   validates_presence_of :name, :latitude, :longitude
+  validates_presence_of :os_id, message: 'You must specify a town or village'
   
   def lat_lng
     Geokit::LatLng.new(self.latitude, self.longitude)

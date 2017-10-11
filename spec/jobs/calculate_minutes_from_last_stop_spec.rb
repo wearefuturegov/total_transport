@@ -13,7 +13,7 @@ RSpec.describe CalculateMinutesFromLastStop, type: :model, webmock: true do
   }
   
   before do
-    stub_request(:get, /https:\/\/api\.mapbox\.com\/directions\/v5\/mapbox\/driving\/0\.462666,52\.222596;0\.407962,52\.24488\.json\?access_token=.+/).to_return(body: get_fixture('directions.json'))
+    stub_request(:get, /https:\/\/api\.mapbox\.com\/directions\/v5\/mapbox\/driving\/0\.462666,52\.222596;0\.407962,52\.24488\.json\?access_token=.+/).to_return(body: get_fixture('directions_service/directions.json'))
   end
   
   it 'gets the minutes from the last stop for a stop' do
