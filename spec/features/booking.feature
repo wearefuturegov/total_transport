@@ -52,7 +52,8 @@ Feature: Booking a journey
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
-    
+      
+  @que
   Scenario: When a from point doesn't exist
     Given the placename service has a place called Somewhere
     When I choose a from point of Somewhere
@@ -60,7 +61,9 @@ Feature: Booking a journey
       """
       Sorry, we don't currently travel from Somewhere.
       """
-    
+    And the origin Somewhere should be logged
+  
+  @que
   Scenario: When a destination doesn't exist
     Given the placename service has a place called Somewhere
     When I choose a from point of Newmarket
@@ -70,3 +73,5 @@ Feature: Booking a journey
       Sorry, we don't currently travel from Newmarket to Somewhere.
       """
     And I should see a suggestion of a journey from Newmarket to Haverhill
+    And the origin Newmarket should be logged
+    And the destination Somewhere should be logged

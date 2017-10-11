@@ -4,7 +4,11 @@ class PlacesController < PublicController
   before_filter :get_place, only: [:show]
   
   rescue_from ActiveRecord::RecordNotFound do
-    TrackFailedPlaceQuery.enqueue(params[:name], params[:type]) if params[:name] && params[:type]
+    if params[:origin]
+      TrackFailedPlaceQuery.enqueue(params[:origin], params[:name], DateTime.now.to_s)
+    elsif params[:name]
+      TrackFailedPlaceQuery.enqueue(params[:name], nil, DateTime.now.to_s)
+    end
     head 404, "content_type" => 'text/plain'
   end
   

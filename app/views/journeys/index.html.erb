@@ -10,8 +10,12 @@
 <% content_for :js do %>
 
 <script type='text/javascript'>
-  var getPlace = (osID, type, name, successFunction, failureFunction) => {
-    $.getJSON('/places/'+ osID +'.json?type='+ type +'&name=' + name, successFunction).fail(failureFunction);
+  var getPlace = (osID, name, successFunction, failureFunction, origin) => {
+    var url = '/places/'+ osID +'.json?name=' + name
+    if (origin !== undefined) {
+      url += '&origin=' + origin
+    }
+    $.getJSON(url, successFunction).fail(failureFunction);
   }
   
   var enableTo = (slug) => {
@@ -37,7 +41,7 @@
       $('#from_result').removeClass('hidden');
       $('#from_result').attr('hidden', false);
     }
-    getPlace(chosenItem.ID, 'origin', chosenItem.NAME1, success, fail);
+    getPlace(chosenItem.ID, chosenItem.NAME1, success, fail);
   }
   
   var chosenTo = () => {
@@ -63,7 +67,7 @@
       });
     }
     
-    options.list.onChooseEvent = getPlace(chosenItem.ID, 'destination', chosenItem.NAME1, success, fail);
+    options.list.onChooseEvent = getPlace(chosenItem.ID, chosenItem.NAME1, success, fail, $('#from').data('placename'));
   }
 
   var options = {

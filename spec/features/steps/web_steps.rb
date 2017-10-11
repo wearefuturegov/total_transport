@@ -40,7 +40,7 @@ module WebSteps
   
   step 'I should see the message' do |message|
     wait_for_ajax
-    expect(body).to match(message)
+    expect(page).to have_content(message)
   end
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|

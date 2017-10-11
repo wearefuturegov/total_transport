@@ -25,9 +25,13 @@ RSpec.describe PlacesController, type: :controller, que: true do
     
     let(:id) { 34567 }
     let(:subject) {
-      get 'show', format: :json, id: id, type: 'origin', name: 'Some Place'
+      get 'show', format: :json, id: id, name: 'Some Place'
     }
+    let(:datetime) { '2017-01-01T09:00:00+00:00' }
     
+    before(:each) { Timecop.freeze(datetime) }
+    after(:each) { Timecop.return }
+
     it 'returns a 404' do
       subject
       expect(response.code).to eq('404')
@@ -37,6 +41,24 @@ RSpec.describe PlacesController, type: :controller, que: true do
       expect { subject }.to change{
         QueJob.count
       }.by(1)
+      expect(QueJob.last.job_class).to eq('TrackFailedPlaceQuery')
+      expect(QueJob.last.args).to eq(['Some Place', nil, datetime])
+    end
+    
+    context 'with an origin' do
+      
+      let(:subject) {
+        get 'show', format: :json, id: id, name: 'Some Place', origin: 'Some other place'
+      }
+      
+      it 'queues up a metrics job' do
+        expect { subject }.to change{
+          QueJob.count
+        }.by(1)
+        expect(QueJob.last.job_class).to eq('TrackFailedPlaceQuery')
+        expect(QueJob.last.args).to eq(['Some other place', 'Some Place', datetime])
+      end
+      
     end
     
   end
