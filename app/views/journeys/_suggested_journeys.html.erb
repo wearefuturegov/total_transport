@@ -1,0 +1,13 @@
+<div class="options" aria-live="assertive" role="alert">
+  <p>Sorry, we don't currently travel from <%= from.name %> to <%= to %>.</p>
+  <p>Here are some destinations from <%= from.name %> that might suit you:</p>
+
+  <% places.each do |place| %>
+  <div class="single">
+    <div class="details">
+      <h2><%= from.name %> to <%= place.name %></h2>
+      <%= link_to 'See available journeys', from_to_journeys_path(from.slug, place.slug), class: 'button' %>
+    </div>
+  </div>
+  <% end %>
+</div>

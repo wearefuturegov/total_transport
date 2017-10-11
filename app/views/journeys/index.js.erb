@@ -1,0 +1,3 @@
+<% if @journeys.count > 0 %>
+  $('#results').html('<%= escape_javascript(render 'journeys', journeys: @journeys, booking: @booking) %>');
+<% end %>

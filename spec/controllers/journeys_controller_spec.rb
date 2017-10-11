@@ -4,6 +4,8 @@ RSpec.describe JourneysController, type: :controller do
   
   let(:origin) { FactoryGirl.create(:place, name: 'Haverhill') }
   let(:destination) { FactoryGirl.create(:place, name: 'Newmarket') }
+  let(:other_place) { FactoryGirl.create(:place, name: 'Somewhere Else') }
+  
   let(:route) do
     FactoryGirl.create(:route, stops: [
       FactoryGirl.create(:stop),
@@ -43,6 +45,35 @@ RSpec.describe JourneysController, type: :controller do
     get :index, from: destination, to: origin
     
     expect(assigns(:journeys).count).to eq(6)
+  end
+  
+  it 'returns nothing if a origin does not exist' do
+    get :index, from: destination, to: other_place
+    
+    expect(assigns(:journeys).count).to eq(0)
+  end
+  
+  it 'suggests journeys' do
+    FactoryGirl.create_list(:route, 5, stops_count: 7)
+    
+    origin = FactoryGirl.create(:place, name: 'Haverhill')
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: origin),
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop)
+    ])
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: origin),
+      FactoryGirl.create(:stop)
+    ])
+    
+    get 'suggested', from: origin.slug
+    
+    expect(assigns(:places).count).to eq(5)
   end
   
 end

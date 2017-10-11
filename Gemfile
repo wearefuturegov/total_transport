@@ -59,6 +59,7 @@ gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
+gem 'google_drive'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -87,6 +88,7 @@ group :development, :test do
   gem 'brakeman', require: false
   gem 'coveralls', require: false
   gem 'turnip'
+  gem 'vcr'
 end
 
 group :development do
