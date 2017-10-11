@@ -8,7 +8,6 @@ module RouteSteps
   step 'that route has a stop called :stop_name at position :n' do |stop_name, n|
     place = @route.stops[n.to_i].place
     place.name = stop_name
-    place.os_id = stop_name
     place.save
     # Stub the placenames service to return only the expected results so we're
     # not hitting the live API
