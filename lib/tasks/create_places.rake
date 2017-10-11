@@ -46,8 +46,8 @@ namespace :places do
     json['results']['bindings'].each do |r|
       puts r['label']['value']
       Place.find_or_create_by(name: r['label']['value']) do |place|
-        latitude = r['lat']['value'].to_f
-        longitude = r['lng']['value'].to_f
+        place.latitude = r['lat']['value'].to_f
+        place.longitude = r['lng']['value'].to_f
       end
     end
   end
