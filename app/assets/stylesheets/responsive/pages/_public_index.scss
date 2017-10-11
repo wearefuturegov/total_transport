@@ -4,13 +4,25 @@
     .hero {
       text-align: left;
       .heading {
+        margin-top: $baseline*5;
         .action {
-          margin-top: $baseline*4;
+          margin-top: $baseline*2;
           h4 {
             $h4: 20px;
             float: left;
             line-height: calc(#{$h4} * 1.2);
           }
+        }
+      }
+    }
+    .main {
+      h3 {
+        display: block;
+        .hyphen {
+          display: none;
+        }
+        span ~ span {
+          display: block;
         }
       }
     }

@@ -3,9 +3,10 @@
 // remove the .cta from .button when the buttons sass file is sorted out.
 
 .button.cta {
+  font-family: $stack-2;
   text-align: center;
   font-size: $body;
-  font-weight: 700;
+  font-weight: 900;
   line-height: $baseline*2;
   background: $brand;
   border-color: $brand;

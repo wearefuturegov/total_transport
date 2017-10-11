@@ -10,7 +10,7 @@ $brand-3: #FF8637; // orange
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,400italic,600italic,800';
 @import 'https://fonts.googleapis.com/css?family=Montserrat:400,700';
 // testing a new font
-@import 'https://fonts.googleapis.com/css?family=Lato:400,700,900';
+@import 'https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,900italic';
 
 $stack: 'Open Sans', sans-serif;
 $stack-1: 'Open Sans', sans-serif;
@@ -23,6 +23,10 @@ $body: 16px;
 // Line height
 $baseline: 26px;
 $heading-line-height: 1.3;
+
+// Logo dimensions
+$logo-width: 90px;
+$logo-height: $baseline*1.25;
 
 // Colors
 $brand: #ff3f6b;

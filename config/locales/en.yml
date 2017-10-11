@@ -66,5 +66,6 @@ en:
     contact: 'Get in touch'
   
   action:
-    title: 'Pre-book my journey - Got a question?'
+    title: 'Pre-book my journey'
+    extra: 'Got a question?'
   
