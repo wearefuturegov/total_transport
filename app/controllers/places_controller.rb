@@ -31,15 +31,11 @@ class PlacesController < PublicController
   private
   
     def places_params
-      params.permit(:origin, :query)
+      params.permit(:query)
     end
     
     def get_places
-      if places_params[:query]
-        @places = PlacenamesService.new(places_params[:query]).search
-      elsif places_params[:origin].blank?
-        @places = Place.all
-      end
+      @places = places_params[:query].nil? ? Place.all : Place.where("name ILIKE ?", "#{places_params[:query]}%")
     end
     
     def get_place

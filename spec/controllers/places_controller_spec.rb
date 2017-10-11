@@ -36,14 +36,27 @@ RSpec.describe PlacesController, type: :controller, que: true do
       subject
       expect(response.code).to eq('404')
     end
+  it 'searches places' do
+    FactoryGirl.create_list(:place, 5)
     
-    it 'queues up a metrics job' do
-      expect { subject }.to change{
-        QueJob.count
-      }.by(1)
-      expect(QueJob.last.job_class).to eq('TrackFailedPlaceQuery')
-      expect(QueJob.last.args).to eq(['Some Place', nil, datetime])
-    end
+    place = FactoryGirl.create(:place, name: 'Some place')
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: place),
+      FactoryGirl.create(:stop),
+    ])
+    
+    FactoryGirl.create(:route, stops: [
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop, place: place),
+      FactoryGirl.create(:stop),
+      FactoryGirl.create(:stop),
+    ])
+        
+    get 'index', format: :json, query: 'so'
     
     context 'with an origin' do
       
@@ -60,7 +73,10 @@ RSpec.describe PlacesController, type: :controller, que: true do
       end
       
     end
+    json = JSON.parse response.body
     
+    expect(json.count).to eq(1)
+    expect(json.first['name']).to eq('Some place')
   end
   
 end

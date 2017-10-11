@@ -55,7 +55,7 @@ Feature: Booking a journey
       
   @que
   Scenario: When a from point doesn't exist
-    Given the placename service has a place called Somewhere
+    Given there is a place with no routes called Somewhere
     When I choose a from point of Somewhere
     Then I should see the message
       """
@@ -65,7 +65,7 @@ Feature: Booking a journey
   
   @que
   Scenario: When a destination doesn't exist
-    Given the placename service has a place called Somewhere
+    Given there is a place with no routes called Somewhere
     When I choose a from point of Newmarket
     And I choose a to point of Somewhere
     Then I should see the message
