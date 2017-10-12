@@ -5,6 +5,10 @@ RSpec.describe JourneysController, type: :controller do
   let(:origin) { FactoryGirl.create(:place, name: 'Haverhill') }
   let(:destination) { FactoryGirl.create(:place, name: 'Newmarket') }
   let(:other_place) { FactoryGirl.create(:place, name: 'Somewhere Else') }
+  let(:datetime) { '2017-01-01T09:00:00+00:00' }
+
+  before(:each) { Timecop.freeze(datetime) }
+  after(:each) { Timecop.return }
   
   let(:route) do
     FactoryGirl.create(:route, stops: [
@@ -47,33 +51,23 @@ RSpec.describe JourneysController, type: :controller do
     expect(assigns(:journeys).count).to eq(6)
   end
   
-  it 'returns nothing if a origin does not exist' do
-    get :index, from: destination, to: other_place
+  context 'if an origin does not have any routes', :que do
     
-    expect(assigns(:journeys).count).to eq(0)
-  end
-  
-  it 'suggests journeys' do
-    FactoryGirl.create_list(:route, 5, stops_count: 7)
+    let(:subject) { get :index, from: destination, to: other_place }
     
-    origin = FactoryGirl.create(:place, name: 'Haverhill')
+    it 'suggests journeys' do
+      subject
+      expect(assigns(:places).count).to eq(6)
+    end
     
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop)
-    ])
+    it 'queues a failure job' do
+      expect { subject }.to change{
+        QueJob.count
+      }.by(1)
+      job = QueJob.where(job_class: 'TrackFailedPlaceQuery').last
+      expect(job.args).to eq([destination.name, other_place.name, datetime])
+    end
     
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin),
-      FactoryGirl.create(:stop)
-    ])
-    
-    get 'suggested', from: origin.slug
-    
-    expect(assigns(:places).count).to eq(5)
   end
   
 end

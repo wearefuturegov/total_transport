@@ -38,7 +38,6 @@ RSpec.describe Admin::PlacesController, type: :controller do
           name: 'Some place',
           latitude: 55.8001,
           longitude: -6.0142,
-          os_id: '34234344324234'
         }
       }
     }
@@ -84,9 +83,8 @@ RSpec.describe Admin::PlacesController, type: :controller do
       
       it 'displays an error' do
         subject
-        expect(flash[:error]).to match /Latitude can't be blank/
-        expect(flash[:error]).to match /Longitude can't be blank/
-        expect(flash[:error]).to match /You must specify a town or village/
+        expect(flash[:error]).to match /Latitude You must choose a location/
+        expect(flash[:error]).to match /Longitude You must choose a location/
       end
       
     end

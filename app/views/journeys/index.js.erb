@@ -1,3 +1,5 @@
-<% if @journeys.count > 0 %>
-  $('#results').html('<%= escape_javascript(render 'journeys', journeys: @journeys, booking: @booking) %>');
+<% if @places %>
+  $('#results').html('<%= j(render 'suggested_journeys', places: @places, from: @from, to: @to) %>');
+<% else %>
+  $('#results').html('<%= j(render 'journeys', journeys: @journeys, booking: @booking) %>');
 <% end %>
