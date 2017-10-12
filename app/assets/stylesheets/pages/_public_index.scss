@@ -1,60 +1,50 @@
 /* public_index page specific style. Named as the body id "public-index" */
 
 #public-index {
+  float: left;
   background-color: $white;
   .header {
     background-color: transparent;
     color: $white;
     position: absolute;
   }
+  h1 {
+    $h1: 50px; // no to variables here, but in this case I think yes.
+    font-size: $h1;
+    line-height: calc(#{$h1} * 1.2);
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    position: fixed;
+    color: $brand;
+    margin: 0;
+  }
+  h2 {
+    $h2: 28px; // no to variables here, but in this case I think yes.
+    font-size: $h2;
+    font-weight: 700;
+    line-height: calc(#{$h2} * 1.2);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
+  }
   .hero {
     float: none;
     display: inline-block;
-    background-color: rgba($gray,0.9);
-    background: linear-gradient(45deg, $gradient-1, $gradient-2);
     background: none;
     position: relative;
     text-align: center;
     .heading {
-      margin-top: $baseline*10;
+      margin-top: $baseline*8;
       margin-bottom: 0;
-      h1 {
-        $h1: 50px; // no to variables here, but in this case I think yes.
-        font-size: $h1;
-        line-height: calc(#{$h1} * 1.2);
-        font-weight: 900;
-        margin-top: calc(#{$h1});
-        margin-bottom: calc(#{$h1});
-        text-transform: uppercase;
-        font-style: italic;
-        position: fixed;
-        top: $baseline;
-        left: $baseline;
-        margin: 0;
-        z-index: -500;
-        color: $brand;
-      }
-      h2 {
-        $h2: 50px; // no to variables here, but in this case I think yes.
-        font-size: $h2;
-        font-weight: 900;
-        line-height: calc(#{$h2} * 1.2);
-        margin-top: 0;
-        margin-bottom: calc(#{$h2}); // math… it's hard
-        margin-bottom: $baseline;
-      }
       .action {
-        display: inline-block;
         margin-top: 0;
         h4 {
-          $h4: 25px;
+          $h4: 50px;
           font-size: $h4;
-          font-weight: 700;
+          font-weight: 900;
+          line-height: calc(#{$h4} * 1.2);
           margin-top: 0;
-          margin-bottom: calc(#{$h4} * 1.2);
-          float: left;
-          line-height: $baseline*2 + $border-width*2;
-          margin-right: $baseline;
+          margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
         }
       }
     }
@@ -65,27 +55,21 @@
         float: left;
         width: 100%;
         line-height: $baseline;
-        padding: $baseline 0;
+        padding: $baseline 0 $baseline*0.5 0;
         border-bottom: $border-width $border-style $black;
-        span {
-          font-size: $baseline*4;
-          font-weight: 700;
-          line-height: $baseline*4;
-          float: left;
-          margin-right: 0;
-          width: $baseline*3;
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: $baseline*0.5 - $border-width*2;
         }
-        .details {
+        &.step {
           float: left;
-          width: calc(100% - #{$baseline*3.5});
           h3 {
               $h3: 30px;
               font-size: $h3;
               font-weight: 900;
-              line-height: calc(#{$h3} * 1.4);
-              margin-bottom: calc(#{$h3} * 1.4 - #{$baseline}); // math…
-              margin-top: $baseline*0.5;
-              margin-bottom: $baseline*0.5;
+              line-height: calc(#{$h3} * 1.1);
+              margin-top: 0;
+              margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
           }
         }
       }

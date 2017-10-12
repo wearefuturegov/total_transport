@@ -1,6 +1,10 @@
 /* section */
 
 .section {
-  margin-top: $baseline*3;
-  margin-bottom: $baseline*3;
+  margin-top: $baseline*2;
+  margin-bottom: $baseline*2;
+  &.info {
+    margin-top: $baseline*4;
+    margin-bottom: $baseline*4;
+  }
 }
