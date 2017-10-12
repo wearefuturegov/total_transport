@@ -10,14 +10,6 @@
 <% content_for :js do %>
 
 <script type='text/javascript'>
-  var getPlace = (osID, name, successFunction, failureFunction, origin) => {
-    var url = '/places/'+ osID +'.json?name=' + name
-    if (origin !== undefined) {
-      url += '&origin=' + origin
-    }
-    $.getJSON(url, successFunction).fail(failureFunction);
-  }
-  
   var enableTo = (slug) => {
     var toOptions = options;
     $('#from').data('slug', slug);
@@ -27,21 +19,21 @@
   
   var chosenFrom = () => {
     var chosenItem = $("#from").getSelectedItemData();
-    $('#from').data('placename', chosenItem.NAME1);
+    $('#from').data('placename', chosenItem.name);
     $('#from_result').addClass('hidden');
     $('#from_result').attr('hidden', true);
-    var success = (place) => {
-      enableTo(place.slug);
+    
+    history.pushState(null, null, '/journeys/' + chosenItem.slug);
+    
+    if (chosenItem.routes.length > 0) {
+      enableTo(chosenItem.slug);
       $('#to').removeAttr('disabled');
-      history.pushState(null, null, '/journeys/' + place.slug);
-    }
-    var fail = (osID) => {
+    } else {
       var placename = $('#from').data('placename');
       $('#from_result #place').html(placename);
       $('#from_result').removeClass('hidden');
       $('#from_result').attr('hidden', false);
     }
-    getPlace(chosenItem.ID, chosenItem.NAME1, success, fail);
   }
   
   var chosenTo = () => {
