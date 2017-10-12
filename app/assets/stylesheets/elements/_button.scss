@@ -19,4 +19,8 @@
     background: $brand;
     border: $border-width $border-style $brand;
   }
+  &.secondary {
+    background: $brand-2;
+    border-color: $brand-2;
+  }
 }
