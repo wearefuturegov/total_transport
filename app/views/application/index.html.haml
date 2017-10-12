@@ -9,7 +9,7 @@
     %section.action
       %h4
         = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-      = link_to I18n.t('button.book'), journeys_path, class: 'button cta'
+      = link_to I18n.t('button.book'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
 
 %main.main
   -# class steps was taken, so journey
@@ -51,9 +51,4 @@
   %section.section
     .action
       %h3
-        = t('action.title')
-        %span.hyphen
-          —
-        %span
-          = t('action.extra')
-      = link_to I18n.t('button.contact'), journeys_path, class: 'button cta'
+      = link_to I18n.t('button.contact'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
