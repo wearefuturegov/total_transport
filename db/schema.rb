@@ -110,12 +110,9 @@ ActiveRecord::Schema.define(version: 20171011160921) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "places", ["slug"], name: "index_places_on_slug", unique: true, using: :btree
 
   create_table "promo_codes", force: :cascade do |t|
     t.decimal  "price_deduction"
