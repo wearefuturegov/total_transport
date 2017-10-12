@@ -17,7 +17,7 @@
     text-align: center;
     .heading {
       margin-top: $baseline*10;
-      margin-bottom: $baseline*8;
+      margin-bottom: 0;
       h1 {
         $h1: 40px; // no to variables here, but in this case I think yes.
         font-size: $h1;
@@ -25,6 +25,7 @@
         margin-top: calc(#{$h1});
         margin-bottom: calc(#{$h1});
         text-transform: uppercase;
+        font-style: italic;
         position: fixed;
         top: $baseline;
         left: $baseline;
@@ -53,15 +54,29 @@
   .main {
     .journey {
       section {
+        float: left;
+        width: 100%;
         line-height: $baseline;
         margin: $baseline 0;
-      }
-      span {
-        font-size: $baseline*4;
-        font-weight: 700;
-        line-height: $baseline*4;
-        float: left;
-        margin-right: $baseline;
+        span {
+          font-size: $baseline*4;
+          font-weight: 700;
+          line-height: $baseline*4;
+          float: left;
+          margin-right: $baseline*0.5;
+          width: $baseline*3;
+        }
+        .details {
+          float: left;
+          width: calc(100% - #{$baseline*3.5});
+          h3 {
+              $h3: 24px;
+              font-size: $h3;
+              line-height: calc(#{$h3} * 1.4);
+              margin-top: $baseline;
+              margin-bottom: calc(#{$h3} * 1.4 - #{$baseline});
+          }
+        }
       }
     }
   }

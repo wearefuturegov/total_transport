@@ -1,6 +1,6 @@
 body {
   color: $black;
-  font-family: $stack-1;
+  font-family: $stack-2;
   font-size: $body;
   font-weight: 400;
   line-height: $baseline;
@@ -35,7 +35,7 @@ h1 {
 h2 {
   $h2: 24px;
   font-size: $h2;
-  font-weight: 700;
+  font-weight: 900;
   line-height: calc(#{$h2} * 1.4);
   margin-top: 0;
   margin-bottom: calc(#{$h2} * 1.4);
