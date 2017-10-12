@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :log_entry, only: [:create]
   resources :passengers, except: :destroy do
     resources :sessions, only: [:new, :create]
     collection do
@@ -11,7 +12,6 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
   resources :journeys, only: [:index] do
     collection do
-      get 'suggested/:from' => 'journeys#suggested'
       get ':from/(:to)' => 'journeys#index', as: :from_to
     end
   end
