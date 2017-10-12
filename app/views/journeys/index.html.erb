@@ -2,7 +2,11 @@
   <div class='inner'>
     <%= render 'form', from: @from.try(:name), to: @to.try(:name) %>
     <div id="results">
-      <%= render 'journeys', journeys: @journeys, booking: @booking %>
+      <% if @places %>
+        <%= render 'suggested_journeys', places: @places, from: @from, to: @to %>
+      <% else %>
+        <%= render 'journeys', journeys: @journeys, booking: @booking %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -41,28 +45,17 @@
   
   var chosenTo = () => {
     var chosenItem = $("#to").getSelectedItemData();
-    $('#to').data('placename', chosenItem.NAME1);
+    var url = '/journeys/' + $('#from').data('slug') + '/' + chosenItem.slug;
+
+    $('#to').data('placename', chosenItem.name);
     $('#to_result').empty();
     
-    var fail = (osID) => {
-      var url = '/journeys/suggested/' + $('#from').data('slug') + '?placename=' + $('#to').data('placename')
-      history.pushState(null, null, url);
-      $.get({
-        url: url,
-        dataType: 'script'
-      });
-    }
-    
-    var success = (place) => {
-      var url = '/journeys/' + $('#from').data('slug') + '/' + place.slug;
-      history.pushState(null, null, url);
-      $.get({
-        url: url,
-        dataType: 'script'
-      });
-    }
-    
-    options.list.onChooseEvent = getPlace(chosenItem.ID, chosenItem.NAME1, success, fail, $('#from').data('placename'));
+    history.pushState(null, null, url);
+
+    $.get({
+      url: url,
+      dataType: 'script'
+    });
   }
 
   var options = {
