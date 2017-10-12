@@ -74,6 +74,8 @@
       $('#from').val('');
       $('#to').val('');
       $('#results').html('');
+      $('#from_result').addClass('hidden');
+      $('#from_result').attr('hidden', true);
     } else if (document.location.pathname.match(/journeys\/[a-z\-]+$/)) {
       $('#to').val('');
       $('#results').html('');
