@@ -50,10 +50,6 @@
 
   %section.section
     .action
-      %h3
-        = t('action.title')
-        %span.hyphen
-          —
-        %span
-          = t('action.extra')
-      = link_to I18n.t('button.contact'), journeys_path, class: 'button cta'
+      = link_to I18n.t('action.title'), journeys_path, class: 'button cta'
+    .action
+      = link_to I18n.t('action.extra'), journeys_path, class: 'button cta secondary'
