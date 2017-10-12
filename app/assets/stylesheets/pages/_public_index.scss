@@ -8,41 +8,34 @@
     color: $white;
     position: absolute;
   }
+  h1 {
+    $h1: 50px; // no to variables here, but in this case I think yes.
+    font-size: $h1;
+    line-height: calc(#{$h1} * 1.2);
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    position: fixed;
+    color: $brand;
+    margin: 0;
+  }
+  h2 {
+    $h2: 28px; // no to variables here, but in this case I think yes.
+    font-size: $h2;
+    font-weight: 700;
+    line-height: calc(#{$h2} * 1.2);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
+  }
   .hero {
     float: none;
     display: inline-block;
-    background-color: rgba($gray,0.9);
-    background: linear-gradient(45deg, $gradient-1, $gradient-2);
     background: none;
     position: relative;
     text-align: center;
     .heading {
       margin-top: $baseline*8;
       margin-bottom: 0;
-      h1 {
-        $h1: 50px; // no to variables here, but in this case I think yes.
-        font-size: $h1;
-        line-height: calc(#{$h1} * 1.2);
-        font-weight: 900;
-        margin-top: calc(#{$h1});
-        margin-bottom: calc(#{$h1});
-        text-transform: uppercase;
-        font-style: italic;
-        position: fixed;
-        top: $baseline;
-        left: $baseline;
-        margin: 0;
-        z-index: -500;
-        color: $brand;
-      }
-      h2 {
-        $h2: 28px; // no to variables here, but in this case I think yes.
-        font-size: $h2;
-        font-weight: 700;
-        line-height: calc(#{$h2} * 1.2);
-        margin-top: 0;
-        margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
-      }
       .action {
         margin-top: 0;
         h4 {

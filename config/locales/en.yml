@@ -39,8 +39,9 @@ en:
       suffolk: 'Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance.'
     map_title: 'Connecting residents to great locations in your area'
     about:
-      title: '-'
-      info: 'Pre-book journeys for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events.'
+      title: ''
+      info: 'Pre-book a ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way.'
+      extra: 'Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events.'
     collection:
       title: 'Great destinations to visit in your area'
     list:
@@ -48,6 +49,13 @@ en:
     dummy:
       title: 'Places you can visit.'
       info: 'A place you might travel to.'
+    footer:
+      social_1: 'Twitter'
+      social_2: 'Facebook'
+      info: 'A project by:' 
+      author_1: 'Essex County Council'
+      author_2: 'Suffolk County Council'
+      author_3: 'FutureGov'
 
 
   steps:
@@ -56,16 +64,16 @@ en:
       info: 'Fill in your journey details and select an available route.'
     step_2:
       title: 'Confirm'
-      info: 'You’ll get a confirmation within 24 hours.'
+      info: 'You’ll get a confirmation within 48 hours.'
     step_3:
       title: 'Ride'
       info: 'Meet your driver at the selected pickup point.'
 
   button:
-    book: 'Pre-book my journey'
-    contact: 'Get in touch'
+    book: 'Pre-book your ride'
+    contact: 'Have a question?'
   
   action:
-    title: 'Pre-book my journey'
-    extra: 'Got a question?'
+    title: 'Pre-book your ride'
+    extra: 'Have a question?'
   
