@@ -15,15 +15,7 @@ class PlacesController < PublicController
   def index
     respond_to do |format|
       format.json do
-        render json: @places.as_json
-      end
-    end
-  end
-  
-  def show
-    respond_to do |format|
-      format.json do
-        render json: @place.as_json
+        render json: @places.as_json(include: :routes)
       end
     end
   end
