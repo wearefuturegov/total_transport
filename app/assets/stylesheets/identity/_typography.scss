@@ -23,40 +23,40 @@ a {
   }
 }
 
-h1 {
-  $h1: 40px; // no to variables here, but in this case I think yes.
-  font-size: $h1;
-  font-weight: 900;
-  line-height: calc(#{$h1} * 1.2);
-  margin-top: 0;
-  margin-bottom: calc(#{$h1} * 1.2);
-}
+// h1 {
+//   $h1: 40px; // no to variables here, but in this case I think yes.
+//   font-size: $h1;
+//   font-weight: 900;
+//   line-height: calc(#{$h1} * 1.2);
+//   margin-top: 0;
+//   margin-bottom: calc(#{$h1} * 1.2);
+// }
 
-h2 {
-  $h2: 24px;
-  font-size: $h2;
-  font-weight: 900;
-  line-height: calc(#{$h2} * 1.4);
-  margin-top: 0;
-  margin-bottom: calc(#{$h2} * 1.4);
-}
+// h2 {
+//   $h2: 25px;
+//   font-size: $h2;
+//   font-weight: 900;
+//   line-height: calc(#{$h2} * 1.4);
+//   margin-top: 0;
+//   margin-bottom: calc(#{$h2} * 1.4);
+// }
 
-h3 {
-  $h3: 24px;
-  font-size: $h3;
-  line-height: calc(#{$h3} * 1.4);
-  margin-top: 0;
-  margin-bottom: calc(#{$h3} * 1.4);
-}
+// h3 {
+//   $h3: 25px;
+//   font-size: $h3;
+//   line-height: calc(#{$h3} * 1.4);
+//   margin-top: 0;
+//   margin-bottom: calc(#{$h3} * 1.4);
+// }
 
-h4 {
-  $h4: 20px;
-  font-size: $h4;
-  font-weight: 400;
-  line-height: calc(#{$h4} * 1.2);
-  margin-top: 0;
-  margin-bottom: calc(#{$h4} * 1.2);
-}
+// h4 {
+//   $h4: 25px;
+//   font-size: $h4;
+//   font-weight: 400;
+//   line-height: calc(#{$h4} * 1.2);
+//   margin-top: 0;
+//   margin-bottom: calc(#{$h4} * 1.2);
+// }
 
 a {
   color: rgba(21,101,192,0.8);
