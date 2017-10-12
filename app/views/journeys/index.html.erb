@@ -33,6 +33,9 @@
       $('#from_result #place').html(placename);
       $('#from_result').removeClass('hidden');
       $('#from_result').attr('hidden', false);
+      $.post({
+        url: '/log_entry/?from=' + chosenItem.name
+      });
     }
   }
   
