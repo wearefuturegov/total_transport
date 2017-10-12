@@ -37,7 +37,10 @@ class Admin::StopsController < AdminController
   private
 
   def stop_params
-    params.require(:stop).permit(:place_id, :minutes_from_last_stop)
+    params.require(:stop).permit(
+      :place_id, :minutes_from_last_stop,
+      landmarks_attributes: [:id, :name, :latitude, :longitude, :_destroy]
+    )
   end
 
   def find_route

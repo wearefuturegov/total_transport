@@ -6,6 +6,8 @@ class Stop < ActiveRecord::Base
   has_many :dropoff_stops, class_name: 'Booking', foreign_key: 'dropoff_stop_id', dependent: :destroy
   has_many :landmarks, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
+  
+  accepts_nested_attributes_for :landmarks, reject_if: :all_blank, allow_destroy: true
 
   validates_presence_of :place, :route
   
