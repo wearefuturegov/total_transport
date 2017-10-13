@@ -56,9 +56,7 @@ Rails.application.routes.draw do
         put 'sort'
       end
 
-      resources :stops do
-        resources :landmarks
-      end
+      resources :stops
     end
     resources :suggestions
     resources :supplier_suggestions
