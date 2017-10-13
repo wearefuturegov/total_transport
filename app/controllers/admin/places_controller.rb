@@ -18,7 +18,7 @@ class Admin::PlacesController < AdminController
   private
   
     def place_params
-      params.require(:place).permit(:name, :latitude, :longitude, :os_id)
+      params.require(:place).permit(:name, :latitude, :longitude)
     end
     
     def get_back_path

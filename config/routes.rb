@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :bookings, only: :show
     resources :sms, only: [:new, :create]
     resources :places, only: [:new, :create]
+    resources :placenames, only: [:index]
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
 

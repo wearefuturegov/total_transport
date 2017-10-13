@@ -1,15 +1,12 @@
 <%= hidden_field_tag(:previous_route_id, @route_id.to_i) if @route_id %>
-<%= form.label :town_village, 'Town/Village'  %>
-<%= text_field :town_village, nil %>
-
 <%= form.label :name  %>
 <%= form.text_field :name %>
 
 <%= form.label :latlng, 'Location'  %>
 <%= form.hidden_field :latitude %>
 <%= form.hidden_field :longitude %>
-<%= form.hidden_field :os_id %>
 <div id="map_wrapper">
+  <%= text_field :search_map, nil, placeholder: 'Search the map' %>
 </div>
 
 <% content_for :js do %>
@@ -20,13 +17,13 @@
     
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       maxZoom: 18,
-      id: 'mapbox.light',
+      id: 'mapbox.streets',
       accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
     }).addTo(map);
 
     var autoCompleteOptions = {
       url: function(place) {
-        return '/places.json?query=' + place
+        return '/admin/placenames?query=' + place
       },
       getValue: "NAME1",
       list: {
@@ -34,14 +31,12 @@
           enabled: true
         },
         onClickEvent: function() {
-          var chosenItem = $("#town_village_").getSelectedItemData();
+          var chosenItem = $("#search_map_").getSelectedItemData();
           var eastings = chosenItem.GEOMETRY_X;
           var northings = chosenItem.GEOMETRY_Y;
           var latlng = eastNorthToLatLong(eastings, northings);
           var coords = [latlng.lat, latlng.lng];
 
-          $('#place_os_id').val(chosenItem.ID);
-          $('#place_name').val(chosenItem.NAME1);
           $('#place_latitude').val(latlng.lat);
           $('#place_longitude').val(latlng.lng);
           
@@ -58,6 +53,6 @@
       theme: 'square'
     };
 
-    $('#town_village_').easyAutocomplete(autoCompleteOptions);
+    $('#search_map_').easyAutocomplete(autoCompleteOptions);
 </script>
 <% end %>
