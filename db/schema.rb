@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011160921) do
+ActiveRecord::Schema.define(version: 20171016095431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,18 +19,12 @@ ActiveRecord::Schema.define(version: 20171011160921) do
   create_table "bookings", force: :cascade do |t|
     t.integer  "journey_id"
     t.integer  "pickup_stop_id"
-    t.float    "pickup_lat"
-    t.float    "pickup_lng"
     t.integer  "dropoff_stop_id"
-    t.float    "dropoff_lat"
-    t.float    "dropoff_lng"
     t.string   "state"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.integer  "passenger_id"
     t.string   "phone_number"
-    t.string   "pickup_name"
-    t.string   "dropoff_name"
     t.integer  "return_journey_id"
     t.integer  "number_of_passengers", default: 1
     t.text     "special_requirements"
@@ -41,11 +35,15 @@ ActiveRecord::Schema.define(version: 20171011160921) do
     t.integer  "promo_code_id"
     t.string   "passenger_name"
     t.string   "payment_method",       default: "cash"
+    t.integer  "pickup_landmark_id"
+    t.integer  "dropoff_landmark_id"
   end
 
+  add_index "bookings", ["dropoff_landmark_id"], name: "index_bookings_on_dropoff_landmark_id", using: :btree
   add_index "bookings", ["dropoff_stop_id"], name: "index_bookings_on_dropoff_stop_id", using: :btree
   add_index "bookings", ["journey_id"], name: "index_bookings_on_journey_id", using: :btree
   add_index "bookings", ["passenger_id"], name: "index_bookings_on_passenger_id", using: :btree
+  add_index "bookings", ["pickup_landmark_id"], name: "index_bookings_on_pickup_landmark_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
   add_index "bookings", ["promo_code_id"], name: "index_bookings_on_promo_code_id", using: :btree
 
@@ -139,7 +137,6 @@ ActiveRecord::Schema.define(version: 20171011160921) do
 
   create_table "stops", force: :cascade do |t|
     t.integer  "route_id"
-    t.json     "polygon"
     t.integer  "position"
     t.integer  "minutes_from_last_stop"
     t.datetime "created_at",             null: false

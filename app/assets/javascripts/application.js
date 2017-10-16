@@ -15,4 +15,5 @@
 //= require jquery-ui
 //= require jquery-ui/sortable
 //= require datetimepicker
+//= require cocoon
 //= require_tree .

@@ -5,6 +5,8 @@ class Booking < ActiveRecord::Base
   belongs_to :dropoff_stop, class_name: 'Stop'
   belongs_to :passenger
   belongs_to :promo_code
+  belongs_to :pickup_landmark, class_name: 'Landmark'
+  belongs_to :dropoff_landmark, class_name: 'Landmark'
 
   scope :booked, -> { where(state: 'booked') }
   
@@ -26,6 +28,14 @@ class Booking < ActiveRecord::Base
   def dropoff_time(reversed = false)
     stop = reversed ? pickup_stop : dropoff_stop
     journey.time_at_stop(dropoff_stop)
+  end
+  
+  def pickup_name
+    pickup_landmark.try(:name)
+  end
+  
+  def dropoff_name
+    dropoff_landmark.try(:name)
   end
 
   def last_dropoff_time

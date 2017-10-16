@@ -26,10 +26,6 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
       expect(subject.back_path).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
     end
     
-    it 'returns map_type' do
-      expect(subject.map_type).to eq(nil)
-    end
-    
     it 'returns a template' do
       expect(subject.template).to eq('bookings/edit_return_journey')
     end
@@ -92,16 +88,12 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
       expect(subject.back_path).to eq(edit_requirements_route_booking_path(route, booking))
     end
     
-    it 'returns map_type' do
-      expect(subject.map_type).to eq('pickup')
-    end
-    
     it 'returns a template' do
       expect(subject.template).to eq('bookings/edit_pickup_dropoff_location')
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :map_type])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :landmarks, :pickup_or_dropoff])
     end
     
   end
@@ -117,16 +109,12 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
       expect(subject.back_path).to eq(edit_pickup_location_route_booking_path(route, booking))
     end
     
-    it 'returns map_type' do
-      expect(subject.map_type).to eq('dropoff')
-    end
-    
     it 'returns a template' do
       expect(subject.template).to eq('bookings/edit_pickup_dropoff_location')
     end
     
     it 'returns allowed vars' do
-      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :map_type])
+      expect(subject.allowed_vars).to eq([:page_title, :back_path, :stop, :landmarks, :pickup_or_dropoff])
     end
 
   end
@@ -140,10 +128,6 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     
     it 'returns the return journey path' do
       expect(subject.back_path).to eq(edit_dropoff_location_route_booking_path(route, booking))
-    end
-    
-    it 'returns map_type' do
-      expect(subject.map_type).to eq(nil)
     end
     
     it 'returns a template' do
@@ -165,10 +149,6 @@ RSpec.describe BookingsWorkflow::Edit, type: :model do
     
     it 'returns the return journey path' do
       expect(subject.back_path).to eq(edit_confirm_route_booking_path(route, booking))
-    end
-    
-    it 'returns map_type' do
-      expect(subject.map_type).to eq(nil)
     end
     
     it 'returns a template' do

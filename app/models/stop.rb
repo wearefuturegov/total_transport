@@ -6,8 +6,11 @@ class Stop < ActiveRecord::Base
   has_many :dropoff_stops, class_name: 'Booking', foreign_key: 'dropoff_stop_id', dependent: :destroy
   has_many :landmarks, dependent: :destroy
   has_many :suggested_edit_to_stops, dependent: :destroy
+  
+  accepts_nested_attributes_for :landmarks, reject_if: :all_blank, allow_destroy: true
 
-  validates_presence_of :place, :route, :polygon
+  validates_presence_of :place, :route
+  validate :check_landmarks
   
   after_create :queue_minutes_from_last_stop
 
@@ -49,6 +52,12 @@ class Stop < ActiveRecord::Base
   
   def queue_minutes_from_last_stop
     CalculateMinutesFromLastStop.enqueue(id)
+  end
+  
+  def check_landmarks
+    if landmarks.size == 0
+      self.errors.add :landmarks, 'You must specify at least one landmark'
+    end
   end
   
 end
