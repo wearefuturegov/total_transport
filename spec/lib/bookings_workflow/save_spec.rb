@@ -10,6 +10,9 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
   let(:session) { Hash.new }
   let(:subject) { BookingsWorkflow::Save.new(step, route, booking, params, session) }
   let(:promo_code) { FactoryGirl.create(:promo_code) }
+  let(:pickup_landmark) { FactoryGirl.create(:landmark) }
+  let(:dropoff_landmark) { FactoryGirl.create(:landmark) }
+
   let(:params) {
     ActionController::Parameters.new({
       number_of_passengers: 1,
@@ -21,12 +24,9 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       special_requirements: 'Foo bar baz',
       journey_id: journey.id,
       return_journey_id: return_journey.id,
-      pickup_lat: 52.4323,
-      pickup_lng: -1.4234,
+      pickup_landmark_id: pickup_landmark.id,
       pickup_name: 'Somewhere',
-      dropoff_lat: 52.4323,
-      dropoff_lng: -1.4234,
-      dropoff_name: 'Somewhere',
+      dropoff_landmark_id: dropoff_landmark.id,
       passenger_name: 'Me',
       phone_number: '+15005550006',
       payment_method: 'cash',
@@ -102,9 +102,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     
     it 'returns the correct params' do
       expect(subject.params).to eq(ActionController::Parameters.new({
-        pickup_lat: 52.4323,
-        pickup_lng: -1.4234,
-        pickup_name: 'Somewhere'
+        pickup_landmark_id: pickup_landmark.id
       }))
     end
     
@@ -125,9 +123,7 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
     
     it 'returns the correct params' do
       expect(subject.params).to eq(ActionController::Parameters.new({
-        dropoff_lat: 52.4323,
-        dropoff_lng: -1.4234,
-        dropoff_name: 'Somewhere'
+        dropoff_landmark_id: dropoff_landmark.id
       }))
     end
     

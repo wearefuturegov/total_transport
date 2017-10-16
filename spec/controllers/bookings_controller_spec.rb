@@ -82,9 +82,7 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'save_pickup_location updates the correct things' do
       booking_params = {
-        pickup_lat: 52.4323,
-        pickup_lng: -1.4234,
-        pickup_name: 'Somewhere'
+        pickup_landmark_id: FactoryGirl.create(:landmark).id
       }
       
       params['booking'] = booking_params
@@ -99,9 +97,7 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'save_dropoff_location updates the correct things' do
       booking_params = {
-        dropoff_lat: 52.4323,
-        dropoff_lng: -1.4234,
-        dropoff_name: 'Somewhere'
+        dropoff_landmark_id: FactoryGirl.create(:landmark).id
       }
       
       params['booking'] = booking_params
@@ -243,7 +239,6 @@ RSpec.describe BookingsController, type: :controller do
       expect(assigns(:page_title)).to eq('Choose Pick Up Point')
       expect(assigns(:back_path)).to eq(edit_requirements_route_booking_path(route, booking))
       expect(assigns(:stop)).to eq(booking.pickup_stop)
-      expect(assigns(:map_type)).to eq('pickup')
     end
     
     it 'edit_dropoff_location sets the right variables' do
@@ -259,7 +254,6 @@ RSpec.describe BookingsController, type: :controller do
       expect(assigns(:page_title)).to eq('Choose Drop Off Point')
       expect(assigns(:back_path)).to eq(edit_pickup_location_route_booking_path(route, booking))
       expect(assigns(:stop)).to eq(booking.dropoff_stop)
-      expect(assigns(:map_type)).to eq('dropoff')
     end
     
     it 'confirm sets the right variables' do

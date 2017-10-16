@@ -75,15 +75,11 @@ module BookingsWorkflow
           ]
         when :pickup_location
           [
-            :pickup_lat,
-            :pickup_lng,
-            :pickup_name
+            :pickup_landmark_id
           ]
         when :dropoff_location
           [
-            :dropoff_lat,
-            :dropoff_lng,
-            :dropoff_name
+            :dropoff_landmark_id
           ]
         when :confirm
           [

@@ -30,8 +30,8 @@ module WebSteps
   end
 
   step 'I choose a pickup and dropoff point' do
-    choose_pickup_dropoff_point('pickup', @route.stops.first.place.latitude, @route.stops.first.place.longitude)
-    choose_pickup_dropoff_point('dropoff', @route.stops.last.place.latitude, @route.stops.last.place.longitude)
+    choose_pickup_dropoff_point('pickup', @route.stops.first.landmarks.first)
+    choose_pickup_dropoff_point('dropoff', @route.stops.last.landmarks.first)
   end
 
   step 'I fill in my details' do
@@ -73,11 +73,8 @@ module WebSteps
     click_next
   end
 
-  def choose_pickup_dropoff_point(type, lat, lng)
-    page.execute_script("$('#booking_#{type}_lat').val('#{lat}')")
-    page.execute_script("$('#booking_#{type}_lng').val('#{lng}')")
-    page.execute_script("$('.disabled').attr('disabled', false)")
-    wait_for_ajax
+  def choose_pickup_dropoff_point(type, landmark)
+    select(landmark.name, from: "booking_#{type}_landmark_id")
     click_next
   end
 
