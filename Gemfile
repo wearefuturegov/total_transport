@@ -60,6 +60,7 @@ gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
 gem 'google_drive'
+gem 'cocoon'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,14 +1,12 @@
 FactoryGirl.define do
   factory(:booking) do
-    dropoff_lat nil
-    dropoff_lng nil
     dropoff_stop factory: :stop
     journey
     passenger
     phone_number nil
-    pickup_lat nil
-    pickup_lng nil
     pickup_stop factory: :stop
     state nil
+    pickup_landmark { FactoryGirl.create(:landmark) }
+    dropoff_landmark { FactoryGirl.create(:landmark) }
   end
 end

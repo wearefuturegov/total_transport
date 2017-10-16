@@ -49,7 +49,7 @@ module BookingsWorkflow
       return @route.available_journeys_by_date(params)
     end
     
-    def map_type
+    def pickup_or_dropoff
       {
         edit_pickup_location: 'pickup',
         edit_dropoff_location: 'dropoff'
@@ -74,15 +74,19 @@ module BookingsWorkflow
       when :edit_requirements, :edit_journey, :edit_return_journey
         vars << :journeys
       when :edit_pickup_location, :edit_dropoff_location
-        vars += [:stop, :map_type]
+        vars += [:stop, :landmarks, :pickup_or_dropoff]
       end
       vars
     end
     
     def stop
-      @booking.send("#{map_type}_stop")
+      @booking.send("#{pickup_or_dropoff}_stop")
     end
     
+    def landmarks
+      stop.landmarks
+    end
+        
     private
     
       def from_time

@@ -13,7 +13,7 @@ RSpec.describe SmsService, type: :model do
     booking = FactoryGirl.create(:booking,
       pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
       dropoff_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Saffron Walden')),
-      pickup_name: 'The Red Lion',
+      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion'),
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-02T09:00:00Z')),
     )
     sms = SmsService.new(to: '1234', template: :booking_notification, booking: booking)
@@ -36,12 +36,12 @@ RSpec.describe SmsService, type: :model do
   it 'sends a first reminder' do
     booking = FactoryGirl.create(:booking,
       journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'The Red Lion'))
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury'))
     )
     sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match(/This is a reminder that you will be picked up from The Red Lion tomorrow at 10:40 AM/)
+    expect(FakeSMS.messages.last[:body]).to match(/This is a reminder that you will be picked up from Sudbury tomorrow at 10:40 AM/)
   end
   
   it 'sends a second reminder' do

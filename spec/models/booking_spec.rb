@@ -208,6 +208,17 @@ RSpec.describe Booking, type: :model do
     end
     
   end
+  
+  it 'allows pickup and dropoff landmarks to be applied' do
+    pickup_landmark = FactoryGirl.create(:landmark, name: 'Pickup Landmark')
+    dropoff_landmark = FactoryGirl.create(:landmark, name: 'Dropoff Landmark')
+    booking.pickup_landmark = pickup_landmark
+    booking.dropoff_landmark = dropoff_landmark
+    booking.save
+    
+    expect(booking.pickup_landmark).to eq(pickup_landmark)
+    expect(booking.dropoff_landmark).to eq(dropoff_landmark)
+  end
 
   describe "pricing" do
     let(:booking) {Booking.new}

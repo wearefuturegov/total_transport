@@ -1,124 +1,81 @@
-<% content_for :js do %>
-<script type="text/javascript">
-  var map;
-  var polygon;
-  var bounds;
-  function initMap() {
-    function initialize() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: new google.maps.LatLng(54.559322,-4.174804),
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true,
-        zoomControl: true
-      });
-      
-      var $places = $('#stop_place_id');
-
-      map.data.setControls(['Polygon']);
-      map.data.setDrawingMode('Polygon');
-      map.data.setStyle({
-        editable: true,
-        draggable: true
-      });
-      
-      $places.change(function() {
-        var data = $(this).find(':selected').data();
-        var latlng = new google.maps.LatLng(data.lat, data.lng);
-        map.setZoom(14);
-        map.panTo(latlng);
-      });
-      
-      function savePolygon() {
-        map.data.setControls(null);
-        map.data.setDrawingMode(null);
-        map.data.toGeoJson(function (json) {
-          $('#stop_polygon').val(JSON.stringify(json));
-        });
-        $('#resetMapBtn').prop('disabled', false);
-        fetchPolygon();
-        if(hasPolygon()) {
-          fetchLatLngBoundsOfPolygon();
-          $('#stop_latitude').val(bounds.getCenter().lat());
-          $('#stop_longitude').val(bounds.getCenter().lng());
-        }
-      }
-
-      function loadPolygon() {
-        var data = JSON.parse($('#stop_polygon').val());
-        // map.data.forEach(function (f) {
-        //     map.data.remove(f);
-        // });
-        map.data.addGeoJson(data);
-        fetchPolygon();
-        if(hasPolygon()) {
-          fetchLatLngBoundsOfPolygon();
-          fitMapToPolygon();
-        }
-      }
-
-      function fetchPolygon() {
-        // This appears to be the most reliable way of
-        // fetching the polygon object from the map object :-/
-        map.data.forEach(function(feature) {polygon = feature.getGeometry()})
-      }
-
-      function hasPolygon() {
-        return typeof polygon !== 'undefined';
-      }
-
-      function fetchLatLngBoundsOfPolygon() {
-        bounds=new google.maps.LatLngBounds();
-        polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
-      }
-
-      function fitMapToPolygon() {
-        fetchLatLngBoundsOfPolygon();
-        map.fitBounds(bounds);
-      }
-
-
-      map.data.addListener('addfeature', savePolygon);
-      map.data.addListener('removefeature', savePolygon);
-      map.data.addListener('setgeometry', savePolygon);
-      loadPolygon();
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-  };
-
-  function resetMap() {
-    map.data.forEach(function (feature) {
-      map.data.remove(feature);
-    });
-    map.data.setControls(['Polygon']);
-    map.data.setDrawingMode('Polygon');
-    map.data.setStyle({
-      editable: true,
-      draggable: true
-    });
-    $('#stop_latitude').val('');
-    $('#stop_longitude').val('');
-    $('#resetMapBtn').prop('disabled', true);
-  }
-</script>
-
-<style media="screen">
-#map {
-  width: 600px;
-  height: 300px;
-}
-</style>
-<% end %>
-
 <%= form.label :place_id  %>
 <%= form.select :place_id, options_for_select(@places.map { |p|
   [p.name, p.id, { 'data-lat' => p.latitude, 'data-lng' => p.longitude }]
-}) %>
+}, selected: @stop.place_id) %>
 <%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button small-button', id: 'add-place' %>
-<%= form.label :polygon, "Define the Stop Area" %>
-<%= form.hidden_field :polygon, value: form.object.polygon.to_json %>
-<div id="map_wrapper">
-  <div id="map"></div>
+
+<h2>Landmarks</h2>
+<div id="landmarks">
+  <% if @stop.landmarks.count > 0 %>
+    <% @stop.landmarks.each do |landmark| %>
+      <%= form.fields_for :landmarks, landmark do |builder| %>
+        <%= render partial: 'admin/stops/landmark', locals: {
+          f: builder,
+          latitude: landmark.latitude,
+          longitude: landmark.longitude
+        } %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p id="no_landmarks">There are no landmarks</p>
+  <% end %>
+  <%= link_to_add_association "Add Landmark", form, :landmarks,
+      partial: 'admin/stops/landmark',
+      class: 'button',
+      render_options: {
+        locals: { latitude: nil, longitude: nil }
+      }
+  %>
 </div>
-<div id="resetMapBtn" class="button negative" disabled type="button" onclick="resetMap()">Clear Map</div>
+
+<% content_for :js do %>
+<script type="text/javascript">
+
+  jQuery.fn.extend({
+    drawMap: function() {
+      var $container = $(this);
+      var $map = $container.find('.map')
+      $map.uniqueId();
+          
+      var id = $map.attr('id');
+      var coords = [$container.data('lat'), $container.data('lng')]
+      var marker = L.marker(coords, {draggable:'true'});
+      
+      var map = L.map(id, {
+        zoomControl: true
+      }).setView(coords, 18);
+    
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
+      }).addTo(map);
+      
+      marker.on('dragend', function() {
+        var position = marker.getLatLng();
+        $container.find('.latitude').val(position.lat);
+        $container.find('.longitude').val(position.lng);
+      });
+      
+      marker.addTo(map);
+    }
+  });
+  
+  $('.landmark').each(function( index ) {
+    $(this).drawMap();
+  });
+  
+  $("#landmarks a.add_fields")
+      .data("association-insertion-method", 'before')
+      .data("association-insertion-node", 'this');
+      
+  $('#landmarks').on('cocoon:after-insert', function(e, insertedItem) {
+    $('#no_landmarks').hide();
+    insertedItem.data('lat', $('#stop_place_id').find(":selected").data('lat'));
+    insertedItem.data('lng', $('#stop_place_id').find(":selected").data('lng'));
+    insertedItem.drawMap();
+  });
+  
+</script>
+<% end %>
+  
