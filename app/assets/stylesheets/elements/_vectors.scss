@@ -1,0 +1,30 @@
+/* fontawesome */
+
+.fa-angle-down {
+  color: $white;
+  font-size: $baseline*2;
+}
+
+/* logo */
+
+#public-index {
+  .logo {
+    background: image-url('logo.svg');
+    background-size: 100% 100%;
+    display: block;
+    text-indent: -9999px;
+    width: $logo-width;
+    height: $logo-height;
+    h1 {
+      $h1: 50px; // no to variables here, but in this case I think yes.
+      font-size: $h1;
+      line-height: calc(#{$h1} * 1.2);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-style: italic;
+      position: fixed;
+      color: $brand;
+      margin: 0;
+    }
+  }
+}
