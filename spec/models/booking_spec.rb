@@ -83,7 +83,7 @@ RSpec.describe Booking, type: :model do
     
   end
   
-  context 'available days and times' do
+  context 'available journeys' do
     
     let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
     let!(:stops) {
@@ -97,24 +97,18 @@ RSpec.describe Booking, type: :model do
     }
     
     let(:booking) { FactoryGirl.create(:booking, pickup_stop: stops[0], dropoff_stop: stops[3]) }
+    let!(:journeys) {
+      [
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+      ]
+    }
     
-    before do
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false )
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false )
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false )
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
-    end
-    
-    it 'gets available booking days' do
-      expect(booking.available_days).to eq([
-        Date.today + 1.day,
-        Date.today + 2.day,
-        Date.today + 3.day
-      ])
-    end
-    
-    it 'gets avaiable booking times for a day' do
-      expect(booking.available_times(Date.today + 2.day).count).to eq(2)
+    it 'gets available_journeys' do
+      FactoryGirl.create_list(:journey, 12)
+      expect(booking.available_journeys).to eq(journeys)
     end
     
   end
