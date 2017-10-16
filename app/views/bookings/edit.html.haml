@@ -20,6 +20,11 @@
           = form.select :pickup_landmark_id,
               options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
               include_blank: '-- Please Select --'
+          
+          = form.label :pickup_landmark_id, 'Please choose a dropoff point'
+          = form.select :dropoff_landmark_id,
+              options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
+              include_blank: '-- Please Select --'
       
       %a#return-chooser.hidden
         Choose return journey?
@@ -27,13 +32,6 @@
       #return.hidden
         %h3 Choose return journey
         = render 'journeys', form: form, journey_type: :return_journey_id, type: 'return'
-        
-        .landmarks.hidden
-          
-          = form.label :pickup_landmark_id, 'Please choose a dropoff point'
-          = form.select :dropoff_landmark_id,
-              options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
-              include_blank: '-- Please Select --'
       
       #details.hidden
       
@@ -126,16 +124,12 @@
     })
     
     $('#outward .time input').click(function() {
-      $('#outward .landmarks').removeClass('hidden');
+      $('.landmarks').removeClass('hidden');
     });
     
-    $('#booking_pickup_landmark_id').change(function() {
+    $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');
       $('#details').removeClass('hidden');
-    });
-    
-    $('#return .time input').click(function() {
-      $('#return .landmarks').removeClass('hidden');
     });
     
     var noOfAdults = 0,
