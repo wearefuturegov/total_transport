@@ -14,6 +14,16 @@
 <% content_for :js do %>
 
 <script type='text/javascript'>
+  // Monkey patch pushState to notify Google Analytics
+  var pushState = history.pushState;
+  history.pushState = function () {
+    pushState.apply(history, arguments);
+    if (typeof(ga) == 'function') {
+      ga('set', 'location', event.data.url);
+      ga('send', 'pageview');
+    }
+  };
+  
   var enableTo = (slug) => {
     var toOptions = options;
     $('#from').data('slug', slug);
