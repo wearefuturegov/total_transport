@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016084928) do
+ActiveRecord::Schema.define(version: 20171016095431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,6 @@ ActiveRecord::Schema.define(version: 20171016084928) do
     t.datetime "updated_at",                            null: false
     t.integer  "passenger_id"
     t.string   "phone_number"
-    t.string   "pickup_name"
-    t.string   "dropoff_name"
     t.integer  "return_journey_id"
     t.integer  "number_of_passengers", default: 1
     t.text     "special_requirements"

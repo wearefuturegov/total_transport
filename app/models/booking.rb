@@ -29,6 +29,14 @@ class Booking < ActiveRecord::Base
     stop = reversed ? pickup_stop : dropoff_stop
     journey.time_at_stop(dropoff_stop)
   end
+  
+  def pickup_name
+    pickup_landmark.try(:name)
+  end
+  
+  def dropoff_name
+    dropoff_landmark.try(:name)
+  end
 
   def last_dropoff_time
     if return_journey?

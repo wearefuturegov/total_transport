@@ -25,7 +25,6 @@ RSpec.describe BookingsWorkflow::Save, type: :model do
       journey_id: journey.id,
       return_journey_id: return_journey.id,
       pickup_landmark_id: pickup_landmark.id,
-      pickup_name: 'Somewhere',
       dropoff_landmark_id: dropoff_landmark.id,
       passenger_name: 'Me',
       phone_number: '+15005550006',
