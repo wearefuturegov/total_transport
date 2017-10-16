@@ -18,13 +18,13 @@ Rails.application.routes.draw do
   resources :routes do
     resources :bookings do
       member do
-        BookingsWorkflow::STEPS.each do |route|
-          get "edit_#{route}", action: :edit, as: "edit_#{route}", step: route
-        end
-        
-        BookingsWorkflow::STEPS.each do |route|
-          patch "save_#{route}", action: :update, as: "save_#{route}", step: route
-        end
+        # BookingsWorkflow::STEPS.each do |route|
+        #   get "edit_#{route}", action: :edit, as: "edit_#{route}", step: route
+        # end
+        #
+        # BookingsWorkflow::STEPS.each do |route|
+        #   patch "save_#{route}", action: :update, as: "save_#{route}", step: route
+        # end
                 
         resources :suggested_journey, only: [:new, :create]
         resources :suggested_edit_to_stop, only: [:new, :create]

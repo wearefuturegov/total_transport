@@ -7,19 +7,16 @@ class BookingsController < PublicController
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    if params[:booking][:return_available] === 'true'
-      redirect_to edit_return_journey_route_booking_path(@route, @booking)
-    else
-      redirect_to edit_requirements_route_booking_path(@route, @booking)
-    end
+    redirect_to edit_route_booking_path(@route, @booking)
   end
   
   def edit
-    workflow = BookingsWorkflow::Edit.new(params['step'].to_sym, @route, @booking)
-    workflow.allowed_vars.each do |var|
-      instance_variable_set("@#{var.to_s}", workflow.send(var))
-    end
-    render template: workflow.template
+    @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
+    # workflow = BookingsWorkflow::Edit.new(params['step'].to_sym, @route, @booking)
+    # workflow.allowed_vars.each do |var|
+    #   instance_variable_set("@#{var.to_s}", workflow.send(var))
+    # end
+    # render template: workflow.template
   end
   
   def update
