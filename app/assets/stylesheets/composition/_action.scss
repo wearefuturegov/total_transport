@@ -8,4 +8,7 @@
 .action {
   margin-top: $baseline*4;
   margin-bottom: $baseline*2;
+  .button.cta + .button.cta{
+    margin-left: $baseline;
+  }
 }

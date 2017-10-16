@@ -4,78 +4,7 @@
   float: left;
   background-color: $white;
   .header {
-    background-color: transparent;
-    color: $white;
-    position: absolute;
-  }
-  h1 {
-    $h1: 50px; // no to variables here, but in this case I think yes.
-    font-size: $h1;
-    line-height: calc(#{$h1} * 1.2);
-    font-weight: 900;
-    text-transform: uppercase;
-    font-style: italic;
-    position: fixed;
-    color: $brand;
-    margin: 0;
-  }
-  h2 {
-    $h2: 28px; // no to variables here, but in this case I think yes.
-    font-size: $h2;
-    font-weight: 700;
-    line-height: calc(#{$h2} * 1.2);
-    margin-top: 0;
-    margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
-  }
-  .hero {
-    float: none;
-    display: inline-block;
     background: none;
-    position: relative;
-    text-align: center;
-    .heading {
-      margin-top: $baseline*8;
-      margin-bottom: 0;
-      .action {
-        margin-top: 0;
-        h4 {
-          $h4: 50px;
-          font-size: $h4;
-          font-weight: 900;
-          line-height: calc(#{$h4} * 1.2);
-          margin-top: 0;
-          margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
-        }
-      }
-    }
-  }
-  .main {
-    .journey {
-      section {
-        float: left;
-        width: 100%;
-        line-height: $baseline;
-        padding: $baseline 0 $baseline*0.5 0;
-        border-bottom: $border-width $border-style $black;
-        &:last-child {
-           border-bottom: none;
-           padding-bottom: $baseline*0.5 - $border-width*2;
-        }
-        &.step {
-          float: left;
-          h3 {
-              $h3: 30px;
-              font-size: $h3;
-              font-weight: 900;
-              line-height: calc(#{$h3} * 1.1);
-              margin-top: 0;
-              margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
-          }
-        }
-      }
-    }
-  }
-  .footer {
-    background-color: $white;
+    position: absolute;
   }
 }

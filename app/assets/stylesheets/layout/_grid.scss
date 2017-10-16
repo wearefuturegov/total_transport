@@ -27,5 +27,8 @@
 
 .footer {
   @include span-columns(12);
-  background: red;
+}
+
+.psuedo-footer {
+  @include span-columns(12);
 }
