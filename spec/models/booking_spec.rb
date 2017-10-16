@@ -83,6 +83,42 @@ RSpec.describe Booking, type: :model do
     
   end
   
+  context 'available days and times' do
+    
+    let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
+    let!(:stops) {
+      [
+        FactoryGirl.create(:stop, position: 1, route: route),
+        FactoryGirl.create(:stop, position: 2, route: route),
+        FactoryGirl.create(:stop, position: 3, route: route),
+        FactoryGirl.create(:stop, position: 4, route: route),
+        FactoryGirl.create(:stop, position: 5, route: route)
+      ]
+    }
+    
+    let(:booking) { FactoryGirl.create(:booking, pickup_stop: stops[0], dropoff_stop: stops[3]) }
+    
+    before do
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false )
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false )
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false )
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+    end
+    
+    it 'gets available booking days' do
+      expect(booking.available_days).to eq([
+        Date.today + 1.day,
+        Date.today + 2.day,
+        Date.today + 3.day
+      ])
+    end
+    
+    it 'gets avaiable booking times for a day' do
+      expect(booking.available_times(Date.today + 2.day).count).to eq(2)
+    end
+    
+  end
+  
   context 'pickup and dropoff times' do
     
     let(:stops) {
