@@ -5,11 +5,7 @@ step 'my booking should be confirmed' do
 end
 
 step 'my booking should be a single journey' do
-  expect(@booking.return_journey_id).to be_nil
-end
-
-step 'my booking should be a single journey' do
-  expect(@booking.return_journey_id).to be_nil
+  expect(@booking.return_journey_id).to eq(0)
 end
 
 step 'my booking should have :n passenger(s)' do |n|

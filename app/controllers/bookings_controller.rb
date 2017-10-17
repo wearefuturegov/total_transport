@@ -13,17 +13,18 @@ class BookingsController < PublicController
   def edit
     @journeys = @booking.available_journeys.group_by { |j| j.start_time.to_date }
     @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
-    # workflow = BookingsWorkflow::Edit.new(params['step'].to_sym, @route, @booking)
-    # workflow.allowed_vars.each do |var|
-    #   instance_variable_set("@#{var.to_s}", workflow.send(var))
-    # end
-    # render template: workflow.template
   end
   
   def update
-    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking], session)
-    workflow.perform_actions!
-    redirect_to workflow.redirect_path, alert: workflow.flash_alert
+    @booking.update_attributes(booking_params)
+    if @booking.valid?
+      formatted_phone_number = Passenger.formatted_phone_number(params[:phone_number])
+      @booking.update_attribute :passenger, Passenger.setup(formatted_phone_number)
+      @booking.confirm!
+      redirect_to confirmation_route_booking_path(@route, @booking)
+    else
+      render :edit
+    end
   end
 
   def confirmation
