@@ -13,7 +13,7 @@ class Booking < ActiveRecord::Base
   after_destroy :remove_alerts, :set_journey_booked_status
   
   def available_journeys
-    @available_journeys ||= Journey.available_for_places(pickup_stop, dropoff_stop)
+    @available_journeys ||= Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
   end
   
   def route
