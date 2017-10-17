@@ -1,0 +1,9 @@
+%section.section
+  = render 'form', from: @from.try(:name), to: @to.try(:name)
+  #results
+    - if @places
+      = render 'suggested_journeys', places: @places, from: @from, to: @to
+    - elsif @journeys
+      = render 'journey_form', journeys: @journeys, booking: @booking
+
+= render 'choose_script'
