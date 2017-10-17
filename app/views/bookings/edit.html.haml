@@ -10,28 +10,26 @@
 .container
   .inner
     = form_for [@route, @booking], url: edit_route_booking_path(@route, @booking) do |form|
-      #outward
-        %h3 Choose outward journey
-        = render 'journeys', form: form, journey_type: :journey_id, type: 'outward'
+
+      %h3 Choose journey
+      = render 'days', form: form
+      
+      #times.hidden
+        = render 'times', form: form, journey_type: :journey_id, type: 'outward'
         
-        .landmarks.hidden
-          
-          = form.label :pickup_landmark_id, 'Please choose a pickup point'
-          = form.select :pickup_landmark_id,
-              options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
-              include_blank: '-- Please Select --'
-          
-          = form.label :pickup_landmark_id, 'Please choose a dropoff point'
-          = form.select :dropoff_landmark_id,
-              options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
-              include_blank: '-- Please Select --'
+        = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
       
-      %a#return-chooser.hidden
-        Choose return journey?
-      
-      #return.hidden
-        %h3 Choose return journey
-        = render 'journeys', form: form, journey_type: :return_journey_id, type: 'return'
+      .landmarks.hidden
+        
+        = form.label :pickup_landmark_id, 'Please choose a pickup point'
+        = form.select :pickup_landmark_id,
+            options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
+            include_blank: '-- Please Select --'
+        
+        = form.label :pickup_landmark_id, 'Please choose a dropoff point'
+        = form.select :dropoff_landmark_id,
+            options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
+            include_blank: '-- Please Select --'
       
       #details.hidden
       
@@ -110,20 +108,16 @@
 
 - content_for :js do
   :javascript
-  
-    $('#return-chooser').click(function() {
-      $('#return').removeClass('hidden');
-    });
     
     $('.date-button').click(function() {
       var target = $(this).data('selector');
       var type = $(this).data('type');
-      $('#' + type + ' .times').removeClass('hidden');
-      $('#' + type + ' .time').addClass('hidden');
-      $('#' + type + ' .' + target).removeClass('hidden');
+      $('#times').removeClass('hidden');
+      $('#times .time').addClass('hidden');
+      $(' .' + target).removeClass('hidden');
     })
     
-    $('#outward .time input').click(function() {
+    $('#return_times input').click(function() {
       $('.landmarks').removeClass('hidden');
     });
     
@@ -135,7 +129,6 @@
     var noOfAdults = 0,
     previousPassengers = 0,
     currentConcessions = 0;
-
 
     $('#special-req-button').click(function() {
       if ($(this).hasClass('negative')) {
