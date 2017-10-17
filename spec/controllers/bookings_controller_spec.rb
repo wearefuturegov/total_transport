@@ -3,7 +3,16 @@ require 'rails_helper'
 RSpec.describe BookingsController, type: :controller do
 
   let(:passenger) { FactoryGirl.create(:passenger) }
-  let(:route) { FactoryGirl.create(:route) }
+  let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
+  let!(:stops) {
+    [
+      FactoryGirl.create(:stop, position: 1, route: route, place: FactoryGirl.create(:place, name: 'Newmarket')),
+      FactoryGirl.create(:stop, position: 2, route: route),
+      FactoryGirl.create(:stop, position: 3, route: route),
+      FactoryGirl.create(:stop, position: 4, route: route),
+      FactoryGirl.create(:stop, position: 5, route: route, place: FactoryGirl.create(:place, name: 'Haverhill'))
+    ]
+  }
   
   describe 'POST create' do
     let(:params) {
@@ -79,7 +88,7 @@ RSpec.describe BookingsController, type: :controller do
       FactoryGirl.create(:booking,
         passenger: passenger,
         pickup_stop_id: route.stops.first.id,
-        dropoff_stop_id: route.stops.first.id,
+        dropoff_stop_id: route.stops.last.id
       )
     }
     
