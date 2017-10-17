@@ -9,7 +9,7 @@
 
 .container
   .inner
-    = form_for [@route, @booking], url: edit_route_booking_path(@route, @booking) do |form|
+    = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
 
       %h3 Choose journey
       = render 'days', form: form
