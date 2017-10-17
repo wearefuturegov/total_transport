@@ -7,55 +7,49 @@ fieldset {
 
 legend {
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $baseline * 0.5;
   padding: 0;
 }
 
 label {
   display: block;
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $baseline * 0.5;
 }
 
 input,
 select,
 textarea {
   display: block;
-  font-family: $stack-1;
-  font-size: $base-font-size;
+  font-size: $body;
+  font-weight: 700;
 }
 
 #{$all-text-inputs}, select[multiple] {
   background-color: white;
-  border: $base-border;
-  box-shadow: $form-box-shadow;
+  border: $brand $border-width $border-style;
   box-sizing: border-box;
-  margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
-  transition: border-color $base-duration $base-timing;
+  margin-bottom: $baseline * 0.5;
+  padding: $baseline * 0.5;
+  transition: border-color ;
   width: 100%;
-
   &:hover {
-    border-color: shade($base-border-color, 20%);
+    border-color: $brand;
   }
-
   &:focus {
-    border-color: $action-color;
+    border-color: $brand;
     outline: none;
   }
-
   &:disabled {
-    background-color: shade($base-background-color, 10%);
+    background-color: $gray-light;
     cursor: not-allowed;
-    border: 1px solid shade($base-background-color, 10%);
-
-    &:hover {
-      border: $base-border;
+    border: $gray-light $border-width $border-style;
+    &::placeholder {
+      color: $white;
     }
   }
-
   &::placeholder {
-    color: $medium-gray;
+    color: $black;
   }
 }
 
