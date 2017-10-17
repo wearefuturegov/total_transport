@@ -77,6 +77,7 @@ module WebSteps
   def fill_in_details(first_name, phone_numer)
     fill_in 'booking_passenger_name', with: first_name
     fill_in 'booking_phone_number', with: phone_numer
+    page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
     click_button 'Submit your booking request'
   end
 
