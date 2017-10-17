@@ -26,6 +26,21 @@ module ApplicationHelper
     end
   end
   
+  def book_journey_submit_label(journey, count)
+    if count > 1
+      "Book Journey (via #{via_point(journey)})"
+    else
+      'Book Journey'
+    end
+  end
+  
+  def via_point(journey)
+    points = [journey.pickup_stop.position, journey.dropoff_stop.position].sort
+    mid = (points.length - 1) / 2.0
+    median = ((points[mid.floor] + points[mid.ceil]) / 2.0).to_i
+    journey.route.stops[median].place.name
+  end
+  
   private
   
     def format_time(time)

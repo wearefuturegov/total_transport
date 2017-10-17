@@ -4,8 +4,8 @@
     <div id="results">
       <% if @places %>
         <%= render 'suggested_journeys', places: @places, from: @from, to: @to %>
-      <% else %>
-        <%= render 'journeys', journeys: @journeys, booking: @booking %>
+      <% elsif @journeys %>
+        <%= render 'journey_form', journeys: @journeys, booking: @booking %>
       <% end %>
     </div>
   </div>

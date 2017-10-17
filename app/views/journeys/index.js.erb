@@ -1,5 +1,5 @@
 <% if @places %>
   $('#results').html('<%= j(render 'suggested_journeys', places: @places, from: @from, to: @to) %>');
 <% else %>
-  $('#results').html('<%= j(render 'journeys', journeys: @journeys, booking: @booking) %>');
+  $('#results').html('<%= j(render 'journey_form', journeys: @journeys, booking: @booking) %>');
 <% end %>

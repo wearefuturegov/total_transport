@@ -5,7 +5,7 @@ class JourneysController < PublicController
   def index
     if @from && @to
       if @to.routes.count > 0
-        @journeys = Journey.available_for_places(@from, @to)
+        @journeys = Journey.available_for_places(@from, @to).group_by(&:route)
         @booking = Booking.new
       else
         routes = @from.routes
