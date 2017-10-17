@@ -1,0 +1,41 @@
+// .easy-autocomplete-container
+//   ul
+//     background: $blue
+//     border-radius: 3px
+//     li
+//       margin-bottom: 0
+//       padding: 0.75em
+//       color: white
+//     &:not(:empty)
+//       margin-top: -0.5em
+//       margin-bottom: 1em
+
+.easy-autocomplete {
+  position: relative;
+}
+
+.easy-autocomplete-container {
+  position: absolute;
+  width: 100%;
+  ul {
+    margin-top: -$baseline*0.5 + $border-width;
+    background: $brand;
+    li {
+      margin-bottom: 0;
+      color: $white;
+      font-weight: 700;
+      .eac-item {
+        padding: $baseline*0.5; // padding here otherwise two show hover state
+      }
+      &:hover {
+        background: $black;
+        cursor: pointer;
+      }
+    }
+    &:not(:empty) {
+    }
+    .selected {
+      background: $black;
+    }
+  }
+}
