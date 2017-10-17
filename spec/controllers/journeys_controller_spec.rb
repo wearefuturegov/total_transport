@@ -41,14 +41,13 @@ RSpec.describe JourneysController, type: :controller do
   
   it 'gets journeys from and to' do
     get :index, from: origin, to: destination
-    
-    expect(assigns(:journeys).count).to eq(4)
+    expect(assigns(:journeys).values.flatten.count).to eq(4)
   end
   
   it 'gets reversed journeys' do
     get :index, from: destination, to: origin
     
-    expect(assigns(:journeys).count).to eq(6)
+    expect(assigns(:journeys).values.flatten.count).to eq(6)
   end
   
   context 'if an origin does not have any routes', :que do
