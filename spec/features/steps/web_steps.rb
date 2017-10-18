@@ -37,12 +37,12 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(body).to match("#{start_point} to #{destination}")
+    expect(body.gsub("\n",' ')).to match("#{start_point} to #{destination}")
   end
   
   def click_book_journey
     wait_for_ajax
-    click_button 'Book Journey'
+    click_button I18n.t('button.book')
   end
   
   def choose_journey
