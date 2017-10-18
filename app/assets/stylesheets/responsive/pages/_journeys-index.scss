@@ -1,0 +1,13 @@
+@media only screen and (max-width: 667px) {
+
+  #journeys-index {
+    .new_booking {
+      input[type='submit'] {
+        bottom: $baseline;
+        position: absolute;
+        width: 90%;
+      }
+    }
+  }
+
+}

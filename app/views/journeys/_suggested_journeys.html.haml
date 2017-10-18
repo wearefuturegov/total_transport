@@ -1,0 +1,17 @@
+%section.section
+  %div{"aria-live" => "assertive", :role => "alert"}
+    %p
+      Sorry, we don't currently travel from #{from.name} to #{to.name}.
+    %p
+      Here are some destinations from #{from.name} that might suit you:
+    - places.each do |place|
+      .single
+        .details
+          %h2
+            = from.name
+            to #{place.name}
+          = link_to 'See available journeys', from_to_journeys_path(from.slug, place.slug), class: 'button'
+  %p
+    Search, for another journey
+
+  = link_to 'Back', '/', class: 'button secondary'
