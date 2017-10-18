@@ -27,17 +27,17 @@
 }
 
 #{$all-buttons}, .button {
+  border: $border-style $border-width $brand;
   text-align: center;
   appearance: none;
   background-color: $brand;
-  border: 0;
-  color: #fff;
+  color: $white;
   cursor: pointer;
   display: inline-block;
   font-family: $stack-1;
-  font-size: 16px;
+  font-size: $body;
   -webkit-font-smoothing: antialiased;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   padding: $small-spacing $base-spacing;
   text-decoration: none;
@@ -51,6 +51,7 @@
   line-height: $baseline*2;
   &:hover, &:focus {
     background-color: $black;
+    border-color: $black;
     color: #fff;
   }
   &:active {
@@ -65,6 +66,11 @@
     &:hover {
       background-color: darken($medium-gray, 10%);
     }
+  }
+  &.secondary {
+    background: $white;
+    color: $black;
+    border-color: $black;
   }
 }
 

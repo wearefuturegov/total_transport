@@ -17,6 +17,7 @@
 .easy-autocomplete-container {
   position: absolute;
   width: 100%;
+  z-index: 500;
   ul {
     margin-top: -$baseline*0.5 + $border-width;
     background: $brand;
