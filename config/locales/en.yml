@@ -69,6 +69,9 @@ en:
       title: 'Ride'
       info: 'Meet your driver at the selected pickup point.'
 
+  journey:
+    title: 'This is a title for journey'
+
   button:
     book: 'Pre-book your ride'
     contact: 'Have a question?'

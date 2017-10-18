@@ -1,4 +1,7 @@
 %section.section
+  %h2
+    = t('journey.title')
+%section.section
   = render 'form', from: @from.try(:name), to: @to.try(:name)
   #results
     - if @places

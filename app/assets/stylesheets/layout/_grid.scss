@@ -29,3 +29,19 @@
   @include span-columns(12);
   background: red;
 }
+
+.key {
+  .markers {
+    @include span-columns(1);
+  }
+  .route {
+    @include span-columns(1);
+  }
+  .form {
+    @include span-columns(5);
+  }
+  .info-wrap {
+    @include span-columns(11);
+    margin-left: 0;
+  }
+}

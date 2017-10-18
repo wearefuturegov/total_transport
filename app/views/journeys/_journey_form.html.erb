@@ -1,7 +1,0 @@
-<% journeys.each do |route,j| %>
-  <%= form_for [route, booking] do |form| %>
-    <%= form.hidden_field :pickup_stop_id, value: j.first.pickup_stop.id %>
-    <%= form.hidden_field :dropoff_stop_id, value: j.first.dropoff_stop.id %>
-    <%= form.submit book_journey_submit_label(j.first, journeys.count) %>
-  <% end %>
-<% end %>

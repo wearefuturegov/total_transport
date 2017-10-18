@@ -11,7 +11,3 @@
             = from.name
             to #{place.name}
           = link_to 'See available journeys', from_to_journeys_path(from.slug, place.slug), class: 'button'
-  %p
-    Search, for another journey
-
-  = link_to 'Back', '/', class: 'button secondary'

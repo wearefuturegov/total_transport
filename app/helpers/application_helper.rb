@@ -28,9 +28,9 @@ module ApplicationHelper
   
   def book_journey_submit_label(journey, count)
     if count > 1
-      "Book Journey (via #{via_point(journey)})"
+      "#{t('button.book')} (via #{via_point(journey)})"
     else
-      'Book Journey'
+      t('button.book')
     end
   end
   
