@@ -12,43 +12,32 @@ Feature: Booking a journey
   Scenario: Booking a return journey
     When I choose a from point of Newmarket
     And I choose a to point of Haverhill
-    And I click on the first journey's request button
-    When I choose the first return option
-    And I don't add any special requirements
+    And I click the book journey button
+    And I choose a journey
     And I choose a pickup and dropoff point
     And I fill in my details
-    Then I should get an SMS with a confirmation code
-    When I enter my confirmation code
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
     
   Scenario: Booking a single journey
     Given I have chosen a journey
     But I don't choose a return journey
-    And I don't add any special requirements
-    And I choose a pickup and dropoff point
     And I fill in my details
-    And I enter my confirmation code
     Then my booking should be confirmed
     And my booking should be a single journey
     
   Scenario: Booking a journey with multiple passengers
-    Given I have chosen a journey with 3 passengers
-    And I choose the first return option
-    And I don't add any special requirements
-    And I choose a pickup and dropoff point
+    Given I have chosen a journey
+    And I choose 3 passengers
     And I fill in my details
-    And I enter my confirmation code
     Then my booking should be confirmed
     And my booking should have 3 passengers
     
   Scenario: Booking a journey with child tickets
-    Given I have chosen a journey with 2 passengers
-    And I choose the first return option
+    Given I have chosen a journey
+    And I choose 2 passengers
     And I choose 1 child ticket
-    And I choose a pickup and dropoff point
     And I fill in my details
-    And I enter my confirmation code
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket

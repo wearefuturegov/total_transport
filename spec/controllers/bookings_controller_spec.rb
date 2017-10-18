@@ -3,7 +3,16 @@ require 'rails_helper'
 RSpec.describe BookingsController, type: :controller do
 
   let(:passenger) { FactoryGirl.create(:passenger) }
-  let(:route) { FactoryGirl.create(:route) }
+  let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
+  let!(:stops) {
+    [
+      FactoryGirl.create(:stop, position: 1, route: route, place: FactoryGirl.create(:place, name: 'Newmarket')),
+      FactoryGirl.create(:stop, position: 2, route: route),
+      FactoryGirl.create(:stop, position: 3, route: route),
+      FactoryGirl.create(:stop, position: 4, route: route),
+      FactoryGirl.create(:stop, position: 5, route: route, place: FactoryGirl.create(:place, name: 'Haverhill'))
+    ]
+  }
   
   describe 'POST create' do
     let(:params) {
@@ -39,103 +48,35 @@ RSpec.describe BookingsController, type: :controller do
     }
     let(:params) {
       {
-        'booking' => {},
-        'id' => booking,
-        'route_id' => route
+        booking: {
+          return_journey_id: journey.id,
+          number_of_passengers: 2,
+          child_tickets: 1,
+          older_bus_passes: 0,
+          disabled_bus_passes: 0,
+          scholar_bus_passes: 0,
+          special_requirements: 'Some text',
+          pickup_landmark_id: FactoryGirl.create(:landmark).id,
+          dropoff_landmark_id: FactoryGirl.create(:landmark).id,
+          passenger_name: 'Me',
+          phone_number: '1234',
+          payment_method: 'cash'
+        },
+        id: booking,
+        route_id: route
       }
     }
     let(:journey) { FactoryGirl.create(:journey) }
     
-    it 'save_return_journey updates the correct things' do
-      booking_params = {
-        return_journey_id: journey.id
-      }
-      
-      params['booking'] = booking_params
-      params['step'] = :return_journey
+    it 'updates a booking' do
       put :update, params, { current_passenger: passenger.session_token }
-      
       booking.reload
-      booking_params.each do |k,v|
+      params[:booking].each do |k,v|
         expect(booking.send(k.to_sym)).to eq(v)
       end
     end
     
-    it 'save_requirements updates the correct things' do
-      booking_params = {
-        'number_of_passengers' => 2,
-        'child_tickets' => 1,
-        'older_bus_passes' => 0,
-        'disabled_bus_passes' => 0,
-        'scholar_bus_passes' => 0,
-        'special_requirements' => 'Some text here'
-      }
-      params['booking'] = booking_params
-      params['step'] = :requirements
-      put :update, params, { current_passenger: passenger.session_token }
-      
-      booking.reload
-      booking_params.each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
-    it 'save_pickup_location updates the correct things' do
-      booking_params = {
-        pickup_landmark_id: FactoryGirl.create(:landmark).id
-      }
-      
-      params['booking'] = booking_params
-      params['step'] = :pickup_location
-      put :update, params, { current_passenger: passenger.session_token }
-      
-      booking.reload
-      booking_params.each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
-    it 'save_dropoff_location updates the correct things' do
-      booking_params = {
-        dropoff_landmark_id: FactoryGirl.create(:landmark).id
-      }
-      
-      params['booking'] = booking_params
-      params['step'] = :dropoff_location
-      put :update, params, { current_passenger: passenger.session_token }
-      
-      booking.reload
-      booking_params.each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
-    it 'save_confirm updates the correct things' do
-      booking_params = {
-        passenger_name: 'Me',
-        phone_number: '1234',
-        payment_method: 'cash'
-      }
-      
-      params['booking'] = booking_params
-      params['step'] = :confirm
-      put :update, params, { current_passenger: passenger.session_token }
-      
-      booking.reload
-      booking_params.each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
-    it 'save_confirm sends an SMS' do
-      booking_params = {
-        passenger_name: 'Me',
-        phone_number: '1234',
-        payment_method: 'cash'
-      }
-      
-      params['booking'] = booking_params
-      params['step'] = :confirm
+    it 'sends an SMS' do
       expect {
         put :update, params, { current_passenger: passenger.session_token }
       }.to change { FakeSMS.messages.count }.by(1)
@@ -147,127 +88,38 @@ RSpec.describe BookingsController, type: :controller do
       FactoryGirl.create(:booking,
         passenger: passenger,
         pickup_stop_id: route.stops.first.id,
-        dropoff_stop_id: route.stops.first.id,
+        dropoff_stop_id: route.stops.last.id
       )
     }
     
-    context 'edit_return_journey' do
-      before do
-        booking.journey = FactoryGirl.create(:journey, start_time: DateTime.now)
-        booking.save
-      end
-      
-      let!(:journeys) { FactoryGirl.create_list(:journey, 3, route: route) }
-      let!(:reversed_journeys) { FactoryGirl.create_list(:journey, 5, route: route, reversed: true) }
-      
-      it 'sets the right variables' do
-        get :edit, {
-          'step' => :return_journey,
-          'route_id' => route,
-          'id' => booking
-        },
-        {
-          current_passenger: passenger.session_token
-        }
-                
-        expect(assigns(:page_title)).to eq('Return Journey')
-        expect(assigns(:back_path)).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
-        expect(assigns(:journeys).values.flatten).to eq(reversed_journeys)
-      end
-      
-      it 'sets journeys when the booking is reversed' do
-        booking.pickup_stop = route.stops.last
-        booking.dropoff_stop = route.stops.first
-        booking.save
-
-        get :edit, {
-          'step' => :return_journey,
-          'route_id' => route,
-          'id' => booking
-        },
-        {
-          current_passenger: passenger.session_token
-        }
-        
-        expect(assigns(:journeys).values.flatten).to eq(journeys)
-      end
+    let!(:journeys) {
+      [
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+      ]
+    }
+    
+    it 'gets available journeys' do
+      get :edit, route_id: route, id: booking
+      expect(assigns(:journeys)).to eq({
+        (Date.today + 1.day) => [
+          journeys[0]
+        ],
+        (Date.today + 2.day) => [
+          journeys[1],
+          journeys[2]
+        ],
+        (Date.today + 3.day) => [
+          journeys[3]
+        ]
+      })
     end
     
-    context 'edit_requirements' do
-      it 'sets the right variables' do
-        get :edit, {
-          'step' => :requirements,
-          'route_id' => route,
-          'id' => booking
-        },
-        {
-          current_passenger: passenger.session_token
-        }
-        
-        expect(assigns(:page_title)).to eq('Requirements')
-        expect(assigns(:back_path)).to eq(from_to_journeys_path(booking.pickup_stop.place, booking.dropoff_stop.place))
-      end
-      
-      it 'sets the right variables when a return journey is present' do
-        booking.return_journey = FactoryGirl.create(:journey, reversed: true)
-        booking.save
-        
-        get :edit, {
-          'step' => :requirements,
-          'route_id' => route,
-          'id' => booking
-        },
-        {
-          current_passenger: passenger.session_token
-        }
-        
-        expect(assigns(:page_title)).to eq('Requirements')
-        expect(assigns(:back_path)).to eq(edit_return_journey_route_booking_path(route, booking))
-      end
-    end
-    
-    it 'edit_pickup_location sets the right variables' do
-      get :edit, {
-        'step' => :pickup_location,
-        'route_id' => route,
-        'id' => booking
-      },
-      {
-        current_passenger: passenger.session_token
-      }
-      
-      expect(assigns(:page_title)).to eq('Choose Pick Up Point')
-      expect(assigns(:back_path)).to eq(edit_requirements_route_booking_path(route, booking))
-      expect(assigns(:stop)).to eq(booking.pickup_stop)
-    end
-    
-    it 'edit_dropoff_location sets the right variables' do
-      get :edit, {
-        'step' => :dropoff_location,
-        'route_id' => route,
-        'id' => booking
-      },
-      {
-        current_passenger: passenger.session_token
-      }
-      
-      expect(assigns(:page_title)).to eq('Choose Drop Off Point')
-      expect(assigns(:back_path)).to eq(edit_pickup_location_route_booking_path(route, booking))
-      expect(assigns(:stop)).to eq(booking.dropoff_stop)
-    end
-    
-    it 'confirm sets the right variables' do
-      get :edit, {
-        'step' => :confirm,
-        'route_id' => route,
-        'id' => booking
-      },
-      {
-        current_passenger: passenger.session_token
-      }
-      
-      expect(assigns(:page_title)).to eq('Overview')
-      expect(assigns(:back_path)).to eq(edit_dropoff_location_route_booking_path(route, booking))
+    it 'sets the correct back_path' do
+      get :edit, route_id: route, id: booking
+      expect(assigns(:back_path)).to eq("/journeys/#{booking.pickup_stop.place.slug}/#{booking.dropoff_stop.place.slug}")
     end
     
   end
