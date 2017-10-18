@@ -1,8 +1,9 @@
 %section.section
   %h2
     = t('journey.title')
-%section.section
-  = render 'form', from: @from.try(:name), to: @to.try(:name)
+
+= render 'form', from: @from.try(:name), to: @to.try(:name)
+
 #results
   - if @places
     = render 'suggested_journeys', places: @places, from: @from, to: @to

@@ -1,5 +1,9 @@
 - content_for :top_sec do
   %section.section
+    %h2
+      = t('bookings.title')
+
+  %section.section
     %section.key
       %section.markers
         %section
@@ -9,16 +13,14 @@
           = fa_icon 'map-marker'
       %section.info-wrap
         %span.top
-          .title
+          %h3.title
             = @booking.pickup_stop.name
         %span.bottom
-          .title
+          %h3.title
             = @booking.dropoff_stop.name
 
-%section.section
   = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
 
-    %h3 Choose journey
     = render 'days', form: form
     
     #times.hidden
@@ -27,16 +29,17 @@
       = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
     .landmarks.hidden
-      
-      = form.label :pickup_landmark_id, 'Please choose a pickup point'
-      = form.select :pickup_landmark_id,
-          options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
-          include_blank: '-- Please Select --'
-      
-      = form.label :pickup_landmark_id, 'Please choose a dropoff point'
-      = form.select :dropoff_landmark_id,
-          options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
-          include_blank: '-- Please Select --'
+      %section.section
+        
+        = form.label :pickup_landmark_id, 'Please choose a pickup point'
+        = form.select :pickup_landmark_id,
+            options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
+            include_blank: '-- Please Select --'
+        
+        = form.label :pickup_landmark_id, 'Please choose a dropoff point'
+        = form.select :dropoff_landmark_id,
+            options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
+            include_blank: '-- Please Select --'
     
     #details.hidden
     

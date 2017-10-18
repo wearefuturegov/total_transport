@@ -86,6 +86,28 @@
   }
 }
 
+.button.day {
+  padding: $baseline*0.5 $baseline;
+  margin-bottom: $border-width;
+  span {
+    &.date, &.day {
+      float: left;
+      width: 100%;
+      text-transform: uppercase;
+    }
+    &.date {
+      font-size: $small;
+      line-height: $small;
+    }
+    &.day {
+      line-height: $baseline;
+    }
+  }
+}
+
+
+/* who knows what's down there */
+
 .white-button {
   background-color: #fff;
   color: $dark-gray;

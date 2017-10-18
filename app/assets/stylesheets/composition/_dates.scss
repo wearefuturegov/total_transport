@@ -1,0 +1,9 @@
+/* dates */
+
+.dates {
+  display: flex;
+  .day {
+    flex-wrap: wrap;
+    margin: 0 $border-width-thin;
+  }
+}

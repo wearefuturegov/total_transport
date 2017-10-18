@@ -1,21 +1,19 @@
-.times{ id: "#{type}_times"}
-  %h4
-    - if type == 'return'
-      = 'Choose a return time'
-    - else
-      = 'Choose an outward time'
-  - @journeys.each do |date,journeys|
-    %p{class: "journeys_#{date.to_s} hidden time" }
+%section.section
+  .times{ id: "#{type}_times"}
+    %h4
       - if type == 'return'
         %label.button
           No return journey
           = form.radio_button journey_type, nil
-      - journeys.sort_by(&:start_time).uniq.each do |j|
-        %label.button
-          = j.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
-          = " - "
-          = j.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P")
-          %span
-            + / - 10 minutes
-          
-          = form.radio_button journey_type, j.id
+        = 'Choose a return time (+-10mins)'
+      - else
+        = 'Choose an outward time (+-10mins)'
+    - @journeys.each do |date,journeys|
+      %p{class: "journeys_#{date.to_s} hidden time" }
+        - journeys.sort_by(&:start_time).uniq.each do |j|
+          %label.button
+            = j.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
+            / = " - "
+            / = j.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P")
+            
+            = form.radio_button journey_type, j.id

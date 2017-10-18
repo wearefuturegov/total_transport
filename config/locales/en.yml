@@ -72,6 +72,9 @@ en:
   journey:
     title: "Pre-book your ride"
 
+  bookings:
+    title: "Your journey"
+
   button:
     book: "Pre-book your ride"
     contact: "Have a question?"

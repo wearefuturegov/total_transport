@@ -1,6 +1,10 @@
-%h4
-  Select a day
-%p
-  - @journeys.keys.uniq.each do |j|
-    %a.small-button.button.date-button{ 'data-selector' => "journeys_#{j.to_date}" }
-      = j.to_date.strftime('%a %e %b %y')
+%section.section
+  %h3
+    Select a day
+  %section.dates
+    - @journeys.keys.uniq.each do |j|
+      %a.button.day.date-button{ 'data-selector' => "journeys_#{j.to_date}" }
+        %span.date
+          = j.to_date.strftime('%e %b')
+        %span.day
+          = j.to_date.strftime('%a')
