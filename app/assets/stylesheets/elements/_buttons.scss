@@ -3,6 +3,7 @@
 // remove the .cta from .button when the buttons sass file is sorted out.
 
 .button.cta {
+  @include ease;
   position: relative;
   font-family: $stack-2;
   text-align: center;
@@ -18,15 +19,26 @@
   &.cta {
     color: $white;
     background: $brand;
-    border: $border-width $border-style $brand;
+    border: $border-width*2 $border-style $brand;
+    &:hover {
+      background: $black;
+      border-color: $black;
+    }
   }
   &.secondary {
-    background: $black;
+    color: $black;
+    background: $white;
     border-color: $black;
+    &:hover {
+      color: $white;
+      background: $black;
+      border-color: $black;
+    }
   }
 }
 
 #{$all-buttons}, .button {
+  @include ease;
   border: $border-style $border-width $brand;
   text-align: center;
   appearance: none;

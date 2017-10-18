@@ -3,6 +3,9 @@
   .action {
     margin-top: $baseline;
     margin-bottom: $baseline;
+    .button.cta + .button.cta {
+      margin-top: $baseline;
+      margin-left: 0;
+    }
   }
-
 }

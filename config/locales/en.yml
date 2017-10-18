@@ -79,4 +79,24 @@ en:
   action:
     title: 'Pre-book your ride'
     extra: 'Have a question?'
+
+  social:
+    twitter:
+      text: 'Twitter'
+      link: 'https://twitter.com/bookyourride'
+    facebook:
+      text: 'Facebook'
+      link: 'https://www.facebook.com/bookyourride'
+
+  credit:
+    title: 'A project by:'
+    essex:
+      text: 'Essex County Council'
+      link: 'https://www.essex.gov.uk'
+    suffolk: 
+      text: 'Suffolk County Council'
+      link: 'https://www.suffolk.gov.uk/'
+    futuregov:
+      text: 'FutureGov'
+      link: 'http://www.wearefuturegov.com/'
   

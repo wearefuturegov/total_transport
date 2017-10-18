@@ -1,34 +1,6 @@
 @media only screen and (max-width: 667px) {
 
   #public-index {
-    .hero {
-      text-align: left;
-      .heading {
-        margin-top: $baseline*4;
-        h2 {
-          float: left;
-        }
-        .action {
-          margin-top: 0;
-          h4 {
-            $h4: 40px;
-            font-size: $h4;
-            line-height: calc(#{$h4} * 1.2);
-          }
-        }
-      }
-    }
-    .main {
-      h3 {
-        display: block;
-        .hyphen {
-          display: none;
-        }
-        span ~ span {
-          display: block;
-        }
-      }
-    }
   }
 
 }
