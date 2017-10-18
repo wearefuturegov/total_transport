@@ -1,13 +1,21 @@
 %section.section
   %div{"aria-live" => "assertive", :role => "alert"}
+    %p.error-block
+      = t('message.sorry')
+      <strong>#{from.name}</strong> to <strong>#{to.name}</strong>.
+      = fa_icon 'exclamation-triangle'
     %p
-      Sorry, we don't currently travel from #{from.name} to #{to.name}.
-    %p
-      Here are some destinations from #{from.name} that might suit you:
-    - places.each do |place|
-      .single
-        .details
-          %h2
-            = from.name
-            to #{place.name}
-          = link_to 'See available journeys', from_to_journeys_path(from.slug, place.slug), class: 'button'
+      = t('message.suggest') 
+      <strong>#{from.name}</strong>
+      = t('message.suggest_end')
+%section.section
+  %h3
+    = from.name
+    %span
+      to
+    = fa_icon 'map-marker'
+  - places.first(3).each do |place|
+    .single
+      .details
+        %h3
+          = link_to "#{place.name}", from_to_journeys_path(from.slug, place.slug), class: 'button'

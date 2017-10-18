@@ -23,6 +23,24 @@ a {
   }
 }
 
+h2 {
+  $h2: 28px; // no to variables here, but in this case I think yes.
+  font-size: $h2;
+  font-weight: 700;
+  line-height: calc(#{$h2} * 1.2);
+  margin-top: 0;
+  margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
+}
+
+h3 {
+  $h3: 22px;
+  font-size: $h3;
+  font-weight: 700;
+  line-height: calc(#{$h3} * 1.1);
+  margin-top: 0;
+  margin-bottom: calc(#{$baseline*1.5} - #{$h3} * 1.1);
+}
+
 // h1 {
 //   $h1: 40px; // no to variables here, but in this case I think yes.
 //   font-size: $h1;
@@ -66,6 +84,14 @@ a {
 a:hover {
   color: rgba(21,101,192,1);
   transition: color 0.5s cubic-bezier(.25,.8,.25,1);
+}
+
+strong {
+  font-weight: 700;
+}
+
+.error {
+  color: $error;
 }
 
 // will check below this later

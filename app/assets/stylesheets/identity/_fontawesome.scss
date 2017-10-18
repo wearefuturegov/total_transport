@@ -1,8 +1,9 @@
 /* fontawesome */
 
-.fa-angle-down {
-  color: $white;
-  font-size: $baseline*2;
+.fa-exclamation-triangle {
+  color: $brand;
+  font-size: $baseline*1.5;
+  line-height: $baseline*1.5;
 }
 
 .fa-circle-o {
@@ -15,14 +16,3 @@
   color: $brand;
   font-size: $baseline*1.5;
 }
-
-// .fa-circle-o,
-// .fa-check, 
-// .fa-map-marker, 
-// .fa-camera, 
-// .fa-frown-o, 
-// .fa-smile-o,
-// .fa-calendar-o {
-//   width: 100%;
-//   text-align: center;
-// }
