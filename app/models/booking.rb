@@ -161,6 +161,7 @@ class Booking < ActiveRecord::Base
   
   def send_confirmation!
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
+    SendEmail.enqueue('Booking')
   end
   
   def queue_alerts

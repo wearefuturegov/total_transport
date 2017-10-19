@@ -10,6 +10,11 @@ RSpec.describe Booking, type: :model do
       expect(FakeSMS.messages.last[:to]).to eq(booking.phone_number)
     end
     
+    it 'sends an email to the supplier' do
+      expect(BookingMailer).to receive(:booking_confirmed).with(booking)
+      booking.confirm!
+    end
+    
     it 'queues alerts' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(2)
       jobs = QueJob.where(job_class: 'SendSMS')

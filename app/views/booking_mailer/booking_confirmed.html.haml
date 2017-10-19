@@ -1,0 +1,62 @@
+%p
+  Hello
+
+%p
+  A new booking has been confirmed on
+  %strong
+    Ride
+
+%p The passenger's details are as follows:
+
+%h2 Contact Details
+
+%p
+  %strong Name:
+  = @booking.passenger_name
+
+%p
+  %strong Phone Number:
+  = @booking.phone_number
+
+#outward
+
+  %h2 Outward Journey
+
+  = render 'journey',
+      pickup_time: @booking.pickup_time,
+      pickup_stop: @booking.pickup_stop.name,
+      dropoff_stop: @booking.dropoff_stop.name,
+      pickup_landmark: @booking.pickup_landmark.name,
+      dropoff_landmark: @booking.dropoff_landmark.name
+
+- if @booking.return_journey
+  #return
+    
+    %h2 Return Journey
+
+    = render 'journey',
+        pickup_time: @booking.return_journey.time_at_stop(@booking.dropoff_stop),
+        pickup_stop: @booking.dropoff_stop.name,
+        dropoff_stop: @booking.pickup_stop.name,
+        pickup_landmark: @booking.dropoff_landmark.name,
+        dropoff_landmark: @booking.pickup_landmark.name
+  
+- else
+
+  %p
+    This is a
+    %strong
+      single journey
+    only.
+    
+%p
+  The passenger will need to pay
+  = number_to_currency(@booking.price, unit: '£')
+  to the driver
+    
+%p
+  Thanks
+  %br/
+  Your friendly
+  %strong Ride
+  robot

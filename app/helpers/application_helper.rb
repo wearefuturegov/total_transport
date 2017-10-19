@@ -40,11 +40,9 @@ module ApplicationHelper
     median = ((points[mid.floor] + points[mid.ceil]) / 2.0).to_i
     journey.route.stops[median].place.name
   end
-  
-  private
-  
-    def format_time(time)
-      (time).strftime("%l:%M%P")
-    end
+    
+  def format_time(time)
+    (time).strftime("%l:%M%P")
+  end
   
 end
