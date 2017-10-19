@@ -2,6 +2,15 @@
 
 // remove the .cta from .button when the buttons sass file is sorted out.
 
+.date-button,
+#outward_times .button,
+#return_times .button {
+  &.selected {
+    background: $black;
+    border-color: $black;
+  }
+}
+
 .button.cta {
   @include ease;
   position: relative;
@@ -86,7 +95,7 @@
   }
 }
 
-.button.day {
+.button.single {
   padding: $baseline*0.5 $baseline;
   margin-bottom: $border-width;
   span {

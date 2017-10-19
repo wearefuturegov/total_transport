@@ -1,9 +1,11 @@
 /* dates */
 
 .dates {
-  display: flex;
-  .day {
-    flex-wrap: wrap;
-    margin: 0 $border-width-thin;
+  float: left;
+  width: 100%;
+  .single {
+    float: left;
+    margin: $border-width-thin;
+    width: calc(33.3% - #{$border-width-thin*2});
   }
 }
