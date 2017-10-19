@@ -1,22 +1,52 @@
 require 'rails_helper'
 
-RSpec.describe Booking, type: :model do
+RSpec.describe Booking, :que, type: :model do
   
-  let(:booking) { FactoryGirl.create(:booking) }
+  let(:stops) {
+    [
+      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryGirl.create(:place, name: 'Pickup Stop')),
+      FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
+      FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
+      FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
+      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryGirl.create(:place, name: 'Dropoff Stop'))
+    ]
+  }
+  let(:route) { FactoryGirl.create(:route, stops: stops) }
+  let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+  let(:booking) {
+    FactoryGirl.create(:booking,
+      journey: journey,
+      pickup_stop: stops.first,
+      dropoff_stop: stops.last,
+      passenger_name: 'Me',
+      phone_number: '12345',
+      pickup_landmark: stops.first.landmarks.first,
+      dropoff_landmark: stops.last.landmarks.first,
+    )
+  }
   
   describe 'confirm!' do
     it 'sends a confirmation' do
-      expect { booking.confirm! }.to change { FakeSMS.messages.count }.by(1)
-      expect(FakeSMS.messages.last[:to]).to eq(booking.phone_number)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
+      job = QueJob.find_by(job_class: 'SendSMS')
+      expect(job.args[0]['to']).to eq(booking.phone_number)
     end
     
     it 'sends an email to the supplier' do
-      expect(BookingMailer).to receive(:booking_confirmed).with(booking)
-      booking.confirm!
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(1)
+      job = QueJob.find_by(job_class: 'SendEmail')
+      expect(job.args[0]).to eq('Booking')
+      expect(job.args[1]).to eq(booking.id)
+    end
+    
+    it 'logs a booking' do
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'LogBooking').count }.by(1)
+      job = QueJob.find_by(job_class: 'LogBooking')
+      expect(job.args[0]).to eq(booking.id)
     end
     
     it 'queues alerts' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(2)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
@@ -120,25 +150,6 @@ RSpec.describe Booking, type: :model do
   
   context 'pickup and dropoff times' do
     
-    let(:stops) {
-      [
-        FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1),
-        FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
-        FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
-        FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
-        FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5)
-      ]
-    }
-    let(:route) { FactoryGirl.create(:route, stops: stops) }
-    let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
-    let(:booking) {
-      FactoryGirl.create(:booking,
-        journey: journey,
-        pickup_stop: stops.first,
-        dropoff_stop: stops.last
-      )
-    }
-    
     context '#last_dropoff_time' do
       
       it 'gets the last dropoff time for a non-return booking' do
@@ -184,6 +195,7 @@ RSpec.describe Booking, type: :model do
   
   context 'sets the journey boolean' do
     
+    let(:booking) { FactoryGirl.create(:booking) }
     let(:journey) { booking.journey }
     before { booking.confirm! }
     
@@ -253,6 +265,62 @@ RSpec.describe Booking, type: :model do
     
     expect(booking.pickup_landmark).to eq(pickup_landmark)
     expect(booking.dropoff_landmark).to eq(dropoff_landmark)
+  end
+  
+  context 'returns data for admins' do
+    
+    before do
+      booking.pickup_landmark.name = 'Pickup Landmark'
+      booking.dropoff_landmark.name = 'Dropoff Landmark'
+    end
+    
+    context 'without a return journey' do
+      
+      it 'returns a spreadsheet row' do
+        expect(booking.spreadsheet_row).to eq([
+          [
+            'Me',
+            '12345',
+            'Pickup Stop',
+            'Dropoff Stop',
+            'Pickup Landmark',
+            'Dropoff Landmark',
+            '2017-01-01 10:00:00 UTC',
+            nil,
+            2.5
+          ]
+        ])
+      end
+       
+    end
+    
+    context 'with a return journey' do
+      
+      before do
+        booking.return_journey = FactoryGirl.create(:journey,
+          route: route,
+          start_time: DateTime.parse('2017-01-01T15:00:00'),
+          reversed: true
+        )
+      end
+      
+      it 'returns a spreadsheet row' do
+        expect(booking.spreadsheet_row).to eq([
+          [
+            'Me',
+            '12345',
+            'Pickup Stop',
+            'Dropoff Stop',
+            'Pickup Landmark',
+            'Dropoff Landmark',
+            '2017-01-01 10:00:00 UTC',
+            '2017-01-01 15:00:00 UTC',
+            3.5
+          ]
+        ])
+      end
+
+    end
   end
 
   describe "pricing" do

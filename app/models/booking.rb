@@ -157,11 +157,16 @@ class Booking < ActiveRecord::Base
     queue_alerts
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
+    log_booking
   end
   
   def send_confirmation!
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
-    SendEmail.enqueue('Booking')
+    SendEmail.enqueue('Booking', id)
+  end
+  
+  def log_booking
+    LogBooking.enqueue(id)
   end
   
   def queue_alerts
@@ -175,6 +180,22 @@ class Booking < ActiveRecord::Base
   
   def set_journey_booked_status
     journey.update_attribute(:booked, false) if journey.bookings.count == 0
+  end
+  
+  def spreadsheet_row
+    [
+      [
+        passenger_name,
+        phone_number,
+        pickup_stop.name,
+        dropoff_stop.name,
+        pickup_landmark.name,
+        dropoff_landmark.name,
+        journey.time_at_stop(pickup_stop).to_s,
+        return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
+        price
+      ]
+    ]
   end
 
 end
