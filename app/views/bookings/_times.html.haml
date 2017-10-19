@@ -5,9 +5,11 @@
         %label.button
           No return journey
           = form.radio_button journey_type, nil
-        = 'Choose a return time (+-10mins)'
+        %h3
+          = t('bookings.return.time')
       - else
-        = 'Choose an outward time (+-10mins)'
+        %h3
+          = t('bookings.outward.time')
     - @journeys.each do |date,journeys|
       %p{class: "journeys_#{date.to_s} hidden time" }
         - journeys.sort_by(&:start_time).uniq.each do |j|

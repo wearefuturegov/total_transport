@@ -41,80 +41,81 @@
             options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
             include_blank: '-- Please Select --'
     
-    #details.hidden
-    
-      = form.label :number_of_passengers
-      = form.select :number_of_passengers, 1..10
+    %section.section
+      #details.hidden
+      
+        = form.label :number_of_passengers
+        = form.select :number_of_passengers, 1..10
 
-      %p#adult-tickets{:class => "bold #{" hidden" if @booking.number_of_adults == 0}"}
-        %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
-        (#{number_to_currency(@booking.adult_single_price, :unit => "£")} each)
-      .concessions
-        #concession-1{:class => "bold mb1 concession-cont#{" hidden" if @booking.child_tickets == 0}"}
-          %span.count= @booking.child_tickets
-          Child fare (#{number_to_currency(@booking.child_single_price, :unit => "£")} each)
-          .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
-            %i.fa.fa-times{:title => "Delete Concession"}
-            delete
-        #concession-2{:class => "bold mb1 concession-cont#{" hidden" if @booking.older_bus_passes == 0}"}
-          %span.count= @booking.older_bus_passes
-          Older persons bus pass (£0.00 each)
-          .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
-            %i.fa.fa-times{:title => "Delete Concession"}
-            delete
-        #concession-3{:class => "bold mb1 concession-cont#{" hidden" if @booking.disabled_bus_passes == 0}"}
-          %span.count= @booking.disabled_bus_passes
-          Disabled persons bus pass (£0.00 each)
-          .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
-            %i.fa.fa-times{:title => "Delete Concession"}
-            delete
-        #concession-4{:class => "bold mb1 concession-cont#{" hidden" if @booking.scholar_bus_passes == 0}"}
-          %span.count= @booking.scholar_bus_passes
-          Scholarly Season Ticket (£0.00 each)
-          .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
-            %i.fa.fa-times{:title => "Delete Concession"}
-            delete
-        %select#concession-list.hidden.select.mobFull
-          %option#option-null{:value => "0"} Select a Concession
-          %option#option-1.non-promo{:value => "1"} Child fare
-          %option#option-2.non-promo{:value => "2"} Older persons bus pass
-          %option#option-3.non-promo{:value => "3"} Disabled persons bus pass
-          %option#option-4.non-promo{:value => "4"} Scholarly Season Ticket
-          %option#promo{:value => "5"} Add Promo Code
-        #add-concession{:class => "add button small-button#{" hidden" if @booking.number_of_adults == 0}"} + Add a Concessionary Fare
-        .promo-code.hidden.mt2
-          = form.label :promo_code, :class => "light"
-          = form.text_field :promo_code, :class => "white-input"
-        .hidden
-          = form.label :child_tickets, "Child fare"
-          = form.number_field :child_tickets, :id => "hidden-1"
-          = form.label :older_bus_passes
-          = form.number_field :older_bus_passes, :id => "hidden-2"
-          = form.label :disabled_bus_passes
-          = form.number_field :disabled_bus_passes, :id => "hidden-3"
-          = form.label :scholar_bus_passes
-          = form.number_field :scholar_bus_passes, :id => "hidden-4"
+        %p#adult-tickets{:class => "bold #{" hidden" if @booking.number_of_adults == 0}"}
+          %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
+          (#{number_to_currency(@booking.adult_single_price, :unit => "£")} each)
+        .concessions
+          #concession-1{:class => "bold mb1 concession-cont#{" hidden" if @booking.child_tickets == 0}"}
+            %span.count= @booking.child_tickets
+            Child fare (#{number_to_currency(@booking.child_single_price, :unit => "£")} each)
+            .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
+              %i.fa.fa-times{:title => "Delete Concession"}
+              delete
+          #concession-2{:class => "bold mb1 concession-cont#{" hidden" if @booking.older_bus_passes == 0}"}
+            %span.count= @booking.older_bus_passes
+            Older persons bus pass (£0.00 each)
+            .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
+              %i.fa.fa-times{:title => "Delete Concession"}
+              delete
+          #concession-3{:class => "bold mb1 concession-cont#{" hidden" if @booking.disabled_bus_passes == 0}"}
+            %span.count= @booking.disabled_bus_passes
+            Disabled persons bus pass (£0.00 each)
+            .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
+              %i.fa.fa-times{:title => "Delete Concession"}
+              delete
+          #concession-4{:class => "bold mb1 concession-cont#{" hidden" if @booking.scholar_bus_passes == 0}"}
+            %span.count= @booking.scholar_bus_passes
+            Scholarly Season Ticket (£0.00 each)
+            .cancel-concession.button.extra-small-button.negative.ml05.inline{:title => "Delete Concession"}
+              %i.fa.fa-times{:title => "Delete Concession"}
+              delete
+          %select#concession-list.hidden.select.mobFull
+            %option#option-null{:value => "0"} Select a Concession
+            %option#option-1.non-promo{:value => "1"} Child fare
+            %option#option-2.non-promo{:value => "2"} Older persons bus pass
+            %option#option-3.non-promo{:value => "3"} Disabled persons bus pass
+            %option#option-4.non-promo{:value => "4"} Scholarly Season Ticket
+            %option#promo{:value => "5"} Add Promo Code
+          #add-concession{:class => "add button small-button#{" hidden" if @booking.number_of_adults == 0}"} + Add a Concessionary Fare
+          .promo-code.hidden.mt2
+            = form.label :promo_code, :class => "light"
+            = form.text_field :promo_code, :class => "white-input"
+          .hidden
+            = form.label :child_tickets, "Child fare"
+            = form.number_field :child_tickets, :id => "hidden-1"
+            = form.label :older_bus_passes
+            = form.number_field :older_bus_passes, :id => "hidden-2"
+            = form.label :disabled_bus_passes
+            = form.number_field :disabled_bus_passes, :id => "hidden-3"
+            = form.label :scholar_bus_passes
+            = form.number_field :scholar_bus_passes, :id => "hidden-4"
+            
+          %hr.dark-hr/
+          #special-req-button.button.white-button.small-button
+            %i.fa.fa-plus
+            Add Special Requirements
+          #special-req.hidden.mt1
+            = form.label :special_requirements, "Describe your special requirements:", :class => "light"
+            = form.text_field :special_requirements, :class => "white-input"
+            %p.small Your transport provider will get in touch with you if they can't meet your needs
+          %hr.dark-hr/
           
-        %hr.dark-hr/
-        #special-req-button.button.white-button.small-button
-          %i.fa.fa-plus
-          Add Special Requirements
-        #special-req.hidden.mt1
-          = form.label :special_requirements, "Describe your special requirements:", :class => "light"
-          = form.text_field :special_requirements, :class => "white-input"
-          %p.small Your transport provider will get in touch with you if they can't meet your needs
-        %hr.dark-hr/
-        
-        = form.label :passenger_name, "Lead Passenger's Name"
-        = form.text_field :passenger_name, class: "white-input"
+          = form.label :passenger_name, "Lead Passenger's Name"
+          = form.text_field :passenger_name, class: "white-input"
 
 
-        = form.label :phone_number
-        = form.text_field :phone_number, class: "white-input mb1"
-        %p
-          Let us know your phone number so that we can notify you when your vehicle is on its way.
-          
-        = form.submit "Submit your booking request", :class => 'button alt-button', :id => 'submit-booking'
+          = form.label :phone_number
+          = form.text_field :phone_number, class: "white-input mb1"
+          %p
+            Let us know your phone number so that we can notify you when your vehicle is on its way.
+            
+          = form.submit "Submit your booking request", :class => 'button alt-button', :id => 'submit-booking'
 
 - content_for :js do
   :javascript

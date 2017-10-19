@@ -9,6 +9,28 @@
     background: $black;
     border-color: $black;
   }
+  input {
+    display: none;
+  }
+}
+
+#outward_times,
+#return_times {
+  .time {
+    float: left;
+    width: 100%;
+    .button {
+      line-height: 39px;
+      line-height: $baseline*1.5;
+      width: calc(25% - #{$border-width});
+      text-align: center;
+      padding: 0 $border-width*2;
+      float: left;
+      margin: $border-width-thin;
+      font-size: $small;;
+      display: inline-block;
+    }
+  }
 }
 
 .button.cta {

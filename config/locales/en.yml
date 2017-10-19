@@ -74,6 +74,10 @@ en:
 
   bookings:
     title: "Your journey"
+    outward:
+      time: "Outward time (+-10mins)"
+    return:
+      time: "Return time (+-10mins)"
 
   button:
     book: "Pre-book your ride"
