@@ -12,6 +12,17 @@ class Booking < ActiveRecord::Base
   
   after_destroy :remove_alerts, :set_journey_booked_status
   
+  def self.initialize_for_places(from_place, to_place)
+    available_journeys = Journey.available_for_places(from_place, to_place).group_by(&:route)
+    available_journeys.map do |route, journeys|
+      Booking.new(
+        pickup_stop: journeys.first.pickup_stop,
+        dropoff_stop: journeys.first.dropoff_stop,
+        journey: journeys.first,
+      )
+    end
+  end
+  
   def available_journeys
     @available_journeys ||= Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
   end

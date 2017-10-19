@@ -26,11 +26,12 @@ module ApplicationHelper
     end
   end
   
-  def book_journey_submit_label(journey, count)
+  def book_journey_submit_label(journey, count, label = nil)
+    label = label.nil? ? t('button.book') : label
     if count > 1
-      "#{t('button.book')} (via #{via_point(journey)})"
+      "#{label} (via #{via_point(journey)})"
     else
-      t('button.book')
+      label
     end
   end
   
