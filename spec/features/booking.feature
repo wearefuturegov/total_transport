@@ -20,7 +20,7 @@ Feature: Booking a journey
     And my booking should be confirmed
     
   Scenario: Booking a single journey
-    Given I have chosen a journey
+    Given I have chosen a single journey
     But I don't choose a return journey
     And I fill in my details
     Then my booking should be confirmed

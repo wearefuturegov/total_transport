@@ -18,6 +18,14 @@ module WebSteps
     choose_journey
     choose_pickup_and_dropoff_point
   end
+  
+  step 'I have chosen a single journey' do
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_book_journey
+    choose_single_journey
+    choose_pickup_and_dropoff_point
+  end
 
   step 'I have chosen a journey with :n passengers' do |passengers|
     choose_place('from', 'Newmarket')
@@ -37,7 +45,8 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(body.gsub("\n",' ')).to match("#{start_point} to #{destination}")
+    expect(find('body').text).to match("Sorry, we don't currently travel from #{start_point}")
+    expect(first('.suggestion').value).to eq(destination)
   end
   
   def click_book_journey
@@ -47,8 +56,13 @@ module WebSteps
   
   def choose_journey
     first('.date-button').click
-    first('#outward_times input').click
-    all('#return_times input')[1].click
+    all('#outward_times label')[0].click
+    all('#return_times label')[0].click
+  end
+  
+  def choose_single_journey
+    first('.date-button').click
+    all('#outward_times label')[0].click
   end
   
   def choose_place(field, place)
