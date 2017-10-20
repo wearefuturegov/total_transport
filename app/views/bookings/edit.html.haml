@@ -53,10 +53,25 @@
             = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
           = form.select :number_of_passengers, 1..10
 
+          <input type='number' size='10' id='numberinput' name='mynumber' value='0' />
+
         %section.section
           #add-concession{:class => "add button secondary #{" hidden" if @booking.number_of_adults == 0}"}
             %i.fa.fa-plus
             = t('bookings.buspass.title')
+
+          %select#concession-list.hidden.select
+            %option#option-null{:value => "0"}
+              = t('bookings.buspass.options.select')
+            %option#option-1.non-promo{:value => "1"}
+              = t('bookings.buspass.options.child')
+            %option#option-2.non-promo{:value => "2"}
+              = t('bookings.buspass.optioins.older')
+            %option#option-3.non-promo{:value => "3"}
+              = t('bookings.buspass.optioins.disabled')
+            %option#option-4.non-promo{:value => "4"}
+              = t('bookings.buspass.optioins.scholar')
+            %option#promo{:value => "5"} Add Promo Code
         
           %p#adult-tickets{:class => "#{" hidden" if @booking.number_of_adults == 0}"}
             %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
@@ -83,19 +98,6 @@
             %span.count= @booking.scholar_bus_passes
             = t('bookings.buspass.scholar')
             = fa_icon 'times', class: 'cancel-concession'
-
-          %select#concession-list.hidden.select
-            %option#option-null{:value => "0"}
-              = t('bookings.buspass.options.select')
-            %option#option-1.non-promo{:value => "1"}
-              = t('bookings.buspass.options.child')
-            %option#option-2.non-promo{:value => "2"}
-              = t('bookings.buspass.optioins.older')
-            %option#option-3.non-promo{:value => "3"}
-              = t('bookings.buspass.optioins.disabled')
-            %option#option-4.non-promo{:value => "4"}
-              = t('bookings.buspass.optioins.scholar')
-            %option#promo{:value => "5"} Add Promo Code
 
           .promo-code.hidden
             = form.label :promo_code

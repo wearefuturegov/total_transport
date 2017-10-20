@@ -6,6 +6,7 @@
 #outward_times .button,
 #return_times .button {
   &.selected {
+    color: $white;
     background: $black;
     border-color: $black;
   }

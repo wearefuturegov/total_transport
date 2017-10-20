@@ -113,7 +113,13 @@ en:
     book: "Pre-book your ride"
     contact: "Have a question?"
     submit: "Submit your booking request"
-  
+    return: "No return journey"
+
+  helpers:
+    submit:
+      booking:
+        update: 'Confirm pre-booking'
+
   action:
     title: "Pre-book your ride"
     extra: "Have a question?"
