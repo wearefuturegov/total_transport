@@ -45,7 +45,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#booking_confirmed' do
       
-      let(:mail) { BookingMailer.booking_confirmed(booking_id: booking.id) }
+      let(:mail) { BookingMailer.booking_confirmed('booking_id' => booking.id) }
       
       it 'renders the headers' do
         expect(mail.subject).to eq('A new booking has been confirmed')
@@ -69,7 +69,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#user_confirmation' do
       
-      let(:mail) { BookingMailer.user_confirmation(booking_id: booking.id) }
+      let(:mail) { BookingMailer.user_confirmation('booking_id' => booking.id) }
       
       it 'renders the headers' do
         expect(mail.subject).to eq('Your Ride booking confirmation')
@@ -101,7 +101,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#booking_confirmed' do
       
-      let(:mail) { BookingMailer.booking_confirmed(booking_id: booking.id) }
+      let(:mail) { BookingMailer.booking_confirmed('booking_id' => booking.id) }
       
       it 'renders the body' do
         expect(body).to match(/Return Journey/)
@@ -118,7 +118,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#user_confirmation' do
       
-      let(:mail) { BookingMailer.user_confirmation(booking_id: booking.id) }
+      let(:mail) { BookingMailer.user_confirmation('booking_id' => booking.id) }
       
       it 'renders the body' do
         expect(body).to match(/Your return ride will be from Dropoff Landmark, Dropoff Stop/)
@@ -132,7 +132,7 @@ RSpec.describe BookingMailer, type: :mailer do
   
   describe '#first_alert' do
     
-    let(:mail) { BookingMailer.first_alert(booking_id: booking.id) }
+    let(:mail) { BookingMailer.first_alert('booking_id' => booking.id) }
     
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Ride booking is tomorrow')
@@ -150,7 +150,7 @@ RSpec.describe BookingMailer, type: :mailer do
   
   describe '#second_alert' do
     
-    let(:mail) { BookingMailer.second_alert(booking_id: booking.id) }
+    let(:mail) { BookingMailer.second_alert('booking_id' => booking.id) }
     
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Ride is on it’s way.')
