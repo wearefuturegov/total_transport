@@ -26,8 +26,8 @@
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
 
-      %section.section
-        Approx arrival time placeholder text
+      %section.section#arrival-times.hidden
+        
       
       = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
@@ -45,7 +45,7 @@
             { include_blank: '-- Please Select --'},
             { class: 'select' }
     
-    #details.hidden      
+    #details.hidden
       .concessions
 
         %section.section
@@ -111,7 +111,7 @@
             = form.number_field :disabled_bus_passes, :id => "hidden-3"
             = form.label :scholar_bus_passes
             = form.number_field :scholar_bus_passes, :id => "hidden-4"
-        %section.section  
+        %section.section
           #add.button.secondary
             %i.fa.fa-plus
             = t('bookings.requirements.title')
@@ -120,7 +120,7 @@
             = form.text_field :special_requirements
 
         %section.section
-          %p 
+          %p
             = t('bookings.requirements.message')
         
           = form.label :passenger_name, I18n.t('bookings.lead.label')
@@ -129,9 +129,12 @@
 
           = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
           = form.text_field :phone_number
+          
+          = form.label :email
+          = form.text_field :email
           %p
             = t('bookings.lead.mobile.message')
-        %section.section            
+        %section.section
           = form.submit :class => 'button', :id => 'submit-booking'
 
 - content_for :js do
@@ -143,6 +146,12 @@
       $('#times').removeClass('hidden');
       $('#times .time').addClass('hidden');
       $(' .' + target).removeClass('hidden');
+    })
+    
+    $('#outward_times input').click(function() {
+      var time = $(this).data('arrival-time')
+      $('#arrival-times').removeClass('hidden');
+      $('#arrival-times').html('Approximate arrival time: ' + time);
     })
     
     $('#return_times input').click(function() {

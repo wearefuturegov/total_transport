@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016095431) do
+ActiveRecord::Schema.define(version: 20171020100736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171016095431) do
     t.string   "payment_method",       default: "cash"
     t.integer  "pickup_landmark_id"
     t.integer  "dropoff_landmark_id"
+    t.string   "email"
   end
 
   add_index "bookings", ["dropoff_landmark_id"], name: "index_bookings_on_dropoff_landmark_id", using: :btree

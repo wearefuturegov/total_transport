@@ -1,0 +1,37 @@
+= render 'header'
+
+%p
+  Your Ride booking from
+  = @booking.pickup_stop.name
+  to
+  = @booking.dropoff_stop.name
+  is confirmed.
+
+%p
+  Your approved local driver will pick you up from
+  = @booking.pickup_name
+  on
+  = friendly_date(@booking.journey.start_time)
+  between
+  = plus_minus_ten(@booking.pickup_time)
+
+- if @booking.return_journey
+
+  %p
+    Your return ride will be from
+    = @booking.dropoff_name
+    on
+    = friendly_date(@booking.return_journey.start_time)
+    between
+    = plus_minus_ten(@booking.return_time)
+
+%p
+  To amend or cancel your booking please call 01621 855111.
+
+%p
+  Thanks,<br />The RIDE Team
+
+%p
+  P.s. Where do you need to go next? Reply to this email to tell us the journeys you’d like to see available
+
+= render 'footer'

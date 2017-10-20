@@ -63,6 +63,7 @@ class BookingsController < PublicController
       :dropoff_stop_id,
       :dropoff_landmark_id,
       :phone_number,
+      :email,
       :passenger_name,
       :payment_method,
       :number_of_passengers,
