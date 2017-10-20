@@ -1,9 +1,9 @@
 class SendEmail < Que::Job
   
-  def run(klass, id)
+  def run(mailer, method, args)
     begin
-      obj = Object.const_get(klass).find(id)
-      BookingMailer.booking_confirmed(obj)
+      mailer = Object.const_get(mailer)
+      mailer.send(method, args)
     rescue ActiveRecord::RecordNotFound
       destroy
     end

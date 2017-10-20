@@ -35,8 +35,9 @@ RSpec.describe Booking, :que, type: :model do
     it 'sends an email to the supplier' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(1)
       job = QueJob.find_by(job_class: 'SendEmail')
-      expect(job.args[0]).to eq('Booking')
-      expect(job.args[1]).to eq(booking.id)
+      expect(job.args[0]).to eq('BookingMailer')
+      expect(job.args[1]).to eq('booking_confirmed')
+      expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
     it 'logs a booking' do
