@@ -12,6 +12,17 @@ class Booking < ActiveRecord::Base
   
   after_destroy :remove_alerts, :set_journey_booked_status
   
+  def self.initialize_for_places(from_place, to_place)
+    available_journeys = Journey.available_for_places(from_place, to_place).group_by(&:route)
+    available_journeys.map do |route, journeys|
+      Booking.new(
+        pickup_stop: journeys.first.pickup_stop,
+        dropoff_stop: journeys.first.dropoff_stop,
+        journey: journeys.first,
+      )
+    end
+  end
+  
   def available_journeys
     @available_journeys ||= Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
   end
@@ -157,10 +168,16 @@ class Booking < ActiveRecord::Base
     queue_alerts
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
+    log_booking
   end
   
   def send_confirmation!
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
+    SendEmail.enqueue('Booking', id)
+  end
+  
+  def log_booking
+    LogBooking.enqueue(id)
   end
   
   def queue_alerts
@@ -174,6 +191,22 @@ class Booking < ActiveRecord::Base
   
   def set_journey_booked_status
     journey.update_attribute(:booked, false) if journey.bookings.count == 0
+  end
+  
+  def spreadsheet_row
+    [
+      [
+        passenger_name,
+        phone_number,
+        pickup_stop.name,
+        dropoff_stop.name,
+        pickup_landmark.name,
+        dropoff_landmark.name,
+        journey.time_at_stop(pickup_stop).to_s,
+        return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
+        price
+      ]
+    ]
   end
 
 end

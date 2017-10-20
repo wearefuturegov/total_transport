@@ -5,9 +5,9 @@
 = render 'form', from: @from.try(:name), to: @to.try(:name)
 
 #results
-  - if @places
-    = render 'suggested_journeys', places: @places, from: @from, to: @to
-  - elsif @journeys
-    = render 'journey_form', journeys: @journeys, booking: @booking
+  - if @possible_bookings
+    = render 'possible_bookings', bookings: @possible_bookings, from: @from, to: @to
+  - elsif @bookings
+    = render 'bookings_form', bookings: @bookings, suggestion: false
 
 = render 'choose_script'

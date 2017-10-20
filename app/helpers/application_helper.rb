@@ -26,11 +26,12 @@ module ApplicationHelper
     end
   end
   
-  def book_journey_submit_label(journey, count)
+  def book_journey_submit_label(journey, count, label = nil)
+    label = label.nil? ? t('button.book') : label
     if count > 1
-      "#{t('button.book')} (via #{via_point(journey)})"
+      "#{label} (via #{via_point(journey)})"
     else
-      t('button.book')
+      label
     end
   end
   
@@ -40,11 +41,9 @@ module ApplicationHelper
     median = ((points[mid.floor] + points[mid.ceil]) / 2.0).to_i
     journey.route.stops[median].place.name
   end
-  
-  private
-  
-    def format_time(time)
-      (time).strftime("%l:%M%P")
-    end
+    
+  def format_time(time)
+    (time).strftime("%l:%M%P")
+  end
   
 end

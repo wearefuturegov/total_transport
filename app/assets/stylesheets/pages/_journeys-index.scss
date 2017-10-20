@@ -4,6 +4,12 @@
       bottom: $baseline;
       position: absolute;
       width: 75%;
+      
+      &.suggestion {
+        position: relative;
+        width: 100%;
+        bottom: 0;
+      }
     }
   }
 }

@@ -5,7 +5,7 @@
       <strong>#{from.name}</strong> to <strong>#{to.name}</strong>.
       = fa_icon 'exclamation-triangle'
     %p
-      = t('message.suggest') 
+      = t('message.suggest')
       <strong>#{from.name}</strong>
       = t('message.suggest_end')
 %section.section
@@ -14,8 +14,7 @@
     %span
       to
     = fa_icon 'map-marker'
-  - places.first(3).each do |place|
+  - bookings.each do |bookings|
     .single
       .details
-        %h3
-          = link_to "#{place.name}", from_to_journeys_path(from.slug, place.slug), class: 'button'
+        = render 'bookings_form', bookings: bookings, suggestion: true

@@ -74,6 +74,9 @@
     },
     "GDRIVE_AUTH": {
       "required": true
+    },
+    "RIDE_ADMIN_EMAIL": {
+      "required": true
     }
   },
   "formation": {
