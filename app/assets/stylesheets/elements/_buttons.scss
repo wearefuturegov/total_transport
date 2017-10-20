@@ -70,7 +70,7 @@
 
 #{$all-buttons}, .button {
   @include ease;
-  border: $border-style $border-width $brand;
+  border: $border-style $border-width*2 $brand;
   text-align: center;
   appearance: none;
   background-color: $brand;
@@ -115,6 +115,10 @@
     color: $black;
     border-color: $black;
   }
+  &.cancel {
+    border-color: $brand;
+    color: $brand;
+  }
 }
 
 .button.single {
@@ -147,17 +151,6 @@
 .white-button:hover {
   background-color: darken($base-background-color, 10%);
   color: $dark-gray;
-}
-
-.negative {
-  background-color: $red;
-  color: #fff;
-
-}
-
-.negative:hover, .negative:focus {
-  background-color: $darker-red;
-  color: #fff;
 }
 
 .alt-button {

@@ -2,9 +2,9 @@
   .times{ id: "#{type}_times"}
     %h4
       - if type == 'return'
-        %label.button
-          No return journey
-          = form.radio_button journey_type, nil
+        / %label.button
+        /   No return journey
+        /   = form.radio_button journey_type, nil
         %h3
           = t('bookings.return.time')
       - else

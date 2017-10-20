@@ -25,9 +25,14 @@ textarea {
   font-weight: 700;
 }
 
+.concession-cont .fa-times {
+  float: right;
+  line-height: $baseline;
+}
+
 #{$all-text-inputs}, select[multiple] {
   background-color: white;
-  border: $black $border-width $border-style;
+  border: $black $border-width-thin $border-style;
   box-sizing: border-box;
   margin-bottom: $baseline * 0.5;
   padding: $baseline * 0.5;
@@ -86,4 +91,24 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.select {
+  @include box-sizing;
+  border: $border-width-thin $border-style $black;
+  border-radius: 0;
+  background-color: $white;
+  line-height: 1.5em;
+  padding: 5px 40px 5px 10px;
+  color: $black;
+  cursor: pointer;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, $black 50%), linear-gradient(135deg, $black 50%, transparent 50%), linear-gradient(to right, $black, $black);
+  background-position: calc(100% - 15px) calc(13px + 2px), calc(100% - 10px) calc(13px + 2px), calc(100% - 30px) 7px;
+  background-size: 5px 5px, 5px 5px, 1px 20px;
+  background-repeat: no-repeat;
+  margin-bottom: $baseline*0.5;
+  width: 100%;
 }
