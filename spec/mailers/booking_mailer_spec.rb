@@ -4,11 +4,17 @@ RSpec.describe BookingMailer, type: :mailer do
   
   let(:stops) {
     [
-      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryGirl.create(:place, name: 'Pickup Stop')),
+      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1,
+        place: FactoryGirl.create(:place, name: 'Pickup Stop'),
+        landmarks: FactoryGirl.create_list(:landmark, 1, name: 'Pickup Landmark')
+      ),
       FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
       FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
       FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryGirl.create(:place, name: 'Dropoff Stop'))
+      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5,
+        place: FactoryGirl.create(:place, name: 'Dropoff Stop'),
+        landmarks: FactoryGirl.create_list(:landmark, 1, name: 'Pickup Landmark')
+      )
     ]
   }
   let(:route) { FactoryGirl.create(:route, stops: stops) }
@@ -30,14 +36,16 @@ RSpec.describe BookingMailer, type: :mailer do
   
   before do
     booking.pickup_landmark.name = 'Pickup Landmark'
+    booking.pickup_landmark.save
     booking.dropoff_landmark.name = 'Dropoff Landmark'
+    booking.dropoff_landmark.save
   end
   
   describe 'with a single journey' do
     
     describe '#booking_confirmed' do
       
-      let(:mail) { BookingMailer.booking_confirmed(booking) }
+      let(:mail) { BookingMailer.booking_confirmed(booking_id: booking.id) }
       
       it 'renders the headers' do
         expect(mail.subject).to eq('A new booking has been confirmed')
@@ -61,7 +69,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#user_confirmation' do
       
-      let(:mail) { BookingMailer.user_confirmation(booking) }
+      let(:mail) { BookingMailer.user_confirmation(booking_id: booking.id) }
       
       it 'renders the headers' do
         expect(mail.subject).to eq('Your Ride booking confirmation')
@@ -88,11 +96,12 @@ RSpec.describe BookingMailer, type: :mailer do
         start_time: DateTime.parse('2017-01-01T15:00:00'),
         reversed: true
       )
+      booking.save
     end
     
     describe '#booking_confirmed' do
       
-      let(:mail) { BookingMailer.booking_confirmed(booking) }
+      let(:mail) { BookingMailer.booking_confirmed(booking_id: booking.id) }
       
       it 'renders the body' do
         expect(body).to match(/Return Journey/)
@@ -109,7 +118,7 @@ RSpec.describe BookingMailer, type: :mailer do
     
     describe '#user_confirmation' do
       
-      let(:mail) { BookingMailer.user_confirmation(booking) }
+      let(:mail) { BookingMailer.user_confirmation(booking_id: booking.id) }
       
       it 'renders the body' do
         expect(body).to match(/Your return ride will be from Dropoff Landmark, Dropoff Stop/)
@@ -123,7 +132,7 @@ RSpec.describe BookingMailer, type: :mailer do
   
   describe '#first_alert' do
     
-    let(:mail) { BookingMailer.first_alert(booking) }
+    let(:mail) { BookingMailer.first_alert(booking_id: booking.id) }
     
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Ride booking is tomorrow')
@@ -141,7 +150,7 @@ RSpec.describe BookingMailer, type: :mailer do
   
   describe '#second_alert' do
     
-    let(:mail) { BookingMailer.second_alert(booking) }
+    let(:mail) { BookingMailer.second_alert(booking_id: booking.id) }
     
     it 'renders the headers' do
       expect(mail.subject).to eq('Your Ride is on it’s way.')
