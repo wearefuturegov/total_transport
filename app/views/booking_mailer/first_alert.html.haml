@@ -1,0 +1,30 @@
+= render 'header'
+
+%p
+  This is your
+  %strong
+    Ride
+  booking reminder for your trip tomorrow.
+  
+%p
+  You’ll be picked up from
+  = "#{@booking.pickup_landmark.name}, #{@booking.pickup_stop.name}"
+  on
+  = friendly_date(@booking.journey.start_time)
+  between
+  = plus_minus_ten(@booking.pickup_time)
+  \.
+  
+%p
+  Don’t forget you’ll need to pay the driver as you get on.
+
+%p
+  To amend or cancel your booking please call 01621 855111.
+
+%p
+  Thanks,<br />The RIDE Team
+
+%p
+  P.s. How can we improve? Reply to this email and let us know how you’re finding Ride.
+
+= render 'footer'

@@ -1,0 +1,24 @@
+= render 'header'
+
+%p
+  Your pickup point is
+  = "#{@booking.pickup_landmark.name}, #{@booking.pickup_stop.name}"
+  between
+  = plus_minus_ten(@booking.pickup_time)
+  \. Look out for a vehicle with the Ride sticker.
+
+%p
+  The cost of your journey is
+  = number_to_currency(@booking.price, unit: '£')
+  \. Don’t forget, you’ll need to pay the driver directly.
+
+%p
+  If you need to get in touch, please call 01621 855111.
+
+%p
+  Thanks,<br />The RIDE Team
+
+%p
+  P.s. How can we improve? Reply to this email and let us know how you’re finding Ride.
+
+= render 'footer'
