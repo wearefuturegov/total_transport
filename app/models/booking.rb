@@ -45,12 +45,16 @@ class Booking < ActiveRecord::Base
     journey.time_at_stop(dropoff_stop)
   end
   
+  def return_time
+    return_journey.time_at_stop(dropoff_stop)
+  end
+  
   def pickup_name
-    pickup_landmark.try(:name)
+    "#{pickup_landmark.name}, #{pickup_stop.name}"
   end
   
   def dropoff_name
-    dropoff_landmark.try(:name)
+    "#{dropoff_landmark.name}, #{dropoff_stop.name}"
   end
 
   def last_dropoff_time

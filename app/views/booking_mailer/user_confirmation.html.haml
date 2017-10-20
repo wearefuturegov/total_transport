@@ -9,7 +9,7 @@
 
 %p
   Your approved local driver will pick you up from
-  = "#{@booking.pickup_landmark.name}, #{@booking.pickup_stop.name}"
+  = @booking.pickup_name
   on
   = friendly_date(@booking.journey.start_time)
   between
@@ -19,11 +19,11 @@
 
   %p
     Your return ride will be from
-    = "#{@booking.dropoff_landmark.name}, #{@booking.dropoff_stop.name}"
+    = @booking.dropoff_name
     on
     = friendly_date(@booking.return_journey.start_time)
     between
-    = plus_minus_ten(@booking.return_journey.time_at_stop(@booking.dropoff_stop))
+    = plus_minus_ten(@booking.return_time)
 
 %p
   To amend or cancel your booking please call 01621 855111.
