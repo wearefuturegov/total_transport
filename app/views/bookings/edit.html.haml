@@ -25,18 +25,21 @@
     
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
+
+      %section.section
+        Approx arrival time placeholder text
       
       = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
     %section.section
       .landmarks.hidden
-        = form.label :pickup_landmark_id, 'Please choose a pickup point'
+        = form.label :pickup_landmark_id, I18n.t('bookings.pickup.title')
         = form.select :pickup_landmark_id,
             options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
             { include_blank: '-- Please Select --' },
             { class: 'select' }
         
-        = form.label :pickup_landmark_id, 'Please choose a dropoff point'
+        = form.label :pickup_landmark_id, I18n.t('bookings.dropoff.title')
         = form.select :dropoff_landmark_id,
             options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
             { include_blank: '-- Please Select --'},
@@ -47,13 +50,13 @@
 
         %section.section
           %h3
-            = form.label :number_of_passengers
+            = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
           = form.select :number_of_passengers, 1..10
 
         %section.section
           #add-concession{:class => "add button secondary #{" hidden" if @booking.number_of_adults == 0}"}
             %i.fa.fa-plus
-            Add a Concessionary Fare
+            = t('bookings.buspass.title')
         
           %p#adult-tickets{:class => "#{" hidden" if @booking.number_of_adults == 0}"}
             %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
@@ -62,30 +65,36 @@
 
           %p{id: 'concession-1', :class => "concession-cont#{" hidden" if @booking.child_tickets == 0}"}
             %span.count= @booking.child_tickets
-            Child fare (#{number_to_currency(@booking.child_single_price, :unit => "£")} each)
+            = t('bookings.buspass.child')
+            (#{number_to_currency(@booking.child_single_price, :unit => "£")}each)
             = fa_icon 'times', class: 'cancel-concession'
 
           %p{id: 'concession-2', :class => "concession-cont#{" hidden" if @booking.older_bus_passes == 0}"}
             %span.count= @booking.older_bus_passes
-            Older persons bus pass (£0.00 each)
+            = t('bookings.buspass.older')
             = fa_icon 'times', class: 'cancel-concession'
 
           %p{id: 'concession-3', :class => "concession-cont#{" hidden" if @booking.disabled_bus_passes == 0}"}
             %span.count= @booking.disabled_bus_passes
-            Disabled persons bus pass (£0.00 each)
+            = t ('bookings.buspass.disabled')
             = fa_icon 'times', class: 'cancel-concession'
 
           %p{id: 'concession-4', :class => "concession-cont#{" hidden" if @booking.scholar_bus_passes == 0}"}
             %span.count= @booking.scholar_bus_passes
-            Scholarly Season Ticket (£0.00 each)
+            = t('bookings.buspass.scholar')
             = fa_icon 'times', class: 'cancel-concession'
 
           %select#concession-list.hidden.select
-            %option#option-null{:value => "0"} Select a Concession
-            %option#option-1.non-promo{:value => "1"} Child fare
-            %option#option-2.non-promo{:value => "2"} Older persons bus pass
-            %option#option-3.non-promo{:value => "3"} Disabled persons bus pass
-            %option#option-4.non-promo{:value => "4"} Scholarly Season Ticket
+            %option#option-null{:value => "0"}
+              = t('bookings.buspass.options.select')
+            %option#option-1.non-promo{:value => "1"}
+              = t('bookings.buspass.options.child')
+            %option#option-2.non-promo{:value => "2"}
+              = t('bookings.buspass.optioins.older')
+            %option#option-3.non-promo{:value => "3"}
+              = t('bookings.buspass.optioins.disabled')
+            %option#option-4.non-promo{:value => "4"}
+              = t('bookings.buspass.optioins.scholar')
             %option#promo{:value => "5"} Add Promo Code
 
           .promo-code.hidden
@@ -103,25 +112,25 @@
         %section.section  
           #add.button.secondary
             %i.fa.fa-plus
-            Add Special Requirements
+            = t('bookings.requirements.title')
           #special-req.hidden
-            = form.label :special_requirements, "Describe your special requirements:"
+            = form.label :special_requirements, I18n.t('bookings.requirements.label')
             = form.text_field :special_requirements
 
         %section.section
           %p 
-            Your transport provider will get in touch with you if they can't meet your needs
+            = t('bookings.requirements.message')
         
-          = form.label :passenger_name, "Lead Passenger's Name"
+          = form.label :passenger_name, I18n.t('bookings.lead.label')
           = form.text_field :passenger_name
 
 
-          = form.label :phone_number
+          = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
           = form.text_field :phone_number
           %p
-            Let us know your phone number so that we can notify you when your vehicle is on its way.
+            = t('bookings.lead.mobile.message')
         %section.section            
-          = form.submit "Submit your booking request", :class => 'button', :id => 'submit-booking'
+          = form.submit :class => 'button', :id => 'submit-booking'
 
 - content_for :js do
   :javascript

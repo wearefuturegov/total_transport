@@ -1,0 +1,20 @@
+%section.section
+  %h2 Your Journey has been Booked!
+  - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
+    = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
+  %p
+    Thanks#{" #{@booking.passenger_name}"}, your booking has been confirmed.
+  %p
+    A minivan will pick you up at your pickup point outside #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten @booking.pickup_time}.
+  - if @booking.payment_method == 'cash'
+    %p
+      Please pay #{number_to_currency @booking.price, unit: '£'} to your driver.
+    %p If you need to cancel you can see this booking in:
+  - else
+    %p You can cancel your booking up to 12 hours before your journey by going to:
+  = link_to 'Back', journeys_path, :class => "button"
+- content_for :js do
+  :javascript
+    $(function() {
+      $('#back-btn').html('Home');
+    });

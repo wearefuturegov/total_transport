@@ -1,14 +1,12 @@
-%section.section
-  %div{"aria-live" => "assertive", :role => "alert"}
-    %p.error-block
-      = t('message.sorry')
-      <strong>#{from.name}</strong> to <strong>#{to.name}</strong>.
-      = fa_icon 'exclamation-triangle'
-    %p
-      = t('message.suggest')
-      <strong>#{from.name}</strong>
-      = t('message.suggest_end')
-%section.section
+%div{"aria-live" => "assertive", :role => "alert"}
+  %p.error-block
+    = t('message.sorry')
+    to <strong>#{to.name}</strong>.
+  %p
+    = t('message.suggest')
+    <strong>#{from.name}</strong>
+    = t('message.suggest_end')
+
   %h3
     = from.name
     %span

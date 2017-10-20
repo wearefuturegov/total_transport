@@ -1,6 +1,6 @@
 %section.section
   %h3
-    Select a day
+    = t('bookings.day.title')
   %section.dates
     - @journeys.keys.uniq.each do |j|
       %a.button.single.date-button{ 'data-selector' => "journeys_#{j.to_date}" }

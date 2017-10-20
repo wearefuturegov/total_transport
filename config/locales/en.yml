@@ -74,14 +74,45 @@ en:
 
   bookings:
     title: "Your journey"
+    day:
+      title: "Select a day"
     outward:
       time: "Outward time (+-10mins)"
     return:
       time: "Return time (+-10mins)"
+    pickup:
+      title: "Please choose a pickup point"
+    dropoff:
+      title: "Please choose a dropoff point"
+    passenger:
+      title: "Number of passengers"
+    buspass:
+      title: "Add a bus pass holder"
+      child: "Child fare "
+      older: "Older persons bus pass (£0.00 each)"
+      disabled: "Disabled persons bus pass (£0.00 each)"
+      scholar: "Scholarly Season Ticket (£0.00 each)"
+      options:
+        select: "Select a Concession"
+        child: "Child fare"
+        older: "Older persons bus pass"
+        disabled: "Disabled persons bus pass"
+        scholar: "Scholarly Season Ticket"
+    requirements: 
+      title: "Add Special Requirements"
+      label: "Describe your special requirements:"
+      message: "Your transport provider will get in touch with you if they can't meet your needs"
+    lead:
+      label: "Lead passenger's name"
+      mobile: 
+        label: "Mobile phone number"
+        message: "Let us know your phone number so that we can notify you when your vehicle is on its way."
+
 
   button:
     book: "Pre-book your ride"
     contact: "Have a question?"
+    submit: "Submit your booking request"
   
   action:
     title: "Pre-book your ride"
@@ -108,7 +139,8 @@ en:
       link: "http://www.wearefuturegov.com/"
 
   message:
-    sorry: "Sorry, we don't currently travel from "
+    sorry: "Sorry, we don't currently travel "
     suggest: "We will add your request to our system, so be sure to check back. In the meantime, here are some destinations from "
     suggest_end: "that might suit you."
+    feedback: "We've logged your request and we're adding new routes all the time, so please check back!"
   

@@ -4,10 +4,11 @@
 
 = render 'form', from: @from.try(:name), to: @to.try(:name)
 
-#results
-  - if @possible_bookings
-    = render 'possible_bookings', bookings: @possible_bookings, from: @from, to: @to
-  - elsif @bookings
-    = render 'bookings_form', bookings: @bookings, suggestion: false
+%section.section
+  #results
+    - if @possible_bookings
+      = render 'possible_bookings', bookings: @possible_bookings, from: @from, to: @to
+    - elsif @bookings
+      = render 'bookings_form', bookings: @bookings, suggestion: false
 
-= render 'choose_script'
+  = render 'choose_script'
