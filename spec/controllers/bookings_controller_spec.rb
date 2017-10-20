@@ -60,7 +60,8 @@ RSpec.describe BookingsController, type: :controller do
           dropoff_landmark_id: FactoryGirl.create(:landmark).id,
           passenger_name: 'Me',
           phone_number: '1234',
-          payment_method: 'cash'
+          email: 'email@example.com',
+          payment_method: 'cash',
         },
         id: booking,
         route_id: route
