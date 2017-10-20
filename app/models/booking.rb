@@ -171,8 +171,19 @@ class Booking < ActiveRecord::Base
     log_booking
   end
   
-  def send_confirmation!
+  def queue_sms
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
+    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: pickup_time - 1.hours)
+  end
+  
+  def queue_emails
+    SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
+    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: pickup_time - 24.hours)
+    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: pickup_time - 1.hours)
+  end
+  
+  def send_confirmation!
     SendEmail.enqueue('BookingMailer', :booking_confirmed, booking_id: id)
   end
   
@@ -181,8 +192,8 @@ class Booking < ActiveRecord::Base
   end
   
   def queue_alerts
-    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: pickup_time - 1.hours)
+    queue_sms if phone_number
+    queue_emails if email
   end
   
   def remove_alerts

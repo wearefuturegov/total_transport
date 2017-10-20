@@ -20,20 +20,28 @@ RSpec.describe Booking, :que, type: :model do
       dropoff_stop: stops.last,
       passenger_name: 'Me',
       phone_number: '12345',
+      email: 'me@example.com',
       pickup_landmark: stops.first.landmarks.first,
       dropoff_landmark: stops.last.landmarks.first,
     )
   }
   
   describe 'confirm!' do
-    it 'sends a confirmation' do
+    it 'sends a text message to the passenger' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       job = QueJob.find_by(job_class: 'SendSMS')
       expect(job.args[0]['to']).to eq(booking.phone_number)
     end
     
+    it 'sends an email to the passenger' do
+      booking.confirm!
+      job = QueJob.where(job_class: 'SendEmail').find { |j| j.args[1] == 'user_confirmation'}
+      expect(job.args[0]).to eq('BookingMailer')
+      expect(job.args[2]).to eq('booking_id' => booking.id)
+    end
+    
     it 'sends an email to the supplier' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(1)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(4)
       job = QueJob.find_by(job_class: 'SendEmail')
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[1]).to eq('booking_confirmed')
@@ -46,11 +54,20 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[0]).to eq(booking.id)
     end
     
-    it 'queues alerts' do
+    it 'queues text messages' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
+      expect(first_alert.run_at).to eq(booking.pickup_time - 24.hours)
+      expect(second_alert.run_at).to eq(booking.pickup_time - 1.hours)
+    end
+    
+    it 'queues emails' do
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(4)
+      jobs = QueJob.where(job_class: 'SendEmail')
+      first_alert = jobs.find { |j| j.args[1] == 'first_alert'}
+      second_alert = jobs.find { |j| j.args[1] == 'second_alert'}
       expect(first_alert.run_at).to eq(booking.pickup_time - 24.hours)
       expect(second_alert.run_at).to eq(booking.pickup_time - 1.hours)
     end
@@ -63,6 +80,18 @@ RSpec.describe Booking, :que, type: :model do
     it 'sets the booking state to booked' do
       booking.confirm!
       expect(booking.state).to eq('booked')
+    end
+    
+    it 'does not send emails if no email is specified' do
+      booking.email = nil
+      booking.confirm!
+      expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
+    end
+    
+    it 'does not send text messages if no phone number is specified' do
+      booking.phone_number = nil
+      booking.confirm!
+      expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
     end
   end
   
