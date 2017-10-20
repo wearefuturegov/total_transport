@@ -26,8 +26,8 @@
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
 
-      %section.section
-        Approx arrival time placeholder text
+      %section.section#arrival-times.hidden
+        
       
       = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
@@ -144,6 +144,12 @@
       $('#times').removeClass('hidden');
       $('#times .time').addClass('hidden');
       $(' .' + target).removeClass('hidden');
+    })
+    
+    $('#outward_times input').click(function() {
+      var time = $(this).data('arrival-time')
+      $('#arrival-times').removeClass('hidden');
+      $('#arrival-times').html('Approximate arrival time: ' + time);
     })
     
     $('#return_times input').click(function() {
