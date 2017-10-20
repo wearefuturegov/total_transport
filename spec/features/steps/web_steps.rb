@@ -56,13 +56,15 @@ module WebSteps
   
   def choose_journey
     first('.date-button').click
-    all('#outward_times label')[0].click
-    all('#return_times label')[0].click
+    first('#outward_times .time label').click
+    page.execute_script '$("#return_times .time label")[0].scrollIntoView(true)'
+    first('#return_times .time label').click
   end
   
   def choose_single_journey
     first('.date-button').click
-    all('#outward_times label')[0].click
+    first('#outward_times label').click
+    find('label', text: /No return journey/i).click
   end
   
   def choose_place(field, place)
@@ -73,10 +75,6 @@ module WebSteps
 
   def choose_passengers(num)
     select(num, from: 'booking[number_of_passengers]')
-  end
-
-  def choose_single_journey
-    first('#return_times input').click
   end
   
   def choose_pickup_and_dropoff_point
