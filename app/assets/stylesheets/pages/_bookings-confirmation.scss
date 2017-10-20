@@ -1,0 +1,10 @@
+#bookings-confirmation {
+  .header {
+    display: none;
+  }
+  a.button {
+    bottom: $baseline;
+    position: absolute;
+    width: 90%;
+  }
+}

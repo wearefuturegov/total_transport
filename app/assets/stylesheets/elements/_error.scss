@@ -1,7 +1,8 @@
 /* error */
 
 .error-block {
-  color: $brand;
+  color: $white;
+  background: $error;
   font-weight: 700;
   border: $border-width*2 $border-style $error;
   padding: $baseline*0.5;
