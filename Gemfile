@@ -61,6 +61,10 @@ gem 'platform-api'
 gem 'friendly_id'
 gem 'google_drive'
 gem 'cocoon'
+gem 'postcodes_io'
+
+# Require FactoryGirl in production for seeding purposes
+gem 'factory_girl_rails', '>= 4.8.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -76,7 +80,6 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'rspec-rails', '~> 3.5.2'
-  gem 'factory_girl_rails', '>= 4.8.0'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'webmock'
