@@ -70,7 +70,7 @@ en:
       info: "Fill in your journey details and select an available route."
     step_2:
       title: "Confirm"
-      info: "You’ll get a confirmation within 48 hours."
+      info: "You’ll get a confirmation within 24 hours."
     step_3:
       title: "Ride"
       info: "Meet your driver at the selected pickup point."

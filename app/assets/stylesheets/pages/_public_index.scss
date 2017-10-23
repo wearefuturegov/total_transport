@@ -24,17 +24,39 @@
         margin-top: $baseline*2;
         margin-bottom: $baseline*2;
       }
+      h3 {
+        $h4: 50px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
       h3, p {
         color: $white;
       }
+      .overlay {
+        background-color: rgba(24, 45, 56, 0.8);
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      &.regular {
+        .overlay {
+          background-color: rgba(42, 51, 68, 0.8);
+        }
+      }
     }
-    .hero + .hero {
+    .hero.regular {
       margin-top: $baseline*2;
     }
     .event {
       background-image: url('fireworks.jpg');
       background-size: cover;
-      height: $baseline*14;
+      height: $baseline*16;
       + .section {
         position: absolute;
         top: 0;
@@ -42,9 +64,9 @@
         right: 0;
         bottom: 0;
       }
-      &.regular {
-        background-image: url('regular.jpg');
-      }
+    }
+    .regular .event {
+      background-image: url('regular.jpg');
     }
   }
 }
