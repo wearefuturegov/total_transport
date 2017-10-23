@@ -14,5 +14,8 @@
     .event {
       background-position: 0 0;
     }
+    .regular .event {
+      background-position-x: center;
+    }
   }
 }
