@@ -4,7 +4,7 @@
   #from_result.hidden{"aria-live" => "assertive", :hidden => "", :role => "alert"}
     %p.error-block
       = t('message.sorry')
-      to
+      from
       = succeed "." do
         %span#place
     %p
@@ -12,6 +12,6 @@
         = t('service')
       = t('message.feedback')
 
-    = link_to I18n.t('button.suggest'), 'https://bookpublictransport.typeform.com', class: 'button'
+      = link_to I18n.t('button.typeform'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
 
 
