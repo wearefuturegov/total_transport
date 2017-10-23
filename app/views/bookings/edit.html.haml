@@ -53,8 +53,6 @@
             = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
           = form.select :number_of_passengers, 1..10
 
-          <input type='number' size='10' id='numberinput' name='mynumber' value='0' />
-
         %section.section
           #add-concession{:class => "add button secondary #{" hidden" if @booking.number_of_adults == 0}"}
             %i.fa.fa-plus
@@ -132,7 +130,7 @@
           
           = form.label :email
           = form.text_field :email
-          
+
           %p
             = t('bookings.lead.mobile.message')
         %section.section
