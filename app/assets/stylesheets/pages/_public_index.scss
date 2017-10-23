@@ -56,6 +56,11 @@
         bottom: 0;
         margin-top: 0;
         margin-bottom: 0;
+        a:hover {
+          background: $white;
+          border-color: $white;
+          color: $brand;
+        }
       }
     }
     .hero.regular {
