@@ -49,6 +49,14 @@
           background-color: rgba(42, 51, 68, 0.8);
         }
       }
+      .action {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
     .hero.regular {
       margin-top: $baseline*2;
@@ -56,6 +64,7 @@
     .event {
       background-image: url('fireworks.jpg');
       background-size: cover;
+      background-position-y: bottom;
       height: $baseline*16;
       + .section {
         position: absolute;
