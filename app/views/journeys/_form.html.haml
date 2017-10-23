@@ -8,6 +8,10 @@
       = succeed "." do
         %span#place
     %p
+      %span.bold 
+        = t('service')
       = t('message.feedback')
+
+    = link_to I18n.t('button.suggest'), 'https://bookpublictransport.typeform.com', class: 'button'
 
 

@@ -145,8 +145,8 @@ en:
       link: "http://www.wearefuturegov.com/"
 
   message:
-    sorry: "Sorry, we don't currently travel "
-    suggest: "We will add your request to our system, so be sure to check back. In the meantime, here are some destinations from "
+    sorry: "We don't currently travel "
+    suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
-    feedback: "We've logged your request and we're adding new routes all the time, so please check back!"
+    feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
   
