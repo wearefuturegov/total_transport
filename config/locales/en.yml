@@ -27,73 +27,137 @@ en:
 
   public-index:
     title:
-      essex: 'Your local service that helps you go places in Essex'
-      suffolk: 'Your local service that helps you go places in Suffolk'
+      essex: "Your local service that helps you go places in Essex"
+      suffolk: "Your local service that helps you go places in Suffolk"
     intro:
-      essex: 'Want a more flexible way to get around the Maldon and Dengie area?'
-      suffolk: 'Want a more flexible way to get around the Maldon and Dengie area?'
+      essex: "Your local commute or big day out made simple - pre-book your shared ride today"
+      suffolk: "Your local commute or big day out made simple - pre-book your shared ride today"
     intro_extend:
-      intro: 'It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go.'
+      intro: "It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go."
     route_intro:
-      essex: 'Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance.'
-      suffolk: 'Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance.'
-    map_title: 'Connecting residents to great locations in your area'
+      essex: "Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
+      suffolk: "Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance."
+    map_title: "Connecting residents to great locations in your area"
     about:
-      title: ''
-      info: 'Pre-book a ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way.'
-      extra: 'Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events.'
+      title:
+      info: "Pre-book a ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
+      extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
     collection:
-      title: 'Great destinations to visit in your area'
+      title: "Great destinations to visit in your area"
     list:
-      title: 'All the destinations'
+      title: "All the destinations"
     dummy:
-      title: 'Places you can visit.'
-      info: 'A place you might travel to.'
+      title: "Places you can visit."
+      info: "A place you might travel to."
     footer:
-      social_1: 'Twitter'
-      social_2: 'Facebook'
-      info: 'A project by:'
-      author_1: 'Essex County Council'
-      author_2: 'Suffolk County Council'
-      author_3: 'FutureGov'
+      social_1: "Twitter"
+      social_2: "Facebook"
+      info: "A project by:"
+      author_1: "Essex County Council"
+      author_2: "Suffolk County Council"
+      author_3: "FutureGov"
 
+    event:
+      title: "Maldon Fireworks Sat 4th November"
+      info: "Return journeys for a £1 from South Woodham Ferrers and nearby villages."
+      regular:
+        title: "Daily to Burnham on Crouch"
+        info: "Return journeys running 6am - 8pm to and from local villages. Try one of our special £1 journeys on Wed 1st and Thu 2nd November."
 
   steps:
     step_1:
-      title: 'Request'
-      info: 'Fill in your journey details and select an available route.'
+      title: "Request"
+      info: "Fill in your journey details and select an available route."
     step_2:
-      title: 'Confirm'
-      info: 'You’ll get a confirmation within 48 hours.'
+      title: "Confirm"
+      info: "You’ll get a confirmation within 48 hours."
     step_3:
-      title: 'Ride'
-      info: 'Meet your driver at the selected pickup point.'
+      title: "Ride"
+      info: "Meet your driver at the selected pickup point."
+
+  journey:
+    title: "Pre-book your ride"
+
+  bookings:
+    title: "Your journey"
+    day:
+      title: "Select a day"
+    outward:
+      time: "Outward time (+-10mins)"
+    return:
+      time: "Return time (+-10mins)"
+    pickup:
+      title: "Please choose a pickup point"
+    dropoff:
+      title: "Please choose a dropoff point"
+    passenger:
+      title: "Number of passengers"
+    buspass:
+      title: "Add a bus pass holder"
+      child: "Child fare "
+      older: "Older persons bus pass (£0.00 each)"
+      disabled: "Disabled persons bus pass (£0.00 each)"
+      scholar: "Scholarly Season Ticket (£0.00 each)"
+      options:
+        select: "Select a Concession"
+        child: "Child fare"
+        older: "Older persons bus pass"
+        disabled: "Disabled persons bus pass"
+        scholar: "Scholarly Season Ticket"
+    requirements: 
+      title: "Add Special Requirements"
+      label: "Describe your special requirements:"
+      message: "Your transport provider will get in touch with you if they can't meet your needs"
+    lead:
+      label: "Lead passenger's name"
+      mobile: 
+        label: "Mobile phone number"
+        message: "Let us know your phone number so that we can notify you when your vehicle is on its way."
+
 
   button:
-    book: 'Pre-book your ride'
-    contact: 'Have a question?'
-  
+    main_book: "Try our £1 return offers *"
+    main_book_asterisk: "* Introductory offer."
+    book: "Pre-book your ride"
+    contact: "Have a question?"
+    submit: "Submit your booking request"
+    return: "No return journey"
+    typeform: "Tell us more"
+    event: "Pre-book my ride"
+    regular: "Pre-book my ride"
+
+  helpers:
+    submit:
+      booking:
+        update: 'Confirm pre-booking'
+
   action:
-    title: 'Pre-book your ride'
-    extra: 'Have a question?'
+    title: "Pre-book your ride"
+    extra: "Have a question?"
 
   social:
     twitter:
-      text: 'Twitter'
-      link: 'https://twitter.com/bookyourride'
+      text: "Twitter"
+      link: "https://twitter.com/bookyourride"
     facebook:
-      text: 'Facebook'
-      link: 'https://www.facebook.com/bookyourride'
+      text: "Facebook"
+      link: "https://www.facebook.com/bookyourride"
 
   credit:
-    title: 'A project by:'
+    title: "A project by:"
     essex:
-      text: 'Essex County Council'
-      link: 'https://www.essex.gov.uk'
+      text: "Essex County Council"
+      link: "https://www.essex.gov.uk"
     suffolk: 
-      text: 'Suffolk County Council'
-      link: 'https://www.suffolk.gov.uk/'
+      text: "Suffolk County Council"
+      link: "https://www.suffolk.gov.uk/"
     futuregov:
-      text: 'FutureGov'
-      link: 'http://www.wearefuturegov.com/'
+      text: "FutureGov"
+      link: "http://www.wearefuturegov.com/"
+
+  message:
+    sorry: "We don't currently travel "
+    suggest: "Here are some destinations from "
+    suggest_end: "that might suit you."
+    feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
   

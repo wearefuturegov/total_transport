@@ -3,14 +3,6 @@
     .step {
       border-bottom: $border-width $border-style $black;
       float: left;
-        h3 {
-          $h3: 30px;
-          font-size: $h3;
-          font-weight: 900;
-          line-height: calc(#{$h3} * 1.1);
-          margin-top: 0;
-          margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
-      }
     }
   }
 }

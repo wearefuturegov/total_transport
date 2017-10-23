@@ -3,8 +3,48 @@
 #public-index {
   float: left;
   background-color: $white;
+  h3 {
+    $h3: 30px;
+    font-size: $h3;
+    font-weight: 900;
+    line-height: calc(#{$h3} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+  }
   .header {
     background: none;
     position: absolute;
+  }
+  .main {
+    .hero {
+      float: none;
+      display: inline-block;
+      position: relative;
+      section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*2;
+      }
+      h3, p {
+        color: $white;
+      }
+    }
+    .hero + .hero {
+      margin-top: $baseline*2;
+    }
+    .event {
+      background-image: url('fireworks.jpg');
+      background-size: cover;
+      height: $baseline*14;
+      + .section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+      &.regular {
+        background-image: url('regular.jpg');
+      }
+    }
   }
 }
