@@ -71,7 +71,7 @@
   %section.section
     .action
       = link_to I18n.t('button.book'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
-      = link_to I18n.t('button.contact'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta secondary'
+      = mail_to I18n.t('email.address'), I18n.t('button.contact'), subject: I18n.t('email.subject'), class: 'button cta secondary'
 
   %footer.psuedo-footer
     %section.section

@@ -126,6 +126,10 @@ en:
     event: "Pre-book my ride"
     regular: "Pre-book my ride"
 
+  email:
+    address: "hello@bookyourride.co.uk"
+    subject: "question"
+
   helpers:
     submit:
       booking:
