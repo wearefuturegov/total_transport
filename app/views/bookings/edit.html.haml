@@ -27,9 +27,9 @@
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
 
       %section.section#arrival-times.hidden
-        
       
-      = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
+      #one_way
+        = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
     %section.section
       .landmarks.hidden
@@ -155,7 +155,11 @@
     
     $('#return_times input').click(function() {
       $('.landmarks').removeClass('hidden');
-    });
+    })
+
+    $('#one_way input').click(function() {
+      $('#one_way .hide_times').addClass('hidden');
+    })
     
     $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');

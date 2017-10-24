@@ -10,6 +10,8 @@
     %span.bold 
       = t('service')
     = t('message.feedback')
+  %p
+    = link_to I18n.t('button.typeform'), 'https://bookpublictransport.typeform.com/to/PttmxO'
 
 
 
@@ -18,7 +20,8 @@
     %span
       to
     = fa_icon 'map-marker'
-  - bookings.each do |bookings|
-    .single
-      .details
-        = render 'bookings_form', bookings: bookings, suggestion: true
+  %section.collection
+    - bookings.each do |bookings|
+      .single
+        .details
+          = render 'bookings_form', bookings: bookings, suggestion: true
