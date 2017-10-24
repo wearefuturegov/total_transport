@@ -80,12 +80,14 @@ en:
       time: "Outward time (+-10mins)"
     return:
       time: "Return time (+-10mins)"
+    landmark:
+      title: "Pickup and dropoff"
     pickup:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
     passenger:
-      title: "Number of passengers"
+      title: "Passengers details"
     buspass:
       title: "Add a bus pass"
       child: "Child fare "
@@ -93,7 +95,7 @@ en:
       disabled: "Disabled persons bus pass (£0.00 each)"
       scholar: "Scholarly Season Ticket (£0.00 each)"
       options:
-        select: "Select a Concession"
+        select: "Add a bus pass"
         child: "Child fare"
         older: "Older persons bus pass"
         disabled: "Disabled persons bus pass"

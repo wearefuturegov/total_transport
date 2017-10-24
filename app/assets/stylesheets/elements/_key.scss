@@ -59,3 +59,8 @@ $key-math: $baseline*5;
     height: $key-math + $baseline;
   }
 }
+
+.landmarks .link {
+  margin: $baseline*0.5;
+  height: $baseline*1.5;
+}

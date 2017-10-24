@@ -33,106 +33,101 @@
     
     %section.section
       .landmarks.hidden
-        = form.label :pickup_landmark_id, I18n.t('bookings.pickup.title')
+        %h3
+          = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
         = form.select :pickup_landmark_id,
             options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
-            { include_blank: '-- Please Select --' },
+            { include_blank: I18n.t('bookings.pickup.title') },
             { class: 'select' }
+
+        %section.link
         
-        = form.label :pickup_landmark_id, I18n.t('bookings.dropoff.title')
         = form.select :dropoff_landmark_id,
             options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
-            { include_blank: '-- Please Select --'},
+            { include_blank: I18n.t('bookings.dropoff.title')},
             { class: 'select' }
-    
+
     #details.hidden
-      .concessions
+      %section.section.concessions
+        %h3
+          = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
+        = form.select :number_of_passengers, 1..10
 
-        %section.section
-          %h3
-            = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
-          = form.select :number_of_passengers, 1..10
+        %select#concession-list.select
+          %option#option-null{:value => "0"}
+            = t('bookings.buspass.options.select')
+          %option#option-1.non-promo{:value => "1"}
+            = t('bookings.buspass.options.child')
+          %option#option-2.non-promo{:value => "2"}
+            = t('bookings.buspass.optioins.older')
+          %option#option-3.non-promo{:value => "3"}
+            = t('bookings.buspass.optioins.disabled')
+          %option#option-4.non-promo{:value => "4"}
+            = t('bookings.buspass.optioins.scholar')
+          %option#promo{:value => "5"} Add Promo Code
+      
+        %p#adult-tickets{:class => "#{" hidden" if @booking.number_of_adults == 0}"}
+          %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
+          (#{number_to_currency(@booking.adult_single_price, :unit => "£")} each)
 
-        %section.section
-          #add-concession{:class => "add button secondary #{" hidden" if @booking.number_of_adults == 0}"}
-            %i.fa.fa-plus
-            = t('bookings.buspass.title')
 
-          %select#concession-list.hidden.select
-            %option#option-null{:value => "0"}
-              = t('bookings.buspass.options.select')
-            %option#option-1.non-promo{:value => "1"}
-              = t('bookings.buspass.options.child')
-            %option#option-2.non-promo{:value => "2"}
-              = t('bookings.buspass.optioins.older')
-            %option#option-3.non-promo{:value => "3"}
-              = t('bookings.buspass.optioins.disabled')
-            %option#option-4.non-promo{:value => "4"}
-              = t('bookings.buspass.optioins.scholar')
-            %option#promo{:value => "5"} Add Promo Code
+        %p{id: 'concession-1', :class => "concession-cont#{" hidden" if @booking.child_tickets == 0}"}
+          %span.count= @booking.child_tickets
+          = t('bookings.buspass.child')
+          (#{number_to_currency(@booking.child_single_price, :unit => "£")}each)
+          = fa_icon 'times', class: 'cancel-concession'
+
+        %p{id: 'concession-2', :class => "concession-cont#{" hidden" if @booking.older_bus_passes == 0}"}
+          %span.count= @booking.older_bus_passes
+          = t('bookings.buspass.older')
+          = fa_icon 'times', class: 'cancel-concession'
+
+        %p{id: 'concession-3', :class => "concession-cont#{" hidden" if @booking.disabled_bus_passes == 0}"}
+          %span.count= @booking.disabled_bus_passes
+          = t ('bookings.buspass.disabled')
+          = fa_icon 'times', class: 'cancel-concession'
+
+        %p{id: 'concession-4', :class => "concession-cont#{" hidden" if @booking.scholar_bus_passes == 0}"}
+          %span.count= @booking.scholar_bus_passes
+          = t('bookings.buspass.scholar')
+          = fa_icon 'times', class: 'cancel-concession'
+
+        .promo-code.hidden
+          = form.label :promo_code
+          = form.text_field :promo_code
+        .hidden
+          = form.label :child_tickets, "Child fare"
+          = form.number_field :child_tickets, :id => "hidden-1"
+          = form.label :older_bus_passes
+          = form.number_field :older_bus_passes, :id => "hidden-2"
+          = form.label :disabled_bus_passes
+          = form.number_field :disabled_bus_passes, :id => "hidden-3"
+          = form.label :scholar_bus_passes
+          = form.number_field :scholar_bus_passes, :id => "hidden-4"
+      %section.section
+        %h3
+          = form.label :special_requirements, I18n.t('bookings.requirements.label')
+          = form.text_field :special_requirements
+        %p.small
+          = t('bookings.requirements.message')
+
+      %section.section
+        %h3
+          = t('bookings.lead.title')
+        = form.label :passenger_name, I18n.t('bookings.lead.label')
+        = form.text_field :passenger_name
+
+
+        = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
+        = form.text_field :phone_number
         
-          %p#adult-tickets{:class => "#{" hidden" if @booking.number_of_adults == 0}"}
-            %span#adult-ticket-no= pluralize @booking.number_of_adults, "adult ticket"
-            (#{number_to_currency(@booking.adult_single_price, :unit => "£")} each)
+        = form.label :email
+        = form.text_field :email
 
-
-          %p{id: 'concession-1', :class => "concession-cont#{" hidden" if @booking.child_tickets == 0}"}
-            %span.count= @booking.child_tickets
-            = t('bookings.buspass.child')
-            (#{number_to_currency(@booking.child_single_price, :unit => "£")}each)
-            = fa_icon 'times', class: 'cancel-concession'
-
-          %p{id: 'concession-2', :class => "concession-cont#{" hidden" if @booking.older_bus_passes == 0}"}
-            %span.count= @booking.older_bus_passes
-            = t('bookings.buspass.older')
-            = fa_icon 'times', class: 'cancel-concession'
-
-          %p{id: 'concession-3', :class => "concession-cont#{" hidden" if @booking.disabled_bus_passes == 0}"}
-            %span.count= @booking.disabled_bus_passes
-            = t ('bookings.buspass.disabled')
-            = fa_icon 'times', class: 'cancel-concession'
-
-          %p{id: 'concession-4', :class => "concession-cont#{" hidden" if @booking.scholar_bus_passes == 0}"}
-            %span.count= @booking.scholar_bus_passes
-            = t('bookings.buspass.scholar')
-            = fa_icon 'times', class: 'cancel-concession'
-
-          .promo-code.hidden
-            = form.label :promo_code
-            = form.text_field :promo_code
-          .hidden
-            = form.label :child_tickets, "Child fare"
-            = form.number_field :child_tickets, :id => "hidden-1"
-            = form.label :older_bus_passes
-            = form.number_field :older_bus_passes, :id => "hidden-2"
-            = form.label :disabled_bus_passes
-            = form.number_field :disabled_bus_passes, :id => "hidden-3"
-            = form.label :scholar_bus_passes
-            = form.number_field :scholar_bus_passes, :id => "hidden-4"
-        %section.section
-          %h3
-            = form.label :special_requirements, I18n.t('bookings.requirements.label')
-            = form.text_field :special_requirements
-          %p.small
-            = t('bookings.requirements.message')
-
-        %section.section
-          %h3
-            = t('bookings.lead.title')
-          = form.label :passenger_name, I18n.t('bookings.lead.label')
-          = form.text_field :passenger_name
-
-
-          = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
-          = form.text_field :phone_number
-          
-          = form.label :email
-          = form.text_field :email
-
-          %p
-            = t('bookings.lead.mobile.message')
-        %section.section
-          = form.submit :class => 'button', :id => 'submit-booking'
+        %p
+          = t('bookings.lead.mobile.message')
+      %section.section
+        = form.submit :class => 'button', :id => 'submit-booking'
 
 - content_for :js do
   :javascript
@@ -169,7 +164,7 @@
       $(this).addClass('selected');
     });
 
-    $('#one_way input').click(function() {
+    $('#one_way .secondary input').click(function() {
       if ($(this).hasClass('cancel')) {
         $(this).removeClass('cancel');
         $('#one_way .hide_times').removeClass('hidden');
