@@ -9,13 +9,12 @@
     %section.action
       %h4
         = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-      = link_to I18n.t('button.main_book'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
+      = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
       %p.small
         = t('button.main_book_asterisk')
 
 %main.main
-
-  %section.hero
+  %section.hero#step-1
     .overlay
     .event
     %section.section
@@ -70,7 +69,6 @@
 
   %section.section
     .action
-      = link_to I18n.t('button.book'), 'https://bookpublictransport.typeform.com/to/PttmxO', class: 'button cta'
       = mail_to I18n.t('email.address'), I18n.t('button.contact'), subject: I18n.t('email.subject'), class: 'button cta secondary'
 
   %footer.psuedo-footer
@@ -89,4 +87,3 @@
             = link_to I18n.t('credit.suffolk.text'), t('credit.suffolk.link')
           %span 
             = link_to I18n.t('credit.futuregov.text'), t('credit.futuregov.link')
-
