@@ -3,8 +3,89 @@
 #public-index {
   float: left;
   background-color: $white;
+  h3 {
+    $h3: 30px;
+    font-size: $h3;
+    font-weight: 900;
+    line-height: calc(#{$h3} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+  }
   .header {
     background: none;
     position: absolute;
+  }
+  .main {
+    .hero {
+      float: none;
+      display: inline-block;
+      position: relative;
+      section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*2;
+      }
+      h3 {
+        $h4: 50px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
+      h3, p {
+        color: $white;
+      }
+      .overlay {
+        background-color: rgba(24, 45, 56, 0.8);
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      &.regular {
+        .overlay {
+          background-color: rgba(20, 26, 31, 1);
+        }
+      }
+      .action {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        a {
+          background: $white;
+          border-color: $white;
+          color: $brand;
+        }
+        a:hover {
+          background: $brand;
+          border-color: $brand;
+          color: $white;
+        }
+      }
+    }
+    .hero.regular {
+      margin-top: $baseline*2;
+    }
+    .event {
+      background-image: url('fireworks.png');
+      background-size: cover;
+      background-position-y: bottom;
+      height: $baseline*16;
+      + .section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+    .regular .event {
+      background-image: url('regular.jpg');
+    }
   }
 }
