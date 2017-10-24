@@ -99,10 +99,10 @@ en:
         disabled: "Disabled persons bus pass"
         scholar: "Scholarly Season Ticket"
     requirements: 
-      title: "Add Special Requirements"
-      label: "Describe your special requirements:"
+      label: "Any special requirements?"
       message: "Your transport provider will get in touch with you if they can't meet your needs"
     lead:
+      title: "Contact details"
       label: "Lead passenger's name"
       mobile: 
         label: "Mobile phone number"

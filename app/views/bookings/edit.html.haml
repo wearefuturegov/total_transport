@@ -110,17 +110,15 @@
             = form.label :scholar_bus_passes
             = form.number_field :scholar_bus_passes, :id => "hidden-4"
         %section.section
-          #add.button.secondary
-            %i.fa.fa-plus
-            = t('bookings.requirements.title')
-          #special-req.hidden
+          %h3
             = form.label :special_requirements, I18n.t('bookings.requirements.label')
             = form.text_field :special_requirements
+          %p.small
+            = t('bookings.requirements.message')
 
         %section.section
-          %p
-            = t('bookings.requirements.message')
-        
+          %h3
+            = t('bookings.lead.title')
           = form.label :passenger_name, I18n.t('bookings.lead.label')
           = form.text_field :passenger_name
 
@@ -173,11 +171,11 @@
 
     $('#one_way input').click(function() {
       if ($(this).hasClass('cancel')) {
-        $(this).removeClass('cancel').html('<i class="fa fa-plus"></i> Add');
+        $(this).removeClass('cancel');
         $('#one_way .hide_times').removeClass('hidden');
         $('#one_way #return_times .secondary').removeClass('selected');
       } else {
-        $(this).addClass('cancel').html('<i class="fa fa-minus"></i> Remove');
+        $(this).addClass('cancel');
         $('#one_way .hide_times').addClass('hidden');
         $('#one_way #return_times .secondary').addClass('selected');
       }

@@ -12,6 +12,11 @@ p {
   margin-bottom: calc(#{$baseline} * 0.5);
 }
 
+.small {
+  font-size: $small;
+  line-height: $small + 4;
+}
+
 a {
   color: $brand;
   transition: color $base-duration $base-timing;
@@ -126,10 +131,6 @@ hr {
 
 .inline {
   display: inline-block;
-}
-
-.small {
-  font-size: 13px;
 }
 
 .grey {
