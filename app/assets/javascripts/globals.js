@@ -19,18 +19,6 @@ $(window).resize(function() {
 });
 
 $(document).ready(function() {
-  $('.date-button').on('click', function(){
-    $('.date-button').removeClass('selected');
-    $(this).addClass('selected');
-  });
-  $('#outward_times .button').on('click', function(){
-    $('#outward_times .button').removeClass('selected');
-    $(this).addClass('selected');
-  });
-  $('#return_times .button').on('click', function(){
-    $('#return_times .button').removeClass('selected');
-    $(this).addClass('selected');
-  });
   if ($('#returnTab').length) {
     if (localStorage.returnJourney == "true") {
       $('.return-ticket').each(function() {

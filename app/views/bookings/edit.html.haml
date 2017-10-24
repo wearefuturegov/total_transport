@@ -156,14 +156,31 @@
     $('#return_times input').click(function() {
       $('.landmarks').removeClass('hidden');
     })
-
-    $('#one_way input').click(function() {
-      $('#one_way .hide_times').addClass('hidden');
-    })
     
     $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');
       $('#details').removeClass('hidden');
+    })
+
+    $('.date-button').on('click', function(){
+      $('.date-button').removeClass('selected');
+      $(this).addClass('selected');
+    });
+    $('#outward_times .button').on('click', function(){
+      $('#outward_times .button').removeClass('selected');
+      $(this).addClass('selected');
+    });
+
+    $('#one_way input').click(function() {
+      if ($(this).hasClass('cancel')) {
+        $(this).removeClass('cancel').html('<i class="fa fa-plus"></i> Add');
+        $('#one_way .hide_times').removeClass('hidden');
+        $('#one_way #return_times .secondary').removeClass('selected');
+      } else {
+        $(this).addClass('cancel').html('<i class="fa fa-minus"></i> Remove');
+        $('#one_way .hide_times').addClass('hidden');
+        $('#one_way #return_times .secondary').addClass('selected');
+      }
     });
     
     var noOfAdults = 0,

@@ -87,7 +87,7 @@ en:
     passenger:
       title: "Number of passengers"
     buspass:
-      title: "Add a bus pass holder"
+      title: "Add a bus pass"
       child: "Child fare "
       older: "Older persons bus pass (£0.00 each)"
       disabled: "Disabled persons bus pass (£0.00 each)"
