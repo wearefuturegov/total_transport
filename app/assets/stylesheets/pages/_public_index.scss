@@ -72,7 +72,7 @@
       margin-top: $baseline*2;
     }
     .event {
-      background-image: url('fireworks.png');
+      background: image-url('fireworks.png');
       background-size: cover;
       background-position-y: bottom;
       height: $baseline*16;
@@ -85,7 +85,7 @@
       }
     }
     .regular .event {
-      background-image: url('regular.jpg');
+      background: image-url('regular.jpg');
     }
   }
 }
