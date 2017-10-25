@@ -45,8 +45,24 @@
         right: 0;
       }
       &.regular {
+        margin-top: $baseline*2;
         .overlay {
           background-color: rgba(20, 26, 31, 1);
+          background-color: rgba(3, 3, 4, 1);
+        }
+        .event {
+          background-image: image-url('regular.jpg');
+        }
+      }
+      &.enquiry {
+        margin-top: $baseline*2;
+        .overlay {
+          background-color: rgba(3, 23, 29, 1);
+        }
+        .event {
+          background-image: image-url('enquiry.jpg');
+          background-position-y: center;
+          background-position-x: center;
         }
       }
       .action {
@@ -68,11 +84,8 @@
         }
       }
     }
-    .hero.regular {
-      margin-top: $baseline*2;
-    }
     .event {
-      background: image-url('fireworks.png');
+      background-image: image-url('fireworks.jpg');
       background-size: cover;
       background-position-y: bottom;
       height: $baseline*16;
@@ -83,9 +96,6 @@
         right: 0;
         bottom: 0;
       }
-    }
-    .regular .event {
-      background: image-url('regular.jpg');
     }
   }
 }

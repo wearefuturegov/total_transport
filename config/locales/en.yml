@@ -63,6 +63,9 @@ en:
       regular:
         title: "Daily commute to Burnham–on–Crouch"
         info: "Return journeys running 6am - 8pm to and from local villages. Try one of our special £1 return journeys on Wed 1st and Thu 2nd November."
+      enquiry:
+        title: "Where can we take you?"
+        info: "Let us know about journey you want to take more easily in Essex and we can help make it a reality with or new shared routes."
 
   steps:
     step_1:
@@ -124,7 +127,8 @@ en:
     return: "No return journey"
     typeform: "Tell us more"
     event: "Pre-book my ride"
-    regular: "Pre-book my ride"
+    regular: "Learn more"
+    enquiry: "Get Started"
 
   email:
     address: "hello@bookyourride.co.uk"
