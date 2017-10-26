@@ -13,10 +13,10 @@
           = fa_icon 'map-marker'
       %section.info-wrap
         %span.top
-          %h3.title
+          %label
             = @booking.pickup_stop.name
         %span.bottom
-          %h3.title
+          %label
             = @booking.dropoff_stop.name
 
   = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
@@ -105,8 +105,7 @@
           = form.label :scholar_bus_passes
           = form.number_field :scholar_bus_passes, :id => "hidden-4"
       %section.section
-        %h3
-          = form.label :special_requirements, I18n.t('bookings.requirements.label')
+        = form.label :special_requirements, I18n.t('bookings.requirements.label')
         = form.text_field :special_requirements
         %p.small
           = t('bookings.requirements.message')
@@ -116,18 +115,18 @@
           = t('bookings.lead.title')
         = form.label :passenger_name, I18n.t('bookings.lead.label')
         = form.text_field :passenger_name
-
-
-        = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
-        = form.text_field :phone_number
         
         = form.label :email
         = form.text_field :email
 
-        %p
+        = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
+        = form.text_field :phone_number
+
+        %p.small
           = t('bookings.lead.mobile.message')
-      %section.section
-        = form.submit :class => 'button', :id => 'submit-booking'
+
+
+      = form.submit :class => 'button', :id => 'submit-booking'
 
 - content_for :js do
   :javascript
@@ -146,10 +145,6 @@
       $('#arrival-times').html('Approximate arrival time: ' + time);
     })
     
-    $('#return_times input').click(function() {
-      $('.landmarks').removeClass('hidden');
-    })
-    
     $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');
       $('#details').removeClass('hidden');
@@ -159,22 +154,29 @@
       $('.date-button').removeClass('selected');
       $(this).addClass('selected');
     });
+
     $('#outward_times .button').on('click', function(){
       $('#outward_times .button').removeClass('selected');
       $(this).addClass('selected');
     });
 
-    $('#one_way .secondary input').click(function() {
+    // One Way button
+    $('#one_way .secondary').click(function() {
       if ($(this).hasClass('cancel')) {
-        $(this).removeClass('cancel');
+        $(this).removeClass('cancel').html('One Way');
         $('#one_way .hide_times').removeClass('hidden');
         $('#one_way #return_times .secondary').removeClass('selected');
       } else {
-        $(this).addClass('cancel');
+        $(this).addClass('cancel').html('Return');
         $('#one_way .hide_times').addClass('hidden');
         $('#one_way #return_times .secondary').addClass('selected');
       }
     });
+
+    
+    $('#return_times').click(function() {
+      $('.landmarks').removeClass('hidden');
+    })
     
     var noOfAdults = 0,
     previousPassengers = 0,

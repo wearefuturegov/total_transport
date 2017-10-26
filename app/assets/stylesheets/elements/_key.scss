@@ -31,7 +31,7 @@
   }
 }
 
-$key-math: $baseline*5;
+$key-math: $baseline*3.5;
 
 .key {
   .info-wrap {
@@ -41,17 +41,20 @@ $key-math: $baseline*5;
       float: left;
       width: 100%;
       position: relative;
+      label {
+        margin-bottom: 0;
+      }
     }
     .bottom {
       margin-top: $key-math - $baseline;
-      margin-bottom: $baseline;
+      margin-bottom: 0;
     }
   }
 }
 
 .link {
   border-left: $border-width*2 dotted $gray;
-  height: $baseline*3;
+  height: $baseline*1.5;
   margin-top: $baseline*0.25;
   margin-bottom: $baseline*0.25;
   margin: $baseline*0.25 calc(50% - #{$border-width});
