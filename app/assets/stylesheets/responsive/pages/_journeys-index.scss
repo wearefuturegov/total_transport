@@ -9,9 +9,10 @@
     }
     .single {
       position: absolute;
-      width: 90%;
+      width: 100%;
       margin-bottom: 0;
-      bottom: $baseline;
+      left: 0;
+      bottom: 0;
     }
     .action {
       bottom: $baseline;
