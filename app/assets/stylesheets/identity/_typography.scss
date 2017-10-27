@@ -29,12 +29,12 @@ a {
 }
 
 h2 {
-  $h2: 28px; // no to variables here, but in this case I think yes.
+  $h2: 30px; // no to variables here, but in this case I think yes.
   font-size: $h2;
-  font-weight: 700;
+  font-weight: 900;
   line-height: calc(#{$h2} * 1.2);
-  margin-top: 0;
-  margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
+  margin-top: calc(#{$baseline*3} - #{$h2} * 1.2);;
+  margin-bottom: calc(#{$baseline*3} - #{$h2} * 1.2);
 }
 
 h3 {

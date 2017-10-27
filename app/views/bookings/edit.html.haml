@@ -26,15 +26,14 @@
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
 
-      %section.section#arrival-times.hidden
+
       
       #one_way
         = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
     %section.section
       .landmarks.hidden
-        %h3
-          = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
+        = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
         = form.select :pickup_landmark_id,
             options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
             { include_blank: I18n.t('bookings.pickup.title') },
@@ -49,8 +48,7 @@
 
     #details.hidden
       %section.section.concessions
-        %h3
-          = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
+        = form.label :number_of_passengers, I18n.t('bookings.passenger.title')
         = form.select :number_of_passengers, 1..10
 
         %select#concession-list.select
@@ -104,14 +102,15 @@
           = form.number_field :disabled_bus_passes, :id => "hidden-3"
           = form.label :scholar_bus_passes
           = form.number_field :scholar_bus_passes, :id => "hidden-4"
-      %section.section
-        = form.label :special_requirements, I18n.t('bookings.requirements.label')
-        = form.text_field :special_requirements
+        
+        %section
+          = form.label :special_requirements, I18n.t('bookings.requirements.label')
+          = form.text_field :special_requirements
         %p.small
           = t('bookings.requirements.message')
 
       %section.section
-        %h3
+        %h2
           = t('bookings.lead.title')
         = form.label :passenger_name, I18n.t('bookings.lead.label')
         = form.text_field :passenger_name
@@ -126,7 +125,7 @@
           = t('bookings.lead.mobile.message')
 
 
-      = form.submit :class => 'button', :id => 'submit-booking'
+      = form.submit :class => 'button cta primary', :id => 'submit-booking'
 
 - content_for :js do
   :javascript

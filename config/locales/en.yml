@@ -73,7 +73,7 @@ en:
     title: "Pre-book your ride"
 
   bookings:
-    title: "Your journey details"
+    title: "Your journey"
     day:
       title: "Select a day"
     outward:
@@ -81,13 +81,13 @@ en:
     return:
       time: "Return time (+-10mins)"
     landmark:
-      title: "Pickup and dropoff"
+      title: "Landmark"
     pickup:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
     passenger:
-      title: "Passengers details"
+      title: "Passengers"
     buspass:
       title: "Add a bus pass"
       child: "Child fare "
@@ -104,7 +104,7 @@ en:
       label: "Any special requirements?"
       message: "Your transport provider will get in touch with you if they can't meet your needs"
     lead:
-      title: "Contact details"
+      title: "Contact"
       label: "Lead passenger's name"
       mobile: 
         label: "Mobile phone number"

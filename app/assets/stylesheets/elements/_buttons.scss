@@ -1,7 +1,5 @@
 /* button */
 
-// remove the .cta from .button when the buttons sass file is sorted out.
-
 .date-button,
 #outward_times .button,
 #return_times .button {
@@ -34,6 +32,7 @@
   }
 }
 
+// remove the .cta from .button when the buttons sass file is sorted out.
 .button.cta {
   @include ease;
   position: relative;
@@ -47,7 +46,7 @@
   color: $white;
   display: inline-block;
   padding: 0 $baseline;
-  width: auto;
+  width: 100%;
   &.cta {
     color: $white;
     background: $brand;
@@ -67,7 +66,13 @@
       border-color: $black;
     }
   }
+  &.primary {
+    line-height: $baseline*3;
+    margin-top: $baseline;
+  }
 }
+
+// previous buttons below here
 
 #{$all-buttons}, .button {
   @include ease;
