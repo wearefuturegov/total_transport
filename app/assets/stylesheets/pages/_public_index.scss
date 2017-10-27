@@ -36,8 +36,7 @@
         color: $white;
       }
       .overlay {
-        background-color: rgba(24, 45, 56, 0.8);
-        opacity: 0.5;
+        background-color: rgba(43, 39, 3, 0.4);
         position: absolute;
         top: 0;
         left: 0;
@@ -47,8 +46,7 @@
       &.regular {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(20, 26, 31, 1);
-          background-color: rgba(3, 3, 4, 1);
+          background-color: rgba(72, 61, 21, 0.47);
         }
         .event {
           background-image: image-url('regular.jpg');
@@ -57,7 +55,7 @@
       &.enquiry {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(3, 23, 29, 1);
+          background-color: rgba(3, 23, 29, 0.5);
         }
         .event {
           background-image: image-url('enquiry.jpg');
@@ -76,6 +74,7 @@
           background: $white;
           border-color: $white;
           color: $brand;
+          min-width: $baseline*10;
         }
         a:hover {
           background: $brand;
