@@ -4,8 +4,7 @@
   color: $error;
   background: $white;
   font-weight: 700;
-  border: $border-width*2 $border-style $error;
-  padding: $baseline*0.5;
+  padding: 0 0 $baseline 0;
   .fa-frown-o, .fa-exclamation-triangle {
     margin: $baseline*0.5 0;
     text-align: center;

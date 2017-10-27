@@ -3,15 +3,15 @@
     = t('message.sorry')
     to <strong>#{to.name}</strong>.
   %p
-    = t('message.suggest')
-    <strong>#{from.name}</strong>
-    = t('message.suggest_end')
-  %p
     %span.bold 
       = t('service')
     = t('message.feedback')
   %p
     = link_to I18n.t('button.typeform'), 'https://bookpublictransport.typeform.com/to/PttmxO'
+  %p
+    = t('message.suggest')
+    <strong>#{from.name}</strong>
+    = t('message.suggest_end')
 
 
 
