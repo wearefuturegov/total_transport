@@ -48,6 +48,9 @@
         $('#from_result #place').html(placename);
         $('#from_result').removeClass('hidden');
         $('#from_result').attr('hidden', false);
+        $('#to').attr('disabled', 'true');
+        $('#to').val('');
+        $('#results').hide();
         $.post({
           url: '/log_entry/?from=' + chosenItem.name
         });
@@ -62,11 +65,13 @@
       $('#to_result').empty();
       
       history.pushState(null, null, url);
-
+      
       $.get({
         url: url,
         dataType: 'script'
       });
+      
+      $('#results').show();
     }
 
     var options = {
