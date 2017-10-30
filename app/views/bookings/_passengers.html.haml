@@ -1,18 +1,18 @@
 %section.section.concessions
-  %h3
+  %h2
     = I18n.t('bookings.passenger.title')
   
-  %div
+  %div.plusminus
     = form.label :number_of_adults
     = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets'
   
-  %div
+  %div.plusminus
     = form.label :child_tickets
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets'
   
-  %div
+  %div.plusminus
     = form.label :older_bus_passes
-    = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets'
+    = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets', readonly: true
         
   = form.hidden_field :number_of_passengers
     
