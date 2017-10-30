@@ -4,9 +4,6 @@
     input {
         border-color: $brand;
     }
-    input:focus {
-        border-color: $black;
-    }
   .increment.button {
     @include box-sizing;
     font-size: $baseline;

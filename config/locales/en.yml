@@ -86,23 +86,14 @@ en:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
-    passenger:
-      title: "Passengers"
-    buspass:
-      title: "Add a bus pass"
-      child: "Child fare "
-      older: "Older persons bus pass (£0.00 each)"
-      disabled: "Disabled persons bus pass (£0.00 each)"
-      scholar: "Scholarly Season Ticket (£0.00 each)"
-      options:
-        select: "Add a bus pass"
-        child: "Child fare"
-        older: "Older persons bus pass"
-        disabled: "Disabled persons bus pass"
-        scholar: "Scholarly Season Ticket"
     requirements: 
       label: "Any special requirements?"
       message: "Your transport provider will get in touch with you if they can't meet your needs"
+    passenger:
+      title: "Passengers"
+      adult: "Adult"
+      child: "Child"
+      pass: "Bus pass"
     lead:
       title: "Contact"
       label: "Lead passenger's name*"
