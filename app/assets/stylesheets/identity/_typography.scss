@@ -12,11 +12,6 @@ p {
   margin-bottom: calc(#{$baseline} * 0.5);
 }
 
-.small {
-  font-size: $small;
-  line-height: $small + 4;
-}
-
 a {
   color: $brand;
   transition: color $base-duration $base-timing;
@@ -87,6 +82,15 @@ strong {
 
 .error {
   color: $error;
+}
+
+.small {
+  font-size: $small;
+  line-height: $small + 4;
+}
+
+input + .small {
+  margin-top: -6px;
 }
 
 // will check below this later

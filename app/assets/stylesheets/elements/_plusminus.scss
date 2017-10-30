@@ -1,8 +1,16 @@
 /* plusminus */
 
 .plusminus {
+    input {
+        border-color: $brand;
+    }
+    input:focus {
+        border-color: $black;
+    }
   .increment.button {
     @include box-sizing;
+    font-size: $baseline;
+    font-weight: 900;
     display: inline-block;
     line-height: $baseline;
     padding: $baseline*0.5 + 1;

@@ -4,11 +4,11 @@
   
   %div.plusminus
     = form.label :number_of_adults
-    = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets'
+    = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets', readonly: true
   
   %div.plusminus
     = form.label :child_tickets
-    = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets'
+    = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
   
   %div.plusminus
     = form.label :older_bus_passes

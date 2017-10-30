@@ -105,10 +105,12 @@ en:
       message: "Your transport provider will get in touch with you if they can't meet your needs"
     lead:
       title: "Contact"
-      label: "Lead passenger's name"
+      label: "Lead passenger's name*"
       mobile: 
-        label: "Mobile phone number"
+        label: "Mobile phone number*"
         message: "Let us know your phone number so that we can notify you when your vehicle is on its way."
+      email:
+        label: "Email*"
 
 
   button:
@@ -118,6 +120,9 @@ en:
     oneway: "One way"
     return: "Return"
     typeform: "Tell us more"
+
+  form:
+    required: "*Required"
 
   helpers:
     submit:

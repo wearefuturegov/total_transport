@@ -26,8 +26,8 @@
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward'
       
-      #one_way
-        = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
+    #one_way.hidden
+      = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
     
     %section.section
       .landmarks.hidden
@@ -59,11 +59,14 @@
         = form.label :passenger_name, I18n.t('bookings.lead.label')
         = form.text_field :passenger_name, required: true
         
-        = form.label :email
+        = form.label :email, I18n.t('bookings.lead.email.label')
         = form.text_field :email
 
         = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
         = form.text_field :phone_number, required: true
+
+        %p.small
+          = t('form.required')
 
         %p.small
           = t('bookings.lead.mobile.message')
@@ -73,7 +76,7 @@
 
 - content_for :js do
   :javascript
-    
+
     $('.date-button').click(function() {
       var target = $(this).data('selector');
       var type = $(this).data('type');
@@ -84,6 +87,7 @@
     
     $('#outward_times input').click(function() {
       var time = $(this).data('arrival-time')
+      $('#one_way').removeClass('hidden');
       $('#arrival-times').removeClass('hidden');
       $('#arrival-times').html('Approximate arrival time: ' + time);
     })
@@ -102,8 +106,6 @@
       $('#outward_times .button').removeClass('selected');
       $(this).addClass('selected');
     });
-
-    // One Way button
   
     $('#return_times .oneway').click(function() {
       $('#return_times .return').removeClass('selected');
@@ -121,7 +123,15 @@
       $('.return_price').removeClass('hidden');
     })
 
-    $('#return_times').click(function() {
+    $('#return_times .oneway').click(function() {
+      $('.landmarks').removeClass('hidden');
+    })
+
+    $('#return_times .return').click(function() {
+      $('.landmarks').addClass('hidden');
+    })
+
+    $('#return_times .time').click(function() {
       $('.landmarks').removeClass('hidden');
     })
     
