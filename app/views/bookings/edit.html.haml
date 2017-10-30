@@ -113,13 +113,13 @@
         %h2
           = t('bookings.lead.title')
         = form.label :passenger_name, I18n.t('bookings.lead.label')
-        = form.text_field :passenger_name
+        = form.text_field :passenger_name, required: true
         
         = form.label :email
-        = form.text_field :email
+        = form.text_field :email, required: true
 
         = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
-        = form.text_field :phone_number
+        = form.text_field :phone_number, required: true
 
         %p.small
           = t('bookings.lead.mobile.message')
