@@ -1,15 +1,20 @@
 %section.section
   .times{ id: "#{type}_times"}
     - if type == 'return'
-      %label
-        = t('bookings.return.time')
-      %label.button.secondary
-        = t('button.return')
-        = form.radio_button journey_type, nil
+      .direction
+        %label.button.secondary.oneway
+          = t('button.oneway')
+          = form.radio_button journey_type, nil
+        %label.button.secondary.return.selected
+          = t('button.return')
+          = form.radio_button journey_type, nil
+      .hide_times
+        %label
+          = t('bookings.return.time')
     - else
       %label
         = t('bookings.outward.time')
-    %section.hide_times
+    .hide_times
       - @journeys.each do |date,journeys|
         %p{class: "journeys_#{date.to_s} hidden time" }
           - journeys.sort_by(&:start_time).uniq.each do |j|

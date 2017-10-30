@@ -160,19 +160,30 @@
     });
 
     // One Way button
-    $('#one_way .secondary').click(function() {
-      if ($(this).hasClass('cancel')) {
-        $(this).removeClass('cancel').html('One Way');
-        $('#one_way .hide_times').removeClass('hidden');
-        $('#one_way #return_times .secondary').removeClass('selected');
-      } else {
-        $(this).addClass('cancel').html('Return');
-        $('#one_way .hide_times').addClass('hidden');
-        $('#one_way #return_times .secondary').addClass('selected');
-      }
-    });
+//    $('#one_way .secondary').click(function() {
+//      if ($(this).hasClass('cancel')) {
+//        $(this).removeClass('cancel').html('One Way');
+//        $('#one_way .hide_times').removeClass('hidden');
+//        $('#one_way #return_times .secondary').removeClass('selected');
+//      } else {
+//        $(this).addClass('cancel').html('Return');
+//        $('#one_way .hide_times').addClass('hidden');
+//        $('#one_way #return_times .secondary').addClass('selected');
+//      }
+//    });
+  
+    $('#return_times .oneway').click(function() {
+      $('#return_times .return').removeClass('selected');
+      $('#return_times .oneway').addClass('selected');
+      $('#return_times .hide_times').addClass('hide');
+    })
 
-    
+    $('#return_times .return').click(function() {
+      $('#return_times .oneway').removeClass('selected');
+      $('#return_times .return').addClass('selected');
+      $('#return_times .hide_times').removeClass('hide');
+    })
+
     $('#return_times').click(function() {
       $('.landmarks').removeClass('hidden');
     })
