@@ -34,7 +34,7 @@ class BookingsController < PublicController
 
   include ActionView::Helpers::NumberHelper
   def price_api
-    @booking.set_promo_code(params[:booking][:promo_code])
+  # @booking.set_promo_code(params[:booking][:promo_code])
     @booking.assign_attributes(booking_params)
     render json: {
       single: number_to_currency(@booking.single_price, unit: '£'),
