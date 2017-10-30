@@ -4,7 +4,7 @@ module WebSteps
   end
 
   step :choose_place, 'I choose a :text_field point of :place'
-  step :choose_passengers, 'I choose :num passengers'
+  step :choose_passengers, 'I choose :num :type passenger(s)'
   step :click_book_journey, 'I click the book journey button'
   step :choose_single_journey, 'I don\'t choose a return journey'
   step :choose_child_tickets, 'I choose :n child ticket(s)'
@@ -45,7 +45,6 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(find('body').text).to match("Sorry, we don't currently travel from #{start_point}")
     expect(first('.suggestion').value).to eq(destination)
   end
   
@@ -63,8 +62,8 @@ module WebSteps
   
   def choose_single_journey
     first('.date-button').click
-    first('#outward_times label').click
-    find('label', text: /No return journey/i).click
+    first('#outward_times label.button').click
+    find('label', text: /#{I18n.t('button.oneway')}/i).click
   end
   
   def choose_place(field, place)
@@ -73,8 +72,15 @@ module WebSteps
     first('.easy-autocomplete-container li', text: /#{place}/).click
   end
 
-  def choose_passengers(num)
-    select(num, from: 'booking[number_of_passengers]')
+  def choose_passengers(num, type)
+    case type
+    when 'adult'
+      fill_in 'booking_number_of_adults', with: num
+    when 'child'
+      fill_in 'booking_child_tickets', with: num
+    when 'bus pass'
+      fill_in 'booking_older_bus_passes', with: num
+    end
   end
   
   def choose_pickup_and_dropoff_point
@@ -90,7 +96,7 @@ module WebSteps
     fill_in 'booking_passenger_name', with: first_name
     fill_in 'booking_phone_number', with: phone_numer
     page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
-    click_button 'Submit your booking request'
+    click_button I18n.t('helpers.submit.booking.update')
   end
 
   def choose_child_tickets(num)
