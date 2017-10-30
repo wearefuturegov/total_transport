@@ -28,15 +28,15 @@ Feature: Booking a journey
     
   Scenario: Booking a journey with multiple passengers
     Given I have chosen a journey
-    And I choose 3 passengers
+    And I choose 3 adult passengers
     And I fill in my details
     Then my booking should be confirmed
     And my booking should have 3 passengers
     
   Scenario: Booking a journey with child tickets
     Given I have chosen a journey
-    And I choose 2 passengers
-    And I choose 1 child ticket
+    And I choose 1 adult passenger
+    And I choose 1 child passenger
     And I fill in my details
     Then my booking should be confirmed
     And my booking should have 2 passengers
@@ -48,7 +48,7 @@ Feature: Booking a journey
     When I choose a from point of Somewhere
     Then I should see the message
       """
-      Sorry, we don't currently travel from Somewhere.
+      We don't currently travel from Somewhere.
       """
     And the origin Somewhere should be logged
   
@@ -59,7 +59,7 @@ Feature: Booking a journey
     And I choose a to point of Somewhere
     Then I should see the message
       """
-      Sorry, we don't currently travel from Newmarket to Somewhere.
+      We don't currently travel to Somewhere.
       """
     And I should see a suggestion of a journey from Newmarket to Haverhill
     And the origin Newmarket should be logged
