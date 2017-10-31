@@ -119,6 +119,11 @@ RSpec.describe Admin::JourneysController, type: :controller do
       get :show, { id: journey.id }
       expect(assigns(:journey)).to eq(journey)
     end
+    
+    it 'returns a csv' do
+      get :show, { id: journey.id, format: :csv }
+      expect(response.headers['Content-Type']).to eq('text/csv;charset=utf-8')
+    end
         
   end
   
