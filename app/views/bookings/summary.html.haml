@@ -4,7 +4,7 @@
     %section.section
       
       %h2
-        Is this correct?
+        = t('summary.title')
 
     %section.section
       %section.key
@@ -28,14 +28,16 @@
         = pluralize @booking.number_of_passengers, 'passenger'
       - if @booking.number_of_adults > 0
         %p
-          Adults: #{@booking.number_of_adults}
+          = t('bookings.passenger.adult.title')
+          #{@booking.number_of_adults}
           - if @booking.return_journey?
             (#{number_to_currency(@booking.adult_return_price, :unit => "£")} return)
           - else
             (#{number_to_currency(@booking.adult_single_price, :unit => "£")} single)
       - if @booking.child_tickets > 0
         %p
-          Child fare: #{@booking.child_tickets}
+          = t('bookings.passenger.child.title')
+          #{@booking.child_tickets}
           - if @booking.return_journey?
             (#{number_to_currency(@booking.child_return_price, :unit => "£")} return)
           - else
@@ -56,19 +58,22 @@
     %section.section
         
       %h2
-        Your outbound journey
+        = t('summary.outbound.title')
 
       %h4
-        Pick up point
+        = t('summary.outbound.pickup')
 
       %p
         #{@booking.pickup_name}
 
       %h4
-        Date
+        = t('summary.outbound.date')
       
       %p
         #{friendly_date @booking.journey.start_time}
+
+      %h4
+        = t('summary.outbound.time')
 
       %p
         = @booking.pickup_time.strftime("%l:%M%P")
@@ -84,13 +89,13 @@
     %section.section
         
       %h4
-        Drop off point
+        = t('summary.outbound.dropoff')
 
       %p
         #{@booking.dropoff_name}
 
       %h4
-        ETA
+        = t('summary.outbound.eta')
 
       %p
         = @booking.dropoff_time.strftime("%l:%M%P")
@@ -104,20 +109,23 @@
       - if @booking.return_journey?
       
         %h2
-          and your return
+          = t('summary.return.title')
         
         %h4
-          Pickup up point
+          = t('summary.return.pickup')
 
         %p
           #{@booking.dropoff_name}
+
+        %h4
+          = t('summary.return.time')
 
         %p
           = @booking.pickup_time(true).strftime("%l:%M%P")
           = t('summary.plus_minus_ten')
 
         %h4
-          Dropoff
+          = t('summary.return.dropoff')
 
         %p
           #{@booking.pickup_name}
@@ -140,5 +148,5 @@
     %section.section
       = link_to @back_path do
         = fa_icon 'long-arrow-left'
-        I need to change something
+        = t('summary.back')
     = form.submit :class => 'button cta primary', :id => 'submit-booking', :name => :confirm

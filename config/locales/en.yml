@@ -109,7 +109,22 @@ en:
         message: "(Confirmation via email)"
 
   summary:
+    title: "Check this is correct"
     plus_minus_ten: "(+-10mins)"
+    outbound:
+      title: "Outbound journey"
+      pickup: "Pick up point"
+      date: "Date"
+      time: "Time"
+      dropoff: "Drop off point"
+      eta: "ETA"
+    return:
+      title: "Return journey"
+      pickup: "Pickup up point"
+      time: "Time"
+      dropoff: Drop off point
+    back: "I need to change something"
+
 
 
   button:
