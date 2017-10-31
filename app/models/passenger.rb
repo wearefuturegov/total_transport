@@ -14,6 +14,7 @@ class Passenger < ActiveRecord::Base
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
   
   def self.setup(phone_number)
+    phone_number = formatted_phone_number(phone_number)
     passenger = Passenger.find_or_create_by(phone_number: phone_number)
     passenger.set_session_token
     passenger

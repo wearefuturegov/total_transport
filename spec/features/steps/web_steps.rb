@@ -48,6 +48,11 @@ module WebSteps
     expect(first('.suggestion').value).to eq(destination)
   end
   
+  step 'I confirm my booking' do
+    page.execute_script '$("#submit-booking")[0].scrollIntoView(true)'
+    click_button I18n.t('helpers.submit.booking.update')
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')

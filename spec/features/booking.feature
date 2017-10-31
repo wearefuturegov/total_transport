@@ -16,6 +16,7 @@ Feature: Booking a journey
     And I choose a journey
     And I choose a pickup and dropoff point
     And I fill in my details
+    And I confirm my booking
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
     
@@ -23,6 +24,7 @@ Feature: Booking a journey
     Given I have chosen a single journey
     But I don't choose a return journey
     And I fill in my details
+    And I confirm my booking
     Then my booking should be confirmed
     And my booking should be a single journey
     
@@ -30,6 +32,7 @@ Feature: Booking a journey
     Given I have chosen a journey
     And I choose 3 adult passengers
     And I fill in my details
+    And I confirm my booking
     Then my booking should be confirmed
     And my booking should have 3 passengers
     
@@ -38,6 +41,7 @@ Feature: Booking a journey
     And I choose 1 adult passenger
     And I choose 1 child passenger
     And I fill in my details
+    And I confirm my booking
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
