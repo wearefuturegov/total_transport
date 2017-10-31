@@ -91,17 +91,22 @@ en:
       message: "Your transport provider will get in touch with you if they can't meet your needs"
     passenger:
       title: "Passengers"
-      adult: "Adult"
-      child: "Child"
+      adult:
+        title: "Adult"
+        extra: "(16+)"
+      child:
+        title: "Child"
+        extra: "(5-15)"
       pass: "Bus pass"
     lead:
       title: "Contact"
-      label: "Lead passenger's name*"
+      label: "Lead passenger's name"
       mobile: 
-        label: "Mobile phone number*"
-        message: "Let us know your phone number so that we can notify you when your vehicle is on its way."
+        label: "Mobile No."
+        message: "(SMS notification of your ride)"
       email:
-        label: "Email*"
+        label: "Email"
+        message: "(Confirmation via email)"
 
 
   button:
@@ -113,7 +118,7 @@ en:
     typeform: "Tell us more"
 
   form:
-    required: "*Required"
+    required: "Required"
 
   helpers:
     submit:

@@ -80,6 +80,10 @@ strong {
   font-weight: 700;
 }
 
+.required {
+  color: $brand;
+}
+
 .error {
   color: $error;
 }
@@ -87,6 +91,7 @@ strong {
 .small {
   font-size: $small;
   line-height: $small + 4;
+  font-weight: 400;
 }
 
 input + .small {

@@ -56,20 +56,32 @@
       %section.section
         %h2
           = t('bookings.lead.title')
-        = form.label :passenger_name, I18n.t('bookings.lead.label')
+        = form.label :passenger_name do
+          = t('bookings.lead.label')
+          %san.required
+            *
         = form.text_field :passenger_name, required: true
-        
-        = form.label :email, I18n.t('bookings.lead.email.label')
-        = form.text_field :email
 
-        = form.label :phone_number, I18n.t('bookings.lead.mobile.label')
+        = form.label :phone_number do
+          = t('bookings.lead.mobile.label')
+          %span.required
+            *
+          %span.small
+            = t('bookings.lead.mobile.message')
         = form.text_field :phone_number, required: true
 
-        %p.small
-          = t('form.required')
+        
+        = form.label :email do
+          = t('bookings.lead.email.label')
+          %spans.small
+            = t('bookings.lead.email.message')
+        = form.text_field :email
 
         %p.small
-          = t('bookings.lead.mobile.message')
+          %span.required
+            *
+          = t('form.required')
+
 
 
       = form.submit :class => 'button cta primary', :id => 'submit-booking'

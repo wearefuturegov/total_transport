@@ -3,13 +3,20 @@
     = I18n.t('bookings.passenger.title')
   
   %div.plusminus
-    = form.label :number_of_adults, I18n.t('bookings.passenger.adult')
+    = form.label :number_of_adults do
+      = t('bookings.passenger.adult.title')
+      %span.small
+        = t('bookings.passenger.adult.extra')
     = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets', readonly: true
   
   %div.plusminus
-    = form.label :child_tickets, I18n.t('bookings.passenger.child')
+    = form.label :child_tickets do
+      = t('bookings.passenger.child.title')
+      %span.small
+        = t('bookings.passenger.child.extra')
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
-  
+
+-# 
   %div.plusminus
     = form.label :older_bus_passes, I18n.t('bookings.passenger.pass')
     = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets', readonly: true
