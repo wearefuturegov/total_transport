@@ -77,11 +77,33 @@ RSpec.describe BookingsController, type: :controller do
       end
     end
     
-    it 'sends an SMS' do
-      expect {
-        put :update, params, { current_passenger: passenger.session_token }
-      }.to change { FakeSMS.messages.count }.by(1)
+    context 'confirmation' do
+      
+      let(:booking) {
+        FactoryGirl.create(:booking,
+          passenger: passenger,
+          pickup_stop_id: route.stops.first.id,
+          dropoff_stop_id: route.stops.first.id,
+          phone_number: '1234'
+        )
+      }
+      
+      let(:params) {
+        {
+          id: booking,
+          route_id: route,
+          confirm: 'Submit'
+        }
+      }
+      
+      it 'sends an SMS' do
+        expect {
+          put :update, params, { current_passenger: passenger.session_token }
+        }.to change { FakeSMS.messages.count }.by(1)
+      end
+      
     end
+    
   end
   
   describe 'GET edit' do
@@ -102,6 +124,15 @@ RSpec.describe BookingsController, type: :controller do
       ]
     }
     
+    let!(:return_journeys) {
+      [
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: true ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: true ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: true ),
+        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: true )
+      ]
+    }
+    
     it 'gets available journeys' do
       get :edit, route_id: route, id: booking
       expect(assigns(:journeys)).to eq({
@@ -114,6 +145,19 @@ RSpec.describe BookingsController, type: :controller do
         ],
         (Date.today + 3.day) => [
           journeys[3]
+        ]
+      })
+      
+      expect(assigns(:return_journeys)).to eq({
+        (Date.today + 1.day) => [
+          return_journeys[0]
+        ],
+        (Date.today + 2.day) => [
+          return_journeys[1],
+          return_journeys[2]
+        ],
+        (Date.today + 3.day) => [
+          return_journeys[3]
         ]
       })
     end

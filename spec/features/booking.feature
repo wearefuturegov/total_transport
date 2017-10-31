@@ -6,7 +6,7 @@ Feature: Booking a journey
     And that route has a stop called Newmarket at position 1
     And that route has a stop called Haverhill at position 3
     And that route has 1 outward journey in 3 days time
-    And that route has 1 return journey in 4 days time
+    And that route has 1 return journey in 3 days time
     And I visit /journeys
 
   Scenario: Booking a return journey
@@ -19,6 +19,7 @@ Feature: Booking a journey
     And I confirm my booking
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
+    And both journeys should show as booked
     
   Scenario: Booking a single journey
     Given I have chosen a single journey
