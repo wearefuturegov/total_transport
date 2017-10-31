@@ -16,10 +16,10 @@
         = t('bookings.passenger.child.extra')
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
 
--# 
-  %div.plusminus
-    = form.label :older_bus_passes, I18n.t('bookings.passenger.pass')
-    = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets', readonly: true
+  -# 
+    %div.plusminus
+      = form.label :older_bus_passes, I18n.t('bookings.passenger.pass')
+      = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets', readonly: true
         
   = form.hidden_field :number_of_passengers
     
