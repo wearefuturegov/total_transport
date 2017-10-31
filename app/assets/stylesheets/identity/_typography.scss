@@ -28,8 +28,8 @@ h2 {
   font-size: $h2;
   font-weight: 900;
   line-height: calc(#{$h2} * 1.2);
-  margin-top: calc(#{$baseline*3} - #{$h2} * 1.2);;
-  margin-bottom: calc(#{$baseline*3} - #{$h2} * 1.2);
+  margin-top: calc(#{$baseline*3.25} - #{$h2} * 1.2);;
+  margin-bottom: calc(#{$baseline*2.75} - #{$h2} * 1.2);
 }
 
 h3 {
@@ -39,6 +39,15 @@ h3 {
   line-height: calc(#{$h3} * 1.1);
   margin-top: 0;
   margin-bottom: calc(#{$baseline*1.5} - #{$h3} * 1.1);
+}
+
+h4 {
+  $h4: $body;
+  font-size: $h4;
+  font-weight: 900;
+  line-height: $baseline;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 // h1 {

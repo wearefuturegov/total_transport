@@ -73,7 +73,7 @@ en:
     title: "Pre-book your ride"
 
   bookings:
-    title: "Your journey"
+    title: "Create your journey"
     day:
       title: "Select a day"
     outward:
@@ -108,6 +108,9 @@ en:
         label: "Email"
         message: "(Confirmation via email)"
 
+  summary:
+    plus_minus_ten: "(+-10mins)"
+
 
   button:
     book: "Pre-book your ride"
@@ -116,14 +119,19 @@ en:
     oneway: "One way"
     return: "Return"
     typeform: "Tell us more"
-
-  form:
-    required: "Required"
+    next: "Continue"
+    complete: "All done"
 
   helpers:
     submit:
       booking:
-        update: 'Confirm pre-booking'
+        update: 'Next'
+    submit:
+      booking:
+        update: 'it all looks good!'
+
+  form:
+    required: "Required"
 
   action:
     title: "Pre-book your ride"

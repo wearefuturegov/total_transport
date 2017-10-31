@@ -1,18 +1,18 @@
 %section.section
-  %h2 Your Journey has been Booked!
+  %h2
+    Thank you #{" #{@booking.passenger_name}"}, your ride has been confirmed.
   - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   %p
-    Thanks#{" #{@booking.passenger_name}"}, your booking has been confirmed.
-  %p
-    A minivan will pick you up at your pickup point outside #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten @booking.pickup_time}.
+    You will be picked up at #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten @booking.pickup_time}.
   - if @booking.payment_method == 'cash'
+    %p 
+      If you need to cancel…  
     %p
-      Please pay #{number_to_currency @booking.price, unit: '£'} to your driver.
-    %p If you need to cancel you can see this booking in:
+      Kindly pay #{number_to_currency @booking.price, unit: '£'} to your driver.
   - else
     %p You can cancel your booking up to 12 hours before your journey by going to:
-= link_to 'Done', journeys_path, :class => "button cta primary"
+= link_to I18n.t('button.complete'), journeys_path, :class => "button cta primary"
 - content_for :js do
   :javascript
     $(function() {
