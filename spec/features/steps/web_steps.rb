@@ -48,6 +48,11 @@ module WebSteps
     expect(first('.suggestion').value).to eq(destination)
   end
   
+  step 'I confirm my booking' do
+    page.execute_script '$("#submit-booking")[0].scrollIntoView(true)'
+    click_button I18n.t('helpers.submit.booking.update')
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')
@@ -73,13 +78,18 @@ module WebSteps
   end
 
   def choose_passengers(num, type)
-    case type
+    num = num.to_i
+    selector = case type
     when 'adult'
-      fill_in 'booking_number_of_adults', with: num
+      num = num - 1
+      'booking_number_of_adults'
     when 'child'
-      fill_in 'booking_child_tickets', with: num
+      'booking_child_tickets'
     when 'bus pass'
-      fill_in 'booking_older_bus_passes', with: num
+      'booking_older_bus_passes'
+    end
+    num.times do
+      page.execute_script("$('##{selector}').next('.inc').click()")
     end
   end
   

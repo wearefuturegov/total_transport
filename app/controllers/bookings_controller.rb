@@ -16,14 +16,17 @@ class BookingsController < PublicController
   end
   
   def update
-    @booking.update_attributes(booking_params)
-    if @booking.valid?
-      formatted_phone_number = Passenger.formatted_phone_number(params[:phone_number])
-      @booking.update_attribute :passenger, Passenger.setup(formatted_phone_number)
+    if params[:confirm]
+      @booking.update_attribute :passenger, Passenger.setup(@booking.phone_number)
       @booking.confirm!
       redirect_to confirmation_route_booking_path(@route, @booking)
     else
-      render :edit
+      @booking.update_attributes(booking_params)
+      if @booking.valid?
+        render :summary
+      else
+        render :edit
+      end
     end
   end
 
