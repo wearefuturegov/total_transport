@@ -9,12 +9,12 @@
         Outbound: <%= friendly_date @booking.journey.start_time, true %>
       </div>
       <div class="center">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.pickup_lat %>,<%= @booking.pickup_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.pickup_lat %>,<%= @booking.pickup_lng %>">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.pickup_landmark.latitude %>,<%= @booking.pickup_landmark.longitude %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.pickup_landmark.latitude %>,<%= @booking.pickup_landmark.longitude %>">
         <p class="mb1 mt05"><strong>Pickup:</strong> <%= @booking.pickup_time.strftime("%l:%M%P") %> at <%= @booking.pickup_name %></p>
       <div class="clear"></div>
       </div>
       <div class="center">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.dropoff_lat %>,<%= @booking.dropoff_lng %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.dropoff_lat %>,<%= @booking.dropoff_lng %>">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.dropoff_landmark.latitude %>,<%= @booking.dropoff_landmark.longitude %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.dropoff_landmark.latitude %>,<%= @booking.dropoff_landmark.longitude %>">
         <p class="mb1 mt05"><strong>Drop off:</strong> <%= @booking.dropoff_time.strftime("%l:%M%P") %> at <%= @booking.dropoff_name %></p>
       </div>
       <div class="breaker mt2"></div>
