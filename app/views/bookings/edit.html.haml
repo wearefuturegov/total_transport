@@ -24,10 +24,10 @@
     = render 'days', form: form
     
     #times.hidden
-      = render 'times', form: form, journey_type: :journey_id, type: 'outward'
+      = render 'times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
       
     #one_way.hidden
-      = render 'times', form: form, journey_type: :return_journey_id, type: 'return'
+      = render 'times', form: form, journey_type: :return_journey_id, type: 'return', journeys: @return_journeys
     
     %section.section
       .landmarks.hidden

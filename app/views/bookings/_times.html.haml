@@ -15,12 +15,17 @@
       %label
         = t('bookings.outward.time')
     .hide_times
-      - @journeys.each do |date,journeys|
+      - journeys.each do |date,journey_collection|
         %p{class: "journeys_#{date.to_s} hidden time" }
-          - journeys.sort_by(&:start_time).uniq.each do |j|
+          - journey_collection.sort_by(&:start_time).uniq.each do |j|
             %label.button
-              = j.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
+              - if type == 'return'
+                = j.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P")
+                - arrival_time = j.time_at_stop(@booking.pickup_stop)
+              - else
+                = j.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
+                - arrival_time = j.time_at_stop(@booking.dropoff_stop)
               
-              = form.radio_button journey_type, j.id, 'data-arrival-time' => j.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P")
+              = form.radio_button journey_type, j.id, 'data-arrival-time' => arrival_time.strftime("%l:%M%P")
 
   #arrival-times.hidden

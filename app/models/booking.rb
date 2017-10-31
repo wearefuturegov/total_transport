@@ -23,8 +23,12 @@ class Booking < ActiveRecord::Base
     end
   end
   
-  def available_journeys
-    @available_journeys ||= Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
+  def available_journeys(reversed = false)
+    if reversed
+      Journey.available_for_places(dropoff_stop.place, pickup_stop.place)
+    else
+      Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
+    end
   end
   
   def route
