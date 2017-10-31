@@ -77,11 +77,33 @@ RSpec.describe BookingsController, type: :controller do
       end
     end
     
-    it 'sends an SMS' do
-      expect {
-        put :update, params, { current_passenger: passenger.session_token }
-      }.to change { FakeSMS.messages.count }.by(1)
+    context 'confirmation' do
+      
+      let(:booking) {
+        FactoryGirl.create(:booking,
+          passenger: passenger,
+          pickup_stop_id: route.stops.first.id,
+          dropoff_stop_id: route.stops.first.id,
+          phone_number: '1234'
+        )
+      }
+      
+      let(:params) {
+        {
+          id: booking,
+          route_id: route,
+          confirm: 'Submit'
+        }
+      }
+      
+      it 'sends an SMS' do
+        expect {
+          put :update, params, { current_passenger: passenger.session_token }
+        }.to change { FakeSMS.messages.count }.by(1)
+      end
+      
     end
+    
   end
   
   describe 'GET edit' do
