@@ -19,6 +19,7 @@ Feature: Booking a journey
     And I confirm my booking
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
+    And both journeys should show as booked
     
   Scenario: Booking a single journey
     Given I have chosen a single journey

@@ -15,3 +15,10 @@ end
 step 'my booking should have :n child ticket(s)' do |n|
   expect(@booking.child_tickets).to eq(n.to_i)
 end
+
+step 'both journeys should show as booked' do
+  expect(@booking.journey.booked).to eq(true)
+  expect(@booking.journey.all_bookings.count).to eq(1)
+  expect(@booking.return_journey.booked).to eq(true)
+  expect(@booking.return_journey.all_bookings.count).to eq(1)
+end

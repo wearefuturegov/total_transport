@@ -176,6 +176,7 @@ class Booking < ActiveRecord::Base
     queue_alerts
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
+    return_journey.update_attribute(:booked, true) if return_journey
     log_booking
   end
   
