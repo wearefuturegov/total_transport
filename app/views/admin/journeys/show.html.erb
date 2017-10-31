@@ -24,7 +24,7 @@
     </div>
     <% if @journey.is_booked? %>
       <h4>Bookings:</h4>
-      <% @journey.bookings.each do |booking| %>
+      <% @journey.all_bookings.each do |booking| %>
         <div class="card">
           <%= link_to admin_booking_path(booking) do %>
             <div class="inner">

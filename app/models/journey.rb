@@ -71,7 +71,7 @@ class Journey < ActiveRecord::Base
   end
 
   def is_booked?
-    bookings.count > 0
+    all_bookings.count > 0
   end
 
   def seats_left
@@ -92,6 +92,10 @@ class Journey < ActiveRecord::Base
   
   def time_at_stop(stop)
     start_time + stop.minutes_from_first_stop(reversed?).minutes
+  end
+  
+  def all_bookings
+    outward_bookings + return_bookings
   end
   
   private
