@@ -113,4 +113,21 @@ RSpec.describe Journey, type: :model do
     
   end
   
+  context '#csv' do
+    
+    let!(:bookings) { FactoryGirl.create_list(:booking, 6, journey: journey) }
+    let!(:return_bookings) { FactoryGirl.create_list(:booking, 8, return_journey: journey) }
+    let(:csv) { CSV.parse(journey.csv) }
+    
+    it 'has the right number of rows' do
+      expect(csv.count).to eq(15)
+    end
+    
+    it 'returns the correct number of outward and return bookings' do
+      expect(csv.select { |r| r[7] == 'outward' }.count).to eq(bookings.count)
+      expect(csv.select { |r| r[7] == 'return' }.count).to eq(return_bookings.count)
+    end
+  
+  end
+  
 end

@@ -1,3 +1,5 @@
+require 'csv'
+
 class Journey < ActiveRecord::Base
   belongs_to :route
   has_many :stops, through: :route
@@ -96,6 +98,63 @@ class Journey < ActiveRecord::Base
   
   def all_bookings
     outward_bookings + return_bookings
+  end
+  
+  def csv
+    CSV.generate do |csv|
+      csv << csv_headers
+      all_bookings.sort_by(&:pickup_time).each do |booking|
+        csv << csv_row(booking)
+      end
+    end
+  end
+  
+  def csv_headers
+    [
+      'Date of travel',
+      'Lead Passenger Name',
+      'Mobile Number',
+      'Email',
+      'Number of Adults',
+      'Number of Children',
+      'Total Fare (including return element)',
+      'Outbound or Return',
+      'Pickup time',
+      'Pickup Place',
+      'Pickup Location',
+      'Dropoff Place',
+      'Dropoff Location',
+      'Drop Off',
+      'Time and date booking made'
+    ]
+  end
+  
+  def csv_row(booking)
+    [
+      start_time.to_date,
+      booking.passenger_name,
+      booking.phone_number,
+      booking.email,
+      booking.number_of_adults,
+      booking.child_tickets,
+      booking.price,
+      (booking.journey.id == id ? 'outward' : 'return'),
+      booking.pickup_time,
+      booking.pickup_stop.name,
+      booking.pickup_landmark.name,
+      booking.dropoff_stop.name,
+      booking.dropoff_time,
+      booking.dropoff_landmark.name,
+      booking.created_at
+    ]
+  end
+  
+  def filename
+    [
+      stops_in_direction.first.name.downcase,
+      stops_in_direction.last.name.downcase,
+      start_time.strftime('%F')
+    ].join('-')
   end
   
   private

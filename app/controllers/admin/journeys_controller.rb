@@ -33,6 +33,10 @@ class Admin::JourneysController < AdminController
 
   def show
     @back_path = admin_root_path
+    respond_to do |format|
+      format.html
+      format.csv { send_data @journey.csv, filename: "#{@journey.filename}.csv", type: 'text/csv;charset=utf-8' }
+    end
   end
 
   def update

@@ -34,6 +34,11 @@
         </div>
       <% end %>
       <hr />
+      
+      <p><%= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button' %></p>
+      
+      <hr />
+      
       <h4>Send SMS message to</h4>
       <%= form_tag send_message_admin_journey_path(@journey) do %>
         <%= select_tag :to,
@@ -42,5 +47,7 @@
         <%= submit_tag "Send message" %>
       <% end %>
     <% end %>
+    
+    
   </div>
 </div>
