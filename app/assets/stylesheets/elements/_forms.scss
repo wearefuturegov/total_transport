@@ -101,15 +101,15 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 0;
   background-color: $white;
   line-height: 1.5em;
-  padding: 5px 40px 5px 10px;
+  padding: $baseline*0.5 $baseline*2 $baseline*0.5 $baseline*0.5;
   color: $black;
   cursor: pointer;
   margin: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, $black 50%), linear-gradient(135deg, $black 50%, transparent 50%), linear-gradient(to right, $black, $black);
-  background-position: calc(100% - 15px) calc(13px + 2px), calc(100% - 10px) calc(13px + 2px), calc(100% - 30px) 7px;
-  background-size: 5px 5px, 5px 5px, 1px 20px;
+  background-position: calc(100% - #{$baseline}) calc(13px + 13px), calc(100% - #{$baseline - 5}) calc(13px + #{$baseline*0.5}), calc(100% - #{$baseline*2}) 0px;
+  background-size: 5px 5px, 5px 5px, 1px $baseline*2.5;
   background-repeat: no-repeat;
   margin-bottom: $baseline*0.5;
   width: 100%;

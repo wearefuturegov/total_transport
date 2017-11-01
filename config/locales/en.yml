@@ -118,7 +118,7 @@ en:
       date: "Date"
       time: "Time"
       dropoff: "Drop off point"
-      eta: "ETA"
+      eta: "Approx arrival"
     return:
       title: "Return"
       pickup: "Pickup up point"
