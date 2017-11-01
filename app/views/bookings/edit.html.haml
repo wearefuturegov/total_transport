@@ -146,4 +146,9 @@
     $('#return_times .time').click(function() {
       $('.landmarks').removeClass('hidden');
     })
+
+    $('#return_times .button').on('click', function(){
+      $('#return_times .hide_times .button').removeClass('selected');
+      $(this).addClass('selected');
+    });
     
