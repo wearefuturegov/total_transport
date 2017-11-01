@@ -103,8 +103,8 @@ class Journey < ActiveRecord::Base
   def csv
     CSV.generate do |csv|
       csv << csv_headers
-      all_bookings.sort_by(&:pickup_time).each do |booking|
-        csv << csv_row(booking)
+      all_bookings.each do |booking|
+        csv << booking.csv_row(self)
       end
     end
   end
@@ -119,33 +119,13 @@ class Journey < ActiveRecord::Base
       'Number of Children',
       'Total Fare (including return element)',
       'Outbound or Return',
-      'Pickup time',
+      'Pickup Time',
       'Pickup Place',
       'Pickup Location',
+      'Dropoff Time',
       'Dropoff Place',
       'Dropoff Location',
-      'Drop Off',
       'Time and date booking made'
-    ]
-  end
-  
-  def csv_row(booking)
-    [
-      start_time.to_date,
-      booking.passenger_name,
-      booking.phone_number,
-      booking.email,
-      booking.number_of_adults,
-      booking.child_tickets,
-      booking.price,
-      (booking.journey.id == id ? 'outward' : 'return'),
-      booking.pickup_time,
-      booking.pickup_stop.name,
-      booking.pickup_landmark.name,
-      booking.dropoff_stop.name,
-      booking.dropoff_time,
-      booking.dropoff_landmark.name,
-      booking.created_at
     ]
   end
   

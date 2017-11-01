@@ -23,6 +23,19 @@ class Booking < ActiveRecord::Base
     end
   end
   
+  def outward_trip
+    @outward_trip ||= Trip.new(
+      booking: self
+    )
+  end
+  
+  def return_trip
+    @return_trip ||= Trip.new(
+      journey: return_journey,
+      booking: self
+    ) if return_journey?
+  end
+  
   def available_journeys(reversed = false)
     if reversed
       Journey.available_for_places(dropoff_stop.place, pickup_stop.place)
@@ -39,34 +52,8 @@ class Booking < ActiveRecord::Base
     last_dropoff_time < Time.now
   end
 
-  def pickup_time(reversed = false)
-    stop = reversed ? dropoff_stop : pickup_stop
-    journey.time_at_stop(stop)
-  end
-  
-  def dropoff_time(reversed = false)
-    stop = reversed ? pickup_stop : dropoff_stop
-    journey.time_at_stop(dropoff_stop)
-  end
-  
-  def return_time
-    return_journey.time_at_stop(dropoff_stop)
-  end
-  
-  def pickup_name
-    "#{pickup_landmark.name}, #{pickup_stop.name}"
-  end
-  
-  def dropoff_name
-    "#{dropoff_landmark.name}, #{dropoff_stop.name}"
-  end
-
   def last_dropoff_time
-    if return_journey?
-      return_journey.time_at_stop(pickup_stop)
-    else
-      journey.time_at_stop(dropoff_stop)
-    end
+    (return_trip || outward_trip).dropoff_time
   end
 
   def future?
@@ -182,14 +169,14 @@ class Booking < ActiveRecord::Base
   
   def queue_sms
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
-    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: outward_trip.pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: outward_trip.pickup_time - 1.hours)
   end
   
   def queue_emails
     SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
-    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: pickup_time - 24.hours)
-    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: pickup_time - 1.hours)
+    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: outward_trip.pickup_time - 24.hours)
+    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: outward_trip.pickup_time - 1.hours)
   end
   
   def send_confirmation!
@@ -211,6 +198,14 @@ class Booking < ActiveRecord::Base
   
   def set_journey_booked_status
     journey.update_attribute(:booked, false) if journey.bookings.count == 0
+  end
+  
+  def csv_row(journey)
+    if self.journey.id == journey.id
+      outward_trip.row_data
+    else
+      return_trip.row_data
+    end
   end
   
   def spreadsheet_row

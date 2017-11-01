@@ -22,24 +22,14 @@
 
   %h2 Outward Journey
 
-  = render 'journey',
-      pickup_time: @booking.pickup_time,
-      pickup_stop: @booking.pickup_stop.name,
-      dropoff_stop: @booking.dropoff_stop.name,
-      pickup_landmark: @booking.pickup_landmark.name,
-      dropoff_landmark: @booking.dropoff_landmark.name
+  = render 'journey', trip: @booking.outward_trip
 
 - if @booking.return_journey
   #return
     
     %h2 Return Journey
 
-    = render 'journey',
-        pickup_time: @booking.return_journey.time_at_stop(@booking.dropoff_stop),
-        pickup_stop: @booking.dropoff_stop.name,
-        dropoff_stop: @booking.pickup_stop.name,
-        pickup_landmark: @booking.dropoff_landmark.name,
-        dropoff_landmark: @booking.pickup_landmark.name
+    = render 'journey', trip: @booking.return_trip
   
 - else
 

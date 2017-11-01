@@ -64,22 +64,22 @@
         = t('summary.outbound.pickup')
 
       %p
-        #{@booking.pickup_name}
+        #{@booking.outward_trip.pickup_name}
 
       %h4
         = t('summary.outbound.date')
       
       %p
-        #{friendly_date @booking.journey.start_time}
+        #{friendly_date @booking.outward_trip.pickup_time}
 
       %h4
         = t('summary.outbound.time')
 
       %p
-        = @booking.pickup_time.strftime("%l:%M%P")
+        = @booking.outward_trip.pickup_time.strftime("%l:%M%P")
         = t('summary.plus_minus_ten')
 
-      -#    
+      -#
         %p
           Picked up approx #{plus_minus_ten @booking.pickup_time}
 
@@ -92,13 +92,13 @@
         = t('summary.outbound.dropoff')
 
       %p
-        #{@booking.dropoff_name}
+        #{@booking.outward_trip.dropoff_name}
 
       %h4
         = t('summary.outbound.eta')
 
       %p
-        = @booking.dropoff_time.strftime("%l:%M%P")
+        = @booking.outward_trip.dropoff_time.strftime("%l:%M%P")
 
       -#
         = friendly_date @booking.journey.start_time, true
@@ -115,20 +115,20 @@
           = t('summary.return.pickup')
 
         %p
-          #{@booking.dropoff_name}
+          #{@booking.return_trip.pickup_name}
 
         %h4
           = t('summary.return.time')
 
         %p
-          = @booking.pickup_time(true).strftime("%l:%M%P")
+          = @booking.return_trip.pickup_time.strftime("%l:%M%P")
           = t('summary.plus_minus_ten')
 
         %h4
           = t('summary.return.dropoff')
 
         %p
-          #{@booking.pickup_name}
+          #{@booking.return_trip.dropoff_name}
 
         -#
           = friendly_date @booking.return_journey.start_time, true

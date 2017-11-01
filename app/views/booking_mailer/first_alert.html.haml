@@ -8,11 +8,11 @@
   
 %p
   You’ll be picked up from
-  = @booking.pickup_name
+  = @booking.outward_trip.pickup_name
   on
-  = friendly_date(@booking.journey.start_time)
+  = friendly_date(@booking.outward_trip.pickup_time)
   between
-  = plus_minus_ten(@booking.pickup_time)
+  = plus_minus_ten(@booking.outward_trip.pickup_time)
   \.
   
 %p

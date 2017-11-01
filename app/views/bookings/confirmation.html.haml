@@ -4,10 +4,10 @@
   - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   %p
-    You will be picked up at #{@booking.pickup_name} on #{friendly_date @booking.journey.start_time} between #{plus_minus_ten @booking.pickup_time}.
+    You will be picked up at #{@booking.outward_trip.pickup_name} on #{friendly_date @booking.outward_trip.pickup_time} between #{plus_minus_ten @booking.outward_trip.pickup_time}.
   - if @booking.payment_method == 'cash'
-    %p 
-      If you need to cancel…  
+    %p
+      If you need to cancel…
     %p
       Kindly pay #{number_to_currency @booking.price, unit: '£'} to your driver.
   - else

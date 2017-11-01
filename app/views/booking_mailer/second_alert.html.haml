@@ -2,9 +2,9 @@
 
 %p
   Your pickup point is
-  = @booking.pickup_name
+  = @booking.outward_trip.pickup_name
   between
-  = plus_minus_ten(@booking.pickup_time)
+  = plus_minus_ten(@booking.outward_trip.pickup_time)
   \. Look out for a vehicle with the Ride sticker.
 
 %p

@@ -59,8 +59,8 @@ RSpec.describe Booking, :que, type: :model do
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
-      expect(first_alert.run_at).to eq(booking.pickup_time - 24.hours)
-      expect(second_alert.run_at).to eq(booking.pickup_time - 1.hours)
+      expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
+      expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
     end
     
     it 'queues emails' do
@@ -68,8 +68,8 @@ RSpec.describe Booking, :que, type: :model do
       jobs = QueJob.where(job_class: 'SendEmail')
       first_alert = jobs.find { |j| j.args[1] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[1] == 'second_alert'}
-      expect(first_alert.run_at).to eq(booking.pickup_time - 24.hours)
-      expect(second_alert.run_at).to eq(booking.pickup_time - 1.hours)
+      expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
+      expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
     end
     
     it 'sets the journey to booked' do
@@ -193,32 +193,25 @@ RSpec.describe Booking, :que, type: :model do
       
     end
     
-    context '#pickup_time' do
-      
-      it 'gets the correct pickup time' do
-        booking.pickup_stop = stops[1]
-        expect(booking.pickup_time).to eq(DateTime.parse('2017-01-01T10:40:00'))
-      end
-      
-      it 'gets the correct pickup time for reversed journey' do
-        booking.dropoff_stop = stops[3]
-        expect(booking.pickup_time true).to eq(DateTime.parse('2017-01-01T11:10:00'))
-      end
-      
+  end
+  
+  context '#outward_trip' do
+    
+    it 'returns the correct trip' do
+      expect(booking.outward_trip.journey).to eq(booking.journey)
     end
     
-    context '#dropoff_time' do
-      
-      it 'gets the correct dropoff time' do
-        booking.dropoff_stop = stops[3]
-        expect(booking.dropoff_time).to eq(DateTime.parse('2017-01-01T11:10:00'))
-      end
-      
-      it 'gets the correct dropoff time' do
-        booking.dropoff_stop = stops[1]
-        expect(booking.dropoff_time true).to eq(DateTime.parse('2017-01-01T10:40:00'))
-      end
-      
+  end
+  
+  context '#return trip' do
+    
+    it 'returns nil by default' do
+      expect(booking.return_trip).to eq(nil)
+    end
+    
+    it 'returns a return trip' do
+      booking.return_journey = FactoryGirl.create(:journey)
+      expect(booking.return_trip.journey).to eq(booking.return_journey)
     end
     
   end
@@ -351,6 +344,60 @@ RSpec.describe Booking, :que, type: :model do
       end
 
     end
+  end
+  
+  describe 'runsheet csv rows' do
+    
+    before do
+      booking.pickup_landmark.name = 'Pickup Landmark'
+      booking.dropoff_landmark.name = 'Dropoff Landmark'
+      booking.return_journey = FactoryGirl.create(:journey,
+        route: route,
+        start_time: DateTime.parse('2017-01-01T15:00:00'),
+        reversed: true
+      )
+    end
+    
+    it 'returns data for the outward journey' do
+      expect(booking.csv_row(booking.journey)).to eq([
+        Date.parse('2017-01-01'),
+        'Me',
+        '12345',
+        'me@example.com',
+        1,
+        0,
+        3.5,
+        'outward',
+        DateTime.parse('2017-01-01 10:00:00').in_time_zone('UTC'),
+        'Pickup Stop',
+        'Pickup Landmark',
+        DateTime.parse('2017-01-01 11:25:00').in_time_zone('UTC'),
+        'Dropoff Stop',
+        'Dropoff Landmark',
+        booking.created_at
+      ])
+    end
+    
+    it 'returns data for the return journey' do
+      expect(booking.csv_row(booking.return_journey)).to eq([
+        Date.parse('2017-01-01'),
+        'Me',
+        '12345',
+        'me@example.com',
+        1,
+        0,
+        3.5,
+        'return',
+        DateTime.parse('2017-01-01 15:00:00').in_time_zone('UTC'),
+        'Dropoff Stop',
+        'Dropoff Landmark',
+        DateTime.parse('2017-01-01 16:25:00').in_time_zone('UTC'),
+        'Pickup Stop',
+        'Pickup Landmark',
+        booking.created_at
+      ])
+    end
+    
   end
 
   describe "pricing" do
