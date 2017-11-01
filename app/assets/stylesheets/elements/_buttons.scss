@@ -148,7 +148,7 @@
 }
 
 
-/* who knows what's down there */
+/* who knows what's down there… commenting out to see what breaks
 
 .white-button {
   background-color: #fff;
@@ -158,14 +158,6 @@
 .white-button:hover {
   background-color: darken($base-background-color, 10%);
   color: $dark-gray;
-}
-
-.alt-button {
-  background-color: $orange;
-}
-
-.alt-button:hover, .alt-button:focus {
-  background-color: $darker-orange;
 }
 
 .small-button, .extra-small-button {
@@ -178,3 +170,5 @@
   font-size: 12px;
   padding: 0.25em 0.4em;
 }
+
+*/

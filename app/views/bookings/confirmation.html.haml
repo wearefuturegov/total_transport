@@ -1,6 +1,6 @@
 %section.section
   %h2
-    Thank you #{" #{@booking.passenger_name}"}, your ride has been confirmed.
+    Thank you #{" #{@booking.passenger_name}"}, your ride has been confirmed
   - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   %p

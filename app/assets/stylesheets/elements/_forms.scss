@@ -27,6 +27,12 @@ textarea {
   line-height: $baseline;
 }
 
+input[type=checkbox] {
+  -webkit-appearance: checkbox;
+  margin: 0;
+  margin-right: $baseline*0.25;
+}
+
 .concession-cont .fa-times {
   float: right;
   line-height: $baseline;
