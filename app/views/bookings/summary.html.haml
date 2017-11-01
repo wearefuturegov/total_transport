@@ -144,9 +144,8 @@
 
           %p
             = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
-
     %section.section
       = link_to @back_path do
-        = fa_icon 'long-arrow-left'
         = t('summary.back')
+
     = form.submit :class => 'button cta primary', :id => 'submit-booking', :name => :confirm
