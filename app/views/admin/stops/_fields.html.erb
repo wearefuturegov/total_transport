@@ -44,8 +44,10 @@
       var map = L.map(id, {
         zoomControl: true
       }).setView(coords, 18);
+      
     
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      
+      L.tileLayer('https://api.mapbox.com/styles/v1/wearefuturegov/cj8pp146j9uyv2rojanc93qtf/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
         maxZoom: 18,
         id: 'mapbox.streets',
         accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'

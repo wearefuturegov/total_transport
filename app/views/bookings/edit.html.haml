@@ -100,13 +100,6 @@
       $(' .' + target).removeClass('hidden');
     })
     
-    $('#outward_times input').click(function() {
-      var time = $(this).data('arrival-time')
-      $('#one_way').removeClass('hidden');
-      $('#arrival-times').removeClass('hidden');
-      $('#arrival-times').html('Approximate arrival time: ' + time);
-    })
-    
     $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');
       $('#details').removeClass('hidden');
