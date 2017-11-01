@@ -85,7 +85,8 @@ h4 {
 //   margin-bottom: calc(#{$h4} * 1.2);
 // }
 
-strong {
+strong,
+.strong {
   font-weight: 700;
 }
 

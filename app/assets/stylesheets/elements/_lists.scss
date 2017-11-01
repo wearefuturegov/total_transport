@@ -1,8 +1,10 @@
-ul,
-ol {
-  list-style-type: none;
-  margin: 0;
+ul, ol {
+  list-style: none;
   padding: 0;
+  margin-bottom: $baseline*0.5;
+  li {
+    margin-bottom: $baseline*0.25;
+  }
 }
 
 dl {

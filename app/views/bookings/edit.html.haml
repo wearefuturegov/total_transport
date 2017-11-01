@@ -35,23 +35,26 @@
         = form.select :pickup_landmark_id,
             options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
             { include_blank: I18n.t('bookings.pickup.title') },
-            { class: 'select' }
+            { class: 'select', required: true }
 
         %section.link
         
         = form.select :dropoff_landmark_id,
             options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
             { include_blank: I18n.t('bookings.dropoff.title')},
-            { class: 'select' }
+            { class: 'select', required: true }
 
     #details.hidden
       = render 'passengers', form: form, journey_type: :journey_id, type: 'outward'
     
       %section.section
-        = form.label :special_requirements, I18n.t('bookings.requirements.label')
+        = form.label :special_requirements do
+          = t('bookings.requirements.label')
+          %span.small
+            = t('bookings.requirements.message')
         = form.text_field :special_requirements
-        %p.small
-          = t('bookings.requirements.message')
+        %p
+          = t('bookings.requirements.extra')
 
       %section.section
         %h2
