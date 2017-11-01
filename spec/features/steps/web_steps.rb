@@ -106,7 +106,7 @@ module WebSteps
     fill_in 'booking_passenger_name', with: first_name
     fill_in 'booking_phone_number', with: phone_numer
     page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
-    click_button I18n.t('helpers.submit.booking.update')
+    click_button I18n.t('button.next')
   end
 
   def choose_child_tickets(num)
