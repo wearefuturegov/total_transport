@@ -1,0 +1,72 @@
+.container
+  .inner
+    - if !current_team.solo_team?
+      #admin-team-filter.inline
+        %h4
+          - if params[:filter] == 'team'
+            %strong Team's Journeys
+            = link_to admin_journeys_path(filterrific: params[:filterrific]) do
+              My Journeys
+          - else
+            %strong My Journeys
+            = link_to admin_journeys_path(filter: 'team', filterrific: params[:filterrific]) do
+              Team's Journeys
+    #admin-journey-filters{:class => "container mt05 mb2#{" inline" if current_team.solo_team?}"}
+      #booked_or_empty.tabs-container.three-tabs
+        %div{:class => "tab radius border-left-radius#{" selected" if @filterrific.booked_or_empty == nil}", "data-tabid" => ""}
+          All
+        %div{:class => "tab#{" selected" if @filterrific.booked_or_empty == 'booked'}", "data-tabid" => "booked"}
+          Booked
+        %div{:class => "tab radius border-right-radius#{" selected" if @filterrific.booked_or_empty == 'empty'}", "data-tabid" => "empty"}
+          Empty
+      #past_or_future.tabs-container
+        %div{:class => "tab radius border-left-radius#{" selected" if @filterrific.past_or_future == 'future'}", "data-tabid" => "future"}
+          Upcoming
+        %div{:class => "tab radius border-right-radius#{" selected" if @filterrific.past_or_future == 'past'}", "data-tabid" => "past"}
+          Past
+      .hidden
+        = form_for_filterrific @filterrific do |form|
+          = hidden_field_tag :filter, params[:filter]
+          = form.select(:past_or_future, [['Past', 'past'], ['Future', 'future'], ], { include_blank: '- Any -' })
+          = form.select(:booked_or_empty, [['Booked', 'booked'], ['Empty', 'empty'], ], { include_blank: '- Any -' })
+          = submit_tag "Update filter", name: nil
+    - if @journeys.exists?
+      - @journeys.each do |journey|
+        = link_to admin_journey_path(journey), class: "jrny-single" do
+          %div{:class => "card#{" past-journey" if journey.start_time.past?}#{journey.supplier.name == @current_supplier.name ? " my-journey" : " team-journey"}", "data-booked" => "if journey.is_booked? true else false", :id => "jrny_#{journey.id}"}
+            .col-10.mobile-twoThird
+              .inner
+                %p
+                  = friendly_date journey.start_time
+                  = journey.start_time.strftime("%H:%M")
+                %p= journey.route.name
+                - if journey.supplier.name != @current_supplier.name
+                  %p
+                    %strong Driver:
+                    = journey.supplier.name
+            .bookings.col-2.omega.mobile-third
+              %h4.mt1
+                %span.number= journey.all_bookings.count
+                %br/
+                = "booking".pluralize(journey.all_bookings.count)
+    - else
+      .card.no-click
+        .inner
+          %p
+            There are no journeys to be found here either try another filter, or #{link_to "add a new journey", new_admin_journey_path} now to get started.
+    = paginate @journeys
+    .actions
+      = link_to new_admin_journey_path do
+        .button Add a journey
+- content_for :js do
+  :javascript
+    $(document).ready(function() {
+      $('.tab').click(function() {
+        if ($(this).hasClass('selected')) {
+          var parentID = $(this).parent().attr('id');
+          console.log(parentID);
+          $('#filterrific_'+parentID).val($(this).data('tabid'));
+          $('#filterrific_filter').submit();
+        }
+      });
+    });
