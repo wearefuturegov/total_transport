@@ -3,8 +3,99 @@
 #public-index {
   float: left;
   background-color: $white;
+  h3 {
+    $h3: 30px;
+    font-size: $h3;
+    font-weight: 900;
+    line-height: calc(#{$h3} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+  }
   .header {
     background: none;
     position: absolute;
+  }
+  .main {
+    .hero {
+      float: none;
+      display: inline-block;
+      position: relative;
+      section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*2;
+      }
+      h3 {
+        $h4: 50px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
+      h3, p {
+        color: $white;
+      }
+      .overlay {
+        background-color: rgba(43, 39, 3, 0.4);
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+      &.regular {
+        margin-top: $baseline*2;
+        .overlay {
+          background-color: rgba(72, 61, 21, 0.47);
+        }
+        .event {
+          background-image: image-url('regular.jpg');
+          background-position-y: center;
+        }
+      }
+      &.enquiry {
+        margin-top: $baseline*2;
+        .overlay {
+          background-color: rgba(3, 23, 29, 0.5);
+        }
+        .event {
+          background-image: image-url('enquiry.jpg');
+          background-position-y: center;
+          background-position-x: center;
+        }
+      }
+      .action {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        a {
+          background: $white;
+          border-color: $white;
+          color: $brand;
+          min-width: $baseline*10;
+        }
+        a:hover {
+          background: $brand;
+          border-color: $brand;
+          color: $white;
+        }
+      }
+    }
+    .event {
+      background-image: image-url('fireworks.jpg');
+      background-size: cover;
+      background-position-y: bottom;
+      height: $baseline*16;
+      + .section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
   }
 }
