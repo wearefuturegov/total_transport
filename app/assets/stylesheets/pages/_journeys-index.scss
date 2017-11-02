@@ -1,16 +1,12 @@
 #journeys-index {
-  // .new_booking {
-  //   input[type='submit'] {
-  //     bottom: $baseline;
-  //     position: absolute;
-  //     width: 75%;
-      
-  //     &.suggestion {
-  //       position: relative;
-  //       width: 100%;
-  //       bottom: 0;
-  //     }
-  //   }
-  // }
-  // not sure this is even being used?
+  .collection .single {
+    margin-bottom: $baseline*0.25;
+    width: 100%;
+  }
+  .single {
+    width: 100%;
+  }
+  .action {
+    width: 90%;
+  }
 }
