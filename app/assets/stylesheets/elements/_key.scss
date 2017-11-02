@@ -2,6 +2,10 @@
 
 .key {
   position: relative;
+  .markers, .fa-map-marker {
+    text-align: center;
+    width: 100%;
+  }
   .form {
     position: absolute;
     top: 0;
