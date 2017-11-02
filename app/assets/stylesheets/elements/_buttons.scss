@@ -47,7 +47,7 @@
   color: $white;
   display: inline-block;
   padding: 0 $baseline;
-  width: 100%;
+  width: auto;
   &.cta {
     color: $white;
     background: $brand;
@@ -58,7 +58,7 @@
     }
   }
   &.secondary {
-    color: $black;
+    color: $brand;
     background: $white;
     border-color: $black;
     &:hover {
@@ -70,6 +70,7 @@
   &.primary {
     line-height: $baseline*3;
     margin-top: $baseline;
+    width: 100%;
   }
 }
 
