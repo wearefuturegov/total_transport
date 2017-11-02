@@ -7,25 +7,28 @@ class BookingsController < PublicController
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    if params[:booking][:return_available] === 'true'
-      redirect_to edit_return_journey_route_booking_path(@route, @booking)
-    else
-      redirect_to edit_requirements_route_booking_path(@route, @booking)
-    end
+    redirect_to edit_route_booking_path(@route, @booking)
   end
   
   def edit
-    workflow = BookingsWorkflow::Edit.new(params['step'].to_sym, @route, @booking)
-    workflow.allowed_vars.each do |var|
-      instance_variable_set("@#{var.to_s}", workflow.send(var))
-    end
-    render template: workflow.template
+    @journeys = @booking.available_journeys.group_by { |j| j.start_time.to_date }
+    @return_journeys = @booking.available_journeys(true).group_by { |j| j.start_time.to_date }
+    @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
   end
   
   def update
-    workflow = BookingsWorkflow::Save.new(params['step'].to_sym, @route, @booking, params[:booking], session)
-    workflow.perform_actions!
-    redirect_to workflow.redirect_path, alert: workflow.flash_alert
+    if params[:confirm]
+      @booking.update_attribute :passenger, Passenger.setup(@booking.phone_number)
+      @booking.confirm!
+      redirect_to confirmation_route_booking_path(@route, @booking)
+    else
+      @booking.update_attributes(booking_params)
+      if @booking.valid?
+        render :summary
+      else
+        render :edit
+      end
+    end
   end
 
   def confirmation
@@ -35,7 +38,7 @@ class BookingsController < PublicController
 
   include ActionView::Helpers::NumberHelper
   def price_api
-    @booking.set_promo_code(params[:booking][:promo_code])
+  # @booking.set_promo_code(params[:booking][:promo_code])
     @booking.assign_attributes(booking_params)
     render json: {
       single: number_to_currency(@booking.single_price, unit: '£'),
@@ -64,6 +67,7 @@ class BookingsController < PublicController
       :dropoff_stop_id,
       :dropoff_landmark_id,
       :phone_number,
+      :email,
       :passenger_name,
       :payment_method,
       :number_of_passengers,

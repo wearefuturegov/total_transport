@@ -1,108 +1,64 @@
 Team.create!(name: 'Team 1')
 Supplier.create!(email: "pezholio@gmail.com", password: "password", team_id: 1, name: "Me", phone_number: "132423", admin: true, approved: true)
 
-Place.create!([
-  {name: "Althorne", latitude: 51.6531821018267, longitude: 0.760674476623535, slug: "althorne"},
-  {name: "Asheldam", latitude: 51.6762139067174, longitude: 0.852513313293457, slug: "asheldam"},
-  {name: "Asheldham", latitude: 51.6742050681404, longitude: 0.846805572509766, slug: "asheldham"},
-  {name: "Barrow", latitude: 52.2415055359819, longitude: 0.584592819213867, slug: "barrow"},
-  {name: "Bicknacre", latitude: 51.6891548240142, longitude: 0.582618713378906, slug: "bicknacre"},
-  {name: "Bradwell", latitude: 51.7303746805386, longitude: 0.896308422088623, slug: "bradwell"},
-  {name: "Broomfield Hospital (Stand 1)", latitude: 51.7741768655341, longitude: 0.467863082885742, slug: "broomfield-hospital-stand-1"},
-  {name: "Burnham-on-Crouch", latitude: 51.6303781027668, longitude: 0.816593170166016, slug: "burnham-on-crouch"},
-  {name: "Bury St Edmunds", latitude: 52.2467980083074, longitude: 0.704755783081055, slug: "bury-st-edmunds"},
-  {name: "Cheveley & Ashley", latitude: 52.2247100444932, longitude: 0.473484992980957, slug: "cheveley-ashley"},
-  {name: "Cold Norton", latitude: 51.6715566635037, longitude: 0.669350624084473, slug: "cold-norton"},
-  {name: "Dalham", latitude: 52.2271417765565, longitude: 0.51936149597168, slug: "dalham"},
-  {name: "Dengie", latitude: 51.679021690804, longitude: 0.872640609741211, slug: "dengie"},
-  {name: "Dengie and Asheldam", latitude: 51.6767861289672, longitude: 0.861225128173828, slug: "dengie-and-asheldam"},
-  {name: "Goldhanger", latitude: 51.7480230502476, longitude: 0.753593444824219, slug: "goldhanger"},
-  {name: "Great Totham", latitude: 51.7776100779426, longitude: 0.684928894042969, slug: "great-totham"},
-  {name: "Halstead", latitude: 51.9512266471498, longitude: 0.63720703125, slug: "halstead"},
-  {name: "Hatfield Peverel", latitude: 51.7754287559638, longitude: 0.597445105668157, slug: "hatfield-peverel"},
-  {name: "Haverhill", latitude: 52.0894013195667, longitude: 0.462799072265625, slug: "haverhill"},
-  {name: "Heybridge", latitude: 51.7409257715007, longitude: 0.688128664623946, slug: "heybridge"},
-  {name: "Heybridge Basin", latitude: 51.7325831183335, longitude: 0.708703994750977, slug: "heybridge-basin"},
-  {name: "Maldon", latitude: 51.7314934827992, longitude: 0.672740936279297, slug: "maldon"},
-  {name: "Mayland", latitude: 51.6802440014895, longitude: 0.766124725341797, slug: "mayland"},
-  {name: "Maylandsea", latitude: 51.6779828100637, longitude: 0.780029296875, slug: "maylandsea"},
-  {name: "Monsale", latitude: 51.6467315272689, longitude: 0.90087890625, slug: "monsale"},
-  {name: "Newmarket", latitude: 52.2496339313692, longitude: 0.40125846862793, slug: "newmarket"},
-  {name: "North Fambridge", latitude: 51.6526472665101, longitude: 0.683469772338867, slug: "north-fambridge"},
-  {name: "Ostend", latitude: 51.6420976488333, longitude: 0.799083709716797, slug: "ostend"},
-  {name: "Purleigh", latitude: 51.6897044263053, longitude: 0.657119750976562, slug: "purleigh"},
-  {name: "Saffron Walden", latitude: 52.014660257604, longitude: 0.28289794921875, slug: "saffron-walden"},
-  {name: "South Woodham Ferrers", latitude: 51.6434469427267, longitude: 0.617459964123555, slug: "south-woodham-ferrers"},
-  {name: "Southminster", latitude: 51.6626531484872, longitude: 0.832386016845703, slug: "southminster"},
-  {name: "Sudbury", latitude: 52.0382297536808, longitude: 0.726127624511719, slug: "sudbury"},
-  {name: "Tillingham", latitude: 51.6942667183401, longitude: 0.882167816162109, slug: "tillingham"},
-  {name: "Tollesbury", latitude: 51.7580121716218, longitude: 0.838565826416016, slug: "tollesbury"},
-  {name: "Tolls D'arcy", latitude: 51.7712656905991, longitude: 0.79625129699707, slug: "tolls-d-arcy"},
-  {name: "West Suffolk Hospital", latitude: 52.2317093224227, longitude: 0.709433555603027, slug: "west-suffolk-hospital"},
-  {name: "Witham", latitude: 51.7987384602691, longitude: 0.632743835449219, slug: "witham"}
-])
+DataSeed.create_places
 
-Route.create!([
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {}
-])
+route = FactoryGirl.create(:route, stops_count: 0)
 
-Stop.create!([
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8286094665527344, 51.76130611330112], [0.8488655090332031, 51.761518608633274], [0.8481788635253906, 51.75450573461026], [0.8282661437988281, 51.75450573461026], [0.8286094665527344, 51.76130611330112]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 19},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.87615966796875, 51.73112162128191], [0.8842277526855469, 51.71708534339445], [0.8996772766113281, 51.716872639002936], [0.9094619750976562, 51.723678683307185], [0.9019088745117188, 51.739094837832475], [0.8914375305175781, 51.74175226408898], [0.87615966796875, 51.73112162128191]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 1},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8759880065917969, 51.698682713729845], [0.8759880065917969, 51.691234435490436], [0.8854293823242188, 51.69027671078259], [0.8916091918945312, 51.6959163534768], [0.8845710754394531, 51.70112973760635], [0.8759880065917969, 51.698682713729845]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 10, place_id: 2},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8660316467285156, 51.682294883490336], [0.8663749694824219, 51.67622775354003], [0.8799362182617188, 51.676121305407975], [0.8795928955078125, 51.68325277706986], [0.8701515197753906, 51.68367850104477], [0.8660316467285156, 51.682294883490336]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 5, place_id: 3},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8370208740234375, 51.676653543566275], [0.8370208740234375, 51.67079857979216], [0.8548736572265625, 51.67101150082685], [0.8565902709960938, 51.67441810126729], [0.8516120910644531, 51.67761155648856], [0.8370208740234375, 51.676653543566275]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 10, place_id: 4},
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6447601318359375, 51.74084875669778], [0.7093048095703125, 51.739998380295745], [0.7079315185546875, 51.72298749117163], [0.6378936767578125, 51.72128605012652], [0.6447601318359375, 51.74084875669778]]]}, "properties"=>{}}]}, position: 6, minutes_from_last_stop: 5, place_id: 10},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8206272125244141, 51.6644371022839], [0.8202838897705078, 51.65778188116339], [0.8264636993408203, 51.65650396685247], [0.8323860168457031, 51.65905975943968], [0.8370208740234375, 51.65932597954501], [0.8403682708740234, 51.66214781650852], [0.8370208740234375, 51.663319093448955], [0.8384799957275391, 51.66635362467509], [0.8360767364501953, 51.66704568228118], [0.8352184295654297, 51.666087445857734], [0.8274936676025391, 51.66582126547648], [0.8238887786865234, 51.66480976576495], [0.8206272125244141, 51.6644371022839]]]}, "properties"=>{}}]}, position: 5, minutes_from_last_stop: 12, place_id: 5},
-  {route_id: 1, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7999420166015625, 51.63778371800081], [0.8021736145019531, 51.63107130561709], [0.8037185668945312, 51.62659581212987], [0.8064651489257812, 51.62467760832891], [0.8203697204589844, 51.62286589693901], [0.825347900390625, 51.62425132980407], [0.8265495300292969, 51.628940173308216], [0.8244895935058594, 51.63203028249242], [0.8232879638671875, 51.6351201811798], [0.8224296569824219, 51.63863601674617], [0.8160781860351562, 51.63906216011215], [0.8081817626953125, 51.639168695327946], [0.8016586303710938, 51.63895562464606], [0.7999420166015625, 51.63778371800081]]]}, "properties"=>{}}]}, position: 6, minutes_from_last_stop: 8, place_id: 6},
-  {route_id: 3, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6011581420898438, 51.81678652562498], [0.6437301635742188, 51.81890882181801], [0.6708526611328125, 51.809357701728], [0.6708526611328125, 51.78982466707376], [0.6516265869140625, 51.77856809872022], [0.624847412109375, 51.77984256820156], [0.6032180786132812, 51.78791337231385], [0.594635009765625, 51.80553668687472], [0.6011581420898438, 51.81678652562498]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 7},
-  {route_id: 3, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6118011474609375, 51.66914840783795], [0.5623626708984375, 51.659778550134746], [0.586395263671875, 51.63208355839102], [0.6313705444335938, 51.63527999780034], [0.6639862060546875, 51.65040675460227], [0.6118011474609375, 51.66914840783795]]]}, "properties"=>{}}]}, position: 5, minutes_from_last_stop: 12, place_id: 8},
-  {route_id: 3, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.572662353515625, 51.70682121603074], [0.5548095703125, 51.693628658606016], [0.553436279296875, 51.67149056949555], [0.5815887451171875, 51.668935478045746], [0.6097412109375, 51.68085800512344], [0.6118011474609375, 51.69745915216719], [0.5884552001953125, 51.709374169982745], [0.572662353515625, 51.70682121603074]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 10, place_id: 9},
-  {route_id: 3, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6420135498046875, 51.736596714642054], [0.660552978515625, 51.76082799514714], [0.7079315185546875, 51.75997799481656], [0.753936767578125, 51.73319479291009], [0.712738037109375, 51.71320333076775], [0.6461334228515625, 51.71618134282105], [0.6420135498046875, 51.736596714642054]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 10, place_id: 10},
-  {route_id: 3, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6663894653320312, 51.78600199656406], [0.652313232421875, 51.77771843240025], [0.6650161743164062, 51.76752118857706], [0.6911087036132812, 51.76369662812633], [0.7130813598632812, 51.77177032017175], [0.7175445556640625, 51.784515314987054], [0.704498291015625, 51.791523527758784], [0.68115234375, 51.78982466707376], [0.6663894653320312, 51.78600199656406]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 10, place_id: 11},
-  {route_id: 4, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6801223754882812, 52.045839617504896], [0.6890487670898438, 52.022184103031755], [0.7082748413085938, 52.01373267162427], [0.7336807250976562, 52.01204219374191], [0.7611465454101562, 52.02007139486454], [0.7721328735351562, 52.03570307243131], [0.7673263549804688, 52.0509070280502], [0.7405471801757812, 52.06441731361967], [0.7069015502929688, 52.061040125285466], [0.6801223754882812, 52.045839617504896]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 12},
-  {route_id: 4, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.4758453369140625, 52.13201283837956], [0.3810882568359375, 52.11599321090095], [0.3838348388671875, 52.07127644127848], [0.4181671142578125, 52.04678980075375], [0.5033111572265625, 52.05016806646911], [0.5445098876953125, 52.08393667834424], [0.4758453369140625, 52.13201283837956]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 7, place_id: 13},
-  {route_id: 4, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.2094268798828125, 52.05354607679307], [0.1970672607421875, 52.00453992757978], [0.2465057373046875, 51.96901918391106], [0.3687286376953125, 52.011302589584595], [0.2739715576171875, 52.06030133129698], [0.2094268798828125, 52.05354607679307]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 9, place_id: 14},
-  {route_id: 4, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6612396240234375, 51.995239598620444], [0.5747222900390625, 51.981708397926305], [0.5637359619140625, 51.92923637181082], [0.6214141845703125, 51.90721369567918], [0.7024383544921875, 51.913991054312376], [0.7106781005859375, 51.95886522505024], [0.6612396240234375, 51.995239598620444]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 4, place_id: 15},
-  {route_id: 5, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7683563232421875, 51.68884008572576], [0.7573699951171875, 51.67734544382081], [0.773162841796875, 51.667125534401585], [0.7965087890625, 51.67095827066202], [0.8026885986328125, 51.68202879834398], [0.789642333984375, 51.68884008572576], [0.7683563232421875, 51.68884008572576]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 5, place_id: 16},
-  {route_id: 5, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6639862060546875, 51.684583151200286], [0.6392669677734375, 51.67564228571743], [0.6420135498046875, 51.6637183854855], [0.679779052734375, 51.65818122199562], [0.707244873046875, 51.65945908901118], [0.7106781005859375, 51.67564228571743], [0.69488525390625, 51.687137359950164], [0.6639862060546875, 51.684583151200286]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 5, place_id: 17},
-  {route_id: 5, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8676624298095703, 51.68333260062008], [0.8829402923583984, 51.67822360968998], [0.8743572235107422, 51.67162364322655], [0.8638858795166016, 51.67023965731422], [0.8534145355224609, 51.670984885752254], [0.8395099639892578, 51.67162364322655], [0.8400249481201172, 51.67513664832521], [0.8676624298095703, 51.68333260062008]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 18},
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7890415191650391, 51.77370885357673], [0.8034610748291016, 51.773602634724476], [0.8007144927978516, 51.76882252762144], [0.7892131805419922, 51.76924744653103], [0.7890415191650391, 51.77370885357673]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 6, place_id: 20},
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7396888732910156, 51.75131770454755], [0.7674980163574219, 51.75004242951131], [0.7630348205566406, 51.74472839594772], [0.7400321960449219, 51.745578683327146], [0.7396888732910156, 51.75131770454755]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 5, place_id: 21},
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7025241851806641, 51.73077608343183], [0.7100772857666016, 51.73811155050488], [0.7148838043212891, 51.738324154983346], [0.7097339630126953, 51.726842081683664], [0.7025241851806641, 51.73077608343183]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 6, place_id: 22},
-  {route_id: 6, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7076740264892578, 51.73896196241694], [0.7061290740966797, 51.736410678666616], [0.6887912750244141, 51.73896196241694], [0.6848430633544922, 51.739599760847945], [0.6832981109619141, 51.73747373106779], [0.6815814971923828, 51.73885566180319], [0.6764316558837891, 51.738324154983346], [0.6700801849365234, 51.743426362382735], [0.6729984283447266, 51.747358920695724], [0.6752300262451172, 51.74704007736919], [0.6846714019775391, 51.741938278073796], [0.6884479522705078, 51.740450144752074], [0.6913661956787109, 51.74332007227178], [0.6884479522705078, 51.74587096591765], [0.6935977935791016, 51.750440956828044], [0.6958293914794922, 51.750228409363366], [0.7076740264892578, 51.73896196241694]]]}, "properties"=>{}}]}, position: 5, minutes_from_last_stop: 4, place_id: 23},
-  {route_id: 9, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8961582183837891, 51.743027773177296], [0.8844852447509766, 51.737819217713735], [0.8777904510498047, 51.73197216473589], [0.8747005462646484, 51.72155190451038], [0.8812236785888672, 51.716128165753965], [0.8892917633056641, 51.71474554006178], [0.9062862396240234, 51.717404398105806], [0.9146976470947266, 51.72495470256533], [0.9171009063720703, 51.732503746266815], [0.9179162979125977, 51.73662329114746], [0.9173583984375, 51.73957318609304], [0.9152555465698242, 51.74310749129971], [0.9093761444091797, 51.74600382101549], [0.8961582183837891, 51.743027773177296]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 1},
-  {route_id: 9, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8959007263183594, 51.69884230627728], [0.8742713928222656, 51.70011902639408], [0.8595085144042969, 51.69671435936611], [0.8658599853515625, 51.69032991824242], [0.9048271179199219, 51.688414410286065], [0.8959007263183594, 51.69884230627728]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: nil, place_id: 2},
-  {route_id: 9, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8241462707519531, 51.66733847270126], [0.8162498474121094, 51.6613758219707], [0.8196830749511719, 51.65775525831613], [0.8330726623535156, 51.656264353907474], [0.8450889587402344, 51.658394202333916], [0.8485221862792969, 51.663079516537984], [0.8450889587402344, 51.666486713497285], [0.8365058898925781, 51.66904194306697], [0.8289527893066406, 51.668829012774296], [0.8241462707519531, 51.66733847270126]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: nil, place_id: 5},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6773757934570312, 51.73585256614514], [0.6636428833007812, 51.73627779535813], [0.6622695922851562, 51.73223795628285], [0.6629562377929688, 51.727347141604255], [0.6760025024414062, 51.72670917024036], [0.6832122802734375, 51.72883570643994], [0.6773757934570312, 51.73585256614514]]]}, "properties"=>{}}]}, position: 1, minutes_from_last_stop: nil, place_id: 10},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8153915405273438, 51.63773044879736], [0.8009719848632812, 51.63773044879736], [0.7947921752929688, 51.632403212468745], [0.7930755615234375, 51.627501602400784], [0.79925537109375, 51.624517754351416], [0.8136749267578125, 51.62494403037318], [0.8277511596679688, 51.62302575673622], [0.8401107788085938, 51.6255834368966], [0.8153915405273438, 51.63773044879736]]]}, "properties"=>{}}]}, position: 6, minutes_from_last_stop: 5, place_id: 6},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6639862060546875, 51.680432254628386], [0.666046142578125, 51.668083748868135], [0.6818389892578125, 51.66339895213777], [0.6941986083984375, 51.66595435586257], [0.6914520263671875, 51.681283751615396], [0.6639862060546875, 51.680432254628386]]]}, "properties"=>{}}]}, position: 2, minutes_from_last_stop: 113, place_id: 17},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.764923095703125, 51.66350543017059], [0.7529067993164062, 51.65647734325448], [0.7597732543945312, 51.648383044369034], [0.7783126831054688, 51.648170016983784], [0.7892990112304688, 51.65179134639281], [0.7875823974609375, 51.66094988831959], [0.764923095703125, 51.66350543017059]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 10, place_id: 24},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.8109283447265625, 51.64135261209683], [0.8002853393554688, 51.63432108962992], [0.7872390747070312, 51.64582664967697], [0.8021736145019531, 51.6498742080367], [0.8109283447265625, 51.64135261209683]]]}, "properties"=>{}}]}, position: 5, minutes_from_last_stop: 7, place_id: 25},
-  {route_id: 10, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.7669830322265625, 51.68554099636882], [0.75531005859375, 51.6748971339059], [0.762176513671875, 51.671064730929146], [0.77728271484375, 51.6702130417861], [0.792388916015625, 51.67872921261708], [0.7807159423828125, 51.686392397283925], [0.7669830322265625, 51.68554099636882]]]}, "properties"=>{}}]}, position: 3, minutes_from_last_stop: 7, place_id: 26},
-  {route_id: 5, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6979751586914062, 51.63757703288177], [0.6689643859863281, 51.64114594324341], [0.6769466400146484, 51.64708462665272], [0.677032470703125, 51.65430054470783], [0.685272216796875, 51.66771750013836], [0.692138671875, 51.66750456362024], [0.6876754760742188, 51.656856461555535], [0.6868171691894531, 51.64689822240666], [0.6979751586914062, 51.63757703288177]]]}, "properties"=>{}}]}, position: 4, minutes_from_last_stop: 8, place_id: 27},
-  {route_id: 5, polygon: {"type"=>"FeatureCollection", "features"=>[{"type"=>"Feature", "geometry"=>{"type"=>"Polygon", "coordinates"=>[[[0.6174599641235545, 51.64344694272672], [0.6174599641235545, 51.64344694272672]]]}, "properties"=>{}}]}, position: 5, minutes_from_last_stop: 10, place_id: 8},
-])
+FactoryGirl.create(:stop, position: 1,
+  place: Place.find_by(name: 'Burnham-on-Crouch'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'Burnham-on-Crouch railway station', postcode: 'CM0 8DQ', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Dengie Hundred Sports Centre', postcode: 'CM0 8HS', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Eves Corner Bus Stop', postcode: 'CM0 8QE', stop: nil)
+  ],
+  route: route
+)
 
-Landmark.create!([
-  {name: "Tillingham Post Office", latitude: 51.695952603721, longitude: 0.882385075092316, stop_id: 2},
-  {name: "Church of St Nicholas", latitude: 51.6974987261136, longitude: 0.882071256637573, stop_id: 2},
-  {name: "Burnham-On-Crouch Train Station", latitude: 51.6335212516457, longitude: 0.814425945281982, stop_id: 6},
-  {name: "Tesco Express", latitude: 51.6275191853741, longitude: 0.814597606658936, stop_id: 6},
-  {name: "", latitude: 51.7296314199837, longitude: 0.898818969726562, stop_id: 1},
-  {name: "The King’s Head", latitude: 51.7239162277052, longitude: 0.899999141693115, stop_id: 1},
-  {name: "", latitude: nil, longitude: nil, stop_id: 1},
-])
+FactoryGirl.create(:stop, position: 2,
+  place: Place.find_by(name: 'Althorne'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'Three Horseshoes Pub', postcode: 'CM3 6DP', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Althorne Train Station', postcode: 'CM3 6DG', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Fords Corner Bus Stop', postcode: 'CM3 6DP', stop: nil)
+  ],
+  route: route
+)
 
-Vehicle.create!([
-  {team_id: 1, seats: 12, registration: "MJ57FCP", make_model: "Mercedes Benz Sprinter Minibus", colour: "Silver", wheelchair_accessible: nil, photo_file_name: nil, photo_content_type: nil, photo_file_size: nil, photo_updated_at: nil},
-])
+FactoryGirl.create(:stop, position: 3,
+  place: Place.find_by(name: 'North Fambridge'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'North Fambridge Station', postcode: 'CM3 6NB', stop: nil)
+  ],
+  route: route
+)
+
+FactoryGirl.create(:stop, position: 4,
+  place: Place.find_by(name: 'Cold Norton'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'The Norton Pub', postcode: 'CM3 6JB', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Cold Norton Primary School', postcode: 'CM3 6JE', stop: nil)
+  ],
+  route: route
+)
+
+FactoryGirl.create(:stop, position: 5,
+  place: Place.find_by(name: 'Stow Maries'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'Prince Of Wales Pub', postcode: 'CM3 6SA', stop: nil)
+  ],
+  route: route
+)
+
+FactoryGirl.create(:stop, position: 6,
+  place: Place.find_by(name: 'South Woodham Ferrers'),
+  landmarks: [
+    FactoryGirl.create(:landmark, name: 'South Woodham Ferrers Station', postcode: 'CM3 5NQ', stop: nil),
+    FactoryGirl.create(:landmark, name: 'Marsh Farm', postcode: 'CM3 5WP', stop: nil)
+  ],
+  route: route
+)
+
+FactoryGirl.create(:vehicle, team_id: 1, seats: 12, registration: "MJ57FCP", make_model: "Mercedes Benz Sprinter Minibus", colour: "Silver")
+
+DataSeed.create_journeys

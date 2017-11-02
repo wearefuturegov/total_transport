@@ -1,0 +1,150 @@
+- content_for :top_sec do
+  %section.section
+    %h2
+      = t('bookings.title')
+
+  %section.section
+    %section.key
+      %section.markers
+        %section
+          = fa_icon 'circle-o'
+        %section.link
+        %section
+          = fa_icon 'map-marker'
+      %section.info-wrap
+        %span.top
+          %label
+            = @booking.pickup_stop.name
+        %span.bottom
+          %label
+            = @booking.dropoff_stop.name
+
+  = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
+
+    = render 'days', form: form
+    
+    #times.hidden
+      = render 'times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
+      
+    #one_way.hidden
+      = render 'times', form: form, journey_type: :return_journey_id, type: 'return', journeys: @return_journeys
+    
+    %section.section
+      .landmarks.hidden
+        = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
+        = form.select :pickup_landmark_id,
+            options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
+            { include_blank: I18n.t('bookings.pickup.title') },
+            { class: 'select', required: true }
+
+        %section.link
+        
+        = form.select :dropoff_landmark_id,
+            options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
+            { include_blank: I18n.t('bookings.dropoff.title')},
+            { class: 'select', required: true }
+
+    #details.hidden
+      = render 'passengers', form: form, journey_type: :journey_id, type: 'outward'
+    
+      %section.section
+        = form.label :special_requirements do
+          = t('bookings.requirements.label')
+          %span.small
+            = t('bookings.requirements.message')
+        = form.text_field :special_requirements
+        %p
+          = t('bookings.requirements.extra')
+
+      %section.section
+        %h2
+          = t('bookings.lead.title')
+        = form.label :passenger_name do
+          = t('bookings.lead.label')
+          %san.required
+            *
+        = form.text_field :passenger_name, required: true
+
+        = form.label :phone_number do
+          = t('bookings.lead.mobile.label')
+          %span.required
+            *
+          %span.small
+            = t('bookings.lead.mobile.message')
+        = form.text_field :phone_number, required: true
+
+        
+        = form.label :email do
+          = t('bookings.lead.email.label')
+          %spans.small
+            = t('bookings.lead.email.message')
+        = form.text_field :email
+
+        %p.small
+          %span.required
+            *
+          = t('form.required')
+
+
+
+      = form.submit :class => 'button cta primary', :id => 'submit-booking', value: t('button.next')
+
+- content_for :js do
+  :javascript
+
+    $('.date-button').click(function() {
+      var target = $(this).data('selector');
+      var type = $(this).data('type');
+      $('#times').removeClass('hidden');
+      $('.times .time').addClass('hidden');
+      $(' .' + target).removeClass('hidden');
+    })
+    
+    $('#booking_dropoff_landmark_id').change(function() {
+      $('#return-chooser').removeClass('hidden');
+      $('#details').removeClass('hidden');
+    })
+
+    $('.date-button').on('click', function(){
+      $('.date-button').removeClass('selected');
+      $(this).addClass('selected');
+    });
+
+    $('#outward_times .button').on('click', function(){
+      $('#outward_times .button').removeClass('selected');
+      $(this).addClass('selected');
+    });
+  
+    $('#return_times .oneway').click(function() {
+      $('#return_times .return').removeClass('selected');
+      $('#return_times .oneway').addClass('selected');
+      $('#return_times .hide_times').addClass('hide');
+      $('.return_price').addClass('hidden');
+      $('.single_price').removeClass('hidden');
+    })
+
+    $('#return_times .return').click(function() {
+      $('#return_times .oneway').removeClass('selected');
+      $('#return_times .return').addClass('selected');
+      $('#return_times .hide_times').removeClass('hide');
+      $('.single_price').addClass('hidden');
+      $('.return_price').removeClass('hidden');
+    })
+
+    $('#return_times .oneway').click(function() {
+      $('.landmarks').removeClass('hidden');
+    })
+
+    $('#return_times .return').click(function() {
+      $('.landmarks').addClass('hidden');
+    })
+
+    $('#return_times .time').click(function() {
+      $('.landmarks').removeClass('hidden');
+    })
+
+    $('#return_times .button').on('click', function(){
+      $('#return_times .hide_times .button').removeClass('selected');
+      $(this).addClass('selected');
+    });
+    

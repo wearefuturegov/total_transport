@@ -12,6 +12,38 @@ class Booking < ActiveRecord::Base
   
   after_destroy :remove_alerts, :set_journey_booked_status
   
+  def self.initialize_for_places(from_place, to_place)
+    available_journeys = Journey.available_for_places(from_place, to_place).group_by(&:route)
+    available_journeys.map do |route, journeys|
+      Booking.new(
+        pickup_stop: journeys.first.pickup_stop,
+        dropoff_stop: journeys.first.dropoff_stop,
+        journey: journeys.first,
+      )
+    end
+  end
+  
+  def outward_trip
+    @outward_trip ||= Trip.new(
+      booking: self
+    )
+  end
+  
+  def return_trip
+    @return_trip ||= Trip.new(
+      journey: return_journey,
+      booking: self
+    ) if return_journey?
+  end
+  
+  def available_journeys(reversed = false)
+    if reversed
+      Journey.available_for_places(dropoff_stop.place, pickup_stop.place)
+    else
+      Journey.available_for_places(pickup_stop.place, dropoff_stop.place)
+    end
+  end
+  
   def route
     journey.route
   end
@@ -20,30 +52,8 @@ class Booking < ActiveRecord::Base
     last_dropoff_time < Time.now
   end
 
-  def pickup_time(reversed = false)
-    stop = reversed ? dropoff_stop : pickup_stop
-    journey.time_at_stop(stop)
-  end
-  
-  def dropoff_time(reversed = false)
-    stop = reversed ? pickup_stop : dropoff_stop
-    journey.time_at_stop(dropoff_stop)
-  end
-  
-  def pickup_name
-    pickup_landmark.try(:name)
-  end
-  
-  def dropoff_name
-    dropoff_landmark.try(:name)
-  end
-
   def last_dropoff_time
-    if return_journey?
-      return_journey.time_at_stop(pickup_stop)
-    else
-      journey.time_at_stop(dropoff_stop)
-    end
+    (return_trip || outward_trip).dropoff_time
   end
 
   def future?
@@ -153,15 +163,33 @@ class Booking < ActiveRecord::Base
     queue_alerts
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
+    return_journey.update_attribute(:booked, true) if return_journey
+    log_booking
+  end
+  
+  def queue_sms
+    SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
+    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: outward_trip.pickup_time - 24.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: outward_trip.pickup_time - 1.hours)
+  end
+  
+  def queue_emails
+    SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
+    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: outward_trip.pickup_time - 24.hours)
+    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: outward_trip.pickup_time - 1.hours)
   end
   
   def send_confirmation!
-    SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
+    SendEmail.enqueue('BookingMailer', :booking_confirmed, booking_id: id)
+  end
+  
+  def log_booking
+    LogBooking.enqueue(id)
   end
   
   def queue_alerts
-    SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: pickup_time - 1.hours)
+    queue_sms if phone_number
+    queue_emails if email
   end
   
   def remove_alerts
@@ -170,6 +198,30 @@ class Booking < ActiveRecord::Base
   
   def set_journey_booked_status
     journey.update_attribute(:booked, false) if journey.bookings.count == 0
+  end
+  
+  def csv_row(journey)
+    if self.journey.id == journey.id
+      outward_trip.row_data
+    else
+      return_trip.row_data
+    end
+  end
+  
+  def spreadsheet_row
+    [
+      [
+        passenger_name,
+        phone_number,
+        pickup_stop.name,
+        dropoff_stop.name,
+        pickup_landmark.name,
+        dropoff_landmark.name,
+        journey.time_at_stop(pickup_stop).to_s,
+        return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
+        price
+      ]
+    ]
   end
 
 end

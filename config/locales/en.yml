@@ -79,20 +79,60 @@ en:
       info: "Meet your driver at the selected pickup point."
 
   journey:
-    title: "Pre-book your ride"
-
+    title: "Where would you like to ride?"
   bookings:
-    title: "Your journey"
+    title: "Create your journey"
     day:
       title: "Select a day"
     outward:
       time: "Outward time (+-10mins)"
     return:
       time: "Return time (+-10mins)"
+    landmark:
+      title: "Landmark"
     pickup:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
+    requirements: 
+      label: "Special requirements"
+      message: "Wheelchair, pushchair etc"
+      extra: "Your transport provider will get in touch with you if they can't meet your needs."
+    passenger:
+      title: "Passengers"
+      adult:
+        title: "Adult"
+        extra: "(16+)"
+      child:
+        title: "Child"
+        extra: "(5-15)"
+      pass: "Bus pass"
+    lead:
+      title: "Contact"
+      label: "Lead passenger name"
+      mobile: 
+        label: "Mobile No."
+        message: "(SMS notification of your ride)"
+      email:
+        label: "Email"
+        message: "(Confirmation via email)"
+
+  summary:
+    title: "Check your journey before you pre-book"
+    plus_minus_ten: "(+-10mins)"
+    outbound:
+      title: "Outbound"
+      pickup: "Pick up point"
+      date: "Date"
+      time: "Time"
+      dropoff: "Drop off point"
+      eta: "Approx arrival"
+    return:
+      title: "Return"
+      pickup: "Pickup up point"
+      time: "Time"
+      dropoff: Drop off point
+    back: "I need to change something"
     passenger:
       title: "Number of passengers"
     buspass:
@@ -107,28 +147,20 @@ en:
         older: "Older persons bus pass"
         disabled: "Disabled persons bus pass"
         scholar: "Scholarly Season Ticket"
-    requirements: 
-      title: "Add Special Requirements"
-      label: "Describe your special requirements:"
-      message: "Your transport provider will get in touch with you if they can't meet your needs"
-    lead:
-      label: "Lead passenger's name"
-      mobile: 
-        label: "Mobile phone number"
-        message: "Let us know your phone number so that we can notify you when your vehicle is on its way."
-
 
   button:
     main_book: "Try our £1 return offers *"
     main_book_asterisk: "* Introductory offer"
-    book: "Pre-book your ride"
+    book: "Get started"
     contact: "Have a question?"
     submit: "Submit your booking request"
-    return: "No return journey"
+    return: "Return"
     typeform: "Tell us more"
     event: "Pre-book my ride"
     regular: "Learn more"
     enquiry: "Get Started"
+    next: "Continue"
+    complete: "All done"
 
   email:
     address: "hello@bookyourride.co.uk"
@@ -137,7 +169,13 @@ en:
   helpers:
     submit:
       booking:
-        update: 'Confirm pre-booking'
+        update: 'Next'
+    submit:
+      booking:
+        update: 'it all looks good!'
+
+  form:
+    required: "Required"
 
   action:
     title: "Pre-book your ride"

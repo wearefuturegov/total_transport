@@ -1,9 +1,0 @@
-<%= form_for [@route, @booking], url: send("save_#{@pickup_or_dropoff}_location_route_booking_path", @route, @booking) do |form| %>
-  <%= form.select "#{@pickup_or_dropoff}_landmark_id",
-    options_from_collection_for_select(@landmarks, 'id', 'name'),
-    include_blank: '-- Please Select --'
-  %>
-  <div class="box">
-    <%= form.submit "Next", :class => 'next button alt-button disabled' %>
-  </div>
-<% end %>

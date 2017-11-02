@@ -1,0 +1,9 @@
+.single 
+  - bookings.each do |booking|
+    = form_for [booking.route, booking] do |form|
+      = form.hidden_field :pickup_stop_id
+      = form.hidden_field :dropoff_stop_id
+      - if suggestion
+        = form.submit book_journey_submit_label(booking.journey, bookings.count, booking.dropoff_stop.name), class: 'suggestion'
+      - else
+        = form.submit book_journey_submit_label(booking.journey, bookings.count), class: 'button cta primary'

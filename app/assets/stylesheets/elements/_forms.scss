@@ -7,55 +7,62 @@ fieldset {
 
 legend {
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $baseline * 0.5;
   padding: 0;
 }
 
 label {
   display: block;
   font-weight: 600;
-  margin-bottom: $small-spacing / 2;
+  margin-bottom: $baseline * 0.25;
 }
 
 input,
 select,
 textarea {
+  @include non-rounded;
   display: block;
-  font-family: $stack-1;
-  font-size: $base-font-size;
+  font-size: $body;
+  font-weight: 700;
+  line-height: $baseline;
+}
+
+input[type=checkbox] {
+  -webkit-appearance: checkbox;
+  margin: 0;
+  margin-right: $baseline*0.25;
+}
+
+.concession-cont .fa-times {
+  float: right;
+  line-height: $baseline;
 }
 
 #{$all-text-inputs}, select[multiple] {
   background-color: white;
-  border: $base-border;
-  box-shadow: $form-box-shadow;
+  border: $black $border-width-thin $border-style;
   box-sizing: border-box;
-  margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
-  transition: border-color $base-duration $base-timing;
+  margin-bottom: $baseline * 0.5;
+  padding: $baseline * 0.5;
+  transition: border-color ;
   width: 100%;
-
   &:hover {
-    border-color: shade($base-border-color, 20%);
+    border-color: $brand;
   }
-
   &:focus {
-    border-color: $action-color;
+    border-color: $brand;
     outline: none;
   }
-
   &:disabled {
-    background-color: shade($base-background-color, 10%);
+    background-color: $gray-light;
     cursor: not-allowed;
-    border: 1px solid shade($base-background-color, 10%);
-
-    &:hover {
-      border: $base-border;
+    border: $gray-light $border-width $border-style;
+    &::placeholder {
+      color: $white;
     }
   }
-
   &::placeholder {
-    color: $medium-gray;
+    color: $black;
   }
 }
 
@@ -92,4 +99,24 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.select {
+  @include box-sizing;
+  border: $border-width-thin $border-style $black;
+  border-radius: 0;
+  background-color: $white;
+  line-height: 1.5em;
+  padding: $baseline*0.5 $baseline*2 $baseline*0.5 $baseline*0.5;
+  color: $black;
+  cursor: pointer;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, $black 50%), linear-gradient(135deg, $black 50%, transparent 50%), linear-gradient(to right, $black, $black);
+  background-position: calc(100% - #{$baseline}) calc(13px + 13px), calc(100% - #{$baseline - 5}) calc(13px + #{$baseline*0.5}), calc(100% - #{$baseline*2}) 0px;
+  background-size: 5px 5px, 5px 5px, 1px $baseline*2.5;
+  background-repeat: no-repeat;
+  margin-bottom: $baseline*0.5;
+  width: 100%;
 }

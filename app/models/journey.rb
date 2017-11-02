@@ -1,3 +1,5 @@
+require 'csv'
+
 class Journey < ActiveRecord::Base
   belongs_to :route
   has_many :stops, through: :route
@@ -71,7 +73,7 @@ class Journey < ActiveRecord::Base
   end
 
   def is_booked?
-    bookings.count > 0
+    all_bookings.count > 0
   end
 
   def seats_left
@@ -92,6 +94,47 @@ class Journey < ActiveRecord::Base
   
   def time_at_stop(stop)
     start_time + stop.minutes_from_first_stop(reversed?).minutes
+  end
+  
+  def all_bookings
+    outward_bookings + return_bookings
+  end
+  
+  def csv
+    CSV.generate do |csv|
+      csv << csv_headers
+      all_bookings.each do |booking|
+        csv << booking.csv_row(self)
+      end
+    end
+  end
+  
+  def csv_headers
+    [
+      'Date of travel',
+      'Lead Passenger Name',
+      'Mobile Number',
+      'Email',
+      'Number of Adults',
+      'Number of Children',
+      'Total Fare (including return element)',
+      'Outbound or Return',
+      'Pickup Time',
+      'Pickup Place',
+      'Pickup Location',
+      'Dropoff Time',
+      'Dropoff Place',
+      'Dropoff Location',
+      'Time and date booking made'
+    ]
+  end
+  
+  def filename
+    [
+      stops_in_direction.first.name.downcase,
+      stops_in_direction.last.name.downcase,
+      start_time.strftime('%F')
+    ].join('-')
   end
   
   private

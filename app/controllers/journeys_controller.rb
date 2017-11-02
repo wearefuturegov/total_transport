@@ -4,14 +4,13 @@ class JourneysController < PublicController
   
   def index
     if @from && @to
-      if @to.routes.count > 0
-        @journeys = Journey.available_for_places(@from, @to)
-        @booking = Booking.new
-      else
-        routes = @from.routes
-        places = routes.map { |r| r.places }
-        @places = places.flatten.reject { |p| p.slug == @from.slug }
+      @bookings = Booking.initialize_for_places(@from, @to)
+      if @to.routes.count == 0 || @bookings.count == 0
+        places = Place.possible_destinations(@from).first(3)
         TrackFailedPlaceQuery.enqueue(@from.name, @to.name, DateTime.now.to_s)
+        @possible_bookings = places.map do |place|
+          Booking.initialize_for_places(@from, place)
+        end
       end
     end
   end

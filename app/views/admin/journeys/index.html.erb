@@ -87,8 +87,8 @@
               </div>
             </div>
             <div class="bookings col-2 omega mobile-third">
-              <h4 class="mt1"><span class="number"><%= journey.bookings.count %></span><br>
-              <%= "booking".pluralize(journey.bookings.count) %></h4>
+              <h4 class="mt1"><span class="number"><%= journey.all_bookings.count %></span><br>
+              <%= "booking".pluralize(journey.all_bookings.count) %></h4>
             </div>
           </div>
         <% end %>
