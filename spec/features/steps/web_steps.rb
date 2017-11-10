@@ -4,34 +4,34 @@ module WebSteps
   end
 
   step :choose_place, 'I choose a :text_field point of :place'
-  step :choose_passengers, 'I choose :num passengers'
-  step :click_request_one_way_or_return, 'I click on the first journey\'s request button'
-  step :choose_first_return_journey, 'I choose the first return option'
+  step :choose_passengers, 'I choose :num :type passenger(s)'
+  step :click_book_journey, 'I click the book journey button'
   step :choose_single_journey, 'I don\'t choose a return journey'
-  step :click_next, 'I don\'t add any special requirements'
-  step :enter_first_passengers_confirmation_code, 'I enter my confirmation code'
   step :choose_child_tickets, 'I choose :n child ticket(s)'
-
-  step 'I should see :n journey(s)' do |n|
-    expect(page).to have_css('.options form.new_booking', :count => n)
-  end
+  step :choose_journey, 'I choose a journey'
+  step :choose_pickup_and_dropoff_point, 'I choose a pickup and dropoff point'
 
   step 'I have chosen a journey' do
     choose_place('from', 'Newmarket')
     choose_place('to', 'Haverhill')
-    click_request_one_way_or_return
+    click_book_journey
+    choose_journey
+    choose_pickup_and_dropoff_point
+  end
+  
+  step 'I have chosen a single journey' do
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_book_journey
+    choose_single_journey
+    choose_pickup_and_dropoff_point
   end
 
   step 'I have chosen a journey with :n passengers' do |passengers|
     choose_place('from', 'Newmarket')
     choose_place('to', 'Haverhill')
     choose_passengers(passengers)
-    click_request_one_way_or_return
-  end
-
-  step 'I choose a pickup and dropoff point' do
-    choose_pickup_dropoff_point('pickup', @route.stops.first.landmarks.first)
-    choose_pickup_dropoff_point('dropoff', @route.stops.last.landmarks.first)
+    click_book_journey
   end
 
   step 'I fill in my details' do
@@ -45,7 +45,30 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(body).to match("#{start_point} to #{destination}")
+    expect(first('.suggestion').value).to eq(destination)
+  end
+  
+  step 'I confirm my booking' do
+    page.execute_script '$("#submit-booking")[0].scrollIntoView(true)'
+    click_button I18n.t('helpers.submit.booking.update')
+  end
+  
+  def click_book_journey
+    wait_for_ajax
+    click_button I18n.t('button.book')
+  end
+  
+  def choose_journey
+    first('.date-button').click
+    first('#outward_times .time label').click
+    page.execute_script '$("#return_times .time label")[0].scrollIntoView(true)'
+    first('#return_times .time label').click
+  end
+  
+  def choose_single_journey
+    first('.date-button').click
+    first('#outward_times label.button').click
+    find('label', text: /#{I18n.t('button.oneway')}/i).click
   end
   
   def choose_place(field, place)
@@ -54,58 +77,45 @@ module WebSteps
     first('.easy-autocomplete-container li', text: /#{place}/).click
   end
 
-  def click_request_one_way_or_return
-    click_button 'Request one way or return'
+  def choose_passengers(num, type)
+    num = num.to_i
+    selector = case type
+    when 'adult'
+      num = num - 1
+      'booking_number_of_adults'
+    when 'child'
+      'booking_child_tickets'
+    when 'bus pass'
+      'booking_older_bus_passes'
+    end
+    num.times do
+      page.execute_script("$('##{selector}').next('.inc').click()")
+    end
   end
-
-  def choose_passengers(num)
-    select(num, from: 'booking[number_of_passengers]')
-  end
-
-  def choose_first_return_journey
-    find('#returnTab').click
-    first('label').click
-    click_next
-  end
-
-  def choose_single_journey
-    find('#singleTab').click
-    click_next
+  
+  def choose_pickup_and_dropoff_point
+    choose_pickup_dropoff_point('pickup', @route.stops.first.landmarks.first)
+    choose_pickup_dropoff_point('dropoff', @route.stops.last.landmarks.first)
   end
 
   def choose_pickup_dropoff_point(type, landmark)
     select(landmark.name, from: "booking_#{type}_landmark_id")
-    click_next
   end
 
   def fill_in_details(first_name, phone_numer)
     fill_in 'booking_passenger_name', with: first_name
     fill_in 'booking_phone_number', with: phone_numer
-    click_button 'Confirm phone number'
-  end
-
-  def click_next
-    click_button 'Next'
-  end
-
-  def enter_confirmation_code(code)
-    code.split('').each_with_index do |num, i|
-      fill_in "digit#{i + 1}", with: num
-    end
-    click_button 'Verify'
-  end
-
-  def enter_first_passengers_confirmation_code
-    enter_confirmation_code(Passenger.last.verification_code)
+    page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
+    click_button I18n.t('button.next')
   end
 
   def choose_child_tickets(num)
+    page.execute_script 'document.getElementById(\'add-concession\').scrollIntoView(true)'
     num.to_i.times do |n|
       first('#add-concession').click
       expect(page).to have_css('#concession-list')
       select 'Child fare', from: 'concession-list'
     end
-    click_button 'Next'
   end
 
 end

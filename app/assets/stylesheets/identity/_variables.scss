@@ -12,13 +12,15 @@ $brand-3: #FF8637; // orange
 // testing a new font
 @import 'https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic,900italic';
 
-$stack: 'Open Sans', sans-serif;
-$stack-1: 'Open Sans', sans-serif;
+$stack: 'Lato', sans-serif;
+$stack-1: 'Lato', sans-serif;
 $stack-2: 'Lato', sans-serif;
 
 // Font Sizes
 $base-font-size: 18px;
 $body: 18px;
+
+$small: 14px;
 
 // Line height
 $baseline: 26px;
@@ -29,18 +31,26 @@ $logo-width: 90px;
 $logo-height: $baseline*1.25;
 
 // Colors
-$brand: #ff3f6b;
 $brand-2: #0cc7d0;
+
+$brand: #ff3f6b;
+$brand-2: #cc0030;
+$brand-3: #660018;
 
 $black: #333333;
 $white: #fff;
 $gray: #afafaf;
+
+$gray-light: lighten($gray, 10%);
 
 $gradient-1: #7b8388;
 $gradient-2: #cedee8;
 
 $border-style: solid;
 $border-width: 2px;
+$border-width-thin: 1px;
+
+$error: #ff0000;
 
 // Colors
 $prim-color: #1565c0;

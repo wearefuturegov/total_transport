@@ -1,0 +1,18 @@
+/* plusminus */
+
+.plusminus {
+    input {
+        border-color: $brand;
+    }
+  .increment.button {
+    @include box-sizing;
+    font-size: $baseline;
+    font-weight: 900;
+    display: inline-block;
+    line-height: $baseline;
+    padding: $baseline*0.5 + 1;
+    border: none;
+    border-left: $border-width-thin $border-style $white;
+    width: 20%;
+  }
+}

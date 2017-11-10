@@ -39,25 +39,34 @@ RSpec.describe JourneysController, type: :controller do
     expect(get :index).to render_template(:index)
   end
   
-  it 'gets journeys from and to' do
+  it 'initialises a booking if there are availble journeys' do
     get :index, from: origin, to: destination
-    
-    expect(assigns(:journeys).count).to eq(4)
+    bookings = assigns(:bookings)
+    expect(bookings.count).to eq(1)
+    expect(bookings.first.pickup_stop).to eq(route.stops[1])
+    expect(bookings.first.dropoff_stop).to eq(route.stops[3])
   end
   
   it 'gets reversed journeys' do
     get :index, from: destination, to: origin
-    
-    expect(assigns(:journeys).count).to eq(6)
+    bookings = assigns(:bookings)
+    expect(bookings.count).to eq(2)
+    expect(bookings.first.pickup_stop).to eq(route.stops[3])
+    expect(bookings.first.dropoff_stop).to eq(route.stops[1])
+    expect(bookings.last.pickup_stop).to eq(route2.stops[1])
+    expect(bookings.last.dropoff_stop).to eq(route2.stops[3])
   end
   
   context 'if an origin does not have any routes', :que do
     
     let(:subject) { get :index, from: destination, to: other_place }
     
-    it 'suggests journeys' do
+    it 'returns possible bookings' do
       subject
-      expect(assigns(:places).count).to eq(6)
+      possible_bookings = assigns(:possible_bookings)
+      expect(possible_bookings.count).to eq(3)
+      expect(possible_bookings.first[0].pickup_stop.place).to eq(destination)
+      expect(possible_bookings.first[0].dropoff_stop.place).to eq(origin)
     end
     
     it 'queues a failure job' do

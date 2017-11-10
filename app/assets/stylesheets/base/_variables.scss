@@ -5,8 +5,9 @@ $mobile-break: 600px;
 $large-screen: 960px;
 
 // Other Sizes
-$base-line-height: 1.5;
-$base-border-radius: 3px;
+$base-line-height: 1.5; // temp
+
+$base-border-radius: 0;
 $base-spacing: $base-line-height * 1em;
 $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
@@ -18,5 +19,8 @@ $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 
 // Animations
-$base-duration: 150ms;
-$base-timing: ease;
+$time: 250ms;
+$base-duration: $time; // temp
+
+$effect: ease;
+$base-timing: $effect; // temp

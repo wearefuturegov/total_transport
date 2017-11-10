@@ -7,6 +7,14 @@ class Route < ActiveRecord::Base
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
   end
+  
+  def self.available_routes(start_place, destination_place)
+    from = Stop.where(place: start_place)
+    from_routes = from.map { |s| s.route }
+    to = Stop.where(place: destination_place)
+    to_routes = to.map { |s| s.route }
+    (from_routes & to_routes)
+  end
 
   def name
     if stops.count > 1

@@ -1,0 +1,21 @@
+%p.time
+  Travelling at
+  = format_time trip.pickup_time
+  on
+  = friendly_date trip.pickup_time
+  
+%p.from
+  %strong From:
+  = trip.pickup_stop.name
+
+%p.to
+  %strong To:
+  = trip.dropoff_stop.name
+  
+%p.pickup
+  %strong Pickup Landmark:
+  = trip.pickup_landmark.name
+  
+%p.dropoff
+  %strong Dropoff Landmark:
+  = trip.dropoff_landmark.name

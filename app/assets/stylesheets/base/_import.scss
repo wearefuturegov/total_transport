@@ -3,6 +3,10 @@
 // Copyright 2013-2015 thoughtbot, inc.
 // MIT License
 
+/* http://meyerweb.com/eric/tools/css/reset/ */
+@import "reset";
+@import "general";
+
 /* Import the variables and mixin */
 @import "identity/variables"; // Base variables
 @import "variables"; // Base variables

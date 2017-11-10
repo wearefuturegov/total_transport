@@ -1,0 +1,73 @@
+/* key */
+
+.key {
+  position: relative;
+  .markers, .fa-map-marker {
+    text-align: center;
+    width: 100%;
+  }
+  .form {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(16.6666666667% - 21px + #{$gutter});
+    margin-top: 0;
+    margin-bottom: 0;
+    input {
+      text-align: left;
+      margin: 0;
+      &.top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+      }
+      &.bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+      }
+    }
+  }
+  &.card {
+    padding: 0;
+  }
+}
+
+$key-math: $baseline*3.5;
+
+.key {
+  .info-wrap {
+    position: relative;
+    left: 0;
+    .top, .bottom {
+      float: left;
+      width: 100%;
+      position: relative;
+      label {
+        margin-bottom: 0;
+      }
+    }
+    .bottom {
+      margin-top: $key-math - $baseline;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.link {
+  border-left: $border-width*2 dotted $black;
+  height: $baseline*1.5;
+  margin-top: $baseline*0.25;
+  margin-bottom: $baseline*0.25;
+  margin: $baseline*0.25 calc(50% - #{$border-width});
+  &.long {
+    height: $key-math + $baseline;
+  }
+}
+
+.landmarks .link {
+  margin: $baseline*0.5;
+  height: $baseline*0.5;
+}

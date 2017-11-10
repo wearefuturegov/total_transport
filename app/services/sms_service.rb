@@ -33,14 +33,23 @@ class SmsService
   end
   
   private
-    
+        
     def booking_notification
+      template = """
+        Your Ride booking from #{@booking.outward_trip.pickup_stop.name} to #{@booking.outward_trip.dropoff_stop.name}
+        is confirmed. Your vehicle will pick you up from #{@booking.outward_trip.pickup_name},
+        on #{friendly_date(@booking.journey.start_time)} between #{plus_minus_ten(@booking.outward_trip.pickup_time)}
       """
-        Your Pickup booking from #{@booking.pickup_stop.name} to #{@booking.dropoff_stop.name}
-        is confirmed. Your vehicle will pick you up from #{@booking.pickup_name}
-        on #{friendly_date(@booking.journey.start_time)} between #{plus_minus_ten(@booking.pickup_time)}.
-        You can review or cancel your booking here: #{passenger_booking_url(@booking.passenger, @booking)}
-      """.squish
+      if @booking.return_journey
+        template += """
+          , and returning from #{@booking.return_trip.pickup_name} on #{friendly_date(@booking.return_trip.pickup_time)}
+          between #{plus_minus_ten(@booking.return_trip.pickup_time)}
+        """
+      end
+      template += """
+      . To amend or cancel your booking please call 01621 855111
+      """
+      template.squish
     end
     
     def verification_code
@@ -49,18 +58,17 @@ class SmsService
     
     def first_alert
       """
-        This is a reminder that you will be picked up from #{@booking.pickup_stop.name}
-        tomorrow at #{@booking.pickup_time.strftime("%I:%M %p")}. You can review
-        or cancel your booking here: #{passenger_booking_url(@booking.passenger, @booking)}
+        Your Ride booking reminder. You will be picked up from #{@booking.outward_trip.pickup_name}
+        tomorrow between #{plus_minus_ten(@booking.outward_trip.pickup_time)}. Don’t forget to pay the driver directly.
+        To amend or cancel your booking please call 01621 855111
       """.squish
     end
-    
+        
     def second_alert
       """
-        You will be picked up from #{@booking.pickup_stop.name} today at
-        #{@booking.pickup_time.strftime("%I:%M %p")}. Look out for a
-        #{@booking.journey.vehicle.colour} #{@booking.journey.vehicle.make_model}
-        with the registration number #{@booking.journey.vehicle.registration}.
+        Your Ride is on it’s way. Your pickup point is #{@booking.outward_trip.pickup_name}
+        between #{plus_minus_ten(@booking.outward_trip.pickup_time)}. Look out for a vehicle
+        with the Ride sticker. If you need to get in touch, please call 01621 855111.
       """.squish
     end
   

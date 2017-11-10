@@ -1,8 +1,19 @@
 /* mixin */
 
 @mixin ease {
-  -webkit-transition: all 250ms;
-  -moz-transition: all 250ms;
-  -o-transition: all 250ms;
-  transition: all 250ms;
+  -webkit-transition: all $time;
+  -moz-transition: all $time;
+  -o-transition: all $time;
+  transition: all $time;
+}
+
+@mixin box-sizing {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin non-rounded {
+  -webkit-appearance: none;
+  border-radius: 0;
 }

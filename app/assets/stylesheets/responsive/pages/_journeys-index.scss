@@ -1,0 +1,25 @@
+@media only screen and (max-width: 667px) {
+
+  #journeys-index {
+    .collection .single {
+      position: relative;
+      margin-bottom: $baseline*0.25;
+      width: 100%;
+      bottom: initial;
+    }
+    .single {
+      position: absolute;
+      width: 100%;
+      margin-bottom: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .action {
+      bottom: $baseline;
+      position: absolute;
+      width: 90%;
+      margin-bottom: 0;
+    }
+  }
+
+}

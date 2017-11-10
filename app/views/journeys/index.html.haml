@@ -1,0 +1,110 @@
+%section.section
+  %h2
+    = t('journey.title')
+
+= render 'form', from: @from.try(:name), to: @to.try(:name)
+
+%section.section
+  #results
+    - if @possible_bookings
+      = render 'possible_bookings', bookings: @possible_bookings, from: @from, to: @to
+    - elsif @bookings
+      = render 'bookings_form', bookings: @bookings, suggestion: false
+
+- content_for :js do
+
+  :javascript
+  
+    // Monkey patch pushState to notify Google Analytics
+    var pushState = history.pushState;
+    history.pushState = function () {
+      pushState.apply(history, arguments);
+      if (typeof(ga) == 'function') {
+        ga('set', 'location', event.data.url);
+        ga('send', 'pageview');
+      }
+    };
+    
+    var enableTo = (slug) => {
+      var toOptions = options;
+      $('#from').data('slug', slug);
+      toOptions.list.onChooseEvent = chosenTo;
+      $('#to').easyAutocomplete(toOptions);
+    }
+    
+    var chosenFrom = () => {
+      var chosenItem = $("#from").getSelectedItemData();
+      $('#from').data('placename', chosenItem.name);
+      $('#from_result').addClass('hidden');
+      $('#from_result').attr('hidden', true);
+      
+      history.pushState(null, null, '/journeys/' + chosenItem.slug);
+      
+      if (chosenItem.routes.length > 0) {
+        enableTo(chosenItem.slug);
+        $('#to').removeAttr('disabled');
+      } else {
+        var placename = $('#from').data('placename');
+        $('#from_result #place').html(placename);
+        $('#from_result').removeClass('hidden');
+        $('#from_result').attr('hidden', false);
+        $('#to').attr('disabled', 'true');
+        $('#to').val('');
+        $('#results').hide();
+        $.post({
+          url: '/log_entry/?from=' + chosenItem.name
+        });
+      }
+    }
+    
+    var chosenTo = () => {
+      var chosenItem = $("#to").getSelectedItemData();
+      var url = '/journeys/' + $('#from').data('slug') + '/' + chosenItem.slug;
+
+      $('#to').data('placename', chosenItem.name);
+      $('#to_result').empty();
+      
+      history.pushState(null, null, url);
+      
+      $.get({
+        url: url,
+        dataType: 'script'
+      });
+      
+      $('#results').show();
+    }
+
+    var options = {
+      url: function(place) {
+        return '/places.json?query=' + place
+      },
+      getValue: "name",
+      list: {
+        onChooseEvent: chosenFrom
+      },
+      theme: 'square'
+    };
+    
+    window.onpopstate = function() {
+      if (document.location.pathname == '/journeys') {
+        $('#from').val('');
+        $('#to').val('');
+        $('#results').html('');
+        $('#from_result').addClass('hidden');
+        $('#from_result').attr('hidden', true);
+      } else if (document.location.pathname.match(/journeys\/[a-z\-]+$/)) {
+        $('#to').val('');
+        $('#results').html('');
+      }
+    }
+
+    $('#from').easyAutocomplete(options);
+    
+  - if @from
+    - content_for :js do
+      :javascript
+        $(document).ready(function() {
+          enableTo('#{ @from.try(:slug) }');
+          $('#from').data('placename', '#{ @from.try(:name) }');
+        });
+      

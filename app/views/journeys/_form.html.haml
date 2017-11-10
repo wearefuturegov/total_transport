@@ -1,0 +1,17 @@
+%section.section
+  = text_field_tag :from, nil, placeholder: 'From', id: :from, value: from
+  = text_field_tag :to, nil, placeholder: 'To', disabled: from.nil?, id: :to, value: to
+  #from_result.hidden{"aria-live" => "assertive", :hidden => "", :role => "alert"}
+    %p.error-block
+      = t('message.sorry')
+      from
+      = succeed "." do
+        %span#place
+    %p
+      %span.bold 
+        = t('service')
+      = t('message.feedback')
+    %p
+      = link_to I18n.t('button.typeform'), 'https://bookyourride.typeform.com/to/EGXKN0'
+
+

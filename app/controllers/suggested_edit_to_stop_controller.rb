@@ -22,7 +22,7 @@ class SuggestedEditToStopController < PublicController
       @route = Route.find(params[:route_id])
       @booking = current_passenger.bookings.find(params[:id])
       @stop = Stop.find(params[:stop_id])
-      @back_path = edit_pickup_location_route_booking_path(@route, @booking)
+      @back_path = edit_route_booking_path(@route, @booking)
     end
   
 end

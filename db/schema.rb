@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016095431) do
+ActiveRecord::Schema.define(version: 20171020100736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20171016095431) do
     t.string   "payment_method",       default: "cash"
     t.integer  "pickup_landmark_id"
     t.integer  "dropoff_landmark_id"
+    t.string   "email"
   end
 
   add_index "bookings", ["dropoff_landmark_id"], name: "index_bookings_on_dropoff_landmark_id", using: :btree
@@ -108,9 +109,12 @@ ActiveRecord::Schema.define(version: 20171016095431) do
     t.string   "name"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "places", ["slug"], name: "index_places_on_slug", unique: true, using: :btree
 
   create_table "promo_codes", force: :cascade do |t|
     t.decimal  "price_deduction"

@@ -64,16 +64,10 @@
   <% end %>
   
   <% if content_for?(:top_sec) %>
-    <div class="top-sec container white-block">
-      <div class="inner">
-        <span><%= yield(:top_sec) %></span>
-      </div>
-    </div>
+      <%= yield(:top_sec) %>
   <% end %>
 
-  <div class="main-cont">
-    <%= yield %>
-  </div>
+  <%= yield %>
 
   <div class="pop-up">
     <div class="pop-up-box card no-click">

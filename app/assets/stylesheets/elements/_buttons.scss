@@ -1,0 +1,175 @@
+/* button */
+
+.date-button,
+#outward_times .button,
+#return_times .button {
+  &.selected {
+    color: $white;
+    background: $black;
+    border-color: $black;
+  }
+  input {
+    display: none;
+  }
+}
+
+#outward_times,
+#return_times {
+  .time {
+    float: left;
+    width: 100%;
+    .button {
+      line-height: 39px;
+      line-height: $baseline*1.5;
+      width: calc(25% - #{$border-width});
+      text-align: center;
+      padding: 0 $border-width*2;
+      float: left;
+      margin: $border-width-thin;
+      font-size: $small;
+      display: inline-block;
+      font-weight: 900;
+    }
+  }
+}
+
+// remove the .cta from .button when the buttons sass file is sorted out.
+.button.cta {
+  @include ease;
+  position: relative;
+  font-family: $stack-2;
+  text-align: center;
+  font-size: $body;
+  font-weight: 700;
+  line-height: $baseline*2;
+  background: $brand;
+  border-color: $brand;
+  color: $white;
+  display: inline-block;
+  padding: 0 $baseline;
+  width: auto;
+  &.cta {
+    color: $white;
+    background: $brand;
+    border: $border-width*2 $border-style $brand;
+    &:hover {
+      background: $black;
+      border-color: $black;
+    }
+  }
+  &.secondary {
+    color: $brand;
+    background: $white;
+    border-color: $black;
+    &:hover {
+      color: $white;
+      background: $black;
+      border-color: $black;
+    }
+  }
+  &.primary {
+    line-height: $baseline*3;
+    margin-top: $baseline;
+    width: 100%;
+  }
+}
+
+// previous buttons below here
+
+#{$all-buttons}, .button {
+  @include ease;
+  border: $border-style $border-width*2 $brand;
+  text-align: center;
+  appearance: none;
+  background-color: $brand;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: $stack-1;
+  font-size: $body;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
+  line-height: 1;
+  padding: $small-spacing $base-spacing;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-transform: uppercase;
+  width: 100%;
+  -webkit-appearance: none;
+  padding: 0 $baseline;
+  line-height: $baseline*2;
+  &:hover, &:focus {
+    background-color: $black;
+    border-color: $black;
+    color: #fff;
+  }
+  &:active {
+    -webkit-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
+    -moz-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
+    box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 1;
+    background-color: $medium-gray;
+    &:hover {
+      background-color: darken($medium-gray, 10%);
+    }
+  }
+  &.secondary {
+    background: $white;
+    color: $black;
+    border-color: $black;
+  }
+  &.cancel {
+    border-color: $brand;
+    color: $brand;
+  }
+}
+
+.button.single {
+  padding: $baseline*0.5 $baseline;
+  margin-bottom: $border-width;
+  span {
+    &.date, &.day {
+      float: left;
+      width: 100%;
+      text-transform: uppercase;
+    }
+    &.date {
+      font-size: $small;
+      line-height: $small;
+    }
+    &.day {
+      line-height: $baseline;
+    }
+  }
+}
+
+
+/* who knows what's down there… commenting out to see what breaks
+
+.white-button {
+  background-color: #fff;
+  color: $dark-gray;
+}
+
+.white-button:hover {
+  background-color: darken($base-background-color, 10%);
+  color: $dark-gray;
+}
+
+.small-button, .extra-small-button {
+  width: auto;
+  padding: 0.50em 0.75em;
+  font-size: 16px;
+}
+
+.extra-small-button {
+  font-size: 12px;
+  padding: 0.25em 0.4em;
+}
+
+*/
