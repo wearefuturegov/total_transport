@@ -27,11 +27,11 @@ en:
 
   public-index:
     title:
-      essex: "Your local service that helps you go places in Essex"
-      suffolk: "Your local service that helps you go places in Suffolk"
+      essex: "Your local service that helps you go places in Essex."
+      suffolk: "Your local service that helps you go places in Suffolk."
     intro:
-      essex: "Want a more flexible way to get around the Maldon and Dengie area?"
-      suffolk: "Want a more flexible way to get around the Maldon and Dengie area?"
+      essex: "Your local commute or big day out made simple - pre-book your shared ride today"
+      suffolk: "Your local commute or big day out made simple - pre-book your shared ride today"
     intro_extend:
       intro: "It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go."
     route_intro:
@@ -57,6 +57,15 @@ en:
       author_2: "Suffolk County Council"
       author_3: "FutureGov"
 
+    event:
+      title: "Maldon Fireworks Sat 4th November"
+      info: "Return journeys for £1 from South Woodham Ferrers and other nearby villages."
+      regular:
+        title: "Daily commute to South Woodham and Burnham"
+        info: "Return journeys running 6am - 8pm from local villages. Perfect for work, school or meeting friends. Try it out for just £1 during November."
+      enquiry:
+        title: "Where can we take you?"
+        info: "We are expanding our shared routes. Tell us the journey you want to make."
 
   steps:
     step_1:
@@ -64,16 +73,16 @@ en:
       info: "Fill in your journey details and select an available route."
     step_2:
       title: "Confirm"
-      info: "You’ll get a confirmation within 48 hours."
+      info: "You’ll get a confirmation within 24 hours."
     step_3:
       title: "Ride"
       info: "Meet your driver at the selected pickup point."
 
   journey:
-    title: "Where would you like to ride today?"
+    title: "Pre-book your ride"
 
   bookings:
-    title: "Create your journey"
+    title: "Your journey"
     day:
       title: "Select a day"
     outward:
@@ -86,7 +95,7 @@ en:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
-    requirements: 
+    requirements:
       label: "Special requirements"
       message: "Wheelchair, pushchair etc"
       extra: "Your transport provider will get in touch with you if they can't meet your needs."
@@ -102,7 +111,7 @@ en:
     lead:
       title: "Contact"
       label: "Lead passenger name"
-      mobile: 
+      mobile:
         label: "Mobile No."
         message: "(SMS notification of your ride)"
       email:
@@ -126,8 +135,6 @@ en:
       dropoff: Drop off point
     back: "I need to change something"
 
-
-
   button:
     book: "Get started"
     contact: "Have a question?"
@@ -137,6 +144,20 @@ en:
     typeform: "Tell us more"
     next: "Continue"
     complete: "All done"
+    main_book: "Try our £1 return offers *"
+    main_book_asterisk: "* Introductory offer"
+    book: "Pre-book your ride"
+    contact: "Have a question?"
+    submit: "Submit your booking request"
+    return: "No return journey"
+    typeform: "Tell us more"
+    event: "Pre-book my ride"
+    regular: "Learn more"
+    enquiry: "Get Started"
+
+    email:
+      address: "hello@bookyourride.co.uk"
+      subject: "question"
 
   helpers:
     submit:
@@ -166,7 +187,7 @@ en:
     essex:
       text: "Essex County Council"
       link: "https://www.essex.gov.uk"
-    suffolk: 
+    suffolk:
       text: "Suffolk County Council"
       link: "https://www.suffolk.gov.uk/"
     futuregov:
