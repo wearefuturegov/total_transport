@@ -64,7 +64,7 @@ RSpec.describe JourneysController, type: :controller do
     it 'returns possible bookings' do
       subject
       possible_bookings = assigns(:possible_bookings)
-      expect(possible_bookings.count).to eq(3)
+      expect(possible_bookings.count).to eq(6)
       expect(possible_bookings.first[0].pickup_stop.place).to eq(destination)
       expect(possible_bookings.first[0].dropoff_stop.place).to eq(origin)
     end
