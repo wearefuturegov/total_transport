@@ -97,7 +97,7 @@ class Journey < ActiveRecord::Base
   end
   
   def all_bookings
-    outward_bookings + return_bookings
+    outward_bookings.booked + return_bookings.booked
   end
   
   def csv

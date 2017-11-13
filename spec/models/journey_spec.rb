@@ -55,7 +55,7 @@ RSpec.describe Journey, type: :model do
   context '#is_booked?' do
     
     it 'returns true if it has bookings' do
-      journey.bookings = FactoryGirl.create_list(:booking, 3)
+      journey.bookings = FactoryGirl.create_list(:booking, 3, :booked)
       expect(journey.is_booked?).to eq(true)
     end
     
@@ -115,8 +115,8 @@ RSpec.describe Journey, type: :model do
   
   context '#csv' do
     
-    let!(:bookings) { FactoryGirl.create_list(:booking, 6, journey: journey) }
-    let!(:return_bookings) { FactoryGirl.create_list(:booking, 8, return_journey: journey) }
+    let!(:bookings) { FactoryGirl.create_list(:booking, 6, :booked, journey: journey) }
+    let!(:return_bookings) { FactoryGirl.create_list(:booking, 8, :booked, return_journey: journey) }
     let(:csv) { CSV.parse(journey.csv) }
     
     it 'has the right number of rows' do

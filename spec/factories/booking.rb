@@ -8,5 +8,9 @@ FactoryGirl.define do
     state nil
     pickup_landmark { FactoryGirl.create(:landmark) }
     dropoff_landmark { FactoryGirl.create(:landmark) }
+    
+    trait(:booked) do
+      state 'booked'
+    end
   end
 end
