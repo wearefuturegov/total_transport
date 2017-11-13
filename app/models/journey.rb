@@ -140,7 +140,7 @@ class Journey < ActiveRecord::Base
   private
     
     def close_before_end
-      CloseBeforeEnd.enqueue(id, run_at: start_time - 6.hours)
+      CloseBeforeEnd.enqueue(id, run_at: start_time - 4.hours)
     end
     
     def change_close_time
