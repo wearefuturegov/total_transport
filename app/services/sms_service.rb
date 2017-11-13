@@ -47,7 +47,7 @@ class SmsService
         """
       end
       template += """
-      . To amend or cancel your booking please call 01621 855111
+      . To cancel your booking visit #{cancel_booking_url(@booking.token)}
       """
       template.squish
     end
@@ -60,7 +60,7 @@ class SmsService
       """
         Your Ride booking reminder. You will be picked up from #{@booking.outward_trip.pickup_name}
         tomorrow between #{plus_minus_ten(@booking.outward_trip.pickup_time)}. Don’t forget to pay the driver directly.
-        To amend or cancel your booking please call 01621 855111
+        To cancel your booking visit #{cancel_booking_url(@booking.token)}
       """.squish
     end
         
