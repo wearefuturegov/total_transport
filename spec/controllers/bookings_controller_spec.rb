@@ -130,6 +130,14 @@ RSpec.describe BookingsController, type: :controller do
         expect(flash[:notice]).to eq('Your booking has been cancelled')
       end
       
+      it 'runs the callbacks' do
+        expect(Booking).to receive(:find).with(booking.id.to_s) {
+          expect(booking).to receive(:cancel)
+          booking
+        }
+        subject
+      end
+      
     end
     
   end
