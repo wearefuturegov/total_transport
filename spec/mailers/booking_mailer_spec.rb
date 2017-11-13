@@ -49,7 +49,7 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the headers' do
         expect(mail.subject).to eq('A new booking has been confirmed')
-        expect(mail.to).to eq([ENV['RIDE_ADMIN_EMAIL']])
+        expect(mail.to).to eq([booking.journey.supplier.email])
         expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
       end
       
@@ -74,7 +74,7 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the headers' do
         expect(mail.subject).to eq('Booking cancelled')
-        expect(mail.to).to eq([ENV['RIDE_ADMIN_EMAIL']])
+        expect(mail.to).to eq([booking.journey.supplier.email])
         expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
       end
       
