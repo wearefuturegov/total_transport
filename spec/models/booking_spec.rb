@@ -218,20 +218,20 @@ RSpec.describe Booking, :que, type: :model do
   
   context 'sets the journey boolean' do
     
-    let(:booking) { FactoryGirl.create(:booking) }
+    let(:booking) { FactoryGirl.create(:booking, state: 'booked') }
     let(:journey) { booking.journey }
     before { booking.confirm! }
     
     it 'to false if there are no more bookings' do
-      booking.destroy
+      booking.update_attribute :state, 'cancelled'
       journey.reload
       expect(journey.booked).to eq(false)
     end
     
     it 'to true if there still other bookings' do
-      journey.bookings << FactoryGirl.create_list(:booking, 2)
+      journey.bookings << FactoryGirl.create_list(:booking, 2, state: 'booked')
       journey.save
-      booking.destroy
+      booking.update_attribute :state, 'cancelled'
       journey.reload
       expect(journey.booked).to eq(true)
     end
