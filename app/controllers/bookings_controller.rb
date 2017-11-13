@@ -1,7 +1,7 @@
 class BookingsController < PublicController
   before_filter :find_booking, except: [:new, :create]
   before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
-  before_filter :find_route, except: [:show]
+  before_filter :find_route, except: [:show, :cancel]
   include ApplicationHelper
 
   # Save stops
@@ -55,6 +55,10 @@ class BookingsController < PublicController
     @page_title = "Booking Details"
     @back_path = passenger_path
   end
+  
+  def cancel
+    @page_title = "Cancel your booking"
+  end
 
   private
 
@@ -77,7 +81,9 @@ class BookingsController < PublicController
       :disabled_bus_passes,
       :scholar_bus_passes,
       :single_journey,
-      :verification_code
+      :verification_code,
+      :cancellation_reason,
+      :state
     )
   end
   
@@ -94,6 +100,10 @@ class BookingsController < PublicController
   end
 
   def find_booking
-    @booking = Booking.find(params[:id])
+    @booking = if params[:token]
+      Booking.find_by_token(params[:token])
+    else
+      Booking.find(params[:id])
+    end
   end
 end
