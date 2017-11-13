@@ -216,27 +216,53 @@ RSpec.describe Booking, :que, type: :model do
     
   end
   
-  context 'sets the journey boolean' do
-    
+  context 'cancelling booking' do
     let(:booking) { FactoryGirl.create(:booking, state: 'booked') }
-    let(:journey) { booking.journey }
     before { booking.confirm! }
     
-    it 'to false if there are no more bookings' do
-      booking.update_attribute :state, 'cancelled'
-      journey.reload
-      expect(journey.booked).to eq(false)
+    context 'sets the journey boolean' do
+      let(:journey) { booking.journey }
+      
+      it 'to false if there are no more bookings' do
+        booking.update_attribute :state, 'cancelled'
+        journey.reload
+        expect(journey.booked).to eq(false)
+      end
+      
+      it 'to true if there still other bookings' do
+        journey.bookings << FactoryGirl.create_list(:booking, 2, state: 'booked')
+        journey.save
+        booking.update_attribute :state, 'cancelled'
+        journey.reload
+        expect(journey.booked).to eq(true)
+      end
     end
     
-    it 'to true if there still other bookings' do
-      journey.bookings << FactoryGirl.create_list(:booking, 2, state: 'booked')
-      journey.save
-      booking.update_attribute :state, 'cancelled'
-      journey.reload
-      expect(journey.booked).to eq(true)
+    context 'removes all the alerts', :que do
+      
+      before do
+        booking.email = 'someone@example.com'
+        booking.phone_number = '123455'
+        booking.queue_alerts
+      end
+      
+      it 'removes email alerts' do
+        expect(QueJob.where(job_class: 'SendEmail').count).to eq(4)
+        booking.update_attribute :state, 'cancelled'
+        expect(QueJob.where(job_class: 'SendEmail').count).to eq(0)
+      end
+      
+      it 'removes sms alerts' do
+        expect(QueJob.where(job_class: 'SendSMS').count).to eq(3)
+        booking.update_attribute :state, 'cancelled'
+        expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
+      end
+      
     end
     
   end
+  
+
   
   describe 'number_of_adults' do
     

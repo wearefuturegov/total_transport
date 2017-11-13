@@ -194,7 +194,8 @@ class Booking < ActiveRecord::Base
   end
   
   def remove_alerts
-    #????
+    QueJob.where("args::json->2->>'booking_id' = ? AND job_class = 'SendEmail'", id.to_s).destroy_all
+    QueJob.where("args::json->0->>'booking' = ? AND job_class = 'SendSMS'", id.to_s).destroy_all
   end
   
   def set_journey_booked_status
