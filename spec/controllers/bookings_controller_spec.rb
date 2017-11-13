@@ -125,9 +125,8 @@ RSpec.describe BookingsController, type: :controller do
         expect(booking.cancellation_reason).to eq('Some reason')
       end
       
-      it 'redirects to the homepage' do
-        expect(subject).to redirect_to(root_path)
-        expect(flash[:notice]).to eq('Your booking has been cancelled')
+      it 'redirects to the cancelled path' do
+        expect(subject).to redirect_to(booking_cancelled_path)
       end
       
       it 'runs the callbacks' do

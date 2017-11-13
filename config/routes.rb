@@ -60,5 +60,6 @@ Rails.application.routes.draw do
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
   get '/bookings/:token/cancel', as: :cancel_booking, to: 'bookings#cancel'
+  get '/bookings/cancelled', as: :booking_cancelled
   
 end
