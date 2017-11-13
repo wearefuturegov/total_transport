@@ -11,6 +11,7 @@ class Booking < ActiveRecord::Base
   scope :booked, -> { where(state: 'booked') }
   
   after_destroy :remove_alerts, :set_journey_booked_status
+  before_create :generate_token
   
   def self.initialize_for_places(from_place, to_place)
     available_journeys = Journey.available_for_places(from_place, to_place).group_by(&:route)
@@ -223,5 +224,14 @@ class Booking < ActiveRecord::Base
       ]
     ]
   end
-
+  
+  private
+  
+    def generate_token
+      self.token = loop do
+        random_token = SecureRandom.urlsafe_base64(nil, false)
+        break random_token unless Booking.exists?(token: random_token)
+      end
+    end
+  
 end
