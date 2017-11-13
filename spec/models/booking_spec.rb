@@ -249,7 +249,7 @@ RSpec.describe Booking, :que, type: :model do
       it 'removes email alerts' do
         expect(QueJob.where(job_class: 'SendEmail').count).to eq(4)
         booking.update_attribute :state, 'cancelled'
-        expect(QueJob.where(job_class: 'SendEmail').count).to eq(0)
+        expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
       end
       
       it 'removes sms alerts' do
@@ -258,6 +258,14 @@ RSpec.describe Booking, :que, type: :model do
         expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
       end
       
+    end
+    
+    it 'sends a cancellation email' do
+      booking.update_attribute :state, 'cancelled'
+      job = QueJob.find_by(job_class: 'SendEmail')
+      expect(job.args[0]).to eq('BookingMailer')
+      expect(job.args[1]).to eq('booking_cancelled')
+      expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
   end
