@@ -399,6 +399,14 @@ RSpec.describe Booking, :que, type: :model do
     end
     
   end
+  
+  describe 'token' do
+    
+    it 'generates a token' do
+      expect(booking.token).to_not be_nil
+    end
+    
+  end
 
   describe "pricing" do
     let(:booking) {Booking.new}
