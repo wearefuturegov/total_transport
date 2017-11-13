@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   resources :routes do
     resources :bookings do
-      member do                
+      member do
         resources :suggested_journey, only: [:new, :create]
         resources :suggested_edit_to_stop, only: [:new, :create]
         
@@ -59,5 +59,6 @@ Rails.application.routes.draw do
     resources :placenames, only: [:index]
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
-
+  get '/bookings/:token/cancel', as: :cancel_booking, to: 'bookings#cancel'
+  
 end

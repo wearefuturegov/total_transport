@@ -168,4 +168,19 @@ RSpec.describe BookingsController, type: :controller do
     end
     
   end
+  
+  describe 'GET cancel' do
+    
+    let(:booking) { FactoryGirl.create(:booking) }
+    let(:subject) {
+      get :cancel, token: booking.token
+    }
+    
+    it 'gets the booking by token' do
+      subject
+      expect(assigns(:booking)).to eq(booking)
+    end
+    
+  end
+  
 end
