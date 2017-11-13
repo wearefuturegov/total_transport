@@ -1,7 +1,7 @@
 class BookingsController < PublicController
-  before_filter :find_booking, except: [:new, :create]
+  before_filter :find_booking, except: [:new, :create, :cancelled]
   before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
-  before_filter :find_route, except: [:show, :cancel]
+  before_filter :find_route, except: [:show, :cancel, :cancelled]
   include ApplicationHelper
 
   # Save stops
@@ -23,7 +23,7 @@ class BookingsController < PublicController
       redirect_to confirmation_route_booking_path(@route, @booking)
     elsif booking_params[:cancellation_reason]
       @booking.update_attributes(booking_params)
-      redirect_to :root, flash: { notice: 'Your booking has been cancelled' }
+      redirect_to :booking_cancelled
     else
       @booking.update_attributes(booking_params)
       if @booking.valid?
@@ -61,6 +61,9 @@ class BookingsController < PublicController
   
   def cancel
     @page_title = "Cancel your booking"
+  end
+  
+  def cancelled
   end
 
   private
