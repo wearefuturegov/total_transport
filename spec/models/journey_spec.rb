@@ -20,7 +20,7 @@ RSpec.describe Journey, type: :model do
     Timecop.freeze('2016-12-23T09:00:00')
     start_time = DateTime.parse('2017-01-01T18:00:00')
     expect { FactoryGirl.create(:journey, start_time: start_time) }.to change { QueJob.count }.by(1)
-    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T12:00:00'))
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T14:00:00'))
     Timecop.return
   end
   
@@ -31,7 +31,7 @@ RSpec.describe Journey, type: :model do
     journey.start_time = start_time
     journey.save
     expect(QueJob.count).to eq(1)
-    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T12:00:00'))
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T14:00:00'))
     Timecop.return
   end
   
