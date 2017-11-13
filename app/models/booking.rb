@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
 
   scope :booked, -> { where(state: 'booked') }
   
-  after_destroy :remove_alerts, :set_journey_booked_status
+  after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
   
   def self.initialize_for_places(from_place, to_place)
@@ -198,7 +198,7 @@ class Booking < ActiveRecord::Base
   end
   
   def set_journey_booked_status
-    journey.update_attribute(:booked, false) if journey.bookings.count == 0
+    journey.update_attribute(:booked, false) if journey.booked_bookings.count == 0
   end
   
   def csv_row(journey)
@@ -226,6 +226,11 @@ class Booking < ActiveRecord::Base
   end
   
   private
+    
+    def cancel
+      remove_alerts
+      set_journey_booked_status
+    end
   
     def generate_token
       self.token = loop do
