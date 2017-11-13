@@ -184,6 +184,10 @@ class Booking < ActiveRecord::Base
     SendEmail.enqueue('BookingMailer', :booking_confirmed, booking_id: id)
   end
   
+  def send_cancellation_email!
+    SendEmail.enqueue('BookingMailer', :booking_cancelled, booking_id: id)
+  end
+  
   def log_booking
     LogBooking.enqueue(id)
   end
@@ -231,6 +235,7 @@ class Booking < ActiveRecord::Base
     def cancel
       remove_alerts
       set_journey_booked_status
+      send_cancellation_email!
     end
   
     def generate_token

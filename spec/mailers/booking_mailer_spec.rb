@@ -54,6 +54,7 @@ RSpec.describe BookingMailer, type: :mailer do
       end
       
       it 'renders the body' do
+        expect(body).to match(/A new booking has been confirmed/)
         expect(body).to match(/Name: Me/)
         expect(body).to match(/Phone Number: 12345/)
         expect(body).to match(/Travelling at 10:00am on Sunday, 1 Jan/)
@@ -62,6 +63,30 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/Pickup Landmark: Pickup Landmark/)
         expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
         expect(body).to match(/The passenger will need to pay £2.50 to the driver/)
+        expect(body).to match(/This is a single journey only/)
+      end
+      
+    end
+    
+    describe '#booking_cancelled' do
+      
+      let(:mail) { BookingMailer.booking_cancelled('booking_id' => booking.id) }
+      
+      it 'renders the headers' do
+        expect(mail.subject).to eq('Booking cancelled')
+        expect(mail.to).to eq([ENV['RIDE_ADMIN_EMAIL']])
+        expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
+      end
+      
+      it 'renders the body' do
+        expect(body).to match(/A booking has been cancelled/)
+        expect(body).to match(/Name: Me/)
+        expect(body).to match(/Phone Number: 12345/)
+        expect(body).to match(/Travelling at 10:00am on Sunday, 1 Jan/)
+        expect(body).to match(/From: Pickup Stop/)
+        expect(body).to match(/To: Dropoff Stop/)
+        expect(body).to match(/Pickup Landmark: Pickup Landmark/)
+        expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
         expect(body).to match(/This is a single journey only/)
       end
       
