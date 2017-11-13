@@ -26,7 +26,8 @@
     = plus_minus_ten(@booking.return_trip.pickup_time)
 
 %p
-  To amend or cancel your booking please call 01621 855111.
+  To cancel your booking, visit
+  = link_to nil, cancel_booking_url(@booking.token)
 
 %p
   Thanks,<br />The RIDE Team
