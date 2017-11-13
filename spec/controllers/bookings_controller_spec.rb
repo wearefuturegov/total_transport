@@ -104,6 +104,34 @@ RSpec.describe BookingsController, type: :controller do
       
     end
     
+    context 'cancelling journeys' do
+      
+      let(:params) {
+        {
+          booking: {
+            state: 'cancelled',
+            cancellation_reason: 'Some reason'
+          },
+          id: booking,
+          route_id: route
+        }
+      }
+      let(:subject) { put :update, params }
+      
+      it 'cancels a booking' do
+        subject
+        booking.reload
+        expect(booking.state).to eq('cancelled')
+        expect(booking.cancellation_reason).to eq('Some reason')
+      end
+      
+      it 'redirects to the homepage' do
+        expect(subject).to redirect_to(root_path)
+        expect(flash[:notice]).to eq('Your booking has been cancelled')
+      end
+      
+    end
+    
   end
   
   describe 'GET edit' do
