@@ -12,23 +12,23 @@
         %section
           = fa_icon 'map-marker'
       %section.info-wrap
-        %span.top
+        %span.top#start_location
           %label
             = @booking.pickup_stop.name
-        %span.bottom
+        %span.bottom#end_location
           %label
             = @booking.dropoff_stop.name
 
   = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
 
     = render 'days', form: form
-    
+
     #times.hidden
       = render 'times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
-      
+
     #one_way.hidden
       = render 'times', form: form, journey_type: :return_journey_id, type: 'return', journeys: @return_journeys
-    
+
     %section.section
       .landmarks.hidden
         = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
@@ -38,7 +38,7 @@
             { class: 'select', required: true }
 
         %section.link
-        
+
         = form.select :dropoff_landmark_id,
             options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
             { include_blank: I18n.t('bookings.dropoff.title')},
@@ -46,7 +46,7 @@
 
     #details.hidden
       = render 'passengers', form: form, journey_type: :journey_id, type: 'outward'
-    
+
       %section.section
         = form.label :special_requirements do
           = t('bookings.requirements.label')
@@ -73,7 +73,7 @@
             = t('bookings.lead.mobile.message')
         = form.text_field :phone_number, required: true
 
-        
+
         = form.label :email do
           = t('bookings.lead.email.label')
           %spans.small
@@ -99,7 +99,7 @@
       $('.times .time').addClass('hidden');
       $(' .' + target).removeClass('hidden');
     })
-    
+
     $('#booking_dropoff_landmark_id').change(function() {
       $('#return-chooser').removeClass('hidden');
       $('#details').removeClass('hidden');
@@ -114,7 +114,7 @@
       $('#outward_times .button').removeClass('selected');
       $(this).addClass('selected');
     });
-  
+
     $('#return_times .oneway').click(function() {
       $('#return_times .return').removeClass('selected');
       $('#return_times .oneway').addClass('selected');
@@ -147,4 +147,4 @@
       $('#return_times .hide_times .button').removeClass('selected');
       $(this).addClass('selected');
     });
-    
+
