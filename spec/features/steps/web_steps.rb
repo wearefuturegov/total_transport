@@ -10,6 +10,15 @@ module WebSteps
   step :choose_child_tickets, 'I choose :n child ticket(s)'
   step :choose_journey, 'I choose a journey'
   step :choose_pickup_and_dropoff_point, 'I choose a pickup and dropoff point'
+  
+  step 'I have entered my booking details' do
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_book_journey
+    choose_journey
+    choose_pickup_and_dropoff_point
+    fill_in_details('My Name', '+15005550006')
+  end
 
   step 'I have chosen a journey' do
     choose_place('from', 'Newmarket')
@@ -104,6 +113,20 @@ module WebSteps
   
   step 'I should see a message telling me there are no return journeys available' do
     expect(page).to have_content(I18n.t('bookings.no_return_time'))
+  end
+  
+  step 'I pay via online payments' do
+    page.execute_script '$("#pay-online")[0].scrollIntoView(true)'
+    click_on I18n.t('helpers.submit.booking.pay')
+    within_frame 'stripe_checkout_app' do
+      find_field('Email').send_keys 'someone@wearefuturegov.com'
+      find_field('Card number').send_keys '4242424242424242'
+      find_field('MM / YY').send_keys "01#{DateTime.now.year + 1}"
+      find_field('CVC').send_keys '123'
+      find_field('ZIP Code').send_keys 'SW1A1AA'
+      find('button[type="submit"]').click
+      sleep 5
+    end
   end
   
   def click_book_journey

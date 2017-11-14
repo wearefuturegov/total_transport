@@ -25,6 +25,14 @@ step 'my booking should have :n ":type" bus pass(es)' do |n, type|
   end
 end
 
+step 'my booking should have a charge id' do
+  expect(@booking.charge_id).to_not be_nil
+end
+
+step 'my payment method should be :type' do |type|
+  expect(@booking.payment_method).to eq(type)
+end
+
 step 'both journeys should show as booked' do
   expect(@booking.journey.booked).to eq(true)
   expect(@booking.journey.all_bookings.count).to eq(1)

@@ -132,6 +132,9 @@ en:
       time: "Time"
       dropoff: Drop off point
     back: "I need to change something"
+    
+  pay-online:
+    title: 'Pay Online'
 
   button:
     book: "Get started"
@@ -163,7 +166,8 @@ en:
         update: 'Next'
     submit:
       booking:
-        update: 'Confirm Booking'
+        update: 'pay the driver'
+        pay: 'pay online'
 
   form:
     required: "Required"
