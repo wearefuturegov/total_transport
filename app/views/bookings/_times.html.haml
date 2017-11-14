@@ -26,7 +26,7 @@
               - else
                 = j.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
                 - arrival_time = j.time_at_stop(@booking.dropoff_stop)
-              
+
               = form.radio_button journey_type, j.id,
                                   'data-arrival-time' => arrival_time.strftime("%l:%M%P"),
                                   'data-type' => type
@@ -35,17 +35,17 @@
 
 - content_for :js do
   :javascript
-  
+
     $('.times input').click(function() {
       var data = $(this).data();
       var time = data.arrivalTime;
       var type = data.type;
       var selector = '#' + type +'_times .arrival-times'
-      
+
       if (type == 'outward') {
         $('#one_way').removeClass('hidden');
       }
       $(selector).removeClass('hidden');
-      $(selector).html('Approx arrival ' + time);
+      $(selector).html('Approx arrival: <span class="bold">' + time + "</span>");
     })
-    
+
