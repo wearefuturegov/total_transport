@@ -20,7 +20,7 @@
     history.pushState = function () {
       pushState.apply(history, arguments);
       if (typeof(ga) == 'function') {
-        ga('set', 'location', event.data.url);
+        ga('set', 'location', arguments[2]);
         ga('send', 'pageview');
       }
     };
