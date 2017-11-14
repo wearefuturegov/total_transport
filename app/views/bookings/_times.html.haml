@@ -40,12 +40,16 @@
       var data = $(this).data();
       var time = data.arrivalTime;
       var type = data.type;
+      var place = $('#end_location label').html();
+
       var selector = '#' + type +'_times .arrival-times'
 
       if (type == 'outward') {
         $('#one_way').removeClass('hidden');
+        place = $('#start_location label').html();
+
       }
       $(selector).removeClass('hidden');
-      $(selector).html('Approx arrival: <span class="bold">' + time + "</span>");
+      $(selector).html('Approximate arrival time in ' + place + '- <span class="bold">' + time + '</span>');
     })
 

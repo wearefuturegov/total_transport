@@ -90,7 +90,7 @@ en:
     return:
       time: "Return time (+-10mins)"
     landmark:
-      title: "Pickup Point"
+      title: "Pick a Pickup Point"
     pickup:
       title: "Please choose a pickup point"
     dropoff:
