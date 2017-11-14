@@ -90,7 +90,7 @@ en:
     return:
       time: "Return time (+-10mins)"
     landmark:
-      title: "Landmark"
+      title: "Pickup Point"
     pickup:
       title: "Please choose a pickup point"
     dropoff:
@@ -149,7 +149,7 @@ en:
     book: "Pre-book your ride"
     contact: "Have a question?"
     submit: "Submit your booking request"
-    return: "No return journey"
+    return: "Return journey"
     typeform: "Tell us more"
     event: "Pre-book my ride"
     regular: "Learn more"
@@ -199,4 +199,4 @@ en:
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
     feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
-  
+
