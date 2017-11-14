@@ -120,8 +120,12 @@
   }
   &.secondary {
     background: $white;
-    color: $black;
+    color: rgba($black, 0.7);
     border-color: $black;
+
+    &:hover {
+      color: $black;
+    }
   }
   &.cancel {
     border-color: $brand;
