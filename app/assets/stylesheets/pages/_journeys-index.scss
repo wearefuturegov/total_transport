@@ -10,14 +10,18 @@
     width: 90%;
   }
   .easy-autocomplete {
-    max-width: 100%;
+    width: 100% !important;
   }
 }
 
 
 #journeys-index, #bookings-edit {
   .section {
-    max-width: 1150px;
+    max-width: 960px;
     padding: 0 25px;
+
+    @media screen and (min-width: ($hd-screen)) {
+      max-width: 1150px;
+    }
   }
 }
