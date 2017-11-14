@@ -35,3 +35,9 @@ Feature: Booking a journey with concessions
     And I choose 1 "disabled" bus pass
     And I remove the bus pass
     Then I should see the price for 2 adult passengers
+
+  Scenario: Adding more passes than passengers
+    Given I have chosen a journey
+    And I choose 2 adult passengers
+    And I choose 3 "disabled" bus passes
+    Then I should see "The number of passes must not exceed the number of passengers"

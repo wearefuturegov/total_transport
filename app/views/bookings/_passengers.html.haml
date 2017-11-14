@@ -105,10 +105,16 @@
         num.removeAttr('disabled');
         num.data('target', pass);
         num.change(function() {
-          var count = $(this).val()
-          var target = $(this).data('target')
-          $('#booking_' + target).val(count);
-          $('form.edit_booking').trigger("change");
+          var count = $(this).val();
+          if (count > $('#booking_number_of_adults').val()) {
+            $('#message').html('The number of passes must not exceed the number of passengers');
+            $('#message').removeClass('hidden');
+          } else {
+            $('#message').addClass('hidden');
+            var target = $(this).data('target')
+            $('#booking_' + target).val(count);
+            $('form.edit_booking').trigger("change");
+          }
         })
       });
       

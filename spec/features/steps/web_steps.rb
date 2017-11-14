@@ -75,6 +75,10 @@ module WebSteps
     expect(page).to have_content (price * n.to_i).to_s
   end
   
+  step 'I should see ":message"' do |message|
+    expect(page).to have_content message
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')
