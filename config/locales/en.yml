@@ -86,9 +86,9 @@ en:
     day:
       title: "Select a day"
     outward:
-      time: "Outward time (+-10mins)"
+      time: "Outward time (+-5mins)"
     return:
-      time: "Return time (+-10mins)"
+      time: "Return time (+-5mins)"
     landmark:
       title: "Pick a Pickup Point"
     pickup:
@@ -120,7 +120,7 @@ en:
 
   summary:
     title: "Check your journey before you pre-book"
-    plus_minus_ten: "(+-10mins)"
+    plus_minus_ten: "(+-5mins)"
     outbound:
       title: "Outbound"
       pickup: "Pick up point"
