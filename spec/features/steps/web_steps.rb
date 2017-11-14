@@ -79,6 +79,17 @@ module WebSteps
     expect(page).to have_content message
   end
   
+  step 'I should not be able to choose another ":type" bus pass' do |type|
+    type = case type
+    when 'older people\'s'
+      'older_bus_passes'
+    when 'disabled'
+      'disabled_bus_passes'
+    end
+    click_on 'add-pass'
+    expect(all('.pass-type').last.all("option[value='#{type}']").count).to eq(0)
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')
