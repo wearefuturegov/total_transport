@@ -65,6 +65,16 @@ module WebSteps
     select num, from: 'pass_number'
   end
   
+  step 'I remove the bus pass' do
+    first('button.remove').click
+  end
+  
+  step 'I should see the price for :num adult passengers' do |n|
+    price = Booking.last.adult_return_price
+    expect(page).to have_content "#{n} x adult ticket"
+    expect(page).to have_content (price * n.to_i).to_s
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')

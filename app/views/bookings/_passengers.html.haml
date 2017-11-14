@@ -18,7 +18,9 @@
 
   #passes.hidden
     = select_tag :pass, bus_passes, class: 'select pass-type col-8'
-    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-4', disabled: true
+    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-3', disabled: true
+    %button.col-1.remove
+      x
     
   #pass-container
 
@@ -109,6 +111,14 @@
           $('form.edit_booking').trigger("change");
         })
       });
+      
+      $passes.find('.remove').click(function() {
+        var target = $passes.find('.pass-type').val();
+        $('#booking_' + target).val(0);
+        $passes.remove();
+        $('form.edit_booking').trigger("change");
+        return false;
+      })
       
       return false;
     });

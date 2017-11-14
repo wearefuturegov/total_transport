@@ -28,3 +28,10 @@ Feature: Booking a journey with concessions
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 "disabled" bus pass
+    
+  Scenario: Removing a pass
+    Given I have chosen a journey
+    And I choose 2 adult passengers
+    And I choose 1 "disabled" bus pass
+    And I remove the bus pass
+    Then I should see the price for 2 adult passengers
