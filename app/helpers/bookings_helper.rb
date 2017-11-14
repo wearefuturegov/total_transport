@@ -7,6 +7,15 @@ module BookingsHelper
     image_tag data_url
   end
   
+  def bus_passes
+    options_for_select([
+      [''],
+      ['Older Persons Bus Pass', 'older_bus_passes'],
+      ['Disabled Bus Pass', 'disabled_bus_passes'],
+      ['Scholar Bus Pass', 'scholar_bus_passes']
+    ])
+  end
+  
   private
   
     def generate_url(lat, lng, width, height)

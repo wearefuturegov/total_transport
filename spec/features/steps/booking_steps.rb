@@ -16,6 +16,15 @@ step 'my booking should have :n child ticket(s)' do |n|
   expect(@booking.child_tickets).to eq(n.to_i)
 end
 
+step 'my booking should have :n ":type" bus pass(es)' do |n, type|
+  case type
+  when 'Older People\'s'
+    expect(@booking.older_bus_passes).to eq(n.to_i)
+  when 'Disabled'
+    expect(@booking.disabled_bus_passes).to eq(n.to_i)
+  end
+end
+
 step 'both journeys should show as booked' do
   expect(@booking.journey.booked).to eq(true)
   expect(@booking.journey.all_bookings.count).to eq(1)

@@ -53,6 +53,18 @@ module WebSteps
     click_button I18n.t('helpers.submit.booking.update')
   end
   
+  step 'I choose :num ":type" bus pass(es)' do |num, type|
+    page.execute_script 'document.getElementById(\'add-pass\').scrollIntoView(true)'
+    click_on 'add-pass'
+    case type
+    when 'older people\'s'
+      select 'Older Persons Bus Pass', from: 'pass'
+    when 'disabled'
+      select 'Disabled Bus Pass', from: 'pass'
+    end
+    select num, from: 'pass_number'
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')

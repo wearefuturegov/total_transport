@@ -16,34 +16,22 @@
         = t('bookings.passenger.child.extra')
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
 
-  -# 
-    %div.plusminus
-      = form.label :older_bus_passes, I18n.t('bookings.passenger.pass')
-      = form.number_field :older_bus_passes, class: 'passenger_number', 'data-target' => 'older_tickets', readonly: true
-        
+  #passes.hidden
+    = select_tag :pass, bus_passes, class: 'select pass-type col-8'
+    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-4', disabled: true
+    
+  #pass-container
+
+  %p#message.hidden
+
+  %p
+    %button#add-pass
+      Add Bus Pass
+
   = form.hidden_field :number_of_passengers
-    
-  %ul
-    %li#adult_tickets
-      %span.number
-        = @booking.number_of_adults
-      %span.single_price.hidden
-        x adult ticket(s) @ #{number_to_currency(@booking.adult_single_price, :unit => "£")}
-      %span.return_price
-        x adult ticket(s) @ #{number_to_currency(@booking.adult_return_price, :unit => "£")}
-    
-    %li#child_tickets{class: @booking.child_tickets == 0 ? 'hidden' : ''}
-      %span.number
-        = @booking.child_tickets
-      %span.single_price.hidden
-        x child ticket(s) @ #{number_to_currency(@booking.child_single_price, :unit => "£")}
-      %span.return_price
-        x child ticket(s) @ #{number_to_currency(@booking.child_return_price, :unit => "£")}
-      
-    %li#older_tickets{class: @booking.older_bus_passes == 0 ? 'hidden' : ''}
-      %span.number
-        = @booking.older_bus_passes
-      x bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
+  = form.hidden_field :older_bus_passes
+  = form.hidden_field :disabled_bus_passes
+  = form.hidden_field :scholar_bus_passes
     
   #price
     = render 'price', booking: @booking
@@ -102,4 +90,25 @@
         '#{price_route_booking_path(@route, @booking)}',
         $(this).serialize()
       );
+    });
+    
+    $('#add-pass').click(function() {
+      var $passes = $('#passes').clone();
+      $passes.removeClass('hidden');
+      $passes.appendTo('#pass-container');
+      
+      $passes.find('.pass-type').change(function() {
+        var num = $(this).next('.pass-number');
+        var pass = $(this).val();
+        num.removeAttr('disabled');
+        num.data('target', pass);
+        num.change(function() {
+          var count = $(this).val()
+          var target = $(this).data('target')
+          $('#booking_' + target).val(count);
+          $('form.edit_booking').trigger("change");
+        })
+      });
+      
+      return false;
     });
