@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         resources :suggested_edit_to_stop, only: [:new, :create]
         
         get :confirmation
-        get :price_api
+        get :price
       end
     end
   end

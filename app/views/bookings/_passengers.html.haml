@@ -45,12 +45,8 @@
         = @booking.older_bus_passes
       x bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
     
-  %p#total.strong
-    Total:
-    %span.single_price.hidden
-      = number_to_currency(@booking.single_price, :unit => "£")
-    %span.return_price
-      = number_to_currency(@booking.return_price, :unit => "£")
+  #price
+    = render 'price', booking: @booking
       
 - content_for :js do
   :javascript
@@ -103,12 +99,7 @@
 
     $('form.edit_booking').change(function() {
       $.get(
-        '#{price_api_route_booking_path(@route, @booking)}',
+        '#{price_route_booking_path(@route, @booking)}',
         $(this).serialize()
-      ).done(
-        function( data ) {
-          $("#total .single_price").html(data.single);
-          $("#total .return_price").html(data.return);
-        }
       );
     });
