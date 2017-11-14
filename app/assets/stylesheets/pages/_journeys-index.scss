@@ -26,9 +26,13 @@
   }
 }
 
+// these may not be in the right scss file but I have put them here for now:
 .arrival-times {
   clear: both;
   padding-top: 26px;
   padding-bottom: 26px;
   text-align: center;
+}
+#add-pass {
+  border-radius: 0;
 }
