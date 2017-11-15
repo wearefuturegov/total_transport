@@ -104,8 +104,8 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the body' do
         expect(body).to match(/Hello Me/)
-        expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop is confirmed/)
-        expect(body).to match(/Your approved local driver will pick you up from Pickup Landmark, Pickup Stop/)
+        expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop for 1 passenger is confirmed/)
+        expect(body).to match(/Your vehicle will collect you from Pickup Landmark, Pickup Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
         expect(body).to match(/between 9:50am – 10:10am/)
       end
@@ -146,7 +146,7 @@ RSpec.describe BookingMailer, type: :mailer do
       let(:mail) { BookingMailer.user_confirmation('booking_id' => booking.id) }
       
       it 'renders the body' do
-        expect(body).to match(/Your return ride will be from Dropoff Landmark, Dropoff Stop/)
+        expect(body).to match(/and returning from Dropoff Landmark, Dropoff Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
         expect(body).to match(/between 2:50pm – 3:10pm/)
       end
