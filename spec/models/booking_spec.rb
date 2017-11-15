@@ -41,7 +41,7 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'sends an email to the supplier' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(4)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(2)
       job = QueJob.find_by(job_class: 'SendEmail')
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[1]).to eq('booking_confirmed')
@@ -59,15 +59,6 @@ RSpec.describe Booking, :que, type: :model do
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
-      expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
-      expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
-    end
-    
-    it 'queues emails' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(4)
-      jobs = QueJob.where(job_class: 'SendEmail')
-      first_alert = jobs.find { |j| j.args[1] == 'first_alert'}
-      second_alert = jobs.find { |j| j.args[1] == 'second_alert'}
       expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
       expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
     end
@@ -247,7 +238,7 @@ RSpec.describe Booking, :que, type: :model do
       end
       
       it 'removes email alerts' do
-        expect(QueJob.where(job_class: 'SendEmail').count).to eq(4)
+        expect(QueJob.where(job_class: 'SendEmail').count).to eq(2)
         booking.update_attribute :state, 'cancelled'
         expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
       end

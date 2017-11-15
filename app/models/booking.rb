@@ -176,8 +176,6 @@ class Booking < ActiveRecord::Base
   
   def queue_emails
     SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
-    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: outward_trip.pickup_time - 24.hours)
-    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: outward_trip.pickup_time - 1.hours)
   end
   
   def send_confirmation!

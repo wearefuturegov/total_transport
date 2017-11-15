@@ -17,15 +17,5 @@ class BookingMailer < ActionMailer::Base
     @booking = Booking.find(params['booking_id'])
     mail(subject: 'Your Ride booking confirmation')
   end
-  
-  def first_alert(params)
-    @booking = Booking.find(params['booking_id'])
-    mail(subject: 'Your Ride booking is tomorrow')
-  end
-  
-  def second_alert(params)
-    @booking = Booking.find(params['booking_id'])
-    mail(subject: 'Your Ride is on it’s way.')
-  end
 
 end

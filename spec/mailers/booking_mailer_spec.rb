@@ -155,41 +155,4 @@ RSpec.describe BookingMailer, type: :mailer do
     
   end
   
-  describe '#first_alert' do
-    
-    let(:mail) { BookingMailer.first_alert('booking_id' => booking.id) }
-    
-    it 'renders the headers' do
-      expect(mail.subject).to eq('Your Ride booking is tomorrow')
-      expect(mail.to).to eq([booking.email])
-      expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
-    end
-    
-    it 'renders the body' do
-      expect(body).to match(/You’ll be picked up from Pickup Landmark, Pickup Stop/)
-      expect(body).to match(/on Sunday, 1 Jan/)
-      expect(body).to match(/between 9:50am – 10:10am/)
-    end
-    
-  end
-  
-  describe '#second_alert' do
-    
-    let(:mail) { BookingMailer.second_alert('booking_id' => booking.id) }
-    
-    it 'renders the headers' do
-      expect(mail.subject).to eq('Your Ride is on it’s way.')
-      expect(mail.to).to eq([booking.email])
-      expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
-    end
-    
-    it 'renders the body' do
-      expect(body).to match(/Your pickup point is Pickup Landmark, Pickup Stop/)
-      expect(body).to match(/between 9:50am – 10:10am/)
-      expect(body).to match(/The cost of your journey is £2.50/)
-    end
-    
-  end
-  
-  
 end
