@@ -285,6 +285,19 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[0]['template']).to eq('booking_cancellation')
       expect(job.args[0]['booking']).to eq(booking.id)
     end
+
+    context 'when paying by card' do
+      
+      before do
+        booking.charge_id = 'something'
+      end
+      
+      it 'applies a refund' do
+        expect(booking).to receive(:refund!)
+        booking.update_attribute :state, 'cancelled'
+      end
+      
+    end
     
   end
   
@@ -320,6 +333,20 @@ RSpec.describe Booking, :que, type: :model do
         }.to raise_error(Stripe::CardError, 'The card was declined')
       end
       
+    end
+    
+  end
+  
+  describe '#refund', :stripe do
+    
+    before do
+      booking.create_payment!(@stripe_helper.generate_card_token)
+    end
+    
+    it 'refunds a charge' do
+      booking.send(:refund!)
+      charge = Stripe::Charge.retrieve(booking.charge_id)
+      expect(charge.amount_refunded).to eq(booking.price_in_pence)
     end
     
   end

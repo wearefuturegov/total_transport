@@ -264,7 +264,12 @@ class Booking < ActiveRecord::Base
       remove_alerts
       set_journey_booked_status
       send_cancellation_sms!
+      refund! unless charge_id.nil?
       send_cancellation_email!
+    end
+    
+    def refund!
+      Stripe::Refund.create(charge: charge_id)
     end
   
     def generate_token
