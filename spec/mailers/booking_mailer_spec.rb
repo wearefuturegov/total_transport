@@ -62,8 +62,8 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup Landmark: Pickup Landmark/)
         expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
-        expect(body).to match(/The passenger will need to pay £2.50 to the driver/)
-        expect(body).to match(/This is a single journey only/)
+        expect(body).to match(/Amount £2.50/)
+        expect(body).to match(/This is a single journey/)
       end
       
     end
@@ -87,7 +87,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup Landmark: Pickup Landmark/)
         expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
-        expect(body).to match(/This is a single journey only/)
+        expect(body).to match(/This is a single journey/)
       end
       
     end
@@ -135,8 +135,8 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Pickup Stop/)
         expect(body).to match(/Pickup Landmark: Dropoff Landmark/)
         expect(body).to match(/Dropoff Landmark: Pickup Landmark/)
-        expect(body).to match(/The passenger will need to pay £3.50 to the driver/)
-        expect(body).to_not match(/This is a single journey only/)
+        expect(body).to match(/Amount £3.50/)
+        expect(body).to match(/This is a return journey/)
       end
       
     end
