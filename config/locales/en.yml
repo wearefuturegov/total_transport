@@ -96,7 +96,7 @@ en:
     dropoff:
       title: "Please choose a dropoff point"
     requirements:
-      label: "Special requirements"
+      label: "Special requirements:"
       message: "Wheelchair, pushchair etc"
       extra: "Your transport provider will get in touch with you if they can't meet your needs."
     passenger:
