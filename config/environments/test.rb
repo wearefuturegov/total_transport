@@ -43,4 +43,7 @@ Rails.application.configure do
 
   config.logger = Logger.new(STDOUT)
   config.log_level = :ERROR
+  
+  require_relative '../../spec/support/no_animations'
+  config.middleware.use Rack::NoAnimations
 end
