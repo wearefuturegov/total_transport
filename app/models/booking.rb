@@ -171,13 +171,13 @@ class Booking < ActiveRecord::Base
   def queue_sms
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
     SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: outward_trip.pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: outward_trip.pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: outward_trip, run_at: outward_trip.pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: return_trip, run_at: return_trip.pickup_time - 1.hours) if return_trip
+    SendSMS.enqueue(to: phone_number, template: :post_survey, run_at: last_dropoff_time + 30.minutes)
   end
   
   def queue_emails
     SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
-    SendEmail.enqueue('BookingMailer', :first_alert, booking_id: id, run_at: outward_trip.pickup_time - 24.hours)
-    SendEmail.enqueue('BookingMailer', :second_alert, booking_id: id, run_at: outward_trip.pickup_time - 1.hours)
   end
   
   def send_confirmation!
@@ -186,6 +186,10 @@ class Booking < ActiveRecord::Base
   
   def send_cancellation_email!
     SendEmail.enqueue('BookingMailer', :booking_cancelled, booking_id: id)
+  end
+  
+  def send_cancellation_sms!
+    SendSMS.enqueue(to: self.phone_number, template: :booking_cancellation, booking: self.id)
   end
   
   def log_booking
@@ -235,6 +239,7 @@ class Booking < ActiveRecord::Base
     def cancel
       remove_alerts
       set_journey_booked_status
+      send_cancellation_sms!
       send_cancellation_email!
     end
   

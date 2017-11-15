@@ -26,7 +26,7 @@ RSpec.describe SmsService, type: :model do
       expect(FakeSMS.messages.last[:to]).to eq('1234')
       body = FakeSMS.messages.last[:body]
       expect(body).to match(/Your Ride booking from Sudbury to Saffron Walden is confirmed/)
-      expect(body).to match(/Your vehicle will pick you up from The Red Lion, Sudbury/)
+      expect(body).to match(/Your vehicle will pick you up from The Red Lion/)
       expect(body).to match(/Monday, 2 Jan between 10:30am – 10:50am/)
     end
     
@@ -59,7 +59,7 @@ RSpec.describe SmsService, type: :model do
     sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. You will be picked up from The Red Lion, Sudbury tomorrow between 10:30am – 10:50am/)
+    expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow from The Red Lion, Sudbury between 10:30am – 10:50am/)
   end
   
   it 'sends a second reminder' do
@@ -68,10 +68,29 @@ RSpec.describe SmsService, type: :model do
       pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
       pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
     )
-    sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
+    sms = SmsService.new(to: '1234', template: :second_alert, trip: booking.outward_trip, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
     expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/
+  end
+  
+  it 'sends a cancellation confirmation' do
+    booking = FactoryGirl.create(:booking,
+      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
+      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
+    )
+    sms = SmsService.new(to: '1234', template: :booking_cancellation, booking: booking)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to match /Your Ride booking on Sunday, 1 Jan at 9:00am from Sudbury has been cancelled/
+  end
+  
+  it 'sends a survey link' do
+    sms = SmsService.new(to: '1234', template: :post_survey)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to match /We hope you enjoyed your Ride/
   end
   
 end

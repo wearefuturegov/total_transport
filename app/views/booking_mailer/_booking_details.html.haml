@@ -6,6 +6,7 @@
     A booking has been cancelled on
     %strong
       Ride
+    \. Please ensure this is updated on your system.
 - else
   %p
     A new booking has been confirmed on
@@ -24,6 +25,38 @@
   %strong Phone Number:
   = booking.phone_number
 
+%p
+  %strong Email:
+  = booking.email
+  
+%h2 Number of passengers
+
+%p
+  %strong Adults:
+  = booking.number_of_adult_tickets
+  
+%p
+  %strong Children:
+  = booking.child_tickets
+
+%p
+  %strong Bus Passes:
+  = booking.number_of_free_tickets
+  
+- if state != 'cancelled' && booking.special_requirements
+
+  %h2 Special requirements
+  
+  %p
+    = booking.special_requirements
+  
+  %p
+    %strong
+      If there are any issues with these requirements, please contact the passenger directly and the Ride team.
+
+%h2
+  This is a #{ booking.return_journey ? 'return' : 'single' } journey
+
 #outward
 
   %h2 Outward Journey
@@ -36,20 +69,17 @@
     %h2 Return Journey
 
     = render 'journey', trip: booking.return_trip
-  
-- else
-
-  %p
-    This is a
-    %strong
-      single journey
-    only.
 
 - if state != 'cancelled'
   %p
-    The passenger will need to pay
+    %strong
+      Amount
     = number_to_currency(booking.price, unit: '£')
-    to the driver
+  
+  %p
+    %strong
+      Payment Method
+    = booking.payment_method
     
 %p
   Thanks

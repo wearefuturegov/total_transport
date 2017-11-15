@@ -62,8 +62,8 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup Landmark: Pickup Landmark/)
         expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
-        expect(body).to match(/The passenger will need to pay £2.50 to the driver/)
-        expect(body).to match(/This is a single journey only/)
+        expect(body).to match(/Amount £2.50/)
+        expect(body).to match(/This is a single journey/)
       end
       
     end
@@ -87,7 +87,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup Landmark: Pickup Landmark/)
         expect(body).to match(/Dropoff Landmark: Dropoff Landmark/)
-        expect(body).to match(/This is a single journey only/)
+        expect(body).to match(/This is a single journey/)
       end
       
     end
@@ -104,8 +104,8 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the body' do
         expect(body).to match(/Hello Me/)
-        expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop is confirmed/)
-        expect(body).to match(/Your approved local driver will pick you up from Pickup Landmark, Pickup Stop/)
+        expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop for 1 passenger is confirmed/)
+        expect(body).to match(/Your vehicle will collect you from Pickup Landmark, Pickup Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
         expect(body).to match(/between 9:50am – 10:10am/)
       end
@@ -135,8 +135,8 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Pickup Stop/)
         expect(body).to match(/Pickup Landmark: Dropoff Landmark/)
         expect(body).to match(/Dropoff Landmark: Pickup Landmark/)
-        expect(body).to match(/The passenger will need to pay £3.50 to the driver/)
-        expect(body).to_not match(/This is a single journey only/)
+        expect(body).to match(/Amount £3.50/)
+        expect(body).to match(/This is a return journey/)
       end
       
     end
@@ -146,7 +146,7 @@ RSpec.describe BookingMailer, type: :mailer do
       let(:mail) { BookingMailer.user_confirmation('booking_id' => booking.id) }
       
       it 'renders the body' do
-        expect(body).to match(/Your return ride will be from Dropoff Landmark, Dropoff Stop/)
+        expect(body).to match(/and returning from Dropoff Landmark, Dropoff Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
         expect(body).to match(/between 2:50pm – 3:10pm/)
       end
@@ -154,42 +154,5 @@ RSpec.describe BookingMailer, type: :mailer do
     end
     
   end
-  
-  describe '#first_alert' do
-    
-    let(:mail) { BookingMailer.first_alert('booking_id' => booking.id) }
-    
-    it 'renders the headers' do
-      expect(mail.subject).to eq('Your Ride booking is tomorrow')
-      expect(mail.to).to eq([booking.email])
-      expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
-    end
-    
-    it 'renders the body' do
-      expect(body).to match(/You’ll be picked up from Pickup Landmark, Pickup Stop/)
-      expect(body).to match(/on Sunday, 1 Jan/)
-      expect(body).to match(/between 9:50am – 10:10am/)
-    end
-    
-  end
-  
-  describe '#second_alert' do
-    
-    let(:mail) { BookingMailer.second_alert('booking_id' => booking.id) }
-    
-    it 'renders the headers' do
-      expect(mail.subject).to eq('Your Ride is on it’s way.')
-      expect(mail.to).to eq([booking.email])
-      expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
-    end
-    
-    it 'renders the body' do
-      expect(body).to match(/Your pickup point is Pickup Landmark, Pickup Stop/)
-      expect(body).to match(/between 9:50am – 10:10am/)
-      expect(body).to match(/The cost of your journey is £2.50/)
-    end
-    
-  end
-  
   
 end
