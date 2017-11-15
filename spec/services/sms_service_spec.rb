@@ -86,4 +86,11 @@ RSpec.describe SmsService, type: :model do
     expect(FakeSMS.messages.last[:body]).to match /Your Ride booking on Sunday, 1 Jan at 9:00am from Sudbury has been cancelled/
   end
   
+  it 'sends a survey link' do
+    sms = SmsService.new(to: '1234', template: :post_survey)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to match /We hope you enjoyed your Ride/
+  end
+  
 end

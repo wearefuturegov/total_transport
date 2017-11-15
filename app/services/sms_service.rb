@@ -82,4 +82,11 @@ class SmsService
       """.squish
     end
   
+    def post_survey
+      """
+        We hope you enjoyed your Ride. To help us improve the service, please
+        share your feedback: #{ENV['POST_SURVEY_LINK']}
+      """.squish
+    end
+  
 end
