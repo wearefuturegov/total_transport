@@ -1,7 +1,7 @@
 class BookingMailer < ActionMailer::Base
   add_template_helper(ApplicationHelper)
     
-  default from: ENV['RIDE_ADMIN_EMAIL'], to: Proc.new { @booking.email }
+  default from: "Ride <#{ENV['RIDE_ADMIN_EMAIL']}>", to: Proc.new { @booking.email }
 
   def booking_confirmed(params)
     @booking = Booking.find(params['booking_id'])
