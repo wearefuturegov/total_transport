@@ -453,6 +453,7 @@ RSpec.describe Booking, :que, type: :model do
         1,
         0,
         3.5,
+        'n',
         'outward',
         DateTime.parse('2017-01-01 10:00:00').in_time_zone('UTC'),
         'Pickup Stop',
@@ -474,6 +475,7 @@ RSpec.describe Booking, :que, type: :model do
         1,
         0,
         3.5,
+        'n',
         'return',
         DateTime.parse('2017-01-01 15:00:00').in_time_zone('UTC'),
         'Dropoff Stop',
@@ -484,6 +486,11 @@ RSpec.describe Booking, :que, type: :model do
         'Wheelchair',
         booking.created_at
       ])
+    end
+    
+    it 'shows as paid if paid by card' do
+      booking.payment_method = 'card'
+      expect(booking.csv_row(booking.journey)[7]).to eq('y')
     end
     
   end

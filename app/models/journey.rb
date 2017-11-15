@@ -118,6 +118,7 @@ class Journey < ActiveRecord::Base
       'Number of Adults',
       'Number of Children',
       'Total Fare (including return element)',
+      'Paid?',
       'Outbound or Return',
       'Pickup Time',
       'Pickup Place',
