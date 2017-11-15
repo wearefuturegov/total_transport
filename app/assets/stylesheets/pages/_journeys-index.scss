@@ -33,6 +33,27 @@
   padding-bottom: 26px;
   text-align: center;
 }
-#add-pass {
+button {
   border-radius: 0;
+}
+
+// styles for passengers partial
+#message {
+  clear: both;
+  color: $red;
+  font-weight: 600;
+}
+.remove {
+  text-transform: lowercase;
+  line-height: 47px;
+}
+#pass-container {
+  #passes{
+    float: left;
+    width: 100%;
+    margin: 15px 0;
+  }
+  #add-pass {
+    margin-top: 15px;
+  }
 }
