@@ -37,7 +37,7 @@ class SmsService
     def booking_notification
       template = """
         Your Ride booking from #{@booking.outward_trip.pickup_stop.name} to #{@booking.outward_trip.dropoff_stop.name}
-        is confirmed. Your vehicle will pick you up from #{@booking.outward_trip.pickup_name},
+        is confirmed. Your vehicle will pick you up from #{@booking.outward_trip.pickup_landmark.name}
         on #{friendly_date(@booking.journey.start_time)} between #{plus_minus_ten(@booking.outward_trip.pickup_time)}
       """
       if @booking.return_journey
@@ -47,7 +47,7 @@ class SmsService
         """
       end
       template += """
-      . To cancel your booking visit #{cancel_booking_url(@booking.token)}
+      . To amend or cancel your booking please use this form #{cancel_booking_url(@booking.token)}
       """
       template.squish
     end

@@ -26,7 +26,7 @@ RSpec.describe SmsService, type: :model do
       expect(FakeSMS.messages.last[:to]).to eq('1234')
       body = FakeSMS.messages.last[:body]
       expect(body).to match(/Your Ride booking from Sudbury to Saffron Walden is confirmed/)
-      expect(body).to match(/Your vehicle will pick you up from The Red Lion, Sudbury/)
+      expect(body).to match(/Your vehicle will pick you up from The Red Lion/)
       expect(body).to match(/Monday, 2 Jan between 10:30am – 10:50am/)
     end
     
