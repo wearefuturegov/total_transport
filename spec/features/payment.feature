@@ -1,4 +1,4 @@
-@javascript @
+@javascript @stripe
 Feature: Paying online
   
   Background:
@@ -15,3 +15,10 @@ Feature: Paying online
     Then my booking should be confirmed
     And my booking should have a charge id
     And my payment method should be card
+    
+  Scenario: Unsuccessful online payment
+    Given I have an invalid card
+    And I have entered my booking details
+    And I pay via online payments
+    Then I should see an error saying my card has been declined
+    And my booking should not be confirmed

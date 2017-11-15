@@ -4,6 +4,11 @@ step 'my booking should be confirmed' do
   expect(@booking.state).to eq('booked')
 end
 
+step 'my booking should not be confirmed' do
+  @booking = Booking.first
+  expect(@booking.state).to_not eq('booked')
+end
+
 step 'my booking should be a single journey' do
   expect(@booking.return_journey_id).to eq(0)
 end
