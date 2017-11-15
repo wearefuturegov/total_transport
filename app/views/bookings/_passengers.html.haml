@@ -1,14 +1,14 @@
 %section.section.concessions
   %h2
     = I18n.t('bookings.passenger.title')
-  
+
   %div.plusminus
     = form.label :number_of_adults do
       = t('bookings.passenger.adult.title')
       %span.small
         = t('bookings.passenger.adult.extra')
     = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets', readonly: true
-  
+
   %div.plusminus
     = form.label :child_tickets do
       = t('bookings.passenger.child.title')
@@ -18,10 +18,10 @@
 
   #passes.hidden
     = select_tag :pass, bus_passes, class: 'select pass-type col-8'
-    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-3', disabled: true
+    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-3'
     %button.col-1.remove
       x
-    
+
   #pass-container
 
   %p#message.hidden
@@ -34,16 +34,16 @@
   = form.hidden_field :older_bus_passes
   = form.hidden_field :disabled_bus_passes
   = form.hidden_field :scholar_bus_passes
-    
+
   #price
     = render 'price', booking: @booking
-      
+
 - content_for :js do
   :javascript
-  
+
     $(function() {
       $('.passenger_number').after('<div class="inc increment button">+</div><div class="dec increment button">-</div>');
-    
+
       $('.increment').click(function() {
         var $button = $(this);
         var $input = $button.parent().find("input");
@@ -51,8 +51,8 @@
         var newValue;
 
         if ($button.text() == "+") {
-      	  newValue = parseFloat(oldValue) + 1;
-      	} else {
+          newValue = parseFloat(oldValue) + 1;
+        } else {
           if (oldValue > 0) {
             newValue = parseFloat(oldValue) - 1;
           } else {
@@ -63,26 +63,26 @@
         $input.val(newValue);
         $input.trigger('change');
       });
-    
+
     });
-  
+
     $('.passenger_number').change(function() {
       var number_of_passengers = $('.passenger_number').toArray().reduce(function(total, el) {
         var $el = $(el);
         var value = parseInt($el.val());
         var target = $el.data('target');
-        
+
         $('#'+ target +' .number').html(value);
-                
+
         if (value > 0) {
           $('#'+ target).removeClass('hidden');
         } else {
           $('#'+ target).addClass('hidden');
         }
-        
+
         return total + value;
       }, 0);
-      
+
       $('#booking_number_of_passengers').val(number_of_passengers);
       $('form.edit_booking').trigger("change");
     });
@@ -93,35 +93,32 @@
         $(this).serialize()
       );
     });
-    
+
     $('#add-pass').click(function() {
       var $passes = $('#passes').clone();
       $passes.removeClass('hidden');
       $passes.appendTo('#pass-container');
-      
+
       $passes.find('.pass-type').change(function() {
+        $(this).attr("disabled", true);
         var num = $(this).next('.pass-number');
         var pass = $(this).val();
+
         $('#passes.hidden .pass-type option[value=' + pass +']').remove();
         if ($('#passes.hidden .pass-type option').length == 1) {
-          $('#add-pass').hide();
+          //$('#add-pass').hide();
         }
         num.removeAttr('disabled');
         num.data('target', pass);
         num.change(function() {
-          var count = $(this).val();
-          if (count > $('#booking_number_of_adults').val()) {
-            $('#message').html('The number of passes must not exceed the number of passengers');
-            $('#message').removeClass('hidden');
-          } else {
-            $('#message').addClass('hidden');
-            var target = $(this).data('target')
-            $('#booking_' + target).val(count);
-            $('form.edit_booking').trigger("change");
-          }
+          sortConcession($(this));
         })
+        if (num.val() == "") {
+          num.val(1);
+        }
+        sortConcession(num);
       });
-      
+
       $passes.find('.remove').click(function() {
         var target = $passes.find('.pass-type').val();
         if (target != '') {
@@ -135,6 +132,20 @@
         $passes.remove();
         return false;
       })
-      
+
       return false;
     });
+
+    function sortConcession(number) {
+      console.log(number.val())
+      var count = number.val();
+      if (count > $('#booking_number_of_adults').val()) {
+        $('#message').html('The number of passes must not exceed the number of passengers');
+        $('#message').removeClass('hidden');
+      } else {
+        $('#message').addClass('hidden');
+        var target = number.data('target');
+        $('#booking_' + target).val(count);
+        $('form.edit_booking').trigger("change");
+      }
+    }
