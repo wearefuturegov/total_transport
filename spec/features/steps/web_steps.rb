@@ -129,6 +129,10 @@ module WebSteps
     end
   end
   
+  step 'I should see the confirmation page' do
+    expect(page).to have_content('your ride has been confirmed')
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')

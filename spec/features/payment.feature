@@ -12,7 +12,8 @@ Feature: Paying online
   Scenario: Successful online payment
     Given I have entered my booking details
     And I pay via online payments
-    Then my booking should be confirmed
+    Then I should see the confirmation page
+    And my booking should be confirmed
     And my booking should have a charge id
     And my payment method should be card
     
