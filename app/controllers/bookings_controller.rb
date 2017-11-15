@@ -18,7 +18,7 @@ class BookingsController < PublicController
   def update
     if params[:confirm]
       @booking.update_attribute :passenger, Passenger.setup(@booking.phone_number)
-      @booking.create_payment(params[:stripe_token]) if params[:stripe_token].present?
+      @booking.create_payment!(params[:stripe_token]) if params[:stripe_token].present?
       @booking.confirm!
       redirect_to confirmation_route_booking_path(@route, @booking)
     elsif booking_params[:cancellation_reason]

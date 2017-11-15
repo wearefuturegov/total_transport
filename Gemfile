@@ -104,6 +104,10 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'stripe-ruby-mock', '~> 2.5.0', :require => 'stripe_mock'
+end
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
   gem 'rails-assets-jquery', '~> 1.12'

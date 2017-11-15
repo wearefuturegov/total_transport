@@ -105,6 +105,7 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
+    dante (0.2.0)
     database_cleaner (1.6.2)
     debug_inspector (0.0.3)
     declarative (0.0.10)
@@ -382,6 +383,10 @@ GEM
       sprockets (>= 3.0.0)
     stripe (3.8.0)
       faraday (~> 0.10)
+    stripe-ruby-mock (2.5.0)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (>= 2.0.3)
     temple (0.8.0)
     term-ansicolor (1.6.0)
       tins (~> 1.0)
@@ -436,7 +441,6 @@ DEPENDENCIES
   devise (>= 4.3.0)
   dotenv-rails (>= 2.2.1)
   factory_bot_rails (>= 4.8.0)
-  fake_stripe
   filterrific
   font-awesome-rails
   font-awesome-sass (~> 4.7.0)
@@ -471,6 +475,7 @@ DEPENDENCIES
   simplecov
   spring
   stripe
+  stripe-ruby-mock (~> 2.5.0)
   timecop
   turnip
   twilio-ruby

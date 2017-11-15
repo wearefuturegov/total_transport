@@ -242,7 +242,7 @@ class Booking < ActiveRecord::Base
     ]
   end
   
-  def create_payment(token)
+  def create_payment!(token)
     customer = Stripe::Customer.create(
       :source => token
     )

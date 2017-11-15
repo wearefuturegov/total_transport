@@ -288,7 +288,23 @@ RSpec.describe Booking, :que, type: :model do
     
   end
   
-
+  describe '#create_payment', :stripe do
+    
+    before do
+      booking.create_payment!(@stripe_helper.generate_card_token)
+    end
+    
+    it 'sets database columns correctly' do
+      expect(booking.charge_id).to_not be_nil
+      expect(booking.payment_method).to eq('card')
+    end
+    
+    it 'creates a charge' do
+      charge = Stripe::Charge.retrieve(booking.charge_id)
+      expect(charge.amount).to eq(booking.price_in_pence)
+    end
+    
+  end
   
   describe 'number_of_adults' do
     

@@ -12,6 +12,7 @@ require 'timecop'
 require 'support/fake_sms'
 require 'support/controller_macros'
 require 'support/webmock'
+require 'support/stripe'
 
 SmsService.client = FakeSMS
 
