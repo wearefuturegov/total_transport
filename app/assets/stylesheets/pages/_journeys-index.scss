@@ -48,15 +48,18 @@ button {
   line-height: 47px;
 }
 #add-pass {
-  margin-top: 15px;
+  margin: 15px 0;
 }
 #pass-container {
   #passes{
     float: left;
     width: 100%;
-    margin: 15px 0;
   }
-  #add-pass {
-    margin-top: 15px;
+}
+#price {
+  max-width: 370px;
+  margin: 30px auto;
+  #total {
+    font-size: 25px;
   }
 }
