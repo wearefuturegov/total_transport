@@ -50,16 +50,33 @@ RSpec.describe SmsService, type: :model do
     expect(FakeSMS.messages.last[:body]).to eq('Your verification code is abcd')
   end
   
-  it 'sends a first reminder' do
-    booking = FactoryBot.create(:booking,
-      journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
-      pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion'),
-    )
-    sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
-    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
-    expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow from The Red Lion, Sudbury between 10:30am – 10:50am/)
+  context 'sends a first reminder' do
+    
+    let(:booking) {
+      FactoryBot.create(:booking,
+        journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+        pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
+        pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion'),
+      )
+    }
+    let(:sms) {
+      SmsService.new(to: '1234', template: :first_alert, booking: booking)
+    }
+    
+    it 'with a cash payment' do
+      booking.payment_method = 'cash'
+      expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+      expect(FakeSMS.messages.last[:to]).to eq('1234')
+      expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow from The Red Lion, Sudbury between 10:30am – 10:50am/)
+      expect(FakeSMS.messages.last[:body]).to match(/Don’t forget to pay the driver directly./)
+    end
+    
+    it 'with a card payment' do
+      booking.payment_method = 'card'
+      sms.perform
+      expect(FakeSMS.messages.last[:body]).to_not match(/Don’t forget to pay the driver directly./)
+    end
+  
   end
   
   it 'sends a second reminder' do
