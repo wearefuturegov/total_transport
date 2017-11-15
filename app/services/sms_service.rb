@@ -13,6 +13,7 @@ class SmsService
     @message = params[:message]
     @template = params[:template]
     @booking = params[:booking]
+    @trip = params[:trip]
     @passenger = params[:passenger]
   end
   
@@ -67,8 +68,8 @@ class SmsService
         
     def second_alert
       """
-        Your Ride is on it’s way. Your pickup point is #{@booking.outward_trip.pickup_name}
-        between #{plus_minus_ten(@booking.outward_trip.pickup_time)}. Look out for a vehicle
+        Your Ride is on it’s way. Your pickup point is #{@trip.pickup_name}
+        between #{plus_minus_ten(@trip.pickup_time)}. Look out for a vehicle
         with the Ride sticker. If you need to get in touch, please call 01621 855111.
       """.squish
     end

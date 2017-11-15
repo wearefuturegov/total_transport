@@ -68,10 +68,11 @@ RSpec.describe SmsService, type: :model do
       pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
       pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
     )
-    sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
+    sms = SmsService.new(to: '1234', template: :second_alert, trip: booking.outward_trip, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/  end
+    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/
+  end
   
   it 'sends a cancellation confirmation' do
     booking = FactoryGirl.create(:booking,

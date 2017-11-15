@@ -171,7 +171,8 @@ class Booking < ActiveRecord::Base
   def queue_sms
     SendSMS.enqueue(to: self.phone_number, template: :booking_notification, booking: self.id)
     SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: outward_trip.pickup_time - 24.hours)
-    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, run_at: outward_trip.pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: outward_trip, run_at: outward_trip.pickup_time - 1.hours)
+    SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: return_trip, run_at: return_trip.pickup_time - 1.hours) if return_trip
   end
   
   def queue_emails
