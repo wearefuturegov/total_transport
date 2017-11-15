@@ -246,7 +246,7 @@ RSpec.describe Booking, :que, type: :model do
       it 'removes sms alerts' do
         expect(QueJob.where(job_class: 'SendSMS').count).to eq(3)
         booking.update_attribute :state, 'cancelled'
-        expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
+        expect(QueJob.where(job_class: 'SendSMS').count).to eq(1)
       end
       
     end
@@ -257,6 +257,14 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[1]).to eq('booking_cancelled')
       expect(job.args[2]).to eq('booking_id' => booking.id)
+    end
+    
+    it 'sends a cancellation sms' do
+      booking.update_attribute :state, 'cancelled'
+      job = QueJob.find_by(job_class: 'SendSMS')
+      expect(job.args[0]['to']).to eq(booking.phone_number)
+      expect(job.args[0]['template']).to eq('booking_cancellation')
+      expect(job.args[0]['booking']).to eq(booking.id)
     end
     
   end

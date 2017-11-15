@@ -71,7 +71,18 @@ RSpec.describe SmsService, type: :model do
     sms = SmsService.new(to: '1234', template: :second_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/
+    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/  end
+  
+  it 'sends a cancellation confirmation' do
+    booking = FactoryGirl.create(:booking,
+      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
+      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
+    )
+    sms = SmsService.new(to: '1234', template: :booking_cancellation, booking: booking)
+    expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
+    expect(FakeSMS.messages.last[:to]).to eq('1234')
+    expect(FakeSMS.messages.last[:body]).to match /Your Ride booking on Sunday, 1 Jan at 9:00am from Sudbury has been cancelled/
   end
   
 end

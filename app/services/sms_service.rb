@@ -71,5 +71,13 @@ class SmsService
         with the Ride sticker. If you need to get in touch, please call 01621 855111.
       """.squish
     end
+    
+    def booking_cancellation
+      """
+        Your Ride booking on #{friendly_date(@booking.journey.start_time)} at
+        #{format_time(@booking.journey.start_time)} from #{@booking.outward_trip.pickup_stop.name}
+        has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
+      """.squish
+    end
   
 end

@@ -186,6 +186,10 @@ class Booking < ActiveRecord::Base
     SendEmail.enqueue('BookingMailer', :booking_cancelled, booking_id: id)
   end
   
+  def send_cancellation_sms!
+    SendSMS.enqueue(to: self.phone_number, template: :booking_cancellation, booking: self.id)
+  end
+  
   def log_booking
     LogBooking.enqueue(id)
   end
@@ -233,6 +237,7 @@ class Booking < ActiveRecord::Base
     def cancel
       remove_alerts
       set_journey_booked_status
+      send_cancellation_sms!
       send_cancellation_email!
     end
   
