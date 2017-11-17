@@ -27,6 +27,11 @@ Feature: Booking a journey
     And I choose the outward journey
     Then I should not see the return journey
     
+  Scenario: No return journeys available
+    Given the route has an outward journey at 3pm in 3 days time
+    And I choose the outward journey
+    Then I should see a message telling me there are no return journeys available
+    
   Scenario: Booking a single journey
     Given I have chosen a single journey
     But I don't choose a return journey

@@ -102,6 +102,10 @@ module WebSteps
     expect(page).to have_no_selector(:xpath, "//input[@value='#{@true_journey.id}']/.//..")
   end
   
+  step 'I should see a message telling me there are no return journeys available' do
+    expect(page).to have_content(I18n.t('bookings.no_return_time'))
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')

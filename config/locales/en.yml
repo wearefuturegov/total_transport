@@ -95,6 +95,7 @@ en:
       title: "Please choose a pickup point"
     dropoff:
       title: "Please choose a dropoff point"
+    no_return_time: "No return times available for your chosen outward time"
     requirements:
       label: "Special requirements:"
       message: "Wheelchair, pushchair etc"
@@ -199,4 +200,3 @@ en:
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
     feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
-

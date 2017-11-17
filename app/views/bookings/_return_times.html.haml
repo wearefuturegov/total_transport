@@ -1,5 +1,5 @@
 %section.section
-  .times{ id: "#{type}_times"}
+  .times{ id: "return_times"}
     .direction
       %label.button.secondary.oneway
         = t('button.oneway')
@@ -7,14 +7,18 @@
       %label.button.secondary.return.selected
         = t('button.return')
         = form.radio_button :return_journey_id, nil
-    .hide_times
-      %label
-        = t('bookings.return.time')
-      %p.time
-        - journeys.each do |j|
-          = render 'journey_time', journey: j, type: 'return', form: form, journey_type: :return_journey_id
-          
-    .arrival-times.hidden
+      .hide_times
+        - if journeys.count > 0
+          %label
+            = t('bookings.return.time')
+          %p.time
+            - journeys.each do |j|
+              = render 'journey_time', journey: j, type: 'return', form: form, journey_type: :return_journey_id
+                          
+          .arrival-times.hidden
+        - else
+          .no-return-time
+            = t('bookings.no_return_time')
     
 :javascript
   
