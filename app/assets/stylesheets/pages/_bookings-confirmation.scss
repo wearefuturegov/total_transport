@@ -8,3 +8,12 @@
     width: 100%;
   }
 }
+
+#bookings-update {
+
+  #submit-booking-2 {
+    @media screen and (min-width: ($mobile-break + 251px)) {
+      float: right;
+    }
+  }
+}

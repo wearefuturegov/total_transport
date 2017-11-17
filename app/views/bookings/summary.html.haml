@@ -5,6 +5,7 @@
 
       %h2
         = t('summary.title')
+        .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
 
     %section.section
       %section.key
@@ -149,3 +150,8 @@
         = t('summary.back')
 
     = form.submit :class => 'button cta primary', :id => 'submit-booking', :name => :confirm
+
+:javascript
+  $('#submit-booking-2').click(function() {
+    $('#submit-booking').click();
+  });
