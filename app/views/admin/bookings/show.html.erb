@@ -2,24 +2,23 @@
   <div class="inner">
     <div class="single-booking-card no-click card <% if @booking.future? %>future<% else %>expired<% end %> overview">
       <div class="overview-bar radius border-top-radius">
-        <%= pluralize @booking.number_of_passengers, "Passenger" %> from <%= @booking.pickup_stop.name %> To <%= @booking.dropoff_stop.name %>
+        <%= pluralize @booking.number_of_passengers, "Passenger" %> from <%= @trip.pickup_stop.name %> To <%= @trip.dropoff_stop.name %>
       </div>
 
       <div class="overview-sub-bar">
-        Outbound: <%= friendly_date @booking.journey.start_time, true %>
+        Outbound: <%= friendly_date @trip.pickup_time, true %>
       </div>
       <div class="center">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.pickup_landmark.latitude %>,<%= @booking.pickup_landmark.longitude %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.pickup_landmark.latitude %>,<%= @booking.pickup_landmark.longitude %>">
-        <p class="mb1 mt05"><strong>Pickup:</strong> <%= @booking.pickup_time.strftime("%l:%M%P") %> at <%= @booking.pickup_name %></p>
+        <%= map(@trip.pickup_landmark.latitude, @trip.pickup_landmark.longitude) %>
+        <p class="mb1 mt05"><strong>Pickup:</strong> <%= @trip.pickup_time.strftime("%l:%M%P") %> at <%= @trip.pickup_name %></p>
       <div class="clear"></div>
       </div>
       <div class="center">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<%= @booking.dropoff_landmark.latitude %>,<%= @booking.dropoff_landmark.longitude %>&zoom=16&size=1000x175&key=AIzaSyCg32P3H1gWK64VVmdhxG4yQZ-uBiu_0JA&markers=color:red%7Clabel:A%7C<%= @booking.dropoff_landmark.latitude %>,<%= @booking.dropoff_landmark.longitude %>">
-        <p class="mb1 mt05"><strong>Drop off:</strong> <%= @booking.dropoff_time.strftime("%l:%M%P") %> at <%= @booking.dropoff_name %></p>
+        <%= map(@trip.dropoff_landmark.latitude, @trip.dropoff_landmark.longitude) %>
+        <p class="mb1 mt05"><strong>Drop off:</strong> <%= @trip.dropoff_time.strftime("%l:%M%P") %> at <%= @trip.dropoff_name %></p>
       </div>
       <div class="breaker mt2"></div>
       <div class="inner price-breakdown">
-        <%=  %>
         <% if @booking.number_of_adults == @booking.number_of_passengers %>
           <p><%= pluralize @booking.number_of_passengers, 'adult fare' %> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> single)</p>
         <% else %>

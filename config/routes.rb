@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       member do
         post 'send_message'
       end
+      resources :bookings, only: [:show]
     end
     resources :suppliers
     resources :routes do

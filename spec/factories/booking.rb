@@ -12,5 +12,9 @@ FactoryGirl.define do
     trait(:booked) do
       state 'booked'
     end
+    
+    trait(:with_return_journey) do
+      return_journey { FactoryGirl.create(:journey) }
+    end
   end
 end

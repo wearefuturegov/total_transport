@@ -26,7 +26,7 @@
       <h4>Bookings:</h4>
       <% @journey.all_bookings.each do |booking| %>
         <div class="card">
-          <%= link_to admin_booking_path(booking) do %>
+          <%= link_to admin_journey_booking_path(@journey, booking) do %>
             <div class="inner">
               <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
             </div>
