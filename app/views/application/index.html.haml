@@ -3,15 +3,25 @@
     = @page_title
 %section.hero
   %section.section.heading
-    %h2
-      = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-
-    %section.action
+    %section.action.container
       %h4
-        = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-      = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
-      %p.small
-        = t('button.main_book_asterisk')
+        = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+      .inner
+        .third
+          .icon=image_tag('homepage_icon_1.png')
+          %p Reliable shared transport, cheaper than a taxi
+        .third
+          .icon=image_tag('homepage_icon_2.png')
+          %p Provided by local transport companies
+        .third
+          .icon=image_tag('homepage_icon_3.png')
+          %p Runs when booked, with instant confirmation
+    / %section.action
+    /   %h4
+    /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
+    /   = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
+    /   %p.small
+    /     = t('button.main_book_asterisk')
 
 %main.main
   %section.hero#step-1
@@ -93,9 +103,9 @@
       %ul.credit
         %li
           = t('credit.title')
-          %span 
+          %span
             = link_to I18n.t('credit.essex.text'), t('credit.essex.link')
-          %span 
+          %span
             = link_to I18n.t('credit.suffolk.text'), t('credit.suffolk.link')
-          %span 
+          %span
             = link_to I18n.t('credit.futuregov.text'), t('credit.futuregov.link')

@@ -18,6 +18,12 @@
             line-height: calc(#{$h4} * 1.2);
           }
         }
+        .icon {
+          img {
+            width: 150px;
+            height: auto;
+          }
+        }
       }
     }
     .main {
