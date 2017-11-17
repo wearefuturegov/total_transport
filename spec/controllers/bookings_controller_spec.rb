@@ -14,6 +14,32 @@ RSpec.describe BookingsController, type: :controller do
     ]
   }
   
+  let!(:journeys) {
+    [
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+    ]
+  }
+  
+  let!(:return_journeys) {
+    [
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: true ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: true ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: true ),
+      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: true )
+    ]
+  }
+  
+  let(:booking) {
+    FactoryGirl.create(:booking,
+      passenger: passenger,
+      pickup_stop_id: route.stops.first.id,
+      dropoff_stop_id: route.stops.last.id
+    )
+  }
+  
   describe 'POST create' do
     let(:params) {
       {
@@ -142,31 +168,6 @@ RSpec.describe BookingsController, type: :controller do
   end
   
   describe 'GET edit' do
-    let(:booking) {
-      FactoryGirl.create(:booking,
-        passenger: passenger,
-        pickup_stop_id: route.stops.first.id,
-        dropoff_stop_id: route.stops.last.id
-      )
-    }
-    
-    let!(:journeys) {
-      [
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
-      ]
-    }
-    
-    let!(:return_journeys) {
-      [
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: true ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: true ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: true ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: true )
-      ]
-    }
     
     it 'gets available journeys' do
       get :edit, route_id: route, id: booking
@@ -214,6 +215,15 @@ RSpec.describe BookingsController, type: :controller do
     it 'gets the booking by token' do
       subject
       expect(assigns(:booking)).to eq(booking)
+    end
+    
+  end
+  
+  describe 'GET return_journeys' do
+        
+    it 'gets return journeys for a given datetime' do
+      xhr :get, :return_journeys, route_id: route, id: booking, start_time: "#{Date.today + 2.day}T09:30:00", format: :js
+      expect(assigns(:journeys).count).to eq(1)
     end
     
   end

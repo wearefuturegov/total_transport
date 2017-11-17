@@ -39,9 +39,13 @@ class BookingsController < PublicController
     @back_path = journeys_path
   end
 
-  include ActionView::Helpers::NumberHelper
   def price
     @booking.assign_attributes(booking_params)
+  end
+  
+  def return_journeys
+    start_time = DateTime.parse params[:start_time]
+    @journeys = Journey.where(id: @booking.available_journeys(true)).where(start_time: start_time...start_time.end_of_day)
   end
 
   def destroy
