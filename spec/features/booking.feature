@@ -46,26 +46,3 @@ Feature: Booking a journey
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
-      
-  @que
-  Scenario: When a from point doesn't exist
-    Given there is a place with no routes called Somewhere
-    When I choose a from point of Somewhere
-    Then I should see the message
-      """
-      We don't currently travel from Somewhere.
-      """
-    And the origin Somewhere should be logged
-  
-  @que
-  Scenario: When a destination doesn't exist
-    Given there is a place with no routes called Somewhere
-    When I choose a from point of Newmarket
-    And I choose a to point of Somewhere
-    Then I should see the message
-      """
-      We don't currently travel to Somewhere.
-      """
-    And I should see a suggestion of a journey from Newmarket to Haverhill
-    And the origin Newmarket should be logged
-    And the destination Somewhere should be logged
