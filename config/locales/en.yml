@@ -153,9 +153,9 @@ en:
     regular: "Coming Soon"
     enquiry: "Get Started"
 
-    email:
-      address: "hello@bookyourride.co.uk"
-      subject: "question"
+  email:
+    address: "hello@bookyourride.co.uk"
+    subject: "question"
 
   helpers:
     submit:
