@@ -1,17 +1,24 @@
 %section.section
-  %h2
-    Thank you #{" #{@booking.passenger_name}"}, your ride has been confirmed
+  %h2="Thank you #{" #{@booking.passenger_name}"}, your ride is now confirmed"
+  %p
+    You will shortly receive an email and an SMS with the details of your booking. If you don’t,
+    = mail_to I18n.t('email.address'), "please get in contact with us."
   - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   %p
     You will be picked up at #{@booking.outward_trip.pickup_name} on #{friendly_date @booking.outward_trip.pickup_time} between #{plus_minus_ten @booking.outward_trip.pickup_time}.
   - if @booking.payment_method == 'cash'
+    %p.bold
+      Please pay #{number_to_currency @booking.price, unit: '£'} cash to your driver as you board.
     %p
-      If you need to cancel…
-    %p
-      Kindly pay #{number_to_currency @booking.price, unit: '£'} to your driver.
+      You can cancel your booking up to 12 hours before your journey here:
+      =link_to "cancel Ride.", cancel_booking_path(@booking)
   - else
-    %p You can cancel your booking up to 12 hours before your journey by going to:
+    %p
+      You can cancel your booking up to 12 hours before your journey, which you will be refunded in 5-10 working days, here:
+      =link_to "cancel Ride.", cancel_booking_path(@booking)
+
+
 = link_to I18n.t('button.complete'), journeys_path, :class => "button cta primary"
 - content_for :js do
   :javascript
