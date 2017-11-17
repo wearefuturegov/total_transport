@@ -58,25 +58,22 @@ en:
       author_3: "FutureGov"
 
     event:
-      title: "Maldon Fireworks Sat 4th November"
-      info: "Return journeys for £1 from South Woodham Ferrers and other nearby villages."
+      title: "Daily service to Chelmsford (Broomfield Hospital) from Maldon and the Denige"
+      info: "Prebooked return journeys running 6.30am - 8pm. Book for yourself or others."
       regular:
-        title: "Daily commute to South Woodham and Burnham"
-        info: "Return journeys running 6am - 8pm from local villages. Perfect for work, school or meeting friends. Try it out for just £1 during November."
+        title: "Maldon Vintage Christmas Fayre Thu 30th November"
+        info: "Enjoy a fun evening out with Rides from local villages. Fayre runs 6pm - 9pm."
       enquiry:
         title: "Where can we take you?"
-        info: "We are expanding our shared routes. Tell us the journey you want to make."
+        info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
 
   steps:
     step_1:
-      title: "Request"
-      info: "Fill in your journey details and select an available route."
+      info: "Reliable shared transport, cheaper than a taxi"
     step_2:
-      title: "Confirm"
-      info: "You’ll get a confirmation within 24 hours."
+      info: "Provided by local transport companies"
     step_3:
-      title: "Ride"
-      info: "Meet your driver at the selected pickup point."
+      info: "Runs when booked, with instant confirmation"
 
   journey:
     title: "Pre-book your ride"
@@ -152,8 +149,8 @@ en:
     submit: "Submit your booking request"
     return: "Return"
     typeform: "Tell us more"
-    event: "Pre-book my ride"
-    regular: "Learn more"
+    event: "Coming Soon"
+    regular: "Coming Soon"
     enquiry: "Get Started"
 
     email:
