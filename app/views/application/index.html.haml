@@ -9,13 +9,13 @@
       .inner
         .third
           .icon=image_tag('homepage_icon_1.png')
-          %p Reliable shared transport, cheaper than a taxi
+          %p= t('steps.step_1.info')
         .third
           .icon=image_tag('homepage_icon_2.png')
-          %p Provided by local transport companies
+          %p= t('steps.step_2.info')
         .third
           .icon=image_tag('homepage_icon_3.png')
-          %p Runs when booked, with instant confirmation
+          %p= t('steps.step_3.info')
     / %section.action
     /   %h4
     /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
@@ -34,7 +34,7 @@
         = t('public-index.event.info')
 
       %section.action
-        = link_to I18n.t('button.event'), 'https://bookyourride.typeform.com/to/IzWWwF', class: 'button cta'
+        = link_to I18n.t('button.event'), '#', class: 'button cta disabled'
 
   %section.hero.regular
     .overlay
@@ -46,7 +46,7 @@
         = t('public-index.event.regular.info')
 
       %section.action
-        = link_to I18n.t('button.regular'), 'https://bookyourride.typeform.com/to/y0LceD', class: 'button cta'
+        = link_to I18n.t('button.regular'), '#', class: 'button cta disabled'
 
   %section.hero.enquiry
     .overlay
@@ -60,28 +60,6 @@
       %section.action
         = link_to I18n.t('button.enquiry'), 'https://bookyourride.typeform.com/to/H7i6w5', class: 'button cta'
 
-
-  -# class steps was taken, so journey
-
-
-  %section.section.journey
-    %section.step
-      %h3
-        = t('steps.step_1.title')
-      %p
-        = t('steps.step_1.info')
-
-    %section.step
-      %h3
-        = t('steps.step_2.title')
-      %p
-        = t('steps.step_2.info')
-
-    %section.step
-      %h3
-        = t('steps.step_3.title')
-      %p
-        = t('steps.step_3.info')
 
   %section.section.info
     %h2
