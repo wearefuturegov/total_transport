@@ -24,10 +24,9 @@
     = render 'days', form: form
 
     #times.hidden
-      = render 'times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
+      = render 'outward_times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
 
     #one_way.hidden
-      = render 'times', form: form, journey_type: :return_journey_id, type: 'return', journeys: @return_journeys
 
     %section.section
       .landmarks.hidden
@@ -125,45 +124,6 @@
 
     $('#outward_times .button').on('click', function(){
       $('#outward_times .button').removeClass('selected');
-      $(this).addClass('selected');
-      scrollToBottom();
-    });
-
-    $('#return_times .oneway').click(function() {
-      $('#return_times .return').removeClass('selected');
-      $('#return_times .oneway').addClass('selected');
-      $('#return_times .hide_times').addClass('hide');
-      $('.return_price').addClass('hidden');
-      $('.single_price').removeClass('hidden');
-      scrollToBottom();
-    })
-
-    $('#return_times .return').click(function() {
-      $('#return_times .oneway').removeClass('selected');
-      $('#return_times .return').addClass('selected');
-      $('#return_times .hide_times').removeClass('hide');
-      $('.single_price').addClass('hidden');
-      $('.return_price').removeClass('hidden');
-      scrollToBottom();
-    })
-
-    $('#return_times .oneway').click(function() {
-      $('.landmarks').removeClass('hidden');
-      scrollToBottom();
-    })
-
-    $('#return_times .return').click(function() {
-      $('.landmarks').addClass('hidden');
-      scrollToBottom();
-    })
-
-    $('#return_times .time').click(function() {
-      $('.landmarks').removeClass('hidden');
-      scrollToBottom();
-    })
-
-    $('#return_times .button').on('click', function(){
-      $('#return_times .hide_times .button').removeClass('selected');
       $(this).addClass('selected');
       scrollToBottom();
     });

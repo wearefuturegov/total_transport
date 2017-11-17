@@ -5,8 +5,8 @@ Feature: Booking a journey
     Given there is a route with 5 stops
     And that route has a stop called Newmarket at position 1
     And that route has a stop called Haverhill at position 3
-    And that route has 1 outward journey in 3 days time
-    And that route has 1 return journey in 3 days time
+    And the route has an outward journey at 8am in 3 days time
+    And the route has a return journey at 3pm in 3 days time
     And I visit /journeys
 
   Scenario: Booking a return journey
@@ -20,6 +20,12 @@ Feature: Booking a journey
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
     And both journeys should show as booked
+    
+  Scenario: Should not see return journeys before the outward journey
+    Given the route has an outward journey at 9am in 3 days time
+    And the route has an return journey at 8am in 3 days time
+    And I choose the outward journey
+    Then I should not see the return journey
     
   Scenario: Booking a single journey
     Given I have chosen a single journey

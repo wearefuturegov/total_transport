@@ -183,19 +183,6 @@ RSpec.describe BookingsController, type: :controller do
           journeys[3]
         ]
       })
-      
-      expect(assigns(:return_journeys)).to eq({
-        (Date.today + 1.day) => [
-          return_journeys[0]
-        ],
-        (Date.today + 2.day) => [
-          return_journeys[1],
-          return_journeys[2]
-        ],
-        (Date.today + 3.day) => [
-          return_journeys[3]
-        ]
-      })
     end
     
     it 'sets the correct back_path' do

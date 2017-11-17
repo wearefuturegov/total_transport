@@ -17,7 +17,10 @@ module RouteSteps
   step 'that route has :n :outward_or_return journey in :days days time' do |n, reversed, days|
     FactoryGirl.create_list(:journey, n.to_i, route: @route, reversed: reversed, start_time: DateTime.now + days.to_i.days)
   end
-
+  
+  step 'the route has a(n) :outward_or_return journey at :time in :days days time'  do |reversed, time, days|
+    instance_variable_set(:"@#{reversed}_journey", FactoryGirl.create(:journey, route: @route, reversed: reversed, start_time: DateTime.parse(time) + days.to_i.days))
+  end
   
 end
 

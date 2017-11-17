@@ -12,7 +12,6 @@ class BookingsController < PublicController
   
   def edit
     @journeys = @booking.available_journeys.group_by { |j| j.start_time.to_date }
-    @return_journeys = @booking.available_journeys(true).group_by { |j| j.start_time.to_date }
     @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
   end
   

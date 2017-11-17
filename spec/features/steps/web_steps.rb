@@ -90,6 +90,18 @@ module WebSteps
     expect(all('.pass-type').last.all("option[value='#{type}']").count).to eq(0)
   end
   
+  step 'I choose the outward journey' do
+    choose_place('from', 'Newmarket')
+    choose_place('to', 'Haverhill')
+    click_book_journey
+    first('.date-button').click
+    find(:xpath, "//input[@value='#{@false_journey.id}']/.//..").click
+  end
+  
+  step 'I should not see the return journey' do
+    expect(page).to have_no_selector(:xpath, "//input[@value='#{@true_journey.id}']/.//..")
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_button I18n.t('button.book')
@@ -98,7 +110,7 @@ module WebSteps
   def choose_journey
     first('.date-button').click
     first('#outward_times .time label').click
-    page.execute_script '$("#return_times .time label")[0].scrollIntoView(true)'
+    wait_for_ajax
     first('#return_times .time label').click
   end
   
