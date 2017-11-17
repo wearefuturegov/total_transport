@@ -5,8 +5,8 @@ Feature: Booking a journey
     Given there is a route with 5 stops
     And that route has a stop called Newmarket at position 1
     And that route has a stop called Haverhill at position 3
-    And that route has 1 outward journey in 3 days time
-    And that route has 1 return journey in 3 days time
+    And the route has an outward journey at 8am in 3 days time
+    And the route has a return journey at 3pm in 3 days time
     And I visit /journeys
 
   Scenario: Booking a return journey
@@ -20,6 +20,17 @@ Feature: Booking a journey
     Then I should recieve an SMS confirming my booking
     And my booking should be confirmed
     And both journeys should show as booked
+    
+  Scenario: Should not see return journeys before the outward journey
+    Given the route has an outward journey at 9am in 3 days time
+    And the route has an return journey at 8am in 3 days time
+    And I choose the outward journey
+    Then I should not see the return journey
+    
+  Scenario: No return journeys available
+    Given the route has an outward journey at 3pm in 3 days time
+    And I choose the outward journey
+    Then I should see a message telling me there are no return journeys available
     
   Scenario: Booking a single journey
     Given I have chosen a single journey
@@ -46,26 +57,3 @@ Feature: Booking a journey
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
-      
-  @que
-  Scenario: When a from point doesn't exist
-    Given there is a place with no routes called Somewhere
-    When I choose a from point of Somewhere
-    Then I should see the message
-      """
-      We don't currently travel from Somewhere.
-      """
-    And the origin Somewhere should be logged
-  
-  @que
-  Scenario: When a destination doesn't exist
-    Given there is a place with no routes called Somewhere
-    When I choose a from point of Newmarket
-    And I choose a to point of Somewhere
-    Then I should see the message
-      """
-      We don't currently travel to Somewhere.
-      """
-    And I should see a suggestion of a journey from Newmarket to Haverhill
-    And the origin Newmarket should be logged
-    And the destination Somewhere should be logged

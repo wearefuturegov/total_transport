@@ -12,7 +12,6 @@ class BookingsController < PublicController
   
   def edit
     @journeys = @booking.available_journeys.group_by { |j| j.start_time.to_date }
-    @return_journeys = @booking.available_journeys(true).group_by { |j| j.start_time.to_date }
     @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
   end
   
@@ -39,9 +38,13 @@ class BookingsController < PublicController
     @back_path = journeys_path
   end
 
-  include ActionView::Helpers::NumberHelper
   def price
     @booking.assign_attributes(booking_params)
+  end
+  
+  def return_journeys
+    start_time = DateTime.parse params[:start_time]
+    @journeys = Journey.where(id: @booking.available_journeys(true)).where(start_time: start_time...start_time.end_of_day)
   end
 
   def destroy

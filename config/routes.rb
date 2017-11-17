@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         
         get :confirmation
         get :price
+        get :return_journeys
       end
     end
   end
