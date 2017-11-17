@@ -2,7 +2,7 @@
   = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
 
     %section.section
-      
+
       %h2
         = t('summary.title')
 
@@ -51,12 +51,12 @@
       - if @booking.scholar_bus_passes > 0
         %p
           Scholarly Season Ticket: #{@booking.scholar_bus_passes} (£0.00 each)
-      %p
-        Total to pay
-        \: #{number_to_currency @booking.price, unit: '£'}
+      %p.bold
+        Total to pay:
+        #{number_to_currency @booking.price, unit: '£'}
 
     %section.section
-        
+
       %h2
         = t('summary.outbound.title')
 
@@ -68,7 +68,7 @@
 
       %h4
         = t('summary.outbound.date')
-      
+
       %p
         #{friendly_date @booking.outward_trip.pickup_time}
 
@@ -85,9 +85,9 @@
 
         %p
           = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
-      
+
     %section.section
-        
+
       %h4
         = t('summary.outbound.dropoff')
 
@@ -102,15 +102,15 @@
 
       -#
         = friendly_date @booking.journey.start_time, true
-        
+
         %p
           = map(@booking.dropoff_landmark.latitude, @booking.dropoff_landmark.longitude)
-        
+
       - if @booking.return_journey?
-      
+
         %h2
           = t('summary.return.title')
-        
+
         %h4
           = t('summary.return.pickup')
 
@@ -132,11 +132,11 @@
 
         -#
           = friendly_date @booking.return_journey.start_time, true
-          
+
         -#
           %p
             = map(@booking.dropoff_landmark.latitude, @booking.dropoff_landmark.longitude)
-          
+
         -#
           = friendly_date @booking.journey.start_time, true
           at

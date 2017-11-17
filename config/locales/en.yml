@@ -163,7 +163,7 @@ en:
         update: 'Next'
     submit:
       booking:
-        update: 'it all looks good!'
+        update: 'Confirm Booking'
 
   form:
     required: "Required"
