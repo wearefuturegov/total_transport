@@ -19,11 +19,11 @@
     %span.bold let us know why you want to cancel your Ride?
     This will help us improve Ride and make it better for everyone.
 
-  / = form_for [@booking.route, @booking] do |f|
+  = form_for [@booking.route, @booking] do |f|
 
-  /   = f.hidden_field :state, value: :cancelled
+    = f.hidden_field :state, value: :cancelled
 
-  /   = f.label :cancellation_reason
-  /   = f.text_area :cancellation_reason
+    = f.label :cancellation_reason
+    = f.text_area :cancellation_reason
 
-  /   = f.submit 'Cancel your booking', data: { confirm: 'Are you sure you want to cancel your booking?' }
+    = f.submit 'Cancel your booking', data: { confirm: 'Are you sure you want to cancel your booking?' }

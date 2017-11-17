@@ -12,11 +12,11 @@
       Please pay #{number_to_currency @booking.price, unit: '£'} cash to your driver as you board.
     %p
       You can cancel your booking up to 12 hours before your journey here:
-      =link_to "cancel Ride.", cancel_booking_path(@booking)
+      =link_to "cancel Ride.", cancel_booking_url(@booking.token)
   - else
     %p
       You can cancel your booking up to 12 hours before your journey, which you will be refunded in 5-10 working days, here:
-      =link_to "cancel Ride.", cancel_booking_path(@booking)
+      =link_to "cancel Ride.", cancel_booking_url(@booking.token)
 
 
 = link_to I18n.t('button.complete'), journeys_path, :class => "button cta primary"
