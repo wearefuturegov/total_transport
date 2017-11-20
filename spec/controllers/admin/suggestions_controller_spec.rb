@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::SuggestionsController, type: :controller do
-  login_supplier
+  login_supplier(true)
   
   it 'gets all suggestions' do
     suggested_journeys = FactoryGirl.create_list(:suggested_journey, 1)

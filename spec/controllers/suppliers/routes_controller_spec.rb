@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::RoutesController, type: :controller do
-  login_supplier
+  login_supplier(true)
   
   context '#index' do
     

@@ -12,49 +12,68 @@ RSpec.describe Admin::JourneysController, type: :controller do
   let(:route) { FactoryGirl.create(:route) }
   
   context '#index' do
-    it 'gets all journeys for a supplier' do
-      FactoryGirl.create_list(:journey, 10, supplier: @supplier)
-      get :index
-      expect(assigns(:journeys).count).to eq(10)
-    end
     
-    it 'gets all journeys for a team' do
-      FactoryGirl.create_list(:journey, 3)
-      FactoryGirl.create_list(:journey, 5, supplier: @supplier)
-      FactoryGirl.create_list(:journey, 4, supplier: FactoryGirl.create(:supplier, team: @supplier.team))
-      get :index, { filter: 'team' }
-      expect(assigns(:journeys).count).to eq(9)
+    context 'without a filter' do
+      
+      before do
+        FactoryGirl.create_list(:journey, 2)
+        FactoryGirl.create_list(:journey, 3, supplier: @supplier)
+        FactoryGirl.create_list(:journey, 5, supplier: FactoryGirl.create(:supplier, team: @supplier.team))
+      end
+      
+      it 'gets all journeys for a supplier' do
+        get :index
+        expect(assigns(:journeys).count).to eq(3)
+      end
+      
+      it 'gets all journeys for a team' do
+        get :index, { filter: 'team' }
+        expect(assigns(:journeys).count).to eq(8)
+      end
+      
+      context 'as an admin' do
+        login_supplier(true)
+
+        it 'gets all journeys for an admin' do
+          get :index
+          expect(assigns(:journeys).count).to eq(10)
+        end
+      end
+      
     end
-    
-    it 'filters by past or future' do
-      FactoryGirl.create_list(:journey, 2, start_time: DateTime.now - 4.days, supplier: @supplier)
-      FactoryGirl.create_list(:journey, 3, start_time: DateTime.now + 4.days, supplier: @supplier)
-      get :index, { filterrific: {
-          past_or_future: 'future'
+
+    context 'filtering' do
+      it 'filters by past or future' do
+        FactoryGirl.create_list(:journey, 2, start_time: DateTime.now - 4.days, supplier: @supplier)
+        FactoryGirl.create_list(:journey, 3, start_time: DateTime.now + 4.days, supplier: @supplier)
+        get :index, { filterrific: {
+            past_or_future: 'future'
+          }
         }
-      }
-      expect(assigns(:journeys).count).to eq(3)
-      get :index, { filterrific: {
-          past_or_future: 'past'
+        expect(assigns(:journeys).count).to eq(3)
+        get :index, { filterrific: {
+            past_or_future: 'past'
+          }
         }
-      }
-      expect(assigns(:journeys).count).to eq(2)
-    end
-    
-    it 'filters by booked and empty' do
-      FactoryGirl.create_list(:journey, 2, outward_bookings: FactoryGirl.create_list(:booking, 4), supplier: @supplier, booked: true)
-      FactoryGirl.create_list(:journey, 5, return_bookings: FactoryGirl.create_list(:booking, 2), supplier: @supplier, booked: true)
-      FactoryGirl.create_list(:journey, 3, supplier: @supplier, booked: false)
-      get :index, { filterrific: {
-          booked_or_empty: 'booked'
+        expect(assigns(:journeys).count).to eq(2)
+      end
+      
+      it 'filters by booked and empty' do
+        FactoryGirl.create_list(:journey, 2, outward_bookings: FactoryGirl.create_list(:booking, 4), supplier: @supplier, booked: true)
+        FactoryGirl.create_list(:journey, 5, return_bookings: FactoryGirl.create_list(:booking, 2), supplier: @supplier, booked: true)
+        FactoryGirl.create_list(:journey, 3, supplier: @supplier, booked: false)
+        get :index, { filterrific: {
+            booked_or_empty: 'booked'
+          }
         }
-      }
-      expect(assigns(:journeys).to_a.count).to eq(7)
-      get :index, { filterrific: {
-          booked_or_empty: 'empty'
+        expect(assigns(:journeys).to_a.count).to eq(7)
+        get :index, { filterrific: {
+            booked_or_empty: 'empty'
+          }
         }
-      }
-      expect(assigns(:journeys).to_a.count).to eq(3)
+        expect(assigns(:journeys).to_a.count).to eq(3)
+      end
+      
     end
   end
   

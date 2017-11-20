@@ -3,7 +3,11 @@ class Admin::JourneysController < AdminController
   before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
     params[:filterrific] ||= {}
-    journeys = params[:filter] == 'team' ? current_team.journeys : current_supplier.journeys
+    if current_supplier.admin?
+      journeys = Journey.all
+    else
+      journeys = params[:filter] == 'team' ? current_team.journeys : current_supplier.journeys
+    end
     @filterrific = initialize_filterrific(
       journeys,
       params[:filterrific]

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::PlacenamesController, type: :controller do
-  login_supplier
+  login_supplier(true)
   
   describe '#index' do
     let(:query) { 'hello' }
