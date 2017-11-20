@@ -64,6 +64,7 @@ class Trip
       dropoff_time,
       dropoff_stop.name,
       dropoff_landmark.name,
+      booking.special_requirements,
       booking.created_at
     ]
   end

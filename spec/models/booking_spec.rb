@@ -23,6 +23,7 @@ RSpec.describe Booking, :que, type: :model do
       email: 'me@example.com',
       pickup_landmark: stops.first.landmarks.first,
       dropoff_landmark: stops.last.landmarks.first,
+      special_requirements: 'Wheelchair'
     )
   }
   
@@ -419,6 +420,7 @@ RSpec.describe Booking, :que, type: :model do
         DateTime.parse('2017-01-01 11:25:00').in_time_zone('UTC'),
         'Dropoff Stop',
         'Dropoff Landmark',
+        'Wheelchair',
         booking.created_at
       ])
     end
@@ -439,6 +441,7 @@ RSpec.describe Booking, :que, type: :model do
         DateTime.parse('2017-01-01 16:25:00').in_time_zone('UTC'),
         'Pickup Stop',
         'Pickup Landmark',
+        'Wheelchair',
         booking.created_at
       ])
     end

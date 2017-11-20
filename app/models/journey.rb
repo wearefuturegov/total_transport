@@ -125,6 +125,7 @@ class Journey < ActiveRecord::Base
       'Dropoff Time',
       'Dropoff Place',
       'Dropoff Location',
+      'Special Requirements',
       'Time and date booking made'
     ]
   end
