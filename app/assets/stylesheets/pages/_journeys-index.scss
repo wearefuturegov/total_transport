@@ -28,10 +28,8 @@
 
 // these may not be in the right scss file but I have put them here for now:
 .arrival-times, .no-return-time {
-  clear: both;
-  padding-top: 26px;
-  padding-bottom: 26px;
-  text-align: center;
+  float: left;
+  margin-top: $baseline;
 }
 button {
   border-radius: 0;

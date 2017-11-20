@@ -117,7 +117,8 @@ en:
         message: "(Confirmation via email)"
 
   summary:
-    title: "Check your journey before you pre-book"
+    title: "Last step!"
+    extra: "Check your journey before you confirm"
     plus_minus_ten: "(+-10mins)"
     outbound:
       title: "Outbound"
