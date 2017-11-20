@@ -18,7 +18,9 @@ RSpec.describe BookingMailer, type: :mailer do
     ]
   }
   let(:route) { FactoryBot.create(:route, stops: stops) }
-  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+  let(:team) { FactoryBot.create(:team, email: 'team@example.com') }
+  let(:supplier) { FactoryBot.create(:supplier, team: team) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), supplier: supplier) }
   let(:booking) {
     FactoryBot.create(:booking,
       journey: journey,
@@ -49,7 +51,7 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the headers' do
         expect(mail.subject).to eq('A new booking has been confirmed')
-        expect(mail.to).to eq([booking.journey.supplier.email])
+        expect(mail.to).to eq(['team@example.com'])
         expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
       end
       
@@ -74,7 +76,7 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the headers' do
         expect(mail.subject).to eq('Booking cancelled')
-        expect(mail.to).to eq([booking.journey.supplier.email])
+        expect(mail.to).to eq(['team@example.com'])
         expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
       end
       
