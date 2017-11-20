@@ -6,16 +6,21 @@
     %section.action.container
       %h4
         = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-      .inner
-        .third
-          .icon=image_tag('homepage_icon_1.png')
-          %p= t('steps.step_1.info')
-        .third
-          .icon=image_tag('homepage_icon_2.png')
-          %p= t('steps.step_2.info')
-        .third
-          .icon=image_tag('homepage_icon_3.png')
-          %p= t('steps.step_3.info')
+      %section
+        .icon
+          =image_tag('icons/piggy.svg')
+        %p
+          = t('steps.step_1.info')
+      %section
+        .icon
+          =image_tag('icons/driving.svg')
+        %p
+          = t('steps.step_2.info')
+      %section
+        .icon
+          =image_tag('icons/mobile.svg')
+        %p
+          = t('steps.step_3.info')
     / %section.action
     /   %h4
     /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
