@@ -4,17 +4,17 @@ RSpec.describe Booking, :que, type: :model do
   
   let(:stops) {
     [
-      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryGirl.create(:place, name: 'Pickup Stop')),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryGirl.create(:place, name: 'Dropoff Stop'))
+      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryBot.create(:place, name: 'Pickup Stop')),
+      FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2),
+      FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3),
+      FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4),
+      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryBot.create(:place, name: 'Dropoff Stop'))
     ]
   }
-  let(:route) { FactoryGirl.create(:route, stops: stops) }
-  let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+  let(:route) { FactoryBot.create(:route, stops: stops) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
   let(:booking) {
-    FactoryGirl.create(:booking,
+    FactoryBot.create(:booking,
       journey: journey,
       pickup_stop: stops.first,
       dropoff_stop: stops.last,
@@ -67,7 +67,7 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'queues a text message for the return journey' do
-      booking.return_journey = FactoryGirl.create(:journey)
+      booking.return_journey = FactoryBot.create(:journey)
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(5)
       jobs = QueJob.where(job_class: 'SendSMS')
       alert = jobs.select { |j| j.args[0]['template'] == 'second_alert'}.last
@@ -131,7 +131,7 @@ RSpec.describe Booking, :que, type: :model do
   context '#route' do
     
     it 'returns the route' do
-      route = FactoryGirl.create(:route)
+      route = FactoryBot.create(:route)
       booking.journey.route = route
       expect(booking.route).to eq(route)
     end
@@ -154,35 +154,35 @@ RSpec.describe Booking, :que, type: :model do
   
   context 'available journeys' do
     
-    let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
+    let!(:route) { FactoryBot.create(:route, stops_count: 0) }
     let!(:stops) {
       [
-        FactoryGirl.create(:stop, position: 1, route: route),
-        FactoryGirl.create(:stop, position: 2, route: route),
-        FactoryGirl.create(:stop, position: 3, route: route),
-        FactoryGirl.create(:stop, position: 4, route: route),
-        FactoryGirl.create(:stop, position: 5, route: route)
+        FactoryBot.create(:stop, position: 1, route: route),
+        FactoryBot.create(:stop, position: 2, route: route),
+        FactoryBot.create(:stop, position: 3, route: route),
+        FactoryBot.create(:stop, position: 4, route: route),
+        FactoryBot.create(:stop, position: 5, route: route)
       ]
     }
     
-    let(:booking) { FactoryGirl.create(:booking, pickup_stop: stops[0], dropoff_stop: stops[3]) }
+    let(:booking) { FactoryBot.create(:booking, pickup_stop: stops[0], dropoff_stop: stops[3]) }
     let!(:journeys) {
       [
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
-        FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+        FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
+        FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
+        FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
+        FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
       ]
     }
     
     it 'gets available_journeys' do
-      FactoryGirl.create_list(:journey, 12)
+      FactoryBot.create_list(:journey, 12)
       expect(booking.available_journeys).to eq(journeys)
     end
     
     it 'ignores full journeys' do
       full_journey = journeys[0]
-      FactoryGirl.create_list(:booking, full_journey.vehicle.seats, journey: full_journey, state: 'booked')
+      FactoryBot.create_list(:booking, full_journey.vehicle.seats, journey: full_journey, state: 'booked')
       expect(booking.available_journeys).to_not include(full_journey)
     end
     
@@ -197,7 +197,7 @@ RSpec.describe Booking, :que, type: :model do
       end
       
       it 'gets the last dropoff time for a return booking' do
-        booking.return_journey = FactoryGirl.create(:journey, route: route, reversed: true, start_time: DateTime.parse('2017-01-01T17:00:00'))
+        booking.return_journey = FactoryBot.create(:journey, route: route, reversed: true, start_time: DateTime.parse('2017-01-01T17:00:00'))
         expect(booking.last_dropoff_time.to_s).to eq('2017-01-01 18:25:00 UTC')
       end
       
@@ -220,14 +220,14 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'returns a return trip' do
-      booking.return_journey = FactoryGirl.create(:journey)
+      booking.return_journey = FactoryBot.create(:journey)
       expect(booking.return_trip.journey).to eq(booking.return_journey)
     end
     
   end
   
   context 'cancelling booking' do
-    let(:booking) { FactoryGirl.create(:booking, state: 'booked') }
+    let(:booking) { FactoryBot.create(:booking, state: 'booked') }
     before { booking.confirm! }
     
     context 'sets the journey boolean' do
@@ -240,7 +240,7 @@ RSpec.describe Booking, :que, type: :model do
       end
       
       it 'to true if there still other bookings' do
-        journey.bookings << FactoryGirl.create_list(:booking, 2, state: 'booked')
+        journey.bookings << FactoryBot.create_list(:booking, 2, state: 'booked')
         journey.save
         booking.update_attribute :state, 'cancelled'
         journey.reload
@@ -292,7 +292,7 @@ RSpec.describe Booking, :que, type: :model do
   
   describe 'number_of_adults' do
     
-    let(:booking) { FactoryGirl.create(:booking) }
+    let(:booking) { FactoryBot.create(:booking) }
 
     it 'with only adults' do
       booking.number_of_passengers = 4
@@ -332,8 +332,8 @@ RSpec.describe Booking, :que, type: :model do
   end
   
   it 'allows pickup and dropoff landmarks to be applied' do
-    pickup_landmark = FactoryGirl.create(:landmark, name: 'Pickup Landmark')
-    dropoff_landmark = FactoryGirl.create(:landmark, name: 'Dropoff Landmark')
+    pickup_landmark = FactoryBot.create(:landmark, name: 'Pickup Landmark')
+    dropoff_landmark = FactoryBot.create(:landmark, name: 'Dropoff Landmark')
     booking.pickup_landmark = pickup_landmark
     booking.dropoff_landmark = dropoff_landmark
     booking.save
@@ -372,7 +372,7 @@ RSpec.describe Booking, :que, type: :model do
     context 'with a return journey' do
       
       before do
-        booking.return_journey = FactoryGirl.create(:journey,
+        booking.return_journey = FactoryBot.create(:journey,
           route: route,
           start_time: DateTime.parse('2017-01-01T15:00:00'),
           reversed: true
@@ -403,7 +403,7 @@ RSpec.describe Booking, :que, type: :model do
     before do
       booking.pickup_landmark.name = 'Pickup Landmark'
       booking.dropoff_landmark.name = 'Dropoff Landmark'
-      booking.return_journey = FactoryGirl.create(:journey,
+      booking.return_journey = FactoryBot.create(:journey,
         route: route,
         start_time: DateTime.parse('2017-01-01T15:00:00'),
         reversed: true
@@ -579,14 +579,14 @@ RSpec.describe Booking, :que, type: :model do
         it "should cost £2.50 for 2 passengers with 1 older pass and promo code of £3" do
           booking.number_of_passengers = 2
           booking.older_bus_passes = 1
-          promo_code = FactoryGirl.build(:promo_code, price_deduction: 3)
+          promo_code = FactoryBot.build(:promo_code, price_deduction: 3)
           booking.promo_code = promo_code
           expect(booking.price).to eq(2.5)
         end
         it "should cost £0.00 for 2 passengers with 1 older pass and promo code of £10" do
           booking.number_of_passengers = 2
           booking.older_bus_passes = 1
-          promo_code = FactoryGirl.build(:promo_code, price_deduction: 10)
+          promo_code = FactoryBot.build(:promo_code, price_deduction: 10)
           booking.promo_code = promo_code
           expect(booking.price).to eq(0)
         end
@@ -614,14 +614,14 @@ RSpec.describe Booking, :que, type: :model do
         it "should cost £5.00 for 2 passengers with 1 older pass and promo code of £3" do
           booking.number_of_passengers = 2
           booking.older_bus_passes = 1
-          promo_code = FactoryGirl.build(:promo_code, price_deduction: 3)
+          promo_code = FactoryBot.build(:promo_code, price_deduction: 3)
           booking.promo_code = promo_code
           expect(booking.price).to eq(5)
         end
         it "should cost £0.00 for 2 passengers with 1 older pass and promo code of £10" do
           booking.number_of_passengers = 2
           booking.older_bus_passes = 1
-          promo_code = FactoryGirl.build(:promo_code, price_deduction: 10)
+          promo_code = FactoryBot.build(:promo_code, price_deduction: 10)
           booking.promo_code = promo_code
           expect(booking.price).to eq(0)
         end

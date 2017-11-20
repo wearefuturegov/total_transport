@@ -50,8 +50,8 @@ RSpec.describe ApplicationHelper, type: :helper do
   
   context '#grab_phone_number' do
     
-    let(:passenger) { FactoryGirl.create(:passenger, phone_number: '123456') }
-    let(:booking) { FactoryGirl.create(:booking, passenger: passenger) }
+    let(:passenger) { FactoryBot.create(:passenger, phone_number: '123456') }
+    let(:booking) { FactoryBot.create(:booking, passenger: passenger) }
     
     it 'returns the phone number if not changed' do
       expect(grab_phone_number nil, booking).to eq('123456')

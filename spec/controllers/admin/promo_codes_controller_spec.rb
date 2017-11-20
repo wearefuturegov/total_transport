@@ -5,7 +5,7 @@ RSpec.describe Admin::PromoCodesController, type: :controller do
   
   context '#index' do
     
-    let(:promo_codes) { FactoryGirl.create_list(:promo_code, 5) }
+    let(:promo_codes) { FactoryBot.create_list(:promo_code, 5) }
     let!(:subject) { get :index }
     
     it 'lists all the promo codes' do
@@ -43,7 +43,7 @@ RSpec.describe Admin::PromoCodesController, type: :controller do
   
   context '#destroy' do
     
-    let!(:promo_code) { FactoryGirl.create(:promo_code) }
+    let!(:promo_code) { FactoryBot.create(:promo_code) }
     let(:subject) {
       delete :destroy, {
         id: promo_code.id

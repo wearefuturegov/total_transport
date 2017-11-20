@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Stop, type: :model do
   
-  let(:route) { FactoryGirl.create(:route, stops_count: 0) }
+  let(:route) { FactoryBot.create(:route, stops_count: 0) }
   let!(:stops) {
     [
-      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1, route: route),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2, route: route),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3, route: route),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4, route: route),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5, route: route)
+      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1, route: route),
+      FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2, route: route),
+      FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3, route: route),
+      FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4, route: route),
+      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5, route: route)
     ]
   }
   
@@ -63,7 +63,7 @@ RSpec.describe Stop, type: :model do
   
   it 'runs the CalculateMinutesFromLastStop job after creation', :que do
     expect {
-      FactoryGirl.create(:stop_with_callback) 
+      FactoryBot.create(:stop_with_callback) 
     }.to change {
       QueJob.where(job_class: 'CalculateMinutesFromLastStop').count
     }.by(1)

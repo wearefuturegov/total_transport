@@ -4,23 +4,23 @@ RSpec.describe BookingMailer, type: :mailer do
   
   let(:stops) {
     [
-      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1,
-        place: FactoryGirl.create(:place, name: 'Pickup Stop'),
-        landmarks: FactoryGirl.create_list(:landmark, 1, name: 'Pickup Landmark')
+      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1,
+        place: FactoryBot.create(:place, name: 'Pickup Stop'),
+        landmarks: FactoryBot.create_list(:landmark, 1, name: 'Pickup Landmark')
       ),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5,
-        place: FactoryGirl.create(:place, name: 'Dropoff Stop'),
-        landmarks: FactoryGirl.create_list(:landmark, 1, name: 'Pickup Landmark')
+      FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2),
+      FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3),
+      FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4),
+      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5,
+        place: FactoryBot.create(:place, name: 'Dropoff Stop'),
+        landmarks: FactoryBot.create_list(:landmark, 1, name: 'Pickup Landmark')
       )
     ]
   }
-  let(:route) { FactoryGirl.create(:route, stops: stops) }
-  let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+  let(:route) { FactoryBot.create(:route, stops: stops) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
   let(:booking) {
-    FactoryGirl.create(:booking,
+    FactoryBot.create(:booking,
       journey: journey,
       pickup_stop: stops.first,
       dropoff_stop: stops.last,
@@ -116,7 +116,7 @@ RSpec.describe BookingMailer, type: :mailer do
   
   describe 'with a return journey' do
     before do
-      booking.return_journey = FactoryGirl.create(:journey,
+      booking.return_journey = FactoryBot.create(:journey,
         route: route,
         start_time: DateTime.parse('2017-01-01T15:00:00'),
         reversed: true

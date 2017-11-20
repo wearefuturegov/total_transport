@@ -2,38 +2,38 @@ require 'rails_helper'
 
 RSpec.describe BookingsController, type: :controller do
 
-  let(:passenger) { FactoryGirl.create(:passenger) }
-  let!(:route) { FactoryGirl.create(:route, stops_count: 0) }
+  let(:passenger) { FactoryBot.create(:passenger) }
+  let!(:route) { FactoryBot.create(:route, stops_count: 0) }
   let!(:stops) {
     [
-      FactoryGirl.create(:stop, position: 1, route: route, place: FactoryGirl.create(:place, name: 'Newmarket')),
-      FactoryGirl.create(:stop, position: 2, route: route),
-      FactoryGirl.create(:stop, position: 3, route: route),
-      FactoryGirl.create(:stop, position: 4, route: route),
-      FactoryGirl.create(:stop, position: 5, route: route, place: FactoryGirl.create(:place, name: 'Haverhill'))
+      FactoryBot.create(:stop, position: 1, route: route, place: FactoryBot.create(:place, name: 'Newmarket')),
+      FactoryBot.create(:stop, position: 2, route: route),
+      FactoryBot.create(:stop, position: 3, route: route),
+      FactoryBot.create(:stop, position: 4, route: route),
+      FactoryBot.create(:stop, position: 5, route: route, place: FactoryBot.create(:place, name: 'Haverhill'))
     ]
   }
   
   let!(:journeys) {
     [
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: false ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: false ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: false ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: false )
     ]
   }
   
   let!(:return_journeys) {
     [
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: true ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: true ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: true ),
-      FactoryGirl.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: true )
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 1.day}T09:00:00", reversed: true ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T10:00:00", reversed: true ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 2.day}T09:00:00", reversed: true ),
+      FactoryBot.create(:journey, route: route, start_time: "#{Date.today + 3.day}T10:00:00", reversed: true )
     ]
   }
   
   let(:booking) {
-    FactoryGirl.create(:booking,
+    FactoryBot.create(:booking,
       passenger: passenger,
       pickup_stop_id: route.stops.first.id,
       dropoff_stop_id: route.stops.last.id
@@ -66,7 +66,7 @@ RSpec.describe BookingsController, type: :controller do
   
   describe 'PUT update' do
     let(:booking) {
-      FactoryGirl.create(:booking,
+      FactoryBot.create(:booking,
         passenger: passenger,
         pickup_stop_id: route.stops.first.id,
         dropoff_stop_id: route.stops.first.id,
@@ -82,8 +82,8 @@ RSpec.describe BookingsController, type: :controller do
           disabled_bus_passes: 0,
           scholar_bus_passes: 0,
           special_requirements: 'Some text',
-          pickup_landmark_id: FactoryGirl.create(:landmark).id,
-          dropoff_landmark_id: FactoryGirl.create(:landmark).id,
+          pickup_landmark_id: FactoryBot.create(:landmark).id,
+          dropoff_landmark_id: FactoryBot.create(:landmark).id,
           passenger_name: 'Me',
           phone_number: '1234',
           email: 'email@example.com',
@@ -93,7 +93,7 @@ RSpec.describe BookingsController, type: :controller do
         route_id: route
       }
     }
-    let(:journey) { FactoryGirl.create(:journey) }
+    let(:journey) { FactoryBot.create(:journey) }
     
     it 'updates a booking' do
       put :update, params, { current_passenger: passenger.session_token }
@@ -106,7 +106,7 @@ RSpec.describe BookingsController, type: :controller do
     context 'confirmation' do
       
       let(:booking) {
-        FactoryGirl.create(:booking,
+        FactoryBot.create(:booking,
           passenger: passenger,
           pickup_stop_id: route.stops.first.id,
           dropoff_stop_id: route.stops.first.id,
@@ -194,7 +194,7 @@ RSpec.describe BookingsController, type: :controller do
   
   describe 'GET cancel' do
     
-    let(:booking) { FactoryGirl.create(:booking) }
+    let(:booking) { FactoryBot.create(:booking) }
     let(:subject) {
       get :cancel, token: booking.token
     }

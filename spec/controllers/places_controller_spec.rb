@@ -4,7 +4,7 @@ RSpec.describe PlacesController, type: :controller, que: true do
   render_views
     
   it 'returns all places' do
-    FactoryGirl.create_list(:place, 5)
+    FactoryBot.create_list(:place, 5)
     
     get 'index', format: :json
     
@@ -14,23 +14,23 @@ RSpec.describe PlacesController, type: :controller, que: true do
   end
   
   it 'searches places' do
-    FactoryGirl.create_list(:place, 5)
+    FactoryBot.create_list(:place, 5)
     
-    place = FactoryGirl.create(:place, name: 'Some place')
+    place = FactoryBot.create(:place, name: 'Some place')
     
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: place),
-      FactoryGirl.create(:stop),
+    FactoryBot.create(:route, stops: [
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: place),
+      FactoryBot.create(:stop),
     ])
     
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: place),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop),
+    FactoryBot.create(:route, stops: [
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: place),
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop),
     ])
         
     get 'index', format: :json, query: 'so'

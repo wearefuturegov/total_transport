@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   
-  let(:passenger) { FactoryGirl.create(:passenger) }
+  let(:passenger) { FactoryBot.create(:passenger) }
   
   it 'sets the correct vars' do
     get :new, { passenger_id: passenger.id }

@@ -4,10 +4,10 @@ RSpec.describe Admin::SuggestionsController, type: :controller do
   login_supplier(true)
   
   it 'gets all suggestions' do
-    suggested_journeys = FactoryGirl.create_list(:suggested_journey, 1)
-    suggested_routes = FactoryGirl.create_list(:suggested_route, 2)
-    suggested_edit_to_stops = FactoryGirl.create_list(:suggested_edit_to_stop, 3)
-    supplier_suggestions = FactoryGirl.create_list(:supplier_suggestion, 4)
+    suggested_journeys = FactoryBot.create_list(:suggested_journey, 1)
+    suggested_routes = FactoryBot.create_list(:suggested_route, 2)
+    suggested_edit_to_stops = FactoryBot.create_list(:suggested_edit_to_stop, 3)
+    supplier_suggestions = FactoryBot.create_list(:supplier_suggestion, 4)
     
     get :index
     

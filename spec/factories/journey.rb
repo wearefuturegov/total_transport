@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:journey) do
     open_to_bookings true
     route
     sequence(:start_time) { |n| Date.tomorrow + n.hours  }
-    supplier { FactoryGirl.create(:supplier) }
-    vehicle { FactoryGirl.create(:vehicle) }
+    supplier { FactoryBot.create(:supplier) }
+    vehicle { FactoryBot.create(:vehicle) }
   end
 end

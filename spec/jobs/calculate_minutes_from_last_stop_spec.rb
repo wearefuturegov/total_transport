@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe CalculateMinutesFromLastStop, type: :model, webmock: true do
   
-  let(:place1) { FactoryGirl.create(:place, latitude:52.24488, longitude:0.407962)}
-  let(:place2) { FactoryGirl.create(:place, latitude:52.222596, longitude:0.462666)}
-  let(:route) { FactoryGirl.create(:route, stops_count: 0) }
+  let(:place1) { FactoryBot.create(:place, latitude:52.24488, longitude:0.407962)}
+  let(:place2) { FactoryBot.create(:place, latitude:52.222596, longitude:0.462666)}
+  let(:route) { FactoryBot.create(:route, stops_count: 0) }
   let!(:stops) {
     [
-      FactoryGirl.create(:stop, place: place1, route: route, minutes_from_last_stop: nil),
-      FactoryGirl.create(:stop, place: place2, route: route, minutes_from_last_stop: nil)
+      FactoryBot.create(:stop, place: place1, route: route, minutes_from_last_stop: nil),
+      FactoryBot.create(:stop, place: place2, route: route, minutes_from_last_stop: nil)
     ]
   }
   

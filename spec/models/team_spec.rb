@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Team, type: :model do
   
   it 'allows a name to be specified' do
-    team = FactoryGirl.create(:team, name: 'My Team', suppliers: FactoryGirl.create_list(:supplier, 5))
+    team = FactoryBot.create(:team, name: 'My Team', suppliers: FactoryBot.create_list(:supplier, 5))
     expect(team.name).to eq('My Team')
   end
   
   it 'has a default name' do
-    suppliers = FactoryGirl.create_list(:supplier, 1, name: 'Brian')
-    team = FactoryGirl.create(:team,
+    suppliers = FactoryBot.create_list(:supplier, 1, name: 'Brian')
+    team = FactoryBot.create(:team,
       suppliers: suppliers
     )
     
@@ -17,7 +17,7 @@ RSpec.describe Team, type: :model do
   end
   
   it 'leaves name alone if there are no suppliers' do
-    team = FactoryGirl.create(:team, suppliers: [], name: nil)
+    team = FactoryBot.create(:team, suppliers: [], name: nil)
     expect(team.name).to eq(nil)
   end
   

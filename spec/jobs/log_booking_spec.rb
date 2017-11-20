@@ -3,7 +3,7 @@ require 'support/vcr'
 
 RSpec.describe LogBooking, :vcr, :webmock, :gdrive, type: :model do
   
-  let(:booking) { FactoryGirl.create(:booking) }
+  let(:booking) { FactoryBot.create(:booking) }
 
   it 'logs a booking' do
     LogBooking.run(booking.id)

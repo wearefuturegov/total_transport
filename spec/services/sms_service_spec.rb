@@ -11,11 +11,11 @@ RSpec.describe SmsService, type: :model do
   
   context 'sends booking notification' do
     let(:booking) {
-      FactoryGirl.create(:booking,
-        pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
-        dropoff_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Saffron Walden')),
-        pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion'),
-        journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-02T09:00:00Z')),
+      FactoryBot.create(:booking,
+        pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
+        dropoff_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Saffron Walden')),
+        pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion'),
+        journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-02T09:00:00Z')),
       )
     }
     let(:sms) { SmsService.new(to: '1234', template: :booking_notification, booking: booking) }
@@ -31,8 +31,8 @@ RSpec.describe SmsService, type: :model do
     end
     
     it 'with a return journey' do
-      booking.return_journey = FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-02T15:00:00Z'))
-      booking.dropoff_landmark = FactoryGirl.create(:landmark, name: 'The White Horse')
+      booking.return_journey = FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-02T15:00:00Z'))
+      booking.dropoff_landmark = FactoryBot.create(:landmark, name: 'The White Horse')
       expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
       expect(FakeSMS.messages.last[:to]).to eq('1234')
       body = FakeSMS.messages.last[:body]
@@ -43,7 +43,7 @@ RSpec.describe SmsService, type: :model do
   end
   
   it 'sends a verification code' do
-    passenger = FactoryGirl.create(:passenger, verification_code: 'abcd')
+    passenger = FactoryBot.create(:passenger, verification_code: 'abcd')
     sms = SmsService.new(to: '1234', template: :verification_code, passenger: passenger)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
@@ -51,10 +51,10 @@ RSpec.describe SmsService, type: :model do
   end
   
   it 'sends a first reminder' do
-    booking = FactoryGirl.create(:booking,
-      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
-      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion'),
+    booking = FactoryBot.create(:booking,
+      journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
+      pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion'),
     )
     sms = SmsService.new(to: '1234', template: :first_alert, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
@@ -63,10 +63,10 @@ RSpec.describe SmsService, type: :model do
   end
   
   it 'sends a second reminder' do
-    booking = FactoryGirl.create(:booking,
-      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
-      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
+    booking = FactoryBot.create(:booking,
+      journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
+      pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion')
     )
     sms = SmsService.new(to: '1234', template: :second_alert, trip: booking.outward_trip, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
@@ -75,10 +75,10 @@ RSpec.describe SmsService, type: :model do
   end
   
   it 'sends a cancellation confirmation' do
-    booking = FactoryGirl.create(:booking,
-      journey: FactoryGirl.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
-      pickup_stop: FactoryGirl.create(:stop, place: FactoryGirl.create(:place, name: 'Sudbury')),
-      pickup_landmark: FactoryGirl.create(:landmark, name: 'The Red Lion')
+    booking = FactoryBot.create(:booking,
+      journey: FactoryBot.create(:journey, start_time: DateTime.parse('2017-01-01T09:00:00Z')),
+      pickup_stop: FactoryBot.create(:stop, place: FactoryBot.create(:place, name: 'Sudbury')),
+      pickup_landmark: FactoryBot.create(:landmark, name: 'The Red Lion')
     )
     sms = SmsService.new(to: '1234', template: :booking_cancellation, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)

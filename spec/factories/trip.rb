@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:trip) do
     journey nil
-    booking { FactoryGirl.create(:booking) }
+    booking { FactoryBot.create(:booking) }
   end
 end

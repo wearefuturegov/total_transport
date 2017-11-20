@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SuggestedEditToStopController, type: :controller do
 
-  let(:passenger) { FactoryGirl.create(:passenger) }
-  let(:route) { FactoryGirl.create(:route) }
-  let(:booking) { FactoryGirl.create(:booking, passenger: passenger) }
+  let(:passenger) { FactoryBot.create(:passenger) }
+  let(:route) { FactoryBot.create(:route) }
+  let(:booking) { FactoryBot.create(:booking, passenger: passenger) }
   let(:stop) { route.stops.first }
   
   it 'displays a suggestion form' do

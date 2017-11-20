@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Admin::StopsController, type: :controller do
   login_supplier
   
-  let!(:route) { FactoryGirl.create(:route) }
-  let!(:stop) { FactoryGirl.create(:stop, route: route) }
+  let!(:route) { FactoryBot.create(:route) }
+  let!(:stop) { FactoryBot.create(:stop, route: route) }
   
   context '#new' do
     
@@ -29,7 +29,7 @@ RSpec.describe Admin::StopsController, type: :controller do
     let(:params) {
       {
         stop: {
-          place_id: FactoryGirl.create(:place).id,
+          place_id: FactoryBot.create(:place).id,
           minutes_from_last_stop: 10,
           landmarks_attributes: [
             {
@@ -80,7 +80,7 @@ RSpec.describe Admin::StopsController, type: :controller do
     let(:params) {
       {
         stop: {
-          place_id: FactoryGirl.create(:place, name: 'New Place').id,
+          place_id: FactoryBot.create(:place, name: 'New Place').id,
         },
         route_id: route,
         id: stop
@@ -109,7 +109,7 @@ RSpec.describe Admin::StopsController, type: :controller do
     end
     
     it 'updates a landmark' do
-      landmark = FactoryGirl.create(:landmark)
+      landmark = FactoryBot.create(:landmark)
       stop.landmarks << landmark
       stop.save
       

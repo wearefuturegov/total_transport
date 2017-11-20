@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::BookingsController, type: :controller do
   login_supplier(true)
 
-  let(:booking) { FactoryGirl.create(:booking, :with_return_journey) }
+  let(:booking) { FactoryBot.create(:booking, :with_return_journey) }
   
   context '#show' do
     

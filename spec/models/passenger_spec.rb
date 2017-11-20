@@ -13,7 +13,7 @@ RSpec.describe Passenger, type: :model do
     
     it 'gets an existing passenger' do
       phone_number = Passenger.formatted_phone_number('020 7925 0918')
-      passenger = FactoryGirl.create(:passenger, phone_number: phone_number)
+      passenger = FactoryBot.create(:passenger, phone_number: phone_number)
       p = Passenger.setup(passenger.phone_number)
       expect(Passenger.count).to eq(1)
       expect(p.session_token).to_not eq(passenger.session_token)

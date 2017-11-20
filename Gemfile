@@ -63,8 +63,8 @@ gem 'google_drive'
 gem 'cocoon'
 gem 'postcodes_io'
 
-# Require FactoryGirl in production for seeding purposes
-gem 'factory_girl_rails', '>= 4.8.0'
+# Require FactoryBot in production for seeding purposes
+gem 'factory_bot_rails', '>= 4.8.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

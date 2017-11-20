@@ -5,7 +5,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
   
   context '#index' do
     
-    let(:routes) { FactoryGirl.create_list(:route, 5) }
+    let(:routes) { FactoryBot.create_list(:route, 5) }
     let!(:subject) { get :index }
     
     it 'lists all the routes' do
@@ -20,7 +20,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
   
   context '#show' do
     
-    let!(:route) { FactoryGirl.create(:route) }
+    let!(:route) { FactoryBot.create(:route) }
     let!(:subject) {
       get :show, {
         id: route.id
@@ -56,7 +56,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
   
   context '#destroy' do
     
-    let!(:route) { FactoryGirl.create(:route) }
+    let!(:route) { FactoryBot.create(:route) }
     let(:subject) {
       delete :destroy, {
         id: route.id
@@ -75,7 +75,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
   
   context '#sort' do
     
-    let!(:route) { FactoryGirl.create(:route, stops_count: 7) }
+    let!(:route) { FactoryBot.create(:route, stops_count: 7) }
     
     it 'redirects the stop order' do
       stops = route.stops

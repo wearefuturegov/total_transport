@@ -1,11 +1,11 @@
 module RouteSteps
 
   step 'there is a route with :n stops' do |n|
-    @route = FactoryGirl.create(:route, stops_count: n.to_i)
+    @route = FactoryBot.create(:route, stops_count: n.to_i)
   end
   
   step 'there is a place with no routes called :placename' do |name|
-    FactoryGirl.create(:place, name: name)
+    FactoryBot.create(:place, name: name)
   end
 
   step 'that route has a stop called :stop_name at position :n' do |stop_name, n|
@@ -15,11 +15,11 @@ module RouteSteps
   end
 
   step 'that route has :n :outward_or_return journey in :days days time' do |n, reversed, days|
-    FactoryGirl.create_list(:journey, n.to_i, route: @route, reversed: reversed, start_time: DateTime.now + days.to_i.days)
+    FactoryBot.create_list(:journey, n.to_i, route: @route, reversed: reversed, start_time: DateTime.now + days.to_i.days)
   end
   
   step 'the route has a(n) :outward_or_return journey at :time in :days days time'  do |reversed, time, days|
-    instance_variable_set(:"@#{reversed}_journey", FactoryGirl.create(:journey, route: @route, reversed: reversed, start_time: DateTime.parse(time) + days.to_i.days))
+    instance_variable_set(:"@#{reversed}_journey", FactoryBot.create(:journey, route: @route, reversed: reversed, start_time: DateTime.parse(time) + days.to_i.days))
   end
   
 end

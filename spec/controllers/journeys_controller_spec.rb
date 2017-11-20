@@ -2,37 +2,37 @@ require 'rails_helper'
 
 RSpec.describe JourneysController, type: :controller do
   
-  let(:origin) { FactoryGirl.create(:place, name: 'Haverhill') }
-  let(:destination) { FactoryGirl.create(:place, name: 'Newmarket') }
-  let(:other_place) { FactoryGirl.create(:place, name: 'Somewhere Else') }
+  let(:origin) { FactoryBot.create(:place, name: 'Haverhill') }
+  let(:destination) { FactoryBot.create(:place, name: 'Newmarket') }
+  let(:other_place) { FactoryBot.create(:place, name: 'Somewhere Else') }
   let(:datetime) { '2017-01-01T09:00:00+00:00' }
 
   before(:each) { Timecop.freeze(datetime) }
   after(:each) { Timecop.return }
   
   let(:route) do
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: destination)
+    FactoryBot.create(:route, stops: [
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: origin),
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: destination)
     ])
   end
   
   let(:route2) do
-    FactoryGirl.create(:route, stops: [
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: destination),
-      FactoryGirl.create(:stop),
-      FactoryGirl.create(:stop, place: origin)
+    FactoryBot.create(:route, stops: [
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: destination),
+      FactoryBot.create(:stop),
+      FactoryBot.create(:stop, place: origin)
     ])
   end
   
   before do
-    FactoryGirl.create_list(:journey, 2)
-    FactoryGirl.create_list(:journey, 4, route: route, reversed: false)
-    FactoryGirl.create_list(:journey, 3, route: route, reversed: true)
-    FactoryGirl.create_list(:journey, 3, route: route2, reversed: false)
+    FactoryBot.create_list(:journey, 2)
+    FactoryBot.create_list(:journey, 4, route: route, reversed: false)
+    FactoryBot.create_list(:journey, 3, route: route, reversed: true)
+    FactoryBot.create_list(:journey, 3, route: route2, reversed: false)
   end
 
   it 'renders a template' do

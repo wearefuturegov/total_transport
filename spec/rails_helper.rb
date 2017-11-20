@@ -38,7 +38,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
-    FactoryGirl.reload
+    FactoryBot.reload
   end
   
   config.before(:each, que: true) do
@@ -71,7 +71,7 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
 end

@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SuggestedJourneyController, type: :controller do
 
-  let(:passenger) { FactoryGirl.create(:passenger) }
-  let(:route) { FactoryGirl.create(:route) }
-  let(:booking) { FactoryGirl.create(:booking, passenger: passenger) }
+  let(:passenger) { FactoryBot.create(:passenger) }
+  let(:route) { FactoryBot.create(:route) }
+  let(:booking) { FactoryBot.create(:booking, passenger: passenger) }
   
   it 'displays a suggestion form' do
     get :new, { id: booking.id, route_id: route.id }, { current_passenger: passenger.session_token }

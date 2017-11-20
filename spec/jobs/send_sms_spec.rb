@@ -12,7 +12,7 @@ RSpec.describe SendSMS, type: :model do
   end
   
   it 'runs a service with a booking' do
-    booking = FactoryGirl.create(:booking)
+    booking = FactoryBot.create(:booking)
     params = { to: '1234', template: :booking_notification, booking: booking.id }
     expected_params = params.merge(booking: booking)
     expect(SmsService).to receive(:new).with(expected_params) { service }
@@ -21,7 +21,7 @@ RSpec.describe SendSMS, type: :model do
   end
   
   it 'runs a service with a passenger' do
-    passenger = FactoryGirl.create(:passenger)
+    passenger = FactoryBot.create(:passenger)
     params = { to: '1234', template: :verification_code, passenger: passenger.id }
     expected_params = params.merge(passenger: passenger)
     expect(SmsService).to receive(:new).with(expected_params) { service }
@@ -31,7 +31,7 @@ RSpec.describe SendSMS, type: :model do
   
   context 'if the object no longer exists' do
     
-    let!(:booking) { FactoryGirl.create(:booking) }
+    let!(:booking) { FactoryBot.create(:booking) }
     let(:params) { { to: '1234', template: :booking_notification, booking: booking.id } }
     before { booking.destroy }
     

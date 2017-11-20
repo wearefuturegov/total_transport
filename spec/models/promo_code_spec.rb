@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe PromoCode, type: :model do
   
-  let(:promo_code) { FactoryGirl.create(:promo_code) }
+  let(:promo_code) { FactoryBot.create(:promo_code) }
   
   it 'creates a code' do
     expect(SecretSanta).to receive(:create_code) { 'sekritc0d3' }
-    promo_code = FactoryGirl.create(:promo_code)
+    promo_code = FactoryBot.create(:promo_code)
     expect(promo_code.code).to eq('sekritc0d3')
   end
   
@@ -18,7 +18,7 @@ RSpec.describe PromoCode, type: :model do
   context '#used?' do
     
     it 'returns true if a booking is present' do
-      promo_code.booking = FactoryGirl.create(:booking)
+      promo_code.booking = FactoryBot.create(:booking)
       expect(promo_code.used?).to eq(true)
     end
     
@@ -35,7 +35,7 @@ RSpec.describe PromoCode, type: :model do
     end
     
     it 'returns false if a booking is present' do
-      promo_code.booking = FactoryGirl.create(:booking)
+      promo_code.booking = FactoryBot.create(:booking)
       expect(promo_code.available?).to eq(false)
     end
     

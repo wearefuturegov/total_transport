@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:passenger) do
     name "James Darling"
     phone_number "07811407085"

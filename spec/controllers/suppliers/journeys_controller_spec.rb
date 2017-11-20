@@ -4,21 +4,21 @@ RSpec.describe Admin::JourneysController, type: :controller do
   login_supplier
   
   let(:journey) do
-    FactoryGirl.create(:journey,
+    FactoryBot.create(:journey,
       supplier: @supplier,
-      outward_bookings: FactoryGirl.create_list(:booking, 5)
+      outward_bookings: FactoryBot.create_list(:booking, 5)
     )
   end
-  let(:route) { FactoryGirl.create(:route) }
+  let(:route) { FactoryBot.create(:route) }
   
   context '#index' do
     
     context 'without a filter' do
       
       before do
-        FactoryGirl.create_list(:journey, 2)
-        FactoryGirl.create_list(:journey, 3, supplier: @supplier)
-        FactoryGirl.create_list(:journey, 5, supplier: FactoryGirl.create(:supplier, team: @supplier.team))
+        FactoryBot.create_list(:journey, 2)
+        FactoryBot.create_list(:journey, 3, supplier: @supplier)
+        FactoryBot.create_list(:journey, 5, supplier: FactoryBot.create(:supplier, team: @supplier.team))
       end
       
       it 'gets all journeys for a supplier' do
@@ -44,8 +44,8 @@ RSpec.describe Admin::JourneysController, type: :controller do
 
     context 'filtering' do
       it 'filters by past or future' do
-        FactoryGirl.create_list(:journey, 2, start_time: DateTime.now - 4.days, supplier: @supplier)
-        FactoryGirl.create_list(:journey, 3, start_time: DateTime.now + 4.days, supplier: @supplier)
+        FactoryBot.create_list(:journey, 2, start_time: DateTime.now - 4.days, supplier: @supplier)
+        FactoryBot.create_list(:journey, 3, start_time: DateTime.now + 4.days, supplier: @supplier)
         get :index, { filterrific: {
             past_or_future: 'future'
           }
@@ -59,9 +59,9 @@ RSpec.describe Admin::JourneysController, type: :controller do
       end
       
       it 'filters by booked and empty' do
-        FactoryGirl.create_list(:journey, 2, outward_bookings: FactoryGirl.create_list(:booking, 4), supplier: @supplier, booked: true)
-        FactoryGirl.create_list(:journey, 5, return_bookings: FactoryGirl.create_list(:booking, 2), supplier: @supplier, booked: true)
-        FactoryGirl.create_list(:journey, 3, supplier: @supplier, booked: false)
+        FactoryBot.create_list(:journey, 2, outward_bookings: FactoryBot.create_list(:booking, 4), supplier: @supplier, booked: true)
+        FactoryBot.create_list(:journey, 5, return_bookings: FactoryBot.create_list(:booking, 2), supplier: @supplier, booked: true)
+        FactoryBot.create_list(:journey, 3, supplier: @supplier, booked: false)
         get :index, { filterrific: {
             booked_or_empty: 'booked'
           }
@@ -100,7 +100,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     
     it 'creates a new journey' do
       start_time = DateTime.now + 4.days
-      vehicle = FactoryGirl.create(:vehicle)
+      vehicle = FactoryBot.create(:vehicle)
       post :create, {
         journey: {
           start_time: start_time,
@@ -149,7 +149,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#update' do
     
     it 'updates a journey' do
-      vehicle = FactoryGirl.create(:vehicle, registration: 'ABC 1234')
+      vehicle = FactoryBot.create(:vehicle, registration: 'ABC 1234')
       put :update, {
         id: journey.id,
         journey: {
@@ -165,7 +165,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#destroy' do
     
     it 'destroys a journey' do
-      journey = FactoryGirl.create(:journey, supplier: @supplier)
+      journey = FactoryBot.create(:journey, supplier: @supplier)
       expect {
         delete :destroy, { id: journey.id }
       }.to change(Journey, :count).by(-1)

@@ -4,18 +4,18 @@ RSpec.describe Trip, type: :model do
   
   let(:stops) {
     [
-      FactoryGirl.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryGirl.create(:place, name: 'Pickup Stop')),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 40, position: 2),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 20, position: 3),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 10, position: 4),
-      FactoryGirl.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryGirl.create(:place, name: 'Dropoff Stop'))
+      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryBot.create(:place, name: 'Pickup Stop')),
+      FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2),
+      FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3),
+      FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4),
+      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryBot.create(:place, name: 'Dropoff Stop'))
     ]
   }
-  let(:route) { FactoryGirl.create(:route, stops: stops) }
-  let(:journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
-  let(:return_journey) { FactoryGirl.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), reversed: true) }
+  let(:route) { FactoryBot.create(:route, stops: stops) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00')) }
+  let(:return_journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), reversed: true) }
   let(:booking) {
-    FactoryGirl.create(:booking,
+    FactoryBot.create(:booking,
       journey: journey,
       return_journey: return_journey,
       pickup_stop: stops.first,
@@ -36,7 +36,7 @@ RSpec.describe Trip, type: :model do
   context 'without a journey specified' do
     
     let(:trip) {
-      FactoryGirl.build(:trip, booking: booking)
+      FactoryBot.build(:trip, booking: booking)
     }
     
     it 'is an outward trip' do
@@ -72,7 +72,7 @@ RSpec.describe Trip, type: :model do
   context 'with a journey specified' do
     
     let(:trip) {
-      FactoryGirl.build(:trip, booking: booking, journey: return_journey)
+      FactoryBot.build(:trip, booking: booking, journey: return_journey)
     }
     
     it 'is a return trip' do

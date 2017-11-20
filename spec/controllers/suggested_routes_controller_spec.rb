@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SuggestedRoutesController, type: :controller do
 
-  let(:passenger) { FactoryGirl.create(:passenger) }
+  let(:passenger) { FactoryBot.create(:passenger) }
 
   describe 'GET new' do
 

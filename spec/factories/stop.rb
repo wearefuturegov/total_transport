@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:stop) do
     place
     route
     minutes_from_last_stop 20
-    landmarks { FactoryGirl.create_list(:landmark, landmarks_count, stop: nil) }
+    landmarks { FactoryBot.create_list(:landmark, landmarks_count, stop: nil) }
 
     sequence(:position) { |n| n }
     
@@ -17,7 +17,7 @@ FactoryGirl.define do
     
     after(:build) do |stop, evaluator|
       if stop.landmarks.nil?
-        stop.landmarks = FactoryGirl.create_list(:landmark, evaluator.landmarks_count, stop: nil)
+        stop.landmarks = FactoryBot.create_list(:landmark, evaluator.landmarks_count, stop: nil)
       end
     end
   end
