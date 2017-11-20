@@ -4,6 +4,8 @@ class Team < ActiveRecord::Base
   has_many :journeys, through: :suppliers
   
   after_create :set_name
+  
+  accepts_nested_attributes_for :suppliers
 
   def solo_team?
     suppliers.count < 2
