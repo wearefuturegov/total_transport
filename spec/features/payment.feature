@@ -5,8 +5,8 @@ Feature: Paying online
     Given there is a route with 5 stops
     And that route has a stop called Newmarket at position 1
     And that route has a stop called Haverhill at position 3
-    And that route has 1 outward journey in 3 days time
-    And that route has 1 return journey in 3 days time
+    And the route has an outward journey at 8am in 3 days time
+    And the route has a return journey at 3pm in 3 days time
     And I visit /journeys
     
   Scenario: Successful online payment
