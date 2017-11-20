@@ -3,15 +3,25 @@
     = @page_title
 %section.hero
   %section.section.heading
-    %h2
-      = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-
-    %section.action
+    %section.action.container
       %h4
-        = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-      = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
-      %p.small
-        = t('button.main_book_asterisk')
+        = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+      .inner
+        .third
+          .icon=image_tag('homepage_icon_1.png')
+          %p= t('steps.step_1.info')
+        .third
+          .icon=image_tag('homepage_icon_2.png')
+          %p= t('steps.step_2.info')
+        .third
+          .icon=image_tag('homepage_icon_3.png')
+          %p= t('steps.step_3.info')
+    / %section.action
+    /   %h4
+    /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
+    /   = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
+    /   %p.small
+    /     = t('button.main_book_asterisk')
 
 %main.main
   %section.hero#step-1
@@ -24,7 +34,7 @@
         = t('public-index.event.info')
 
       %section.action
-        = link_to I18n.t('button.event'), 'https://bookyourride.typeform.com/to/IzWWwF', class: 'button cta'
+        = link_to I18n.t('button.event'), '#', class: 'button cta disabled'
 
   %section.hero.regular
     .overlay
@@ -36,7 +46,7 @@
         = t('public-index.event.regular.info')
 
       %section.action
-        = link_to I18n.t('button.regular'), 'https://bookyourride.typeform.com/to/y0LceD', class: 'button cta'
+        = link_to I18n.t('button.regular'), '#', class: 'button cta disabled'
 
   %section.hero.enquiry
     .overlay
@@ -50,28 +60,6 @@
       %section.action
         = link_to I18n.t('button.enquiry'), 'https://bookyourride.typeform.com/to/H7i6w5', class: 'button cta'
 
-
-  -# class steps was taken, so journey
-
-
-  %section.section.journey
-    %section.step
-      %h3
-        = t('steps.step_1.title')
-      %p
-        = t('steps.step_1.info')
-
-    %section.step
-      %h3
-        = t('steps.step_2.title')
-      %p
-        = t('steps.step_2.info')
-
-    %section.step
-      %h3
-        = t('steps.step_3.title')
-      %p
-        = t('steps.step_3.info')
 
   %section.section.info
     %h2
@@ -93,9 +81,9 @@
       %ul.credit
         %li
           = t('credit.title')
-          %span 
+          %span
             = link_to I18n.t('credit.essex.text'), t('credit.essex.link')
-          %span 
+          %span
             = link_to I18n.t('credit.suffolk.text'), t('credit.suffolk.link')
-          %span 
+          %span
             = link_to I18n.t('credit.futuregov.text'), t('credit.futuregov.link')

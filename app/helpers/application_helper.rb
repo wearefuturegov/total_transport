@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def friendly_date(date, length=false)
     if date == Date.today
       'Today'
@@ -25,7 +25,7 @@ module ApplicationHelper
       phone.nil? ? original : "#{phone} - number possibly changed from passenger's original (#{original})"
     end
   end
-  
+
   def book_journey_submit_label(journey, count, label = nil)
     label = label.nil? ? t('button.book') : label
     if count > 1
@@ -34,16 +34,16 @@ module ApplicationHelper
       label
     end
   end
-  
+
   def via_point(journey)
     points = [journey.pickup_stop.position, journey.dropoff_stop.position].sort
     mid = (points.length - 1) / 2.0
     median = ((points[mid.floor] + points[mid.ceil]) / 2.0).to_i
     journey.route.stops[median].place.name
   end
-    
+
   def format_time(time)
     (time).strftime("%l:%M%P")
   end
-  
+
 end

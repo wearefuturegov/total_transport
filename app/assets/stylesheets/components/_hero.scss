@@ -8,7 +8,7 @@
     position: relative;
     text-align: center;
     .heading {
-      margin-top: $baseline*8;
+      margin-top: $baseline*6;
       margin-bottom: 0;
       .action {
         margin-top: 0;
@@ -19,6 +19,13 @@
           line-height: calc(#{$h4} * 1.2);
           margin-top: 0;
           margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+        }
+      }
+      .icon {
+        text-align: center;
+        img {
+          width: 200px;
+          height: auto;
         }
       }
     }
