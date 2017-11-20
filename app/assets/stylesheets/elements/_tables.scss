@@ -1,7 +1,6 @@
 table {
   border-collapse: collapse;
   margin: $small-spacing 0;
-  table-layout: fixed;
   width: 100%;
 }
 
@@ -35,4 +34,3 @@ tbody.alternating tr:hover {
 tbody.alternating tr:first-child {
   background-color: #fff !important;
 }
-
