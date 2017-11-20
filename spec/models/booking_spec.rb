@@ -180,6 +180,12 @@ RSpec.describe Booking, :que, type: :model do
       expect(booking.available_journeys).to eq(journeys)
     end
     
+    it 'ignores full journeys' do
+      full_journey = journeys[0]
+      FactoryGirl.create_list(:booking, full_journey.vehicle.seats, journey: full_journey, state: 'booked')
+      expect(booking.available_journeys).to_not include(full_journey)
+    end
+    
   end
   
   context 'pickup and dropoff times' do

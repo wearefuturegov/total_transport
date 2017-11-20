@@ -61,7 +61,7 @@ class Journey < ActiveRecord::Base
         j.dropoff_stop = t
         j
       end
-    end.flatten.uniq
+    end.flatten.uniq.reject { |s| s.full? }
   end
 
   def booked_bookings
