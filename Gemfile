@@ -105,5 +105,5 @@ end
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-datetimepicker'
-  gem 'rails-assets-jquery', '~> 1.12'
+  gem 'rails-assets-jquery', '~> 3.2'
 end
