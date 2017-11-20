@@ -6,8 +6,14 @@
 }
 
 .hero {
-   @include span-columns(12);
-   margin-right: 0;
+  @include span-columns(12);
+  margin-right: 0;
+  .features {
+    @include span-columns(12);
+    .icon {
+      @include span-columns(4);
+    }
+  }
 }
 
 .main {
