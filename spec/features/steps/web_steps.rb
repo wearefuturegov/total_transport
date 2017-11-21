@@ -117,7 +117,7 @@ module WebSteps
   
   step 'I pay via online payments' do
     page.execute_script '$("#pay-online")[0].scrollIntoView(true)'
-    click_on I18n.t('helpers.submit.booking.pay')
+    click_on I18n.t('button.pay')
     within_frame 'stripe_checkout_app' do
       find_field('Email').send_keys 'someone@wearefuturegov.com'
       find_field('Card number').send_keys '4242424242424242'
@@ -130,7 +130,7 @@ module WebSteps
   end
   
   step 'I should see the confirmation page' do
-    expect(page).to have_content('your ride is now confirmed')
+    expect(page).to have_content('your Ride is now confirmed')
   end
   
   def click_book_journey
