@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20171120125309) do
     t.string   "email"
     t.string   "token"
     t.string   "cancellation_reason"
+    t.string   "charge_id"
   end
 
   add_index "bookings", ["dropoff_landmark_id"], name: "index_bookings_on_dropoff_landmark_id", using: :btree

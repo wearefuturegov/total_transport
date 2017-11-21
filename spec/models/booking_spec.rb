@@ -285,10 +285,101 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[0]['template']).to eq('booking_cancellation')
       expect(job.args[0]['booking']).to eq(booking.id)
     end
+
+    context 'when paying by card' do
+      
+      before do
+        booking.charge_id = 'something'
+      end
+      
+      it 'applies a refund' do
+        expect(booking).to receive(:refund!)
+        booking.update_attribute :state, 'cancelled'
+      end
+      
+    end
     
   end
   
-
+  describe '#create_payment', :stripe do
+    
+    context 'with a valid card' do
+    
+      before do
+        booking.create_payment!(@stripe_helper.generate_card_token)
+      end
+      
+      it 'sets database columns correctly' do
+        expect(booking.charge_id).to_not be_nil
+        expect(booking.payment_method).to eq('card')
+      end
+      
+      it 'creates a charge' do
+        charge = Stripe::Charge.retrieve(booking.charge_id)
+        expect(charge.amount).to eq(booking.price_in_pence)
+      end
+      
+      it 'creates metadata' do
+        charge = Stripe::Charge.retrieve(booking.charge_id)
+        expect(charge.metadata['outward_journey_url']).to eq(
+          "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
+        )
+      end
+      
+      context 'with a return trip' do
+        
+        before do
+          booking.return_journey = FactoryBot.create(:journey,
+            route: route,
+            start_time: DateTime.parse('2017-01-01T15:00:00'),
+            reversed: true
+          )
+          booking.create_payment!(@stripe_helper.generate_card_token)
+        end
+        
+        it 'creates metadata' do
+          charge = Stripe::Charge.retrieve(booking.charge_id)
+          expect(charge.metadata['outward_journey_url']).to eq(
+            "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
+          )
+          expect(charge.metadata['return_journey_url']).to eq(
+            "http://example.org/admin/journeys/#{booking.return_trip.journey.id}/bookings/#{booking.id}"
+          )
+        end
+        
+      end
+      
+    end
+    
+    context 'with an invalid card' do
+      
+      before do
+        StripeMock.prepare_card_error(:card_declined)
+      end
+      
+      it 'generates an error' do
+        expect {
+          booking.create_payment!(@stripe_helper.generate_card_token)
+        }.to raise_error(Stripe::CardError, 'The card was declined')
+      end
+      
+    end
+    
+  end
+  
+  describe '#refund', :stripe do
+    
+    before do
+      booking.create_payment!(@stripe_helper.generate_card_token)
+    end
+    
+    it 'refunds a charge' do
+      booking.send(:refund!)
+      charge = Stripe::Charge.retrieve(booking.charge_id)
+      expect(charge.amount_refunded).to eq(booking.price_in_pence)
+    end
+    
+  end
   
   describe 'number_of_adults' do
     
@@ -419,6 +510,8 @@ RSpec.describe Booking, :que, type: :model do
         1,
         0,
         3.5,
+        'n',
+        nil,
         'outward',
         DateTime.parse('2017-01-01 10:00:00').in_time_zone('UTC'),
         'Pickup Stop',
@@ -440,6 +533,8 @@ RSpec.describe Booking, :que, type: :model do
         1,
         0,
         3.5,
+        'n',
+        nil,
         'return',
         DateTime.parse('2017-01-01 15:00:00').in_time_zone('UTC'),
         'Dropoff Stop',
@@ -450,6 +545,13 @@ RSpec.describe Booking, :que, type: :model do
         'Wheelchair',
         booking.created_at
       ])
+    end
+    
+    it 'shows as paid if paid by card' do
+      booking.payment_method = 'card'
+      booking.charge_id = 'abc123'
+      expect(booking.csv_row(booking.journey)[7]).to eq('y')
+      expect(booking.csv_row(booking.journey)[8]).to eq('abc123')
     end
     
   end

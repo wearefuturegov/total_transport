@@ -57,6 +57,8 @@ class Trip
       booking.number_of_adults,
       booking.child_tickets,
       booking.price,
+      booking.payment_method == 'card' ? 'y' : 'n',
+      booking.charge_id,
       type,
       pickup_time,
       pickup_stop.name,

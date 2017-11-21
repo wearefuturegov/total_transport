@@ -62,6 +62,7 @@ gem 'friendly_id'
 gem 'google_drive'
 gem 'cocoon'
 gem 'postcodes_io'
+gem 'stripe'
 
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'
@@ -101,6 +102,10 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem 'stripe-ruby-mock', '~> 2.5.0', :require => 'stripe_mock'
 end
 
 source 'https://rails-assets.org' do

@@ -1,11 +1,14 @@
 - content_for :top_sec do
   = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
-
+    
+    = hidden_field_tag :stripe_token
+    
     %section.section
 
       %h2
         = t('summary.title')
         .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
+        .button.cta#pay-online-2=I18n.t('helpers.submit.booking.pay')
 
     %section.section
       %section.key
@@ -146,12 +149,45 @@
           %p
             = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
     %section.section
-      = link_to edit_route_booking_path(@route, @booking) do
-        = t('summary.back')
+      %p
+        = link_to @back_path do
+          = t('summary.back')
 
-    = form.submit :class => 'button cta primary', :id => 'submit-booking', :name => :confirm
+    = form.submit :class => 'button cta primary col-6', :id => 'submit-booking', :name => :confirm
+    = form.submit :class => 'button cta primary col-6', :id => 'pay-online', :name => :pay, :value => t('helpers.submit.booking.pay')
 
-:javascript
-  $('#submit-booking-2').click(function() {
-    $('#submit-booking').click();
-  });
+= content_for :js do
+  
+  = javascript_include_tag 'https://checkout.stripe.com/checkout.js'
+  
+  :javascript
+  
+    var handler = StripeCheckout.configure({
+      key: '#{Rails.configuration.stripe[:publishable_key]}',
+      image: '#{path_to_image('logo.png')}',
+      locale: 'auto',
+      email: '#{h @booking.email}',
+      token: function(token) {
+        $('#stripe_token').val(token.id);
+        $('#submit-booking').click();
+      }
+    });
+    
+    $('#pay-online').click(function() {
+      handler.open({
+        name: 'Ride',
+        description: 'Your Booking',
+        zipCode: true,
+        currency: 'gbp',
+        amount: #{(@booking.price * 100).to_i}
+      });
+      return false;
+    })
+    
+    $('#submit-booking-2').click(function() {
+      $('#submit-booking').click();
+    });
+    
+    $('#pay-online-2').click(function() {
+      $('#pay-online').click();
+    });

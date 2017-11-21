@@ -70,7 +70,7 @@
 
     = render 'journey', trip: booking.return_trip
 
-- if state != 'cancelled'
+- if state != 'cancelled' && booking.payment_method == 'cash'
   %p
     %strong
       Amount

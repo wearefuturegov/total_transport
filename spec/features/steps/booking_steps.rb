@@ -4,6 +4,11 @@ step 'my booking should be confirmed' do
   expect(@booking.state).to eq('booked')
 end
 
+step 'my booking should not be confirmed' do
+  @booking = Booking.first
+  expect(@booking.state).to_not eq('booked')
+end
+
 step 'my booking should be a single journey' do
   expect(@booking.return_journey_id).to eq(0)
 end
@@ -23,6 +28,14 @@ step 'my booking should have :n ":type" bus pass(es)' do |n, type|
   when 'Disabled'
     expect(@booking.disabled_bus_passes).to eq(n.to_i)
   end
+end
+
+step 'my booking should have a charge id' do
+  expect(@booking.charge_id).to_not be_nil
+end
+
+step 'my payment method should be :type' do |type|
+  expect(@booking.payment_method).to eq(type)
 end
 
 step 'both journeys should show as booked' do

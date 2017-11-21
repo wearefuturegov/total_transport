@@ -58,12 +58,13 @@ class SmsService
     end
     
     def first_alert
-      """
+      text = """
         Your Ride booking reminder. Your vehicle will collect you tomorrow from
         #{@booking.outward_trip.pickup_name} between #{plus_minus_ten(@booking.outward_trip.pickup_time)}.
         Look out for the Ride sticker in the windscreen. To cancel your booking
-        please use this form #{cancel_booking_url(@booking.token)}.
+        please use this form #{cancel_booking_url(@booking.token)}
       """.squish
+      text += ". Don’t forget to pay the driver directly." if @booking.payment_method == 'cash'
     end
         
     def second_alert

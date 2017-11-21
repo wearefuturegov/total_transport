@@ -1,4 +1,6 @@
 class Booking < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  
   belongs_to :journey
   belongs_to :return_journey, class_name: 'Journey'
   belongs_to :pickup_stop, class_name: 'Stop'
@@ -80,6 +82,10 @@ class Booking < ActiveRecord::Base
       single_price
     end
   end
+  
+  def price_in_pence
+    (price * 100).to_i
+  end
 
   def adult_single_price
     if price_distance < 2
@@ -159,6 +165,10 @@ class Booking < ActiveRecord::Base
     !!return_journey
   end
   
+  def payment_description
+    "#{pickup_stop.name} - #{dropoff_stop.name} on #{journey.start_time}"
+  end
+  
   def confirm!
     send_confirmation!
     queue_alerts
@@ -234,13 +244,41 @@ class Booking < ActiveRecord::Base
     ]
   end
   
+  def create_payment!(token)
+    customer = Stripe::Customer.create(
+      :source => token
+    )
+    
+    metadata = {
+      outward_journey_url: admin_journey_booking_url(outward_trip.journey, self),
+    }
+    
+    metadata[:return_journey_url] = admin_journey_booking_url(return_trip.journey, self) if return_trip
+
+    charge = Stripe::Charge.create(
+      customer: customer.id,
+      amount:  price_in_pence,
+      description: payment_description,
+      currency: 'gbp',
+      metadata: metadata
+    )
+    
+    update_column(:charge_id, charge.id)
+    update_column(:payment_method, 'card')
+  end
+  
   private
     
     def cancel
       remove_alerts
       set_journey_booked_status
       send_cancellation_sms!
+      refund! unless charge_id.nil?
       send_cancellation_email!
+    end
+    
+    def refund!
+      Stripe::Refund.create(charge: charge_id)
     end
   
     def generate_token
