@@ -1,89 +1,32 @@
-%p
-  Hello
+%p= t('email.booking_details.greeting')
 
 - if state == 'cancelled'
-  %p
-    A booking has been cancelled on
-    %strong
-      Ride
-    \. Please ensure this is updated on your system.
+  = t("email.booking_details.cancelled_intro_html")
 - else
-  %p
-    A new booking has been confirmed on
-    %strong
-      Ride
+  = t('email.booking_details.confirmed_intro_html')
 
-%p The passenger's details are as follows:
-
-%h2 Contact Details
-
-%p
-  %strong Name:
-  = booking.passenger_name
-
-%p
-  %strong Phone Number:
-  = booking.phone_number
-
-%p
-  %strong Email:
-  = booking.email
-  
-%h2 Number of passengers
-
-%p
-  %strong Adults:
-  = booking.number_of_adult_tickets
-  
-%p
-  %strong Children:
-  = booking.child_tickets
-
-%p
-  %strong Bus Passes:
-  = booking.number_of_free_tickets
+= t('email.booking_details.passenger_details_html', name: booking.passenger_name, phone_number: booking.phone_number, email: booking.email, number_of_adult_tickets: booking.number_of_adult_tickets, child_tickets: booking.child_tickets, number_of_free_tickets: booking.number_of_free_tickets)
   
 - if state != 'cancelled' && booking.special_requirements
+  = t('email.booking_details.special_requirements_html', special_requirements: booking.special_requirements)
 
-  %h2 Special requirements
-  
-  %p
-    = booking.special_requirements
-  
-  %p
-    %strong
-      If there are any issues with these requirements, please contact the passenger directly and the Ride team.
-
-%h2
-  This is a #{ booking.return_journey ? 'return' : 'single' } journey
+= t('email.booking_details.journey_type_html', journey_type: (booking.return_journey ? 'return' : 'single') )
 
 #outward
 
-  %h2 Outward Journey
-
+  %h2= t('email.booking_details.outward_journey')
+  
   = render 'journey', trip: booking.outward_trip
 
 - if booking.return_journey
   #return
     
-    %h2 Return Journey
+    %h2= t('email.booking_details.return_journey')
 
     = render 'journey', trip: booking.return_trip
 
 - if state != 'cancelled' && booking.payment_method == 'cash'
-  %p
-    %strong
-      Amount
-    = number_to_currency(booking.price, unit: '£')
-  
-  %p
-    %strong
-      Payment Method
-    = booking.payment_method
+
+  = t('email.booking_details.price_html', amount: number_to_currency(booking.price, unit: '£'), payment_method: booking.payment_method)
     
-%p
-  Thanks
-  %br/
-  Your friendly
-  %strong Ride
-  robot
+= t('email.booking_details.signoff_html')
