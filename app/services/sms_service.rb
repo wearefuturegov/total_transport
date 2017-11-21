@@ -49,6 +49,9 @@ class SmsService
         pickup_date: friendly_date(@booking.journey.start_time),
         pickup_time: plus_minus_ten(@booking.return_trip.pickup_time)
       ) if @booking.return_journey
+      template += I18n.t('sms.booking_notification.payment',
+        amount: ActionController::Base.helpers.number_to_currency(@booking.price, unit: '£')
+      ) if @booking.payment_method == 'cash'
       template += I18n.t('sms.booking_notification.amend_cancel',
         url: cancel_booking_url(@booking.token)
       )
@@ -62,10 +65,12 @@ class SmsService
     def first_alert
       template = I18n.t('sms.first_alert.body',
         pickup_name: @booking.outward_trip.pickup_name,
-        pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time),
-        url: cancel_booking_url(@booking.token)
+        pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time)
       )
       template += I18n.t('sms.first_alert.payment') if @booking.payment_method == 'cash'
+      template += I18n.t('sms.first_alert.cancel',
+        url: cancel_booking_url(@booking.token)
+      )
       template.squish
     end
         
@@ -73,6 +78,7 @@ class SmsService
       I18n.t('sms.second_alert.body',
         pickup_name: @trip.pickup_name,
         pickup_time: plus_minus_ten(@trip.pickup_time),
+        supplier_number: @booking.journey.supplier.phone_number
       ).squish
     end
     

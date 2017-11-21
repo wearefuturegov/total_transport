@@ -36,8 +36,8 @@ RSpec.describe SmsService, type: :model do
       expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
       expect(FakeSMS.messages.last[:to]).to eq('1234')
       body = FakeSMS.messages.last[:body]
-      expect(body).to match(/and returning from The White Horse, Saffron Walden/)
-      expect(body).to match(/Monday, 2 Jan between 4:30pm – 4:50pm/)
+      expect(body).to match(/Your return journey is from The White Horse, Saffron Walden/)
+      expect(body).to match(/between 4:30pm – 4:50pm/)
     end
     
   end
@@ -67,7 +67,7 @@ RSpec.describe SmsService, type: :model do
       booking.payment_method = 'cash'
       expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
       expect(FakeSMS.messages.last[:to]).to eq('1234')
-      expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow from The Red Lion, Sudbury between 10:30am – 10:50am/)
+      expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow for your outbound journey from The Red Lion, Sudbury between 10:30am – 10:50am/)
       expect(FakeSMS.messages.last[:body]).to match(/Don’t forget to pay the driver directly./)
     end
     
