@@ -1,4 +1,4 @@
-%p= t('email.user_confirmation.greeting', passenger_name: @booking.passenger_name)
+%p= t('email.greeting', passenger_name: @booking.passenger_name)
 
 %p= t('email.user_confirmation.intro', pickup_stop: @booking.outward_trip.pickup_stop.name, dropoff_stop: @booking.outward_trip.dropoff_stop.name, passengers: pluralize(@booking.number_of_passengers, 'passenger'))
 
@@ -13,8 +13,8 @@
 
 %p= t('email.user_confirmation.amend_cancel', link: link_to(nil, cancel_booking_url(@booking.token)))
 
-%p= t('email.user_confirmation.signoff_html')
+%p= t('email.signoff_html')
 
 %p= t('email.user_confirmation.ps_html')
 
-= t('email.user_confirmation.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))
+= t('email.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))

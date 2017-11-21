@@ -184,6 +184,7 @@ class Booking < ActiveRecord::Base
   
   def send_cancellation_email!
     SendEmail.enqueue('BookingMailer', :booking_cancelled, booking_id: id)
+    SendEmail.enqueue('BookingMailer', :user_cancellation, booking_id: id)
   end
   
   def send_cancellation_sms!

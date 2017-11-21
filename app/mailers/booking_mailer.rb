@@ -17,5 +17,10 @@ class BookingMailer < ActionMailer::Base
     @booking = Booking.find(params['booking_id'])
     mail(subject: 'Your Ride booking confirmation')
   end
+  
+  def user_cancellation(params)
+    @booking = Booking.find(params['booking_id'])
+    mail(subject: 'Ride booking cancellation')
+  end
 
 end

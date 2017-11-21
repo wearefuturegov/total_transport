@@ -257,24 +257,34 @@ RSpec.describe Booking, :que, type: :model do
       end
       
       it 'removes email alerts' do
-        expect(QueJob.where(job_class: 'SendEmail').count).to eq(2)
         booking.update_attribute :state, 'cancelled'
-        expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
+        jobs = QueJob.where("args::json->2->>'booking_id' = ? AND job_class = 'SendEmail'", booking.id.to_s).to_a.reject! {
+          |j| j.args[1] == 'booking_cancelled' || j.args[1] == 'user_cancellation'
+        }
+        expect(jobs.count).to eq(0)
       end
       
       it 'removes sms alerts' do
-        expect(QueJob.where(job_class: 'SendSMS').count).to eq(4)
         booking.update_attribute :state, 'cancelled'
-        expect(QueJob.where(job_class: 'SendSMS').count).to eq(1)
+        jobs = QueJob.where("args::json->2->>'booking_id' = ? AND job_class = 'SendSMS'", booking.id.to_s)
+        expect(jobs.count).to eq(0)
       end
       
     end
     
-    it 'sends a cancellation email' do
+    it 'sends a cancellation email to the admin' do
       booking.update_attribute :state, 'cancelled'
-      job = QueJob.find_by(job_class: 'SendEmail')
-      expect(job.args[0]).to eq('BookingMailer')
-      expect(job.args[1]).to eq('booking_cancelled')
+      jobs = QueJob.where(job_class: 'SendEmail')
+      expect(jobs.count).to eq(2)
+      job = jobs.find { |j| j.args[1] == 'booking_cancelled' }
+      expect(job.args[2]).to eq('booking_id' => booking.id)
+    end
+    
+    it 'sends a cancellation email to the user' do
+      booking.update_attribute :state, 'cancelled'
+      jobs = QueJob.where(job_class: 'SendEmail')
+      expect(jobs.count).to eq(2)
+      job = jobs.find { |j| j.args[1] == 'user_cancellation' }
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     

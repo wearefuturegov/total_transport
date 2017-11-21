@@ -114,6 +114,23 @@ RSpec.describe BookingMailer, type: :mailer do
       
     end
     
+    describe '#user_cancellation' do
+      
+      let(:mail) { BookingMailer.user_cancellation('booking_id' => booking.id) }
+      
+      it 'renders the headers' do
+        expect(mail.subject).to eq('Ride booking cancellation')
+        expect(mail.to).to eq([booking.email])
+        expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
+      end
+      
+      it 'renders the body' do
+        expect(body).to match(/Hello Me/)
+        expect(body).to match(/Sunday, 1 Jan at 9:50am – 10:10am from Pickup Stop, Pickup Landmark has been cancelled/)
+      end
+      
+    end
+    
   end
   
   describe 'with a return journey' do
