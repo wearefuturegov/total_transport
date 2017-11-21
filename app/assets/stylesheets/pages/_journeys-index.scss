@@ -14,7 +14,6 @@
   }
 }
 
-
 #journeys-index, #bookings-edit, #bookings-confirmation, #bookings-cancel {
   .section {
     max-width: 960px;
@@ -27,37 +26,16 @@
 }
 
 // these may not be in the right scss file but I have put them here for now:
-.arrival-times, .no-return-time {
-  float: left;
-  margin-top: $baseline;
-}
-button {
-  border-radius: 0;
-}
 
 // styles for passengers partial
-#message {
-  clear: both;
-  color: $red;
-  font-weight: 600;
-}
 .remove {
   text-transform: lowercase;
   line-height: 47px;
 }
-#add-pass {
-  margin: 15px 0;
-}
+
 #pass-container {
   #passes{
     float: left;
     width: 100%;
-  }
-}
-#price {
-  max-width: 370px;
-  margin: 30px auto;
-  #total {
-    font-size: 25px;
   }
 }

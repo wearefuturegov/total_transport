@@ -30,7 +30,7 @@
       = booking.scholar_bus_passes
     x scholar bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
   
-%p#total.strong
+%h3#total
   Total:
   %span.single_price.hidden
     = number_to_currency(booking.single_price, :unit => "£")
