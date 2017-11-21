@@ -88,43 +88,31 @@ class Booking < ActiveRecord::Base
   end
 
   def adult_single_price
-    if price_distance < 2
-      2.5
-    elsif price_distance >= 2 && price_distance <= 5
-      4.5
-    elsif price_distance > 5
-      5.5
+    if price_distance <= 5
+      2
+    elsif price_distance > 5 && price_distance <= 10
+      4
+    elsif price_distance > 10 && price_distance <= 15
+      6
+    elsif price_distance > 15 && price_distance <= 20
+      8
+    elsif price_distance > 20 && price_distance <= 25
+      10
+    elsif price_distance > 25
+      12
     end
   end
 
   def adult_return_price
-    if price_distance < 2
-      3.5
-    elsif price_distance >= 2 && price_distance <= 5
-      6.5
-    elsif price_distance > 5
-      8
-    end
+    adult_single_price * 2
   end
 
   def child_single_price
-    if price_distance < 2
-      1.5
-    elsif price_distance >= 2 && price_distance <= 5
-      2.5
-    elsif price_distance > 5
-      3
-    end
+    adult_single_price / 2
   end
 
   def child_return_price
-    if price_distance < 2
-      2
-    elsif price_distance >= 2 && price_distance <= 5
-      3.5
-    elsif price_distance > 5
-      4.5
-    end
+    child_single_price * 2
   end
 
   def single_price

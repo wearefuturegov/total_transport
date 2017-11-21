@@ -36,12 +36,13 @@
         color: $white;
       }
       .overlay {
-        background-color: rgba(43, 39, 3, 0.4);
+        background-color: rgba(6, 15, 25, 0.61);
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
+        z-index: 500;
       }
       &.regular {
         margin-top: $baseline*2;
@@ -65,12 +66,7 @@
         }
       }
       .action {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin-top: 0;
-        margin-bottom: 0;
+        position: relative;
         a {
           background: $white;
           border-color: $white;
@@ -95,13 +91,14 @@
       background-image: image-url('daily_service.png');
       background-size: cover;
       background-position: center;
-      height: $baseline*16;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
       + .section {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        position: relative;
+        z-index: 750;
       }
     }
   }

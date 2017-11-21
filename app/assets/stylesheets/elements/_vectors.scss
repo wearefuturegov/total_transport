@@ -15,6 +15,7 @@
     text-indent: -9999px;
     width: $logo-width;
     height: $logo-height;
+    z-index: 1000;
     h1 {
       $h1: 50px; // no to variables here, but in this case I think yes.
       font-size: $h1;

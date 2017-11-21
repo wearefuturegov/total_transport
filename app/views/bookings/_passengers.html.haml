@@ -17,14 +17,15 @@
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
 
   #passes.hidden
-    = select_tag :pass, bus_passes, class: 'select pass-type col-8'
-    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number col-3'
+    = select_tag :pass, bus_passes, class: 'select pass-type'
+    = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number'
     %button.col-1.remove
       x
 
   #pass-container
 
   %p#message.hidden
+    The number of passes must not exceed the number of passengers
 
   %p
     %button#add-pass
@@ -140,7 +141,7 @@
       console.log(number.val())
       var count = number.val();
       if (count > $('#booking_number_of_adults').val()) {
-        $('#message').html('The number of passes must not exceed the number of passengers');
+        $('#message');
         $('#message').removeClass('hidden');
       } else {
         $('#message').addClass('hidden');
