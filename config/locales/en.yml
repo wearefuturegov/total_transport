@@ -256,3 +256,33 @@ en:
       footer_html:
         <p><strong>A project by:</strong> Essex County Council | Suffolk County Council | FutureGov</p>
         <p>%{website_link} | %{twitter_link} | %{facebook_link}</p>
+  
+  sms:
+    booking_notification:
+      single: |
+        Your Ride booking from %{pickup_stop} to %{dropoff_stop} is confirmed.
+        Your vehicle will pick you up from %{pickup_landmark}
+        on %{pickup_date} between %{pickup_time}
+      return: |
+        ', and returning from %{pickup_landmark}, %{pickup_stop} on %{pickup_date} between %{pickup_time}'
+      amend_cancel:
+        '. To amend or cancel your booking please use this form %{url}'
+    first_alert:
+      body: |
+        Your Ride booking reminder. Your vehicle will collect you tomorrow from
+        %{pickup_name} between %{pickup_time}. Look out for the Ride sticker in
+        the windscreen. To cancel your booking please use this form %{url}
+      payment: '. Don’t forget to pay the driver directly.'
+    second_alert:
+      body: |
+        Your Ride is on it’s way. Your pickup point is %{pickup_name}
+        between %{pickup_time}. Look out for a vehicle with the Ride sticker.
+        If you need to get in touch, please call 01621 855111.
+    booking_cancellation:
+      body: |
+        Your Ride booking on %{pickup_date} at %{pickup_time} from %{pickup_name}
+        has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
+    post_survey:
+      body: |
+        We hope you enjoyed your Ride. To help us improve the service, please
+        share your feedback: %{url}
