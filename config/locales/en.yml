@@ -238,3 +238,21 @@ en:
         <p><strong>Payment Method:</strong> %{payment_method}</p>
       signoff_html: |
         <p>Thanks<br />Your friendly <strong>Ride</strong> robot</p>
+    user_confirmation:
+      greeting: Hello %{passenger_name}
+      intro: Your Ride booking from %{pickup_stop} to %{dropoff_stop} for %{passengers} is confirmed
+      outward_pickup: Your vehicle will collect you from %{pickup_name} on %{pickup_date} between %{pickup_time}
+      return_pickup: ', and returning from %{pickup_name} on %{pickup_date} between %{pickup_time}'
+      ride_sticker: '. Your vehicle will have a Ride sticker in the windscreen.'
+      special_requirements: |
+        If you specified any special requirements then our supplier will contact
+        you if for any reason they are unable to meet them.
+      amend_cancel: To amend or cancel your booking, visit %{link}
+      signoff_html: |
+        Thanks,<br />The <strong>Ride</strong> Team
+      ps: |
+        P.s. Where do you need to go next? Reply to this email to tell us
+        the journeys you’d like to see available.
+      footer_html:
+        <p><strong>A project by:</strong> Essex County Council | Suffolk County Council | FutureGov</p>
+        <p>%{website_link} | %{twitter_link} | %{facebook_link}</p>

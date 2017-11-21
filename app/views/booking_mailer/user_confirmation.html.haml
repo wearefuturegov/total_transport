@@ -1,45 +1,18 @@
-= render 'header'
+%p= t('email.user_confirmation.greeting', passenger_name: @booking.passenger_name)
+
+%p= t('email.user_confirmation.intro', pickup_stop: @booking.outward_trip.pickup_stop.name, dropoff_stop: @booking.outward_trip.dropoff_stop.name, passengers: pluralize(@booking.number_of_passengers, 'passenger'))
 
 %p
-  Your Ride booking from
-  = @booking.outward_trip.pickup_stop.name
-  to
-  = @booking.outward_trip.dropoff_stop.name
-  for
-  = pluralize @booking.number_of_passengers, 'passenger'
-  is confirmed.
-
-%p
-  Your vehicle will collect you from
-  = @booking.outward_trip.pickup_name
-  on
-  = friendly_date(@booking.outward_trip.pickup_time)
-  between
-  = plus_minus_ten(@booking.outward_trip.pickup_time)
-
-  - if @booking.return_journey
-
-    , and returning from
-    = @booking.return_trip.pickup_name
-    on
-    = friendly_date(@booking.return_trip.pickup_time)
-    between
-    = plus_minus_ten(@booking.return_trip.pickup_time)
+  = t('email.user_confirmation.outward_pickup', pickup_name: @booking.outward_trip.pickup_name, pickup_date: friendly_date(@booking.outward_trip.pickup_time), pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time))
+  = t('email.user_confirmation.return_pickup', pickup_name: @booking.return_trip.pickup_name, pickup_date: friendly_date(@booking.return_trip.pickup_time), pickup_time: plus_minus_ten(@booking.return_trip.pickup_time)) if @booking.return_journey
+  = t('email.user_confirmation.ride_sticker')
   
-  \. Your vehicle will have a Ride sticker in the windscreen.
-  
-%p
-  If you specified any special requirements then our supplier will contact
-  you if for any reason they are unable to meet them.
+%p= t('email.user_confirmation.special_requirements')
 
-%p
-  To amend or cancel your booking, visit
-  = link_to nil, cancel_booking_url(@booking.token)
+%p= t('email.user_confirmation.amend_cancel', link: link_to(nil, cancel_booking_url(@booking.token)))
 
-%p
-  Thanks,<br />The RIDE Team
+%p= t('email.user_confirmation.signoff_html')
 
-%p
-  P.s. Where do you need to go next? Reply to this email to tell us the journeys you’d like to see available
+%p= t('email.user_confirmation.ps')
 
-= render 'footer'
+= t('email.user_confirmation.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))
