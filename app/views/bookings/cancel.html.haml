@@ -1,23 +1,15 @@
 %section.section
   %h2
-    Cancel your booking
+    = t('cancel.title')
 
   %p
-    If you want to
-    %span.bold amend your booking
-    , to make it fit within your new plans, you will have to cancel it and book it again.
+    = t('cancel.amendments')
 
   %p
-    If you want to
-    %span.bold cancel your booking
-    , click on ‘confirm cancellation’.
-
-  %p If you paid via card, your refund will be credited to your card in approximately 5-10 business days.
+    = t('cancel.cancel')
 
   %p
-    Before you proceed, could you please
-    %span.bold let us know why you want to cancel your Ride?
-    This will help us improve Ride and make it better for everyone.
+    = t('cancel.help')
 
   = form_for [@booking.route, @booking] do |f|
 
@@ -26,4 +18,4 @@
     = f.label :cancellation_reason
     = f.text_area :cancellation_reason
 
-    = f.submit 'Cancel your booking', data: { confirm: 'Are you sure you want to cancel your booking?' }
+    = f.submit value: t('button.cancel')
