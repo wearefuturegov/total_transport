@@ -124,8 +124,8 @@ RSpec.describe Journey, type: :model do
     end
     
     it 'returns the correct number of outward and return bookings' do
-      expect(csv.select { |r| r[8] == 'outward' }.count).to eq(bookings.count)
-      expect(csv.select { |r| r[8] == 'return' }.count).to eq(return_bookings.count)
+      expect(csv.select { |r| r[9] == 'outward' }.count).to eq(bookings.count)
+      expect(csv.select { |r| r[9] == 'return' }.count).to eq(return_bookings.count)
     end
   
   end
