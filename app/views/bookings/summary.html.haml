@@ -166,7 +166,7 @@
       key: '#{Rails.configuration.stripe[:publishable_key]}',
       image: '#{path_to_image('logo.png')}',
       locale: 'auto',
-      email: '#{@booking.email}',
+      email: '#{h @booking.email}',
       token: function(token) {
         $('#stripe_token').val(token.id);
         $('#submit-booking').click();
