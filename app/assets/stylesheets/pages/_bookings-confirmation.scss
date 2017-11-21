@@ -11,9 +11,16 @@
 
 #bookings-update {
 
-  #submit-booking-2 {
+  #submit-booking-2, #pay-online-2 {
+    margin: 7px 0;
     @media screen and (min-width: ($mobile-break + 251px)) {
       float: right;
+    }
+  }
+  
+  #pay-online-2 {
+    @media screen and (min-width: ($mobile-break + 251px)) {
+      margin-right: 7px;
     }
   }
 }

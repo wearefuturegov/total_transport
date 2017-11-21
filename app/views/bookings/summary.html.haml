@@ -8,6 +8,7 @@
       %h2
         = t('summary.title')
         .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
+        .button.cta#pay-online-2=I18n.t('helpers.submit.booking.pay')
 
     %section.section
       %section.key
@@ -151,9 +152,6 @@
       %p
         = link_to @back_path do
           = t('summary.back')
-    
-      %p
-        = t('summary.confirmation.text')
 
     = form.submit :class => 'button cta primary col-6', :id => 'submit-booking', :name => :confirm
     = form.submit :class => 'button cta primary col-6', :id => 'pay-online', :name => :pay, :value => t('helpers.submit.booking.pay')
@@ -166,8 +164,9 @@
   
     var handler = StripeCheckout.configure({
       key: '#{Rails.configuration.stripe[:publishable_key]}',
-      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      image: '#{path_to_image('logo.png')}',
       locale: 'auto',
+      email: '#{@booking.email}',
       token: function(token) {
         $('#stripe_token').val(token.id);
         $('#submit-booking').click();
@@ -187,4 +186,8 @@
     
     $('#submit-booking-2').click(function() {
       $('#submit-booking').click();
+    });
+    
+    $('#pay-online-2').click(function() {
+      $('#pay-online').click();
     });
