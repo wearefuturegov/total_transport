@@ -130,7 +130,7 @@ module WebSteps
   end
   
   step 'I should see the confirmation page' do
-    expect(page).to have_content('your ride is now confirmed')
+    expect(page).to have_content('your Ride is now confirmed')
   end
   
   def click_book_journey
