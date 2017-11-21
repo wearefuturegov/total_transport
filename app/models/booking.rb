@@ -1,4 +1,6 @@
 class Booking < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  
   belongs_to :journey
   belongs_to :return_journey, class_name: 'Journey'
   belongs_to :pickup_stop, class_name: 'Stop'
@@ -246,12 +248,19 @@ class Booking < ActiveRecord::Base
     customer = Stripe::Customer.create(
       :source => token
     )
+    
+    metadata = {
+      outward_journey_url: admin_journey_booking_url(outward_trip.journey, self),
+    }
+    
+    metadata[:return_journey_url] = admin_journey_booking_url(return_trip.journey, self) if return_trip
 
     charge = Stripe::Charge.create(
       customer: customer.id,
       amount:  price_in_pence,
       description: payment_description,
-      currency: 'gbp'
+      currency: 'gbp',
+      metadata: metadata
     )
     
     update_column(:charge_id, charge.id)

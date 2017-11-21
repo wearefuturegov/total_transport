@@ -319,6 +319,36 @@ RSpec.describe Booking, :que, type: :model do
         expect(charge.amount).to eq(booking.price_in_pence)
       end
       
+      it 'creates metadata' do
+        charge = Stripe::Charge.retrieve(booking.charge_id)
+        expect(charge.metadata['outward_journey_url']).to eq(
+          "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
+        )
+      end
+      
+      context 'with a return trip' do
+        
+        before do
+          booking.return_journey = FactoryBot.create(:journey,
+            route: route,
+            start_time: DateTime.parse('2017-01-01T15:00:00'),
+            reversed: true
+          )
+          booking.create_payment!(@stripe_helper.generate_card_token)
+        end
+        
+        it 'creates metadata' do
+          charge = Stripe::Charge.retrieve(booking.charge_id)
+          expect(charge.metadata['outward_journey_url']).to eq(
+            "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
+          )
+          expect(charge.metadata['return_journey_url']).to eq(
+            "http://example.org/admin/journeys/#{booking.return_trip.journey.id}/bookings/#{booking.id}"
+          )
+        end
+        
+      end
+      
     end
     
     context 'with an invalid card' do
