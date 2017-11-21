@@ -7,6 +7,17 @@
     @include outer-container(90%);
   }
 
+  .hero {
+    @include span-columns(12);
+    margin-right: 0;
+    .features {
+      @include span-columns(12);
+      .icon {
+        @include span-columns(12);
+      }
+    }
+  }
+
   .main {
     @include span-columns(12);
     .journey .single {
