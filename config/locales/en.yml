@@ -40,7 +40,7 @@ en:
     map_title: "Connecting residents to great locations in your area"
     about:
       title:
-      info: "Pre-book a ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
+      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
       extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
     collection:
       title: "Great destinations to visit in your area"
@@ -58,18 +58,18 @@ en:
       author_3: "FutureGov"
 
     event:
-      title: "Daily service to Chelmsford (Broomfield Hospital) from Maldon and the Denige"
-      info: "Prebooked return journeys running 6.30am - 8pm. Book for yourself or others."
+      title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
+      info: "Pre-booked return journeys running 6.15am - 10pm. Book for yourself or others."
       regular:
-        title: "Maldon Vintage Christmas Fayre Thu 30th November"
-        info: "Enjoy a fun evening out with Rides from local villages. Fayre runs 6pm - 9pm."
+        title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
+        info: "Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
       enquiry:
         title: "Where can we take you?"
         info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
 
   steps:
     step_1:
-      info: "Reliable shared transport, cheaper than a taxi"
+      info: "Affordable reliable shared transport"
     step_2:
       info: "Provided by local transport companies"
     step_3:
@@ -87,15 +87,15 @@ en:
     return:
       time: "Return time (+-10mins)"
     landmark:
-      title: "Pick a Pickup Point"
+      title: "Select your preferred stops"
     pickup:
-      title: "Please choose a pickup point"
+      title: "Where to be picked up"
     dropoff:
-      title: "Please choose a dropoff point"
+      title: "Where to be dropped off"
     no_return_time: "No return times available for your chosen outward time"
     requirements:
-      label: "Special requirements:"
-      message: "Wheelchair, pushchair etc"
+      label: "Special requirements"
+      message: "(Wheelchair, pushchair etc)"
       extra: "Your transport provider will get in touch with you if they can't meet your needs."
     passenger:
       title: "Passengers"
@@ -117,7 +117,8 @@ en:
         message: "(Confirmation via email)"
 
   summary:
-    title: "Check your journey before you pre-book"
+    title: "Last step!"
+    extra: "Check your journey before you confirm"
     plus_minus_ten: "(+-10mins)"
     outbound:
       title: "Outbound"
@@ -132,9 +133,18 @@ en:
       time: "Time"
       dropoff: Drop off point
     back: "I need to change something"
-    
-  pay-online:
-    title: 'Pay Online'
+
+  cancel:
+    title: "Cancel your booking"
+    amendments: "For booking amendments, please cancel and book again."
+    cancel: "If you wish to cancel and paid online, your refund will be credited to your card in approximately 5-10 business days."
+    help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
+
+  cancelled: 
+    title: "Booking cancelled"
+    extra: "Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future."
+
+
 
   button:
     book: "Get started"
@@ -155,6 +165,9 @@ en:
     event: "Coming Soon"
     regular: "Coming Soon"
     enquiry: "Get Started"
+    pay: "Pay Now"
+    again: "Book another Ride"
+    cancel: "Cancel"
 
   email:
     address: "hello@bookyourride.co.uk"
@@ -166,8 +179,7 @@ en:
         update: 'Next'
     submit:
       booking:
-        update: 'pay the driver'
-        pay: 'pay online'
+        update: 'Confirm Booking'
 
   form:
     required: "Required"

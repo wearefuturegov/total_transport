@@ -9,9 +9,8 @@
         = t('summary.title')
       %h2
         = t('summary.extra')
-      -#
-        .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
-        .button.cta#pay-online-2=I18n.t('helpers.submit.booking.pay')
+      -# .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
+      -# .button.cta#pay-online-2=I18n.t('helpers.submit.booking.pay')
 
     %section.section
       %section.key
@@ -157,7 +156,7 @@
           = t('summary.back')
 
     = form.submit :class => 'button cta primary col-6', :id => 'submit-booking', :name => :confirm
-    = form.submit :class => 'button cta primary col-6', :id => 'pay-online', :name => :pay, :value => t('helpers.submit.booking.pay')
+    = form.submit :class => 'button cta primary col-6', :id => 'pay-online', :name => :pay, :value => t('button.pay')
 
 = content_for :js do
   

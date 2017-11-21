@@ -1,9 +1,9 @@
 %section.section
   %h2
-    Booking cancelled
+    = t('cancelled.title')
 
-  %p Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future.
-  %br
-  %p
-    = link_to 'Book another journey', journeys_path, class: 'button'
+  %p 
+    = t('cancelled.extra')
+
+= link_to I18n.t('button.again'), journeys_path, class: 'button cta primary'
 
