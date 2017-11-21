@@ -77,6 +77,12 @@ en:
 
   journey:
     title: "Pre-book your ride"
+    from:
+      label: "From"
+      message: "(e.g. Maldon)"
+    to:
+      label: "To"
+      message: "(e.g. Chelmsford)"
 
   bookings:
     title: "Your journey"
@@ -152,9 +158,12 @@ en:
     submit: "Submit your booking request"
     return: "Return"
     typeform: "Tell us more"
+    typeform-link: "https://bookyourride.typeform.com/to/H7i6w5"
     event: "Coming Soon"
     regular: "Coming Soon"
     enquiry: "Get Started"
+    checked: "Done"
+    pay: "Pay"
 
   email:
     address: "hello@bookyourride.co.uk"

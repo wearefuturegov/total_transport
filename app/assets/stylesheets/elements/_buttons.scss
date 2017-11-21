@@ -76,6 +76,14 @@ button {
     margin-top: $baseline;
     width: 100%;
   }
+  &.choice {
+    float: left;
+    width: 50%;
+    &.stripe {
+      background-color: $stripe;
+      border-color: $stripe;
+    }
+  }
 }
 
 // previous buttons below here

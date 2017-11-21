@@ -156,8 +156,8 @@
         = link_to @back_path do
           = t('summary.back')
 
-    = form.submit :class => 'button cta primary col-6', :id => 'submit-booking', :name => :confirm
-    = form.submit :class => 'button cta primary col-6', :id => 'pay-online', :name => :pay, :value => t('helpers.submit.booking.pay')
+    = form.submit :class => 'button cta primary choice stripe', :id => 'pay-online', :name => :pay, :value => t('helpers.submit.booking.pay')
+    = form.submit :class => 'button cta primary choice', :id => 'submit-booking', :name => :confirm, :value => t('button.checked')
 
 = content_for :js do
   
