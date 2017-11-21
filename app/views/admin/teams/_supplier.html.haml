@@ -1,0 +1,5 @@
+.nested-fields
+  .col-9
+    = f.select :id, Supplier.all.collect {|p| [ p.name, p.id ] }, { include_blank: 'Please select a supplier' }, class: 'select'
+  .col-2
+    = link_to_remove_association 'x', f, class: 'button'
