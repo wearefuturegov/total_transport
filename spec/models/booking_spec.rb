@@ -453,7 +453,7 @@ RSpec.describe Booking, :que, type: :model do
             'Dropoff Landmark',
             '2017-01-01 10:00:00 UTC',
             nil,
-            2.5
+            2
           ]
         ])
       end
@@ -481,7 +481,7 @@ RSpec.describe Booking, :que, type: :model do
             'Dropoff Landmark',
             '2017-01-01 10:00:00 UTC',
             '2017-01-01 15:00:00 UTC',
-            3.5
+            4
           ]
         ])
       end
@@ -509,7 +509,7 @@ RSpec.describe Booking, :que, type: :model do
         'me@example.com',
         1,
         0,
-        3.5,
+        4,
         'n',
         nil,
         'outward',
@@ -532,7 +532,7 @@ RSpec.describe Booking, :que, type: :model do
         'me@example.com',
         1,
         0,
-        3.5,
+        4,
         'n',
         nil,
         'return',
@@ -563,171 +563,63 @@ RSpec.describe Booking, :que, type: :model do
     end
     
   end
-
-  describe "pricing" do
-    let(:booking) {Booking.new}
-    describe "for a journey under 2 miles" do
-      before {allow(booking).to receive(:price_distance).and_return(1.9) }
-      describe "for a single journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(false) }
-        it "should cost £2.50 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(2.5)
+  
+  
+  describe 'pricing' do
+    
+    {
+      0..5 => [2,4,1,2],
+      6..10 => [4,8,2,4],
+      11..15 => [6,12,3,6],
+      16..20 => [8,16,4,8],
+      21..25 => [10,20,5,10],
+      26..50 => [12,24,6,12]
+    }.each do |range,fares|
+      
+      context "Between between #{range.first} and #{range.last} miles" do
+        
+        before do
+          allow(booking).to receive(:price_distance).and_return(rand(range))
         end
-        it "should cost £5.00 for 2 passengers" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(5)
+        
+        context 'adult fare' do
+          
+          before do
+            booking.number_of_passengers = 1
+          end
+          
+          it 'returns the correct single fare' do
+            expect(booking.price).to eq(fares[0])
+          end
+          
+          it 'returns the correct return fare' do
+            allow(booking).to receive(:return_journey?).and_return(true)
+            expect(booking.price).to eq(fares[1])
+          end
+          
         end
-        it "should cost £4.00 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(4)
+        
+        context 'child fare' do
+          
+          before do
+            booking.child_tickets = 1
+          end
+          
+          it 'returns the correct single fare' do
+            expect(booking.price).to eq(fares[2])
+          end
+          
+          it 'returns the correct return fare' do
+            allow(booking).to receive(:return_journey?).and_return(true)
+            expect(booking.price).to eq(fares[3])
+          end
+          
         end
-        it "should cost £2.50 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(2.5)
-        end
+                
       end
-      describe "for a return journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(true) }
-        it "should cost £3.50 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(3.5)
-        end
-        it "should cost £7.00 for 2 passenger" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(7)
-        end
-        it "should cost £5.50 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(5.5)
-        end
-        it "should cost £3.50 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(3.5)
-        end
-      end
+      
     end
-    describe "for a journey between 2 & 5 miles" do
-      before {allow(booking).to receive(:price_distance).and_return(3) }
-      describe "for a single journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(false) }
-        it "should cost £4.50 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(4.5)
-        end
-        it "should cost £9.00 for 2 passengers" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(9)
-        end
-        it "should cost £7.00 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(7)
-        end
-        it "should cost £4.50 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(4.5)
-        end
-      end
-      describe "for a return journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(true) }
-        it "should cost £6.50 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(6.5)
-        end
-        it "should cost £13.00 for 2 passenger" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(13)
-        end
-        it "should cost £10.00 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(10)
-        end
-        it "should cost £6.50 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(6.5)
-        end
-      end
-    end
-    describe "for a journey over 5 miles" do
-      before {allow(booking).to receive(:price_distance).and_return(5.1) }
-      describe "for a single journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(false) }
-        it "should cost £5.50 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(5.5)
-        end
-        it "should cost £11.00 for 2 passengers" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(11)
-        end
-        it "should cost £8.50 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(8.5)
-        end
-        it "should cost £5.50 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(5.5)
-        end
-        it "should cost £2.50 for 2 passengers with 1 older pass and promo code of £3" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          promo_code = FactoryBot.build(:promo_code, price_deduction: 3)
-          booking.promo_code = promo_code
-          expect(booking.price).to eq(2.5)
-        end
-        it "should cost £0.00 for 2 passengers with 1 older pass and promo code of £10" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          promo_code = FactoryBot.build(:promo_code, price_deduction: 10)
-          booking.promo_code = promo_code
-          expect(booking.price).to eq(0)
-        end
-      end
-      describe "for a return journey" do
-        before {allow(booking).to receive(:return_journey?).and_return(true) }
-        it "should cost £8.00 for 1 passenger" do
-          booking.number_of_passengers = 1
-          expect(booking.price).to eq(8)
-        end
-        it "should cost £16.00 for 2 passenger" do
-          booking.number_of_passengers = 2
-          expect(booking.price).to eq(16)
-        end
-        it "should cost £12.50 for 2 passengers with 1 child" do
-          booking.number_of_passengers = 2
-          booking.child_tickets = 1
-          expect(booking.price).to eq(12.5)
-        end
-        it "should cost £8.00 for 2 passengers with 1 older pass" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          expect(booking.price).to eq(8)
-        end
-        it "should cost £5.00 for 2 passengers with 1 older pass and promo code of £3" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          promo_code = FactoryBot.build(:promo_code, price_deduction: 3)
-          booking.promo_code = promo_code
-          expect(booking.price).to eq(5)
-        end
-        it "should cost £0.00 for 2 passengers with 1 older pass and promo code of £10" do
-          booking.number_of_passengers = 2
-          booking.older_bus_passes = 1
-          promo_code = FactoryBot.build(:promo_code, price_deduction: 10)
-          booking.promo_code = promo_code
-          expect(booking.price).to eq(0)
-        end
-      end
-    end
+    
   end
+  
 end
