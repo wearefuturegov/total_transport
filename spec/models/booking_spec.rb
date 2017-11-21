@@ -41,6 +41,13 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
+    it 'queues up a survey link' do
+      booking.confirm!
+      job = QueJob.where(job_class: 'SendEmail').find { |j| j.args[1] == 'feedback'}
+      expect(job.args[0]).to eq('BookingMailer')
+      expect(job.args[2]).to eq('booking_id' => booking.id)
+    end
+    
     it 'sends an email to the supplier' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(2)
       job = QueJob.find_by(job_class: 'SendEmail')

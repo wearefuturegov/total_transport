@@ -23,4 +23,9 @@ class BookingMailer < ActionMailer::Base
     mail(subject: 'Ride booking cancellation')
   end
 
+  def feedback(params)
+    @booking = Booking.find(params['booking_id'])
+    mail(subject: 'We hope you enjoyed your Ride')
+  end
+
 end

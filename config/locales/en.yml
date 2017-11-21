@@ -259,6 +259,9 @@ en:
         To book a new <strong>Ride</strong>, go to <a href="https://bookyourride.co.uk/">our website</a>.
       ps_html: |
         P.s. Have some feedback? <a href="hello@bookyourrride.co.uk">Tell us what you think</a>.
+    feedback:
+      body_html: |
+        We hope you enjoyed your <strong>Ride</strong>. To help us improve the service, please share your feedback: %{link}
 
     footer_html:
       <p><strong>Ride, a project by:</strong>

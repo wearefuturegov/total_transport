@@ -131,6 +131,23 @@ RSpec.describe BookingMailer, type: :mailer do
       
     end
     
+    describe '#feedback' do
+      
+      let(:mail) { BookingMailer.feedback('booking_id' => booking.id) }
+      
+      it 'renders the headers' do
+        expect(mail.subject).to eq('We hope you enjoyed your Ride')
+        expect(mail.to).to eq([booking.email])
+        expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
+      end
+      
+      it 'renders the body' do
+        expect(body).to match(/Hello Me/)
+        expect(body).to match(/We hope you enjoyed your Ride. To help us improve the service, please share your feedback/)
+      end
+      
+    end
+    
   end
   
   describe 'with a return journey' do
