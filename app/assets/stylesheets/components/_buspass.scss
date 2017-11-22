@@ -1,0 +1,21 @@
+/* buspass */
+
+.pass-type {
+  float: left;
+  width: 60%;
+  margin-right: 5%;
+}
+
+.pass-number {
+  float: left;
+  width: 25%;
+}
+
+#passes .remove {
+  color: $error;
+  font-weight: 900;
+  background: none;
+  border: none;
+  width: 10%;
+  padding: 0;
+}

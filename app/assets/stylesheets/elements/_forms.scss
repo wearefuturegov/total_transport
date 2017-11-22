@@ -43,7 +43,7 @@ input[type=checkbox] {
   border: $black $border-width-thin $border-style;
   box-sizing: border-box;
   margin-bottom: $baseline * 0.5;
-  padding: $baseline * 0.5;
+  padding: $baseline*0.5;
   transition: border-color ;
   width: 100%;
   &:hover {
@@ -107,14 +107,14 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 0;
   background-color: $white;
   line-height: 1.5em;
-  padding: $baseline*0.5 $baseline*2 $baseline*0.5 $baseline*0.5;
+  padding: $baseline*0.5 $baseline $baseline*0.5 $baseline*0.5;
   color: $black;
   cursor: pointer;
   margin: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, $black 50%), linear-gradient(135deg, $black 50%, transparent 50%), linear-gradient(to right, $black, $black);
-  background-position: calc(100% - #{$baseline}) calc(13px + 13px), calc(100% - #{$baseline - 5}) calc(13px + #{$baseline*0.5}), calc(100% - #{$baseline*2}) 0px;
+  background-position: calc(100% - #{$baseline*0.5}) calc(13px + 13px), calc(100% - #{$baseline*0.5 - 5}) calc(13px + #{$baseline*0.5}), calc(100% - #{$baseline}) 0px;
   background-size: 5px 5px, 5px 5px, 1px $baseline*2.5;
   background-repeat: no-repeat;
   margin-bottom: $baseline*0.5;
