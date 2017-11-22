@@ -3,6 +3,13 @@ class BookingsController < PublicController
   before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
   before_filter :find_route, except: [:show, :cancel, :cancelled]
   include ApplicationHelper
+  
+  def new
+    @from = Place.friendly.find(params[:from])
+    @to = Place.friendly.find(params[:to])
+    @journeys = Journey.available_for_places(@from, @to).group_by { |j| j.start_time.to_date }
+    @booking = Booking.new
+  end
 
   # Save stops
   def create

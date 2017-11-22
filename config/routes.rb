@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :journeys, only: [:index] do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to
+      get ':from/:to/bookings/new' => 'bookings#new', as: :new_booking
     end
   end
   resources :bookings do
