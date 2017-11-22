@@ -62,7 +62,7 @@ en:
       info: "Pre-booked return journeys running 6.15am - 10pm. Book for yourself or others."
       regular:
         title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
-        info: "Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
+        info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
       enquiry:
         title: "Where can we take you?"
         info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
@@ -95,9 +95,9 @@ en:
     landmark:
       title: "Select your preferred stops"
     pickup_landmark_id:
-      title: "Where to be picked up"
+      title: "Select where to be picked up"
     dropoff_landmark_id:
-      title: "Where to be dropped off"
+      title: "Select where to be dropped off"
     no_return_time: "No return journeys available for your chosen outward time."
     requirements:
       label: "Special requirements"
@@ -117,10 +117,10 @@ en:
       label: "Lead passenger's full name"
       mobile:
         label: "Mobile"
-        message: "To send an SMS confirming your Ride"
+        message: "You'll receive free SMS confirmation and updates for your Ride"
       email:
         label: "Email"
-        message: "To get an handy recap of your booking"
+        message: "You'll receive a handy recap of your booking"
 
   summary:
     title: "We're almost there!"

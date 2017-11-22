@@ -15,6 +15,10 @@ label {
   display: block;
   font-weight: 600;
   margin-bottom: $baseline * 0.25;
+  &.long .small {
+    float: left;
+    width: 100%;
+  }
 }
 
 input,

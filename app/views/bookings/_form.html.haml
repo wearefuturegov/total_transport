@@ -33,7 +33,11 @@
     
     %section.section
       .landmarks.hidden
+        %label 
+          = t('bookings.landmark.title')
         .pickup_landmarks
+
+        %section.link
         
         .dropoff_landmarks
 
@@ -43,8 +47,6 @@
       %section.section
         = form.label :special_requirements do
           = t('bookings.requirements.label')
-          %span.small
-            = t('bookings.requirements.message')
         = form.text_field :special_requirements
         %p
           = t('bookings.requirements.extra')
@@ -58,22 +60,22 @@
             *
           = t('form.required')
           
-        = form.label :passenger_name do
+        = form.label :passenger_name, :class => 'long' do
           = t('bookings.lead.label')
-          %san.required
+          %span.required
             *
         = form.text_field :passenger_name, required: true
     
-        = form.label :phone_number do
+        = form.label :phone_number, :class => 'long' do
           = t('bookings.lead.mobile.label')
           %span.required
             *
           %span.small
             = t('bookings.lead.mobile.message')
-        = form.text_field :phone_number, required: true, pattern: '.{0,11}', maxlength: 11
+        = form.text_field :phone_number, required: true, pattern: '.{11,}', minlength: 11, title: 'Minimum of 11 characters'
     
     
-        = form.label :email do
+        = form.label :email, :class => 'long' do
           = t('bookings.lead.email.label')
           %spans.small
             = t('bookings.lead.email.message')
