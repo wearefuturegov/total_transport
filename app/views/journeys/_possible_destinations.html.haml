@@ -3,7 +3,7 @@
     = t('message.sorry')
     to <strong>#{to.name}</strong>.
   %p
-    %span.bold 
+    %span.bold
       = t('service')
     = t('message.feedback')
   %p
@@ -21,7 +21,7 @@
       to
     = fa_icon 'map-marker'
   %section.collection
-    - bookings.each do |bookings|
+    - places.each do |place|
       .single
         .details
-          = render 'bookings_form', bookings: bookings, suggestion: true
+          = render 'book_button', from: from, to: place, button_label: place.name
