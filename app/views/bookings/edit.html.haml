@@ -70,14 +70,14 @@
             *
           %span.small
             = t('bookings.lead.mobile.message')
-        = form.text_field :phone_number, required: true, pattern: '.{0,11}', maxlength: 11
+        = form.text_field :phone_number, required: true, pattern: '.{11,}', minlength: 11, title: 'Minimum of 11 characters'
 
 
         = form.label :email do
           = t('bookings.lead.email.label')
           %spans.small
             = t('bookings.lead.email.message')
-        = form.text_field :email
+        = form.text_field :email, type: 'email', name: 'email'
 
         %p.small
           %span.required
