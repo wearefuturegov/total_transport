@@ -1,11 +1,13 @@
 %label.button
   - if type == 'return'
-    = journey.time_at_stop(@booking.dropoff_stop).strftime("%l:%M%P")
-    - arrival_time = journey.time_at_stop(@booking.pickup_stop)
+    = journey.time_at_stop(to).strftime("%l:%M%P")
+    - arrival_time = journey.time_at_stop(from)
   - else
-    = journey.time_at_stop(@booking.pickup_stop).strftime("%l:%M%P")
-    - arrival_time = journey.time_at_stop(@booking.dropoff_stop)
+    = journey.time_at_stop(from).strftime("%l:%M%P")
+    - arrival_time = journey.time_at_stop(to)
   = form.radio_button journey_type, journey.id,
                       'data-arrival-time' => arrival_time.strftime("%l:%M%P"),
                       'data-arrival-date-time' => arrival_time,
-                      'data-type' => type
+                      'data-type' => type,
+                      'data-from-id' => from.id,
+                      'data-to-id' => to.id

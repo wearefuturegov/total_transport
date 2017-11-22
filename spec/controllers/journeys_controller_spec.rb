@@ -39,34 +39,33 @@ RSpec.describe JourneysController, type: :controller do
     expect(get :index).to render_template(:index)
   end
   
-  it 'initialises a booking if there are availble journeys' do
+  it 'initialises a journey if there are availble journeys' do
     get :index, from: origin, to: destination
-    bookings = assigns(:bookings)
-    expect(bookings.count).to eq(1)
-    expect(bookings.first.pickup_stop).to eq(route.stops[1])
-    expect(bookings.first.dropoff_stop).to eq(route.stops[3])
+    journeys = assigns(:journeys)
+    route = journeys.collect(&:route).uniq.first
+    expect(journeys.count).to eq(4)
+    expect(route.stops.collect(&:place)).to include(origin)
+    expect(route.stops.collect(&:place)).to include(destination)
   end
   
   it 'gets reversed journeys' do
     get :index, from: destination, to: origin
-    bookings = assigns(:bookings)
-    expect(bookings.count).to eq(2)
-    expect(bookings.first.pickup_stop).to eq(route.stops[3])
-    expect(bookings.first.dropoff_stop).to eq(route.stops[1])
-    expect(bookings.last.pickup_stop).to eq(route2.stops[1])
-    expect(bookings.last.dropoff_stop).to eq(route2.stops[3])
+    journeys = assigns(:journeys)
+    route = journeys.collect(&:route).uniq.first
+    expect(journeys.count).to eq(6)
+    expect(route.stops.collect(&:place)).to include(origin)
+    expect(route.stops.collect(&:place)).to include(destination)
   end
   
   context 'if an origin does not have any routes', :que do
     
     let(:subject) { get :index, from: destination, to: other_place }
     
-    it 'returns possible bookings' do
+    it 'returns possible destinations' do
       subject
-      possible_bookings = assigns(:possible_bookings)
-      expect(possible_bookings.count).to eq(6)
-      expect(possible_bookings.first[0].pickup_stop.place).to eq(destination)
-      expect(possible_bookings.first[0].dropoff_stop.place).to eq(origin)
+      possible_destinations = assigns(:possible_destinations)
+      expect(possible_destinations.count).to eq(6)
+      expect(possible_destinations).to include(origin)
     end
     
     it 'queues a failure job' do

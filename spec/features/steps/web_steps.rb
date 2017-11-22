@@ -54,7 +54,7 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(first('.suggestion').value).to eq(destination)
+    expect(first('.book-button').text).to eq(destination.upcase)
   end
   
   step 'I confirm my booking' do
@@ -79,9 +79,8 @@ module WebSteps
   end
   
   step 'I should see the price for :num adult passengers' do |n|
-    price = Booking.last.adult_return_price
     expect(page).to have_content "#{n} x adult ticket"
-    expect(page).to have_content (price * n.to_i).to_s
+    expect(page).to have_content (2 * n.to_i).to_s
   end
   
   step 'I should see ":message"' do |message|
@@ -135,7 +134,7 @@ module WebSteps
   
   def click_book_journey
     wait_for_ajax
-    click_button I18n.t('button.book')
+    click_on I18n.t('button.book')
   end
   
   def choose_journey

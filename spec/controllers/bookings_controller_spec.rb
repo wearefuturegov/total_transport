@@ -95,14 +95,6 @@ RSpec.describe BookingsController, type: :controller do
     }
     let(:journey) { FactoryBot.create(:journey) }
     
-    it 'updates a booking' do
-      put :update, params, { current_passenger: passenger.session_token }
-      booking.reload
-      params[:booking].each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
     context 'confirmation' do
       
       let(:booking) {

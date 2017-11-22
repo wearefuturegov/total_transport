@@ -1,5 +1,5 @@
 - content_for :top_sec do
-  = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
+  = form_for @booking do |form|
     
     = hidden_field_tag :stripe_token
     
@@ -150,7 +150,7 @@
             = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
     %section.section
       %p
-        = link_to @back_path do
+        = link_to edit_booking_path(@booking) do
           = t('summary.back')
 
     %section.section
