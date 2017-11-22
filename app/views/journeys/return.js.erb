@@ -1,0 +1,2 @@
+<% form = ActionView::Helpers::FormBuilder.new('booking', @booking, self, {}) %>
+$('#one_way').html('<%= j(render 'return_times', journeys: @journeys, form: form, from: @from, to: @to) %>');

@@ -9,10 +9,9 @@ module BookingsHelper
 
   def bus_passes
     options_for_select([
-      ['Choose a bus pass', ''],
+      ['Please select', ''],
       ['Older Persons Bus Pass', 'older_bus_passes'],
-      ['Disabled Bus Pass', 'disabled_bus_passes'],
-      ['Scholar Bus Pass', 'scholar_bus_passes']
+      ['Disabled Bus Pass', 'disabled_bus_passes']
     ])
   end
 

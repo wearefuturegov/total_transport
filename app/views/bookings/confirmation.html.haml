@@ -1,8 +1,12 @@
 %section.section
   %h2="Thank you #{" #{@booking.passenger_name}"}, your Ride is now confirmed"
   %p
-    You will shortly receive an email and an SMS with the details of your booking. If you don’t,
-    = mail_to I18n.t('email.address'), "please get in contact with us."
+    - if @booking.email
+      You will shortly receive an email and an SMS with the details of your booking.
+    - else
+      You will shortly receive an SMS with the details of your booking.
+    If you don’t,
+    = mail_to ENV['RIDE_ADMIN_EMAIL'], "please get in contact with us."
   - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   - if @booking.payment_method == 'cash'

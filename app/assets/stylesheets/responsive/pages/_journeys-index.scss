@@ -7,12 +7,17 @@
       width: 100%;
       bottom: initial;
     }
-    .single {
-      position: absolute;
-      width: 100%;
-      margin-bottom: 0;
-      left: 0;
-      bottom: 0;
+    #results {
+      > .book-button {
+        position: absolute;
+        width: 100%;
+        margin-bottom: 0;
+        left: 0;
+        bottom: 0;
+        line-height: $baseline*3;
+        margin-top: $baseline;
+        width: 100%;
+      }
     }
     .action {
       bottom: $baseline;

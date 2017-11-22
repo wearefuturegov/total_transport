@@ -4,15 +4,21 @@ class JourneysController < PublicController
   
   def index
     if @from && @to
-      @bookings = Booking.initialize_for_places(@from, @to)
-      if @to.routes.count == 0 || @bookings.count == 0
-        places = Place.possible_destinations(@from)
+      @journeys = Journey.available_for_places(@from, @to)
+      if @to.routes.count == 0 || @journeys.count == 0
+        @possible_destinations = Place.possible_destinations(@from)
         TrackFailedPlaceQuery.enqueue(@from.name, @to.name, DateTime.now.to_s)
-        @possible_bookings = places.map do |place|
-          Booking.initialize_for_places(@from, place)
-        end
       end
     end
+  end
+  
+  def return
+    start_time = DateTime.parse params[:start_time]
+    @booking = Booking.new
+    available_journeys = Journey.available_for_places(@to, @from)
+    @journeys = Journey.where(id: available_journeys).where(
+      start_time: start_time...start_time.end_of_day
+    ).order(:start_time)
   end
   
   private

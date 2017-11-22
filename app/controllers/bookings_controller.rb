@@ -1,17 +1,30 @@
 class BookingsController < PublicController
-  before_filter :find_booking, except: [:new, :create, :cancelled]
+  before_filter :find_booking, except: [:new, :create, :cancelled, :price]
   before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
-  before_filter :find_route, except: [:show, :cancel, :cancelled]
+  #before_filter :find_route, except: [:show, :cancel, :cancelled, :new, :price]
   include ApplicationHelper
+  
+  def new
+    @from = Place.friendly.find(params[:from])
+    @to = Place.friendly.find(params[:to])
+    @journeys = Journey.available_for_places(@from, @to).group_by { |j| j.start_time.to_date }
+    @booking = Booking.new
+  end
 
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    redirect_to edit_route_booking_path(@route, @booking)
+    if @booking.valid?
+      render :summary
+    else
+      render :edit
+    end
   end
   
   def edit
-    @journeys = @booking.available_journeys.group_by { |j| j.start_time.to_date }
+    @from = @booking.pickup_stop.place
+    @to = @booking.dropoff_stop.place
+    @journeys = Journey.available_for_places(@from, @to).group_by { |j| j.start_time.to_date }
     @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
   end
   
@@ -21,14 +34,14 @@ class BookingsController < PublicController
       begin
         @booking.create_payment!(params[:stripe_token]) if params[:stripe_token].present?
         @booking.confirm!
-        redirect_to confirmation_route_booking_path(@route, @booking)
+        redirect_to confirmation_booking_path(@booking)
       rescue Stripe::CardError => e
         flash[:alert] = "There was a problem with your card. The message from the provider was: '#{e.message}'"
         render :summary
       end
     elsif booking_params[:cancellation_reason]
       @booking.update_attributes(booking_params)
-      redirect_to :booking_cancelled
+      render :cancelled
     else
       @booking.update_attributes(booking_params)
       if @booking.valid?
@@ -45,7 +58,11 @@ class BookingsController < PublicController
   end
 
   def price
-    @booking.assign_attributes(booking_params)
+    if booking_params[:pickup_stop_id].present? && booking_params[:dropoff_stop_id].present?
+      @booking = Booking.new(booking_params)
+    else
+      render nothing: true
+    end
   end
   
   def return_journeys

@@ -56,7 +56,7 @@ class Journey < ActiveRecord::Base
       Journey.available.where(
         route_id: route.id,
         reversed: f.position > t.position
-      ).map do |j|
+      ).order(:start_time).map do |j|
         j.pickup_stop = f
         j.dropoff_stop = t
         j

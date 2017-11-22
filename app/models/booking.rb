@@ -15,17 +15,6 @@ class Booking < ActiveRecord::Base
   after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
   
-  def self.initialize_for_places(from_place, to_place)
-    available_journeys = Journey.available_for_places(from_place, to_place).group_by(&:route)
-    available_journeys.map do |route, journeys|
-      Booking.new(
-        pickup_stop: journeys.first.pickup_stop,
-        dropoff_stop: journeys.first.dropoff_stop,
-        journey: journeys.first,
-      )
-    end
-  end
-  
   def outward_trip
     @outward_trip ||= Trip.new(
       booking: self

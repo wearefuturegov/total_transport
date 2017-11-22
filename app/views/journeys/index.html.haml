@@ -6,10 +6,10 @@
 
 %section.section
   #results
-    - if @possible_bookings
-      = render 'possible_bookings', bookings: @possible_bookings, from: @from, to: @to
-    - elsif @bookings
-      = render 'bookings_form', bookings: @bookings, suggestion: false
+    - if @possible_destinations
+      = render 'possible_destinations', places: @possible_destinations, from: @from, to: @to
+    - elsif @journeys
+      = render 'book_button', from: @from, to: @to
 
 - content_for :js do
 
@@ -65,6 +65,8 @@
       $('#to_result').empty();
       
       history.pushState(null, null, url);
+      
+      
       
       $.get({
         url: url,

@@ -1,0 +1,2 @@
+<% form = ActionView::Helpers::FormBuilder.new('booking', @booking, self, {}) %>
+$('<%= @selector %>').html('<%= j(render 'landmarks', landmarks: @landmarks, form: form, type: @type) %>');

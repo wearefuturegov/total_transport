@@ -1,0 +1,72 @@
+%section.section
+  .times{ id: "return_times"}
+    .direction
+      %label.button.secondary.oneway
+        = t('button.oneway')
+        = form.radio_button :return_journey_id, nil
+      %label.button.secondary.return.selected
+        = t('button.return')
+        = form.radio_button :return_journey_id, nil
+      .hide_times
+        - if journeys.count > 0
+          %label
+            = t('bookings.return.time')
+          %p.time
+            - journeys.each do |j|
+              = render 'bookings/journey_time', journey: j, type: 'return', form: form, journey_type: :return_journey_id, from: j.stops.find_by(place: from), to: j.stops.find_by(place: to)
+                          
+          .arrival-times.hidden
+        - else
+          .no-return-time
+            = t('bookings.no_return_time')
+    
+:javascript
+  
+    $('#return_times .oneway').click(function() {
+      $('#return_times .return').removeClass('selected');
+      $('#return_times .oneway').addClass('selected');
+      $('#return_times .hide_times').addClass('hide');
+      $('.return_price').addClass('hidden');
+      $('.single_price').removeClass('hidden');
+      scrollToBottom();
+    })
+
+    $('#return_times .return').click(function() {
+      $('#return_times .oneway').removeClass('selected');
+      $('#return_times .return').addClass('selected');
+      $('#return_times .hide_times').removeClass('hide');
+      $('.single_price').addClass('hidden');
+      $('.return_price').removeClass('hidden');
+      scrollToBottom();
+    })
+    
+    $('#return_times .oneway').click(function() {
+      var to = $('#outward_times .button.selected input').data('toId');
+      $('#booking_dropoff_stop_id').val(to);
+      $.get('/stops/' + to + '/landmarks', { type: 'dropoff' }, function() {
+        $('.landmarks').removeClass('hidden');
+        scrollToBottom();
+      });
+    })
+
+    $('#return_times .return').click(function() {
+      $('.landmarks').addClass('hidden');
+      scrollToBottom();
+    })
+
+    $('#return_times .time input').click(function() {
+      var place = $('#start_location label').html();
+      var data = $(this).data();
+      $('#booking_dropoff_stop_id').val(data.toId);
+      showArrivalTime(data, place);
+      $.get('/stops/' + data.toId + '/landmarks', { type: 'dropoff' }, function() {
+        $('.landmarks').removeClass('hidden');
+        scrollToBottom();
+      });
+    })
+
+    $('#return_times .button').on('click', function(){
+      $('#return_times .hide_times .button').removeClass('selected');
+      $(this).addClass('selected');
+      scrollToBottom();
+    });

@@ -95,14 +95,6 @@ RSpec.describe BookingsController, type: :controller do
     }
     let(:journey) { FactoryBot.create(:journey) }
     
-    it 'updates a booking' do
-      put :update, params, { current_passenger: passenger.session_token }
-      booking.reload
-      params[:booking].each do |k,v|
-        expect(booking.send(k.to_sym)).to eq(v)
-      end
-    end
-    
     context 'confirmation' do
       
       let(:booking) {
@@ -152,7 +144,7 @@ RSpec.describe BookingsController, type: :controller do
       end
       
       it 'redirects to the cancelled path' do
-        expect(subject).to redirect_to(booking_cancelled_path)
+        expect(subject).to render_template(:cancelled)
       end
       
       it 'runs the callbacks' do
@@ -176,8 +168,8 @@ RSpec.describe BookingsController, type: :controller do
           journeys[0]
         ],
         (Date.today + 2.day) => [
-          journeys[1],
-          journeys[2]
+          journeys[2],
+          journeys[1]
         ],
         (Date.today + 3.day) => [
           journeys[3]
