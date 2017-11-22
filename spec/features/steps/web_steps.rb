@@ -71,7 +71,7 @@ module WebSteps
     when 'disabled'
       select 'Disabled Bus Pass', from: 'pass'
     end
-    select num, from: 'pass_number'
+    first(:select, 'pass_number').first(:option, num).select_option
   end
   
   step 'I remove the bus pass' do
