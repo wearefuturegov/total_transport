@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to
       get ':from/:to/bookings/new' => 'bookings#new', as: :new_booking
+      get ':from/:to/return' => 'journeys#return', as: :return
     end
   end
   resources :bookings do
