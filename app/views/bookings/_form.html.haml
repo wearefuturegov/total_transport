@@ -90,24 +90,24 @@
       $('#times').removeClass('hidden');
       $('.times .time').addClass('hidden');
       $(' .' + target).removeClass('hidden');
-      scrollToBottom();
+      // scrollToBottom();
     })
 
     $('.date-button').on('click', function(){
       $('.date-button').removeClass('selected');
       $(this).addClass('selected');
-      scrollToBottom();
+      // scrollToBottom();
     });
 
     $('#outward_times .button').on('click', function(){
       $('#outward_times .button').removeClass('selected');
       $(this).addClass('selected');
-      scrollToBottom();
+      // scrollToBottom();
     });
 
-    function scrollToBottom() {
-      $("html, body").animate({ scrollTop: $(window).scrollTop() + 400 }, 500);
-    }
-    $(window).bind("mousewheel", function() {
-      $("html, body").stop();
-    });
+    // function scrollToBottom() {
+    //  $("html, body").animate({ scrollTop: $(window).scrollTop() + 400 }, 500);
+    // }
+    // $(window).bind("mousewheel", function() {
+    //   $("html, body").stop();
+    // });
