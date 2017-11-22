@@ -52,7 +52,7 @@ RSpec.describe BookingsController, type: :controller do
     }
     
     it 'creates a booking' do
-      post :create, params, { current_passenger: passenger.session_token }
+      post :create, params
       
       expect(Booking.count).to eq(1)
       
@@ -116,7 +116,7 @@ RSpec.describe BookingsController, type: :controller do
       
       it 'sends an SMS' do
         expect {
-          put :update, params, { current_passenger: passenger.session_token }
+          put :update, params
         }.to change { FakeSMS.messages.count }.by(1)
       end
       
