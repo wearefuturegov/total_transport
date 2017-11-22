@@ -49,7 +49,7 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'sends an email to the supplier' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(2)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(3)
       job = QueJob.find_by(job_class: 'SendEmail')
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[1]).to eq('booking_confirmed')
