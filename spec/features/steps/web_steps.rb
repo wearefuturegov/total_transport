@@ -157,6 +157,7 @@ module WebSteps
   end
 
   def choose_passengers(num, type)
+    wait_for_ajax
     num = num.to_i
     selector = case type
     when 'adult'

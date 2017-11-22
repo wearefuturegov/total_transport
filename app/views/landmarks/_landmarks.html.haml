@@ -8,16 +8,28 @@
   
     $('#booking_dropoff_landmark_id').change(function() {
       if($('#booking_pickup_landmark_id').val() != "") {
-        $('#return-chooser').removeClass('hidden');
-        $('#details').removeClass('hidden');
-        scrollToBottom();
+        $.post(
+          '#{passengers_bookings_path}',
+          $('form.new_booking').serialize(),
+          function() {
+            $('#return-chooser').removeClass('hidden');
+            $('#details').removeClass('hidden');
+            scrollToBottom();
+          }
+        );
       }
     })
 
     $('#booking_pickup_landmark_id').change(function() {
       if($('#booking_dropoff_landmark_id').val() != "") {
-        $('#return-chooser').removeClass('hidden');
-        $('#details').removeClass('hidden');
-        scrollToBottom();
+        $.post(
+          '#{passengers_bookings_path}',
+          $('form.new_booking').serialize(),
+          function() {
+            $('#return-chooser').removeClass('hidden');
+            $('#details').removeClass('hidden');
+            scrollToBottom();
+          }
+        );
       }
     })
