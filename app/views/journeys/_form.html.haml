@@ -1,6 +1,10 @@
 %section.section
-  = text_field_tag :from, nil, placeholder: 'From', id: :from, value: from
-  = text_field_tag :to, nil, placeholder: 'To', disabled: from.nil?, id: :to, value: to
+  = label_tag do
+    = t('journey.from.label')
+  = text_field_tag :from, nil, placeholder: I18n.t('journey.from.message'), id: :from, value: from
+  = label_tag do
+    = t('journey.to.label')
+  = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message'), disabled: from.nil?, id: :to, value: to
   #from_result.hidden{"aria-live" => "assertive", :hidden => "", :role => "alert"}
     %p.error-block
       = t('message.sorry')
@@ -12,6 +16,6 @@
         = t('service')
       = t('message.feedback')
     %p
-      = link_to I18n.t('button.typeform'), 'https://bookyourride.typeform.com/to/EGXKN0'
+      = link_to I18n.t('button.typeform'), I18n.t('button.typeform-link')
 
 

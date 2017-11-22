@@ -12,6 +12,11 @@
 
 .easy-autocomplete {
   position: relative;
+  input {
+    &::placeholder {
+      color: $gray;
+    }
+  }
 }
 
 .easy-autocomplete-container {

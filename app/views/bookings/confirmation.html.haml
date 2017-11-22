@@ -7,9 +7,9 @@
     = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   - if @booking.payment_method == 'cash'
     %p
-      If you decided to pay cash, you’ll pay the driver as you board.
+      If you decided to pay later, you’ll pay cash straight to your driver as you board.
     %p
-      You can cancel your booking
+      You can
       =link_to "cancel your booking", cancel_booking_url(@booking.token)
       up to 12 hours before your journey.
   - else

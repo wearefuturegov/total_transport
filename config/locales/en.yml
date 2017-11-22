@@ -69,7 +69,7 @@ en:
 
   steps:
     step_1:
-      info: "Affordable reliable shared transport"
+      info: "Affordable, reliable shared transport"
     step_2:
       info: "Provided by local transport companies"
     step_3:
@@ -77,11 +77,17 @@ en:
 
   journey:
     title: "Pre-book your ride"
+    from:
+      label: "From"
+      message: "e.g. Maldon, Maldon Museum"
+    to:
+      label: "To"
+      message: "e.g. Chelmsford"
 
   bookings:
     title: "Your journey"
     day:
-      title: "Select a day"
+      title: "Select an available day"
     outward:
       time: "Outward time (+-10mins)"
     return:
@@ -92,7 +98,7 @@ en:
       title: "Where to be picked up"
     dropoff:
       title: "Where to be dropped off"
-    no_return_time: "No return times available for your chosen outward time"
+    no_return_time: "No return journeys available for your chosen outward time."
     requirements:
       label: "Special requirements"
       message: "(Wheelchair, pushchair etc)"
@@ -117,7 +123,7 @@ en:
         message: "(Confirmation via email)"
 
   summary:
-    title: "Last step!"
+    title: "We're almost there!"
     extra: "Check your journey before you confirm"
     plus_minus_ten: "(+-10mins)"
     outbound:
@@ -133,6 +139,14 @@ en:
       time: "Time"
       dropoff: Drop off point
     back: "I need to change something"
+    payment:
+      title: "Payment"
+      now:
+        title: "Pay now"
+        extra: "Pay securely online using credit or debit card before you travel."
+      later:
+        title: "Pay later"
+        extra: "Pay by cash directly to your driver on the day of your journey."
 
   cancel:
     title: "Cancel your booking"
@@ -143,8 +157,6 @@ en:
   cancelled: 
     title: "Booking cancelled"
     extra: "Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future."
-
-
 
   button:
     book: "Get started"
@@ -162,9 +174,11 @@ en:
     submit: "Submit your booking request"
     return: "Return"
     typeform: "Tell us more"
+    typeform-link: "https://bookyourride.typeform.com/to/H7i6w5"
     event: "Coming Soon"
     regular: "Coming Soon"
     enquiry: "Get Started"
+    checked: "Pay Later"
     pay: "Pay Now"
     again: "Book another Ride"
     cancel: "Cancel"

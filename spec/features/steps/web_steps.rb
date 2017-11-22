@@ -59,7 +59,7 @@ module WebSteps
   
   step 'I confirm my booking' do
     page.execute_script '$("#submit-booking")[0].scrollIntoView(true)'
-    click_button I18n.t('helpers.submit.booking.update')
+    click_button I18n.t('button.checked')
   end
   
   step 'I choose :num ":type" bus pass(es)' do |num, type|
