@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122205040) do
+ActiveRecord::Schema.define(version: 20171122214030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,9 +138,10 @@ ActiveRecord::Schema.define(version: 20171122205040) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.json     "pricing_rule"
+    t.boolean  "allow_concessions", default: true
   end
 
   create_table "stops", force: :cascade do |t|
