@@ -32,24 +32,24 @@
     .event
     %section.section
       %h3
+        = t('public-index.event.regular.title')
+      %p
+        = t('public-index.event.regular.info')
+
+      %section.action
+        = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
+        
+  %section.hero.regular
+    .overlay
+    .event
+    %section.section
+      %h3
         = t('public-index.event.title')
       %p
         = t('public-index.event.info')
 
       %section.action
         = link_to I18n.t('button.event'), '#', class: 'button cta disabled'
-
-  %section.hero.regular
-    .overlay
-    .event
-    %section.section
-      %h3
-        = t('public-index.event.regular.title')
-      %p
-        = t('public-index.event.regular.info')
-
-      %section.action
-        = link_to I18n.t('button.regular'), '#', class: 'button cta disabled'
 
   %section.hero.enquiry
     .overlay
