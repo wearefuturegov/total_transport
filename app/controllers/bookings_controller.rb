@@ -56,7 +56,11 @@ class BookingsController < PublicController
   end
 
   def price
-    @booking.assign_attributes(booking_params)
+    if booking_params[:pickup_stop_id].present? && booking_params[:dropoff_stop_id].present?
+      @booking = Booking.new(booking_params)
+    else
+      render nothing: true
+    end
   end
   
   def return_journeys
