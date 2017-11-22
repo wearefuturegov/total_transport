@@ -158,6 +158,10 @@ en:
     title: "Your booking has been cancelled. "
     extra: "We are sorry you won’t be riding with us, but we hope you will choose Ride again in the future."
 
+  complete:
+    thankyou: "If you have any questions or feedback please contact us at"
+    fairwell: "Enjoy your Ride!"
+
   button:
     book: "Get started"
     contact: "Have a question?"

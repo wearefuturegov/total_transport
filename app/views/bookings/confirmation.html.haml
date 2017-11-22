@@ -16,10 +16,25 @@
       You can
       =link_to "cancel your booking", cancel_booking_url(@booking.token)
       up to 12 hours before your journey.
+
+    %p
+      = t('complete.thankyou')
+      = mail_to ENV['RIDE_ADMIN_EMAIL'], " hello@bookyourride.co.uk"
+
+    %p.bold
+      = t('complete.fairwell')
+
   - else
     %p
       You can cancel your booking up to 12 hours before your journey, which you will be refunded in 5-10 working days, here:
       =link_to "cancel Ride.", cancel_booking_url(@booking.token)
+
+    %p.bold
+      = t('complete.thankyou')
+      = mail_to ENV['RIDE_ADMIN_EMAIL'], " hello@bookyourride.co.uk"
+
+    %h2
+      = t('complete.fairwell')
 
 
 = link_to I18n.t('button.complete'), journeys_path, :class => "button cta primary"
