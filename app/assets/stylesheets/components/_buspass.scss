@@ -1,14 +1,25 @@
 /* buspass */
 
+#pass-container {
+  #passes{
+    float: left;
+    width: 100%;
+  }
+}
+
 .pass-type {
   float: left;
   width: 60%;
-  margin-right: 5%;
+  margin-right: 2%;
+  border-color: $brand;
+  &[disabled] {
+    border-color: $gray;
+  }
 }
 
 .pass-number {
   float: left;
-  width: 25%;
+  width: 23%;
 }
 
 #passes .remove {
@@ -16,6 +27,6 @@
   font-weight: 900;
   background: none;
   border: none;
-  width: 10%;
+  width: 15%;
   padding: 0;
 }

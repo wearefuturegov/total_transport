@@ -16,10 +16,12 @@
         = t('bookings.passenger.child.extra')
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
 
+  %label
+    = t('bookings.passenger.pass.title')
   #passes.hidden
     = select_tag :pass, bus_passes, class: 'select pass-type'
     = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number'
-    %button.col-1.remove
+    %button.remove
       x
 
   #pass-container
