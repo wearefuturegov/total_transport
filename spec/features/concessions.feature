@@ -55,3 +55,7 @@ Feature: Booking a journey with concessions
     And I choose 1 "disabled" bus pass
     Then I should not be able to choose another "disabled" bus pass
     
+  Scenario: When allow concessions is set to false
+    Given the route has allow concessions set to false
+    And I have chosen a journey
+    Then I should not see the concessions selector
