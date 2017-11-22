@@ -109,7 +109,7 @@
 
         $('#passes.hidden .pass-type option[value=' + pass +']').remove();
         if ($('#passes.hidden .pass-type option').length == 1) {
-          //$('#add-pass').hide();
+          $('#add-pass').hide();
         }
         num.removeAttr('disabled');
         num.data('target', pass);
@@ -132,6 +132,7 @@
               .attr('value',target)
               .text(text));
         }
+        $('#add-pass').show();
         $passes.remove();
         return false;
       })
