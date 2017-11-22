@@ -18,20 +18,26 @@ RSpec.describe Journey, type: :model do
   
   it 'queues a job to close the journey for bookings' do
     Timecop.freeze('2016-12-23T09:00:00')
-    start_time = DateTime.parse('2017-01-01T18:00:00')
+    start_time = DateTime.parse('2017-09-01T17:00:00')
     expect { FactoryBot.create(:journey, start_time: start_time) }.to change { QueJob.count }.by(1)
-    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T14:00:00'))
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-09-01T13:00:00'))
     Timecop.return
+  end
+  
+  it 'takes business hours into account' do
+    start_time = DateTime.parse('2017-09-01T08:00:00')
+    expect { FactoryBot.create(:journey, start_time: start_time) }.to change { QueJob.count }.by(1)
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-08-31T17:00:00'))
   end
   
   it 'deletes and creates a new job if the journey time is changed' do
     Timecop.freeze('2016-12-23T09:00:00')
-    start_time = DateTime.parse('2017-01-01T18:00:00')
+    start_time = DateTime.parse('2017-09-01T17:00:00')
     journey = FactoryBot.create(:journey)
     journey.start_time = start_time
     journey.save
     expect(QueJob.count).to eq(1)
-    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-01-01T14:00:00'))
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-09-01T13:00:00'))
     Timecop.return
   end
   

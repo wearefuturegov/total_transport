@@ -141,8 +141,16 @@ class Journey < ActiveRecord::Base
   
   private
     
+    def close_time
+      if start_time.hour < 9
+        (start_time - 1.day).change({ hour: 17 })
+      else
+        start_time - 4.hours
+      end
+    end
+    
     def close_before_end
-      CloseBeforeEnd.enqueue(id, run_at: start_time - 4.hours)
+      CloseBeforeEnd.enqueue(id, run_at: close_time)
     end
     
     def change_close_time
