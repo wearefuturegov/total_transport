@@ -41,7 +41,7 @@ class BookingsController < PublicController
       end
     elsif booking_params[:cancellation_reason]
       @booking.update_attributes(booking_params)
-      redirect_to :booking_cancelled
+      render :cancelled
     else
       @booking.update_attributes(booking_params)
       if @booking.valid?

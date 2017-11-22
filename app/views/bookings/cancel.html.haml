@@ -11,7 +11,7 @@
   %p
     = t('cancel.help')
 
-  = form_for [@booking.route, @booking] do |f|
+  = form_for @booking do |f|
 
     = f.hidden_field :state, value: :cancelled
 
