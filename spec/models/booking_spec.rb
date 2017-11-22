@@ -184,7 +184,7 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'gets available_journeys' do
       FactoryBot.create_list(:journey, 12)
-      expect(booking.available_journeys).to eq(journeys)
+      expect(booking.available_journeys).to match_array(journeys)
     end
     
     it 'ignores full journeys' do
