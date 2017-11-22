@@ -1,5 +1,5 @@
 class BookingsController < PublicController
-  before_filter :find_booking, except: [:new, :create, :cancelled, :price]
+  before_filter :find_booking, except: [:new, :create, :cancelled, :price, :passengers]
   include ApplicationHelper
   
   def new
@@ -61,6 +61,10 @@ class BookingsController < PublicController
     else
       render nothing: true
     end
+  end
+  
+  def passengers
+    @booking = Booking.new(booking_params)
   end
   
   def return_journeys

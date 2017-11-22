@@ -132,6 +132,10 @@ module WebSteps
     expect(page).to have_content('your Ride is now confirmed')
   end
   
+  step 'I should not see the concessions selector' do
+    expect(page).to have_no_selector('#passes')
+  end
+  
   def click_book_journey
     wait_for_ajax
     click_on I18n.t('button.book')
@@ -157,6 +161,7 @@ module WebSteps
   end
 
   def choose_passengers(num, type)
+    wait_for_ajax
     num = num.to_i
     selector = case type
     when 'adult'

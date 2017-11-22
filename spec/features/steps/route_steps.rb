@@ -22,6 +22,11 @@ module RouteSteps
     instance_variable_set(:"@#{reversed}_journey", FactoryBot.create(:journey, route: @route, reversed: reversed, start_time: DateTime.parse(time) + days.to_i.days))
   end
   
+  step 'the route has allow concessions set to false' do
+    @route.allow_concessions = false
+    @route.save
+  end
+  
 end
 
 RSpec.configure do |config|

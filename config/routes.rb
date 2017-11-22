@@ -12,8 +12,9 @@ Rails.application.routes.draw do
   resources :bookings do
     collection do
       post :price
+      post :passengers
     end
-    member do      
+    member do
       get :confirmation
       get :return_journeys
     end
