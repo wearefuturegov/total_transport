@@ -61,7 +61,7 @@
         = t('public-index.event.enquiry.info')
 
       %section.action
-        = link_to I18n.t('button.enquiry'), 'https://bookyourride.typeform.com/to/H7i6w5', class: 'button cta'
+        = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
 
 
   %section.section.info
@@ -72,7 +72,7 @@
 
   %section.section
     .action
-      = mail_to I18n.t('email.address'), I18n.t('button.contact'), subject: I18n.t('email.subject'), class: 'button cta secondary'
+      = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button cta secondary'
 
   %footer.psuedo-footer
     %section.section
