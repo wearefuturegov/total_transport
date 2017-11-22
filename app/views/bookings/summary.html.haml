@@ -9,8 +9,6 @@
         = t('summary.title')
       %h2
         = t('summary.extra')
-      -# .button.cta#submit-booking-2=I18n.t('helpers.submit.booking.update')
-      -# .button.cta#pay-online-2=I18n.t('helpers.submit.booking.pay')
 
     %section.section
       %section.key
@@ -154,6 +152,22 @@
       %p
         = link_to @back_path do
           = t('summary.back')
+
+    %section.section
+      %h2
+        = t('summary.payment.title')
+
+      %h4
+        = t('summary.payment.now.title')
+
+      %p
+        = t('summary.payment.now.extra')
+
+      %h4
+        = t('summary.payment.later.title')
+
+      %p
+        = t('summary.payment.later.extra')
 
     = form.submit :class => 'button cta primary choice stripe', :id => 'pay-online', :name => :pay, :value => t('button.pay')
     = form.submit :class => 'button cta primary choice', :id => 'submit-booking', :name => :confirm, :value => t('button.checked')
