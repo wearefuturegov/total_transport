@@ -15,18 +15,19 @@ Rails.application.routes.draw do
       get ':from/(:to)' => 'journeys#index', as: :from_to
     end
   end
-  resources :routes do
-    resources :bookings do
-      member do
-        resources :suggested_journey, only: [:new, :create]
-        resources :suggested_edit_to_stop, only: [:new, :create]
-        
-        get :confirmation
-        get :price
-        get :return_journeys
-      end
+  resources :bookings do
+    collection do
+      post :price
+    end
+    member do
+      resources :suggested_journey, only: [:new, :create]
+      resources :suggested_edit_to_stop, only: [:new, :create]
+      
+      get :confirmation
+      get :return_journeys
     end
   end
+  resources :routes
 
   root 'public#index'
 
