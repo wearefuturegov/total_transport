@@ -1,7 +1,7 @@
 class BookingsController < PublicController
-  before_filter :find_booking, except: [:new, :create, :cancelled]
+  before_filter :find_booking, except: [:new, :create, :cancelled, :price]
   before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
-  before_filter :find_route, except: [:show, :cancel, :cancelled]
+  #before_filter :find_route, except: [:show, :cancel, :cancelled, :new, :price]
   include ApplicationHelper
   
   def new
@@ -14,7 +14,11 @@ class BookingsController < PublicController
   # Save stops
   def create
     @booking = Booking.create(booking_params)
-    redirect_to edit_route_booking_path(@route, @booking)
+    if @booking.valid?
+      render :summary
+    else
+      render :edit
+    end
   end
   
   def edit
