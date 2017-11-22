@@ -15,7 +15,7 @@ Feature: Choosing a journey
     When I choose a from point of Somewhere
     Then I should see the message
       """
-      Unfortunately, we don't currently travel Somewhere.
+      Unfortunately, we don't currently travel from Somewhere.
       """
     And the origin Somewhere should be logged
 
@@ -26,7 +26,7 @@ Feature: Choosing a journey
     And I choose a to point of Somewhere
     Then I should see the message
       """
-      Unfortunately, we don't currently travel Somewhere.
+      Unfortunately, we don't currently travel to Somewhere.
       """
     And I should see a suggestion of a journey from Newmarket to Haverhill
     And the origin Newmarket should be logged
