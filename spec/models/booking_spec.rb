@@ -637,6 +637,17 @@ RSpec.describe Booking, :que, type: :model do
       
     end
     
+    it 'with pricing rules' do
+      booking.route.pricing_rule = {
+        child_single_price: 0,
+        child_return_price: 0
+      }
+      booking.child_tickets = 1
+      
+      expect(booking.price).to eq(0)
+      expect(booking.return_price).to eq(0)
+    end
+    
   end
   
 end

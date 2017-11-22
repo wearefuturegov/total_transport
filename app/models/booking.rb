@@ -97,11 +97,11 @@ class Booking < ActiveRecord::Base
   end
 
   def child_single_price
-    adult_single_price / 2
+    route.pricing_rule['child_single_price'] || (adult_single_price / 2)
   end
 
   def child_return_price
-    child_single_price * 2
+    route.pricing_rule['child_return_price'] || child_single_price * 2
   end
 
   def single_price
