@@ -1,4 +1,3 @@
-= form.label type, I18n.t('bookings.landmark.title')
 = form.select type,
     options_from_collection_for_select(landmarks, 'id', 'name'),
     { include_blank: I18n.t("bookings.#{type}.title") },
