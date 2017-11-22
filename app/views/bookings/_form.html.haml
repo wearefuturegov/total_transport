@@ -52,6 +52,12 @@
       %section.section
         %h2
           = t('bookings.lead.title')
+
+        %p.small
+          %span.required
+            *
+          = t('form.required')
+          
         = form.label :passenger_name do
           = t('bookings.lead.label')
           %san.required
@@ -71,14 +77,7 @@
           = t('bookings.lead.email.label')
           %spans.small
             = t('bookings.lead.email.message')
-        = form.text_field :email
-    
-        %p.small
-          %span.required
-            *
-          = t('form.required')
-    
-    
+        = form.text_field :email    
     
       = form.submit :class => 'button cta primary', :id => 'submit-booking', value: t('button.next')
 

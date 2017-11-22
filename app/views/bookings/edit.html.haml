@@ -58,6 +58,12 @@
       %section.section
         %h2
           = t('bookings.lead.title')
+
+        %p.small
+          %span.required
+            *
+          = t('form.required')
+          
         = form.label :passenger_name do
           = t('bookings.lead.label')
           %san.required
@@ -78,11 +84,6 @@
           %spans.small
             = t('bookings.lead.email.message')
         = form.text_field :email, type: 'email', name: 'email'
-
-        %p.small
-          %span.required
-            *
-          = t('form.required')
 
 
 

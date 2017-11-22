@@ -79,10 +79,10 @@ en:
     title: "Pre-book your Ride"
     from:
       label: "From"
-      message: "e.g. Maldon, Maldon Museum"
+      message: "e.g. Burnham-on-Crouch"
     to:
       label: "To"
-      message: "e.g. Chelmsford"
+      message: "e.g. Maldon, Broomfield Hospital"
 
   bookings:
     title: "Your journey"
@@ -114,7 +114,7 @@ en:
       pass: "Bus pass"
     lead:
       title: "Contact"
-      label: "Lead passenger name"
+      label: "Lead passenger's full name"
       mobile:
         label: "Mobile"
         message: "To send an SMS confirming your Ride"
