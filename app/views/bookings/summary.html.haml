@@ -1,5 +1,5 @@
 - content_for :top_sec do
-  = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
+  = form_for @booking do |form|
     
     = hidden_field_tag :stripe_token
     
