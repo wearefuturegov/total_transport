@@ -302,6 +302,9 @@ en:
     greeting: Hello %{passenger_name}
     signoff_html: |
       Thanks,<br />The <strong>Ride</strong> Team
+    landing:
+      address: "hello@bookyourrride.co.uk"
+      subject: "Question"
 
       
   
