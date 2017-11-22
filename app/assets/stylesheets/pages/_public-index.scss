@@ -36,7 +36,7 @@
         color: $white;
       }
       .overlay {
-        background-color: rgba(6, 15, 25, 0.61);
+        background-color: rgba(72, 61, 21, 0.47);
         position: absolute;
         top: 0;
         left: 0;
@@ -47,10 +47,10 @@
       &.regular {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(72, 61, 21, 0.47);
+          background-color: rgba(6, 15, 25, 0.61);
         }
         .event {
-          background-image: image-url('christmas.jpg');
+          background-image: image-url('daily_service.png');
           background-position-y: center;
         }
       }
@@ -88,7 +88,7 @@
       }
     }
     .event {
-      background-image: image-url('daily_service.png');
+      background-image: image-url('christmas.jpg');
       background-size: cover;
       background-position: center;
       position: absolute;
