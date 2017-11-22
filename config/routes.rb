@@ -1,14 +1,6 @@
 Rails.application.routes.draw do
   resources :log_entry, only: [:create]
-  resources :passengers, except: :destroy do
-    resources :sessions, only: [:new, :create]
-    collection do
-      delete :sign_out, to: 'sessions#destroy'
-    end
-    resources :bookings, only: :show
-  end
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
-  resources :suggested_routes, only: [:new, :create]
   resources :places, only: [:index, :show]
   resources :journeys, only: [:index] do
     collection do
@@ -21,10 +13,7 @@ Rails.application.routes.draw do
     collection do
       post :price
     end
-    member do
-      resources :suggested_journey, only: [:new, :create]
-      resources :suggested_edit_to_stop, only: [:new, :create]
-      
+    member do      
       get :confirmation
       get :return_journeys
     end

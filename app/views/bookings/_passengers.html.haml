@@ -109,7 +109,7 @@
 
         $('#passes.hidden .pass-type option[value=' + pass +']').remove();
         if ($('#passes.hidden .pass-type option').length == 1) {
-          //$('#add-pass').hide();
+          $('#add-pass').hide();
         }
         num.removeAttr('disabled');
         num.data('target', pass);
@@ -132,6 +132,7 @@
               .attr('value',target)
               .text(text));
         }
+        $('#add-pass').show();
         $passes.remove();
         return false;
       })
@@ -140,9 +141,13 @@
     });
 
     function sortConcession(number) {
-      console.log(number.val())
+      var total = $('.pass-number').toArray().reduce(function(total, el) {
+          var $el = $(el);
+          var value = parseInt($el.val());
+          return !isNaN(value) ? total + value : total
+      }, 0)
       var count = number.val();
-      if (count > $('#booking_number_of_adults').val()) {
+      if (total > $('#booking_number_of_adults').val()) {
         $('#message');
         $('#message').removeClass('hidden');
       } else {

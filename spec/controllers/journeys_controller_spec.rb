@@ -64,7 +64,7 @@ RSpec.describe JourneysController, type: :controller do
     it 'returns possible destinations' do
       subject
       possible_destinations = assigns(:possible_destinations)
-      expect(possible_destinations.count).to eq(6)
+      expect(possible_destinations.count).to eq(5)
       expect(possible_destinations).to include(origin)
     end
     

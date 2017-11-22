@@ -6,7 +6,7 @@ class JourneysController < PublicController
     if @from && @to
       @journeys = Journey.available_for_places(@from, @to)
       if @to.routes.count == 0 || @journeys.count == 0
-        @possible_destinations = Place.possible_destinations(@from)
+        @possible_destinations = Place.possible_destinations(@from).uniq
         TrackFailedPlaceQuery.enqueue(@from.name, @to.name, DateTime.now.to_s)
       end
     end

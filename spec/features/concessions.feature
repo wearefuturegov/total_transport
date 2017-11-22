@@ -41,6 +41,13 @@ Feature: Booking a journey with concessions
     And I choose 2 adult passengers
     And I choose 3 "disabled" bus passes
     Then I should see "The number of passes must not exceed the number of passengers"
+
+  Scenario: Adding extra passes
+    Given I have chosen a journey
+    And I choose 2 adult passengers
+    And I choose 1 "disabled" bus pass
+    And I choose 3 "older people's" bus passes
+    Then I should see "The number of passes must not exceed the number of passengers"
     
   Scenario: Pass type can only be added once
     Given I have chosen a journey

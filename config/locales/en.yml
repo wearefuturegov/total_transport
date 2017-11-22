@@ -94,9 +94,9 @@ en:
       time: "Return time (+-10mins)"
     landmark:
       title: "Select your preferred stops"
-    pickup:
+    pickup_landmark_id:
       title: "Where to be picked up"
-    dropoff:
+    dropoff_landmark_id:
       title: "Where to be dropped off"
     no_return_time: "No return journeys available for your chosen outward time."
     requirements:
