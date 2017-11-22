@@ -3,6 +3,8 @@ class Route < ActiveRecord::Base
   has_many :journeys, -> { order(start_time: :asc) }, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
   has_many :places, through: :stops
+  
+  after_initialize :set_rule
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
@@ -49,4 +51,10 @@ class Route < ActiveRecord::Base
     end
     available_journeys_by_date
   end
+  
+  private
+
+    def set_rule
+      self.pricing_rule ||= {}
+    end
 end
