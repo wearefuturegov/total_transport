@@ -1,0 +1,11 @@
+%p= t('email.greeting', passenger_name: @booking.passenger_name)
+
+%p= t('email.user_cancellation.intro_html', pickup_date: friendly_date(@booking.journey.start_time), pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time), stop: @booking.outward_trip.pickup_stop.name, landmark: @booking.outward_trip.pickup_landmark.name)
+
+%p= t('email.user_cancellation.book_new_html')
+
+%p= t('email.signoff_html')
+
+%p= t('email.user_cancellation.ps_html')
+
+%p= t('email.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))
