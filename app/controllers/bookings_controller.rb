@@ -1,7 +1,5 @@
 class BookingsController < PublicController
   before_filter :find_booking, except: [:new, :create, :cancelled, :price]
-  before_filter :get_passenger, :authenticate_passenger!, only: [:show, :destroy]
-  #before_filter :find_route, except: [:show, :cancel, :cancelled, :new, :price]
   include ApplicationHelper
   
   def new
@@ -74,11 +72,6 @@ class BookingsController < PublicController
     @booking.destroy
     redirect_to passenger_path
   end
-
-  def show
-    @page_title = "Booking Details"
-    @back_path = passenger_path
-  end
   
   def cancel
     @page_title = "Cancel your booking"
@@ -112,14 +105,6 @@ class BookingsController < PublicController
       :cancellation_reason,
       :state
     )
-  end
-  
-  def get_passenger
-    unless current_passenger
-      passenger = Passenger.setup(@booking.passenger.phone_number)
-      session[:return_to] = request.url
-      redirect_to new_passenger_session_path(passenger.id)
-    end
   end
 
   def find_route
