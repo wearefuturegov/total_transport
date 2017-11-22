@@ -28,6 +28,11 @@ Rails.application.routes.draw do
       get :return_journeys
     end
   end
+  
+  resources :stops do
+    resources :landmarks, only: [:index]
+  end
+  
   resources :routes
 
   root 'public#index'
