@@ -2,18 +2,22 @@
   %li#adult_tickets{class: booking.number_of_adults == 0 ? 'hidden' : ''}
     %span.number
       = booking.number_of_adults
-    %span.single_price.hidden
-      x adult ticket(s) @ #{number_to_currency(booking.adult_single_price, :unit => "£")}
-    %span.return_price
-      x adult ticket(s) @ #{number_to_currency(booking.adult_return_price, :unit => "£")}
+    - if booking.return_journey
+      %span.return_price
+        x adult ticket(s) @ #{number_to_currency(booking.adult_return_price, :unit => "£")}
+    - else
+      %span.single_price
+        x adult ticket(s) @ #{number_to_currency(booking.adult_single_price, :unit => "£")}
   
   %li#child_tickets{class: booking.child_tickets == 0 ? 'hidden' : ''}
     %span.number
       = booking.child_tickets
-    %span.single_price.hidden
-      x child ticket(s) @ #{number_to_currency(booking.child_single_price, :unit => "£")}
-    %span.return_price
-      x child ticket(s) @ #{number_to_currency(booking.child_return_price, :unit => "£")}
+    - if booking.return_journey
+      %span.return_price
+        x child ticket(s) @ #{number_to_currency(booking.child_return_price, :unit => "£")}
+    - else
+      %span.single_price
+        x child ticket(s) @ #{number_to_currency(booking.child_single_price, :unit => "£")}
     
   %li#older_tickets{class: booking.older_bus_passes == 0 ? 'hidden' : ''}
     %span.number
@@ -32,7 +36,9 @@
   
 %h3#total
   Total:
-  %span.single_price.hidden
-    = number_to_currency(booking.single_price, :unit => "£")
-  %span.return_price
-    = number_to_currency(booking.return_price, :unit => "£")
+  - if booking.return_journey
+    %span.return_price
+      = number_to_currency(booking.return_price, :unit => "£")
+  - else
+    %span.single_price
+      = number_to_currency(booking.single_price, :unit => "£")
