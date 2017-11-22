@@ -150,7 +150,7 @@
             = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
     %section.section
       %p
-        = link_to @back_path do
+        = link_to edit_booking_path(@booking) do
           = t('summary.back')
 
     %section.section

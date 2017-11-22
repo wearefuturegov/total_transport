@@ -64,7 +64,7 @@
             *
           %span.small
             = t('bookings.lead.mobile.message')
-        = form.text_field :phone_number, required: true
+        = form.text_field :phone_number, required: true, pattern: '.{0,11}', maxlength: 11
     
     
         = form.label :email do
