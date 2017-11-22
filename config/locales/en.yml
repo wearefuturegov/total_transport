@@ -214,3 +214,109 @@ en:
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
     feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
+
+  email:
+    booking_details:
+      greeting: 'Hello'
+      confirmed_intro_html: |
+        <p>A new booking has been confirmed on <strong>Ride</strong>. A confirmation email and text has been sent to the passenger.</p>
+      cancelled_intro_html: |
+        <p>A booking has been cancelled on <strong>Ride</strong>. Please ensure this is updated on your system.</p>
+      passenger_details_html: |
+        <p>The passenger's details are as follows:</p>
+        <h2>Contact Details</h2>
+        <p><strong>Name:</strong> %{name}</p>
+        <p><strong>Mobile Number:</strong> %{phone_number}</p>
+        <p><strong>Email:</strong> %{email}</p>
+        <h2>Number of passengers</h2>
+        <p><strong>Adults:</strong> %{number_of_adult_tickets}</p>
+        <p><strong>Children:</strong> %{child_tickets}</p>
+        <p><strong>Bus Passes:</strong> %{number_of_free_tickets}</p>
+      special_requirements_html: |
+        <h2>Special requirements</h2>
+        <p>%{special_requirements}</p>
+        <p><strong>If there are any issues with these requirements, please contact the passenger directly and the Ride team.</strong></p>
+      journey_type_html: |
+        <h2>This is a %{journey_type} journey</h2>
+      outward_journey: Outward Journey
+      return_journey: Return Journey
+      journey_html: |
+        <p class='time'>Travelling at %{pickup_time} on %{pickup_date}</p>
+        <p class='from'><strong>From:</strong> %{pickup_stop}</p>
+        <p class='to'><strong>To:</strong> %{dropoff_stop}</p>
+        <p class='from'><strong>Pickup place:</strong> %{pickup_landmark}</p>
+        <p class='to'><strong>Dropoff place:</strong> %{dropoff_landmark}</p>
+      price_html: |
+        <p><strong>Payment method:</strong> %{payment_method}</p>
+        <p><strong>Amount:</strong> %{amount}</p>
+      signoff_html: |
+        <p>Thanks<br />Your friendly <strong>Ride</strong> robot</p>
+    user_confirmation:
+      intro: Your Ride booking from %{pickup_stop} to %{dropoff_stop} for %{passengers} is confirmed
+      outward_pickup: Your vehicle will collect you from %{pickup_name} on %{pickup_date} between %{pickup_time}.
+      return_pickup: Your return journey is from %{pickup_name} on %{pickup_date} between %{pickup_time}'.
+      ride_sticker: Look out for the <strong>Ride</strong> sticker in the windscreen.
+      payment: The total amount due is %{amount}, remember to pay the driver when you onboard.
+      special_requirements: |
+        If you specified any special requirements then our supplier will contact
+        you if for any reason they are unable to meet them.
+      amend_cancel: If you need to amend or cancel your booking please use this form %{link}
+      ps_html: |
+        P.s. Where do you need to go next?
+        <a href="https://bookyourride.typeform.com/to/mv530I">Tell us the
+        journeys you’d like to see available</a>
+    user_cancellation:
+      intro_html: |
+        This is to confirm that your Ride booking on %{pickup_date} at %{pickup_time} from %{stop}, %{landmark} has been cancelled.
+      book_new_html: |
+        To book a new <strong>Ride</strong>, go to <a href="https://bookyourride.co.uk/">our website</a>.
+      ps_html: |
+        P.s. Have some feedback? <a href="hello@bookyourrride.co.uk">Tell us what you think</a>.
+    feedback:
+      body_html: |
+        We hope you enjoyed your <strong>Ride</strong>. To help us improve the service, please share your feedback: %{link}
+
+    footer_html:
+      <p><strong>Ride, a project by:</strong>
+        <a href="https://www.essex.gov.uk/Pages/Default.aspx">Essex County Council</a> |
+        <a href="https://www.suffolk.gov.uk/">Suffolk County Council</a> |
+        <a href="http://www.wearefuturegov.com/">FutureGov</a></p>
+      <p>%{website_link} | %{twitter_link} | %{facebook_link}</p>
+    greeting: Hello %{passenger_name}
+    signoff_html: |
+      Thanks,<br />The <strong>Ride</strong> Team
+
+      
+  
+  sms:
+    booking_notification:
+      single: |
+        Your Ride booking from %{pickup_stop} to %{dropoff_stop} is confirmed.
+        Your vehicle will pick you up from %{pickup_landmark}
+        on %{pickup_date} between %{pickup_time}.
+      return: |
+        Your return journey is from %{pickup_landmark}, %{pickup_stop}
+        between %{pickup_time}.
+      payment: The total amount due is %{amount}, remember to pay the driver when you onboard
+      amend_cancel:
+        To amend or cancel your booking please use this form %{url}
+    first_alert:
+      body: |
+        Your Ride booking reminder. Your vehicle will collect you tomorrow for
+        your outbound journey from  %{pickup_name} between %{pickup_time}. Look
+        out for the Ride sticker in the windscreen.
+      payment: 'Don’t forget to pay the driver directly.'
+      cancel: ' To cancel your booking please use this form %{url}'
+    second_alert:
+      body: |
+        Your Ride is on it’s way. Your pickup point is %{pickup_name}
+        between %{pickup_time}. Look out for the Ride sticker in the windscreen.
+        If you need to get in touch, please call %{supplier_number}.
+    booking_cancellation:
+      body: |
+        Your Ride booking on %{pickup_date} at %{pickup_time} from %{pickup_name}
+        has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
+    post_survey:
+      body: |
+        We hope you enjoyed your Ride. To help us improve the service, please
+        share your feedback: %{url}

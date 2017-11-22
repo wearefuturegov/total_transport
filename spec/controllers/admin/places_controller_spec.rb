@@ -17,7 +17,7 @@ RSpec.describe Admin::PlacesController, type: :controller do
     
     it 'sets the back path' do
       subject
-      expect(assigns(:back_path)).to eq(admin_team_path)
+      expect(assigns(:back_path)).to eq(admin_account_path)
     end
     
     context 'with a route id set' do
@@ -53,7 +53,7 @@ RSpec.describe Admin::PlacesController, type: :controller do
     end
     
     it 'redirects to the back_path' do
-      expect(subject).to redirect_to(admin_team_path)
+      expect(subject).to redirect_to(admin_account_path)
     end
     
     context 'with a route id set' do

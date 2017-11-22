@@ -36,20 +36,25 @@ class SmsService
   private
         
     def booking_notification
-      template = """
-        Your Ride booking from #{@booking.outward_trip.pickup_stop.name} to #{@booking.outward_trip.dropoff_stop.name}
-        is confirmed. Your vehicle will pick you up from #{@booking.outward_trip.pickup_landmark.name}
-        on #{friendly_date(@booking.journey.start_time)} between #{plus_minus_ten(@booking.outward_trip.pickup_time)}
-      """
-      if @booking.return_journey
-        template += """
-          , and returning from #{@booking.return_trip.pickup_name} on #{friendly_date(@booking.return_trip.pickup_time)}
-          between #{plus_minus_ten(@booking.return_trip.pickup_time)}
-        """
-      end
-      template += """
-      . To amend or cancel your booking please use this form #{cancel_booking_url(@booking.token)}
-      """
+      template = I18n.t('sms.booking_notification.single',
+        pickup_landmark: @booking.outward_trip.pickup_landmark.name,
+        pickup_stop: @booking.outward_trip.pickup_stop.name,
+        dropoff_stop: @booking.outward_trip.dropoff_stop.name,
+        pickup_date: friendly_date(@booking.journey.start_time),
+        pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time)
+      )
+      template += I18n.t('sms.booking_notification.return',
+        pickup_landmark: @booking.return_trip.pickup_landmark.name,
+        pickup_stop: @booking.return_trip.pickup_stop.name,
+        pickup_date: friendly_date(@booking.journey.start_time),
+        pickup_time: plus_minus_ten(@booking.return_trip.pickup_time)
+      ) if @booking.return_journey
+      template += I18n.t('sms.booking_notification.payment',
+        amount: ActionController::Base.helpers.number_to_currency(@booking.price, unit: '£')
+      ) if @booking.payment_method == 'cash'
+      template += I18n.t('sms.booking_notification.amend_cancel',
+        url: cancel_booking_url(@booking.token)
+      )
       template.squish
     end
     
@@ -58,36 +63,35 @@ class SmsService
     end
     
     def first_alert
-      text = """
-        Your Ride booking reminder. Your vehicle will collect you tomorrow from
-        #{@booking.outward_trip.pickup_name} between #{plus_minus_ten(@booking.outward_trip.pickup_time)}.
-        Look out for the Ride sticker in the windscreen. To cancel your booking
-        please use this form #{cancel_booking_url(@booking.token)}
-      """.squish
-      text += ". Don’t forget to pay the driver directly." if @booking.payment_method == 'cash'
+      template = I18n.t('sms.first_alert.body',
+        pickup_name: @booking.outward_trip.pickup_name,
+        pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time)
+      )
+      template += I18n.t('sms.first_alert.payment') if @booking.payment_method == 'cash'
+      template += I18n.t('sms.first_alert.cancel',
+        url: cancel_booking_url(@booking.token)
+      )
+      template.squish
     end
         
     def second_alert
-      """
-        Your Ride is on it’s way. Your pickup point is #{@trip.pickup_name}
-        between #{plus_minus_ten(@trip.pickup_time)}. Look out for a vehicle
-        with the Ride sticker. If you need to get in touch, please call 01621 855111.
-      """.squish
+      I18n.t('sms.second_alert.body',
+        pickup_name: @trip.pickup_name,
+        pickup_time: plus_minus_ten(@trip.pickup_time),
+        supplier_number: @booking.journey.supplier.phone_number
+      ).squish
     end
     
     def booking_cancellation
-      """
-        Your Ride booking on #{friendly_date(@booking.journey.start_time)} at
-        #{format_time(@booking.journey.start_time)} from #{@booking.outward_trip.pickup_stop.name}
-        has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
-      """.squish
+      I18n.t('sms.booking_cancellation.body',
+        pickup_date: friendly_date(@booking.journey.start_time),
+        pickup_time: format_time(@booking.journey.start_time),
+        pickup_name: @booking.outward_trip.pickup_stop.name
+      ).squish
     end
   
     def post_survey
-      """
-        We hope you enjoyed your Ride. To help us improve the service, please
-        share your feedback: #{ENV['POST_SURVEY_LINK']}
-      """.squish
+      I18n.t('sms.post_survey.body', url: ENV['POST_SURVEY_LINK']).squish
     end
   
 end
