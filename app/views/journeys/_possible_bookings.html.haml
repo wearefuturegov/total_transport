@@ -3,7 +3,7 @@
     = t('message.sorry')
     to <strong>#{to.name}</strong>.
   %p
-    %span.bold
+    %span.bold 
       = t('service')
     = t('message.feedback')
   %p
@@ -19,7 +19,7 @@
     = from.name
     to:
   %section.collection
-    - places.each do |place|
+    - bookings.each do |bookings|
       .single
         .details
-          = render 'book_button', from: from, to: place, button_label: place.name
+          = render 'bookings_form', bookings: bookings, suggestion: true

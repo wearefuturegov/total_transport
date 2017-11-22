@@ -30,8 +30,8 @@ en:
       essex: "Your local service that helps you go places in Essex."
       suffolk: "Your local service that helps you go places in Suffolk."
     intro:
-      essex: "Your local commute or big day out made simple - pre-book your shared ride today"
-      suffolk: "Your local commute or big day out made simple - pre-book your shared ride today"
+      essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
+      suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
     intro_extend:
       intro: "It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go."
     route_intro:
@@ -76,13 +76,13 @@ en:
       info: "Runs when booked, with instant confirmation"
 
   journey:
-    title: "Pre-book your ride"
+    title: "Pre-book your Ride"
     from:
       label: "From"
-      message: "e.g. Maldon, Maldon Museum"
+      message: "e.g. Burnham-on-Crouch"
     to:
       label: "To"
-      message: "e.g. Chelmsford"
+      message: "e.g. Maldon, Broomfield Hospital"
 
   bookings:
     title: "Your journey"
@@ -101,27 +101,26 @@ en:
     no_return_time: "No return journeys available for your chosen outward time."
     requirements:
       label: "Special requirements"
-      message: "(Wheelchair, pushchair etc)"
-      extra: "Your transport provider will get in touch with you if they can't meet your needs."
+      message: "Wheelchair, lifting etc"
+      extra: "Let us know if you have wheelchair, pushchair, or large item with you or if you require any extra assistance"
     passenger:
       title: "Passengers"
       adult:
         title: "Adult"
-        extra: "(16+)"
+        extra: "16+"
       child:
         title: "Child"
-        extra: "(5-15)"
-      pass:
-        title: "Bus pass"
+        extra: "5-15"
+      pass: "Bus pass"
     lead:
       title: "Contact"
-      label: "Lead passenger name"
+      label: "Lead passenger's full name"
       mobile:
-        label: "Mobile No."
-        message: "(SMS notification of your ride)"
+        label: "Mobile"
+        message: "To send an SMS confirming your Ride"
       email:
         label: "Email"
-        message: "(Confirmation via email)"
+        message: "To get an handy recap of your booking"
 
   summary:
     title: "We're almost there!"
@@ -155,9 +154,13 @@ en:
     cancel: "If you wish to cancel and paid online, your refund will be credited to your card in approximately 5-10 business days."
     help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
 
-  cancelled:
-    title: "Booking cancelled"
-    extra: "Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future."
+  cancelled: 
+    title: "Your booking has been cancelled. "
+    extra: "We are sorry you won’t be riding with us, but we hope you will choose Ride again in the future."
+
+  complete:
+    thankyou: "If you have any questions or feedback please contact us at"
+    fairwell: "Enjoy your Ride!"
 
   button:
     book: "Get started"
@@ -170,12 +173,12 @@ en:
     complete: "All done"
     main_book: "Try our £1 return offers *"
     main_book_asterisk: "* Introductory offer"
-    book: "Pre-book your ride"
+    book: "Pre-book your Ride"
     contact: "Have a question?"
     submit: "Submit your booking request"
     return: "Return"
     typeform: "Tell us more"
-    typeform-link: "https://bookyourride.typeform.com/to/H7i6w5"
+    typeform-link: "https://bookyourride.typeform.com/to/mv530I"
     event: "Coming Soon"
     regular: "Coming Soon"
     enquiry: "Get Started"
@@ -200,7 +203,7 @@ en:
     required: "Required"
 
   action:
-    title: "Pre-book your ride"
+    title: "Pre-book your Ride"
     extra: "Have a question?"
 
   social:
@@ -224,10 +227,10 @@ en:
       link: "http://www.wearefuturegov.com/"
 
   message:
-    sorry: "We don't currently travel "
+    sorry: "Unfortunately, we don't currently travel "
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
-    feedback: " will be expanding to more locations soon. You can help us to do this better by telling us more about your journey."
+    feedback: " will be expanding to more locations soon. By telling us more about your desired journey, you will help us improving what we offer."
 
   email:
     booking_details:
