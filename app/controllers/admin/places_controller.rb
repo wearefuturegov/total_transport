@@ -25,7 +25,7 @@ class Admin::PlacesController < AdminController
       @back_path = if params[:previous_route_id]
         new_admin_route_stop_path(params[:previous_route_id])
       else
-        admin_team_path
+        admin_account_path
       end
     end
     

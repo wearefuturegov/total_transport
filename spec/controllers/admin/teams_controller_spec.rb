@@ -43,17 +43,17 @@ RSpec.describe Admin::TeamsController, type: :controller do
       put :update, id: team, team: {
         name: 'New name',
         email: 'foo@example.com',
-        suppliers_attributes: [
-          {
+        suppliers_attributes: {
+          '0' => {
             id: suppliers[0]
           },
-          {
+          '1' => {
             id: suppliers[1]
           },
-          {
+          '2' => {
             id: suppliers[2]
           }
-        ]
+        }
       }
       
       team.reload

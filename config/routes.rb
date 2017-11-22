@@ -33,8 +33,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'pending' => 'suppliers#pending'
     root 'journeys#index'
-    resource :team, only: [:show]
+    #resource :team, only: [:show]
     resources :teams
+    get :account, to: 'teams#show'
     resources :vehicles
     resources :journeys do
       collection do

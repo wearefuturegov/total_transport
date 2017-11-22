@@ -1,7 +1,7 @@
 class Admin::VehiclesController < AdminController
   def index
     @vehicles = current_team.vehicles
-    @back_path = admin_team_path
+    @back_path = admin_account_path
   end
   def new
     @vehicle = current_team.vehicles.new
