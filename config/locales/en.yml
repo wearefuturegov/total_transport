@@ -111,7 +111,8 @@ en:
       child:
         title: "Child"
         extra: "(5-15)"
-      pass: "Bus pass"
+      pass:
+        title: "Bus pass"
     lead:
       title: "Contact"
       label: "Lead passenger name"
