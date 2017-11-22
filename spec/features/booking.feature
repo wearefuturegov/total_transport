@@ -34,7 +34,7 @@ Feature: Booking a journey
     
   Scenario: Booking a single journey
     Given I have chosen a single journey
-    But I don't choose a return journey
+    #But I don't choose a return journey
     And I fill in my details
     And I confirm my booking
     Then my booking should be confirmed
