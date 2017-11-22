@@ -55,7 +55,7 @@
       - if @booking.scholar_bus_passes > 0
         %p
           Scholarly Season Ticket: #{@booking.scholar_bus_passes} (£0.00 each)
-      %p.bold
+      %h3.total
         Total to pay:
         #{number_to_currency @booking.price, unit: '£'}
 

@@ -101,7 +101,7 @@ en:
     no_return_time: "No return journeys available for your chosen outward time."
     requirements:
       label: "Special requirements"
-      message: "Wheelchair, pushchair etc"
+      message: "Wheelchair, lifting etc"
       extra: "Let us know if you have wheelchair, pushchair, or large item with you or if you require any extra assistance"
     passenger:
       title: "Passengers"
@@ -116,8 +116,8 @@ en:
       title: "Contact"
       label: "Lead passenger name"
       mobile:
-        label: "Mobile No."
-        message: "To send you a SMS confirmation of your Ride"
+        label: "Mobile"
+        message: "To send an SMS confirming your Ride"
       email:
         label: "Email"
         message: "To get an handy recap of your booking"
@@ -155,8 +155,8 @@ en:
     help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
 
   cancelled: 
-    title: "Booking cancelled"
-    extra: "Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future."
+    title: "Your booking has been cancelled. "
+    extra: "We are sorry you won’t be riding with us, but we hope you will choose Ride again in the future."
 
   button:
     book: "Get started"
