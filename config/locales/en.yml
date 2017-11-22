@@ -94,9 +94,9 @@ en:
       time: "Return time (+-10mins)"
     landmark:
       title: "Select your preferred stops"
-    pickup:
+    pickup_landmark_id:
       title: "Where to be picked up"
-    dropoff:
+    dropoff_landmark_id:
       title: "Where to be dropped off"
     no_return_time: "No return journeys available for your chosen outward time."
     requirements:
@@ -155,7 +155,7 @@ en:
     cancel: "If you wish to cancel and paid online, your refund will be credited to your card in approximately 5-10 business days."
     help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
 
-  cancelled: 
+  cancelled:
     title: "Booking cancelled"
     extra: "Your booking has been cancelled. We are sorry you won’t be riding but we hope you will choose Ride again in the future."
 
