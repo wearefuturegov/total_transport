@@ -25,14 +25,14 @@
       }
     };
     
-    var enableTo = (slug) => {
+    var enableTo = function(slug) {
       var toOptions = options;
       $('#from').data('slug', slug);
       toOptions.list.onChooseEvent = chosenTo;
       $('#to').easyAutocomplete(toOptions);
     }
     
-    var chosenFrom = () => {
+    var chosenFrom = function() {
       var chosenItem = $("#from").getSelectedItemData();
       $('#from').data('placename', chosenItem.name);
       $('#from_result').addClass('hidden');
@@ -57,7 +57,7 @@
       }
     }
     
-    var chosenTo = () => {
+    var chosenTo = function() {
       var chosenItem = $("#to").getSelectedItemData();
       var url = '/journeys/' + $('#from').data('slug') + '/' + chosenItem.slug;
 
