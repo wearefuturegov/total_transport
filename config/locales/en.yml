@@ -154,7 +154,7 @@ en:
     cancel: "If you wish to cancel and paid online, your refund will be credited to your card in approximately 5-10 business days."
     help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
 
-  cancelled: 
+  cancelled:
     title: "Your booking has been cancelled. "
     extra: "We are sorry you won’t be riding with us, but we hope you will choose Ride again in the future."
 
@@ -272,12 +272,12 @@ en:
       intro: Your Ride booking from %{pickup_stop} to %{dropoff_stop} for %{passengers} is confirmed
       outward_pickup: Your vehicle will collect you from %{pickup_name} on %{pickup_date} between %{pickup_time}.
       return_pickup: Your return journey is from %{pickup_name} on %{pickup_date} between %{pickup_time}'.
-      ride_sticker: Look out for the <strong>Ride</strong> sticker in the windscreen.
+      ride_sticker_html: Look out for the <strong>Ride</strong> sticker in the windscreen.
       payment: The total amount due is %{amount}, remember to pay the driver when you onboard.
       special_requirements: |
         If you specified any special requirements then our supplier will contact
         you if for any reason they are unable to meet them.
-      amend_cancel: If you need to amend or cancel your booking please use this form %{link}
+      amend_cancel_html: If you need to amend or cancel your booking please use this form %{link}
       ps_html: |
         P.s. Where do you need to go next?
         <a href="https://bookyourride.typeform.com/to/mv530I">Tell us the
