@@ -64,8 +64,9 @@ class Journey < ActiveRecord::Base
     end.flatten.uniq.reject { |s| s.full? }
   end
   
-  def duplicate(start_date, end_date)
+  def duplicate(start_date, end_date, include_days = [0,1,2,3,4,5,6])
     (start_date..end_date).each do |date|
+      next unless include_days.include?(date.wday)
       Journey.create(attributes.except('id').merge({
         'start_time' => "#{date.to_s}T#{start_time.strftime('%H:%M')}"
       }))

@@ -166,6 +166,15 @@ RSpec.describe Journey, type: :model do
       end
     end
     
+    it 'duplicates only for given days' do
+      journey.duplicate(Date.parse('2016-01-03'), Date.parse('2016-01-10'), [1,2,3,4,5])
+      journeys = Journey.all.to_a - [journey]
+      expect(journeys.count).to eq(5)
+      days = (journeys).map { |j| j.start_time.wday }
+      expect(days).to_not include(0)
+      expect(days).to_not include(6)
+    end
+    
   end
   
 end
