@@ -135,7 +135,7 @@ function calculateRouteMultiStop(directionsService, directionsDisplay, map) {
         var route = response.routes[0];
         console.log('DONE');
       } else {
-        window.alert('Directions request failed due to ' + status);
+        console.log('Directions request failed due to ' + status);
       }
     });
   }
