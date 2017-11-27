@@ -136,4 +136,36 @@ RSpec.describe Journey, type: :model do
   
   end
   
+  context '#duplicate' do
+    
+    let(:vehicle) { FactoryBot.create(:vehicle) }
+    let(:supplier) { FactoryBot.create(:supplier) }
+    let(:route) { FactoryBot.create(:route) }
+    let(:journey) {
+      FactoryBot.create(:journey,
+        start_time: '2016-01-01T09:00:00Z',
+        vehicle: vehicle,
+        supplier: supplier,
+        open_to_bookings: true,
+        reversed: false,
+        route: route
+      )
+    }
+    
+    it 'duplicates a journey' do
+      journey.duplicate(Date.parse('2016-01-02'), Date.parse('2016-01-10'))
+      expect(Journey.count).to eq(10)
+      (Date.parse('2016-01-02')..Date.parse('2016-01-10')).each_with_index do |d,i|
+        j = Journey.all.to_a[i + 1]
+        expect(j.vehicle).to eq(vehicle)
+        expect(j.supplier).to eq(supplier)
+        expect(j.route).to eq(route)
+        expect(j.start_time.to_date).to eq(d)
+        expect(j.start_time.hour).to eq(9)
+        expect(j.start_time.min).to eq(0)
+      end
+    end
+    
+  end
+  
 end

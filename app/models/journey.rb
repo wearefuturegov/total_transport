@@ -63,6 +63,14 @@ class Journey < ActiveRecord::Base
       end
     end.flatten.uniq.reject { |s| s.full? }
   end
+  
+  def duplicate(start_date, end_date)
+    (start_date..end_date).each do |date|
+      Journey.create(attributes.except('id').merge({
+        'start_time' => "#{date.to_s}T#{start_time.strftime('%H:%M')}"
+      }))
+    end
+  end
 
   def booked_bookings
     bookings.booked
