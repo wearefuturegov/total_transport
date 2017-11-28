@@ -188,7 +188,7 @@ en:
     cancel: "Cancel"
 
   email:
-    address: "hello@bookyourride.co.uk"
+    address: "<%= ENV['RIDE_ADMIN_EMAIL'] %>"
     subject: "question"
 
   helpers:
