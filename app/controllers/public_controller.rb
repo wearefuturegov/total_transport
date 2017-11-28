@@ -5,6 +5,8 @@ class PublicController < ApplicationController
   before_filter :create_body_id
   
   def index
+    template = ENV['DEMO'] ? 'application/demo' : 'application/index'
+    render template
   end
 
   protected

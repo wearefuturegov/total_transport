@@ -29,6 +29,7 @@ en:
     title:
       essex: "Your local service that helps you go places in Essex."
       suffolk: "Your local service that helps you go places in Suffolk."
+      essex-demo: "Your local service that helps you go places in Suffolk and Essex."
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
       suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -37,11 +38,13 @@ en:
     route_intro:
       essex: "Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
       suffolk: "Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance."
+      essex-demo: "Start by exploring the routes on offer. Pickup travels all across rural Suffolk and Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
     map_title: "Connecting residents to great locations in your area"
     about:
       title:
       info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
       extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+      info-demo: "Pre-book a Ride for you, your family or as a group of friends. Travel around Suffolk and Essex from a pick-up point near you in a simpler, more flexible way."
     collection:
       title: "Great destinations to visit in your area"
     list:
@@ -63,6 +66,8 @@ en:
       regular:
         title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
         info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
+        title-demo: "New return service between Newmarket and Haverhill"
+        info-demo: "Daily journeys from 7am - 7pm including pickups from local villages."
       enquiry:
         title: "Where can we take you?"
         info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
@@ -163,7 +168,6 @@ en:
     fairwell: "Enjoy your Ride!"
 
   button:
-    book: "Get started"
     contact: "Have a question?"
     submit: "Submit your booking request"
     oneway: "One way"
