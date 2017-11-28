@@ -1,8 +1,8 @@
-DEMO!
-
 %section.logo
   %h1
     = @page_title
+  %span
+    demo
 %section.hero
   %section.section.heading
     %section.action.container
@@ -39,7 +39,7 @@ DEMO!
         = t('public-index.event.regular.info')
 
       %section.action
-        = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
+        = link_to I18n.t('button.enquiry'), '/journeys', class: 'button cta'
         
   %section.hero.regular
     .overlay
@@ -51,7 +51,7 @@ DEMO!
         = t('public-index.event.info')
 
       %section.action
-        = link_to I18n.t('button.event'), '#', class: 'button cta disabled'
+        = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
 
   %section.hero.enquiry
     .overlay

@@ -27,7 +27,7 @@ en:
 
   public-index:
     title:
-      essex: "Your local service that helps you go places in Essex."
+      essex: "Your local service that helps you go places in Suffolk and Essex."
       suffolk: "Your local service that helps you go places in Suffolk."
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -35,12 +35,12 @@ en:
     intro_extend:
       intro: "It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go."
     route_intro:
-      essex: "Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
-      suffolk: "Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance."
+      essex: "Start by exploring the routes on offer. Pickup travels all across rural Suffolk and Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
+      suffolk: "Start by exploring the routes on offer. Pickup travels all across rural Suffolk and Essex. Trips can be booked any time from a month to a day in advance."
     map_title: "Connecting residents to great locations in your area"
     about:
       title:
-      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
+      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Suffolk and Essex from a pick-up point near you in a simpler, more flexible way."
       extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
     collection:
       title: "Great destinations to visit in your area"
@@ -53,7 +53,7 @@ en:
       social_1: "Twitter"
       social_2: "Facebook"
       info: "A project by:"
-      author_1: "Essex County Council"
+      author_1: "Suffolk and Essex County Council"
       author_2: "Suffolk County Council"
       author_3: "FutureGov"
 
@@ -61,11 +61,11 @@ en:
       title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
       info: "Pre-booked return journeys running 6.15am - 10pm. Book for yourself or others."
       regular:
-        title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
-        info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
+        title: "New return service between Newmarket and Haverhill"
+        info: "Daily journeys from 7am - 7pm including pickups from local villages."
       enquiry:
         title: "Where can we take you?"
-        info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
+        info: "We are expanding our shared routes across Suffolk and Essex. Tell us the journey you want to make."
 
   steps:
     step_1:
@@ -163,7 +163,6 @@ en:
     fairwell: "Enjoy your Ride!"
 
   button:
-    book: "Get started"
     contact: "Have a question?"
     submit: "Submit your booking request"
     oneway: "One way"
