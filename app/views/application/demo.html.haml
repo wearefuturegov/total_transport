@@ -8,7 +8,7 @@
     %section.section.heading
       %section.action.container
         %h4
-          = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+          = t("public-index.title.essex-demo")
       %section.features
         .icon
           =image_tag('icons/piggy.svg')
@@ -35,9 +35,9 @@
       .event
       %section.section
         %h3
-          = t('public-index.event.regular.title')
+          = t('public-index.event.regular.title-demo')
         %p
-          = t('public-index.event.regular.info')
+          = t('public-index.event.regular.info-demo')
 
         %section.action
           = link_to I18n.t('button.enquiry'), '/journeys', class: 'button cta'
@@ -69,7 +69,7 @@
 
     %section.section.info
       %h2
-        = t('public-index.about.info')
+        = t('public-index.about.info-demo')
       %h2
         = t('public-index.about.extra')
 
