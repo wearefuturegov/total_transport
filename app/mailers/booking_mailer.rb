@@ -10,7 +10,7 @@ class BookingMailer < ActionMailer::Base
   
   def booking_cancelled(params)
     @booking = Booking.find(params['booking_id'])
-    mail(to: @booking.journey.supplier.team.email, subject: 'Booking cancelled')
+    mail(to: @booking.journey.supplier.team.email, cc: ENV['RIDE_ADMIN_EMAIL'], subject: 'Booking cancelled')
   end
   
   def user_confirmation(params)
