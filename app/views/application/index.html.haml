@@ -27,19 +27,19 @@
     /     = t('button.main_book_asterisk')
 
 %main.main
-  %section.hero#step-1
-    .overlay
-    .event
-    %section.section
-      %h3
-        = t('public-index.event.regular.title')
-      %p
-        = t('public-index.event.regular.info')
+  / %section.hero#step-1
+  /   .overlay
+  /   .event
+  /   %section.section
+  /     %h3
+  /       = t('public-index.event.regular.title')
+  /     %p
+  /       = t('public-index.event.regular.info')
 
-      %section.action
-        = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
+  /     %section.action
+  /       = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
         
-  %section.hero.regular
+  %section.hero.regular#step-1
     .overlay
     .event
     %section.section
