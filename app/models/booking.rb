@@ -160,7 +160,7 @@ class Booking < ActiveRecord::Base
     SendSMS.enqueue(to: phone_number, template: :first_alert, booking: self.id, run_at: outward_trip.pickup_time - 24.hours)
     SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: outward_trip, run_at: outward_trip.pickup_time - 1.hours)
     SendSMS.enqueue(to: phone_number, template: :second_alert, booking: self.id, trip: return_trip, run_at: return_trip.pickup_time - 1.hours) if return_trip
-    SendSMS.enqueue(to: phone_number, template: :post_survey, run_at: last_dropoff_time + 30.minutes)
+    SendSMS.enqueue(to: phone_number, template: :post_survey, booking: self.id, run_at: last_dropoff_time + 30.minutes)
   end
   
   def queue_emails
