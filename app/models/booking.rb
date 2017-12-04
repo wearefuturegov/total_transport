@@ -14,6 +14,26 @@ class Booking < ActiveRecord::Base
   
   after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
+    
+  scope :date, ->(date) {
+    datetime = date.to_datetime
+    joins(:journey)
+      .where('journeys.start_time BETWEEN ? AND ?', datetime.beginning_of_day, datetime.end_of_day)
+      .order('start_time DESC')
+  }
+  
+  scope :route, ->(route_id) { joins(:journey).where('journeys.route_id = ?', route_id) }
+  
+  scope :state, ->(state) { where(state: state) }
+  
+  filterrific(
+    default_filter_params: { state: 'booked' },
+    available_filters: [
+      :route,
+      :date,
+      :state
+    ]
+  )
   
   def outward_trip
     @outward_trip ||= Trip.new(
@@ -199,16 +219,8 @@ class Booking < ActiveRecord::Base
     journey.update_attribute(:booked, false) if journey.booked_bookings.count == 0
   end
   
-  def csv_row(journey)
-    if self.journey.id == journey.id
-      outward_trip.row_data
-    else
-      return_trip.row_data
-    end
-  end
-  
-  def spreadsheet_row
-    [
+  def csv_row(target_journey = nil)
+    if target_journey == nil
       [
         passenger_name,
         phone_number,
@@ -216,11 +228,15 @@ class Booking < ActiveRecord::Base
         dropoff_stop.name,
         pickup_landmark.name,
         dropoff_landmark.name,
-        journey.time_at_stop(pickup_stop).to_s,
+        journey.try(:time_at_stop, pickup_stop).try(:to_s),
         return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
-        price
+        price.to_s
       ]
-    ]
+    elsif self.journey.id == target_journey.id
+      outward_trip.row_data
+    elsif self.return_journey.id == target_journey.id
+      return_trip.row_data
+    end
   end
   
   def create_payment!(token)

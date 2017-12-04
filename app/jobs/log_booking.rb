@@ -5,7 +5,7 @@ class LogBooking < Que::Job
       booking = Booking.find(booking_id)
       spreadsheet = $google_drive_session.spreadsheet_by_key(ENV['BOOKINGS_SPREADSHEET_KEY'])
       worksheet = spreadsheet.worksheets.first
-      worksheet.insert_rows(worksheet.num_rows + 1, booking.spreadsheet_row)
+      worksheet.insert_rows(worksheet.num_rows + 1, [booking.csv_row])
       worksheet.save
     rescue ActiveRecord::RecordNotFound
       destroy
