@@ -50,7 +50,7 @@ RSpec.describe BookingMailer, type: :mailer do
       let(:mail) { BookingMailer.booking_confirmed('booking_id' => booking.id) }
       
       it 'renders the headers' do
-        expect(mail.subject).to eq('A new booking has been confirmed')
+        expect(mail.subject).to eq("A new booking has been confirmed (ref: RIDE#{booking.id.to_s.rjust(5, '0')})")
         expect(mail.to).to eq(['team@example.com'])
         expect(mail.from).to eq([ENV['RIDE_ADMIN_EMAIL']])
       end

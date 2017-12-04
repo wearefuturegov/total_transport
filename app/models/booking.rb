@@ -35,6 +35,10 @@ class Booking < ActiveRecord::Base
     ]
   )
   
+  def booking_id
+    "RIDE#{id.to_s.rjust(5, '0')}"
+  end
+  
   def outward_trip
     @outward_trip ||= Trip.new(
       booking: self
