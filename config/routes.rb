@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       end
       resources :bookings, only: [:show]
     end
+    resources :bookings
     resources :suppliers
     resources :routes do
       member do

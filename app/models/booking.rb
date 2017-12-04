@@ -14,6 +14,26 @@ class Booking < ActiveRecord::Base
   
   after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
+    
+  scope :date, ->(date) {
+    datetime = date.to_datetime
+    joins(:journey)
+      .where('journeys.start_time BETWEEN ? AND ?', datetime.beginning_of_day, datetime.end_of_day)
+      .order('start_time DESC')
+  }
+  
+  scope :route, ->(route_id) { joins(:journey).where('journeys.route_id = ?', route_id) }
+  
+  scope :state, ->(state) { where(state: state) }
+  
+  filterrific(
+    default_filter_params: { state: 'booked' },
+    available_filters: [
+      :route,
+      :date,
+      :state
+    ]
+  )
   
   def outward_trip
     @outward_trip ||= Trip.new(

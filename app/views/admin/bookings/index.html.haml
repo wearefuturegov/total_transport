@@ -1,0 +1,17 @@
+.container
+  .inner
+  
+    = form_for_filterrific @filter do |form|
+
+      %p.col-12
+        = form.label :route, class: 'col-1'
+        = form.select :route, options_from_collection_for_select(Route.all, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select col-2'
+        = form.label :date, class: 'col-1'
+        = form.date_field :date, class: 'col-3', value: @filter.date
+        = form.label :state, class: 'col-1'
+        = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled']], {}, class: 'select col-2'
+        = form.submit 'Update', name: nil, class: 'col-2'
+
+    = render partial: 'bookings', locals: { bookings: @bookings }
+    
+    = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button' 
