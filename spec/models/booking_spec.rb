@@ -460,18 +460,16 @@ RSpec.describe Booking, :que, type: :model do
     context 'without a return journey' do
       
       it 'returns a spreadsheet row' do
-        expect(booking.spreadsheet_row).to eq([
-          [
-            'Me',
-            '12345',
-            'Pickup Stop',
-            'Dropoff Stop',
-            'Pickup Landmark',
-            'Dropoff Landmark',
-            '2017-01-01 10:00:00 UTC',
-            nil,
-            2
-          ]
+        expect(booking.csv_row).to eq([
+          'Me',
+          '12345',
+          'Pickup Stop',
+          'Dropoff Stop',
+          'Pickup Landmark',
+          'Dropoff Landmark',
+          '2017-01-01 10:00:00 UTC',
+          nil,
+          '2'
         ])
       end
        
@@ -488,18 +486,16 @@ RSpec.describe Booking, :que, type: :model do
       end
       
       it 'returns a spreadsheet row' do
-        expect(booking.spreadsheet_row).to eq([
-          [
-            'Me',
-            '12345',
-            'Pickup Stop',
-            'Dropoff Stop',
-            'Pickup Landmark',
-            'Dropoff Landmark',
-            '2017-01-01 10:00:00 UTC',
-            '2017-01-01 15:00:00 UTC',
-            4
-          ]
+        expect(booking.csv_row).to eq([
+          'Me',
+          '12345',
+          'Pickup Stop',
+          'Dropoff Stop',
+          'Pickup Landmark',
+          'Dropoff Landmark',
+          '2017-01-01 10:00:00 UTC',
+          '2017-01-01 15:00:00 UTC',
+          '4'
         ])
       end
 

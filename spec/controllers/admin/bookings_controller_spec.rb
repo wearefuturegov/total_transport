@@ -62,6 +62,29 @@ RSpec.describe Admin::BookingsController, type: :controller do
       get :index, filterrific: { state: 'cancelled' }
       expect(assigns(:bookings)).to eq(cancelled_bookings)
     end
+    
+    it 'generates a CSV' do
+      get :index, format: :csv
+      
+      csv = CSV.parse(response.body)
+      
+      expect(csv[0]).to eq([
+        'Name',
+        'Phone Number',
+        'Pickup Place',
+        'Dropoff Place',
+        'Pickup Landmark',
+        'Dropoff Landmark',
+        'Pickup Time',
+        'Dropoff Time',
+        'Price'
+      ])
+      
+      booked_bookings.each_with_index do |b, i|
+        expect(csv[i + 1]).to eq(b.csv_row)
+      end
+    end
+    
   end
 
 end
