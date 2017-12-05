@@ -187,7 +187,6 @@ class Booking < ActiveRecord::Base
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
     return_journey.update_attribute(:booked, true) if return_journey
-    log_booking
   end
   
   def queue_sms
@@ -214,10 +213,6 @@ class Booking < ActiveRecord::Base
   
   def send_cancellation_sms!
     SendSMS.enqueue(to: self.phone_number, template: :booking_cancellation, booking: self.id)
-  end
-  
-  def log_booking
-    LogBooking.enqueue(id)
   end
   
   def queue_alerts

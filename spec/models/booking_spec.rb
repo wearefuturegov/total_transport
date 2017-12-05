@@ -56,12 +56,6 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
-    it 'logs a booking' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'LogBooking').count }.by(1)
-      job = QueJob.find_by(job_class: 'LogBooking')
-      expect(job.args[0]).to eq(booking.id)
-    end
-    
     it 'queues text messages' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
       jobs = QueJob.where(job_class: 'SendSMS')
