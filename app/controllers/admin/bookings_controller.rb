@@ -3,7 +3,7 @@ class Admin::BookingsController < AdminController
   
   def index
     filter = params[:filterrific] || {}
-    @filter = initialize_filterrific(Booking.all, filter)
+    @filter = initialize_filterrific(Booking.all, filter) or return
     @bookings = @filter.find.page(params[:page])
     respond_to do |format|
       format.html
