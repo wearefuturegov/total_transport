@@ -37,49 +37,62 @@ RSpec.describe Admin::BookingsController, type: :controller do
       expect(assigns(:bookings)).to eq(booked_bookings)
     end
     
-    it 'filters by route' do
-      route = FactoryBot.create(:route)
-      journey = FactoryBot.create(:journey, route: route)
-      booked_bookings[0].update_attributes(journey: journey)
-      booked_bookings[1].update_attributes(journey: journey)
-
-      get :index, filterrific: { route: route.id, state: 'booked' }
+    it 'gets a count' do
+      booked_bookings[2].update_attributes(number_of_passengers: 3)
       
-      expect(assigns(:bookings)).to eq([booked_bookings[0], booked_bookings[1]])
-    end
-    
-    it 'filters by date from' do
-      journey = FactoryBot.create(:journey, start_time: DateTime.now + 2.days)
-      booked_bookings[3].update_attributes(journey: journey)
-      booked_bookings[4].update_attributes(journey: journey)
-
-      get :index, filterrific: { date_from: Date.today + 2.days, state: 'booked' }
-
-      expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
-    end
-    
-    it 'filters by date to' do
-      journey = FactoryBot.create(:journey, start_time: DateTime.now - 2.days)
-      booked_bookings[3].update_attributes(journey: journey)
-      booked_bookings[4].update_attributes(journey: journey)
-
-      get :index, filterrific: { date_to: Date.today - 2.days, state: 'booked' }
-
-      expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
-    end
-    
-    it 'filters by state' do
-      get :index, filterrific: { state: 'cancelled' }
-      expect(assigns(:bookings)).to eq(cancelled_bookings)
-    end
-    
-    it 'filters by team' do
-      supplier = FactoryBot.create(:supplier)
-      journey = FactoryBot.create(:journey, supplier: supplier)
-      booked_bookings[4].update_attributes(journey: journey)
+      get :index
       
-      get :index, filterrific: { team: supplier.team }
-      expect(assigns(:bookings)).to eq([ booked_bookings[4] ])
+      expect(assigns(:bookings_count)).to eq(booked_bookings.count)
+      expect(assigns(:passengers_count)).to eq(7)
+    end
+    
+    context 'filters' do
+      
+      it 'by route' do
+        route = FactoryBot.create(:route)
+        journey = FactoryBot.create(:journey, route: route)
+        booked_bookings[0].update_attributes(journey: journey)
+        booked_bookings[1].update_attributes(journey: journey)
+
+        get :index, filterrific: { route: route.id, state: 'booked' }
+        
+        expect(assigns(:bookings)).to eq([booked_bookings[0], booked_bookings[1]])
+      end
+      
+      it 'by date from' do
+        journey = FactoryBot.create(:journey, start_time: DateTime.now + 2.days)
+        booked_bookings[3].update_attributes(journey: journey)
+        booked_bookings[4].update_attributes(journey: journey)
+
+        get :index, filterrific: { date_from: Date.today + 2.days, state: 'booked' }
+
+        expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
+      end
+      
+      it 'by date to' do
+        journey = FactoryBot.create(:journey, start_time: DateTime.now - 2.days)
+        booked_bookings[3].update_attributes(journey: journey)
+        booked_bookings[4].update_attributes(journey: journey)
+
+        get :index, filterrific: { date_to: Date.today - 2.days, state: 'booked' }
+
+        expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
+      end
+      
+      it 'by state' do
+        get :index, filterrific: { state: 'cancelled' }
+        expect(assigns(:bookings)).to eq(cancelled_bookings)
+      end
+      
+      it 'by team' do
+        supplier = FactoryBot.create(:supplier)
+        journey = FactoryBot.create(:journey, supplier: supplier)
+        booked_bookings[4].update_attributes(journey: journey)
+        
+        get :index, filterrific: { team: supplier.team }
+        expect(assigns(:bookings)).to eq([ booked_bookings[4] ])
+      end
+      
     end
     
     it 'generates a CSV' do

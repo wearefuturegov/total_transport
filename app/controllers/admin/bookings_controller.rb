@@ -4,7 +4,10 @@ class Admin::BookingsController < AdminController
   def index
     filter = params[:filterrific] || {}
     @filter = initialize_filterrific(Booking.all, filter) or return
-    @bookings = @filter.find.page(params[:page])
+    bookings = @filter.find
+    @bookings = bookings.page(params[:page])
+    @bookings_count = bookings.count
+    @passengers_count = bookings.inject(0) { |sum, p| sum + p.number_of_passengers }
     respond_to do |format|
       format.html
       format.csv { send_data csv_data(@bookings), filename: "bookings.csv", type: 'text/csv;charset=utf-8' }
