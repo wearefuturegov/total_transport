@@ -261,10 +261,8 @@ class Booking < ActiveRecord::Base
       payment_method == 'card' ? 'y' : 'n',
       charge_id
     ]
-    if journey_id == journey.id
-      data += outward_trip.row_data
-    elsif journey_id == return_journey.id
-      data += return_trip.row_data
+    if !journey_id.nil?
+      data += journey_id == journey.id ? outward_trip.row_data : return_trip.row_data
     end
     data
   end
