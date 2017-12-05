@@ -32,8 +32,20 @@
               = link_to 'Reset filters', reset_filterrific_url, class: 'button secondary'
             .col-6
               = form.submit 'Update filter', name: nil
-      
-
-    = render partial: 'bookings', locals: { bookings: @bookings }
     
-    = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button'
+    .col-12
+      .col-9
+        = render partial: 'bookings', locals: { bookings: @bookings }
+      .col-3
+        .card
+          .inner.booking-count
+            %h4
+              .number= @bookings_count
+              Bookings
+        .card
+          .inner.booking-count
+            %h4
+              .number= @passengers_count
+              Passengers
+    
+        = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button'
