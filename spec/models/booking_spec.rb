@@ -444,59 +444,7 @@ RSpec.describe Booking, :que, type: :model do
     expect(booking.dropoff_landmark).to eq(dropoff_landmark)
   end
   
-  context 'returns data for admins' do
-    
-    before do
-      booking.pickup_landmark.name = 'Pickup Landmark'
-      booking.dropoff_landmark.name = 'Dropoff Landmark'
-    end
-    
-    context 'without a return journey' do
-      
-      it 'returns a spreadsheet row' do
-        expect(booking.csv_row).to eq([
-          'Me',
-          '12345',
-          'Pickup Stop',
-          'Dropoff Stop',
-          'Pickup Landmark',
-          'Dropoff Landmark',
-          '2017-01-01 10:00:00 UTC',
-          nil,
-          '2'
-        ])
-      end
-       
-    end
-    
-    context 'with a return journey' do
-      
-      before do
-        booking.return_journey = FactoryBot.create(:journey,
-          route: route,
-          start_time: DateTime.parse('2017-01-01T15:00:00'),
-          reversed: true
-        )
-      end
-      
-      it 'returns a spreadsheet row' do
-        expect(booking.csv_row).to eq([
-          'Me',
-          '12345',
-          'Pickup Stop',
-          'Dropoff Stop',
-          'Pickup Landmark',
-          'Dropoff Landmark',
-          '2017-01-01 10:00:00 UTC',
-          '2017-01-01 15:00:00 UTC',
-          '4'
-        ])
-      end
-
-    end
-  end
-  
-  describe 'runsheet csv rows' do
+  describe 'csv rows' do
     
     before do
       booking.pickup_landmark.name = 'Pickup Landmark'
@@ -506,6 +454,23 @@ RSpec.describe Booking, :que, type: :model do
         start_time: DateTime.parse('2017-01-01T15:00:00'),
         reversed: true
       )
+    end
+    
+    it 'returns data without a journey specified' do
+      expect(booking.csv_row).to eq([
+        'Me',
+        '12345',
+        'me@example.com',
+        journey.route.name,
+        1,
+        0,
+        0,
+        'Wheelchair',
+        booking.created_at,
+        4,
+        'n',
+        nil
+      ])
     end
     
     it 'returns data for the outward journey' do

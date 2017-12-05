@@ -46,6 +46,23 @@ class Booking < ActiveRecord::Base
     ]
   )
   
+  def self.csv_header
+    [
+      'Passenger Name',
+      'Passenger Phone Number',
+      'Passenger Email',
+      'Route',
+      'Number of Adults',
+      'Number of Children',
+      'Number of Bus Passes',
+      'Special Requirements',
+      'Time Booked',
+      'Price Paid',
+      'Card Payment?',
+      'Stripe Charge ID'
+    ]
+  end
+  
   def booking_id
     "RIDE#{id.to_s.rjust(5, '0')}"
   end
@@ -234,13 +251,16 @@ class Booking < ActiveRecord::Base
       [
         passenger_name,
         phone_number,
-        pickup_stop.name,
-        dropoff_stop.name,
-        pickup_landmark.name,
-        dropoff_landmark.name,
-        journey.try(:time_at_stop, pickup_stop).try(:to_s),
-        return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
-        price.to_s
+        email,
+        route.name,
+        number_of_adults,
+        child_tickets,
+        number_of_free_tickets,
+        special_requirements,
+        created_at,
+        price,
+        payment_method == 'card' ? 'y' : 'n',
+        charge_id
       ]
     elsif self.journey.id == target_journey.id
       outward_trip.row_data

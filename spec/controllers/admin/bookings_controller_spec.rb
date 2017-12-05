@@ -87,20 +87,10 @@ RSpec.describe Admin::BookingsController, type: :controller do
       
       csv = CSV.parse(response.body)
       
-      expect(csv[0]).to eq([
-        'Name',
-        'Phone Number',
-        'Pickup Place',
-        'Dropoff Place',
-        'Pickup Landmark',
-        'Dropoff Landmark',
-        'Pickup Time',
-        'Dropoff Time',
-        'Price'
-      ])
+      expect(csv[0]).to eq(Booking.csv_header)
       
       booked_bookings.each_with_index do |b, i|
-        expect(csv[i + 1]).to eq(b.csv_row)
+        expect(csv[i + 1]).to eq(b.csv_row.map { |c| c.to_s.presence })
       end
     end
     

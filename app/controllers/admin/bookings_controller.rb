@@ -19,17 +19,7 @@ class Admin::BookingsController < AdminController
   
   def csv_data(bookings)
     CSV.generate do |csv|
-      csv << [
-        'Name',
-        'Phone Number',
-        'Pickup Place',
-        'Dropoff Place',
-        'Pickup Landmark',
-        'Dropoff Landmark',
-        'Pickup Time',
-        'Dropoff Time',
-        'Price'
-      ]
+      csv << Booking.csv_header
       bookings.each do |booking|
         csv << booking.csv_row
       end
