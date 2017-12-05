@@ -3,8 +3,11 @@ class Admin::BookingsController < AdminController
   
   def index
     filter = params[:filterrific] || {}
-    @filter = initialize_filterrific(Booking.all, filter)
-    @bookings = @filter.find.page(params[:page])
+    @filter = initialize_filterrific(Booking.all, filter) or return
+    bookings = @filter.find
+    @bookings = bookings.page(params[:page])
+    @bookings_count = bookings.count
+    @passengers_count = bookings.inject(0) { |sum, p| sum + p.number_of_passengers }
     respond_to do |format|
       format.html
       format.csv { send_data csv_data(@bookings), filename: "bookings.csv", type: 'text/csv;charset=utf-8' }
@@ -19,17 +22,7 @@ class Admin::BookingsController < AdminController
   
   def csv_data(bookings)
     CSV.generate do |csv|
-      csv << [
-        'Name',
-        'Phone Number',
-        'Pickup Place',
-        'Dropoff Place',
-        'Pickup Landmark',
-        'Dropoff Landmark',
-        'Pickup Time',
-        'Dropoff Time',
-        'Price'
-      ]
+      csv << Booking.csv_headers
       bookings.each do |booking|
         csv << booking.csv_row
       end
