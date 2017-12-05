@@ -50,15 +50,6 @@ class Trip
   
   def row_data
     [
-      journey.start_time.to_date,
-      booking.passenger_name,
-      booking.phone_number,
-      booking.email,
-      booking.number_of_adults,
-      booking.child_tickets,
-      booking.price,
-      booking.payment_method == 'card' ? 'y' : 'n',
-      booking.charge_id,
       type,
       pickup_time,
       pickup_stop.name,
@@ -66,8 +57,6 @@ class Trip
       dropoff_time,
       dropoff_stop.name,
       dropoff_landmark.name,
-      booking.special_requirements,
-      booking.created_at
     ]
   end
   

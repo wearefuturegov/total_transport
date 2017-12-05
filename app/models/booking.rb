@@ -46,7 +46,7 @@ class Booking < ActiveRecord::Base
     ]
   )
   
-  def self.csv_header
+  def self.csv_headers
     [
       'Passenger Name',
       'Passenger Phone Number',
@@ -246,27 +246,27 @@ class Booking < ActiveRecord::Base
     journey.update_attribute(:booked, false) if journey.booked_bookings.count == 0
   end
   
-  def csv_row(target_journey = nil)
-    if target_journey == nil
-      [
-        passenger_name,
-        phone_number,
-        email,
-        route.name,
-        number_of_adults,
-        child_tickets,
-        number_of_free_tickets,
-        special_requirements,
-        created_at,
-        price,
-        payment_method == 'card' ? 'y' : 'n',
-        charge_id
-      ]
-    elsif self.journey.id == target_journey.id
-      outward_trip.row_data
-    elsif self.return_journey.id == target_journey.id
-      return_trip.row_data
+  def csv_row(journey_id = nil)
+    data = [
+      passenger_name,
+      phone_number,
+      email,
+      route.name,
+      number_of_adults,
+      child_tickets,
+      number_of_free_tickets,
+      special_requirements,
+      created_at,
+      price,
+      payment_method == 'card' ? 'y' : 'n',
+      charge_id
+    ]
+    if journey_id == journey.id
+      data += outward_trip.row_data
+    elsif journey_id == return_journey.id
+      data += return_trip.row_data
     end
+    data
   end
   
   def create_payment!(token)

@@ -113,30 +113,20 @@ class Journey < ActiveRecord::Base
     CSV.generate do |csv|
       csv << csv_headers
       all_bookings.each do |booking|
-        csv << booking.csv_row(self)
+        csv << booking.csv_row(id)
       end
     end
   end
   
   def csv_headers
-    [
-      'Date of travel',
-      'Lead Passenger Name',
-      'Mobile Number',
-      'Email',
-      'Number of Adults',
-      'Number of Children',
-      'Total Fare (including return element)',
-      'Paid?',
+    Booking.csv_headers + [
       'Outbound or Return',
       'Pickup Time',
       'Pickup Place',
       'Pickup Location',
       'Dropoff Time',
       'Dropoff Place',
-      'Dropoff Location',
-      'Special Requirements',
-      'Time and date booking made'
+      'Dropoff Location'
     ]
   end
   
