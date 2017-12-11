@@ -381,7 +381,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stripe (3.8.0)
+    stripe (3.9.0)
       faraday (~> 0.10)
     stripe-ruby-mock (2.5.0)
       dante (>= 0.2.0)
