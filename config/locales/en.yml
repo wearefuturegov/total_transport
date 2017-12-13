@@ -62,7 +62,7 @@ en:
 
     event:
       title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
-      info: "Pre-booked return journeys running 6.15am - 10pm. Book for yourself or others."
+      info: "Available from January 2018 convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
       regular:
         title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
         info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
@@ -177,7 +177,7 @@ en:
     complete: "All done"
     main_book: "Try our £1 return offers *"
     main_book_asterisk: "* Introductory offer"
-    book: "Pre-book your Ride"
+    book: "Register your interest"
     contact: "Have a question?"
     submit: "Submit your booking request"
     return: "Return"
