@@ -15,10 +15,17 @@ class Booking < ActiveRecord::Base
   after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
     
-  scope :date, ->(date) {
+  scope :date_from, ->(date) {
     datetime = date.to_datetime
     joins(:journey)
-      .where('journeys.start_time BETWEEN ? AND ?', datetime.beginning_of_day, datetime.end_of_day)
+      .where('journeys.start_time > ?', datetime.beginning_of_day)
+      .order('start_time DESC')
+  }
+  
+  scope :date_to, ->(date) {
+    datetime = date.to_datetime
+    joins(:journey)
+      .where('journeys.start_time < ?', datetime.end_of_day)
       .order('start_time DESC')
   }
   
@@ -26,14 +33,35 @@ class Booking < ActiveRecord::Base
   
   scope :state, ->(state) { where(state: state) }
   
+  scope :team, ->(team_id) { joins(journey: :supplier).where('suppliers.team_id = ?', team_id) }
+  
   filterrific(
     default_filter_params: { state: 'booked' },
     available_filters: [
       :route,
-      :date,
-      :state
+      :date_from,
+      :date_to,
+      :state,
+      :team
     ]
   )
+  
+  def self.csv_headers
+    [
+      'Passenger Name',
+      'Passenger Phone Number',
+      'Passenger Email',
+      'Route',
+      'Number of Adults',
+      'Number of Children',
+      'Number of Bus Passes',
+      'Special Requirements',
+      'Time Booked',
+      'Price Paid',
+      'Card Payment?',
+      'Stripe Charge ID'
+    ]
+  end
   
   def booking_id
     "RIDE#{id.to_s.rjust(5, '0')}"
@@ -176,7 +204,6 @@ class Booking < ActiveRecord::Base
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
     return_journey.update_attribute(:booked, true) if return_journey
-    log_booking
   end
   
   def queue_sms
@@ -205,10 +232,6 @@ class Booking < ActiveRecord::Base
     SendSMS.enqueue(to: self.phone_number, template: :booking_cancellation, booking: self.id)
   end
   
-  def log_booking
-    LogBooking.enqueue(id)
-  end
-  
   def queue_alerts
     queue_sms if phone_number
     queue_emails if email
@@ -223,24 +246,25 @@ class Booking < ActiveRecord::Base
     journey.update_attribute(:booked, false) if journey.booked_bookings.count == 0
   end
   
-  def csv_row(target_journey = nil)
-    if target_journey == nil
-      [
-        passenger_name,
-        phone_number,
-        pickup_stop.name,
-        dropoff_stop.name,
-        pickup_landmark.name,
-        dropoff_landmark.name,
-        journey.try(:time_at_stop, pickup_stop).try(:to_s),
-        return_journey.try(:time_at_stop, dropoff_stop).try(:to_s),
-        price.to_s
-      ]
-    elsif self.journey.id == target_journey.id
-      outward_trip.row_data
-    elsif self.return_journey.id == target_journey.id
-      return_trip.row_data
+  def csv_row(journey_id = nil)
+    data = [
+      passenger_name,
+      phone_number,
+      email,
+      route.name,
+      number_of_adults,
+      child_tickets,
+      number_of_free_tickets,
+      special_requirements,
+      created_at,
+      price,
+      payment_method == 'card' ? 'y' : 'n',
+      charge_id
+    ]
+    if !journey_id.nil?
+      data += journey_id == journey.id ? outward_trip.row_data : return_trip.row_data
     end
+    data
   end
   
   def create_payment!(token)

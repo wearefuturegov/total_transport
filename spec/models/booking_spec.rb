@@ -56,12 +56,6 @@ RSpec.describe Booking, :que, type: :model do
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
-    it 'logs a booking' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'LogBooking').count }.by(1)
-      job = QueJob.find_by(job_class: 'LogBooking')
-      expect(job.args[0]).to eq(booking.id)
-    end
-    
     it 'queues text messages' do
       expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
       jobs = QueJob.where(job_class: 'SendSMS')
@@ -450,59 +444,7 @@ RSpec.describe Booking, :que, type: :model do
     expect(booking.dropoff_landmark).to eq(dropoff_landmark)
   end
   
-  context 'returns data for admins' do
-    
-    before do
-      booking.pickup_landmark.name = 'Pickup Landmark'
-      booking.dropoff_landmark.name = 'Dropoff Landmark'
-    end
-    
-    context 'without a return journey' do
-      
-      it 'returns a spreadsheet row' do
-        expect(booking.csv_row).to eq([
-          'Me',
-          '12345',
-          'Pickup Stop',
-          'Dropoff Stop',
-          'Pickup Landmark',
-          'Dropoff Landmark',
-          '2017-01-01 10:00:00 UTC',
-          nil,
-          '2'
-        ])
-      end
-       
-    end
-    
-    context 'with a return journey' do
-      
-      before do
-        booking.return_journey = FactoryBot.create(:journey,
-          route: route,
-          start_time: DateTime.parse('2017-01-01T15:00:00'),
-          reversed: true
-        )
-      end
-      
-      it 'returns a spreadsheet row' do
-        expect(booking.csv_row).to eq([
-          'Me',
-          '12345',
-          'Pickup Stop',
-          'Dropoff Stop',
-          'Pickup Landmark',
-          'Dropoff Landmark',
-          '2017-01-01 10:00:00 UTC',
-          '2017-01-01 15:00:00 UTC',
-          '4'
-        ])
-      end
-
-    end
-  end
-  
-  describe 'runsheet csv rows' do
+  describe 'csv rows' do
     
     before do
       booking.pickup_landmark.name = 'Pickup Landmark'
@@ -514,14 +456,34 @@ RSpec.describe Booking, :que, type: :model do
       )
     end
     
-    it 'returns data for the outward journey' do
-      expect(booking.csv_row(booking.journey)).to eq([
-        Date.parse('2017-01-01'),
+    it 'returns data without a journey specified' do
+      expect(booking.csv_row).to eq([
         'Me',
         '12345',
         'me@example.com',
+        journey.route.name,
         1,
         0,
+        0,
+        'Wheelchair',
+        booking.created_at,
+        4,
+        'n',
+        nil
+      ])
+    end
+    
+    it 'returns data for the outward journey' do
+      expect(booking.csv_row(booking.journey.id)).to eq([
+        'Me',
+        '12345',
+        'me@example.com',
+        journey.route.name,
+        1,
+        0,
+        0,
+        'Wheelchair',
+        booking.created_at,
         4,
         'n',
         nil,
@@ -532,19 +494,20 @@ RSpec.describe Booking, :que, type: :model do
         DateTime.parse('2017-01-01 11:25:00').in_time_zone('UTC'),
         'Dropoff Stop',
         'Dropoff Landmark',
-        'Wheelchair',
-        booking.created_at
       ])
     end
     
     it 'returns data for the return journey' do
-      expect(booking.csv_row(booking.return_journey)).to eq([
-        Date.parse('2017-01-01'),
+      expect(booking.csv_row(booking.return_journey.id)).to eq([
         'Me',
         '12345',
         'me@example.com',
+        journey.route.name,
         1,
         0,
+        0,
+        'Wheelchair',
+        booking.created_at,
         4,
         'n',
         nil,
@@ -555,16 +518,14 @@ RSpec.describe Booking, :que, type: :model do
         DateTime.parse('2017-01-01 16:25:00').in_time_zone('UTC'),
         'Pickup Stop',
         'Pickup Landmark',
-        'Wheelchair',
-        booking.created_at
       ])
     end
     
     it 'shows as paid if paid by card' do
       booking.payment_method = 'card'
       booking.charge_id = 'abc123'
-      expect(booking.csv_row(booking.journey)[7]).to eq('y')
-      expect(booking.csv_row(booking.journey)[8]).to eq('abc123')
+      expect(booking.csv_row(booking.journey.id)[10]).to eq('y')
+      expect(booking.csv_row(booking.journey.id)[11]).to eq('abc123')
     end
     
   end
