@@ -9,7 +9,7 @@
       if($('#booking_pickup_landmark_id').val() != "") {
         $.post(
           '#{passengers_bookings_path}',
-          $('form.new_booking').serialize(),
+          $('form input[name!="_method"], form select').serialize(),
           function() {
             $('#return-chooser').removeClass('hidden');
             $('#details').removeClass('hidden');
@@ -23,7 +23,7 @@
       if($('#booking_dropoff_landmark_id').val() != "") {
         $.post(
           '#{passengers_bookings_path}',
-          $('form.new_booking').serialize(),
+          $('form input[name!="_method"], form select').serialize(),
           function() {
             $('#return-chooser').removeClass('hidden');
             $('#details').removeClass('hidden');
