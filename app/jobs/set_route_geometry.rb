@@ -5,8 +5,7 @@ class SetRouteGeometry < Que::Job
     ActiveRecord::Base.transaction do
       if route.stops.count > 1
         latlngs = stops(route)
-        route.geometry = DirectionsService.new(latlngs).geometry
-        route.save
+        route.update_column(:geometry, DirectionsService.new(latlngs).geometry)
       end
     end
   end
