@@ -25,6 +25,7 @@ input,
 select,
 textarea {
   @include non-rounded;
+  cursor: pointer;
   display: block;
   font-size: $body;
   font-weight: 700;
