@@ -64,7 +64,6 @@ class Route < ActiveRecord::Base
     end
     
     def queue_geometry
-      require "pry" ; binding.pry
       SetRouteGeometry.enqueue(id)
     end
 end
