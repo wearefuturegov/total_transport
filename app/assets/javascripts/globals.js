@@ -150,7 +150,7 @@ $(document).ready(function() {
         var fileName = e.target.value.split( '\\' ).pop();
 
         if( fileName ) {
-          $label.find('span').html( fileName );
+          $label.find('span').html( 'Current file: ' + fileName );
           $label.addClass('active');
 
         } else {
