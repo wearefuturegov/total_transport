@@ -5,6 +5,7 @@ class Route < ActiveRecord::Base
   has_many :places, through: :stops
   
   after_initialize :set_rule
+  after_save :queue_geometry
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
@@ -52,9 +53,17 @@ class Route < ActiveRecord::Base
     available_journeys_by_date
   end
   
+  def flipped_geometery
+    geometry.map { |ll| [ll[1], ll[0]] }
+  end
+  
   private
 
     def set_rule
       self.pricing_rule ||= {}
+    end
+    
+    def queue_geometry
+      SetRouteGeometry.enqueue(id)
     end
 end

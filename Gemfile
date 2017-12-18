@@ -63,6 +63,7 @@ gem 'google_drive'
 gem 'cocoon'
 gem 'postcodes_io'
 gem 'stripe'
+gem 'polylines'
 
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'

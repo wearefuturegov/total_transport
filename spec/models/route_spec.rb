@@ -31,4 +31,14 @@ RSpec.describe Route, type: :model do
     
   end
   
+  it 'runs the SetRouteGeometry job after creation', :que do
+    route = FactoryBot.create(:route)
+    Route.set_callback(:save, :after, :queue_geometry)
+    expect {
+      route.save
+    }.to change {
+      QueJob.where(job_class: 'SetRouteGeometry').count
+    }.by(1)
+  end
+  
 end
