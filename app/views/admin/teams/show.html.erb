@@ -1,71 +1,60 @@
-<div class="container">
-  <div class="inner">
-    <div class="card no-click profile wide-btn">
-      <div class="inner">
-        <div class="profile-banner">
-          <div class="profile-face">
-            <div id="theFace">
-              <% if current_supplier.photo? %>
-                <%= image_tag current_supplier.photo.url(:square) %>
-              <% else %>
-                <div class="circle">
-                  <i class="fa fa-user fa-2x"></i>
-                </div>
-              <% end %>
-            </div>
+<div class="profile wide-btn">
+  <div class="profile-banner">
+    <div class="profile-face">
+      <div id="theFace">
+        <% if current_supplier.photo? %>
+          <%= image_tag current_supplier.photo.url(:square) %>
+        <% else %>
+          <div class="circle">
+            <i class="fa fa-user fa-2x"></i>
           </div>
-          <h3><%= current_supplier.name %></h3>
-          <%= link_to "Edit your profile", edit_supplier_registration_path, :class => 'editBtn' %>
-        </div>
-
-        <div class="profile_details">
-          <p><strong>Email:</strong> <%= current_supplier.email %></p>
-          <p><strong>Phone Number:</strong> <%= current_supplier.phone_number %></p>
-
-          <div class="profile_team">
-            <% if !current_team.solo_team? %><h2>Your Team:</h2><% end %>
-            <p>You have <%= pluralize current_team.vehicles.count, "vehicle" %>
-                <% if !current_team.solo_team? %>
-                  in your team
-                <% end %>
-                 -
-              <%= link_to admin_vehicles_path do %>
-                View Vehicles
-              <% end %>
-            </p>
-
-            <% if current_team.solo_team? %>
-              <h3>You are currently the only person in your team - invite people now</h3>
-            <% else %>
-              <h3>You have <%= current_team.suppliers.count %> people in your team:</h3>
-              <ul>
-                <% current_team.suppliers.each do |supplier| %>
-                  <li><%= supplier.name %></li>
-                <% end %>
-              </ul>
-            <% end %>
-          </div>
-        </div>
-
+        <% end %>
       </div>
-      <%= link_to "Edit your profile", edit_supplier_registration_path, :class => 'button half border-bottom-left-radius' %>
-      <%= form_tag destroy_supplier_session_path, method: :delete do %>
-        <%= submit_tag "LOGOUT", class: 'negative button half border-bottom-right-radius' %>
+    </div>
+    <h3><%= current_supplier.name %></h3>
+    <%= link_to "Edit your profile", edit_supplier_registration_path, :class => 'editBtn' %>
+  </div>
+
+  <div class="profile_details">
+    <p><strong>Email:</strong> <%= current_supplier.email %></p>
+    <p><strong>Phone Number:</strong> <%= current_supplier.phone_number %></p>
+
+    <div class="profile_team">
+      <% if !current_team.solo_team? %><h2>Your Team:</h2><% end %>
+      <p>You have <%= pluralize current_team.vehicles.count, "vehicle" %>
+          <% if !current_team.solo_team? %>
+            in your team
+          <% end %>
+           -
+        <%= link_to admin_vehicles_path do %>
+          View Vehicles
+        <% end %>
+      </p>
+
+      <% if current_team.solo_team? %>
+        <h3>You are currently the only person in your team - invite people now</h3>
+      <% else %>
+        <h3>You have <%= current_team.suppliers.count %> people in your team:</h3>
+        <ul>
+          <% current_team.suppliers.each do |supplier| %>
+            <li><%= supplier.name %></li>
+          <% end %>
+        </ul>
       <% end %>
     </div>
-
-    <% if current_supplier.admin? %>
-      <div class="card no-click">
-        <div class="inner">
-          <h2>Super Admin Options</h2>
-          <p><strong>Admin</strong> - <%= link_to "View Bookings", admin_bookings_path %></p>
-          <p><strong>Admin</strong> - <%= link_to "Manage Core Routes", admin_routes_path %></p>
-          <p><strong>Admin</strong> - <%= link_to "Manage Suppliers", admin_suppliers_path %></p>
-          <p><strong>Admin</strong> - <%= link_to "Manage Teams", admin_teams_path %></p>
-          <p><strong>Admin</strong> - <%= link_to "View Suggestions", admin_suggestions_path %></p>
-          <p><strong>Admin</strong> - <%= link_to "Manage Promo Codes", admin_promo_codes_path %></p>
-        </div>
-      </div>
-    <% end %>
   </div>
+
+  <%= form_tag destroy_supplier_session_path, method: :delete do %>
+    <%= submit_tag "Log out", class: 'button' %>
+  <% end %>
 </div>
+
+<% if current_supplier.admin? %>
+  <h2>Super Admin Options</h2>
+  <p><strong>Admin</strong> - <%= link_to "View Bookings", admin_bookings_path %></p>
+  <p><strong>Admin</strong> - <%= link_to "Manage Core Routes", admin_routes_path %></p>
+  <p><strong>Admin</strong> - <%= link_to "Manage Suppliers", admin_suppliers_path %></p>
+  <p><strong>Admin</strong> - <%= link_to "Manage Teams", admin_teams_path %></p>
+  <p><strong>Admin</strong> - <%= link_to "View Suggestions", admin_suggestions_path %></p>
+  <p><strong>Admin</strong> - <%= link_to "Manage Promo Codes", admin_promo_codes_path %></p>
+<% end %>

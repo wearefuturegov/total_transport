@@ -2,7 +2,7 @@
 <%= form.select :place_id, options_for_select(@places.map { |p|
   [p.name, p.id, { 'data-lat' => p.latitude, 'data-lng' => p.longitude }]
 }, selected: @stop.place_id) %>
-<%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button small-button', id: 'add-place' %>
+<%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button small', id: 'add-place' %>
 
 <h2>Landmarks</h2>
 <div id="landmarks">

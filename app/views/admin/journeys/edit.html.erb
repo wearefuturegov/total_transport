@@ -1,20 +1,14 @@
-<div class="container">
-  <div class="inner">
-    <div class="card no-click wide-btn">
-      <%= form_for [:admin, @route, @journey] do |form| %>
-        <div class="inner">
-          <h4>Edit Journey</h4>
-          <%= render partial: 'fields', locals: {form: form} %>
-        </div>
-        <div class="half">
-          <%= form.submit "Save Edit", :class => "button border-bottom-left-radius"  %>
-        </div>
-      <% end %>
-      <div class="half">
-        <%= form_for [:admin, @route, @journey], method: :delete do |form| %>
-          <%= form.submit "Delete journey", :class => "negative button border-bottom-right-radius" %>
-        <% end %>
-      </div>
+<div class="wide-btn">
+  <%= form_for [:admin, @route, @journey] do |form| %>
+    <h4>Edit Journey</h4>
+    <%= render partial: 'fields', locals: {form: form} %>
+    <div class="half">
+      <%= form.submit "Save Edit", :class => "button border-bottom-left-radius"  %>
     </div>
+  <% end %>
+  <div class="half">
+    <%= form_for [:admin, @route, @journey], method: :delete do |form| %>
+      <%= form.submit "Delete journey", :class => "negative button border-bottom-right-radius" %>
+    <% end %>
   </div>
 </div>

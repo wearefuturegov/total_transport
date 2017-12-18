@@ -10,18 +10,15 @@
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
   <header class="header">
-    <div class="inner">
-      <div class="left">
-        <% if @back_path %>
-          <div id="back-btn">
-            <%= link_to @back_path do %>
-              <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
-            <% end %>
-          </div>
-        <% else %>
-          <div id="spacer">&nbsp;</div>
+    <% if @back_path %>
+      <div id="back-btn">
+        <%= link_to @back_path do %>
+          <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
         <% end %>
       </div>
+    <% else %>
+      <div id="spacer">&nbsp;</div>
+    <% end %>
 <!--
       <div class="centre">
         <div id="desktop-title" class="no-mobile">
@@ -36,17 +33,11 @@
         </div>
       </div>
 -->
-      <div class="right">
-
-      </div>
-    </div>
   </header>
 
   <% if flash[:alert].present? || @flash_alert.present? %>
     <div id="alerts" class="alerts container">
-      <div class="inner">
-        <p class="alert"><%= flash[:alert] %><%= @flash_alert %></p>
-      </div>
+      <p class="alert"><%= flash[:alert] %><%= @flash_alert %></p>
     </div>
   <% end %>
   
@@ -57,18 +48,14 @@
   <%= yield %>
 
   <div class="pop-up">
-    <div class="pop-up-box card no-click">
-      <div class="inner">
-        <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
-        <h3>Are you sure you want to cancel?</h3>
-        <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
-        <%= link_to journeys_path do %>
-          <div class="button negative small-button">Cancel Booking</div>
-        <% end %>
-        <div class="button small-button" id="popup-continue">Continue Booking</div>
-      </div>
-
-
+    <div class="pop-up-box">
+      <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
+      <h3>Are you sure you want to cancel?</h3>
+      <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
+      <%= link_to journeys_path do %>
+        <div class="button negative small">Cancel Booking</div>
+      <% end %>
+      <div class="button small" id="popup-continue">Continue Booking</div>
     </div>
   </div>
   <!-- <footer class="footer"></footer> -->

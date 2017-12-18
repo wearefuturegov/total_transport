@@ -1,12 +1,10 @@
 <div class="nested-fields landmark" data-lat="<%= latitude %>" data-lng="<%= longitude %>">
   <div class="card">
-    <div class="inner">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <div class="map" style="height: 300px; width: 100%;"></div>
-      <%= f.hidden_field :latitude, class: 'latitude' %>
-      <%= f.hidden_field :longitude, class: 'longitude' %>
-      <%= link_to_remove_association 'Remove Landmark', f, class: 'button' %>
-    </div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <div class="map" style="height: 300px; width: 100%;"></div>
+    <%= f.hidden_field :latitude, class: 'latitude' %>
+    <%= f.hidden_field :longitude, class: 'longitude' %>
+    <%= link_to_remove_association 'Remove Landmark', f, class: 'button' %>
   </div>
 </div>

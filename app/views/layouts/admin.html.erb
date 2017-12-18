@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TotalTransport</title>
+  <title>Ride - Admin</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
@@ -9,39 +9,28 @@
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
   <div id="suppliers-cont">
-    <header>
-      <div class="inner">
-        <div class="left">
-          <% if @back_path %>
-            <div id="back-btn">
-              <%= link_to @back_path do %>
-                <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
-              <% end %>
-            </div>
-          <% else %>
-            <div id="spacer">&nbsp;</div>
-          <% end %>
-        </div>
-        <div class="centre">
-          <%= link_to admin_root_path do %>
-            <% if current_supplier %>
-              <%= current_supplier.name %>
-            <% else %>
-              Supplier
-            <% end %>
-            - Pickup Admin
-          <% end %>
-        </div>
-        <div class="right">
-          <% if current_supplier %>
-            <%= link_to admin_account_path do %>
-              <i class="fa fa-user"></i>
-              <span class="no-mobile">Account</span>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
+    <header class="header">
+      <%= link_to admin_root_path, class: "admin" do %>
+<!--         <% if current_supplier %>
+          <%= current_supplier.name %>
+        <% else %>
+          Supplier
+        <% end %> -->
+        Admin
+      <% end %>
+      <% if current_supplier %>
+        <%= link_to admin_account_path, class: "account"  do %>
+          Account
+        <% end %>
+      <% end %>
     </header>
+    <% if @back_path %>
+      <div id="back-btn">
+        <%= link_to @back_path do %>
+          <i class="fa fa-chevron-left"></i> <span class="no-mobile">Back</span>
+        <% end %>
+      </div>
+    <% end %>
     <% if alert.present? || notice.present? %>
       <div id="alerts" class="alerts">
         <section class="inner">
@@ -53,7 +42,7 @@
     <section class="supplier">
         <%= yield %>
 
-      <div id="supplier-suggestion" class="suggestion center grey">
+      <div id="supplier-suggestion" class="suggestion">
         <p>See something wrong, or have an idea for improvement?<br/>
         <%= link_to new_admin_supplier_suggestion_path(from_url: request.path) do %>
           Make a suggestion

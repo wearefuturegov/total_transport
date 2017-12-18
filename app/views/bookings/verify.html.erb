@@ -1,31 +1,29 @@
-<div id="verify" class="grey-block fill-space container center">
-  <div class="inner">
-    <div id="verify-loading" class="center">
-      <i class="fa fa-spinner fa-spin fa-3x"></i>
-      <p>Sending verification code...</p>
-    </div>
+<div id="verify">
+  <div id="verify-loading" class="center">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <p>Sending verification code...</p>
+  </div>
 
-    <h2>Verify Your Phone Number</h2>
-    <p>Type in the verification code we sent to your phone number</p>
+  <h2>Verify Your Phone Number</h2>
+  <p>Type in the verification code we sent to your phone number</p>
 
-    <div id="digit-input">
-      <input id="digit1" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1" autofocus="true">
-      <input id="digit2" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
-      <input id="digit3" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
-      <input id="digit4" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+  <div id="digit-input">
+    <input id="digit1" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1" autofocus="true">
+    <input id="digit2" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+    <input id="digit3" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
+    <input id="digit4" class="single-digit white-input" type="number" pattern="\d*" min="0" max="9" size="1">
 
-      <%-# Need to swap this form with inputs similar to above -%>
-      <%= form_tag save_verify_route_booking_path(@route, @booking), method: :patch do %>
-        <%= hidden_field_tag 'booking[verification_code]' %>
-        <div class="actions">
-          <%= submit_tag "Verify" %>
-        </div>
-      <% end %>
-    </div>
+    <%-# Need to swap this form with inputs similar to above -%>
+    <%= form_tag save_verify_route_booking_path(@route, @booking), method: :patch do %>
+      <%= hidden_field_tag 'booking[verification_code]' %>
+      <div class="actions">
+        <%= submit_tag "Verify" %>
+      </div>
+    <% end %>
+  </div>
 
-    <div id="no-verify">
-      <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", @back_path, title: "Try sending verification code again" %></strong></p>
-    </div>
+  <div id="no-verify">
+    <p>If you have not received a text message verification code, please <strong><%= link_to "try again now", @back_path, title: "Try sending verification code again" %></strong></p>
   </div>
 </div>
 

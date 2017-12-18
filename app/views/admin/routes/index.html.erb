@@ -1,15 +1,11 @@
-<div class="container">
-  <div class="inner">
-    <div class="sup_route_journeys">
-      <%= render partial: 'form', locals: { route: @route } %>
+<div class="sup_route_journeys">
+  <%= render partial: 'form', locals: { route: @route } %>
 
-      <% @routes.each do |route| %>
-         <%= render partial: 'route', locals: { route: route } %>
-      <% end %>
-      
-      <%= render partial: 'form', locals: { route: @route } %>
-    </div>
-  </div>
+  <% @routes.each do |route| %>
+     <%= render partial: 'route', locals: { route: route } %>
+  <% end %>
+  
+  <%= render partial: 'form', locals: { route: @route } %>
 </div>
 
 <% content_for :js do %>

@@ -1,53 +1,41 @@
-<div class="container">
-  <div class="inner">
-    <div class="card no-click">
-      <div class="inner">
-        <p><%= @journey.route.name %></p>
-        <p>Date: <%= @journey.start_time.strftime("%F") %></p>
-        <% if !current_team.solo_team? %>
-          <p>Driver: <%= @journey.supplier.name %></p>
-        <% end %>
-        <p>Vehicle: <%= link_to @journey.vehicle.registration, edit_admin_vehicle_path(@journey.vehicle) %></p>
-        <h3>Stops:</h3>
-        <p><% @journey.stops.each do |stop| %></p>
-          <p>
-            <%= stop.name %>:
-            <%= @journey.time_at_stop(stop).strftime("%H:%M") %>
-          </p>
-        <% end %>
-      </div>
-      <% if @journey.editable_by_supplier?(current_supplier) %>
-        <%= link_to edit_admin_journey_path(@journey) do %>
-          <div class="button border-bottom-radius">Edit</div>
-        <% end %>
+<p><%= @journey.route.name %></p>
+<p>Date: <%= @journey.start_time.strftime("%F") %></p>
+<% if !current_team.solo_team? %>
+  <p>Driver: <%= @journey.supplier.name %></p>
+<% end %>
+<p>Vehicle: <%= link_to @journey.vehicle.registration, edit_admin_vehicle_path(@journey.vehicle) %></p>
+<h3>Stops:</h3>
+<p><% @journey.stops.each do |stop| %></p>
+  <p>
+    <%= stop.name %>:
+    <%= @journey.time_at_stop(stop).strftime("%H:%M") %>
+  </p>
+<% end %>
+<% if @journey.editable_by_supplier?(current_supplier) %>
+  <%= link_to edit_admin_journey_path(@journey) do %>
+    <div class="button border-bottom-radius">Edit</div>
+  <% end %>
+<% end %>
+<% if @journey.is_booked? %>
+  <h4>Bookings:</h4>
+  <% @journey.all_bookings.each do |booking| %>
+    <div class="card">
+      <%= link_to admin_journey_booking_path(@journey, booking) do %>
+        <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
       <% end %>
     </div>
-    <% if @journey.is_booked? %>
-      <h4>Bookings:</h4>
-      <% @journey.all_bookings.each do |booking| %>
-        <div class="card">
-          <%= link_to admin_journey_booking_path(@journey, booking) do %>
-            <div class="inner">
-              <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-      <hr />
-      
-      <p><%= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button' %></p>
-      
-      <hr />
-      
-      <h4>Send SMS message to</h4>
-      <%= form_tag send_message_admin_journey_path(@journey) do %>
-        <%= select_tag :to,
-          options_for_select([["All Passengers", "all"]] + @journey.bookings.collect {|x| [x.phone_number, x.id]}) %>
-        <%= text_field_tag :notification_message %>
-        <%= submit_tag "Send message" %>
-      <% end %>
-    <% end %>
-    
-    
-  </div>
-</div>
+  <% end %>
+  <hr />
+  
+  <p><%= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button' %></p>
+  
+  <hr />
+  
+  <h4>Send SMS message to</h4>
+  <%= form_tag send_message_admin_journey_path(@journey) do %>
+    <%= select_tag :to,
+      options_for_select([["All Passengers", "all"]] + @journey.bookings.collect {|x| [x.phone_number, x.id]}) %>
+    <%= text_field_tag :notification_message %>
+    <%= submit_tag "Send message" %>
+  <% end %>
+<% end %>

@@ -1,29 +1,23 @@
-<div class="container">
-  <div class="inner">
-    <% @vehicles.each do |vehicle| %>
-      <div class="third">
-        <div class="card single_vehicle">
-          <div class="inner">
-            <ul>
-              <% if vehicle.photo? %>
-                <li>
-                  <%= image_tag vehicle.photo.url(:square), :class => 'vehicle-pic vehicle-admin' %>
-                </li>
-              <% end %>
-              <li><h4>Reg - <%= vehicle.registration %></h4></li>
-              <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
-              <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
-              <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
-              
-            </ul>
-          </div>
-          <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="button border-bottom-radius">Edit</div><% end %>
-        </div>
-      </div>
-    <% end %>
-    <%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'button alt-button' %>
+<% @vehicles.each do |vehicle| %>
+  <div class="third">
+    <div class="card single_vehicle">
+      <ul>
+        <% if vehicle.photo? %>
+          <li>
+            <%= image_tag vehicle.photo.url(:square), :class => 'vehicle-pic vehicle-admin' %>
+          </li>
+        <% end %>
+        <li><h4>Reg - <%= vehicle.registration %></h4></li>
+        <li><strong>No of Seats:</strong> <%= vehicle.seats %></li>
+        <li><strong>Make/Model:</strong> <%= vehicle.make_model %></li>
+        <li><strong>Colour:</strong> <span class="vehicle_col"><%= vehicle.colour %></span> <div class="vehicle_col_block"></div></li>
+        
+      </ul>
+      <%= link_to edit_admin_vehicle_path(vehicle) do %><div class="button border-bottom-radius">Edit</div><% end %>
+    </div>
   </div>
-</div>
+<% end %>
+<%= link_to "Add a vehicle", new_admin_vehicle_path, class: 'button alt-button' %>
 <% content_for :js do %>
 <script type="text/javascript">
   $(document).ready(function() {

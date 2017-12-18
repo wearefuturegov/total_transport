@@ -1,51 +1,47 @@
-.container
-  .inner
-  
-    = form_for_filterrific @filter do |form|
+= form_for_filterrific @filter do |form|
 
-      .card
-        .inner
-          .col-12
-            .col-1
-              = form.label :route
-            .col-3
-              = form.select :route, options_from_collection_for_select(Route.all, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
-            .col-1
-              = form.label :state
-            .col-3
-              = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled']], {}, class: 'select'
-            .col-1
-              = form.label :team
-            .col-3
-              = form.select :team, options_from_collection_for_select(Team.all, 'id', 'name', @filter.team), { include_blank: 'All' }, class: 'select'
-          .col-12
-            .col-2
-              = form.label :date_from
-            .col-4
-              = form.date_field :date_from, value: @filter.date_from
-            .col-2
-              = form.label :date_to
-            .col-4
-              = form.date_field :date_to, value: @filter.date_to
-          .col-12
-            .col-6
-              = link_to 'Reset filters', reset_filterrific_url, class: 'button secondary'
-            .col-6
-              = form.submit 'Update filter', name: nil
-    
+  .card
     .col-12
-      .col-9
-        = render partial: 'bookings', locals: { bookings: @bookings }
+      .col-1
+        = form.label :route
       .col-3
-        .card
-          .inner.booking-count
-            %h4
-              .number= @bookings_count
-              Bookings
-        .card
-          .inner.booking-count
-            %h4
-              .number= @passengers_count
-              Passengers
-    
-        = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button'
+        = form.select :route, options_from_collection_for_select(Route.all, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
+      .col-1
+        = form.label :state
+      .col-3
+        = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled']], {}, class: 'select'
+      .col-1
+        = form.label :team
+      .col-3
+        = form.select :team, options_from_collection_for_select(Team.all, 'id', 'name', @filter.team), { include_blank: 'All' }, class: 'select'
+    .col-12
+      .col-2
+        = form.label :date_from
+      .col-4
+        = form.date_field :date_from, value: @filter.date_from
+      .col-2
+        = form.label :date_to
+      .col-4
+        = form.date_field :date_to, value: @filter.date_to
+    .col-12
+      .col-6
+        = link_to 'Reset filters', reset_filterrific_url, class: 'button secondary'
+      .col-6
+        = form.submit 'Update filter', name: nil
+
+.col-12
+  .col-9
+    = render partial: 'bookings', locals: { bookings: @bookings }
+  .col-3
+    .card
+      .booking-count
+        %h4
+          .number= @bookings_count
+          Bookings
+    .card
+      .booking-count
+        %h4
+          .number= @passengers_count
+          Passengers
+
+    = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button'
