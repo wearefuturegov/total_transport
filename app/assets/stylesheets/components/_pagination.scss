@@ -1,0 +1,16 @@
+.pagination {
+  text-align: center;
+  margin: $baseline 0 $baseline*2 0;
+  .page {
+    float: none;
+  }
+  .next {
+    float: right;
+  }
+  .prev {
+    float: left;
+  }
+  .last, .first {
+    display: none;
+  }
+}

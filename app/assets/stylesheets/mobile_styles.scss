@@ -1,0 +1,128 @@
+/* Base Styles */
+
+.hidden {
+  display: none;
+}
+
+.no-mobile {
+  display: none;
+}
+
+/* START Header */
+
+.header {
+  .left, .right {
+    @include span-columns(2);
+
+    text-align: left;
+  }
+
+  .centre {
+    @include span-columns(8);
+  }
+
+  .right {
+    @include omega;
+
+    text-align: right;
+    float: right;
+  }
+
+  #backbtn {
+    background-color: transparent;
+    color: $dark-gray;
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  a, #backbtn {
+    color: #fff;
+  }
+
+  a:active, a:focus, a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+/* END Header */
+
+.reverse-icon {
+  display: inline-block;
+  color: $blue;
+
+  .fa-long-arrow-up {
+    margin-left: -3px;
+  }
+}
+
+/* START footer */
+
+#footer {
+  @include span-columns(12);
+
+  margin-top: 50px;
+}
+
+/* END footer */
+
+/* START Payments */
+
+.payment-option {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 25px;
+
+  .fa {
+    width: 33px;
+    margin-right: 10px;
+    text-align: center;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+}
+
+/* END Payments */
+
+.pop-up {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2147483647;
+  text-align: center;
+  cursor: pointer;
+  padding: 6%;
+  display: none;
+
+  .pop-up-box {
+    cursor: auto;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    max-width: 85%;
+  }
+
+  .pop-up-close {
+    cursor: pointer;
+  }
+}
+
+.vehicle-pic {
+  border-radius: 50%;
+  max-width: 250px;
+}
+
+.vehicle-admin {
+  width: 60%;
+  height: auto;
+}
+
+.vehicle-passenger {
+  width: 40%;
+  height: auto;
+}

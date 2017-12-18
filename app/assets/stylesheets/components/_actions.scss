@@ -1,0 +1,8 @@
+.actions {
+  float: left;
+  width: 100%;
+  margin-bottom: $baseline;
+  #{$all-buttons}, .button {
+    float: right;
+  }
+}

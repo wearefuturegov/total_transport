@@ -1,0 +1,41 @@
+.card {
+  background: #ffffff;
+  text-align: left;
+  position: relative;
+  border: $border-width-thin $black $border-style;
+  // box-shadow: 0 0 1px rgba(0, 0, 0, 0.75);
+  p:last-child {
+    margin-bottom: 0;
+  }
+  .pickUp, .dropOff {
+    font-size: 14px;
+    color: $medium-gray;
+    margin-top: -3px;
+    display: block;
+  }
+  .timeEst {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .date {
+    @include span-columns(12);
+    text-transform: uppercase;
+  }
+  input[type='submit'] {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  & + .card {
+    margin-top: -1px;
+  }
+}
+
+.card {
+  transition: all 0s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card:hover, .card:active {
+  // box-shadow: 0 1px 6px rgba(0, 0, 0, 1);
+  border-color: $brand;
+  z-index: 1000;
+}
