@@ -53,6 +53,10 @@ class Route < ActiveRecord::Base
     available_journeys_by_date
   end
   
+  def flipped_geometery
+    geometry.map { |ll| [ll[1], ll[0]] }
+  end
+  
   private
 
     def set_rule
@@ -60,6 +64,7 @@ class Route < ActiveRecord::Base
     end
     
     def queue_geometry
+      require "pry" ; binding.pry
       SetRouteGeometry.enqueue(id)
     end
 end

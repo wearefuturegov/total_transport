@@ -24,15 +24,26 @@
     });
   });
 
-  function initMap() {
-    $('.route_preview').each(function(i, m) {
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
-      var map = new google.maps.Map(m, { scrollwheel:  false, disableDefaultUI: true });
-      directionsDisplay.setMap(map);
-
-      calculateRouteMultiStop(directionsService, directionsDisplay, $(this));
+  $('.route_preview').each(function(i,m) {
+    var $map = $(m);
+    $map.uniqueId();
+    
+    var geoJSON = L.geoJSON({
+      "type": "LineString",
+      "coordinates": $map.data('geometry')
     });
-  }
+    
+    var id = $map.attr('id');
+    var map = L.map(id);
+    
+    L.tileLayer('https://api.mapbox.com/styles/v1/wearefuturegov/cj8pp146j9uyv2rojanc93qtf/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
+    }).addTo(map);
+    
+    geoJSON.addTo(map);
+    map.fitBounds(geoJSON.getBounds());
+  });
 </script>
 <% end %>
