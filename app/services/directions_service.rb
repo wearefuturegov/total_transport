@@ -4,7 +4,7 @@ class DirectionsService
   
   def initialize(latlngs)
     latlngs = URI::encode latlngs.join(';')
-    @url = "https://api.mapbox.com/directions/v5/mapbox/driving/#{latlngs}.json?access_token=#{ACCESS_TOKEN}"
+    @url = "https://api.mapbox.com/directions/v5/mapbox/driving/#{latlngs}.json?overview=full&access_token=#{ACCESS_TOKEN}"
   end
   
   def results
@@ -13,6 +13,10 @@ class DirectionsService
   
   def total_duration
     (results['routes'][0]['duration'] / 60).round
+  end
+  
+  def geometry
+    Polylines::Decoder.decode_polyline results['routes'][0]['geometry']
   end
 
 end
