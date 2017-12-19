@@ -1,13 +1,17 @@
 <div class="container">
   <div class="inner">
     <div class="sup_route_journeys">
-      <%= render partial: 'form', locals: { route: @route } %>
-
+      <div class="card">
+        <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
+      </div>
+      
       <% @routes.each do |route| %>
-         <%= render partial: 'route', locals: { route: route } %>
+         <%= render partial: 'admin/routes/route', locals: { route: route } %>
       <% end %>
       
-      <%= render partial: 'form', locals: { route: @route } %>
+      <div class="card">
+        <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
+      </div>
     </div>
   </div>
 </div>
