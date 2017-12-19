@@ -1,5 +1,6 @@
 @media only screen and (max-width: 667px) {
 
+  @import "base/import";
   @import "components/import";
   @import "composition/import";
   @import "elements/import";

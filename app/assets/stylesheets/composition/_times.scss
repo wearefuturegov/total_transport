@@ -1,0 +1,12 @@
+#outward_times,
+#return_times {
+  .time {
+    float: left;
+    width: 100%;
+    .button {
+      width: calc(33.3% - #{$border-width});
+      float: left;
+      margin: $border-width-thin;
+    }
+  }
+}

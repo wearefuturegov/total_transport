@@ -3,88 +3,17 @@
 #{$all-buttons}, .button {
   line-height: $baseline*2;
   width: 100%;
-  &:hover, &:active {
-    background: $black;
-    border-color: $black;
-  }
-  &.cta {
-    color: $white;
-    background: $brand;
-    border: $border-width*2 $border-style $brand;
-    line-height: $baseline*2;
-    text-decoration: none;
-    text-transform: uppercase;
-    &:hover {
-      background: $black;
-      border-color: $black;
-    }
-  }
-  &.secondary {
-    color: $brand;
-    background: $white;
-    border-color: $black;
-    &:hover {
-      color: $white;
-      background: $black;
-      border-color: $black;
-    }
-  }
   &.primary {
     line-height: $baseline*3;
     margin-top: $baseline;
     width: 100%;
   }
-  &.choice {
-    float: left;
-    width: 50%;
-    &.stripe {
-      background-color: $stripe;
-      border-color: $stripe;
-    }
-  }
-  &.text {
-    text-decoration: underline;
-    background: none;
-    border: none;
-    color: $brand;
-    line-height: $baseline;
-    padding: 0;
-  }
-  &.active {
-    background-color: $gray;
-    border-color: $gray;
+  &.choice + .choice {
+    margin-top: 0;
   }
 }
 
-.date-button,
-#outward_times .button,
-#return_times .button {
-  &.selected {
-    color: $white;
-    background: $black;
-    border-color: $black;
-  }
-  input {
-    display: none;
-  }
-}
-
-#outward_times,
-#return_times {
-  .time {
-    float: left;
-    width: 100%;
-    .button {
-      line-height: 39px;
-      line-height: $baseline*1.5;
-      width: calc(25% - #{$border-width});
-      text-align: center;
-      padding: 0 $border-width*2;
-      float: left;
-      margin: $border-width-thin;
-      font-size: $small;
-      display: inline-block;
-      font-weight: 900;
-    }
-  }
+.time .button,
+.dates .button {
+  padding: 0;
 }

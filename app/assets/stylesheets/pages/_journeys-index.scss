@@ -12,6 +12,9 @@
   .easy-autocomplete {
     width: 100% !important;
   }
+  #{$all-buttons}, .button {
+    width: 100%;
+  }
 }
 
 #journeys-index, #bookings-edit, #bookings-confirmation, #bookings-cancel {

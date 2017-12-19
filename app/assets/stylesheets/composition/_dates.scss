@@ -6,6 +6,6 @@
   .single {
     float: left;
     margin: $border-width-thin;
-    width: calc(33.3% - #{$border-width-thin*2});
+    width: calc(50% - #{$border-width-thin*2});
   }
 }

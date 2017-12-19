@@ -1,0 +1,6 @@
+header.header {
+  margin-bottom: $baseline;
+  & + .section, & + form {
+    clear: left;
+  }
+}
