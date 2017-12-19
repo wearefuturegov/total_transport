@@ -1,15 +1,13 @@
 <div id="sup_edit_jrny" class="container">
-  <h2>Add a New Journey</h2>
+  <h2>Add a new journey</h2>
   <%= form_for [:admin, @journey] do |form| %>
     <div class="sup_edit_jrny">
       <div class="twoThird">
-        <p class="highlight"><%= @journey.route_name %></p>
-        <p>Via <%= @journey.stops_in_direction.count-2 %> Possible Stops:</p>
-        <ul>
+        <h2><%= @journey.route_name %></h2>
+        <h4>Via <%= @journey.stops_in_direction.count-2 %> Possible Stops:</h4>
           <% @journey.stops_in_direction[1..-2].each_with_index do |stop| %>
-            <li><%= stop.name %></li>
+            <p><%= stop.name %></p>
           <% end %>
-        </ul>
       </div>
       <div class="third mobFull">
         <select multiple id="select_<%= @route.id %>" class="waypoints" style="display:none;">

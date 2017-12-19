@@ -1,7 +1,7 @@
 <div id="sup_edit_jrny">
   <% if Route.exists? %>
     <% if current_team.vehicles.count > 0 %>
-      <h3 id="sup_jrny_title">Select a Route:</h3>
+      <h2 id="sup_jrny_title">Select a route</h2>
       <% Route.bookable_routes.each do |route| %>
         <div class="sup_edit_jrny">
           <div class="twoThird">

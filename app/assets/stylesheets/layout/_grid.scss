@@ -1,6 +1,6 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
-.section {
+.section, .supplier {
   // @include pad(0 default);
   @include outer-container(75%);
 }
@@ -32,10 +32,6 @@
 }
 
 .header {
-  @include span-columns(12);
-}
-
-.supplier {
   @include span-columns(12);
 }
 
