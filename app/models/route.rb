@@ -3,9 +3,13 @@ class Route < ActiveRecord::Base
   has_many :journeys, -> { order(start_time: :asc) }, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
   has_many :places, through: :stops
+  has_many :sub_routes, class_name: 'Route'
+  belongs_to :route
   
   after_initialize :set_rule
   after_save :queue_geometry
+  
+  validate :check_sub_route
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
@@ -65,5 +69,11 @@ class Route < ActiveRecord::Base
     
     def queue_geometry
       SetRouteGeometry.enqueue(id)
+    end
+    
+    def check_sub_route
+      if !route.nil? && sub_routes.count > 0
+        errors.add(:sub_routes, 'cannot be added for a sub route')
+      end
     end
 end
