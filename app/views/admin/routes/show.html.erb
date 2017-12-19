@@ -48,6 +48,10 @@
       <div class="wide-btn card">
         <%= button_to 'Make subroute', admin_route_sub_routes_path(@route), method: :post, class: 'button' %>
       </div>
+      
+      <div class="wide-btn card">
+        <%= link_to 'View subroutes', admin_route_sub_routes_path(@route), class: 'button' %>
+      </div>
     <% end %>
     
   </div>
