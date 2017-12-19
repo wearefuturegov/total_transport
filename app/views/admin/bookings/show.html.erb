@@ -6,16 +6,11 @@
   <div class="overview-sub-bar">
     Outbound: <%= friendly_date @trip.pickup_time, true %>
   </div>
-  <div class="center">
-    <%= map(@trip.pickup_landmark.latitude, @trip.pickup_landmark.longitude) %>
-    <p class="mb1 mt05"><strong>Pickup:</strong> <%= @trip.pickup_time.strftime("%l:%M%P") %> at <%= @trip.pickup_name %></p>
-  <div class="clear"></div>
-  </div>
-  <div class="center">
-    <%= map(@trip.dropoff_landmark.latitude, @trip.dropoff_landmark.longitude) %>
-    <p class="mb1 mt05"><strong>Drop off:</strong> <%= @trip.dropoff_time.strftime("%l:%M%P") %> at <%= @trip.dropoff_name %></p>
-  </div>
-  <div class="breaker mt2"></div>
+  <%= map(@trip.pickup_landmark.latitude, @trip.pickup_landmark.longitude) %>
+  <p><strong>Pickup:</strong> <%= @trip.pickup_time.strftime("%l:%M%P") %> at <%= @trip.pickup_name %></p>
+  <%= map(@trip.dropoff_landmark.latitude, @trip.dropoff_landmark.longitude) %>
+  <p><strong>Drop off:</strong> <%= @trip.dropoff_time.strftime("%l:%M%P") %> at <%= @trip.dropoff_name %></p>
+  <div class="breaker"></div>
   <div class="price-breakdown">
     <% if @booking.number_of_adults == @booking.number_of_passengers %>
       <p><%= pluralize @booking.number_of_passengers, 'adult fare' %> (<%= number_to_currency(@booking.adult_single_price, :unit => "£") %> single)</p>

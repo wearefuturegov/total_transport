@@ -1,4 +1,8 @@
 .card {
+  @include ease;
+  @include pad(0 default);
+  padding-top: $baseline;
+  padding-bottom: $baseline;
   background: #ffffff;
   text-align: left;
   position: relative;
@@ -18,7 +22,6 @@
     font-weight: 600;
   }
   .date {
-    @include span-columns(12);
     text-transform: uppercase;
   }
   input[type='submit'] {
@@ -30,8 +33,8 @@
   }
 }
 
-.card {
-  transition: all 0s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+a .card {
+  color: $black;
 }
 
 .card:hover, .card:active {

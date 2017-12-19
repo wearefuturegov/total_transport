@@ -1,10 +1,10 @@
-<p><%= @journey.route.name %></p>
+<h2><%= @journey.route.name %></h2>
 <p>Date: <%= @journey.start_time.strftime("%F") %></p>
 <% if !current_team.solo_team? %>
   <p>Driver: <%= @journey.supplier.name %></p>
 <% end %>
 <p>Vehicle: <%= link_to @journey.vehicle.registration, edit_admin_vehicle_path(@journey.vehicle) %></p>
-<h3>Stops:</h3>
+<h4>Stops</h4>
 <p><% @journey.stops.each do |stop| %></p>
   <p>
     <%= stop.name %>:
@@ -17,15 +17,12 @@
   <% end %>
 <% end %>
 <% if @journey.is_booked? %>
-  <h4>Bookings:</h4>
+  <h4>Bookings</h4>
   <% @journey.all_bookings.each do |booking| %>
-    <div class="card">
-      <%= link_to admin_journey_booking_path(@journey, booking) do %>
-        <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
-      <% end %>
-    </div>
+    <%= link_to admin_journey_booking_path(@journey, booking) do %>
+      <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
+    <% end %>
   <% end %>
-  <hr />
   
   <p><%= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button' %></p>
   

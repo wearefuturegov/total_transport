@@ -1,16 +1,14 @@
-<div class="card">
-  <table>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  <% @teams.each do |team| %>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th></th>
+      <td><%= team.name %></td>
+      <td><%= team.email %></td>
+      <td><%= link_to "edit", edit_admin_team_path(team) %></td>
     </tr>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.email %></td>
-        <td><%= link_to "edit", edit_admin_team_path(team) %></td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  <% end %>
+</table>

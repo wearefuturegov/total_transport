@@ -4,3 +4,31 @@
 .hide {
   display: none;
 }
+
+/* left over from supplier_admin.scss…needs checking */
+
+.supplier_suggestions {
+  #supplier-suggestion {
+    display: none;
+  }
+}
+
+.edit_journey, .new_journey {
+  select {
+    display: inline-block;
+  }
+}
+
+.route_preview {
+  width: 100%;
+  height: 200px;
+}
+
+
+/* admin styles */
+
+.supplier_suggestions {
+  #supplier-suggestion {
+    display: none;
+  }
+}

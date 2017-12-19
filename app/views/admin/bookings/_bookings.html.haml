@@ -2,7 +2,7 @@
   - if bookings.exists?
     - bookings.each do |booking|
       = link_to admin_journey_booking_path(booking.journey, booking) do
-        %div.card
+        .card
           %h3= booking.journey.route.name
           
           %p= friendly_date booking.journey.start_time
@@ -24,8 +24,7 @@
             
           
   - else
-    .card.no-click
-      %p
-        No bookings found
+    %p
+      No bookings found
           
   = paginate bookings
