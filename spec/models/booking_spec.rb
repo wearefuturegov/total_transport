@@ -538,6 +538,31 @@ RSpec.describe Booking, :que, type: :model do
     
   end
   
+  describe 'scopes' do
+    
+    describe '#route' do
+      
+      let!(:route) { FactoryBot.create(:route) }
+      let!(:journey) { FactoryBot.create(:journey, route: route) }
+      let!(:bookings) { FactoryBot.create_list(:booking, 3, journey: journey) }
+
+      it 'gets bookings with route' do
+        FactoryBot.create_list(:booking, 2)
+        expect(Booking.route(route.id)).to match_array(bookings)
+      end
+      
+      it 'includes sub routes' do
+        sub_route = FactoryBot.create(:route, route: route)
+        sub_route_bookings = FactoryBot.create_list(:booking, 2,
+          journey: FactoryBot.create(:journey, route: sub_route)
+        )
+        expect(Booking.route(route.id)).to match_array(bookings + sub_route_bookings)
+      end
+      
+    end
+    
+  end
+  
   
   describe 'pricing' do
     
