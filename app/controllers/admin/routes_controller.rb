@@ -24,6 +24,12 @@ class Admin::RoutesController < AdminController
     redirect_to admin_routes_path
   end
   
+  def update
+    @route.update_attributes(route_params)
+    @route.save
+    redirect_to admin_route_path(@route)
+  end
+  
   def sort
     params[:stop].each_with_index do |value,index|
       @route.stops.find(value).update_attribute(:position,index+1)
@@ -35,6 +41,10 @@ class Admin::RoutesController < AdminController
   
   def get_route
     @route = Route.find(params[:id])
+  end
+  
+  def route_params
+    params.require(:route).permit(:name)
   end
   
 end
