@@ -5,7 +5,7 @@
 
   <div id="sortable_stops" class="stop-list">
     <% @route.stops.each do |stop| %>
-      <div id="stop_<%= stop.id %>" class="stop card">
+      <div id="stop_<%= stop.id %>" class="stop">
         <div class="edit_route_mins half">
           <p class="stop_name"><%= stop.name %></p>
           <div class="buttons">
@@ -28,20 +28,14 @@
       </div>
     <% end %>
   </div>
-  <div class="wide-btn card">
-    <div class="half">
-      <%= link_to new_admin_route_stop_path(@route) do %>
-        <div class="button border-left-radius">
-          <span>Add a New Stop</span>
-        </div>
-      <% end %>
+  <%= link_to new_admin_route_stop_path(@route) do %>
+    <div class="button">
+      <span>Add a New Stop</span>
     </div>
-    <div class="half">
-      <%= form_for [:admin, @route], method: :delete do |form| %>
-        <%= form.submit "Delete route", :class => "button negative delete border-right-radius" %>
-      <% end %>
-    </div>
-  </div>
+  <% end %>
+  <%= form_for [:admin, @route], method: :delete do |form| %>
+    <%= form.submit "Delete route", :class => "button negative" %>
+  <% end %>
 </div>
 
 <% content_for :js do %>

@@ -1,18 +1,10 @@
-<h2>Edit Stop:</h2>
-<div class="wide-btn">
-  <%= form_for [:admin, @route, @stop] do |form| %>
-    <div class="inner">
-      <%= render partial: 'fields', locals: {form: form} %>
-    </div>
+<h2>Edit stop</h2>
+<%= form_for [:admin, @route, @stop] do |form| %>
+  <%= render partial: 'fields', locals: {form: form} %>
 
-    <div class="half">
-      <%= form.submit "Save stop", :class => "button name_validation border-left-radius" %>
-    </div>
-  <% end %>
+  <%= form.submit "Save stop", :class => "button name_validation" %>
+<% end %>
 
-  <div class="half">
-    <%= form_for [:admin, @route, @stop], method: :delete do |form| %>
-      <%= form.submit "Delete stop", :class => "button negative delete border-right-radius" %>
-    <% end %>
-  </div>
-</div>
+<%= form_for [:admin, @route, @stop], method: :delete do |form| %>
+  <%= form.submit "Delete stop", :class => "button negative delete" %>
+<% end %>
