@@ -37,10 +37,14 @@ class Route < ActiveRecord::Base
   end
 
   def name
-    if stops.count > 1
-      "Route #{self.id}: #{self.stops.first.name} - #{self.stops.last.name}"
+    if self[:name].nil?
+      if stops.count > 1
+        "Route #{self.id}: #{self.stops.first.name} - #{self.stops.last.name}"
+      else
+        "Route #{self.id}"
+      end
     else
-      "Route #{self.id}"
+      self[:name]
     end
   end
 
