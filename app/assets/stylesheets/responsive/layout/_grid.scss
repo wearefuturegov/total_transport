@@ -1,31 +1,26 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
+.section {
+  @include outer-container(90%);
+}
 
-@media only screen and (max-width: 667px) {
-
-  .section {
-    @include outer-container(90%);
-  }
-
-  .hero {
+.hero {
+  @include span-columns(12);
+  margin-right: 0;
+  .features {
     @include span-columns(12);
-    margin-right: 0;
-    .features {
+    .icon {
       @include span-columns(12);
-      .icon {
-        @include span-columns(12);
-      }
     }
   }
+}
 
-  .main {
+.main {
+  @include span-columns(12);
+  .journey .single {
     @include span-columns(12);
-    .journey .single {
-      @include span-columns(12);
-    }
-    .collection .single {
-      @include span-columns(12);
-    }
   }
-
+  .collection .single {
+    @include span-columns(12);
+  }
 }
