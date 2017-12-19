@@ -5,7 +5,7 @@
   <% end %>
   <% if current_supplier.admin? %>
     <%= form_for [:admin, @vehicle], method: :delete do |form| %>
-      <%= form.submit "Delete vehicle", :class => "button negative delete half border-bottom-right-radius" %>
+      <%= form.submit "Delete vehicle", :class => "button  delete half border-bottom-right-radius" %>
     <% end %>
     <% content_for :js do %>
     <script type="text/javascript">

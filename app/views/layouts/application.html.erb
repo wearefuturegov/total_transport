@@ -36,8 +36,8 @@
   </header>
 
   <% if flash[:alert].present? || @flash_alert.present? %>
-    <div id="alerts" class="alerts container">
-      <p class="alert"><%= flash[:alert] %><%= @flash_alert %></p>
+    <div id="alerts" class="alerts">
+      <p><%= flash[:alert] %><%= @flash_alert %></p>
     </div>
   <% end %>
   
@@ -53,7 +53,7 @@
       <h3>Are you sure you want to cancel?</h3>
       <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
       <%= link_to journeys_path do %>
-        <div class="button negative small">Cancel Booking</div>
+        <div class="button  small">Cancel Booking</div>
       <% end %>
       <div class="button small" id="popup-continue">Continue Booking</div>
     </div>

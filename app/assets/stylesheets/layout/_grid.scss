@@ -59,6 +59,6 @@
   }
 }
 
-.card, .pagination {
+.card, .pagination, .suggestion {
   @include span-columns(12);
 }

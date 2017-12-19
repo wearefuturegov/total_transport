@@ -39,17 +39,14 @@
 
 #map_wrapper {
   position: relative;
-  width: 600px;
-  height: 300px;
-  margin-bottom: 0.75em;
-  
+  width: 100%;
+  height: $baseline*10;  
   #search_map {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: $baseline;
+    right: $baseline;
     z-index: 1;
     width: 400px;
-    font-size: 0.6em;
     background-color: #fff;
   }
 }

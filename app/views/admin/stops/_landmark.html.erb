@@ -4,5 +4,7 @@
   <div class="map" style="height: 300px; width: 100%;"></div>
   <%= f.hidden_field :latitude, class: 'latitude' %>
   <%= f.hidden_field :longitude, class: 'longitude' %>
-  <%= link_to_remove_association 'Remove Landmark', f, class: 'button' %>
+  <div class="action">
+    <%= link_to_remove_association 'Remove Landmark', f, class: 'button text' %>
+  </div>
 </div>

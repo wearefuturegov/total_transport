@@ -1,9 +1,9 @@
 <div id="sup_edit_stop">
-  <h2>Add a Place:</h2>
-  <div class="wide-btn">
-    <%= form_for [:admin, @place] do |form| %>
-      <%= render partial: 'fields', locals: {form: form} %>
+  <h2>Add a place</h2>
+  <%= form_for [:admin, @place] do |form| %>
+    <%= render partial: 'fields', locals: {form: form} %>
+    <div class="action">
       <%= form.submit "Create Place", :class => "button name_validation" %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

@@ -31,12 +31,14 @@
         <% end %>
       </div>
     <% end %>
-    <% if alert.present? || notice.present? %>
+    <% if alert.present? %>
       <div id="alerts" class="alerts">
-        <section class="inner">
-          <p class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
-        </section>
+      </div>
+    <% end %>
+    <% if notice.present? %>
+      <div id="alerts" class="alerts">
+          <p class="notice"><%= notice %></p>
       </div>
     <% end %>
     <section class="supplier">

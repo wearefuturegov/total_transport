@@ -323,21 +323,6 @@ hr {
   border-bottom: 1px solid rgba(221, 221, 221, 0.3);
 }
 
-.alerts {
-  padding: 10px;
-  background-color: $red;
-  color: #fff;
-  display: none;
-
-  p {
-    margin-bottom: 0;
-  }
-
-  section {
-    margin: 0 auto;
-  }
-}
-
 #grid {
   @include outer-container;
 

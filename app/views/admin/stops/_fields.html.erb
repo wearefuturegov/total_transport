@@ -2,7 +2,7 @@
 <%= form.select :place_id, options_for_select(@places.map { |p|
   [p.name, p.id, { 'data-lat' => p.latitude, 'data-lng' => p.longitude }]
 }, selected: @stop.place_id) %>
-<%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button small', id: 'add-place' %>
+<%= link_to 'Add a place', new_admin_place_path(previous_route_id: @route.id), id: 'new_place', class: 'button', id: 'add-place' %>
 
 <h2>Landmarks</h2>
 <div id="landmarks">
@@ -19,13 +19,15 @@
   <% else %>
     <p id="no_landmarks">There are no landmarks</p>
   <% end %>
-  <%= link_to_add_association "Add Landmark", form, :landmarks,
-      partial: 'admin/stops/landmark',
-      class: 'button',
-      render_options: {
-        locals: { latitude: nil, longitude: nil }
-      }
-  %>
+  <div class="action">
+    <%= link_to_add_association "Add Landmark", form, :landmarks,
+        partial: 'admin/stops/landmark',
+        class: 'button',
+        render_options: {
+          locals: { latitude: nil, longitude: nil }
+        }
+    %>
+  </div>
 </div>
 
 <% content_for :js do %>

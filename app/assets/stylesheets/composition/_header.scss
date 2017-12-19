@@ -3,4 +3,7 @@ header.header {
   & + .section, & + form {
     clear: left;
   }
+  & + #back-btn {
+    @include pad(0 default);
+  }
 }

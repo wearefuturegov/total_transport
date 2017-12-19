@@ -1,8 +1,19 @@
 /* error */
 
-.error-block, #message {
+.error-block, #message, .alerts {
   color: $error;
   background: $white;
   font-weight: 700;
   margin: $baseline 0;
+}
+
+.alerts {
+  clear: left;
+  p {
+    @include pad(0 default);
+    color: $white;
+    background: $gray-dark;
+    padding-top: $baseline*0.5;
+    padding-bottom: $baseline*0.5;
+  }
 }

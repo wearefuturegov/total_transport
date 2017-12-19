@@ -2,9 +2,11 @@
 <%= form_for [:admin, @route, @stop] do |form| %>
   <%= render partial: 'fields', locals: {form: form} %>
 
+<div class="action">
   <%= form.submit "Save stop", :class => "button name_validation" %>
+</div>
 <% end %>
 
 <%= form_for [:admin, @route, @stop], method: :delete do |form| %>
-  <%= form.submit "Delete stop", :class => "button negative delete" %>
+  <%= form.submit "Delete stop", :class => "button text" %>
 <% end %>
