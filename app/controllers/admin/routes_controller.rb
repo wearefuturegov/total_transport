@@ -6,6 +6,7 @@ class Admin::RoutesController < AdminController
     @routes = Route.all
     @route = Route.new
     @back_path = admin_account_path
+    @new_route_path = admin_routes_path
   end
 
   def create
