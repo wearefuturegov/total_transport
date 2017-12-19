@@ -1,6 +1,7 @@
 /* header */
 
 .header {
+  @include pad(0 default);
   background-color: $brand;
   display: block;
   color: $white;

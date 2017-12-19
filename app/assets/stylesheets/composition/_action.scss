@@ -12,3 +12,13 @@
     margin-left: $baseline;
   }
 }
+
+.action {
+  float: left;
+  width: 100%;
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+  #{$all-buttons}, .button {
+    float: right;
+  }
+}

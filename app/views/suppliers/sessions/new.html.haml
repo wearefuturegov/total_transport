@@ -7,7 +7,7 @@
     .field
       = f.label :password
       = f.password_field :password, autocomplete: "off"
-    .actions
+    .action
       - if devise_mapping.rememberable?
         .field
           = f.check_box :remember_me

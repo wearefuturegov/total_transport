@@ -17,13 +17,13 @@
     </h4>
   </div>
 <% end %>
-<div class="actions">
+<div class="action">
   <%= link_to new_admin_journey_path do %>
     <div class="button">Add a journey</div>
   <% end %>
 </div>
 
-<div id="admin-journey-filters" class="actions<%= " inline" if current_team.solo_team? %>">
+<div id="admin-journey-filters" class="action<%= " inline" if current_team.solo_team? %>">
 
   <div id="booked_or_empty" class="tabs-container three-tabs">
     <div class="tab radius border-left-radius<%= " selected" if @filterrific.booked_or_empty == nil %>" data-tabid="">
@@ -95,7 +95,7 @@
 
 <%= paginate @journeys %>
 
-<div class="actions">
+<div class="action">
   <%= link_to new_admin_journey_path do %>
     <div class="button">Add a journey</div>
   <% end %>

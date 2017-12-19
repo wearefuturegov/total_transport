@@ -16,7 +16,7 @@
     <%-# Need to swap this form with inputs similar to above -%>
     <%= form_tag save_verify_route_booking_path(@route, @booking), method: :patch do %>
       <%= hidden_field_tag 'booking[verification_code]' %>
-      <div class="actions">
+      <div class="action">
         <%= submit_tag "Verify" %>
       </div>
     <% end %>
