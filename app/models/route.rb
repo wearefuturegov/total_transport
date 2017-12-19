@@ -71,7 +71,7 @@ class Route < ActiveRecord::Base
   end
   
   def flipped_geometery
-    geometry.map { |ll| [ll[1], ll[0]] }
+    geometry.map { |ll| [ll[1], ll[0]] } unless geometry.nil?
   end
   
   private
