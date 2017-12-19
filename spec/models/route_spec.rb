@@ -62,4 +62,18 @@ RSpec.describe Route, type: :model do
     
   end
   
+  context 'name' do
+    
+    it 'allows a name to be set' do
+      route.name = 'Cool Route'
+      route.save
+      expect(route.name).to eq('Cool Route')
+    end
+    
+    it 'returns a default' do
+      expect(route.name).to eq("Route #{route.id}: #{route.stops.first.name} - #{route.stops.last.name}")
+    end
+    
+  end
+  
 end

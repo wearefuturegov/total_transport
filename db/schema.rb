@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218165144) do
+ActiveRecord::Schema.define(version: 20171219142527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20171218165144) do
     t.boolean  "allow_concessions", default: true
     t.json     "geometry"
     t.integer  "route_id"
+    t.text     "name"
   end
 
   add_index "routes", ["route_id"], name: "index_routes_on_route_id", using: :btree
