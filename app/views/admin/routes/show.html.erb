@@ -1,6 +1,17 @@
 <div id="sup_edit_route" class="container">
   <div class="inner">
-    <h1><%= @route.name %></h1>
+
+    <% if @route.route.nil? %>
+      <div class="card">
+        <div class="inner">
+          <%= form_for [:admin, @route] do |f| %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+            <%= f.submit 'Update', class: 'button' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
     
     <h2>Stops:</h2>
 
