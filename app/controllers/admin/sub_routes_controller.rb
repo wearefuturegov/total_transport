@@ -5,7 +5,8 @@ class Admin::SubRoutesController < AdminController
   def index
     @routes = Route.where(route_id: params[:route_id])
     @route = Route.new
-    @back_path = admin_account_path
+    @back_path = admin_route_path(params[:route_id])
+    @new_route_path = admin_route_sub_routes_path(params[:route_id])
     render 'admin/routes/index'
   end
 
@@ -15,7 +16,7 @@ class Admin::SubRoutesController < AdminController
   end
 
   def show
-    @back_path = admin_routes_path
+    @back_path = admin_route_path(params[:route_id])
     render 'admin/routes/show'
   end
   
