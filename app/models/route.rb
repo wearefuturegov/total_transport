@@ -24,6 +24,17 @@ class Route < ActiveRecord::Base
     to_routes = to.map { |s| s.route }
     (from_routes & to_routes)
   end
+  
+  def self.copy!(source_id)
+    source = Route.find(source_id)
+    route = source.dup
+    source.stops.each do |s|
+      route.stops << s.copy
+    end
+    route.route_id = source_id
+    route.save
+    route
+  end
 
   def name
     if stops.count > 1

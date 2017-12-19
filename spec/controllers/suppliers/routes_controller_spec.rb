@@ -140,6 +140,12 @@ RSpec.describe Admin::RoutesController, type: :controller do
         expect(assigns(:route).route).to eq(route)
       end
       
+      it 'copies the route' do
+        subject
+        sub_route = assigns(:route)
+        expect(sub_route.stops.count).to eq(route.stops.count)
+      end
+      
       it 'redirects' do
         expect(subject).to redirect_to(admin_route_path(Route.last))
       end
