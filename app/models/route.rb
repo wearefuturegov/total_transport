@@ -3,9 +3,15 @@ class Route < ActiveRecord::Base
   has_many :journeys, -> { order(start_time: :asc) }, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
   has_many :places, through: :stops
+  has_many :sub_routes, class_name: 'Route'
+  belongs_to :route
   
   after_initialize :set_rule
   after_save :queue_geometry
+  
+  validate :check_sub_route
+  
+  scope :main_routes, -> { where(route_id: nil) }
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
@@ -18,12 +24,27 @@ class Route < ActiveRecord::Base
     to_routes = to.map { |s| s.route }
     (from_routes & to_routes)
   end
+  
+  def self.copy!(source_id)
+    source = Route.find(source_id)
+    route = source.dup
+    source.stops.each do |s|
+      route.stops << s.copy
+    end
+    route.route_id = source_id
+    route.save
+    route
+  end
 
   def name
-    if stops.count > 1
-      "Route #{self.id}: #{self.stops.first.name} - #{self.stops.last.name}"
+    if self[:name].nil?
+      if stops.count > 1
+        "Route #{self.id}: #{self.stops.first.name} - #{self.stops.last.name}"
+      else
+        "Route #{self.id}"
+      end
     else
-      "Route #{self.id}"
+      self[:name]
     end
   end
 
@@ -54,7 +75,7 @@ class Route < ActiveRecord::Base
   end
   
   def flipped_geometery
-    geometry.map { |ll| [ll[1], ll[0]] }
+    geometry.map { |ll| [ll[1], ll[0]] } unless geometry.nil?
   end
   
   private
@@ -65,5 +86,11 @@ class Route < ActiveRecord::Base
     
     def queue_geometry
       SetRouteGeometry.enqueue(id)
+    end
+    
+    def check_sub_route
+      if !route.nil? && sub_routes.count > 0
+        errors.add(:sub_routes, 'cannot be added for a sub route')
+      end
     end
 end

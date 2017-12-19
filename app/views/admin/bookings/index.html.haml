@@ -9,7 +9,7 @@
             .col-1
               = form.label :route
             .col-3
-              = form.select :route, options_from_collection_for_select(Route.all, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
+              = form.select :route, options_from_collection_for_select(Route.main_routes, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
             .col-1
               = form.label :state
             .col-3

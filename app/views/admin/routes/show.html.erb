@@ -1,7 +1,18 @@
 <div id="sup_edit_route" class="container">
   <div class="inner">
-    <h1><%= @route.name %></h1>
 
+    <% if @route.route.nil? %>
+      <div class="card">
+        <div class="inner">
+          <%= form_for [:admin, @route] do |f| %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+            <%= f.submit 'Update', class: 'button' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    
     <h2>Stops:</h2>
 
     <div id="sortable_stops" class="stop-list">
@@ -43,6 +54,17 @@
         <% end %>
       </div>
     </div>
+    
+    <% if @route.route.nil? %>
+      <div class="wide-btn card">
+        <%= button_to 'Make subroute', admin_route_sub_routes_path(@route), method: :post, class: 'button' %>
+      </div>
+      
+      <div class="wide-btn card">
+        <%= link_to 'View subroutes', admin_route_sub_routes_path(@route), class: 'button' %>
+      </div>
+    <% end %>
+    
   </div>
 </div>
 

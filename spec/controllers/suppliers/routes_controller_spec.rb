@@ -106,5 +106,25 @@ RSpec.describe Admin::RoutesController, type: :controller do
     
   end
   
+  describe '#update' do
+    
+    let(:route) { FactoryBot.create(:route) }
+    let(:subject) {
+      post :update, {
+        id: route.id,
+        route: {
+          name: 'My Route'
+        }
+      }
+    }
+    
+    it 'updates a route' do
+      subject
+      route.reload
+      expect(route.name).to eq('My Route')
+    end
+    
+    
+  end
 
 end

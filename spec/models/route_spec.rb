@@ -41,4 +41,39 @@ RSpec.describe Route, type: :model do
     }.by(1)
   end
   
+  context 'sub routes' do
+    
+    it 'can have a sub route' do
+      sub_routes = FactoryBot.create_list(:route, 3)
+      route = FactoryBot.create(:route, sub_routes: sub_routes)
+
+      expect(route.sub_routes).to eq(sub_routes)
+    end
+    
+    it 'won\'t let sub routes have sub routes' do
+      route = FactoryBot.create(:route)
+      FactoryBot.create(:route, sub_routes: [route])
+      route.sub_routes = FactoryBot.create_list(:route, 3)
+      
+      expect(route.valid?).to eq(false)
+      expect(route.errors[:sub_routes]).to eq(['cannot be added for a sub route'])
+    end
+    
+    
+  end
+  
+  context 'name' do
+    
+    it 'allows a name to be set' do
+      route.name = 'Cool Route'
+      route.save
+      expect(route.name).to eq('Cool Route')
+    end
+    
+    it 'returns a default' do
+      expect(route.name).to eq("Route #{route.id}: #{route.stops.first.name} - #{route.stops.last.name}")
+    end
+    
+  end
+  
 end
