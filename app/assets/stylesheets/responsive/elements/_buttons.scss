@@ -1,22 +1,8 @@
 /* button */
 
 #{$all-buttons}, .button {
-  @include ease;
-  font-family: $stack-2;
-  text-align: center;
-  font-size: $body;
-  font-weight: 700;
-  line-height: $baseline*1.5;
-  text-decoration: none;
-  border-radius: 0;
-  cursor: pointer;
-  position: relative;
-  background: $brand;
-  border: $border-width*2 $border-style $brand;
-  color: $white;
-  display: inline-block;
-  padding: 0 $baseline;
-  width: auto;
+  line-height: $baseline*2;
+  width: 100%;
   &:hover, &:active {
     background: $black;
     border-color: $black;
