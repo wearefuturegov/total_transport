@@ -9,7 +9,7 @@ class Admin::RoutesController < AdminController
   end
 
   def create
-    @route = params[:route_id].nil? ? Route.create! : Route.create!(route_id: params[:route_id])
+    @route = params[:route_id].nil? ? Route.create! : Route.copy!(params[:route_id])
     redirect_to admin_route_path(@route)
   end
 
