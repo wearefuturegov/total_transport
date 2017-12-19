@@ -10,6 +10,8 @@ class Route < ActiveRecord::Base
   after_save :queue_geometry
   
   validate :check_sub_route
+  
+  scope :main_routes, -> { where(route_id: nil) }
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}
