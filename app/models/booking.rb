@@ -29,7 +29,9 @@ class Booking < ActiveRecord::Base
       .order('start_time DESC')
   }
   
-  scope :route, ->(route_id) { joins(:journey).where('journeys.route_id = ?', route_id) }
+  scope :route, ->(route_id) do
+    joins(journey: :route).where('journeys.route_id = ? OR routes.route_id = ?', route_id, route_id)
+  end
   
   scope :state, ->(state) { where(state: state) }
   
