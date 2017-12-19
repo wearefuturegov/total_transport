@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       end
 
       resources :stops
+      resources :sub_routes, controller: 'routes'
     end
     resources :suggestions
     resources :supplier_suggestions
