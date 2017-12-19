@@ -49,7 +49,6 @@ RSpec.describe Route, type: :model do
     
     it 'flips the geometry' do
       route.geometry = [[52.2223, -1.6759]]
-      expect(route.flipped_geometery).to eq([[-1.6759, 52.2223]])
     end
     
   end
