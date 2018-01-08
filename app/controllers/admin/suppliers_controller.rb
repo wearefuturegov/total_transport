@@ -4,7 +4,7 @@ class Admin::SuppliersController < AdminController
 
   def index
     @suppliers = Supplier.all
-    @back_path = admin_team_path
+    @back_path = admin_account_path
   end
 
   def edit

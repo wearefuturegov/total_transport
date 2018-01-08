@@ -1,0 +1,22 @@
+/* fontawesome */
+
+.fa-exclamation-triangle {
+  color: $brand;
+  font-size: $baseline*1.5;
+  line-height: $baseline*1.5;
+}
+
+.fa-circle-o {
+  color: $black;
+  font-size: $baseline;
+  line-height: $baseline;
+}
+
+.fa-map-marker {
+  color: $black;
+  font-size: $baseline*1.5;
+}
+
+#results .fa-map-marker {
+  margin-left: $baseline*0.5;
+}

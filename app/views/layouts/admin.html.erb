@@ -34,7 +34,7 @@
         </div>
         <div class="right">
           <% if current_supplier %>
-            <%= link_to admin_team_path do %>
+            <%= link_to admin_account_path do %>
               <i class="fa fa-user"></i>
               <span class="no-mobile">Account</span>
             <% end %>
@@ -63,5 +63,6 @@
   </div>
 
 </body>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+<%= yield(:js) %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry,places" async defer></script>
 </html>

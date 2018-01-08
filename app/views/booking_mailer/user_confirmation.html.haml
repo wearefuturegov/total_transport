@@ -1,0 +1,20 @@
+%p= t('email.greeting', passenger_name: @booking.passenger_name)
+
+%p= t('email.user_confirmation.intro', pickup_stop: @booking.outward_trip.pickup_stop.name, dropoff_stop: @booking.outward_trip.dropoff_stop.name, passengers: pluralize(@booking.number_of_passengers, 'passenger'))
+
+%p
+  = t('email.user_confirmation.outward_pickup', pickup_name: @booking.outward_trip.pickup_name, pickup_date: friendly_date(@booking.outward_trip.pickup_time), pickup_time: plus_minus_ten(@booking.outward_trip.pickup_time))
+  = t('email.user_confirmation.return_pickup', pickup_name: @booking.return_trip.pickup_name, pickup_date: friendly_date(@booking.return_trip.pickup_time), pickup_time: plus_minus_ten(@booking.return_trip.pickup_time)) if @booking.return_journey
+  = t('email.user_confirmation.ride_sticker_html')
+  
+%p= t('email.user_confirmation.payment', amount: number_to_currency(@booking.price, unit: '£')) if @booking.payment_method == 'cash'
+  
+%p= t('email.user_confirmation.special_requirements')
+
+%p= t('email.user_confirmation.amend_cancel_html', link: link_to(nil, cancel_booking_url(@booking.token)))
+
+%p= t('email.signoff_html')
+
+%p= t('email.user_confirmation.ps_html')
+
+= t('email.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))

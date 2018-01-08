@@ -83,6 +83,3 @@ production:
   database: total_transport_production
   username: total_transport
   password: <%= ENV['TOTAL_TRANSPORT_DATABASE_PASSWORD'] %>
-
-cucumber:
-  <<: *test

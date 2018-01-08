@@ -1,0 +1,21 @@
+%section.section
+  %h2
+    = t('cancel.title')
+
+  %p
+    = t('cancel.amendments')
+
+  %p
+    = t('cancel.cancel')
+
+  %p
+    = t('cancel.help')
+
+  = form_for @booking do |f|
+
+    = f.hidden_field :state, value: :cancelled
+
+    = f.label :cancellation_reason
+    = f.text_area :cancellation_reason
+
+    = f.submit value: t('button.cancel'), class: "button cta primary"

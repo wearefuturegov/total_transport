@@ -1,49 +1,39 @@
 Rails.application.routes.draw do
-  resource :passenger do
-    member do
-      get :verify
-      post :verify
-    end
-    resources :bookings, only: :show
-  end
+  resources :log_entry, only: [:create]
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
-  resources :routes do
+  resources :places, only: [:index, :show]
+  resources :journeys, only: [:index] do
     collection do
-      get :suggest_route
-      post :suggest_route
-    end
-    resources :bookings do
-      member do
-        get :choose_requirements
-        patch :save_requirements
-        get :choose_journey
-        patch :save_journey
-        get :choose_return_journey
-        patch :save_return_journey
-        get :choose_pickup_location
-        patch :save_pickup_location
-        get :choose_dropoff_location
-        patch :save_dropoff_location
-        get :confirm
-        patch :save_confirm
-        get :confirmation
-
-        get :suggest_journey
-        post :suggest_journey
-        get :suggest_edit_to_stop
-        post :suggest_edit_to_stop
-
-        get :price_api
-      end
+      get ':from/(:to)' => 'journeys#index', as: :from_to
+      get ':from/:to/bookings/new' => 'bookings#new', as: :new_booking
+      get ':from/:to/return' => 'journeys#return', as: :return
     end
   end
+  resources :bookings do
+    collection do
+      post :price
+      post :passengers
+    end
+    member do
+      get :confirmation
+      get :return_journeys
+    end
+  end
+  
+  resources :stops do
+    resources :landmarks, only: [:index]
+  end
+  
+  resources :routes
 
-  root 'routes#index'
+  root 'public#index'
 
   namespace :admin do
     get 'pending' => 'suppliers#pending'
     root 'journeys#index'
-    resource :team
+    #resource :team, only: [:show]
+    resources :teams
+    get :account, to: 'teams#show'
     resources :vehicles
     resources :journeys do
       collection do
@@ -52,22 +42,27 @@ Rails.application.routes.draw do
       member do
         post 'send_message'
       end
+      resources :bookings, only: [:show]
     end
+    resources :bookings
     resources :suppliers
     resources :routes do
       member do
         put 'sort'
       end
 
-      resources :stops do
-        resources :landmarks
-      end
+      resources :stops
     end
     resources :suggestions
     resources :supplier_suggestions
     resources :promo_codes
     resources :bookings, only: :show
+    resources :sms, only: [:new, :create]
+    resources :places, only: [:new, :create]
+    resources :placenames, only: [:index]
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
-
+  get '/bookings/:token/cancel', as: :cancel_booking, to: 'bookings#cancel'
+  get '/bookings/cancelled', as: :booking_cancelled
+  
 end

@@ -32,5 +32,22 @@ module TotalTransport
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %W(#{config.root}/lib)
+    
+    config.x.pickup.council = ENV.fetch('PICKUP_COUNCIL', 'essex')
+
+    if ENV["AWS_SECRET_ACCESS_KEY"]
+      s3_conf = {access_key_id: ENV["AWS_ACCESS_KEY_ID"], secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"], bucket: ENV.fetch('S3_BUCKET_NAME') }
+      config.paperclip_defaults = {
+        storage: :s3,
+        s3_credentials: s3_conf,
+        s3_region: ENV.fetch('AWS_REGION'),
+        region: ENV.fetch('AWS_REGION'),
+        s3_protocol: "https"
+      }
+    else
+      config.paperclip_defaults = {
+        storage: :filesystem,
+      }
+    end
   end
 end

@@ -1,0 +1,32 @@
+/* hero */
+
+#public-index { // temporary id attached
+  .hero {
+    float: none;
+    display: inline-block;
+    background: none;
+    position: relative;
+    text-align: center;
+    .heading {
+      margin-top: $baseline*6;
+      margin-bottom: 0;
+      .action {
+        margin-top: 0;
+        h4 {
+          $h4: 50px;
+          font-size: $h4;
+          font-weight: 900;
+          line-height: calc(#{$h4} * 1.2);
+          margin-top: 0;
+          margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+        }
+      }
+      .icon {
+        img {
+          width: 200px;
+          height: auto;
+        }
+      }
+    }
+  }
+}

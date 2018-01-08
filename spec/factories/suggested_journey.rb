@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:suggested_journey) do
     description "dsfsdfsdfsdf"
     passenger

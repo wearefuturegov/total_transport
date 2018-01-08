@@ -1,0 +1,21 @@
+@media only screen and (max-width: 667px) {
+
+  #public-index #demo {
+    .main .hero {
+      h3 {
+        $h3: 30px;
+        font-size: $h3;
+        font-weight: 900;
+        line-height: calc(#{$h3} * 1.1);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+      }
+    }
+    .event {
+      background-position: 0 0;
+    }
+    .regular .event {
+      background-position-x: center;
+    }
+  }
+}

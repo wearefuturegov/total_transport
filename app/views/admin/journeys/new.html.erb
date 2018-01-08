@@ -16,7 +16,7 @@
           <div class="third mobFull">
             <select multiple id="select_<%= @route.id %>" class="waypoints" style="display:none;">
               <% @journey.stops_in_direction.each do |stop| %>
-                <option value="<%= stop.latitude %>, <%= stop.longitude %>" selected><%= stop.name %></option>
+                <option value="<%= stop.place.latitude %>, <%= stop.place.longitude %>" selected><%= stop.name %></option>
               <% end %>
             </select>
             <div id="map_<%= @route.id %>" class="route_preview"></div>
@@ -36,6 +36,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   function initMap() {
     $('.route_preview').each(function(i, m) {
@@ -53,3 +54,4 @@
     });
   }
 </script>
+<% end %>

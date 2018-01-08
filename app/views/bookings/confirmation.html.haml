@@ -1,0 +1,45 @@
+%section.section
+  %h2="Thank you #{" #{@booking.passenger_name}"}, your Ride is now confirmed"
+  %p
+    - if @booking.email
+      You will shortly receive an email and an SMS with the details of your booking.
+    - else
+      You will shortly receive an SMS with the details of your booking.
+    If you don’t,
+    = mail_to ENV['RIDE_ADMIN_EMAIL'], "please get in contact with us."
+  - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
+    = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
+  - if @booking.payment_method == 'cash'
+    %p
+      If you decided to pay later, you’ll pay cash straight to your driver as you board.
+    %p
+      You can
+      =link_to "cancel your booking", cancel_booking_url(@booking.token)
+      up to 12 hours before your journey.
+
+    %p
+      = t('complete.thankyou')
+      = mail_to ENV['RIDE_ADMIN_EMAIL']
+
+    %p.bold
+      = t('complete.fairwell')
+
+  - else
+    %p
+      You can cancel your booking up to 12 hours before your journey, which you will be refunded in 5-10 working days, here:
+      =link_to "cancel Ride.", cancel_booking_url(@booking.token)
+
+    %p.bold
+      = t('complete.thankyou')
+      = mail_to ENV['RIDE_ADMIN_EMAIL']
+
+    %h2
+      = t('complete.fairwell')
+
+
+= link_to I18n.t('button.complete'), root_path, :class => "button cta primary"
+- content_for :js do
+  :javascript
+    $(function() {
+      $('#back-btn').html('Home');
+    });

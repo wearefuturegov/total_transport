@@ -1,0 +1,15 @@
+/* direction */
+
+.direction {
+  float: left;
+  width: 100%;
+  .button {
+    float: left;
+    width: 40%;
+    padding: 0;
+    font-size: 16px;
+    &.selected {
+      width: 60%;
+    }
+  }
+}

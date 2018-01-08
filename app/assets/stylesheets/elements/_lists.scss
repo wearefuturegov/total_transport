@@ -1,0 +1,58 @@
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin-bottom: $baseline*0.5;
+  li {
+    margin-bottom: $baseline*0.25;
+  }
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+dd {
+  margin: 0;
+}
+
+
+footer.psuedo-footer {
+  ul {
+    li {
+      color: $white;
+      display: inline;
+      margin-bottom: 0;
+      a {
+        color: $white;
+        text-decoration: underline;
+        font-weight: 700;
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+    &.social {
+      text-align: right;
+      margin-bottom: $baseline*0.5;
+      li {
+        margin-left: $baseline*0.25;
+      }
+    }
+    &.credit{
+      margin-bottom: 0;
+      span:before {
+        content: "|";
+        margin: 0 $baseline*0.25;
+      }
+      span:first-child:before {
+        content: "";
+        margin-right: 0;
+      }
+    }
+  }
+}

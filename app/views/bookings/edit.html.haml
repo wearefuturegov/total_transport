@@ -1,0 +1,136 @@
+- content_for :top_sec do
+  %section.section
+    %h2
+      = t('bookings.title')
+
+  %section.section
+    %section.key
+      %section.markers
+        %section
+          = fa_icon 'circle-o'
+        %section.link
+        %section
+          = fa_icon 'map-marker'
+      %section.info-wrap
+        %span.top#start_location
+          %label
+            = @booking.pickup_stop.name
+        %span.bottom#end_location
+          %label
+            = @booking.dropoff_stop.name
+
+  = form_for [@route, @booking], url: route_booking_path(@route, @booking), method: :put do |form|
+
+    = render 'days', form: form
+
+    #times.hidden
+      = render 'outward_times', form: form, journey_type: :journey_id, type: 'outward', journeys: @journeys
+
+    #one_way.hidden
+
+    %section.section
+      .landmarks.hidden
+        = form.label :pickup_landmark_id, I18n.t('bookings.landmark.title')
+        = form.select :pickup_landmark_id,
+            options_from_collection_for_select(@booking.pickup_stop.landmarks, 'id', 'name'),
+            { include_blank: I18n.t('bookings.pickup.title') },
+            { class: 'select', required: true }
+
+        %section.link
+
+        = form.select :dropoff_landmark_id,
+            options_from_collection_for_select(@booking.dropoff_stop.landmarks, 'id', 'name'),
+            { include_blank: I18n.t('bookings.dropoff.title')},
+            { class: 'select', required: true }
+
+    #details.hidden
+      = render 'passengers', form: form, journey_type: :journey_id, type: 'outward'
+
+      %section.section
+        = form.label :special_requirements do
+          = t('bookings.requirements.label')
+        = form.text_field :special_requirements
+        %p
+          = t('bookings.requirements.extra')
+
+      %section.section
+        %h2
+          = t('bookings.lead.title')
+
+        %p.small
+          %span.required
+            *
+          = t('form.required')
+          
+        = form.label :passenger_name, :class => 'long' do
+          = t('bookings.lead.label')
+          %san.required
+            *
+        = form.text_field :passenger_name, required: true
+
+        = form.label :phone_number, :class => 'long' do
+          = t('bookings.lead.mobile.label')
+          %span.required
+            *
+          %span.small
+            = t('bookings.lead.mobile.message')
+        = form.text_field :phone_number, required: true, pattern: '.{11,}', minlength: 11, title: 'Minimum of 11 characters'
+
+
+        = form.label :email, :class => 'long' do
+          = t('bookings.lead.email.label')
+          %spans.small
+            = t('bookings.lead.email.message')
+        = form.text_field :email, type: 'email', name: 'email'
+
+
+
+      = form.submit :class => 'button cta primary', :id => 'submit-booking', value: t('button.next')
+
+- content_for :js do
+  :javascript
+
+    $('.date-button').click(function() {
+      var target = $(this).data('selector');
+      var type = $(this).data('type');
+      $('#times').removeClass('hidden');
+      $('.times .time').addClass('hidden');
+      $(' .' + target).removeClass('hidden');
+      scrollToBottom();
+    })
+
+    $('#booking_dropoff_landmark_id').change(function() {
+      if($('#booking_pickup_landmark_id').val() != "") {
+        $('#return-chooser').removeClass('hidden');
+        $('#details').removeClass('hidden');
+        scrollToBottom();
+      }
+    })
+
+    $('#booking_pickup_landmark_id').change(function() {
+      if($('#booking_dropoff_landmark_id').val() != "") {
+        $('#return-chooser').removeClass('hidden');
+        $('#details').removeClass('hidden');
+        scrollToBottom();
+      }
+    })
+
+    $('.date-button').on('click', function(){
+      $('.date-button').removeClass('selected');
+      $(this).addClass('selected');
+      scrollToBottom();
+    });
+
+    $('#outward_times .button').on('click', function(){
+      $('#outward_times .button').removeClass('selected');
+      $(this).addClass('selected');
+      scrollToBottom();
+    });
+
+    function scrollToBottom() {
+      $("html, body").animate({ scrollTop: $(window).scrollTop() + 400 }, 500);
+    }
+    $(window).bind("mousewheel", function() {
+      $("html, body").stop();
+    });
+= render 'form', from: @from, to: @to

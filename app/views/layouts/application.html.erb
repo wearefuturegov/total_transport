@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TotalTransport</title>
+  <title>Ride</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="WbdTeRAxwGsOdKLgCCx1YZ1Ed9IG0KsGLcHF7W5iP8k" />
 </head>
 <body class="<%= controller.controller_name %>" id="<%= @body_id %>">
-  <header>
+  <header class="header">
     <div class="inner">
       <div class="left">
         <% if @back_path %>
@@ -21,6 +22,7 @@
           <div id="spacer">&nbsp;</div>
         <% end %>
       </div>
+<!--
       <div class="centre">
         <div id="desktop-title" class="no-mobile">
           <%= @page_title %>
@@ -33,21 +35,9 @@
           <% end %>
         </div>
       </div>
+-->
       <div class="right">
-        <% if current_passenger %>
-          <div id="profile-link">
-            <%= link_to passenger_path do %>
-              <i class="fa fa-user"></i>
-            <% end %>
-          </div>
-          <div id="cancel-booking" class="hidden">
-            <i class="fa fa-times"></i>
-          </div>
-          <!--<div class="no-mobile">
-            <%= link_to current_passenger.phone_number, passenger_path %>
-            <%= link_to 'logout', passenger_path, method: :delete %>
-          </div>-->
-        <% end %>
+
       </div>
     </div>
   </header>
@@ -59,18 +49,12 @@
       </div>
     </div>
   <% end %>
-
-  <% if @top_sec != false %>
-    <div class="top-sec container white-block">
-      <div class="inner">
-        <span><%= @top_sec %></span>
-      </div>
-    </div>
+  
+  <% if content_for?(:top_sec) %>
+      <%= yield(:top_sec) %>
   <% end %>
 
-  <div class="main-cont">
-    <%= yield %>
-  </div>
+  <%= yield %>
 
   <div class="pop-up">
     <div class="pop-up-box card no-click">
@@ -78,7 +62,7 @@
         <span class="pop-up-close top-right"><i class="fa fa-times"></i></span>
         <h3>Are you sure you want to cancel?</h3>
         <p>None of the booking will be saved and you will be taken back to the Choose Routes screen.</p>
-        <%= link_to routes_path do %>
+        <%= link_to journeys_path do %>
           <div class="button negative small-button">Cancel Booking</div>
         <% end %>
         <div class="button small-button" id="popup-continue">Continue Booking</div>
@@ -87,8 +71,18 @@
 
     </div>
   </div>
+  <!-- <footer class="footer"></footer> -->
 </body>
-<% if @map_bool == true %>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry" async defer></script>
+<%= yield(:js) %>
+<% if Rails.env.production? && ENV['GA_ANALYTICS_ID'] %>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ENV['GA_ANALYTICS_ID'] %>"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '<%= ENV['GA_ANALYTICS_ID'] %>');
+  </script>
 <% end %>
 </html>

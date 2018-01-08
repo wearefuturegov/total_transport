@@ -1,10 +1,24 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory(:stop) do
-    latitude 51.729312451546
-    longitude 0.892810821533203
-    minutes_from_last_stop 5
-    name "Bradwell"
-    polygon({"type" => "FeatureCollection", "features" => [{"type" => "Feature", "geometry" => {"type" => "Polygon", "coordinates" => [[[0.87615966796875, 51.73112162128191], [0.8842277526855469, 51.71708534339445], [0.8996772766113281, 51.716872639002936], [0.9094619750976562, 51.723678683307185], [0.9019088745117188, 51.739094837832475], [0.8914375305175781, 51.74175226408898], [0.87615966796875, 51.73112162128191]]]}, "properties" => {}}]})
+    place
     route
+    minutes_from_last_stop 20
+    landmarks { FactoryBot.create_list(:landmark, landmarks_count, stop: nil) }
+
+    sequence(:position) { |n| n }
+    
+    transient { landmarks_count 1 }
+    
+    after(:build) { |stop| stop.class.skip_callback(:create, :after, :queue_minutes_from_last_stop) }
+    
+    factory(:stop_with_callback) do
+      after(:create) { |stop| stop.send(:queue_minutes_from_last_stop) }
+    end
+    
+    after(:build) do |stop, evaluator|
+      if stop.landmarks.nil?
+        stop.landmarks = FactoryBot.create_list(:landmark, evaluator.landmarks_count, stop: nil)
+      end
+    end
   end
 end

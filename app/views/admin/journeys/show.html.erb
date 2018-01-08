@@ -12,7 +12,7 @@
         <p><% @journey.stops.each do |stop| %></p>
           <p>
             <%= stop.name %>:
-            <%= stop.time_for_journey(@journey).strftime("%H:%M") %>
+            <%= @journey.time_at_stop(stop).strftime("%H:%M") %>
           </p>
         <% end %>
       </div>
@@ -24,9 +24,9 @@
     </div>
     <% if @journey.is_booked? %>
       <h4>Bookings:</h4>
-      <% @journey.bookings.each do |booking| %>
+      <% @journey.all_bookings.each do |booking| %>
         <div class="card">
-          <%= link_to admin_booking_path(booking) do %>
+          <%= link_to admin_journey_booking_path(@journey, booking) do %>
             <div class="inner">
               <%= pluralize booking.number_of_passengers, "Passenger" %> - <%= booking.pickup_stop.name %> to <%= booking.dropoff_stop.name %>: <%= grab_phone_number booking.phone_number, booking %>
             </div>
@@ -34,6 +34,11 @@
         </div>
       <% end %>
       <hr />
+      
+      <p><%= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button' %></p>
+      
+      <hr />
+      
       <h4>Send SMS message to</h4>
       <%= form_tag send_message_admin_journey_path(@journey) do %>
         <%= select_tag :to,
@@ -42,5 +47,7 @@
         <%= submit_tag "Send message" %>
       <% end %>
     <% end %>
+    
+    
   </div>
 </div>

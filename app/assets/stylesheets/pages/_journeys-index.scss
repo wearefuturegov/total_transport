@@ -1,0 +1,26 @@
+#journeys-index {
+  .collection .single {
+    margin-bottom: $baseline*0.25;
+    width: 100%;
+  }
+  .single {
+    width: 100%;
+  }
+  .action {
+    width: 90%;
+  }
+  .easy-autocomplete {
+    width: 100% !important;
+  }
+}
+
+#journeys-index, #bookings-edit, #bookings-confirmation, #bookings-cancel {
+  .section {
+    max-width: 960px;
+    padding: 0 25px;
+
+    @media screen and (min-width: ($hd-screen)) {
+      max-width: 1150px;
+    }
+  }
+}

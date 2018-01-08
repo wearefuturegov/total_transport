@@ -1,0 +1,34 @@
+= form.select type,
+    options_from_collection_for_select(landmarks, 'id', 'name'),
+    { include_blank: I18n.t("bookings.#{type}.title") },
+    { class: 'select', required: true }
+
+:javascript
+  
+    $('#booking_dropoff_landmark_id').change(function() {
+      if($('#booking_pickup_landmark_id').val() != "") {
+        $.post(
+          '#{passengers_bookings_path}',
+          $('form.new_booking').serialize(),
+          function() {
+            $('#return-chooser').removeClass('hidden');
+            $('#details').removeClass('hidden');
+            scrollToBottom();
+          }
+        );
+      }
+    })
+
+    $('#booking_pickup_landmark_id').change(function() {
+      if($('#booking_dropoff_landmark_id').val() != "") {
+        $.post(
+          '#{passengers_bookings_path}',
+          $('form.new_booking').serialize(),
+          function() {
+            $('#return-chooser').removeClass('hidden');
+            $('#details').removeClass('hidden');
+            scrollToBottom();
+          }
+        );
+      }
+    })

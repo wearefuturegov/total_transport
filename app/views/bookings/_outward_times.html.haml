@@ -1,0 +1,40 @@
+%section.section
+  .times{ id: "outward_times"}
+    %label
+      = t('bookings.outward.time')
+    .hide_times
+      - journeys.each do |date,journey_collection|
+        %p{class: "journeys_#{date.to_s} hidden time" }
+          - journey_collection.sort_by(&:start_time).uniq.each do |j|
+            = render 'journey_time', journey: j, type: type, form: form, journey_type: journey_type, from: j.stops.find_by(place: from), to: j.stops.find_by(place: to)
+
+      .arrival-times.hidden
+
+- content_for :js do
+  :javascript
+  
+    var showArrivalTime = function(data, place) {
+      var time = data.arrivalTime;
+      var type = data.type;
+      var selector = '#' + type +'_times .arrival-times';
+      
+      $(selector).removeClass('hidden');
+      $(selector).html('<h3>Approximate arrival time in ' + place + '- <span>' + time + '</span></h3>');
+    }
+
+    $('.times input').click(function() {
+      var data = $(this).data();
+      var dateTime = data.arrivalDateTime;
+      var place = $('#end_location label').html();
+      var journeyID = data.journeyID;
+      
+      $('#booking_pickup_stop_id').val(data.fromId);
+         
+      showArrivalTime(data, place);
+      
+      $.get(
+        '#{return_journeys_path(from.slug, to.slug)}',{ start_time: dateTime }, function() {
+        $('#one_way').removeClass('hidden');
+        $.get('/stops/' + data.fromId + '/landmarks', { type: 'pickup' });
+      });
+    })

@@ -3,16 +3,16 @@ class Admin::JourneysController < AdminController
   before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
     params[:filterrific] ||= {}
-    if params[:filter] == 'team'
-      @journeys = current_team.journeys
+    if current_supplier.admin?
+      journeys = Journey.all
     else
-      @journeys = current_supplier.journeys
+      journeys = params[:filter] == 'team' ? current_team.journeys : current_supplier.journeys
     end
     @filterrific = initialize_filterrific(
-      @journeys,
+      journeys,
       params[:filterrific]
     ) or return
-    @filtered_journeys = @filterrific.find.page(params[:page])
+    @journeys = @filterrific.find.page(params[:page])
   end
 
   def new
@@ -37,6 +37,10 @@ class Admin::JourneysController < AdminController
 
   def show
     @back_path = admin_root_path
+    respond_to do |format|
+      format.html
+      format.csv { send_data @journey.csv, filename: "#{@journey.filename}.csv", type: 'text/csv;charset=utf-8' }
+    end
   end
 
   def update
@@ -49,6 +53,7 @@ class Admin::JourneysController < AdminController
     redirect_to admin_journeys_path
   end
 
+  # TODO: What does this do? This should be moved to the RoutesController anyway
   def surrounding_journeys
     @route = Route.find(params[:route_id])
     @previous_journeys = @route.journeys.where('start_time < ?', params[:datetime]).order('start_time DESC').limit(2)
@@ -57,12 +62,9 @@ class Admin::JourneysController < AdminController
   end
 
   def send_message
-    if params[:to] == "all"
-      @journey.bookings.each do |booking|
-        booking.send_notification!(params[:notification_message])
-      end
-    else
-      @journey.bookings.find(params[:to]).send_notification!(params[:notification_message])
+    bookings = params[:to] == 'all' ? @journey.bookings : [ @journey.bookings.find(params[:to]) ]
+    bookings.each do |booking|
+      SendSMS.enqueue(to: booking.phone_number, message: params[:notification_message])
     end
     flash[:notice] = "Message sent!"
     redirect_to admin_journey_path(@journey)

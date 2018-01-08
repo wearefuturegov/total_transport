@@ -3,9 +3,10 @@ class PromoCode < ActiveRecord::Base
   validates_presence_of :price_deduction
 
   has_one :booking
-
-  def create_code
-    self.code = SecretSanta.create_code
+  
+  def self.find_by_code(code)
+    code = SecretSanta.normalize(code)
+    where("code = ?", code).first
   end
 
   def used?
@@ -15,9 +16,10 @@ class PromoCode < ActiveRecord::Base
   def available?
     !used?
   end
-
-  def self.find_by_code(code)
-    code = SecretSanta.normalize(code)
-    where("code = ?", code).first
-  end
+  
+  private
+  
+    def create_code
+      self.code = SecretSanta.create_code
+    end
 end

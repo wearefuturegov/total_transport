@@ -1,0 +1,8 @@
+/* error */
+
+.error-block, #message {
+  color: $error;
+  background: $white;
+  font-weight: 700;
+  margin: $baseline 0;
+}

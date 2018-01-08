@@ -21,3 +21,326 @@
 
 en:
   hello: "Hello world"
+
+  service: Ride
+  # This also changes @page_title everywhere
+
+  public-index:
+    title:
+      essex: "Your local service that helps you go places in Essex."
+      suffolk: "Your local service that helps you go places in Suffolk."
+      essex-demo: "Your local service that helps you go places in Suffolk and Essex."
+    intro:
+      essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
+      suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
+    intro_extend:
+      intro: "It’s cheaper than a taxi, more flexible than a bus, and goes exactly where you want to go."
+    route_intro:
+      essex: "Start by exploring the routes on offer. Pickup travels all across rural Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
+      suffolk: "Start by exploring the routes on offer. Pickup travels all across rural Essex. Trips can be booked any time from a month to a day in advance."
+      essex-demo: "Start by exploring the routes on offer. Pickup travels all across rural Suffolk and Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
+    map_title: "Connecting residents to great locations in your area"
+    about:
+      title:
+      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
+      extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+      info-demo: "Pre-book a Ride for you, your family or as a group of friends. Travel around Suffolk and Essex from a pick-up point near you in a simpler, more flexible way."
+    collection:
+      title: "Great destinations to visit in your area"
+    list:
+      title: "All the destinations"
+    dummy:
+      title: "Places you can visit."
+      info: "A place you might travel to."
+    footer:
+      social_1: "Twitter"
+      social_2: "Facebook"
+      info: "A project by:"
+      author_1: "Essex County Council"
+      author_2: "Suffolk County Council"
+      author_3: "FutureGov"
+
+    event:
+      title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
+      info: "Available from January 2018 convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
+      regular:
+        title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
+        info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
+        title-demo: "New return service between Newmarket and Haverhill"
+        info-demo: "Daily journeys from 7am - 7pm including pickups from local villages."
+      enquiry:
+        title: "Where can we take you?"
+        info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
+
+  steps:
+    step_1:
+      info: "Affordable, reliable shared transport"
+    step_2:
+      info: "Provided by local transport companies"
+    step_3:
+      info: "Runs when booked, with instant confirmation"
+
+  journey:
+    title: "Pre-book your Ride"
+    from:
+      label: "From"
+      message: "e.g. Burnham-on-Crouch"
+    to:
+      label: "To"
+      message: "e.g. Maldon, Broomfield Hospital"
+
+  bookings:
+    title: "Your journey"
+    day:
+      title: "Select an available day"
+    outward:
+      time: "Outward time (+-10mins)"
+    return:
+      time: "Return time (+-10mins)"
+    landmark:
+      title: "Select your preferred stops"
+    pickup_landmark_id:
+      title: "Select where to be picked up"
+    dropoff_landmark_id:
+      title: "Select where to be dropped off"
+    no_return_time: "No return journeys available for your chosen outward time."
+    requirements:
+      label: "Special requirements"
+      message: "Wheelchair, lifting etc"
+      extra: "Let us know if you have wheelchair, pushchair, or large item with you or if you require any extra assistance"
+    passenger:
+      title: "Passengers"
+      adult:
+        title: "Adult"
+        extra: "16+"
+      child:
+        title: "Child"
+        extra: "5-15"
+      pass: "Bus pass"
+    lead:
+      title: "Contact"
+      label: "Lead passenger's full name"
+      mobile:
+        label: "Mobile"
+        message: "You'll receive free SMS confirmation and updates for your Ride"
+      email:
+        label: "Email"
+        message: "You'll receive a handy recap of your booking"
+
+  summary:
+    title: "We're almost there!"
+    extra: "Check your journey before you confirm"
+    plus_minus_ten: "(+-10mins)"
+    outbound:
+      title: "Outbound"
+      pickup: "Pick up point"
+      date: "Date"
+      time: "Time"
+      dropoff: "Drop off point"
+      eta: "Approx arrival"
+    return:
+      title: "Return"
+      pickup: "Pickup up point"
+      time: "Time"
+      dropoff: Drop off point
+    back: "I need to change something"
+    payment:
+      title: "Payment"
+      now:
+        title: "Pay now"
+        extra: "Pay securely online using credit or debit card before you travel."
+      later:
+        title: "Pay later"
+        extra: "Pay by cash directly to your driver on the day of your journey."
+
+  cancel:
+    title: "Cancel your booking"
+    amendments: "For booking amendments, please cancel and book again."
+    cancel: "If you wish to cancel and paid online, your refund will be credited to your card in approximately 5-10 business days."
+    help: "To help us improve Ride, please spend a moment and let us know the reason you wish to cancel your Ride."
+
+  cancelled:
+    title: "Your booking has been cancelled. "
+    extra: "We are sorry you won’t be riding with us, but we hope you will choose Ride again in the future."
+
+  complete:
+    thankyou: "If you have any questions or feedback please contact us at"
+    fairwell: "Enjoy your Ride!"
+
+  button:
+    contact: "Have a question?"
+    submit: "Submit your booking request"
+    oneway: "One way"
+    return: "Return"
+    typeform: "Tell us more"
+    next: "Continue"
+    complete: "All done"
+    main_book: "Try our £1 return offers *"
+    main_book_asterisk: "* Introductory offer"
+    book: "Register your interest"
+    contact: "Have a question?"
+    submit: "Submit your booking request"
+    return: "Return"
+    typeform: "Tell us more"
+    typeform-link: "https://bookyourride.typeform.com/to/mv530I"
+    event: "Coming Soon"
+    regular: "Coming Soon"
+    enquiry: "Get Started"
+    checked: "Pay Later"
+    pay: "Pay Now"
+    again: "Book another Ride"
+    cancel: "Cancel"
+
+  email:
+    address: "<%= ENV['RIDE_ADMIN_EMAIL'] %>"
+    subject: "question"
+
+  helpers:
+    submit:
+      booking:
+        update: 'Next'
+    submit:
+      booking:
+        update: 'Confirm Booking'
+
+  form:
+    required: "Required"
+
+  action:
+    title: "Pre-book your Ride"
+    extra: "Have a question?"
+
+  social:
+    twitter:
+      text: "Twitter"
+      link: "https://twitter.com/bookyourride"
+    facebook:
+      text: "Facebook"
+      link: "https://www.facebook.com/bookyourride"
+
+  credit:
+    title: "A project by:"
+    essex:
+      text: "Essex County Council"
+      link: "https://www.essex.gov.uk"
+    suffolk:
+      text: "Suffolk County Council"
+      link: "https://www.suffolk.gov.uk/"
+    futuregov:
+      text: "FutureGov"
+      link: "http://www.wearefuturegov.com/"
+
+  message:
+    sorry: "Unfortunately, we don't currently travel "
+    suggest: "Here are some destinations from "
+    suggest_end: "that might suit you."
+    feedback: " will be expanding to more locations soon. By telling us more about your desired journey, you will help us improving what we offer."
+
+  email:
+    booking_details:
+      greeting: 'Hello'
+      confirmed_intro_html: |
+        <p>A new booking has been confirmed on <strong>Ride</strong>. A confirmation email and text has been sent to the passenger.</p>
+      cancelled_intro_html: |
+        <p>A booking has been cancelled on <strong>Ride</strong>. Please ensure this is updated on your system.</p>
+      passenger_details_html: |
+        <p>The passenger's details are as follows:</p>
+        <h2>Contact Details</h2>
+        <p><strong>Name:</strong> %{name}</p>
+        <p><strong>Mobile Number:</strong> %{phone_number}</p>
+        <p><strong>Email:</strong> %{email}</p>
+        <h2>Number of passengers</h2>
+        <p><strong>Adults:</strong> %{number_of_adult_tickets}</p>
+        <p><strong>Children:</strong> %{child_tickets}</p>
+        <p><strong>Bus Passes:</strong> %{number_of_free_tickets}</p>
+      special_requirements_html: |
+        <h2>Special requirements</h2>
+        <p>%{special_requirements}</p>
+        <p><strong>If there are any issues with these requirements, please contact the passenger directly and the Ride team.</strong></p>
+      journey_type_html: |
+        <h2>This is a %{journey_type} journey</h2>
+      outward_journey: Outward Journey
+      return_journey: Return Journey
+      journey_html: |
+        <p class='time'>Travelling at %{pickup_time} on %{pickup_date}</p>
+        <p class='from'><strong>From:</strong> %{pickup_stop}</p>
+        <p class='to'><strong>To:</strong> %{dropoff_stop}</p>
+        <p class='from'><strong>Pickup place:</strong> %{pickup_landmark}</p>
+        <p class='to'><strong>Dropoff place:</strong> %{dropoff_landmark}</p>
+      price_html: |
+        <p><strong>Payment method:</strong> %{payment_method}</p>
+        <p><strong>Amount:</strong> %{amount}</p>
+      signoff_html: |
+        <p>Thanks<br />Your friendly <strong>Ride</strong> robot</p>
+    user_confirmation:
+      intro: Your Ride booking from %{pickup_stop} to %{dropoff_stop} for %{passengers} is confirmed
+      outward_pickup: Your vehicle will collect you from %{pickup_name} on %{pickup_date} between %{pickup_time}.
+      return_pickup: Your return journey is from %{pickup_name} on %{pickup_date} between %{pickup_time}'.
+      ride_sticker_html: Look out for the <strong>Ride</strong> sticker in the windscreen.
+      payment: The total amount due is %{amount}, remember to pay the driver when you onboard.
+      special_requirements: |
+        If you specified any special requirements then our supplier will contact
+        you if for any reason they are unable to meet them.
+      amend_cancel_html: If you need to amend or cancel your booking please use this form %{link}
+      ps_html: |
+        P.s. Where do you need to go next?
+        <a href="https://bookyourride.typeform.com/to/mv530I">Tell us the
+        journeys you’d like to see available</a>
+    user_cancellation:
+      intro_html: |
+        This is to confirm that your Ride booking on %{pickup_date} at %{pickup_time} from %{stop}, %{landmark} has been cancelled.
+      book_new_html: |
+        To book a new <strong>Ride</strong>, go to <a href="https://bookyourride.co.uk/">our website</a>.
+      ps_html: |
+        P.s. Have some feedback? <a href="hello@bookyourrride.co.uk">Tell us what you think</a>.
+    feedback:
+      body_html: |
+        We hope you enjoyed your <strong>Ride</strong>. To help us improve the service, please share your feedback: %{link}
+
+    footer_html:
+      <p><strong>Ride, a project by:</strong>
+        <a href="https://www.essex.gov.uk/Pages/Default.aspx">Essex County Council</a> |
+        <a href="https://www.suffolk.gov.uk/">Suffolk County Council</a> |
+        <a href="http://www.wearefuturegov.com/">FutureGov</a></p>
+      <p>%{website_link} | %{twitter_link} | %{facebook_link}</p>
+    greeting: Hello %{passenger_name}
+    signoff_html: |
+      Thanks,<br />The <strong>Ride</strong> Team
+    landing:
+      address: "hello@bookyourrride.co.uk"
+      subject: "Question"
+
+      
+  
+  sms:
+    booking_notification:
+      single: |
+        Your Ride booking from %{pickup_stop} to %{dropoff_stop} is confirmed.
+        Your vehicle will pick you up from %{pickup_landmark}
+        on %{pickup_date} between %{pickup_time}.
+      return: |
+        Your return journey is from %{pickup_landmark}, %{pickup_stop}
+        between %{pickup_time}.
+      payment: The total amount due is %{amount}, remember to pay the driver when you onboard
+      amend_cancel:
+        To amend or cancel your booking please use this form %{url}
+    first_alert:
+      body: |
+        Your Ride booking reminder. Your vehicle will collect you tomorrow for
+        your outbound journey from  %{pickup_name} between %{pickup_time}. Look
+        out for the Ride sticker in the windscreen.
+      payment: 'Don’t forget to pay the driver directly.'
+      cancel: ' To cancel your booking please use this form %{url}'
+    second_alert:
+      body: |
+        Your Ride is on it’s way. Your pickup point is %{pickup_name}
+        between %{pickup_time}. Look out for the Ride sticker in the windscreen.
+        If you need to get in touch, please call %{supplier_number}.
+    booking_cancellation:
+      body: |
+        Your Ride booking on %{pickup_date} at %{pickup_time} from %{pickup_name}
+        has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
+    post_survey:
+      body: |
+        We hope you enjoyed your Ride. To help us improve the service, please
+        share your feedback: %{url}

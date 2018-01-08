@@ -1,0 +1,209 @@
+- content_for :top_sec do
+  = form_for @booking do |form|
+    
+    = hidden_field_tag :stripe_token
+    
+    %section.section
+
+      %h2
+        = t('summary.title')
+      %h2
+        = t('summary.extra')
+
+    %section.section
+      %section.key
+        %section.markers
+          %section
+            = fa_icon 'circle-o'
+          %section.link
+          %section
+            = fa_icon 'map-marker'
+        %section.info-wrap
+          %span.top
+            %label
+              = @booking.pickup_stop.name
+          %span.bottom
+            %label
+              = @booking.dropoff_stop.name
+
+    %section.section
+
+      %p
+        = pluralize @booking.number_of_passengers, 'passenger'
+      - if @booking.number_of_adults > 0
+        %p
+          = t('bookings.passenger.adult.title')
+          #{@booking.number_of_adults}
+          - if @booking.return_journey?
+            (#{number_to_currency(@booking.adult_return_price, :unit => "£")} return)
+          - else
+            (#{number_to_currency(@booking.adult_single_price, :unit => "£")} single)
+      - if @booking.child_tickets > 0
+        %p
+          = t('bookings.passenger.child.title')
+          #{@booking.child_tickets}
+          - if @booking.return_journey?
+            (#{number_to_currency(@booking.child_return_price, :unit => "£")} return)
+          - else
+            (#{number_to_currency(@booking.child_single_price, :unit => "£")} single)
+      - if @booking.older_bus_passes > 0
+        %p
+          Older persons bus pass: #{@booking.older_bus_passes} (£0.00 each)
+      - if @booking.disabled_bus_passes > 0
+        %p
+          Disabled persons bus pass: #{@booking.disabled_bus_passes} (£0.00 each)
+      - if @booking.scholar_bus_passes > 0
+        %p
+          Scholarly Season Ticket: #{@booking.scholar_bus_passes} (£0.00 each)
+      %h3.total
+        Total to pay:
+        #{number_to_currency @booking.price, unit: '£'}
+
+    %section.section
+
+      %h2
+        = t('summary.outbound.title')
+
+      %h4
+        = t('summary.outbound.pickup')
+
+      %p
+        #{@booking.outward_trip.pickup_name}
+
+      %h4
+        = t('summary.outbound.date')
+
+      %p
+        #{friendly_date @booking.outward_trip.pickup_time}
+
+      %h4
+        = t('summary.outbound.time')
+
+      %p
+        = @booking.outward_trip.pickup_time.strftime("%l:%M%P")
+        = t('summary.plus_minus_ten')
+
+      -#
+        %p
+          Picked up approx #{plus_minus_ten @booking.pickup_time}
+
+        %p
+          = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
+
+    %section.section
+
+      %h4
+        = t('summary.outbound.dropoff')
+
+      %p
+        #{@booking.outward_trip.dropoff_name}
+
+      %h4
+        = t('summary.outbound.eta')
+
+      %p
+        = @booking.outward_trip.dropoff_time.strftime("%l:%M%P")
+
+      -#
+        = friendly_date @booking.journey.start_time, true
+
+        %p
+          = map(@booking.dropoff_landmark.latitude, @booking.dropoff_landmark.longitude)
+
+      - if @booking.return_journey?
+
+        %h2
+          = t('summary.return.title')
+
+        %h4
+          = t('summary.return.pickup')
+
+        %p
+          #{@booking.return_trip.pickup_name}
+
+        %h4
+          = t('summary.return.time')
+
+        %p
+          = @booking.return_trip.pickup_time.strftime("%l:%M%P")
+          = t('summary.plus_minus_ten')
+
+        %h4
+          = t('summary.return.dropoff')
+
+        %p
+          #{@booking.return_trip.dropoff_name}
+
+        -#
+          = friendly_date @booking.return_journey.start_time, true
+
+        -#
+          %p
+            = map(@booking.dropoff_landmark.latitude, @booking.dropoff_landmark.longitude)
+
+        -#
+          = friendly_date @booking.journey.start_time, true
+          at
+          = @booking.dropoff_time(true).strftime("%l:%M%P")
+
+          %p
+            = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
+    %section.section
+      %p
+        = link_to edit_booking_path(@booking) do
+          = t('summary.back')
+
+    %section.section
+      %h2
+        = t('summary.payment.title')
+
+      %h4
+        = t('summary.payment.now.title')
+
+      %p
+        = t('summary.payment.now.extra')
+
+      %h4
+        = t('summary.payment.later.title')
+
+      %p
+        = t('summary.payment.later.extra')
+
+    = form.submit :class => 'button cta primary choice stripe', :id => 'pay-online', :name => :pay, :value => t('button.pay')
+    = form.submit :class => 'button cta primary choice', :id => 'submit-booking', :name => :confirm, :value => t('button.checked')
+
+= content_for :js do
+  
+  = javascript_include_tag 'https://checkout.stripe.com/checkout.js'
+  
+  :javascript
+  
+    var handler = StripeCheckout.configure({
+      key: '#{Rails.configuration.stripe[:publishable_key]}',
+      image: '#{path_to_image('logo.png')}',
+      locale: 'auto',
+      email: '#{h @booking.email}',
+      token: function(token) {
+        $('#stripe_token').val(token.id);
+        $('#submit-booking').click();
+      }
+    });
+    
+    $('#pay-online').click(function() {
+      handler.open({
+        name: 'Ride',
+        description: 'Your Booking',
+        zipCode: true,
+        currency: 'gbp',
+        amount: #{(@booking.price * 100).to_i}
+      });
+      return false;
+    })
+    
+    $('#submit-booking-2').click(function() {
+      $('#submit-booking').click();
+    });
+    
+    $('#pay-online-2').click(function() {
+      $('#pay-online').click();
+    });

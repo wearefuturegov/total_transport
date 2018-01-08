@@ -5,8 +5,6 @@
       <%= form_for [:admin, @route, @stop] do |form| %>
         <div class="inner">
           <%= render partial: 'fields', locals: {form: form} %>
-          
-          <%= link_to "Edit this stop's landmarks", admin_route_stop_landmarks_path(@route, @stop), class: "button" %>
         </div>
 
         <div class="half">

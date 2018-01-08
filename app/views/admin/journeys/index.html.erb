@@ -73,8 +73,8 @@
       </div>
     </div>
 
-    <% if @filtered_journeys.exists? %>
-      <% @filtered_journeys.each do |journey| %>
+    <% if @journeys.exists? %>
+      <% @journeys.each do |journey| %>
         <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
           <div class="card<%= " past-journey" if journey.start_time.past? %><%= journey.supplier.name == @current_supplier.name ? " my-journey" : " team-journey" %>" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
             <div class="col-10 mobile-twoThird">
@@ -87,8 +87,8 @@
               </div>
             </div>
             <div class="bookings col-2 omega mobile-third">
-              <h4 class="mt1"><span class="number"><%= journey.bookings.count %></span><br>
-              <%= "booking".pluralize(journey.bookings.count) %></h4>
+              <h4 class="mt1"><span class="number"><%= journey.all_bookings.count %></span><br>
+              <%= "booking".pluralize(journey.all_bookings.count) %></h4>
             </div>
           </div>
         <% end %>
@@ -101,7 +101,7 @@
       </div>
     <% end %>
 
-    <%= paginate @filtered_journeys %>
+    <%= paginate @journeys %>
 
 
     <div class="actions">
@@ -112,6 +112,7 @@
   </div>
 </div>
 
+<% content_for :js do %>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.tab').click(function() {
@@ -124,3 +125,4 @@
     });
   });
 </script>
+<% end %>

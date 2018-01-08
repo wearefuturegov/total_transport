@@ -1,0 +1,44 @@
+%ul
+  %li#adult_tickets{class: booking.number_of_adults == 0 ? 'hidden' : ''}
+    %span.number
+      = booking.number_of_adults
+    - if booking.return_journey
+      %span.return_price
+        x adult ticket(s) @ #{number_to_currency(booking.adult_return_price, :unit => "£")}
+    - else
+      %span.single_price
+        x adult ticket(s) @ #{number_to_currency(booking.adult_single_price, :unit => "£")}
+  
+  %li#child_tickets{class: booking.child_tickets == 0 ? 'hidden' : ''}
+    %span.number
+      = booking.child_tickets
+    - if booking.return_journey
+      %span.return_price
+        x child ticket(s) @ #{number_to_currency(booking.child_return_price, :unit => "£")}
+    - else
+      %span.single_price
+        x child ticket(s) @ #{number_to_currency(booking.child_single_price, :unit => "£")}
+    
+  %li#older_tickets{class: booking.older_bus_passes == 0 ? 'hidden' : ''}
+    %span.number
+      = booking.older_bus_passes
+    x older person's bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
+  
+  %li#disabled_tickets{class: booking.disabled_bus_passes == 0 ? 'hidden' : ''}
+    %span.number
+      = booking.disabled_bus_passes
+    x disabled bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
+    
+  %li#scholar_tickets{class: booking.scholar_bus_passes == 0 ? 'hidden' : ''}
+    %span.number
+      = booking.scholar_bus_passes
+    x scholar bus pass ticket(s) @ #{number_to_currency(0, :unit => "£")}
+  
+%h3#total
+  Total:
+  - if booking.return_journey
+    %span.return_price
+      = number_to_currency(booking.return_price, :unit => "£")
+  - else
+    %span.single_price
+      = number_to_currency(booking.single_price, :unit => "£")

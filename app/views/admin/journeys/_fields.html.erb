@@ -3,7 +3,7 @@
 </div>
 
 <%= form.label :start_time, "Select Date & Time" %>
-<%= form.datetime_local_field :start_time, value: Time.now.strftime("%Y-%m-%dT%H:%M") %>
+<%= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M") %>
 
 <% if current_team.solo_team? %>
   <%= form.hidden_field :supplier_id, value: current_supplier.id %>
@@ -26,7 +26,12 @@
 <%= form.label :open_to_bookings, "Open to Bookings?" %>
 <%= form.check_box :open_to_bookings %>
 
+<% content_for :js do %>
 <script type="text/javascript">
+  $('#journey_start_time').datetimepicker({
+    format:'d/m/Y H:i'
+  });
+
   $(function() {
     $('#journey_start_time').change(function() {
       $.get(
@@ -42,3 +47,4 @@
     })
   })
 </script>
+<% end %>

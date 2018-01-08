@@ -1,0 +1,95 @@
+#demo
+  %section.logo
+    %h1
+      = @page_title
+    %span
+      demo
+  %section.hero
+    %section.section.heading
+      %section.action.container
+        %h4
+          = t("public-index.title.essex-demo")
+      %section.features
+        .icon
+          =image_tag('icons/piggy.svg')
+          %p
+            = t('steps.step_1.info')
+        .icon
+          =image_tag('icons/driving.svg')
+          %p
+            = t('steps.step_2.info')
+        .icon
+          =image_tag('icons/mobile.svg')
+          %p
+            = t('steps.step_3.info')
+      / %section.action
+      /   %h4
+      /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
+      /   = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
+      /   %p.small
+      /     = t('button.main_book_asterisk')
+
+  %main.main
+    %section.hero#step-1
+      .overlay
+      .event
+      %section.section
+        %h3
+          = t('public-index.event.regular.title-demo')
+        %p
+          = t('public-index.event.regular.info-demo')
+
+        %section.action
+          = link_to I18n.t('button.enquiry'), '/journeys', class: 'button cta'
+          
+    %section.hero.regular
+      .overlay
+      .event
+      %section.section
+        %h3
+          = t('public-index.event.title')
+        %p
+          = t('public-index.event.info')
+
+        %section.action
+          = link_to I18n.t('button.book'), I18n.t('button.typeform-link'), class: 'button cta'
+
+    %section.hero.enquiry
+      .overlay
+      .event
+      %section.section
+        %h3
+          = t('public-index.event.enquiry.title')
+        %p
+          = t('public-index.event.enquiry.info')
+
+        %section.action
+          = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+
+
+    %section.section.info
+      %h2
+        = t('public-index.about.info-demo')
+      %h2
+        = t('public-index.about.extra')
+
+    %section.section
+      .action
+        = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button cta secondary'
+
+    %footer.psuedo-footer
+      %section.section
+        %ul.social
+          %li
+            = link_to I18n.t('social.twitter.text'), t('social.twitter.link')
+          %li
+            = link_to I18n.t('social.facebook.text'), t('social.facebook.link')
+        %ul.credit
+          %li
+            = t('credit.title')
+            %span
+              = link_to I18n.t('credit.essex.text'), t('credit.essex.link')
+            %span
+              = link_to I18n.t('credit.suffolk.text'), t('credit.suffolk.link')
+            %span
+              = link_to I18n.t('credit.futuregov.text'), t('credit.futuregov.link')

@@ -1,0 +1,156 @@
+%section.section.concessions
+  %h2
+    = I18n.t('bookings.passenger.title')
+
+  %div.plusminus
+    = form.label :number_of_adults do
+      = t('bookings.passenger.adult.title')
+      %span.small
+        = t('bookings.passenger.adult.extra')
+    = form.number_field :number_of_adults, class: 'passenger_number', 'data-target' => 'adult_tickets', readonly: true
+
+  %div.plusminus
+    = form.label :child_tickets do
+      = t('bookings.passenger.child.title')
+      %span.small
+        = t('bookings.passenger.child.extra')
+    = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
+
+  - if @booking.route.allow_concessions
+    %label
+      = t('bookings.passenger.pass.title')
+    #passes.hidden
+      = select_tag :pass, bus_passes, class: 'select pass-type'
+      = select_tag :pass_number, options_for_select([nil] + (1..10).to_a), class: 'select pass-number'
+      %button.remove
+        x
+
+    #pass-container
+
+    %p#message.hidden
+      The number of passes must not exceed the number of passengers
+
+    %p
+      %button#add-pass
+        Add Bus Pass
+
+  = form.hidden_field :number_of_passengers
+  = form.hidden_field :older_bus_passes
+  = form.hidden_field :disabled_bus_passes
+  = form.hidden_field :scholar_bus_passes
+
+  #price
+    = #render 'price', booking: @booking
+
+:javascript
+
+    $('.passenger_number').after('<div class="inc increment button">+</div><div class="dec increment button">-</div>');
+
+    $('.increment').click(function() {
+      var $button = $(this);
+      var $input = $button.parent().find("input");
+      var oldValue = $input.val();
+      var newValue;
+
+      if ($button.text() == "+") {
+        newValue = parseFloat(oldValue) + 1;
+      } else {
+        if (oldValue > 0) {
+          newValue = parseFloat(oldValue) - 1;
+        } else {
+          newValue = 0;
+        }
+      }
+
+      $input.val(newValue);
+      $input.trigger('change');
+    });
+
+  $('.passenger_number').change(function() {
+    var number_of_passengers = $('.passenger_number').toArray().reduce(function(total, el) {
+      var $el = $(el);
+      var value = parseInt($el.val());
+      var target = $el.data('target');
+
+      $('#'+ target +' .number').html(value);
+
+      if (value > 0) {
+        $('#'+ target).removeClass('hidden');
+      } else {
+        $('#'+ target).addClass('hidden');
+      }
+
+      return total + value;
+    }, 0);
+
+    $('#booking_number_of_passengers').val(number_of_passengers);
+    $('form.new_booking').trigger("change");
+  });
+
+  $('form.new_booking').change(function() {
+    $.post(
+      '#{price_bookings_path}',
+      $(this).serialize()
+    );
+  });
+
+  $('#add-pass').click(function() {
+    var $passes = $('#passes').clone();
+    $passes.removeClass('hidden');
+    $passes.appendTo('#pass-container');
+
+    $passes.find('.pass-type').change(function() {
+      $(this).attr("disabled", true);
+      var num = $(this).next('.pass-number');
+      var pass = $(this).val();
+
+      $('#passes.hidden .pass-type option[value=' + pass +']').remove();
+      if ($('#passes.hidden .pass-type option').length == 1) {
+        $('#add-pass').hide();
+      }
+      num.removeAttr('disabled');
+      num.data('target', pass);
+      num.change(function() {
+        sortConcession($(this));
+      })
+      if (num.val() == "") {
+        num.val(1);
+      }
+      sortConcession(num);
+    });
+
+    $passes.find('.remove').click(function() {
+      var target = $passes.find('.pass-type').val();
+      if (target != '') {
+        var text = $passes.find('.pass-type option[value='+ target +']').text();
+        $('#booking_' + target).val(0);
+        $('form.new_booking').trigger("change");
+        $('#passes.hidden .pass-type').append($("<option></option>")
+            .attr('value',target)
+            .text(text));
+      }
+      $('#add-pass').show();
+      $passes.remove();
+      return false;
+    })
+
+    return false;
+  });
+
+  function sortConcession(number) {
+    var total = $('.pass-number').toArray().reduce(function(total, el) {
+        var $el = $(el);
+        var value = parseInt($el.val());
+        return !isNaN(value) ? total + value : total
+    }, 0)
+    var count = number.val();
+    if (total > $('#booking_number_of_adults').val()) {
+      $('#message');
+      $('#message').removeClass('hidden');
+    } else {
+      $('#message').addClass('hidden');
+      var target = number.data('target');
+      $('#booking_' + target).val(count);
+      $('form.edit_booking').trigger("change");
+    }
+  }

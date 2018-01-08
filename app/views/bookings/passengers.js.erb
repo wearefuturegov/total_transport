@@ -1,0 +1,3 @@
+<% form = ActionView::Helpers::FormBuilder.new('booking', @booking, self, {}) %>
+$('#passengers').html('<%= j(render 'passengers', form: form, journey_type: :journey_id, type: 'outward') %>');
+$('form.new_booking').trigger("change");

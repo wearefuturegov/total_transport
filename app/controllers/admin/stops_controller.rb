@@ -1,5 +1,7 @@
 class Admin::StopsController < AdminController
   before_filter :find_route
+  before_filter :get_places, only: [:new, :edit, :create]
+  
   def new
     @stop = @route.stops.new
     @back_path = admin_route_path(@route)
@@ -7,11 +9,16 @@ class Admin::StopsController < AdminController
 
   def create
     @stop = @route.stops.new(stop_params)
-    @stop.save
-    if params[:commit] == "Create & add another stop"
-      redirect_to new_admin_route_stop_path(@route)
+    
+    if @stop.save
+      if params[:commit] == "Create & add another stop"
+        redirect_to new_admin_route_stop_path(@route)
+      else
+        redirect_to admin_route_path(@route)
+      end
     else
-      redirect_to admin_route_path(@route)
+      flash[:alert] = @stop.errors.full_messages.to_sentence
+      render :new
     end
   end
 
@@ -23,7 +30,12 @@ class Admin::StopsController < AdminController
   def update
     @stop = @route.stops.find(params[:id])
     @stop.update_attributes(stop_params)
-    redirect_to admin_route_path(@route)
+    if @stop.valid?
+      redirect_to admin_route_path(@route)
+    else
+      flash[:alert] = @stop.errors.full_messages.to_sentence
+      render :edit
+    end
   end
 
   def destroy
@@ -36,10 +48,17 @@ class Admin::StopsController < AdminController
   private
 
   def stop_params
-    params.require(:stop).permit(:name, :polygon, :latitude, :longitude, :minutes_from_last_stop)
+    params.require(:stop).permit(
+      :place_id, :minutes_from_last_stop,
+      landmarks_attributes: [:id, :name, :latitude, :longitude, :_destroy]
+    )
   end
 
   def find_route
     @route = Route.find(params[:route_id])
+  end
+  
+  def get_places
+    @places = Place.all
   end
 end

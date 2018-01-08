@@ -1,0 +1,9 @@
+%p= t('email.greeting', passenger_name: @booking.passenger_name)
+
+%p= t('email.feedback.body_html', link: link_to(ENV['POST_SURVEY_LINK'], ENV['POST_SURVEY_LINK']))
+
+%p= t('email.signoff_html')
+
+%p= t('email.feedback.ps_html')
+
+%p= t('email.footer_html', website_link: link_to('Website', 'https://bookyourride.co.uk/'), twitter_link: link_to('Twitter', 'https://twitter.com/bookyourride'), facebook_link: link_to('Facebook', 'https://www.facebook.com/bookyourride/'))
