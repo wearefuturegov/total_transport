@@ -8,3 +8,18 @@
           = j.to_date.strftime('%e %b')
         %span.day
           = j.to_date.strftime('%a')
+  
+  - if @journeys.keys.uniq.count > 7
+    %p#show-more
+      %a{ href: '#' }
+        Show more
+
+:javascript
+  
+  $('#show-more a').click(function() {
+    $('.date-button.hidden').slice(0,7).removeClass('hidden');
+    if ($('.date-button.hidden').length == 0) {
+      $(this).addClass('hidden');
+    }
+    scrollToBottom();
+  });
