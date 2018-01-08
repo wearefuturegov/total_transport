@@ -178,6 +178,7 @@ en:
     main_book: "Try our £1 return offers *"
     main_book_asterisk: "* Introductory offer"
     book: "Register your interest"
+    pre_book: "Pre-book your Ride"
     contact: "Have a question?"
     submit: "Submit your booking request"
     return: "Return"
