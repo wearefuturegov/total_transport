@@ -1,5 +1,5 @@
 class SupplierMailer < ApplicationMailer
-  default from: 'jamesd@wearefuturegov.com'
+  default from: ENV['RIDE_ADMIN_EMAIL']
 
   def approved_email(supplier)
     @supplier = supplier
