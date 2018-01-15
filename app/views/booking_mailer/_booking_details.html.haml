@@ -27,6 +27,6 @@
 
 - if state != 'cancelled'
 
-  = t('email.booking_details.price_html', amount: number_to_currency(booking.price, unit: '£'), payment_method: booking.payment_method)
+  = t('email.booking_details.price_html', amount: number_to_currency(booking.price, unit: '£'), payment_method: booking.payment_method == 'card' ? 'Prepaid by card' : booking.payment_method)
     
 = t('email.booking_details.signoff_html')

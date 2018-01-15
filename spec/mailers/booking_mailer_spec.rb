@@ -65,7 +65,21 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/Pickup place: Pickup Landmark/)
         expect(body).to match(/Dropoff place: Dropoff Landmark/)
         expect(body).to match(/Amount: £2.00/)
+        expect(body).to match(/Payment method: cash/)
         expect(body).to match(/This is a single journey/)
+      end
+      
+      context 'with card payment' do
+        
+        before do
+          booking.payment_method = 'card'
+          booking.save
+        end
+        
+        it 'renders the body' do
+          expect(body).to match(/Payment method: Prepaid by card/)
+        end
+        
       end
       
     end
