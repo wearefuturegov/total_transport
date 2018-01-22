@@ -17,10 +17,11 @@ RSpec.describe SetRouteGeometry, type: :model, webmock: true do
   end
   
   it 'sets the geometry correctly' do
+    results = JSON.parse get_fixture('directions_service/directions.json')
+    geometry = Polylines::Decoder.decode_polyline results['routes'][0]['geometry']
     SetRouteGeometry.run(route.id)
     route.reload
-    expect(route.geometry).to_not be_nil
-    expect(route.geometry).to be_a(Array)
+    expect(route.geometry).to eq(geometry)
   end
   
   it 'does nothing if there is only one stop' do
@@ -28,7 +29,7 @@ RSpec.describe SetRouteGeometry, type: :model, webmock: true do
     route.save
     SetRouteGeometry.run(route.id)
     route.reload
-    expect(route.geometry).to be_nil
+    expect(route.geometry).to eq([])
   end
   
 end
