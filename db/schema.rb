@@ -70,16 +70,17 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "supplier_id"
-    t.boolean  "open_to_bookings", default: true
+    t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
     t.boolean  "booked",           default: false
     t.integer  "seats",            default: 0
-    t.integer  "timetable_id"
+    t.integer  "timetable_time_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
   add_index "journeys", ["timetable_id"], name: "index_journeys_on_timetable_id", using: :btree
+  add_index "journeys", ["timetable_time_id"], name: "index_journeys_on_timetable_time_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
     t.string   "name"
@@ -240,6 +241,11 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.string   "email"
   end
 
+  create_table "timetable_times", force: :cascade do |t|
+    t.time    "time"
+    t.integer "timetable_id"
+  end
+
   create_table "timetables", force: :cascade do |t|
     t.date     "from"
     t.date     "to"
@@ -248,7 +254,6 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.integer  "supplier_id"
     t.string   "direction"
     t.json     "days",        default: []
-    t.json     "times",       default: []
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

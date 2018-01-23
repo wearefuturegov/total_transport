@@ -12,16 +12,10 @@ RSpec.describe Timetable, type: :model do
       FactoryBot.create(:timetable,
         from: DateTime.now,
         to: DateTime.now + 3.days,
-        times: [
-          {
-            time: Time.parse('10:00')
-          },
-          {
-            time: Time.parse('14:00')
-          },
-          {
-            time: Time.parse('17:00')
-          }
+        timetable_times: [
+          FactoryBot.create(:timetable_time, time: Time.parse('10:00')),
+          FactoryBot.create(:timetable_time, time: Time.parse('14:00')),
+          FactoryBot.create(:timetable_time, time: Time.parse('17:00'))
         ]
       )
     end
@@ -33,13 +27,12 @@ RSpec.describe Timetable, type: :model do
     end
     
     it 'adds journey ids to times' do
-      expect(timetable.times[0]['journeys'].count).to eq(4)
-      expect(timetable.times[1]['journeys'].count).to eq(4)
-      expect(timetable.times[2]['journeys'].count).to eq(4)
-      timetable.times.each do |t|
-        t['journeys'].each do |j|
-          time = DateTime.parse(t['time']).strftime('%H:%M')
-          expect(Journey.find(j).start_time.strftime('%H:%M')).to eq(time)
+      expect(timetable.timetable_times[0].journeys.count).to eq(4)
+      expect(timetable.timetable_times[1].journeys.count).to eq(4)
+      expect(timetable.timetable_times[2].journeys.count).to eq(4)
+      timetable.timetable_times.each do |t|
+        t.journeys.each do |j|
+          expect(j.start_time.strftime('%H:%M')).to eq(t.time.strftime('%H:%M'))
         end
       end
     end
