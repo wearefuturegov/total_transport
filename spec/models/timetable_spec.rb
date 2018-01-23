@@ -37,6 +37,30 @@ RSpec.describe Timetable, type: :model do
       end
     end
     
+    context 'with days' do
+      
+      let(:timetable) do
+        FactoryBot.create(:timetable,
+          from: Date.parse('2016-01-03'),
+          to: Date.parse('2016-01-10'),
+          timetable_times: [
+            FactoryBot.create(:timetable_time, time: Time.parse('10:00')),
+            FactoryBot.create(:timetable_time, time: Time.parse('14:00')),
+            FactoryBot.create(:timetable_time, time: Time.parse('17:00'))
+          ],
+          days: [1,2,3,4,5]
+        )
+      end
+      
+      it 'skips specific days' do
+        expect(timetable.journeys.count).to eq(15)
+        days = timetable.journeys.map { |j| j.start_time.wday }
+        expect(days).to_not include(0)
+        expect(days).to_not include(6)
+      end
+      
+    end
+    
   end
   
 end
