@@ -254,9 +254,9 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.integer  "supplier_id"
     t.boolean  "reversed",         default: false
     t.boolean  "open_to_bookings", default: true
-    t.json     "days",             default: []
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.json     "days",             default: [0, 1, 2, 3, 4, 5, 6]
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   add_foreign_key "bookings", "journeys"

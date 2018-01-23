@@ -14,6 +14,7 @@ class Timetable < ActiveRecord::Base
   
     def create_journeys
       (from..to).each do |date|
+        next unless days.map(&:to_i).include?(date.wday)
         timetable_times.each do |t|
           time = t.time.strftime('%H:%M')
           start_time = DateTime.parse "#{date.to_s}T#{time}"

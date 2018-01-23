@@ -29,6 +29,13 @@
   = form.label :reversed, 'Reversed?'
   = form.select :reversed, [['No', false], ['Yes', true]], {}, class: 'select'
   
+  = form.label :days, 'Days of operation'
+  
+  - Date::DAYNAMES.each_with_index do |day, i|
+    = label_tag do
+      = form.check_box :days, {}, i
+      = day
+  
   %h2
     Times
   
