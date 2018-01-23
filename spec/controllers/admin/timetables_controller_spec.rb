@@ -17,6 +17,8 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           vehicle_id: vehicle.id,
           supplier_id: supplier.id,
           route_id: route.id,
+          open_to_bookings: false,
+          reversed: true,
           timetable_times_attributes: [
             {
               time: '10:00'
@@ -45,6 +47,8 @@ RSpec.describe Admin::TimetablesController, type: :controller do
       expect(timetable_times.last.journeys.count).to eq(4)
       expect(timetable_times.first.journeys.map { |t| t.start_time.strftime('%H:%M') }.uniq).to eq(['10:00'])
       expect(timetable_times.last.journeys.map { |t| t.start_time.strftime('%H:%M') }.uniq).to eq(['14:00'])
+      expect(timetable_times.first.journeys.map { |t| t.open_to_bookings }.uniq).to eq([false])
+      expect(timetable_times.last.journeys.map { |t| t.reversed }.uniq).to eq([true])
     end
     
   end

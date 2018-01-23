@@ -23,6 +23,12 @@
   = form.label :to, 'Timetable End Date'
   = form.date_select :to, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
   
+  = form.label :open_to_bookings, 'Open to Bookings?'
+  = form.select :open_to_bookings, [['Yes', true], ['No', false]], {}, class: 'select'
+  
+  = form.label :reversed, 'Reversed?'
+  = form.select :reversed, [['No', false], ['Yes', true]], {}, class: 'select'
+  
   %h2
     Times
   

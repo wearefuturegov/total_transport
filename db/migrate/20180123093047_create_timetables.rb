@@ -6,7 +6,8 @@ class CreateTimetables < ActiveRecord::Migration
       t.references :route
       t.references :vehicle
       t.references :supplier
-      t.string :direction
+      t.boolean :reversed, default: false
+      t.boolean :open_to_bookings, default: true
       t.json :days, default: []
       t.json :times, default: []
       

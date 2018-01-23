@@ -12,7 +12,9 @@ class TimetableTime < ActiveRecord::Base
     {
       vehicle: timetable.vehicle,
       supplier: timetable.supplier,
-      route: timetable.route
+      route: timetable.route,
+      open_to_bookings: timetable.open_to_bookings,
+      reversed: timetable.reversed
     }
   end
 end
