@@ -74,10 +74,12 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.boolean  "reversed"
     t.boolean  "booked",           default: false
     t.integer  "seats",            default: 0
+    t.integer  "timetable_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
+  add_index "journeys", ["timetable_id"], name: "index_journeys_on_timetable_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
     t.string   "name"
@@ -236,6 +238,19 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
+  end
+
+  create_table "timetables", force: :cascade do |t|
+    t.date     "from"
+    t.date     "to"
+    t.integer  "route_id"
+    t.integer  "vehicle_id"
+    t.integer  "supplier_id"
+    t.string   "direction"
+    t.json     "days",        default: []
+    t.json     "times",       default: []
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_foreign_key "bookings", "journeys"
