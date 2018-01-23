@@ -22,6 +22,8 @@ class Admin::TimetablesController < AdminController
       :vehicle_id,
       :from,
       :to,
+      :open_to_bookings,
+      :reversed,
       timetable_times_attributes: [:time]
     )
   end
