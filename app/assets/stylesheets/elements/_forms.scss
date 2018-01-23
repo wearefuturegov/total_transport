@@ -123,4 +123,9 @@ input[type=number]::-webkit-outer-spin-button {
   background-repeat: no-repeat;
   margin-bottom: $baseline*0.5;
   width: 100%;
+  
+  &.year, &.month, &.day, &.hour, &.minute {
+    display: inline;
+    width: 33%;
+  }
 }

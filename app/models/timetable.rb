@@ -8,6 +8,8 @@ class Timetable < ActiveRecord::Base
   
   after_create :create_journeys
   
+  accepts_nested_attributes_for :timetable_times, reject_if: :all_blank, allow_destroy: true
+  
   private
   
     def create_journeys

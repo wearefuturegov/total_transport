@@ -1,0 +1,37 @@
+= form_for [:admin, timetable] do |form|
+
+  = form.label :route_id
+  = form.select :route_id, options_from_collection_for_select(@routes, :id, :name), { include_blank: 'Please select a route' }, class: 'select'
+
+  - if current_team.solo_team?
+    = form.hidden_field :supplier_id, value: current_supplier.id
+  - else
+    = form.label :supplier_id, 'Driver'
+    = form.select :supplier_id, options_from_collection_for_select(current_supplier.team.suppliers, :id, :name), {}, class: 'select'
+  - if current_team.vehicles.count > 0
+    - if current_team.single_vehicle?
+      = form.hidden_field :vehicle_id, value: current_supplier.team.vehicles.first.id
+    - else
+      = form.label :vehicle_id, 'Vehicle'
+      = form.select :vehicle_id, options_from_collection_for_select(current_supplier.team.vehicles, :id, :registration), {}, class: 'select'
+  - else
+    = link_to 'You do not currently have any vehicles, add one now', admin_vehicles_path
+    
+  = form.label :from, 'Timetable Start Date'
+  = form.date_select :from, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
+  
+  = form.label :to, 'Timetable End Date'
+  = form.date_select :to, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
+  
+  %h2
+    Times
+  
+  #tasks
+    = form.fields_for :timetable_times do |time|
+      = render 'timetable_time_fields', f: time
+    .links
+      = link_to_add_association 'add time', form, :timetable_times, { class: 'button' }
+  
+  %hr
+  
+  = form.submit 'Submit', class: 'button border-bottom-radius'
