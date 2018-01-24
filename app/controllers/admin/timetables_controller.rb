@@ -25,7 +25,10 @@ class Admin::TimetablesController < AdminController
       :open_to_bookings,
       :reversed,
       days: [],
-      timetable_times_attributes: [:time]
+      timetable_times_attributes: [
+        :time,
+        stops: []
+      ]
     )
   end
 

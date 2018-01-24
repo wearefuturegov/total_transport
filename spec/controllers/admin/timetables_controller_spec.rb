@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::TimetablesController, type: :controller do
   login_supplier(true)
   
-  let(:route) { FactoryBot.create(:route) }
+  let(:route) { FactoryBot.create(:route, stops_count: 5) }
   let(:vehicle) { FactoryBot.create(:vehicle) }
   let(:supplier) { FactoryBot.create(:supplier) }
 
@@ -83,6 +83,40 @@ RSpec.describe Admin::TimetablesController, type: :controller do
       
       it 'skips specific days' do
         expect(timetable.journeys.count).to eq(10)
+      end
+      
+    end
+    
+    context 'with stops' do
+      
+      let(:params) do
+        {
+          timetable: {
+            from: Date.parse('2016-01-03'),
+            to: Date.parse('2016-01-10'),
+            vehicle_id: vehicle.id,
+            supplier_id: supplier.id,
+            route_id: route.id,
+            open_to_bookings: false,
+            reversed: true,
+            days: ['1', '2', '3', '4', '5'],
+            timetable_times_attributes: [
+              {
+                time: '10:00',
+                stops: [
+                  route.stops[2],
+                  route.stops[3],
+                  route.stops[4]
+                ]
+              }
+            ]
+          }
+        }
+      end
+      
+      it 'creates a new route' do
+        new_route = timetable.timetable_times.last.journeys.first.route
+        expect(new_route.stops.map(&:name)).to match_array([route.stops[2].name, route.stops[3].name, route.stops[4].name])
       end
       
     end
