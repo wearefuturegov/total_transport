@@ -17,6 +17,11 @@ class Admin::RoutesController < AdminController
 
   def show
     @back_path = admin_routes_path
+    @time_id = params[:time_id]
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def destroy
