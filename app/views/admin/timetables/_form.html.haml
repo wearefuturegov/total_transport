@@ -36,14 +36,15 @@
       = form.check_box :days, {}, i
       = day
   
-  %h2
-    Times
-  
-  #times
-    = form.fields_for :timetable_times do |time|
-      = render 'timetable_time_fields', f: time
-    .links
-      = link_to_add_association 'add time', form, :timetable_times, { class: 'button' }
+  #time-wrapper.hidden
+    %h2
+      Times
+    
+    #times
+      = form.fields_for :timetable_times do |time|
+        = render 'timetable_time_fields', f: time
+      .links
+        = link_to_add_association 'add time', form, :timetable_times, { class: 'button' }
   
   %hr
   
@@ -54,9 +55,11 @@
   :javascript
     
     $('#timetable_route_id').change(function() {
+      $('#time-wrapper').removeClass('hidden');
       $('#times').data('route-id', $(this).val())
       $('#times').on('cocoon:after-insert', function(e, added_time) {
         var id = added_time.html().match(/timetable_timetable_times_attributes_(\d+)/)[1]
         $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id)
       })
     })
+    
