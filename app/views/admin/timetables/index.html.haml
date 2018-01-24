@@ -1,0 +1,16 @@
+.container
+  .inner
+    %h2
+      Timetables
+      
+    %table.table
+      %thead
+        %tr
+          %th Route
+          %th Start Date
+          %th End Date
+          %th
+      %tbody
+        = render partial: 'timetable', collection: @timetables
+    
+    = link_to 'Create new Timetable', new_admin_timetable_path, { class: 'button' }
