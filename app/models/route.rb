@@ -25,10 +25,12 @@ class Route < ActiveRecord::Base
     (from_routes & to_routes)
   end
   
-  def self.copy!(source_id)
+  def self.copy!(source_id, stops = nil)
     source = Route.find(source_id)
+    stops ||= source.stops
     route = source.dup
     source.stops.each do |s|
+      next unless stops.include?(s)
       route.stops << s.copy
     end
     route.route_id = source_id
