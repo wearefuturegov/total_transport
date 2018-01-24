@@ -61,6 +61,36 @@ RSpec.describe Timetable, type: :model do
       
     end
     
+    context 'with routes' do
+      
+      let(:route) { FactoryBot.create(:route, stops_count: 5)}
+      let(:timetable) do
+        FactoryBot.create(:timetable,
+          from: Date.parse('2016-01-03'),
+          to: Date.parse('2016-01-04'),
+          route: route,
+          timetable_times: [
+            FactoryBot.create(:timetable_time, time: Time.parse('10:00'), stops: route.stops.map(&:id)),
+            FactoryBot.create(:timetable_time, time: Time.parse('10:00'), stops: [
+              route.stops[1].id,
+              route.stops[2].id,
+              route.stops[3].id
+            ])
+          ]
+        )
+      end
+      
+      it 'uses the existing route if all stops are specified' do
+        expect(timetable.timetable_times.first.journeys.first.route).to eq(route)
+      end
+      
+      it 'creates a new subroute' do
+        new_route = timetable.timetable_times.last.journeys.first.route
+        expect(new_route.stops.map(&:name)).to match_array([route.stops[1].name, route.stops[2].name, route.stops[3].name])
+      end
+      
+    end
+    
   end
   
 end
