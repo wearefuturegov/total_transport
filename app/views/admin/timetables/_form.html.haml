@@ -39,7 +39,7 @@
   %h2
     Times
   
-  #tasks
+  #times
     = form.fields_for :timetable_times do |time|
       = render 'timetable_time_fields', f: time
     .links
@@ -48,3 +48,15 @@
   %hr
   
   = form.submit 'Submit', class: 'button border-bottom-radius'
+  
+- content_for :js do
+  
+  :javascript
+    
+    $('#timetable_route_id').change(function() {
+      $('#times').data('route-id', $(this).val())
+      $('#times').on('cocoon:after-insert', function(e, added_time) {
+        var id = added_time.html().match(/timetable_timetable_times_attributes_(\d+)/)[1]
+        $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id)
+      })
+    })
