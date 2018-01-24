@@ -1,0 +1,5 @@
+%tr
+  %td=timetable.route.name
+  %td=timetable.from.to_date.to_s(&:short)
+  %td=timetable.to.to_date.to_s(&:short)
+  %td=link_to 'Edit', edit_admin_timetable_path(timetable)
