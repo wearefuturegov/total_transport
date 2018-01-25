@@ -42,8 +42,94 @@
   .header {
     background: none;
     position: absolute;
+    line-height: $logo-height;
+  }
+  .hero {
+    float: none;
+    display: inline-block;
+    background: none;
+    position: relative;
+    .event {
+      background-image: image-url('christmas.jpg');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      + .section {
+        position: relative;
+        z-index: 750;
+      }
+    }
+    &.enquiry {
+      margin-top: $logo-height * 2;
+      .overlay {
+        background-color: rgba(3, 23, 29, 0.5);
+      }
+      .event {
+        background-image: image-url('enquiry.jpg');
+        background-position-y: center;
+        background-position-x: center;
+      }
+      .section {
+        margin-top: $baseline*4;
+      }
+    }
+    .book {
+      float: left;
+      background: $white;
+      padding: $baseline;
+      position: relative;
+      h4 {
+        $h4: 26px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*2 - $border-width} - #{$h4} * 1.2);
+      }
+      label {
+        font-size: $small;
+        margin-bottom: 0;
+      }
+      input {
+        padding: $baseline*0.25;
+        margin-bottom: $baseline*0.25;
+      }
+      input,
+      select,
+      textarea {
+        @include non-rounded;
+        display: block;
+        font-size: $small;
+        font-weight: 400;
+        line-height: $baseline;
+      }
+      .button {
+        padding-left: $baseline*0.5;
+        padding-right: $baseline*0.5;
+        margin-top: $baseline;
+        width: auto;
+      }
+    }
   }
   .main {
+    .heading {
+      margin-top: 0;
+      margin-bottom: 0;
+      h4 {
+        $h4: 40px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        text-align: center;
+        margin-top: $baseline*3;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
+    }
     .hero {
       float: none;
       display: inline-block;
@@ -115,19 +201,9 @@
         }
       }
     }
-    .event {
-      background-image: image-url('christmas.jpg');
-      background-size: cover;
-      background-position: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      + .section {
-        position: relative;
-        z-index: 750;
-      }
+    .icon img {
+      width: $baseline*6;
+      height: auto;
     }
   }
 }

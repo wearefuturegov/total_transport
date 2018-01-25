@@ -146,11 +146,7 @@ ActiveRecord::Schema.define(version: 20180205094841) do
     t.json     "pricing_rule"
     t.boolean  "allow_concessions", default: true
     t.json     "geometry",          default: []
-    t.integer  "route_id"
-    t.text     "name"
   end
-
-  add_index "routes", ["route_id"], name: "index_routes_on_route_id", using: :btree
 
   create_table "stops", force: :cascade do |t|
     t.integer  "route_id"
