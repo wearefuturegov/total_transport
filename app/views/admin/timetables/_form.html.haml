@@ -30,10 +30,10 @@
   = form.select :reversed, [['No', false], ['Yes', true]], {}, class: 'select'
   
   = form.label :days, 'Days of operation'
-  
+    
   - Date::DAYNAMES.each_with_index do |day, i|
     = label_tag do
-      = form.check_box :days, {}, i
+      = check_box_tag "#{form.object_name}[days][]", i, timetable.days.map(&:to_s).include?(i.to_s)
       = day
   
   #time-wrapper{ class: timetable.timetable_times.count.zero? ? 'hidden' : '' }
