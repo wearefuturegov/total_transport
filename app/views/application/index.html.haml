@@ -1,11 +1,20 @@
 %section.logo
   %h1
     = @page_title
-%section.hero
-  %section.section.heading
-    %section.action.container
-      %h4
-        = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+
+%section.hero.enquiry
+  .event
+  %section.section
+    = render 'book'
+
+%main.main
+
+  / %section.section
+  /   %section.heading
+  /     %h4
+  /       = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+
+  %section.section
     %section.features
       .icon
         =image_tag('icons/piggy.svg')
@@ -19,26 +28,7 @@
         =image_tag('icons/mobile.svg')
         %p
           = t('steps.step_3.info')
-    / %section.action
-    /   %h4
-    /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-    /   = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
-    /   %p.small
-    /     = t('button.main_book_asterisk')
-
-%main.main
-  / %section.hero#step-1
-  /   .overlay
-  /   .event
-  /   %section.section
-  /     %h3
-  /       = t('public-index.event.regular.title')
-  /     %p
-  /       = t('public-index.event.regular.info')
-
-  /     %section.action
-  /       = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
-        
+          
   %section.hero.regular#step-1
     .overlay
     .event

@@ -46,7 +46,7 @@ input[type=checkbox] {
   background-color: white;
   border: $black $border-width-thin $border-style;
   box-sizing: border-box;
-  margin-bottom: $baseline * 0.5;
+  margin-bottom: $baseline*0.5;
   padding: $baseline*0.5;
   transition: border-color ;
   width: 100%;
