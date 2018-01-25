@@ -59,6 +59,7 @@
       $('#times').data('route-id', $(this).val())
       $('#times').on('cocoon:after-insert', function(e, added_time) {
         var id = added_time.html().match(/timetable_timetable_times_attributes_(\d+)/)[1]
+        added_time.attr('id', 'time-' + id)
         $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id)
       })
     })
