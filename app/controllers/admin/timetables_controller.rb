@@ -1,13 +1,22 @@
 class Admin::TimetablesController < AdminController
-
+  
+  before_filter :get_routes, only: [:new, :edit]
+  
+  def index
+    @timetables = Timetable.all
+  end
+  
   def new
     @timetable = Timetable.new
-    @routes = Route.all
+  end
+  
+  def edit
+    @timetable = Timetable.find(params[:id])
   end
   
   def create
     if Timetable.create(timetable_params)
-      redirect_to admin_journeys_path
+      redirect_to admin_timetables_path
     else
       render :new
     end
@@ -30,6 +39,10 @@ class Admin::TimetablesController < AdminController
         stops: []
       ]
     )
+  end
+  
+  def get_routes
+    @routes = Route.all
   end
 
 end

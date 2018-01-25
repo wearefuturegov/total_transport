@@ -11,6 +11,10 @@ class TimetableTime < ActiveRecord::Base
   def stops
     @stops || timetable.route.stops
   end
+  
+  def route
+    journeys.first&.route
+  end
     
   private
 
@@ -18,13 +22,13 @@ class TimetableTime < ActiveRecord::Base
     {
       vehicle: timetable.vehicle,
       supplier: timetable.supplier,
-      route: route,
+      route: get_route,
       open_to_bookings: timetable.open_to_bookings,
       reversed: timetable.reversed
     }
   end
   
-  def route
+  def get_route
     if timetable.route.stops.count == stops.count
       timetable.route
     else
