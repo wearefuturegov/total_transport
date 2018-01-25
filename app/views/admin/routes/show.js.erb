@@ -1,1 +1,1 @@
-$('.stops').html('<%= j(render partial: 'stop', collection: @route.stops) %>');
+$('#time-<%= @time_id %> .stops').html('<%= j(render partial: 'stop', collection: @route.stops) %>');
