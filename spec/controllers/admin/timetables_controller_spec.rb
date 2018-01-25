@@ -123,6 +123,23 @@ RSpec.describe Admin::TimetablesController, type: :controller do
     
   end
   
-  
+  describe '#edit' do
+    
+    let(:routes) { FactoryBot.create_list(:route, 3) }
+    let(:timetable) { FactoryBot.create(:timetable, route: routes[1]) }
+
+    before do
+      get :edit, { id: timetable.id }
+    end
+    
+    it 'gets a timetable' do
+      expect(assigns(:timetable)).to eq(timetable)
+    end
+    
+    it 'gets routes' do
+      expect(assigns(:routes)).to match_array(routes)
+    end
+    
+  end
   
 end

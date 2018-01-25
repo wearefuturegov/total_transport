@@ -1,11 +1,13 @@
 .nested-fields
   = f.label :time
   = f.time_select :time, { with_css_classes: true }, { class: 'select' }
-  
+    
   %h3
     Stops
     
   .stops
+    - if f.object.route.present?
+      = render partial: 'admin/routes/stop', collection: @timetable.route.stops, locals: { selected: f.object.route.stops.collect(&:name), time_id: f.index }
   
   %p
     = link_to_remove_association 'Remove time', f
