@@ -143,6 +143,10 @@ button {
     border-color: $brand;
     color: $brand;
   }
+  &.small {
+    font-size: $small;
+    line-height: $baseline*1.5;
+  }
 }
 
 .button.single {
