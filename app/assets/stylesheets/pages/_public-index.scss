@@ -1,5 +1,9 @@
 /* public_index page specific style. Named as the body id "public-index" */
 
+.hidden {
+  display: block !important; //temp
+}
+
 #public-index {
   float: left;
   background-color: $white;
@@ -53,11 +57,12 @@
       background-image: image-url('christmas.jpg');
       background-size: cover;
       background-position: center;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       bottom: 0;
       right: 0;
+      z-index: -100;
       + .section {
         position: relative;
         z-index: 750;
@@ -74,7 +79,8 @@
         background-position-x: center;
       }
       .section {
-        margin-top: $baseline*4;
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*0.5;
       }
     }
     .book {
@@ -83,13 +89,13 @@
       padding: $baseline;
       position: relative;
       h4 {
-        $h4: 26px;
+        $h4: 35px;
         font-size: $h4;
         font-weight: 900;
         line-height: calc(#{$h4} * 1.2);
         text-align: left;
         margin-top: 0;
-        margin-bottom: calc(#{$baseline*2 - $border-width} - #{$h4} * 1.2);
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
       }
       label {
         font-size: $small;
@@ -108,6 +114,10 @@
         font-weight: 400;
         line-height: $baseline;
       }
+      .error-block {
+        font-size: $small;
+        margin: $baseline*0.5 0;
+      }
       .button {
         padding-left: $baseline*0.5;
         padding-right: $baseline*0.5;
@@ -117,6 +127,7 @@
     }
   }
   .main {
+    background: $white;
     .heading {
       margin-top: 0;
       margin-bottom: 0;
@@ -134,17 +145,22 @@
       float: none;
       display: inline-block;
       position: relative;
+      text-align: center;
       section {
         margin-top: $baseline*2;
         margin-bottom: $baseline*2;
       }
+      .event {
+        position: absolute;
+        z-index: 0;
+      }
       h3 {
-        $h4: 50px;
+        $h4: 45px;
         font-size: $h4;
         font-weight: 900;
         line-height: calc(#{$h4} * 1.2);
         margin-top: 0;
-        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
       }
       h3, p {
         color: $white;
