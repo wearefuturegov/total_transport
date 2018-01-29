@@ -7,13 +7,12 @@
   = label_tag do
     = t('journey.to.label')
   = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message')
-  #from_result.hidden{"aria-live" => "assertive", :hidden => "", :role => "alert"}
-    %p.error-block
-      = t('message.sorry')
-      from
-      = succeed "." do
-        %span#place
+  #from_result.hidden{"aria-live" => "assertive", hidden: "", role: "alert", class: "error-block"}
+    = t('message.sorry')
+    from
+    = succeed "." do
+      %span#place
     %p
-      = link_to I18n.t('button.typeform'), I18n.t('button.typeform-link')
+      = link_to I18n.t('button.more'), "promotion", class: "button small secondary"
 
   = link_to I18n.t('button.book'), I18n.t('button.typeform-link'), class: "book-button button small"
