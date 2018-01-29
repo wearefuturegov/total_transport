@@ -32,7 +32,11 @@ class TimetableTime < ActiveRecord::Base
     if timetable.route.stops.count == stops.count
       timetable.route
     else
-      Route.copy!(timetable.route.id, Stop.find(stops))
+      if route.nil?
+        route = Route.copy!(timetable.route.id, Stop.find(stops))
+        save
+      end
+      route
     end
   end
 end

@@ -244,7 +244,10 @@ ActiveRecord::Schema.define(version: 20180131104116) do
   create_table "timetable_times", force: :cascade do |t|
     t.time    "time"
     t.integer "timetable_id"
+    t.integer "route_id"
   end
+
+  add_index "timetable_times", ["route_id"], name: "index_timetable_times_on_route_id", using: :btree
 
   create_table "timetables", force: :cascade do |t|
     t.date     "from"
