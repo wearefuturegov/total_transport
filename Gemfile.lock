@@ -130,7 +130,7 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faraday (0.13.1)
+    faraday (0.14.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     filterrific (2.1.2)
@@ -232,7 +232,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.1)
     moneta (0.8.1)
-    multi_json (1.12.2)
+    multi_json (1.13.1)
     multipart-post (2.0.0)
     neat (1.8.0)
       sass (>= 3.3)
@@ -384,7 +384,7 @@ GEM
       sprockets (>= 3.0.0)
     stripe (3.9.1)
       faraday (~> 0.10)
-    stripe-ruby-mock (2.5.0)
+    stripe-ruby-mock (2.5.1)
       dante (>= 0.2.0)
       multi_json (~> 1.0)
       stripe (>= 2.0.3)
@@ -477,7 +477,7 @@ DEPENDENCIES
   simplecov
   spring
   stripe
-  stripe-ruby-mock (~> 2.5.0)
+  stripe-ruby-mock (~> 2.5.1)
   timecop
   turnip
   twilio-ruby
