@@ -10,10 +10,6 @@ class Admin::TimetablesController < AdminController
     @timetable = Timetable.new
   end
   
-  def edit
-    @timetable = Timetable.find(params[:id])
-  end
-  
   def create
     if Timetable.create(timetable_params)
       redirect_to admin_timetables_path
