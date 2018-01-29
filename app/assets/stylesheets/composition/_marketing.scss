@@ -71,8 +71,10 @@
       float: none;
       display: inline-block;
       position: relative;
+      border-left: $baseline*0.5 solid $white;
+      border-right: $baseline*0.5 solid $white;
       section {
-        margin-top: $baseline*4;
+        margin-top: $baseline*6;
         margin-bottom: $baseline*2;
       }
       h2, p {
