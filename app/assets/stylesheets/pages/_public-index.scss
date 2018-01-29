@@ -1,9 +1,5 @@
 /* public_index page specific style. Named as the body id "public-index" */
 
-.hidden {
-  display: block !important; //temp
-}
-
 #public-index {
   float: left;
   background-color: $white;
@@ -115,13 +111,23 @@
         line-height: $baseline;
       }
       .error-block {
+        display: block;
         font-size: $small;
         margin: $baseline*0.5 0;
+        &.hidden {
+          display: none;
+        }
+        &.hidden + .book-button {
+          display: inline-block;
+        }
+        & + .book-button {
+          display: none;
+        }
       }
       .button {
         padding-left: $baseline*0.5;
         padding-right: $baseline*0.5;
-        margin-top: $baseline;
+        margin-top: $baseline*0.5;
         width: auto;
       }
     }
