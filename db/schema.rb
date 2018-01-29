@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122170804) do
+ActiveRecord::Schema.define(version: 20180129155902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,17 +67,20 @@ ActiveRecord::Schema.define(version: 20180122170804) do
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
     t.datetime "start_time"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "vehicle_id"
     t.integer  "supplier_id"
-    t.boolean  "open_to_bookings", default: true
+    t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
-    t.boolean  "booked",           default: false
+    t.boolean  "booked",            default: false
+    t.integer  "timetable_time_id"
+    t.integer  "seats",             default: 0
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
+  add_index "journeys", ["timetable_time_id"], name: "index_journeys_on_timetable_time_id", using: :btree
   add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
@@ -237,6 +240,27 @@ ActiveRecord::Schema.define(version: 20180122170804) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"
+  end
+
+  create_table "timetable_times", force: :cascade do |t|
+    t.time    "time"
+    t.integer "timetable_id"
+    t.integer "route_id"
+  end
+
+  add_index "timetable_times", ["route_id"], name: "index_timetable_times_on_route_id", using: :btree
+
+  create_table "timetables", force: :cascade do |t|
+    t.date     "from"
+    t.date     "to"
+    t.integer  "route_id"
+    t.integer  "vehicle_id"
+    t.integer  "supplier_id"
+    t.boolean  "reversed",         default: false
+    t.boolean  "open_to_bookings", default: true
+    t.json     "days",             default: [0, 1, 2, 3, 4, 5, 6]
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
   create_table "vehicles", force: :cascade do |t|
