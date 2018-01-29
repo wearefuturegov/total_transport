@@ -4,7 +4,7 @@
 %section.hero
   %section.section.heading
     %section.action.container
-      %h4
+      %h2
         = t("public-index.title.#{Rails.configuration.x.pickup.council}")
     %section.features
       .icon
@@ -19,31 +19,12 @@
         =image_tag('icons/mobile.svg')
         %p
           = t('steps.step_3.info')
-    / %section.action
-    /   %h4
-    /     = t("public-index.intro.#{Rails.configuration.x.pickup.council}")
-    /   = link_to I18n.t('button.main_book'), '#step-1', class: 'button cta'
-    /   %p.small
-    /     = t('button.main_book_asterisk')
-
-%main.main
-  / %section.hero#step-1
-  /   .overlay
-  /   .event
-  /   %section.section
-  /     %h3
-  /       = t('public-index.event.regular.title')
-  /     %p
-  /       = t('public-index.event.regular.info')
-
-  /     %section.action
-  /       = link_to I18n.t('button.book'), '/journeys', class: 'button cta'
-        
+%main.main        
   %section.hero.regular#step-1
     .overlay
     .event
     %section.section
-      %h3
+      %h2
         = t('public-index.event.title')
       %p
         = t('public-index.event.info')
@@ -55,7 +36,7 @@
     .overlay
     .event
     %section.section
-      %h3
+      %h2
         = t('public-index.event.enquiry.title')
       %p
         = t('public-index.event.enquiry.info')
@@ -65,14 +46,13 @@
 
 
   %section.section.info
-    %h2
+    %p
       = t('public-index.about.info')
-    %h2
+    %p
       = t('public-index.about.extra')
 
-  %section.section
-    .action
-      = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button cta secondary'
+  %section.section.action
+    = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button cta secondary'
 
   %footer.psuedo-footer
     %section.section
