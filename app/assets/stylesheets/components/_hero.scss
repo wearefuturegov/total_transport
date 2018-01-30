@@ -8,7 +8,7 @@
   text-align: center;
   .heading {
     margin-top: $baseline*6;
-    margin-bottom: 0;
+    margin-bottom: $baseline*2;
     .action {
       margin-top: 0;
       h2 {
@@ -26,5 +26,16 @@
         height: auto;
       }
     }
+  }
+  .event {
+    background-size: 100%;
+    background-position-y: center;
+    background-position-x: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -200;
   }
 }

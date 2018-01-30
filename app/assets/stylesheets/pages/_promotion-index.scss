@@ -5,4 +5,30 @@
     background: none;
     position: absolute;
   }
+  .hero {
+    border: $baseline*0.5 solid $white;
+    border-top: none;
+    .overlay {
+      background-color: rgba(0, 35, 80, 0.5);
+      background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
+    }
+    .event {
+      background-image: image-url('enquiry.jpg');
+    }
+    h1, h2, p {
+      color: $white;
+    }
+    .heading {
+      position: relative;
+      z-index: 500;
+    }
+  }
+  .main {
+    // section.section:first-child {
+    //   margin-top: $baseline*3  ;
+    // }
+    .divide {
+      border-top: $border-width-thin $border-style $black;
+    }
+  }
 }

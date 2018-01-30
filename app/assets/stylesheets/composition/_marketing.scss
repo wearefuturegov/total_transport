@@ -71,23 +71,8 @@
       float: none;
       display: inline-block;
       position: relative;
-      border-left: $baseline*0.5 solid $white;
-      border-right: $baseline*0.5 solid $white;
-      section {
-        margin-top: $baseline*6;
-        margin-bottom: $baseline*2;
-      }
       h2, p {
         color: $white;
-      }
-      .overlay {
-        background-color: rgba(0, 35, 80, 0.5);
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        z-index: 500;
       }
       .action {
         position: relative;

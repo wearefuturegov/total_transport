@@ -3,10 +3,11 @@
 #public-index {
   .main {
     .hero {
+      border: none;
       &.regular {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(6, 15, 25, 0.61);
+          background: rgba(6, 15, 25, 0.61);
         }
         .event {
           background-image: image-url('daily_service.png');
@@ -16,12 +17,10 @@
       &.enquiry {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(3, 23, 29, 0.5);
+          background: rgba(3, 23, 29, 0.5);
         }
         .event {
           background-image: image-url('enquiry.jpg');
-          background-position-y: center;
-          background-position-x: center;
         }
       }
     }
