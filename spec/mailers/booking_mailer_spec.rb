@@ -5,14 +5,14 @@ RSpec.describe BookingMailer, type: :mailer do
   let(:stops) {
     [
       FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1,
-        place: FactoryBot.create(:place, name: 'Pickup Stop'),
+        place: FactoryBot.create(:place, name: 'Pickup Stop', latitude: 51.5010091564599, longitude: -0.141587597876975),
         landmarks: FactoryBot.create_list(:landmark, 1, name: 'Pickup Landmark')
       ),
       FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2),
       FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3),
       FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4),
       FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5,
-        place: FactoryBot.create(:place, name: 'Dropoff Stop'),
+        place: FactoryBot.create(:place, name: 'Dropoff Stop', latitude: 51.4994437986521, longitude: -0.163233946418579),
         landmarks: FactoryBot.create_list(:landmark, 1, name: 'Pickup Landmark')
       )
     ]
@@ -64,7 +64,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup place: Pickup Landmark/)
         expect(body).to match(/Dropoff place: Dropoff Landmark/)
-        expect(body).to match(/Amount: £2.00/)
+        expect(body).to match(/Amount: £0.40/)
         expect(body).to match(/Payment method: cash/)
         expect(body).to match(/This is a single journey/)
       end
@@ -185,7 +185,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Pickup Stop/)
         expect(body).to match(/Pickup place: Dropoff Landmark/)
         expect(body).to match(/Dropoff place: Pickup Landmark/)
-        expect(body).to match(/Amount: £4.00/)
+        expect(body).to match(/Amount: £0.50/)
         expect(body).to match(/This is a return journey/)
       end
       
