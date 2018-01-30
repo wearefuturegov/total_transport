@@ -6,7 +6,7 @@
     position: absolute;
   }
   .hero {
-    border: $baseline*0.5 solid $white;
+    border: $border-width-thick $border-style $white;
     border-top: none;
     .overlay {
       background-color: rgba(0, 35, 80, 0.5);

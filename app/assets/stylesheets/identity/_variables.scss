@@ -43,6 +43,7 @@ $white: #fff;
 $gray: #afafaf;
 
 $gray-light: lighten($gray, 10%);
+$gray-lighter: lighten($gray, 25%);
 
 $gradient-1: #7b8388;
 $gradient-2: #cedee8;
@@ -50,6 +51,7 @@ $gradient-2: #cedee8;
 $border-style: solid;
 $border-width: 2px;
 $border-width-thin: 1px;
+$border-width-thick: $baseline*0.5;
 
 $error: #ff0000;
 $stripe: #6772e5;

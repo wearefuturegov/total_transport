@@ -38,8 +38,8 @@
     @include shift(2);
   }
   .divide {
-    @include span-columns(4);
-    @include shift(4)
+    @include span-columns(2);
+    @include shift(5)
   }
 }
 
