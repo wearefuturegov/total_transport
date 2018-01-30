@@ -12,16 +12,8 @@
   <%= form.select :supplier_id, current_supplier.team.suppliers.collect {|u| [u.name, u.id]} %>
 <% end %>
 
-<% if current_team.vehicles.count > 0 %>
-  <% if current_team.single_vehicle? %>
-    <%= form.hidden_field :vehicle_id, value: current_supplier.team.vehicles.first.id %>
-  <% else %>
-    <%= form.label :vehicle_id, "Select Vehicle" %>
-    <%= form.select :vehicle_id, current_supplier.team.vehicles.collect {|v| [v.registration, v.id]} %>
-  <% end %>
-<% else %>
-  <%= link_to "You do not currently have any vehicles, add one now", admin_vehicles_path %>
-<% end %>
+<%= form.label :seats, 'Number of available seats' %>
+<%= form.number_field :seats %>
 
 <%= form.label :open_to_bookings, "Open to Bookings?" %>
 <%= form.check_box :open_to_bookings %>

@@ -34,7 +34,6 @@ Rails.application.routes.draw do
     #resource :team, only: [:show]
     resources :teams
     get :account, to: 'teams#show'
-    resources :vehicles
     resources :journeys do
       collection do
         get 'surrounding_journeys'

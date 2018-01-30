@@ -4,6 +4,6 @@ FactoryBot.define do
     route
     sequence(:start_time) { |n| Date.tomorrow + n.hours  }
     supplier { FactoryBot.create(:supplier) }
-    vehicle { FactoryBot.create(:vehicle) }
+    seats 5
   end
 end
