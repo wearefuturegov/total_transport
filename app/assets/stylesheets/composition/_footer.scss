@@ -12,7 +12,7 @@
 footer.psuedo-footer {
   display: none;
   background: $gray-lighter;
-  border: $border-width-thick $border-style $white;
+  border: $gutter*0.5 $border-style $white;
   ul {
     text-align: center;
     li {

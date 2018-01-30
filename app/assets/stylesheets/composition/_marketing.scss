@@ -12,7 +12,7 @@
     font-weight: 900;
     line-height: calc(#{$h2} * 1.2);
     margin-top: 0;
-    margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h2} * 1.2);
+    margin-bottom: calc(#{$baseline*4} - #{$h2} * 1.2);
   }
   h3 {
     $h3: 38px;
@@ -20,7 +20,15 @@
     font-weight: 900;
     line-height: calc(#{$h3} * 1.1);
     margin-top: 0;
-    margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h3} * 1.2);
+    margin-bottom: calc(#{$baseline*3} - #{$h3} * 1.1);
+  }
+  h4 {
+    $h4: 28px;
+    font-size: $h4;
+    font-weight: 900;
+    line-height: calc(#{$h4} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h4} * 1.1);
   }
   p {
   }

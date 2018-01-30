@@ -1,10 +1,6 @@
 /* promotion-index page specific style. Named as the body id "promotion-index" */
 
 #promotion-index {
-  .header {
-    background: none;
-    position: absolute;
-  }
   .hero {
     border: $border-width-thick $border-style $white;
     border-top: none;
@@ -24,11 +20,34 @@
     }
   }
   .main {
-    // section.section:first-child {
-    //   margin-top: $baseline*3  ;
-    // }
     .divide {
       border-top: $border-width-thin $border-style $black;
+    }
+    .interest {
+      background: $gray-lighter;
+      margin: 0;
+      width: 50%;
+      border: $border-width-thick $border-style $white;
+      border-right-width: $border-width-thick*0.5;
+      border-bottom: none;
+      @include pad($gutter);
+      & + .interest {
+        border-left-width: $border-width-thick*0.5;
+        border-right-width: $border-width-thick;
+      }
+      .section {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+      }
+      // h4, p {
+      //   color: $white;
+      // }
+      p {
+        font-size: $medium;
+        line-height: 24px;
+      }
     }
   }
 }

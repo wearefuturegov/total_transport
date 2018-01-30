@@ -41,6 +41,9 @@
     @include span-columns(2);
     @include shift(5)
   }
+  .interest {
+    @include span-columns(6);
+  }
 }
 
 .footer {

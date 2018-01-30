@@ -19,7 +19,7 @@ $stack-2: 'Lato', sans-serif;
 // Font Sizes
 $base-font-size: 18px;
 $body: 18px;
-
+$medium: 16px;
 $small: 14px;
 
 // Line height
@@ -51,7 +51,7 @@ $gradient-2: #cedee8;
 $border-style: solid;
 $border-width: 2px;
 $border-width-thin: 1px;
-$border-width-thick: $baseline*0.5;
+$border-width-thick: $gutter*0.5;
 
 $error: #ff0000;
 $stripe: #6772e5;
