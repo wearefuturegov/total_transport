@@ -28,7 +28,7 @@
     }
   }
   .event {
-    background-size: 100%;
+    @include background-cover;
     background-position-y: center;
     background-position-x: center;
     position: absolute;

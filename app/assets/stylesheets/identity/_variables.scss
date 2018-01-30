@@ -84,3 +84,11 @@ $action-color: $blue;
 // Border
 $base-border-color: $light-gray;
 $base-border: 1px solid $base-border-color;
+
+// Mixin
+@mixin background-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

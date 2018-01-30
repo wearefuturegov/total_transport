@@ -2,24 +2,18 @@
   %h1
     = @page_title
 
-/ %section.hero
-/   %section.section.heading
-/     %section.action.container
-/       %h2
-/         = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-
 %section.hero
-  / .overlay
-  / .event
+  .overlay
+  .event
   %section.section.heading
     %h2
-      Sorry, we don't run to Maldon yet. The closest we go is Burnham-on-Crouch.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     %p
       = t('public-index.event.enquiry.info')
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-  .action
-    = link_to "Find more Ride locations in our app", I18n.t('button.typeform-link'), class: 'button cta'
+  / .action
+  /   = link_to "Find more Ride locations in our app", I18n.t('button.typeform-link'), class: 'button cta secondary'
 
 %main.main
   %section.section
@@ -29,10 +23,11 @@
       = t('public-index.event.enquiry.info')
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-  .divide
+    .action
+      = text_field_tag :from, nil, placeholder: "Promotional code"
+      / = link_to I18n.t('button.typeform'), I18n.t('button.typeform-link'), class: "button cta"
 
-    / .action
-    /   = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+  .divide
 
   %section.section
     %h3
@@ -74,4 +69,4 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
     .action
-      = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+      = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta secondary'
