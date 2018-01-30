@@ -100,11 +100,10 @@ RSpec.describe Admin::JourneysController, type: :controller do
     
     it 'creates a new journey' do
       start_time = DateTime.now + 4.days
-      vehicle = FactoryBot.create(:vehicle)
       post :create, {
         journey: {
           start_time: start_time,
-          vehicle_id: vehicle.id,
+          seats: 4,
           supplier_id: @supplier.id,
           route_id: route.id,
           open_to_bookings: true,
@@ -114,7 +113,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
       expect(Journey.all.count).to eq(1)
       journey = Journey.last
       expect(journey.start_time.to_i).to eq(start_time.to_i)
-      expect(journey.vehicle).to eq(vehicle)
+      expect(journey.seats).to eq(4)
       expect(journey.supplier).to eq(@supplier)
       expect(journey.route).to eq(route)
       expect(journey.open_to_bookings).to eq(true)
@@ -149,15 +148,14 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#update' do
     
     it 'updates a journey' do
-      vehicle = FactoryBot.create(:vehicle, registration: 'ABC 1234')
       put :update, {
         id: journey.id,
         journey: {
-          vehicle_id: vehicle.id,
+          seats: 5,
         }
       }
       journey.reload
-      expect(journey.vehicle.registration).to eq('ABC 1234')
+      expect(journey.seats).to eq(5)
     end
         
   end

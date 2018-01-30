@@ -7,7 +7,6 @@
         <% if !current_team.solo_team? %>
           <p>Driver: <%= @journey.supplier.name %></p>
         <% end %>
-        <p>Vehicle: <%= link_to @journey.vehicle.registration, edit_admin_vehicle_path(@journey.vehicle) %></p>
         <h3>Stops:</h3>
         <p><% @journey.stops.each do |stop| %></p>
           <p>

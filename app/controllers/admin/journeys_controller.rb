@@ -73,7 +73,7 @@ class Admin::JourneysController < AdminController
   private
 
   def journey_params
-    params.require(:journey).permit(:start_time, :vehicle_id, :supplier_id, :route_id, :open_to_bookings, :reversed)
+    params.require(:journey).permit(:start_time, :supplier_id, :route_id, :open_to_bookings, :reversed, :seats)
   end
 
   def find_journey
