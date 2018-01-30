@@ -9,15 +9,17 @@
 /         = t("public-index.title.#{Rails.configuration.x.pickup.council}")
 
 %section.hero
-  .overlay
-  .event
+  / .overlay
+  / .event
   %section.section.heading
     %h2
-      = t('public-index.event.enquiry.title')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Sorry, we don't run to Maldon yet. The closest we go is Burnham-on-Crouch.
     %p
       = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+  .action
+    = link_to "Find more Ride locations in our app", I18n.t('button.typeform-link'), class: 'button cta'
 
 %main.main
   %section.section
