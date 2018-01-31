@@ -24,7 +24,6 @@ class Admin::TimetablesController < AdminController
     params.require(:timetable).permit(
       :route_id,
       :supplier_id,
-      :vehicle_id,
       :from,
       :to,
       :open_to_bookings,
@@ -32,6 +31,7 @@ class Admin::TimetablesController < AdminController
       days: [],
       timetable_times_attributes: [
         :time,
+        :seats,
         stops: []
       ]
     )

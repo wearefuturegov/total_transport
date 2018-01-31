@@ -20,7 +20,7 @@ class TimetableTime < ActiveRecord::Base
 
   def journey_params
     {
-      vehicle: timetable.vehicle,
+      seats: seats,
       supplier: timetable.supplier,
       route: get_route,
       open_to_bookings: timetable.open_to_bookings,
