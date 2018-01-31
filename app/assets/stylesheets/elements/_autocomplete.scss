@@ -12,6 +12,7 @@
 
 .easy-autocomplete {
   position: relative;
+  width: 100% !important; //overwrite script
   input {
     &::placeholder {
       color: $gray;

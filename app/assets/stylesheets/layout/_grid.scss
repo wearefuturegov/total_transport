@@ -12,8 +12,7 @@
     @include span-columns(5);
   }
   section.section {
-    @include span-columns(10);
-    @include shift(1);
+    @include span-columns(12);
   }
 }
 

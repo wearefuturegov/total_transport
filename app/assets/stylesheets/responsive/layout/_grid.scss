@@ -3,13 +3,10 @@
 
 @media only screen and (max-width: 667px) {
 
-  .section {
-    @include outer-container(100%);
-  }
-
   .hero {
     @include span-columns(12);
     margin-right: 0;
+    @include pad(default);
     .book {
       @include span-columns(12);
     }
@@ -39,8 +36,9 @@
       @include span-columns(12);
     }
     section.section {
-      @include span-columns(8);
-      @include shift(2);
+      @include span-columns(12);
+      @include pad(default);
+      @include shift(0);
       margin-right: 0;
     }
     .action {
