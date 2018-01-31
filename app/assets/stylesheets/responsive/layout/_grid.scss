@@ -6,7 +6,9 @@
   .hero {
     @include span-columns(12);
     margin-right: 0;
-    @include pad(default);
+    &.enquiry {
+      @include pad(default);
+    }
     .book {
       @include span-columns(12);
     }
