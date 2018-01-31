@@ -5,12 +5,12 @@ class BookingMailer < ActionMailer::Base
 
   def booking_confirmed(params)
     @booking = Booking.find(params['booking_id'])
-    mail(to: @booking.journey.supplier.team.email, cc: ENV['RIDE_ADMIN_EMAIL'], subject: "A new booking has been confirmed (ref: #{@booking.booking_id})")
+    mail(to: @booking.journey.team.email, cc: ENV['RIDE_ADMIN_EMAIL'], subject: "A new booking has been confirmed (ref: #{@booking.booking_id})")
   end
   
   def booking_cancelled(params)
     @booking = Booking.find(params['booking_id'])
-    mail(to: @booking.journey.supplier.team.email, cc: ENV['RIDE_ADMIN_EMAIL'], subject: 'Booking cancelled')
+    mail(to: @booking.journey.team.email, cc: ENV['RIDE_ADMIN_EMAIL'], subject: 'Booking cancelled')
   end
   
   def user_confirmation(params)

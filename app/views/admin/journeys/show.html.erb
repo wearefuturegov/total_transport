@@ -4,9 +4,6 @@
       <div class="inner">
         <p><%= @journey.route.name %></p>
         <p>Date: <%= @journey.start_time.strftime("%F") %></p>
-        <% if !current_team.solo_team? %>
-          <p>Driver: <%= @journey.supplier.name %></p>
-        <% end %>
         <h3>Stops:</h3>
         <p><% @journey.stops.each do |stop| %></p>
           <p>

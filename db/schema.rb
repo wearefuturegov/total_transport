@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131125316) do
+ActiveRecord::Schema.define(version: 20180131133457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,16 +70,15 @@ ActiveRecord::Schema.define(version: 20180131125316) do
     t.datetime "start_time"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
-    t.integer  "supplier_id"
     t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
     t.boolean  "booked",            default: false
     t.integer  "seats",             default: 0
     t.integer  "timetable_time_id"
+    t.integer  "team_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
-  add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
   add_index "journeys", ["timetable_time_id"], name: "index_journeys_on_timetable_time_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
@@ -254,12 +253,12 @@ ActiveRecord::Schema.define(version: 20180131125316) do
     t.date     "from"
     t.date     "to"
     t.integer  "route_id"
-    t.integer  "supplier_id"
     t.boolean  "reversed",         default: false
     t.boolean  "open_to_bookings", default: true
     t.json     "days",             default: [0, 1, 2, 3, 4, 5, 6]
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
+    t.integer  "team_id"
   end
 
   add_foreign_key "bookings", "journeys"
@@ -268,7 +267,6 @@ ActiveRecord::Schema.define(version: 20180131125316) do
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
-  add_foreign_key "journeys", "suppliers"
   add_foreign_key "landmarks", "stops"
   add_foreign_key "stops", "places"
   add_foreign_key "stops", "routes"

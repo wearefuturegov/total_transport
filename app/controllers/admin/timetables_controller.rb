@@ -29,7 +29,7 @@ class Admin::TimetablesController < AdminController
   def timetable_params
     params.require(:timetable).permit(
       :route_id,
-      :supplier_id,
+      :team_id,
       :from,
       :to,
       :open_to_bookings,

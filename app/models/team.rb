@@ -1,6 +1,6 @@
 class Team < ActiveRecord::Base
   has_many :suppliers
-  has_many :journeys, through: :suppliers
+  has_many :journeys
   
   after_create :set_name
   

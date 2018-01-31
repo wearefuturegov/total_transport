@@ -19,8 +19,7 @@ RSpec.describe BookingMailer, type: :mailer do
   }
   let(:route) { FactoryBot.create(:route, stops: stops) }
   let(:team) { FactoryBot.create(:team, email: 'team@example.com') }
-  let(:supplier) { FactoryBot.create(:supplier, team: team) }
-  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), supplier: supplier) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), team: team) }
   let(:booking) {
     FactoryBot.create(:booking,
       journey: journey,

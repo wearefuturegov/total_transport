@@ -1,6 +1,6 @@
 class Timetable < ActiveRecord::Base
   belongs_to :route
-  belongs_to :supplier
+  belongs_to :team
 
   has_many :timetable_times, dependent: :destroy
   has_many :journeys, through: :timetable_times
