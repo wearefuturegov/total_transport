@@ -4,7 +4,13 @@
 
 <%= form.label :start_time, "Select Date & Time" %>
 <%= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M") %>
-<%= form.hidden_field :team_id, value: current_supplier.team.id %>
+
+<% if current_supplier.admin? %>
+  <%= form.label :team_id, 'Team' %>
+  <%= form.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name'), { selected: current_team.id }, class: 'select' %>
+<% else %>
+  <%= form.hidden_field :team_id, value: current_team.id %>
+<% end %>
 
 <%= form.label :seats, 'Number of available seats' %>
 <%= form.number_field :seats %>
