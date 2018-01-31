@@ -18,6 +18,12 @@ class Admin::TimetablesController < AdminController
     end
   end
   
+  def destroy
+    @timetable = Timetable.find(params[:id])
+    @timetable.destroy
+    redirect_to admin_timetables_path
+  end
+  
   private
   
   def timetable_params

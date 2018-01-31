@@ -124,4 +124,31 @@ RSpec.describe Admin::TimetablesController, type: :controller do
     
   end
   
+  describe '#destroy' do
+      
+    let(:timetable) do
+      FactoryBot.create(:timetable,
+        from: DateTime.now,
+        to: DateTime.now + 3.days,
+        timetable_times: [
+          FactoryBot.create(:timetable_time, time: Time.parse('10:00'), seats: 4),
+          FactoryBot.create(:timetable_time, time: Time.parse('14:00'), seats: 5),
+          FactoryBot.create(:timetable_time, time: Time.parse('17:00'), seats: 6)
+        ]
+      )
+    end
+    
+    it 'deletes the timetable' do
+      delete :destroy, { id: timetable.id }
+      expect(Timetable.count).to eq(0)
+    end
+    
+    it 'deletes all associated records' do
+      delete :destroy, { id: timetable.id }
+      expect(TimetableTime.count).to eq(0)
+      expect(Journey.count).to eq(0)
+    end
+        
+  end
+
 end

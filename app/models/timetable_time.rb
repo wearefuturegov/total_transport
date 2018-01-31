@@ -1,6 +1,6 @@
 class TimetableTime < ActiveRecord::Base
   belongs_to :timetable
-  has_many :journeys
+  has_many :journeys, dependent: :destroy
   
   attr_accessor :stops
   
