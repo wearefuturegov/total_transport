@@ -2,7 +2,7 @@ class Timetable < ActiveRecord::Base
   belongs_to :route
   belongs_to :supplier
 
-  has_many :timetable_times
+  has_many :timetable_times, dependent: :destroy
   has_many :journeys, through: :timetable_times
   
   after_create :create_journeys
