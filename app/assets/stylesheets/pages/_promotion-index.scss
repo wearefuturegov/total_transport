@@ -1,12 +1,6 @@
 /* promotion-index page specific style. Named as the body id "promotion-index" */
 
 #promotion-index {
-  input {
-    text-align: center;
-      &::placeholder:focus {
-      color: $brand;
-    }
-  }
   .hero {
     border: $border-width-thick $border-style $white;
     border-top: none;
