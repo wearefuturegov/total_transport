@@ -21,7 +21,7 @@ class TimetableTime < ActiveRecord::Base
   def journey_params
     {
       seats: seats,
-      supplier: timetable.supplier,
+      team: timetable.team,
       route: get_route,
       open_to_bookings: timetable.open_to_bookings,
       reversed: timetable.reversed

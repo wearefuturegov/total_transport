@@ -5,7 +5,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   
   let(:journey) do
     FactoryBot.create(:journey,
-      supplier: @supplier,
+      team: @supplier.team,
       outward_bookings: FactoryBot.create_list(:booking, 5)
     )
   end
@@ -17,18 +17,12 @@ RSpec.describe Admin::JourneysController, type: :controller do
       
       before do
         FactoryBot.create_list(:journey, 2)
-        FactoryBot.create_list(:journey, 3, supplier: @supplier)
-        FactoryBot.create_list(:journey, 5, supplier: FactoryBot.create(:supplier, team: @supplier.team))
-      end
-      
-      it 'gets all journeys for a supplier' do
-        get :index
-        expect(assigns(:journeys).count).to eq(3)
+        FactoryBot.create_list(:journey, 3, team: @supplier.team)
       end
       
       it 'gets all journeys for a team' do
         get :index, { filter: 'team' }
-        expect(assigns(:journeys).count).to eq(8)
+        expect(assigns(:journeys).count).to eq(3)
       end
       
       context 'as an admin' do
@@ -36,7 +30,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
 
         it 'gets all journeys for an admin' do
           get :index
-          expect(assigns(:journeys).count).to eq(10)
+          expect(assigns(:journeys).count).to eq(5)
         end
       end
       
@@ -44,8 +38,8 @@ RSpec.describe Admin::JourneysController, type: :controller do
 
     context 'filtering' do
       it 'filters by past or future' do
-        FactoryBot.create_list(:journey, 2, start_time: DateTime.now - 4.days, supplier: @supplier)
-        FactoryBot.create_list(:journey, 3, start_time: DateTime.now + 4.days, supplier: @supplier)
+        FactoryBot.create_list(:journey, 2, start_time: DateTime.now - 4.days, team: @supplier.team)
+        FactoryBot.create_list(:journey, 3, start_time: DateTime.now + 4.days, team: @supplier.team)
         get :index, { filterrific: {
             past_or_future: 'future'
           }
@@ -59,9 +53,9 @@ RSpec.describe Admin::JourneysController, type: :controller do
       end
       
       it 'filters by booked and empty' do
-        FactoryBot.create_list(:journey, 2, outward_bookings: FactoryBot.create_list(:booking, 4), supplier: @supplier, booked: true)
-        FactoryBot.create_list(:journey, 5, return_bookings: FactoryBot.create_list(:booking, 2), supplier: @supplier, booked: true)
-        FactoryBot.create_list(:journey, 3, supplier: @supplier, booked: false)
+        FactoryBot.create_list(:journey, 2, outward_bookings: FactoryBot.create_list(:booking, 4), team: @supplier.team, booked: true)
+        FactoryBot.create_list(:journey, 5, return_bookings: FactoryBot.create_list(:booking, 2), team: @supplier.team, booked: true)
+        FactoryBot.create_list(:journey, 3, team: @supplier.team, booked: false)
         get :index, { filterrific: {
             booked_or_empty: 'booked'
           }
@@ -90,7 +84,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
       expect(assigns(:route)).to eq(route)
       journey = assigns(:journey)
       expect(journey.route).to eq(route)
-      expect(journey.supplier).to eq(@supplier)
+      expect(journey.team).to eq(@supplier.team)
       expect(journey.reversed).to eq(false)
     end
 
@@ -104,7 +98,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
         journey: {
           start_time: start_time,
           seats: 4,
-          supplier_id: @supplier.id,
+          team_id: @supplier.team.id,
           route_id: route.id,
           open_to_bookings: true,
           reversed: true
@@ -114,7 +108,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
       journey = Journey.last
       expect(journey.start_time.to_i).to eq(start_time.to_i)
       expect(journey.seats).to eq(4)
-      expect(journey.supplier).to eq(@supplier)
+      expect(journey.team).to eq(@supplier.team)
       expect(journey.route).to eq(route)
       expect(journey.open_to_bookings).to eq(true)
       expect(journey.reversed).to eq(true)
@@ -163,7 +157,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#destroy' do
     
     it 'destroys a journey' do
-      journey = FactoryBot.create(:journey, supplier: @supplier)
+      journey = FactoryBot.create(:journey, team: @supplier.team)
       expect {
         delete :destroy, { id: journey.id }
       }.to change(Journey, :count).by(-1)

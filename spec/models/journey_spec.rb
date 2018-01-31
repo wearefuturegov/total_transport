@@ -138,13 +138,13 @@ RSpec.describe Journey, type: :model do
   
   context '#duplicate' do
     
-    let(:supplier) { FactoryBot.create(:supplier) }
+    let(:team) { FactoryBot.create(:team) }
     let(:route) { FactoryBot.create(:route) }
     let(:journey) {
       FactoryBot.create(:journey,
         start_time: '2016-01-01T09:00:00Z',
         seats: 5,
-        supplier: supplier,
+        team: team,
         open_to_bookings: true,
         reversed: false,
         route: route
@@ -157,7 +157,7 @@ RSpec.describe Journey, type: :model do
       (Date.parse('2016-01-02')..Date.parse('2016-01-10')).each_with_index do |d,i|
         j = Journey.all.to_a[i + 1]
         expect(j.seats).to eq(5)
-        expect(j.supplier).to eq(supplier)
+        expect(j.team).to eq(team)
         expect(j.route).to eq(route)
         expect(j.start_time.to_date).to eq(d)
         expect(j.start_time.hour).to eq(9)

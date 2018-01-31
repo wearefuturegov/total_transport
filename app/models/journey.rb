@@ -6,8 +6,8 @@ class Journey < ActiveRecord::Base
   has_many :outward_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'journey_id'
   has_many :return_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'return_journey_id'
   has_many :bookings, dependent: :destroy, class_name: 'Booking'
-  belongs_to :supplier
-  validates_presence_of :supplier, :start_time, :route
+  belongs_to :team
+  validates_presence_of :team, :start_time, :route
   
   attr_accessor :pickup_stop, :dropoff_stop
 
@@ -77,7 +77,7 @@ class Journey < ActiveRecord::Base
   end
 
   def editable_by_supplier?(supplier)
-    supplier.team == self.supplier.team
+    supplier.team == self.team
   end
 
   def is_booked?

@@ -4,7 +4,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
   login_supplier(true)
   
   let(:route) { FactoryBot.create(:route, stops_count: 5) }
-  let(:supplier) { FactoryBot.create(:supplier) }
+  let(:team) { FactoryBot.create(:team) }
 
   describe '#create' do
     
@@ -13,7 +13,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
         timetable: {
           from: DateTime.now,
           to: DateTime.now + 3.days,
-          supplier_id: supplier.id,
+          team_id: team.id,
           route_id: route.id,
           open_to_bookings: false,
           reversed: true,
@@ -63,7 +63,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           timetable: {
             from: Date.parse('2016-01-03'),
             to: Date.parse('2016-01-10'),
-            supplier_id: supplier.id,
+            team_id: team.id,
             route_id: route.id,
             open_to_bookings: false,
             reversed: true,
@@ -95,7 +95,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           timetable: {
             from: Date.parse('2016-01-03'),
             to: Date.parse('2016-01-10'),
-            supplier_id: supplier.id,
+            team_id: team.id,
             route_id: route.id,
             open_to_bookings: false,
             reversed: true,

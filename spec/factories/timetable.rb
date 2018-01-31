@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory(:timetable) do
-    supplier { FactoryBot.create(:supplier) }
+    team { FactoryBot.create(:team) }
     route { FactoryBot.create(:route) }
   end
 end

@@ -4,13 +4,7 @@
 
 <%= form.label :start_time, "Select Date & Time" %>
 <%= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M") %>
-
-<% if current_team.solo_team? %>
-  <%= form.hidden_field :supplier_id, value: current_supplier.id %>
-<% else %>
-  <%= form.label :supplier_id, "Select Driver" %>
-  <%= form.select :supplier_id, current_supplier.team.suppliers.collect {|u| [u.name, u.id]} %>
-<% end %>
+<%= form.hidden_field :team_id, value: current_supplier.team.id %>
 
 <%= form.label :seats, 'Number of available seats' %>
 <%= form.number_field :seats %>
