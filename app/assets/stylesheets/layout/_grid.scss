@@ -8,11 +8,8 @@
 .hero {
   @include span-columns(12);
   margin-right: 0;
-  .features {
-    @include span-columns(12);
-    .icon {
-      @include span-columns(4);
-    }
+  .book {
+    @include span-columns(5);
   }
   section.section {
     @include span-columns(10);
@@ -22,6 +19,12 @@
 
 .main {
   @include span-columns(12);
+  .features {
+    @include span-columns(12);
+    .icon {
+      @include span-columns(4);
+    }
+  }
   .journey .single {
     @include span-columns(4);
     @include shift(0);

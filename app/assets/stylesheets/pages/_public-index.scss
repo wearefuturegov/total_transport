@@ -1,9 +1,187 @@
 /* public-index page specific style. Named as the body id "public-index" */
 
 #public-index {
+  float: left;
+  background-color: $white;
+  .logo {
+    background: image-url('logo.svg');
+    background-size: 100% 100%;
+    display: block;
+    width: $logo-width;
+    height: $logo-height;
+    z-index: 1000;
+    h1 {
+      font-weight: 900;
+      text-transform: uppercase;
+      text-indent: -9999px;
+      font-style: italic;
+      position: fixed;
+      color: $brand;
+      margin: 0;
+      width: inherit;
+      height: $logo-height;
+    }
+    span {
+      font-size: 14px;
+      line-height: 14px;
+      text-transform: uppercase;
+      font-style: italic;
+      float: left;
+      margin-top: 21px;
+      margin-left: $logo-width + $baseline*0.125;
+    }
+  }
+  h3 {
+    $h3: 30px;
+    font-size: $h3;
+    font-weight: 900;
+    line-height: calc(#{$h3} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+  }
+  .header {
+    background: none;
+    position: absolute;
+    line-height: $logo-height;
+  }
+  .hero {
+    float: none;
+    display: inline-block;
+    background: none;
+    position: relative;
+    .event {
+      background-image: image-url('christmas.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -100;
+      + .section {
+        position: relative;
+        z-index: 750;
+      }
+    }
+    &.enquiry {
+      margin-top: $logo-height * 2;
+      .overlay {
+        background-color: rgba(3, 23, 29, 0.5);
+      }
+      .event {
+        background-image: image-url('enquiry.jpg');
+        background-position-y: center;
+        background-position-x: center;
+      }
+      .section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*0.5;
+      }
+    }
+    .book {
+      float: left;
+      background: $white;
+      padding: $baseline;
+      position: relative;
+      left: $gutter;
+      h4 {
+        $h4: 35px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
+      }
+      label {
+        font-size: $small;
+        margin-bottom: 0;
+      }
+      input {
+        padding: $baseline*0.25;
+        margin-bottom: $baseline*0.25;
+      }
+      input,
+      select,
+      textarea {
+        @include non-rounded;
+        display: block;
+        font-size: $small;
+        font-weight: 400;
+        line-height: $baseline;
+      }
+      .error-block {
+        display: block;
+        font-size: $small;
+        margin: $baseline*0.5 0;
+        &.hidden {
+          display: none;
+        }
+        &.hidden + .book-button {
+          display: inline-block;
+        }
+        & + .book-button {
+          display: none;
+        }
+      }
+      .button {
+        padding-left: $baseline*0.5;
+        padding-right: $baseline*0.5;
+        margin-top: $baseline*0.5;
+        width: auto;
+      }
+    }
+  }
   .main {
+    background: $white;
+    .heading {
+      margin-top: 0;
+      margin-bottom: 0;
+      h4 {
+        $h4: 40px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        text-align: center;
+        margin-top: $baseline*3;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
+    }
     .hero {
       border: none;
+      float: none;
+      display: inline-block;
+      position: relative;
+      text-align: center;
+      section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*2;
+      }
+      .event {
+        position: absolute;
+        z-index: 0;
+      }
+      h3 {
+        $h4: 45px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
+      }
+      h3, p {
+        color: $white;
+      }
+      .overlay {
+        background-color: rgba(72, 61, 21, 0.47);
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 500;
+      }
       &.regular {
         margin-top: $baseline*2;
         .overlay {
@@ -25,13 +203,8 @@
       }
     }
   }
-  .info p {
-    $h2: 28px; // no to variables here, but in this case I think yes.
-    font-size: $h2;
-    font-weight: 400;
-    line-height: calc(#{$h2} * 1.2);
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: calc(#{$baseline*2} - #{$h2} * 1.2);
+  .icon img {
+    width: $baseline*6;
+    height: auto;
   }
 }

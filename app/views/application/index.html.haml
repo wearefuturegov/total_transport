@@ -1,25 +1,33 @@
 %section.logo
   %h1
     = @page_title
-%section.hero
-  %section.section.heading
-    %section.action.container
-      %h2
-        = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-    %section.features
-      .icon
-        =image_tag('icons/piggy.svg')
-        %p
-          = t('steps.step_1.info')
-      .icon
-        =image_tag('icons/driving.svg')
-        %p
-          = t('steps.step_2.info')
-      .icon
-        =image_tag('icons/mobile.svg')
-        %p
-          = t('steps.step_3.info')
-%main.main        
+
+%section.hero.enquiry
+  .event
+  %section.section
+    = render 'book'
+
+%main.main
+
+  / %section.section
+  /   %section.heading
+  /     %h4
+  /       = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+
+  %section.section.features
+    .icon
+      =image_tag('icons/piggy.svg')
+      %p
+        = t('steps.step_1.info')
+    .icon
+      =image_tag('icons/driving.svg')
+      %p
+        = t('steps.step_2.info')
+    .icon
+      =image_tag('icons/mobile.svg')
+      %p
+        = t('steps.step_3.info')
+      
   %section.hero.regular#step-1
     .overlay
     .event
@@ -43,7 +51,6 @@
 
       %section.action
         = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
-
 
   %section.section
     %h3
