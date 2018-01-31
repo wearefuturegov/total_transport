@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131104116) do
+ActiveRecord::Schema.define(version: 20180131110342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20180131104116) do
   add_index "bookings", ["pickup_landmark_id"], name: "index_bookings_on_pickup_landmark_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
   add_index "bookings", ["promo_code_id"], name: "index_bookings_on_promo_code_id", using: :btree
+  add_index "bookings", ["return_journey_id"], name: "index_bookings_on_return_journey_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -67,19 +68,18 @@ ActiveRecord::Schema.define(version: 20180131104116) do
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
     t.datetime "start_time"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "supplier_id"
     t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
-    t.boolean  "booked",           default: false
-    t.integer  "seats",            default: 0
+    t.boolean  "booked",            default: false
+    t.integer  "seats",             default: 0
     t.integer  "timetable_time_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
   add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
-  add_index "journeys", ["timetable_id"], name: "index_journeys_on_timetable_id", using: :btree
   add_index "journeys", ["timetable_time_id"], name: "index_journeys_on_timetable_time_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
@@ -245,6 +245,7 @@ ActiveRecord::Schema.define(version: 20180131104116) do
     t.time    "time"
     t.integer "timetable_id"
     t.integer "route_id"
+    t.integer "seats",        default: 0
   end
 
   add_index "timetable_times", ["route_id"], name: "index_timetable_times_on_route_id", using: :btree

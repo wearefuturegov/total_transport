@@ -13,9 +13,9 @@ RSpec.describe Timetable, type: :model do
         from: DateTime.now,
         to: DateTime.now + 3.days,
         timetable_times: [
-          FactoryBot.create(:timetable_time, time: Time.parse('10:00')),
-          FactoryBot.create(:timetable_time, time: Time.parse('14:00')),
-          FactoryBot.create(:timetable_time, time: Time.parse('17:00'))
+          FactoryBot.create(:timetable_time, time: Time.parse('10:00'), seats: 4),
+          FactoryBot.create(:timetable_time, time: Time.parse('14:00'), seats: 5),
+          FactoryBot.create(:timetable_time, time: Time.parse('17:00'), seats: 6)
         ]
       )
     end
@@ -35,6 +35,12 @@ RSpec.describe Timetable, type: :model do
           expect(j.start_time.strftime('%H:%M')).to eq(t.time.strftime('%H:%M'))
         end
       end
+    end
+    
+    it 'adds seats to journeys' do
+      expect(timetable.timetable_times[0].journeys.pluck(:seats).uniq).to eq([4])
+      expect(timetable.timetable_times[1].journeys.pluck(:seats).uniq).to eq([5])
+      expect(timetable.timetable_times[2].journeys.pluck(:seats).uniq).to eq([6])
     end
     
     context 'with days' do

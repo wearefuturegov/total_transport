@@ -1,6 +1,5 @@
 class Timetable < ActiveRecord::Base
   belongs_to :route
-  belongs_to :vehicle
   belongs_to :supplier
 
   has_many :timetable_times

@@ -4,7 +4,6 @@ RSpec.describe Admin::TimetablesController, type: :controller do
   login_supplier(true)
   
   let(:route) { FactoryBot.create(:route, stops_count: 5) }
-  let(:vehicle) { FactoryBot.create(:vehicle) }
   let(:supplier) { FactoryBot.create(:supplier) }
 
   describe '#create' do
@@ -14,7 +13,6 @@ RSpec.describe Admin::TimetablesController, type: :controller do
         timetable: {
           from: DateTime.now,
           to: DateTime.now + 3.days,
-          vehicle_id: vehicle.id,
           supplier_id: supplier.id,
           route_id: route.id,
           open_to_bookings: false,
@@ -22,10 +20,12 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           days: ['0', '1', '2', '3', '4', '5', '6'],
           timetable_times_attributes: [
             {
-              time: '10:00'
+              time: '10:00',
+              seats: 5
             },
             {
-              time: '14:00'
+              time: '14:00',
+              seats: 7
             }
           ]
         }
@@ -63,7 +63,6 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           timetable: {
             from: Date.parse('2016-01-03'),
             to: Date.parse('2016-01-10'),
-            vehicle_id: vehicle.id,
             supplier_id: supplier.id,
             route_id: route.id,
             open_to_bookings: false,
@@ -71,10 +70,12 @@ RSpec.describe Admin::TimetablesController, type: :controller do
             days: ['1', '2', '3', '4', '5'],
             timetable_times_attributes: [
               {
-                time: '10:00'
+                time: '10:00',
+                seats: 5
               },
               {
-                time: '14:00'
+                time: '14:00',
+                seats: 7
               }
             ]
           }
@@ -94,7 +95,6 @@ RSpec.describe Admin::TimetablesController, type: :controller do
           timetable: {
             from: Date.parse('2016-01-03'),
             to: Date.parse('2016-01-10'),
-            vehicle_id: vehicle.id,
             supplier_id: supplier.id,
             route_id: route.id,
             open_to_bookings: false,
@@ -103,6 +103,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
             timetable_times_attributes: [
               {
                 time: '10:00',
+                seats: 10,
                 stops: [
                   route.stops[2],
                   route.stops[3],
