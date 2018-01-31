@@ -1,9 +1,13 @@
 = form_for [:admin, timetable] do |form|
   
-  = form.hidden_field :team_id, value: current_team.id
-
   = form.label :route
   = form.select :route_id, options_from_collection_for_select(@routes, :id, :name, timetable.route_id), { include_blank: 'Please select a route' }, class: 'select'
+  
+  - if current_supplier.admin?
+    = form.label :team_id, 'Team'
+    = form.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name'), { selected: current_team.id }, class: 'select'
+  - else
+    = form.hidden_field :team_id, value: current_team.id
   
   = form.label :from, 'Timetable Start Date'
   = form.date_select :from, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
