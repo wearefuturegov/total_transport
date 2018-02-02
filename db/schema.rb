@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131133457) do
+ActiveRecord::Schema.define(version: 20180202100731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180131133457) do
     t.string   "token"
     t.string   "cancellation_reason"
     t.string   "charge_id"
+    t.boolean  "survey_sent"
   end
 
   add_index "bookings", ["dropoff_landmark_id"], name: "index_bookings_on_dropoff_landmark_id", using: :btree
