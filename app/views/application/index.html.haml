@@ -3,17 +3,12 @@
     = @page_title
 
 %section.hero.enquiry
+  .overlay
   .event
   %section.section
     = render 'book'
 
 %main.main
-
-  / %section.section
-  /   %section.heading
-  /     %h4
-  /       = t("public-index.title.#{Rails.configuration.x.pickup.council}")
-
   %section.section.features
     .icon
       =image_tag('icons/piggy.svg')

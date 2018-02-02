@@ -45,10 +45,33 @@
     line-height: $logo-height;
   }
   .hero {
-    float: none;
+    float: left;
     display: inline-block;
     background: none;
     position: relative;
+    .easy-autocomplete-container {
+      ul {
+        background: $brand;
+        li {
+          color: $white;
+          font-size: $small;
+          font-weight: 500;
+          margin-bottom: 0;
+          .eac-item {
+            padding: $baseline*0.25; // padding here otherwise two show hover state
+          }
+          &:hover {
+            background: $black;
+            cursor: pointer;
+          }
+        }
+        &:not(:empty) {
+        }
+        .selected {
+          background: $black;
+        }
+      }
+    }
     .event {
       background-image: image-url('christmas.jpg');
       background-size: cover;
@@ -65,9 +88,11 @@
       }
     }
     &.enquiry {
-      margin-top: $logo-height * 2;
+      padding-top: $logo-height * 4;
       .overlay {
         background-color: rgba(3, 23, 29, 0.5);
+        background-color: rgba(0, 35, 80, 0.5);
+        background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
       }
       .event {
         background-image: image-url('enquiry.jpg');
@@ -85,14 +110,14 @@
       padding: $gutter;
       position: relative;
       left: $gutter;
-      h4 {
-        $h4: 35px;
-        font-size: $h4;
+      h2 {
+        $h2: 35px;
+        font-size: $h2;
         font-weight: 900;
-        line-height: calc(#{$h4} * 1.2);
+        line-height: calc(#{$h2} * 1.2);
         text-align: left;
         margin-top: 0;
-        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
       }
       label {
         font-size: $small;
