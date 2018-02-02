@@ -257,19 +257,6 @@ hr
   margin: 20px 5px
   border-bottom: 1px solid rgba(221, 221, 221, 0.3)
 
-.alerts
-  padding: 10px
-  background-color: $red
-  color: #fff
-  display: none
-  .inner
-    padding: 5px 10px
-    max-width: $large-screen
-  p
-    margin-bottom: 0
-  section
-    margin: 0 auto
-
 #grid
   +outer-container
   div
@@ -291,61 +278,9 @@ hr
 
 .white-input
   background-color: $white
+  
 
-
-.tabs-container
-  margin: 0 auto
-  text-align: center
-  display: inline-flex
-  .tab
-    display: inline-block
-    padding: 7px 15px
-    border: 2px solid $blue
-    margin: 0
-    cursor: pointer
-    position: relative
-    z-index: 1
-    color: rgba($black, 0.5)
-  .tab.selected
-    background-color: $blue
-    color: #fff
-    cursor: default
-    -webkit-box-shadow: none
-    -moz-box-shadow: none
-    box-shadow: none
-    // background-color: rgba($orange, 0.3)
-    // border: 2px solid $orange
-    z-index: 2
-  .tab:first-child
-    margin-right: -1px
-  .tab:last-child
-    margin-left: -1px
-.three-tabs
-  .tab:nth-child(2)
-    margin-left: -1px
-  .tab:last-child
-    margin-left: -2px
-
-.tabs-container.full-width-tabs
-  width: 100%
-  max-width: 375px
-  .tab
-    width: 50%
-
-.pagination
-  text-align: center
-  margin-bottom: 2em
-  font-family: $stack-1
-  .page
-    float: none
-  .next
-    float: right
-  .prev
-    float: left
-  .last, .first
-    display: none
-
-.wierdMarginFix
+.weirdMarginFix
   margin-bottom: -1px
 
 .fill-height

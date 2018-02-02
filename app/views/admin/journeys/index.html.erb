@@ -19,13 +19,13 @@
         </h4>
       </div>
     <% end %>
-    <div class="actions inline float-right mobile-center">
+    <div class="action primary">
       <%= link_to new_admin_journey_path do %>
-        <div class="small-button button">Add a journey</div>
+        <div class="button">Add a journey</div>
       <% end %>
     </div>
 
-    <div id="admin-journey-filters" class="container mt05 mb2<%= " inline" if current_team.solo_team? %>">
+    <div id="admin-journey-filters" class="tabs">
 
       <div id="booked_or_empty" class="tabs-container three-tabs">
         <div class="tab radius border-left-radius<%= " selected" if @filterrific.booked_or_empty == nil %>" data-tabid="">
@@ -75,36 +75,28 @@
 
     <% if @journeys.exists? %>
       <% @journeys.each do |journey| %>
-        <%= link_to admin_journey_path(journey), class: "jrny-single" do %>
-          <div class="card<%= " past-journey" if journey.start_time.past? %><%= journey.team == current_team ? " my-journey" : " team-journey" %>" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
-            <div class="col-10 mobile-twoThird">
-              <div class="inner">
-                <p><%= friendly_date journey.start_time %> <%= journey.start_time.strftime("%H:%M") %></p>
-                <p><%= journey.route.name %></p>
-                <% if journey.team != current_team %>
-                  <p><strong>Team:</strong> <%= journey.team.name %></p>
-                <% end %>
-              </div>
-            </div>
-            <div class="bookings col-2 omega mobile-third">
-              <h4 class="mt1"><span class="number"><%= journey.all_bookings.count %></span><br>
-              <%= "booking".pluralize(journey.all_bookings.count) %></h4>
-            </div>
+        <%= link_to admin_journey_path(journey), class: "card" do %>
+          <div class="<%= " past-journey" if journey.start_time.past? %><%= journey.team == current_team ? " my-journey" : " team-journey" %>" id="jrny_<%= journey.id %>" data-booked="<% if journey.is_booked? %>true<% else %>false<% end %>">
+              <ul>
+                <li><%= friendly_date journey.start_time %> <%= journey.start_time.strftime("%H:%M") %></li>
+                <li><%= journey.route.name %></li>
+                <li><span class="number"><%= journey.all_bookings.count %></span><%= "booking".pluralize(journey.all_bookings.count) %></li>
+              </ul>
           </div>
         <% end %>
       <% end %>
     <% else %>
-      <div class="card no-click">
-        <div class="inner">
+      <div class="card">
+        <section class="section">
           <p>There are no journeys to be found here either try another filter, or <%= link_to "add a new journey", new_admin_journey_path %> now to get started.</p>
-        </div>
+        </section>
       </div>
     <% end %>
 
     <%= paginate @journeys %>
 
 
-    <div class="actions">
+    <div class="action primary">
       <%= link_to new_admin_journey_path do %>
         <div class="button">Add a journey</div>
       <% end %>

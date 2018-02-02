@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20180131133457) do
   add_index "bookings", ["pickup_landmark_id"], name: "index_bookings_on_pickup_landmark_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
   add_index "bookings", ["promo_code_id"], name: "index_bookings_on_promo_code_id", using: :btree
-  add_index "bookings", ["return_journey_id"], name: "index_bookings_on_return_journey_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -73,8 +72,8 @@ ActiveRecord::Schema.define(version: 20180131133457) do
     t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
     t.boolean  "booked",            default: false
-    t.integer  "seats",             default: 0
     t.integer  "timetable_time_id"
+    t.integer  "seats",             default: 0
     t.integer  "team_id"
   end
 

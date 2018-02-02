@@ -1,0 +1,35 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Ride
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+  %body{:class => "#{controller.controller_name}", :id => "#{@body_id}"}
+    - if alert.present? || notice.present?
+      #alerts.alerts
+        %p.notice= notice
+        %p.alert= alert
+    #suppliers-cont
+      %header.header
+        - if @back_path
+          = link_to @back_path do
+            %section Back
+        = link_to admin_root_path do
+          - if current_supplier
+            = current_supplier.name
+          - else
+            Supplier
+          \- Pickup Admin
+      %section.supplier
+        = yield
+        #supplier-suggestion.suggestion.center.grey
+          %p
+            See something wrong, or have an idea for improvement?
+            %br/
+            = link_to new_admin_supplier_suggestion_path(from_url: request.path) do
+              Make a suggestion
+  = yield(:js)
+  %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry,places"}

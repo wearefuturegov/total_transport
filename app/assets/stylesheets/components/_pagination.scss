@@ -1,0 +1,26 @@
+/* pagination */
+
+.pagination {
+  float: left;
+  width: 100%;
+}
+
+/* old code below to check */
+
+.pagination {
+  text-align: center;
+  margin-bottom: 2em;
+  font-family: $stack-1;
+  .page {
+    float: none;
+  }
+  .next {
+    float: right;
+  }
+  .prev {
+    float: left;
+  }
+  .last, .first {
+    display: none;
+  }
+}

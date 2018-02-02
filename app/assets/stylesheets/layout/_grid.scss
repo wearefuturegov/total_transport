@@ -1,5 +1,9 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
+#suppliers-cont {
+  @include span-columns(12);
+}
+
 .section {
   // @include pad(0 default);
   @include outer-container(75%);
@@ -14,6 +18,10 @@
       @include span-columns(4);
     }
   }
+}
+
+header.header {
+  @include span-columns(12);
 }
 
 .main {

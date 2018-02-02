@@ -1,0 +1,19 @@
+.alerts {
+  padding: $baseline*0.5 $gutter;
+  background-color: $error;
+  color: $white;
+  display: none;
+  .inner {
+    padding: $baseline $gutter;
+    max-width: $large-screen;
+  }
+  p {
+    margin-bottom: 0;
+    &.alert {
+      color: $white;
+    }
+  }
+  section {
+    margin: 0 auto;
+  }
+}
