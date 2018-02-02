@@ -340,7 +340,3 @@ en:
       body: |
         Your Ride booking on %{pickup_date} at %{pickup_time} from %{pickup_name}
         has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
-    post_survey:
-      body: |
-        We hope you enjoyed your Ride. To help us improve the service, please
-        share your feedback: %{url}

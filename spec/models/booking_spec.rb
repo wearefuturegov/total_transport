@@ -29,7 +29,7 @@ RSpec.describe Booking, :que, type: :model do
   
   describe 'confirm!' do
     it 'sends a text message to the passenger' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       job = QueJob.find_by(job_class: 'SendSMS')
       expect(job.args[0]['to']).to eq(booking.phone_number)
     end
@@ -57,24 +57,33 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'queues text messages' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
-      post_survey = jobs.find { |j| j.args[0]['template'] == 'post_survey'}
       expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
       expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
-      expect(post_survey.run_at).to eq(booking.outward_trip.dropoff_time + 30.minutes)
+    end
+    
+    it 'queues a survey' do
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      job = QueJob.find_by(job_class: 'TriggerSurvey')
+      expect(job.run_at).to eq(booking.outward_trip.dropoff_time + 30.minutes)
     end
     
     it 'queues a text message for the return journey' do
       booking.return_journey = FactoryBot.create(:journey)
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(5)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
       jobs = QueJob.where(job_class: 'SendSMS')
       alert = jobs.select { |j| j.args[0]['template'] == 'second_alert'}.last
-      post_survey = jobs.find { |j| j.args[0]['template'] == 'post_survey'}
       expect(alert.run_at).to eq(booking.return_trip.pickup_time - 1.hours)
-      expect(post_survey.run_at).to eq(booking.return_trip.dropoff_time + 30.minutes)
+    end
+    
+    it 'queues a survey for the return journey' do
+      booking.return_journey = FactoryBot.create(:journey)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      job = QueJob.find_by(job_class: 'TriggerSurvey')
+      expect(job.run_at).to eq(booking.return_trip.dropoff_time + 30.minutes)
     end
     
     it 'sets the journey to booked' do
