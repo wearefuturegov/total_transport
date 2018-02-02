@@ -1,5 +1,6 @@
 class TimetableTime < ActiveRecord::Base
   belongs_to :timetable
+  belongs_to :route
   has_many :journeys, dependent: :destroy
   
   attr_accessor :stops
@@ -31,12 +32,16 @@ class TimetableTime < ActiveRecord::Base
   def get_route
     if timetable.route.stops.count == stops.count
       timetable.route
+    elsif route.nil?
+      setup_route
     else
-      if route.nil?
-        route = Route.copy!(timetable.route.id, Stop.find(stops))
-        save
-      end
-      route
+      self.route
     end
+  end
+  
+  def setup_route
+    route = Route.copy!(timetable.route.id, Stop.find(stops))
+    save
+    route
   end
 end
