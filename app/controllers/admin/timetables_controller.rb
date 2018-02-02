@@ -44,7 +44,7 @@ class Admin::TimetablesController < AdminController
   end
   
   def get_routes
-    @routes = Route.all
+    @routes = Route.where(route_id: nil)
   end
 
 end
