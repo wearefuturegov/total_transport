@@ -1,0 +1,128 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://lookups.twilio.com/v1/PhoneNumbers/+15005550006?CountryCode=GB
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - twilio-ruby/5.6.2 (ruby/x86_64-darwin16 2.3.4-p301)
+      Accept-Charset:
+      - utf-8
+      Accept:
+      - application/json
+      Authorization:
+      - Basic QUNkN2RlZGNmZjgxZDdhZGE2M2U3NzUxY2I1OTRiZTM2NjpkZGNmYjE1N2UyOTNhYmE3NmNjYzcxYTRkN2I3ODM1MA==
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 02 Feb 2018 16:13:34 GMT
+      Strict-Transport-Security:
+      - max-age=15768000
+      Twilio-Concurrent-Requests:
+      - '1'
+      Twilio-Request-Duration:
+      - '0.013'
+      Twilio-Request-Id:
+      - RQ91732d88b24346418d413e172441b883
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '212'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"caller_name": null, "country_code": "US", "phone_number": "+15005550006",
+        "national_format": "(500) 555-0006", "carrier": null, "add_ons": null, "url":
+        "https://lookups.twilio.com/v1/PhoneNumbers/+15005550006"}'
+    http_version: 
+  recorded_at: Fri, 02 Feb 2018 16:13:34 GMT
+- request:
+    method: post
+    uri: https://studio.twilio.com/v1/Flows/FW07543d887f6f68c5ed75e2b3fa33aa74/Engagements
+    body:
+      encoding: UTF-8
+      string: From=%2B441473760072&Parameters=%7B%22booking_url%22%3A%22http%3A%2F%2Fexample.org%2Fbookings%2F2%22%7D&To=%2B15005550006
+    headers:
+      User-Agent:
+      - twilio-ruby/5.6.2 (ruby/x86_64-darwin16 2.3.4-p301)
+      Accept-Charset:
+      - utf-8
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept:
+      - application/json
+      Authorization:
+      - Basic QUNkN2RlZGNmZjgxZDdhZGE2M2U3NzUxY2I1OTRiZTM2NjpkZGNmYjE1N2UyOTNhYmE3NmNjYzcxYTRkN2I3ODM1MA==
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 02 Feb 2018 16:13:34 GMT
+      Strict-Transport-Security:
+      - max-age=15768000
+      Twilio-Concurrent-Requests:
+      - '1'
+      Twilio-Request-Duration:
+      - '0.258'
+      Twilio-Request-Id:
+      - RQ2e378a453145475096df5c7e78360813
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '616'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"status": "active", "date_updated": null, "contact_channel_address":
+        "+15005550006", "account_sid": "ACd7dedcff81d7ada63e7751cb594be366", "url":
+        "https://studio.twilio.com/v1/Flows/FW07543d887f6f68c5ed75e2b3fa33aa74/Engagements/FN8f886ec058272b32618c8f2efdd65533",
+        "context": null, "sid": "FN8f886ec058272b32618c8f2efdd65533", "date_created":
+        "2018-02-02T16:13:34Z", "contact_sid": "FC83c26d8251ded846686ec08e261f34eb",
+        "flow_sid": "FW07543d887f6f68c5ed75e2b3fa33aa74", "links": {"steps": "https://studio.twilio.com/v1/Flows/FW07543d887f6f68c5ed75e2b3fa33aa74/Engagements/FN8f886ec058272b32618c8f2efdd65533/Steps"}}'
+    http_version: 
+  recorded_at: Fri, 02 Feb 2018 16:13:34 GMT
+recorded_with: VCR 4.0.0
