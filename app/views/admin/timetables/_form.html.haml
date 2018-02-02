@@ -53,7 +53,8 @@
     
     $('#times').on('cocoon:after-insert', function(e, added_time) {
       var id = added_time.html().match(/timetable_timetable_times_attributes_(\d+)/)[1]
+      var reversed = $('#timetable_reversed').val()
       added_time.attr('id', 'time-' + id)
-      $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id)
+      $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id + '&reversed=' + reversed)
     })
     
