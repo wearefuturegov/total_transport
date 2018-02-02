@@ -22,13 +22,13 @@ class Passenger < ActiveRecord::Base
 
   def self.formatted_phone_number(phone_number)
     if phone_number.present?
-      @client = Twilio::REST::LookupsClient.new
-      response = @client.phone_numbers.get(phone_number, country_code: 'GB')
+      @client = Twilio::REST::Client.new
+      response = @client.lookups.phone_numbers(phone_number.delete(' ')).fetch(country_code: 'GB')
       response.phone_number
     else
       false
     end
-  rescue Twilio::REST::RequestError => e
+  rescue Twilio::REST::TwilioError, Twilio::REST::RestError => e
     false
   end
 
