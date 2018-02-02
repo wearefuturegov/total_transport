@@ -18,7 +18,7 @@ class SmsService
   end
   
   def perform
-    @client.messages.create(
+    @client.api.account.messages.create(
       from: TWILIO_PHONE_NUMBER,
       to: @to,
       body: message
