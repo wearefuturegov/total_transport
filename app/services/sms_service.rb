@@ -19,7 +19,7 @@ class SmsService
   
   def perform
     @client.api.account.messages.create(
-      from: TWILIO_PHONE_NUMBER,
+      from: ENV['TWILIO_PHONE_NUMBER'],
       to: @to,
       body: message
     )
