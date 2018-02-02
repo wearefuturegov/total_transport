@@ -90,8 +90,4 @@ class SmsService
       ).squish
     end
   
-    def post_survey
-      I18n.t('sms.post_survey.body', url: ENV['POST_SURVEY_LINK']).squish
-    end
-  
 end
