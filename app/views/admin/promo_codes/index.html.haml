@@ -1,0 +1,31 @@
+%section.section
+  .card
+    %table
+      %tr
+        = @promo_codes.count == 0 ? 'header hidden' : 'header'
+        /* Is this heder always meant to be hidden? */
+      %th Code
+      %th Price Deduction
+      %th Used?
+      %th
+    - @promo_codes.each do |promo_code|
+      %tr
+        %td= promo_code.code
+        %td= number_to_currency promo_code.price_deduction, unit: '£'
+        %td
+          - if promo_code.used?
+            = promo_code.booking.passenger.phone_number
+            %br/
+            = promo_code.booking.id
+            \: #{promo_code.booking.created_at.to_s}
+          - else
+            no
+        %td
+          - if promo_code.available?
+            = button_to delete, admin_promo_code_path(promo_code), method: :delete
+    %h3 New promo code
+    = form_for [:admin, @promo_code] do |form|
+      = form.label :price_deduction
+      = form.number_field :price_deduction, value: 3
+      .action.primary
+        = form.submit
