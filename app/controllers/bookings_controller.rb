@@ -1,5 +1,6 @@
 class BookingsController < PublicController
   before_filter :find_booking, except: [:new, :create, :cancelled, :price, :passengers]
+  skip_before_action :verify_authenticity_token, only: :send_missed_feedback
   include ApplicationHelper
   
   def new
@@ -83,6 +84,12 @@ class BookingsController < PublicController
   
   def cancelled
   end
+  
+  def send_missed_feedback
+    render(nothing: true, status: 401) and return unless params[:booking][:token] == @booking.token
+    @booking.update_attributes(booking_params.permit(:missed, :missed_feedback))
+    render nothing: true, status: 200
+  end
 
   private
 
@@ -107,7 +114,9 @@ class BookingsController < PublicController
       :single_journey,
       :verification_code,
       :cancellation_reason,
-      :state
+      :state,
+      :missed,
+      :missed_feedback
     )
   end
 
