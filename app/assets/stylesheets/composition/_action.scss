@@ -23,4 +23,14 @@
       width: auto;
     }
   }
+  &.secondary {
+    text-align: left;
+    .button {
+      width: auto;
+    }
+    &:hover .button {
+      background: $black;
+      color: $white;
+    }
+  }
 }

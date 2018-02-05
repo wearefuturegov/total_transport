@@ -28,19 +28,15 @@
       = check_box_tag "#{form.object_name}[days][]", i, timetable.days.map(&:to_s).include?(i.to_s)
       = day
   
-  #time-wrapper{ class: timetable.timetable_times.count.zero? ? 'hidden' : '' }
-    %h2
-      Times
-    
+  #time-wrapper{ class: timetable.timetable_times.count.zero? ? 'hidden' : '' }    
     #times{ 'data-route-id': timetable.route&.id }
       = form.fields_for :timetable_times do |time|
         = render 'timetable_time_fields', f: time
-      .links
-        = link_to_add_association 'add time', form, :timetable_times, { class: 'button' }
+      .action.secondary
+        = link_to_add_association 'add time', form, :timetable_times, { class: 'button secondary' }
   
-  %hr
-  
-  = form.submit 'Submit', class: 'button border-bottom-radius'
+  .action.primary
+    = form.submit 'Submit', class: 'button border-bottom-radius'
   
 - content_for :js do
   
