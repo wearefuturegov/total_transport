@@ -1,6 +1,8 @@
 class Admin::PricingRulesController < AdminController
   
-  def index ; end
+  def index
+    @pricing_rules = PricingRule.all
+  end
   
   def new
     @pricing_rule = PricingRule.new
