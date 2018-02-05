@@ -10,7 +10,8 @@ class TriggerSurvey < Que::Job
         to: Passenger.formatted_phone_number(booking.phone_number),
         from: ENV['TWILIO_PHONE_NUMBER'],
         parameters: {
-          booking_url: booking_url(booking)
+          booking_url: booking_url(booking),
+          token: booking.token
         }.to_json
       )
       booking.survey_sent = true
