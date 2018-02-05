@@ -1,0 +1,47 @@
+%section.section
+  .sup_route_journeys
+    .card
+      - @routes.each do |route|
+        = render partial: 'admin/routes/route', locals: { route: route }
+    .action.primary
+      = button_to 'Create new Route', @new_route_path, method: :post, class: 'button'
+
+- content_for :js do
+  :javascript
+    $(function() {
+      $('.sup_route_journeys').each(function() {
+        if (parseInt($(this).find('.numOfJourn').html()) == 0) {
+          $(this).find('.addTxt').html('Add');
+        } else {
+          $(this).find('.addTxt').html('Edit/Add');
+        }
+      });
+    });
+
+    $('.route_preview').each(function(i,m) {
+      var $map = $(m);
+      var geometry = $map.data('geometry');
+      
+      if (typeof(geometry) == 'object') {
+        
+        $map.uniqueId();
+        
+        var geoJSON = L.geoJSON({
+          "type": "LineString",
+          "coordinates": geometry
+        });
+        
+        var id = $map.attr('id');
+        var map = L.map(id);
+        
+        L.tileLayer('https://api.mapbox.com/styles/v1/wearefuturegov/cj8pp146j9uyv2rojanc93qtf/tiles/256/{z}/{x}/{y}?access_token={accessToken}', {
+          maxZoom: 18,
+          id: 'mapbox.streets',
+          accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
+        }).addTo(map);
+        
+        geoJSON.addTo(map);
+        map.fitBounds(geoJSON.getBounds());
+        
+      }
+    });

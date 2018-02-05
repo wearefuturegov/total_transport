@@ -1,0 +1,18 @@
+%section.section
+  .card
+    = form_for [:admin, @supplier] do |form|
+      = form.label :email
+      = form.text_field :email
+      = form.label :phone_number
+      = form.text_field :phone_number
+      = form.label :name
+      = form.text_field :name
+      = form.label :admin
+      = form.check_box :admin
+      = form.label :approved
+      = form.check_box :approved
+
+      .action.primary.secondary
+        = form_for [:admin, @supplier], method: :delete do |form|
+          = form.submit "Delete supplier", class: "text"
+        = form.submit "Update", :class => "button"
