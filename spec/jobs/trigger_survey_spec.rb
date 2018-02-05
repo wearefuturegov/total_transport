@@ -25,5 +25,11 @@ RSpec.describe TriggerSurvey, :vcr, :webmock do
       client.studio.v1.flows(ENV['TWILIO_FLOW_ID']).engagements.list.count
     }.by(0)
   end
+  
+  it 'deletes itself if the booking does not exist' do
+    booking.delete
+    expect_any_instance_of(TriggerSurvey).to receive(:destroy)
+    TriggerSurvey.run(booking: booking.id)
+  end
 
 end
