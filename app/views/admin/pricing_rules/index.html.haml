@@ -1,0 +1,15 @@
+.container
+  .inner
+    %h2
+      Pricing Rules
+      
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th
+          %th
+      %tbody
+        = render partial: 'pricing_rule', collection: @pricing_rules
+    
+    = link_to 'Create new rule', new_admin_pricing_rule_path, { class: 'button' }

@@ -61,4 +61,15 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     
   end
   
+  describe 'GET index' do
+    
+    let(:pricing_rules) { FactoryBot.create_list(:pricing_rule, 5) }
+    
+    it 'gets all rules' do
+      get :index
+      expect(assigns(:pricing_rules)).to match_array(pricing_rules)
+    end
+    
+  end
+  
 end
