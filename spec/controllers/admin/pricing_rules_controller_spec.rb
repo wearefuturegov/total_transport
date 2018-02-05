@@ -19,7 +19,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
         pricing_rule: {
           name: 'Something',
           rule_type: :per_mile,
-          per_mile: 0.35,
+          per_mile: 35,
           child_multiplier: 0.75,
           return_multiplier: 2,
           allow_concessions: false
@@ -30,7 +30,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
       rule = PricingRule.first
       expect(rule.name).to eq('Something')
       expect(rule.rule_type).to eq('per_mile')
-      expect(rule.per_mile).to eq(0.35)
+      expect(rule.per_mile).to eq(35)
       expect(rule.child_multiplier).to eq(0.75)
       expect(rule.return_multiplier).to eq(2.0)
       expect(rule.allow_concessions).to eq(false)

@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20180205131119) do
   create_table "pricing_rules", force: :cascade do |t|
     t.string   "name"
     t.integer  "rule_type"
-    t.float    "per_mile",          default: 0.0
+    t.integer  "per_mile",          default: 0
     t.jsonb    "stages",            default: {},   null: false
     t.float    "child_multiplier",  default: 0.5
     t.float    "return_multiplier", default: 1.5
