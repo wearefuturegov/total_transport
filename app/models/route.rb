@@ -5,6 +5,7 @@ class Route < ActiveRecord::Base
   has_many :places, through: :stops
   has_many :sub_routes, class_name: 'Route'
   belongs_to :route
+  belongs_to :pricing_rule
   
   after_initialize :set_rule
   after_save :queue_geometry
