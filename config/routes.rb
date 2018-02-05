@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     root 'journeys#index'
     #resource :team, only: [:show]
     resources :teams
+    resources :pricing_rules
     get :account, to: 'teams#show'
     resources :journeys do
       collection do
