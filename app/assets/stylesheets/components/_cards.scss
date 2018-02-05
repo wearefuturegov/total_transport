@@ -6,7 +6,7 @@
   line-height: $baseline;
   float: left;
   border: $border-style $border-width-thin $gray;
-  padding: $baseline*0.5 $gutter*0.5;
+  padding: $baseline $gutter;
   width: 100%;
   ul {
     margin-bottom: $baseline;

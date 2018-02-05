@@ -1,0 +1,15 @@
+.card
+  %span.sup_route_name
+    %i.fa.fa-bus
+    = route.name
+  %select.waypoints{:id => "select_#{route.id}", :multiple => "multiple", :style => "display:none;"}
+    - route.stops.each do |stop|
+      %option{:selected => "selected", :value => "#{stop.place.latitude}, #{stop.place.longitude}"}= stop.name
+  .route_preview{"data-geometry" => "#{route.flipped_geometery}"}
+  %hr/
+  %span.sup_route_journeys
+    %span.numOfJourn= route.journeys.count
+    Current Journeys
+  .action.primary
+    = link_to admin_route_path(route), class: "button" do
+      Edit Route

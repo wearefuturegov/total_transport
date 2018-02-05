@@ -39,6 +39,10 @@ header.header {
   }
 }
 
+.action {
+  @include span-columns(12);
+}
+
 .footer {
   @include span-columns(12);
 }

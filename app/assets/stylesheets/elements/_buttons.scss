@@ -84,6 +84,16 @@ button {
       border-color: $stripe;
     }
   }
+  &.text {
+    padding: 0;
+    text-decoration: underline;
+    text-transform: initial;
+    text-align: left;
+    background: none;
+    color: $brand;
+    line-height: $baseline;
+    border: none;
+  }
 }
 
 // previous buttons below here

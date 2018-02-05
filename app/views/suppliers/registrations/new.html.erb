@@ -34,14 +34,6 @@
             <%= f.text_field :phone_number %>
           </div>
 
-          <div class="field full photo-edit">
-            <%= f.label :photo, "Profile Photo" %>
-            <%= f.file_field :photo, :class => 'inputfile' %>
-            <%= f.label :photo, :class => 'inputfile-label button' do %>
-              <i class="fa fa-upload"></i> <span>Choose a File...</span>
-            <% end %>
-          </div>
-
           <div class="field full">
             <%= f.label :team_id %>
             <%= f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}  %>

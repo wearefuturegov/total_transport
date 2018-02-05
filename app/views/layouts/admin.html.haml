@@ -21,11 +21,14 @@
           - if current_supplier
             = current_supplier.name
           - else
-            Supplier
+            %section Supplier
           \- Pickup Admin
+        - if current_supplier
+          = link_to admin_account_path do
+            %section Account
       %section.supplier
         = yield
-        #supplier-suggestion.suggestion.center.grey
+        %section.section#supplier-suggestion
           %p
             See something wrong, or have an idea for improvement?
             %br/

@@ -1,20 +1,18 @@
-<div class="container">
-  <div class="inner">
-    <div class="sup_route_journeys">
-      <div class="card">
-        <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
-      </div>
-      
-      <% @routes.each do |route| %>
-         <%= render partial: 'admin/routes/route', locals: { route: route } %>
-      <% end %>
-      
-      <div class="card">
-        <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
-      </div>
+<section class="section">
+  <div class="sup_route_journeys">
+    <div class="action primary">
+      <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
+    </div>
+    
+    <% @routes.each do |route| %>
+       <%= render partial: 'admin/routes/route', locals: { route: route } %>
+    <% end %>
+    
+    <div class="action primary">
+      <%= button_to 'Create new Route', @new_route_path, method: :post, class: 'subBtn' %>
     </div>
   </div>
-</div>
+</section>
 
 <% content_for :js do %>
 <script type="text/javascript">
