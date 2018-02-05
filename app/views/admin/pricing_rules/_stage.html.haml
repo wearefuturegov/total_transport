@@ -1,0 +1,14 @@
+.stage
+  .wrapper
+    = label :rule, :from, 'Start Mileage'
+    = number_field :rule, :from, class: 'rule_from'
+
+    = label :rule, :to, 'End Mileage'
+    = number_field :rule, :to, class: 'rule_to'
+
+    = label :rule, :price, 'Price'
+    = number_field :rule, :price, class: 'price'
+    
+    = link_to 'Remove Stage', '#', class: 'remove'
+
+    %hr/
