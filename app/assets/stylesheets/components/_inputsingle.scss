@@ -1,0 +1,24 @@
+.input-single {
+  label {
+    font-weight: 800;
+  }
+  input {
+    float: left;
+    width: auto;
+    min-width: 70%;
+    border-color: $gray;
+    border-right: none;
+    &::placeholder {
+      color: $gray;
+      font-size: $small;
+      font-weight: 400;
+    }
+  }
+  .button {
+    float: left;
+    padding: 0 $baseline*0.5;
+    border-width: $border-width*0.5;
+    width: auto;
+    min-width: 30%;
+  }
+}

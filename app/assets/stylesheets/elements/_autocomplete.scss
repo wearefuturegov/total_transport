@@ -1,17 +1,6 @@
-// .easy-autocomplete-container
-//   ul
-//     background: $blue
-//     border-radius: 3px
-//     li
-//       margin-bottom: 0
-//       padding: 0.75em
-//       color: white
-//     &:not(:empty)
-//       margin-top: -0.5em
-//       margin-bottom: 1em
-
 .easy-autocomplete {
   position: relative;
+  width: 100% !important; //overwrite script
   input {
     &::placeholder {
       color: $gray;

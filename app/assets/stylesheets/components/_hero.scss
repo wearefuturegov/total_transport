@@ -1,0 +1,40 @@
+/* hero */
+
+.hero {
+  float: none;
+  display: inline-block;
+  background: none;
+  position: relative;
+  .heading {
+    margin-top: $baseline*6;
+    margin-bottom: $baseline*2;
+    .action {
+      margin-top: 0;
+      h2 {
+        $h2: 50px;
+        font-size: $h2;
+        font-weight: 900;
+        line-height: calc(#{$h2} * 1.2);
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h2} * 1.2);
+      }
+    }
+    .icon {
+      img {
+        width: 200px;
+        height: auto;
+      }
+    }
+  }
+  .event {
+    @include background-cover;
+    background-position-y: center;
+    background-position-x: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -200;
+  }
+}

@@ -6,9 +6,13 @@
 }
 
 .action {
-  margin-top: $baseline*4;
+  text-align: center;
+  margin-top: $baseline*2;
   margin-bottom: $baseline*2;
-  .button.cta + .button.cta{
-    margin-left: $baseline;
+  .button.cta {
+    min-width: $baseline*10;
+    & + .button.cta{
+      margin-left: $baseline;
+    }
   }
 }

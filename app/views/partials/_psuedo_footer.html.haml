@@ -1,0 +1,16 @@
+%footer.psuedo-footer
+  %section.section
+    %ul.social
+      %li
+        = link_to I18n.t('social.twitter.text'), t('social.twitter.link')
+      %li
+        = link_to I18n.t('social.facebook.text'), t('social.facebook.link')
+    %ul.credit
+      %li
+        = t('credit.title')
+        %span
+          = link_to I18n.t('credit.essex.text'), t('credit.essex.link')
+        %span
+          = link_to I18n.t('credit.suffolk.text'), t('credit.suffolk.link')
+        %span
+          = link_to I18n.t('credit.futuregov.text'), t('credit.futuregov.link')

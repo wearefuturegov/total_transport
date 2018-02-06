@@ -1,21 +1,26 @@
 @media only screen and (max-width: 667px) {
 
   #public-index {
-    .hero.enquiry {
-      .event {
-        background-position-x: 100%;
+    .hero {
+      &.enquiry {
+        .event {
+          background-position-x: 100%;
+        }
+        .section {
+          margin-top: $baseline;
+        }
+        .book h2 {
+          $h2: 40px;
+          font-size: $h2;
+          font-weight: 900;
+          line-height: calc(#{$h2} * 1.2);
+          text-align: left;
+          margin-top: 0;
+          margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
+        }
       }
-      .section {
-        margin-top: $baseline;
-      }
-      .book h4 {
-        $h4: 40px;
-        font-size: $h4;
-        font-weight: 900;
-        line-height: calc(#{$h4} * 1.2);
-        text-align: left;
-        margin-top: 0;
-        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
+      .book {
+        left: 0;
       }
     }
     #demo {

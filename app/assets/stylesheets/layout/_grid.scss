@@ -1,8 +1,7 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
 .section {
-  // @include pad(0 default);
-  @include outer-container(95%);
+  @include outer-container(100%);
 }
 
 .hero {
@@ -10,6 +9,10 @@
   margin-right: 0;
   .book {
     @include span-columns(5);
+  }
+  .section.heading {
+    @include span-columns(10);
+    @include shift(1);
   }
 }
 
@@ -31,6 +34,21 @@
     &:nth-child(3n) {
       margin-right: 0;
     }
+  }
+  section.section {
+    @include span-columns(8);
+    @include shift(2);
+  }
+  .divide {
+    @include span-columns(2);
+    @include shift(5);
+  }
+  .interest {
+    @include span-columns(6);
+  }
+  .action {
+    @include span-columns(4 of 8);
+    @include shift(2);
   }
 }
 
