@@ -16,22 +16,19 @@
       %header.header
         %nav.admin-nav
           %ul
-            - if @back_path
-              %li
-                = link_to @back_path do
-                  Back
+            / - if @back_path
+            /   %li
+            /     = link_to @back_path do
+            /       Back
             - if current_supplier
               %li
                 = link_to admin_root_path do
-                  = current_supplier.name
-            - else
-              %li
-                = link_to admin_root_path do
-                  Admin
+                  Journeys
             - if current_supplier
               %li
                 = link_to admin_account_path do
-                  Account
+                  = current_supplier.name
+                  profile 
           - if current_supplier.admin?
             %ul
               %li
