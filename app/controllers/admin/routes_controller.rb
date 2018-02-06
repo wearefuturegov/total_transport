@@ -1,6 +1,7 @@
 class Admin::RoutesController < AdminController
   before_filter :check_permissions
   before_filter :get_route, only: [:show, :update, :sort, :destroy]
+  before_filter :get_pricing_rules, only: [:show]
   
   def index
     @routes = Route.all
@@ -49,7 +50,11 @@ class Admin::RoutesController < AdminController
   end
   
   def route_params
-    params.require(:route).permit(:name)
+    params.require(:route).permit(:name, :pricing_rule_id)
+  end
+  
+  def get_pricing_rules
+    @pricing_rules = PricingRule.all
   end
   
 end
