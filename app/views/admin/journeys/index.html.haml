@@ -33,7 +33,7 @@
           = submit_tag "Update filter", name: nil
     - if @journeys.exists?
       - @journeys.each do |journey|
-        = link_to admin_journey_path(journey), class: "card" do
+        = link_to admin_journey_path(journey), class: "card journey" do
           %div{:class => "#{" past-journey" if journey.start_time.past?}#{journey.team == current_team ? " my-journey" : " team-journey"}", "data-booked" => "if journey.is_booked? true else false", :id => "jrny_#{journey.id}"}
             %ul
               %li
@@ -44,7 +44,7 @@
                 %span.number= journey.all_bookings.count
                 = "booking".pluralize(journey.all_bookings.count)
     - else
-      .card
+      .card.journey
         %p
           There are no journeys to be found here either try another filter, or #{link_to "add a new journey", new_admin_journey_path} now to get started.
     = paginate @journeys

@@ -14,25 +14,46 @@
         %p.alert= alert
     #suppliers-cont
       %header.header
-        - if @back_path
-          = link_to @back_path do
-            %section Back
-        = link_to admin_root_path do
-          - if current_supplier
-            = current_supplier.name
-          - else
-            %section Supplier
-          \- Pickup Admin
-        - if current_supplier
-          = link_to admin_account_path do
-            %section Account
-      %section.supplier
-        = yield
-        %section.section#supplier-suggestion
-          %p
-            See something wrong, or have an idea for improvement?
-            %br/
-            = link_to new_admin_supplier_suggestion_path(from_url: request.path) do
-              Make a suggestion
+        %nav.admin-nav
+          %ul
+            - if @back_path
+              %li
+                = link_to @back_path do
+                  Back
+            - if current_supplier
+              %li
+                = link_to admin_root_path do
+                  = current_supplier.name
+            - else
+              %li
+                = link_to admin_root_path do
+                  Admin
+            - if current_supplier
+              %li
+                = link_to admin_account_path do
+                  Account
+          - if current_supplier.admin?
+            %ul
+              %li
+                #{link_to "View Bookings", admin_bookings_path}
+              %li
+                #{link_to "Manage Core Routes", admin_routes_path}
+              %li
+                #{link_to "Manage Suppliers", admin_suppliers_path}
+              %li
+                #{link_to "Manage Teams", admin_teams_path}
+              %li
+                #{link_to "View Suggestions", admin_suggestions_path}
+              %li
+                #{link_to "Manage Promo Codes", admin_promo_codes_path}
+              %li
+                #{link_to "Create a timetable", new_admin_timetable_path}
+      = yield
+      %footer.footer
+        %p
+          See something wrong, or have an idea for improvement?
+        %p
+          = link_to new_admin_supplier_suggestion_path(from_url: request.path) do
+            Make a suggestion
   = yield(:js)
   %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry,places"}

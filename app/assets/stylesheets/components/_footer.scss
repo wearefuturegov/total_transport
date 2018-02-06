@@ -4,6 +4,13 @@ footer.psuedo-footer {
   background: $black;
 }
 
-#supplier-suggestion {
-  text-align: center;
+#suppliers-cont {
+  footer.footer {
+    text-align: center;
+    border-top: $border-style $border-width-thin $gray;
+  }
+}
+
+footer.footer {
+  padding: $baseline $gutter;
 }

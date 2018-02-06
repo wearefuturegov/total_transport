@@ -5,14 +5,16 @@
   text-decoration: none;
   line-height: $baseline;
   float: left;
-  border: $border-style $border-width-thin $gray;
-  padding: $baseline $gutter;
+  padding: 0 $gutter;
   width: 100%;
   ul {
     margin-bottom: $baseline;
     li {
       margin-bottom: 0;
     }
+  }
+  &.journey {
+    border: $border-style $border-width-thin $gray;
   }
 }
 a.card {
@@ -37,4 +39,8 @@ a.card {
 .tabs + .card {
   margin-top: -1px;
   z-index: -100;
+}
+
+.tabs > .card {
+  border-color: red;
 }

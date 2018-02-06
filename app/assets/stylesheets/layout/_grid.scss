@@ -1,6 +1,8 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
-#suppliers-cont {
+#suppliers-cont,
+#supplier-suggestion,
+.admin-nav {
   @include span-columns(12);
 }
 
@@ -15,7 +17,8 @@
   }
 }
 
-header.header {
+header.header,
+section.section {
   @include span-columns(12);
 }
 
