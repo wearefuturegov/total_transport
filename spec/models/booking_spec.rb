@@ -576,12 +576,12 @@ RSpec.describe Booking, :que, type: :model do
   describe 'pricing' do
     
     {
-      0..5 => [2,4,1,2],
-      6..10 => [4,8,2,4],
-      11..15 => [6,12,3,6],
-      16..20 => [8,16,4,8],
-      21..25 => [10,20,5,10],
-      26..50 => [12,24,6,12]
+      0..5 => [2,3,1,1.5],
+      6..10 => [4,6,2,3],
+      11..15 => [6,9,3,4.5],
+      16..20 => [8,12,4,6],
+      21..25 => [10,15,5,7.5],
+      26..50 => [12,18,6,9]
     }.each do |range,fares|
       
       context "Between between #{range.first} and #{range.last} miles" do
@@ -629,14 +629,18 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'with pricing rules' do
-      booking.route.pricing_rule = {
-        child_single_price: 0,
-        child_return_price: 0
-      }
-      booking.child_tickets = 1
+      allow(booking).to receive(:price_distance).and_return(4)
+      booking.route.pricing_rule = FactoryBot.create(:pricing_rule,
+        return_multiplier: 2,
+        child_multiplier: 0.25,
+        rule_type: :per_mile,
+        per_mile: 50
+      )
       
-      expect(booking.price).to eq(0)
-      expect(booking.return_price).to eq(0)
+      expect(booking.adult_single_price).to eq(2)
+      expect(booking.adult_return_price).to eq(4)
+      expect(booking.child_single_price).to eq(0.5)
+      expect(booking.child_return_price).to eq(1)
     end
     
   end
