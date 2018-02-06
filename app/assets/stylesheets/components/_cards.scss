@@ -26,8 +26,6 @@ a.card {
   }
   &:hover {
     @include ease;
-    border-left: $border-width $border-style $black;
-    margin-left: -$gutter*0.25;
     width: calc(100%);
     z-index: 1000;
   }

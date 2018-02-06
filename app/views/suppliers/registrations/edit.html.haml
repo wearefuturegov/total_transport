@@ -1,0 +1,35 @@
+%section.section
+  .card
+    %h2
+      Profile edit
+    %h3
+      = current_supplier.name
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .field
+        = f.label :name
+        = f.text_field :name
+      .field
+        = f.label :email
+        = f.email_field :email, autofocus: true
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
+      .field
+        = f.label :phone_number
+        = f.text_field :phone_number
+      .cont
+        = f.label :password
+        .small (leave blank if you don't want to change it)
+        = f.password_field :password, autocomplete: "off"
+        = f.label :password_confirmation
+        - if @minimum_password_length
+          .small
+            = @minimum_password_length
+            characters minimum
+        = f.password_field :password_confirmation, autocomplete: "off"
+      .field
+        = f.label :current_password
+        .small (we need your current password to confirm your changes)
+        = f.password_field :current_password, autocomplete: "off"
+      .action.primary
+        = f.submit "Update"

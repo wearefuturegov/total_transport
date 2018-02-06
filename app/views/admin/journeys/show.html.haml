@@ -1,0 +1,31 @@
+%section.section
+  .card
+    %p= @journey.route.name
+    %p
+      Date: #{@journey.start_time.strftime("%F")}
+    %h3 Stops:
+    %p
+      - @journey.stops.each do |stop|
+    %p
+      = stop.name
+      \:
+      \#{@journey.time_at_stop(stop).strftime("%H:%M")}
+    - if @journey.editable_by_supplier?(current_supplier)
+      = link_to edit_admin_journey_path(@journey) do
+        .button.border-bottom-radius Edit
+  - if @journey.is_booked?
+    %h4 Bookings:
+    - @journey.all_bookings.each do |booking|
+      .card
+        = link_to admin_journey_booking_path(@journey, booking) do
+          = pluralize booking.number_of_passengers, "Passenger"
+          \- #{booking.pickup_stop.name} to #{booking.dropoff_stop.name}: #{grab_phone_number booking.phone_number, booking}
+    %hr/
+    %p= link_to 'Download runsheet', admin_journey_path(@journey, format: :csv), class: 'button'
+    %hr/
+    %h4 Send SMS message to
+    = form_tag send_message_admin_journey_path(@journey) do
+      = select_tag :to,                                                                                          |
+        options_for_select([["All Passengers", "all"]] + @journey.bookings.collect {|x| [x.phone_number, x.id]}) |
+      = text_field_tag :notification_message
+      = submit_tag "Send message"

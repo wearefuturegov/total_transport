@@ -1,0 +1,32 @@
+.surrounding_journeys
+= form.label :start_time, "Select Date & Time"
+= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M")
+- if current_supplier.admin?
+  = form.label :team_id, 'Team'
+  = form.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name'), { selected: current_team.id }, class: 'select'
+- else
+  = form.hidden_field :team_id, value: current_team.id
+= form.label :seats, 'Number of available seats'
+= form.number_field :seats
+= form.label :open_to_bookings, "Open to Bookings?"
+= form.check_box :open_to_bookings
+- content_for :js do
+  :javascript
+    $('#journey_start_time').datetimepicker({
+      format:'d/m/Y H:i'
+    });
+
+    $(function() {
+      $('#journey_start_time').change(function() {
+        $.get(
+          '#{surrounding_journeys_admin_journeys_path}',
+          {
+            datetime: $('#journey_start_time').val(),
+            route_id: $('input[name=\'journey[route_id]\']:checked').val()
+          },
+          function(html) {
+            $('.surrounding_journeys').html(html);
+          }
+        )
+      })
+    })

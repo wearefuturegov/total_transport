@@ -4,11 +4,6 @@
   @include span-columns(12);
 }
 
-.section {
-  // @include pad(0 default);
-  @include outer-container(75%);
-}
-
 .hero {
   @include span-columns(12);
   margin-right: 0;

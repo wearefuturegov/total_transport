@@ -1,0 +1,38 @@
+%section.section
+  - if Route.exists?
+    - Route.bookable_routes.each do |route|
+      .card
+        %h2 Select a Route
+        %p.highlight= route.name
+        %p Via
+        %ul
+          - route.stops.each_with_index do |stop|
+            %li= stop.name
+          %li= link_to "create forwards journey", new_admin_journey_path(route_id: route.id, reversed: false)
+        %ul
+          - route.stops.reverse.each_with_index do |stop|
+            %li= stop.name
+          %li= link_to "create backwards journey", new_admin_journey_path(route_id: route.id, reversed: true)
+        %select.waypoints{:id => "select_#{route.id}", :multiple => "multiple", :style => "display:none;"}
+          - route.stops.each do |stop|
+            %option{:selected => "selected", :value => "#{stop.place.latitude}, #{stop.place.longitude}"}= stop.name
+        .route_preview{:id => "map_#{route.id}"}
+  - else
+    %p There are currently no routes, please check back again later for more routes to be added.
+- content_for :js do
+  :javascript
+    function initMap() {
+      $('.route_preview').each(function(i, m) {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(m, {
+          scrollwheel:  false,
+          disableDefaultUI: true,
+          scaleControl: true,
+          draggable: false
+        });
+        directionsDisplay.setMap(map);
+
+        calculateRouteMultiStop(directionsService, directionsDisplay, $(this));
+      });
+    }

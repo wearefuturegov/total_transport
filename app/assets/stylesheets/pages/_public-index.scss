@@ -3,6 +3,9 @@
 #public-index {
   float: left;
   background-color: $white;
+  section.section {
+    @include outer-container(75%);
+  }
   .logo {
     background: image-url('logo.svg');
     background-size: 100% 100%;
