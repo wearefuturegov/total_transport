@@ -37,32 +37,23 @@ button {
   }
 }
 
-// remove the .cta from .button when the buttons sass file is sorted out.
 #{$all-buttons}, .button {
   @include ease;
   position: relative;
   font-family: $stack-2;
   text-align: center;
+  text-decoration: none;
   font-size: $body;
   font-weight: 700;
   line-height: $baseline*2;
   background: $brand;
-  border-color: $brand;
+  border: $border-width $border-style $brand;
   color: $white;
   display: inline-block;
   padding: 0 $baseline;
   width: auto;
-  &.cta {
-    color: $white;
-    background: $brand;
-    border: $border-width*2 $border-style $brand;
-    &:hover {
-      background: $black;
-      border-color: $black;
-    }
-  }
   &.secondary {
-    color: $brand;
+    color: $black;
     background: $white;
     border-color: $black;
     &:hover {
@@ -97,6 +88,33 @@ button {
       background: none;
       color: $black;
       cursor: pointer;
+    }
+  }
+  &.cancel {
+    border-color: $brand;
+    color: $brand;
+  }
+  &.small {
+    font-size: $small;
+    line-height: $baseline*1.5;
+  }
+}
+
+.button.single {
+  padding: $baseline*0.5 $baseline;
+  margin-bottom: $border-width;
+  span {
+    &.date, &.day {
+      float: left;
+      width: 100%;
+      text-transform: uppercase;
+    }
+    &.date {
+      font-size: $small;
+      line-height: $small;
+    }
+    &.day {
+      line-height: $baseline;
     }
   }
 }

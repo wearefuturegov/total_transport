@@ -1,0 +1,57 @@
+/* promotion-index page specific style. Named as the body id "promotion-index" */
+
+#promotion-index {
+  .hero {
+    border: $border-width-thick $border-style $white;
+    border-top: none;
+    .overlay {
+      background-color: rgba(0, 35, 80, 0.5);
+      background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
+    }
+    .event {
+      background-image: image-url('enquiry.jpg');
+      & + .section {
+        h1, h2, p {
+          color: $white;
+        }
+      }
+    }
+    h1, h2, p {
+      color: $black;
+    }
+    .heading {
+      position: relative;
+      z-index: 500;
+    }
+  }
+  .main {
+    .divide {
+      border-top: $border-width $border-style $brand;
+      margin-top: $baseline*0.5;
+      margin-bottom: $baseline*0.5;
+    }
+    .interest {
+      background: $gray-lighter;
+      margin: 0;
+      width: 50%;
+      border: $border-width-thick $border-style $white;
+      border-right-width: $border-width-thick*0.5;
+      border-bottom: none;
+      @include pad($gutter);
+      & + .interest {
+        border-left-width: $border-width-thick*0.5;
+        border-right-width: $border-width-thick;
+      }
+      .section {
+        text-align: center;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+      }
+      p {
+        font-size: $medium;
+        line-height: 24px;
+      }
+    }
+  }
+}

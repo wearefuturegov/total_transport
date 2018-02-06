@@ -1,11 +1,8 @@
-/* public_index page specific style. Named as the body id "public-index" */
+/* public-index page specific style. Named as the body id "public-index" */
 
 #public-index {
   float: left;
   background-color: $white;
-  section.section {
-    @include outer-container(75%);
-  }
   .logo {
     background: image-url('logo.svg');
     background-size: 100% 100%;
@@ -45,23 +42,158 @@
   .header {
     background: none;
     position: absolute;
+    line-height: $logo-height;
+  }
+  .hero {
+    float: left;
+    display: inline-block;
+    background: none;
+    position: relative;
+    .easy-autocomplete-container {
+      ul {
+        background: $brand;
+        li {
+          color: $white;
+          font-size: $small;
+          font-weight: 500;
+          margin-bottom: 0;
+          .eac-item {
+            padding: $baseline*0.25; // padding here otherwise two show hover state
+          }
+          &:hover {
+            background: $black;
+            cursor: pointer;
+          }
+        }
+        &:not(:empty) {
+        }
+        .selected {
+          background: $black;
+        }
+      }
+    }
+    .event {
+      background-image: image-url('christmas.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -100;
+      + .section {
+        position: relative;
+        z-index: 750;
+      }
+    }
+    &.enquiry {
+      padding-top: $logo-height * 4;
+      .overlay {
+        background-color: rgba(3, 23, 29, 0.5);
+        background-color: rgba(0, 35, 80, 0.5);
+        background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
+      }
+      .event {
+        background-image: image-url('enquiry.jpg');
+        background-position-y: center;
+        background-position-x: center;
+      }
+      .section {
+        margin-top: $baseline*2;
+        margin-bottom: $baseline*0.5;
+      }
+    }
+    .book {
+      float: left;
+      background: $white;
+      padding: $gutter;
+      position: relative;
+      left: $gutter;
+      h2 {
+        $h2: 35px;
+        font-size: $h2;
+        font-weight: 900;
+        line-height: calc(#{$h2} * 1.2);
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
+      }
+      label {
+        font-size: $small;
+        margin-bottom: 0;
+      }
+      input {
+        padding: $baseline*0.25;
+        margin-bottom: $baseline*0.25;
+      }
+      input,
+      select,
+      textarea {
+        @include non-rounded;
+        display: block;
+        font-size: $small;
+        font-weight: 400;
+        line-height: $baseline;
+      }
+      .error-block {
+        display: block;
+        font-size: $small;
+        margin: $baseline*0.5 0;
+        &.hidden {
+          display: none;
+        }
+        &.hidden + .book-button {
+          display: inline-block;
+        }
+        & + .book-button {
+          display: none;
+        }
+      }
+      .button {
+        padding-left: $baseline*0.5;
+        padding-right: $baseline*0.5;
+        margin-top: $baseline*0.5;
+        width: auto;
+      }
+    }
   }
   .main {
+    background: $white;
+    .heading {
+      margin-top: 0;
+      margin-bottom: 0;
+      h4 {
+        $h4: 40px;
+        font-size: $h4;
+        font-weight: 900;
+        line-height: calc(#{$h4} * 1.2);
+        text-align: center;
+        margin-top: $baseline*3;
+        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+      }
+    }
     .hero {
+      border: none;
       float: none;
       display: inline-block;
       position: relative;
+      text-align: center;
       section {
         margin-top: $baseline*2;
         margin-bottom: $baseline*2;
       }
+      .event {
+        position: absolute;
+        z-index: 0;
+      }
       h3 {
-        $h4: 50px;
+        $h4: 45px;
         font-size: $h4;
         font-weight: 900;
         line-height: calc(#{$h4} * 1.2);
         margin-top: 0;
-        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h4} * 1.2);
       }
       h3, p {
         color: $white;
@@ -78,7 +210,7 @@
       &.regular {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(6, 15, 25, 0.61);
+          background: rgba(6, 15, 25, 0.61);
         }
         .event {
           background-image: image-url('daily_service.png');
@@ -88,49 +220,16 @@
       &.enquiry {
         margin-top: $baseline*2;
         .overlay {
-          background-color: rgba(3, 23, 29, 0.5);
+          background: rgba(3, 23, 29, 0.5);
         }
         .event {
           background-image: image-url('enquiry.jpg');
-          background-position-y: center;
-          background-position-x: center;
-        }
-      }
-      .action {
-        position: relative;
-        a {
-          background: $white;
-          border-color: $white;
-          color: $brand;
-          min-width: $baseline*10;
-        }
-        a:hover {
-          background: $brand;
-          border-color: $brand;
-          color: $white;
-          &.disabled {
-            background: $white;
-            border-color: $white;
-            color: $brand;
-            cursor: not-allowed;
-            opacity: 0.9;
-          }
         }
       }
     }
-    .event {
-      background-image: image-url('christmas.jpg');
-      background-size: cover;
-      background-position: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      + .section {
-        position: relative;
-        z-index: 750;
-      }
-    }
+  }
+  .icon img {
+    width: $baseline*6;
+    height: auto;
   }
 }
