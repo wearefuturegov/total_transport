@@ -107,7 +107,7 @@ class Booking < ActiveRecord::Base
   end
 
   def price_distance
-    @price_distance ||= pickup_stop.distance_to(dropoff_stop)
+    @price_distance ||= pickup_stop.distance_to(dropoff_stop).ceil
   end
 
   def reversed?

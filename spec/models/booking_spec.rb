@@ -157,7 +157,7 @@ RSpec.describe Booking, :que, type: :model do
       booking.dropoff_stop.place.latitude = 51.6275191853741
       booking.dropoff_stop.place.longitude = 0.814597606658936
       
-      expect(booking.price_distance.round(1)).to eq(7.6)
+      expect(booking.price_distance).to eq(8)
     end
     
   end
