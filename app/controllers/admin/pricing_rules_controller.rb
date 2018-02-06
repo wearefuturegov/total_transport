@@ -1,4 +1,5 @@
 class Admin::PricingRulesController < AdminController
+  before_filter :get_pricing_rule, only: [:edit, :update]
   
   def index
     @pricing_rules = PricingRule.all
@@ -16,7 +17,15 @@ class Admin::PricingRulesController < AdminController
     end
   end
   
-  def update ; end
+  def edit ; end
+  
+  def update
+    if @pricing_rule.update(pricing_rules_params)
+      redirect_to admin_pricing_rules_url
+    else
+      render :edit
+    end
+  end
   
   def destroy ; end
   
@@ -32,6 +41,10 @@ class Admin::PricingRulesController < AdminController
         :return_multiplier,
         :allow_concessions
       )
+    end
+    
+    def get_pricing_rule
+      @pricing_rule = PricingRule.find(params[:id])
     end
 
 end
