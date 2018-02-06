@@ -119,11 +119,7 @@ class Booking < ActiveRecord::Base
   end
 
   def price
-    if return_journey?
-      return_price
-    else
-      single_price
-    end
+    (return_journey? ? return_price : single_price).round(1)
   end
   
   def price_in_pence
