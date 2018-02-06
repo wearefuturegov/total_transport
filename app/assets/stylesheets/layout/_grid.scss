@@ -10,9 +10,6 @@
   .book {
     @include span-columns(5);
   }
-  section.section {
-    @include span-columns(12);
-  }
   .section.heading {
     @include span-columns(10);
     @include shift(1);

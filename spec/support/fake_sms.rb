@@ -6,6 +6,14 @@ class FakeSMS
 
   def initialize
   end
+  
+  def api
+    self
+  end
+  
+  def account
+    self
+  end
 
   def messages
     self

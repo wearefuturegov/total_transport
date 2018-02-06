@@ -207,4 +207,41 @@ RSpec.describe BookingsController, type: :controller do
     
   end
   
+  describe 'GET send_missed_feedback' do
+    
+    it 'creates feedback' do
+      put :send_missed_feedback, {
+        booking: {
+          missed: 1,
+          missed_feedback: 'Something',
+          token: booking.token
+        },
+        id: booking
+      }
+      
+      booking.reload
+      expect(booking.missed).to eq(true)
+      expect(booking.missed_feedback).to eq('Something')
+    end
+    
+    it 'returns 401 if token is incorrect' do
+      put :send_missed_feedback, {
+        booking: {
+          missed: 1,
+          missed_feedback: 'Something',
+          token: 'dsfsdfdfdsfds'
+        },
+        id: booking
+      }
+      
+      expect(response.code).to eq('401')
+      expect(booking.missed).to eq(false)
+      
+      booking.reload
+
+      expect(booking.missed_feedback).to eq(nil)
+    end
+    
+  end
+  
 end

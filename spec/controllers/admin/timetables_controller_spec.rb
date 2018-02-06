@@ -109,6 +109,30 @@ RSpec.describe Admin::TimetablesController, type: :controller do
                   route.stops[3],
                   route.stops[4]
                 ]
+              },
+              {
+                time: '12:00',
+                seats: 10,
+                stops: [
+                  route.stops[2],
+                  route.stops[3],
+                  route.stops[4],
+                  route.stops[5],
+                ]
+              },
+              {
+                time: '15:00',
+                seats: 10,
+                stops: route.stops
+              },
+              {
+                time: '17:00',
+                seats: 10,
+                stops: [
+                  route.stops[2],
+                  route.stops[3],
+                  route.stops[4]
+                ]
               }
             ]
           }
@@ -116,8 +140,17 @@ RSpec.describe Admin::TimetablesController, type: :controller do
       end
       
       it 'creates a new route' do
-        new_route = timetable.timetable_times.last.journeys.first.route
+        new_route = timetable.timetable_times.first.journeys.first.route
         expect(new_route.stops.map(&:name)).to match_array([route.stops[2].name, route.stops[3].name, route.stops[4].name])
+      end
+      
+      it 'creates the correct number of journeys' do
+        expect(Journey.count).to eq(20)
+      end
+      
+      it 'creates the right number of routes' do
+        expect(Route.count).to eq(4)
+        expect(Route.first.sub_routes.count).to eq(3)
       end
       
     end

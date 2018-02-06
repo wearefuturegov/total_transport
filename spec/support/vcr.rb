@@ -1,10 +1,17 @@
 require 'vcr'
 
+dotenv = Rails.root.join('.env')
+filter_vars = File.exist?(dotenv) ? Dotenv::Environment.new(dotenv) : ENV
+
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
   c.default_cassette_options = { record: :once }
+  filter_vars.each do |key, value|
+    c.filter_sensitive_data("<#{key}>") { value }
+  end
+  c.filter_sensitive_data('<ENCODED AUTH HEADER>') { Base64.encode64("#{ENV.fetch('TWILIO_ID')}:#{ENV.fetch('TWILIO_TOKEN')}").delete!("\n") }
 end
 
 RSpec.configure do |config|

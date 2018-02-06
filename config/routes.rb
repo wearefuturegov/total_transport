@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     member do
       get :confirmation
       get :return_journeys
+      put :send_missed_feedback
     end
   end
   
