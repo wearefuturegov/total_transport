@@ -109,11 +109,13 @@ RSpec.describe Admin::RoutesController, type: :controller do
   describe '#update' do
     
     let(:route) { FactoryBot.create(:route) }
+    let(:pricing_rule) { FactoryBot.create(:pricing_rule) }
     let(:subject) {
       post :update, {
         id: route.id,
         route: {
-          name: 'My Route'
+          name: 'My Route',
+          pricing_rule_id: pricing_rule.id
         }
       }
     }
@@ -122,6 +124,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
       subject
       route.reload
       expect(route.name).to eq('My Route')
+      expect(route.pricing_rule).to eq(pricing_rule)
     end
     
     

@@ -107,7 +107,7 @@ class Booking < ActiveRecord::Base
   end
 
   def price_distance
-    @price_distance ||= pickup_stop.distance_to(dropoff_stop)
+    @price_distance ||= pickup_stop.distance_to(dropoff_stop).ceil
   end
 
   def reversed?
@@ -119,11 +119,7 @@ class Booking < ActiveRecord::Base
   end
 
   def price
-    if return_journey?
-      return_price
-    else
-      single_price
-    end
+    (return_journey? ? return_price : single_price).round(1)
   end
   
   def price_in_pence
@@ -131,31 +127,19 @@ class Booking < ActiveRecord::Base
   end
 
   def adult_single_price
-    if price_distance <= 5
-      2
-    elsif price_distance > 5 && price_distance <= 10
-      4
-    elsif price_distance > 10 && price_distance <= 15
-      6
-    elsif price_distance > 15 && price_distance <= 20
-      8
-    elsif price_distance > 20 && price_distance <= 25
-      10
-    elsif price_distance > 25
-      12
-    end
+    route.pricing_rule.get_single_price(price_distance)
   end
 
   def adult_return_price
-    adult_single_price * 2
+    adult_single_price * route.pricing_rule.return_multiplier
   end
 
   def child_single_price
-    route.pricing_rule['child_single_price'] || (adult_single_price / 2)
+    adult_single_price * route.pricing_rule.child_multiplier
   end
 
   def child_return_price
-    route.pricing_rule['child_return_price'] || child_single_price * 2
+    child_single_price * route.pricing_rule.return_multiplier
   end
 
   def single_price

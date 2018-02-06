@@ -3,26 +3,6 @@ require 'rails_helper'
 RSpec.describe Route, type: :model do
   let(:route) { FactoryBot.create(:route) }
   
-  context 'pricing_rule' do
-    
-    it 'has a pricing rule' do
-      route.pricing_rule = {
-        child_single_price: 0,
-        child_return_price: 0
-      }
-      route.save
-      expect(route.pricing_rule).to eq({
-        'child_single_price' => 0,
-        'child_return_price' => 0
-      })
-    end
-    
-    it 'returns an empty hash by default' do
-      expect(route.pricing_rule).to eq({})
-    end
-    
-  end
-  
   context 'allow_concessions' do
     
     it 'returns true by default' do
@@ -65,6 +45,17 @@ RSpec.describe Route, type: :model do
       expect(route.name).to eq("Route #{route.id}: #{route.stops.first.name} - #{route.stops.last.name}")
     end
     
+  end
+  
+  it 'saves all subroutes' do
+    route.name = 'New Name'
+    route.pricing_rule = FactoryBot.create(:pricing_rule)
+    route.sub_routes = FactoryBot.create_list(:route, 5, name: 'Old Name', pricing_rule: nil, route: nil)
+    route.save
+    route.reload
+    
+    expect(route.sub_routes.pluck(:name).uniq).to eq(['New Name'])
+    expect(route.sub_routes.pluck(:pricing_rule_id).uniq).to eq([route.pricing_rule.id])
   end
   
 end

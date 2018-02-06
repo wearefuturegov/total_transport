@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205094841) do
+ActiveRecord::Schema.define(version: 20180206093416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,18 @@ ActiveRecord::Schema.define(version: 20180205094841) do
 
   add_index "places", ["slug"], name: "index_places_on_slug", unique: true, using: :btree
 
+  create_table "pricing_rules", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "rule_type"
+    t.integer  "per_mile",          default: 0
+    t.jsonb    "stages",            default: {},   null: false
+    t.float    "child_multiplier",  default: 0.5
+    t.float    "return_multiplier", default: 1.5
+    t.boolean  "allow_concessions", default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "promo_codes", force: :cascade do |t|
     t.decimal  "price_deduction"
     t.string   "code"
@@ -143,13 +155,14 @@ ActiveRecord::Schema.define(version: 20180205094841) do
   create_table "routes", force: :cascade do |t|
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.json     "pricing_rule"
     t.boolean  "allow_concessions", default: true
     t.json     "geometry",          default: []
     t.integer  "route_id"
     t.text     "name"
+    t.integer  "pricing_rule_id"
   end
 
+  add_index "routes", ["pricing_rule_id"], name: "index_routes_on_pricing_rule_id", using: :btree
   add_index "routes", ["route_id"], name: "index_routes_on_route_id", using: :btree
 
   create_table "stops", force: :cascade do |t|

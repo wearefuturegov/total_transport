@@ -5,9 +5,9 @@ class Route < ActiveRecord::Base
   has_many :places, through: :stops
   has_many :sub_routes, class_name: 'Route'
   belongs_to :route
+  belongs_to :pricing_rule
   
-  after_initialize :set_rule
-  after_save :queue_geometry
+  after_save :queue_geometry, :update_subroutes
   
   validate :check_sub_route
   
@@ -81,13 +81,13 @@ class Route < ActiveRecord::Base
   end
   
   private
-
-    def set_rule
-      self.pricing_rule ||= {}
-    end
     
     def queue_geometry
       SetRouteGeometry.enqueue(id)
+    end
+    
+    def update_subroutes
+      sub_routes.update_all(name: name, pricing_rule_id: pricing_rule&.id)
     end
     
     def check_sub_route

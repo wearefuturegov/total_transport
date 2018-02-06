@@ -8,6 +8,8 @@
         = form_for [:admin, @route] do |f|
           = f.label :name
           = f.text_field :name
+          = f.label :pricing_rule_id
+          = f.select :pricing_rule_id, options_from_collection_for_select(@pricing_rules, :id, :name), {}, class: 'select'
           .action.primary
             = f.submit 'Update', class: 'button'
 
