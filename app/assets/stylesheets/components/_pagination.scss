@@ -1,24 +1,19 @@
 /* pagination */
 
 .pagination {
-  float: left;
-  width: 100%;
-}
-
-/* old code below to check */
-
-.pagination {
+  display: inline-block;
   text-align: center;
-  margin-bottom: 2em;
-  font-family: $stack-1;
-  .page {
-    float: none;
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+  width: 100%;
+  .prev {
+    margin-right: $gutter*0.5;
   }
   .next {
-    float: right;
+    margin-left: $gutter*0.5;
   }
-  .prev {
-    float: left;
+  .page {
+    float: none;
   }
   .last, .first {
     display: none;

@@ -15,6 +15,11 @@
   }
   &.journey {
     border: $border-style $border-width-thin $gray;
+    padding-top: $baseline;
+    padding-bottom: $baseline;
+    ul {
+      margin-bottom: 0;
+    }
   }
 }
 a.card {
