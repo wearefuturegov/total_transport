@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180122170804) do
+ActiveRecord::Schema.define(version: 20180131133457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20180122170804) do
   add_index "bookings", ["pickup_landmark_id"], name: "index_bookings_on_pickup_landmark_id", using: :btree
   add_index "bookings", ["pickup_stop_id"], name: "index_bookings_on_pickup_stop_id", using: :btree
   add_index "bookings", ["promo_code_id"], name: "index_bookings_on_promo_code_id", using: :btree
+  add_index "bookings", ["return_journey_id"], name: "index_bookings_on_return_journey_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -67,18 +68,18 @@ ActiveRecord::Schema.define(version: 20180122170804) do
   create_table "journeys", force: :cascade do |t|
     t.integer  "route_id"
     t.datetime "start_time"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "vehicle_id"
-    t.integer  "supplier_id"
-    t.boolean  "open_to_bookings", default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "open_to_bookings",  default: true
     t.boolean  "reversed"
-    t.boolean  "booked",           default: false
+    t.boolean  "booked",            default: false
+    t.integer  "seats",             default: 0
+    t.integer  "timetable_time_id"
+    t.integer  "team_id"
   end
 
   add_index "journeys", ["route_id"], name: "index_journeys_on_route_id", using: :btree
-  add_index "journeys", ["supplier_id"], name: "index_journeys_on_supplier_id", using: :btree
-  add_index "journeys", ["vehicle_id"], name: "index_journeys_on_vehicle_id", using: :btree
+  add_index "journeys", ["timetable_time_id"], name: "index_journeys_on_timetable_time_id", using: :btree
 
   create_table "landmarks", force: :cascade do |t|
     t.string   "name"
@@ -239,22 +240,26 @@ ActiveRecord::Schema.define(version: 20180122170804) do
     t.string   "email"
   end
 
-  create_table "vehicles", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "seats"
-    t.string   "registration"
-    t.string   "make_model"
-    t.string   "colour"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.boolean  "wheelchair_accessible"
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
+  create_table "timetable_times", force: :cascade do |t|
+    t.time    "time"
+    t.integer "timetable_id"
+    t.integer "route_id"
+    t.integer "seats",        default: 0
   end
 
-  add_index "vehicles", ["team_id"], name: "index_vehicles_on_team_id", using: :btree
+  add_index "timetable_times", ["route_id"], name: "index_timetable_times_on_route_id", using: :btree
+
+  create_table "timetables", force: :cascade do |t|
+    t.date     "from"
+    t.date     "to"
+    t.integer  "route_id"
+    t.boolean  "reversed",         default: false
+    t.boolean  "open_to_bookings", default: true
+    t.json     "days",             default: [0, 1, 2, 3, 4, 5, 6]
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "team_id"
+  end
 
   add_foreign_key "bookings", "journeys"
   add_foreign_key "bookings", "passengers"
@@ -262,8 +267,6 @@ ActiveRecord::Schema.define(version: 20180122170804) do
   add_foreign_key "bookings", "stops", column: "dropoff_stop_id"
   add_foreign_key "bookings", "stops", column: "pickup_stop_id"
   add_foreign_key "journeys", "routes"
-  add_foreign_key "journeys", "suppliers"
-  add_foreign_key "journeys", "vehicles"
   add_foreign_key "landmarks", "stops"
   add_foreign_key "stops", "places"
   add_foreign_key "stops", "routes"
@@ -274,5 +277,4 @@ ActiveRecord::Schema.define(version: 20180122170804) do
   add_foreign_key "suggested_routes", "passengers"
   add_foreign_key "supplier_suggestions", "suppliers"
   add_foreign_key "suppliers", "teams"
-  add_foreign_key "vehicles", "teams"
 end

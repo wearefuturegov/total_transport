@@ -7,8 +7,6 @@
       You will shortly receive an SMS with the details of your booking.
     If you don’t,
     = mail_to ENV['RIDE_ADMIN_EMAIL'], "please get in contact with us."
-  - if Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo?
-    = image_tag Vehicle.find(Journey.find(@booking.journey_id).vehicle_id).photo.url(:square), :class => 'vehicle-pic vehicle-passenger'
   - if @booking.payment_method == 'cash'
     %p
       If you decided to pay later, you’ll pay cash straight to your driver as you board.

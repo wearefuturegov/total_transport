@@ -183,7 +183,7 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'ignores full journeys' do
       full_journey = journeys[0]
-      FactoryBot.create_list(:booking, full_journey.vehicle.seats, journey: full_journey, state: 'booked')
+      FactoryBot.create_list(:booking, full_journey.seats, journey: full_journey, state: 'booked')
       expect(booking.available_journeys).to_not include(full_journey)
     end
     

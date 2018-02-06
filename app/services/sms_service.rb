@@ -78,7 +78,7 @@ class SmsService
       I18n.t('sms.second_alert.body',
         pickup_name: @trip.pickup_name,
         pickup_time: plus_minus_ten(@trip.pickup_time),
-        supplier_number: @booking.journey.supplier.phone_number
+        supplier_number: @booking.journey.team.suppliers.first.phone_number
       ).squish
     end
     

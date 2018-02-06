@@ -1,0 +1,1 @@
+$('#time-<%= @time_id %> .stops').html('<%= j(render partial: 'stop', collection: @route.stops, locals: { selected: @route.stops.collect(&:name), time_id: @time_id }) %>');

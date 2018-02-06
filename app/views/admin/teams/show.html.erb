@@ -24,16 +24,6 @@
 
           <div class="profile_team">
             <% if !current_team.solo_team? %><h2>Your Team:</h2><% end %>
-            <p>You have <%= pluralize current_team.vehicles.count, "vehicle" %>
-                <% if !current_team.solo_team? %>
-                  in your team
-                <% end %>
-                 -
-              <%= link_to admin_vehicles_path do %>
-                View Vehicles
-              <% end %>
-            </p>
-
             <% if current_team.solo_team? %>
               <h3>You are currently the only person in your team - invite people now</h3>
             <% else %>
@@ -64,6 +54,7 @@
           <p><strong>Admin</strong> - <%= link_to "Manage Teams", admin_teams_path %></p>
           <p><strong>Admin</strong> - <%= link_to "View Suggestions", admin_suggestions_path %></p>
           <p><strong>Admin</strong> - <%= link_to "Manage Promo Codes", admin_promo_codes_path %></p>
+          <p><strong>Admin</strong> - <%= link_to "Create a timetable", new_admin_timetable_path %></p>
         </div>
       </div>
     <% end %>

@@ -5,23 +5,15 @@
 <%= form.label :start_time, "Select Date & Time" %>
 <%= form.text_field :start_time, value: Time.now.strftime("%d/%m/%Y %H:%M") %>
 
-<% if current_team.solo_team? %>
-  <%= form.hidden_field :supplier_id, value: current_supplier.id %>
+<% if current_supplier.admin? %>
+  <%= form.label :team_id, 'Team' %>
+  <%= form.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name'), { selected: current_team.id }, class: 'select' %>
 <% else %>
-  <%= form.label :supplier_id, "Select Driver" %>
-  <%= form.select :supplier_id, current_supplier.team.suppliers.collect {|u| [u.name, u.id]} %>
+  <%= form.hidden_field :team_id, value: current_team.id %>
 <% end %>
 
-<% if current_team.vehicles.count > 0 %>
-  <% if current_team.single_vehicle? %>
-    <%= form.hidden_field :vehicle_id, value: current_supplier.team.vehicles.first.id %>
-  <% else %>
-    <%= form.label :vehicle_id, "Select Vehicle" %>
-    <%= form.select :vehicle_id, current_supplier.team.vehicles.collect {|v| [v.registration, v.id]} %>
-  <% end %>
-<% else %>
-  <%= link_to "You do not currently have any vehicles, add one now", admin_vehicles_path %>
-<% end %>
+<%= form.label :seats, 'Number of available seats' %>
+<%= form.number_field :seats %>
 
 <%= form.label :open_to_bookings, "Open to Bookings?" %>
 <%= form.check_box :open_to_bookings %>

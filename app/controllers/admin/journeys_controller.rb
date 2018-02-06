@@ -2,15 +2,10 @@ class Admin::JourneysController < AdminController
   before_filter :find_journey, only: [:edit, :update, :destroy, :show, :send_message]
   before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
-    params[:filterrific] ||= {}
-    if current_supplier.admin?
-      journeys = Journey.all
-    else
-      journeys = params[:filter] == 'team' ? current_team.journeys : current_supplier.journeys
-    end
+    journeys = current_supplier.admin? ? Journey.all : current_team.journeys
     @filterrific = initialize_filterrific(
       journeys,
-      params[:filterrific]
+      (params[:filterrific] || {})
     ) or return
     @journeys = @filterrific.find.page(params[:page])
   end
@@ -18,7 +13,7 @@ class Admin::JourneysController < AdminController
   def new
     if params[:route_id]
       @route = Route.find(params[:route_id])
-      @journey = current_supplier.journeys.new(route: @route, reversed: params[:reversed])
+      @journey = current_team.journeys.new(route: @route, reversed: params[:reversed])
       @back_path = new_admin_journey_path
     else
       @back_path = admin_root_path
@@ -73,7 +68,7 @@ class Admin::JourneysController < AdminController
   private
 
   def journey_params
-    params.require(:journey).permit(:start_time, :vehicle_id, :supplier_id, :route_id, :open_to_bookings, :reversed)
+    params.require(:journey).permit(:start_time, :team_id, :route_id, :open_to_bookings, :reversed, :seats)
   end
 
   def find_journey

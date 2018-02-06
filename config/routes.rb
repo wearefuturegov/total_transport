@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     #resource :team, only: [:show]
     resources :teams
     get :account, to: 'teams#show'
-    resources :vehicles
     resources :journeys do
       collection do
         get 'surrounding_journeys'
@@ -63,6 +62,7 @@ Rails.application.routes.draw do
     resources :sms, only: [:new, :create]
     resources :places, only: [:new, :create]
     resources :placenames, only: [:index]
+    resources :timetables
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
   get '/bookings/:token/cancel', as: :cancel_booking, to: 'bookings#cancel'

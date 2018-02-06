@@ -35,7 +35,7 @@ class Booking < ActiveRecord::Base
   
   scope :state, ->(state) { where(state: state) }
   
-  scope :team, ->(team_id) { joins(journey: :supplier).where('suppliers.team_id = ?', team_id) }
+  scope :team, ->(team_id) { joins(:journey).where('team_id = ?', team_id) }
   
   filterrific(
     default_filter_params: { state: 'booked' },

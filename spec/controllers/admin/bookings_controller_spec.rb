@@ -56,7 +56,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
 
         get :index, filterrific: { route: route.id, state: 'booked' }
         
-        expect(assigns(:bookings)).to eq([booked_bookings[0], booked_bookings[1]])
+        expect(assigns(:bookings)).to match_array([booked_bookings[0], booked_bookings[1]])
       end
       
       it 'by date from' do
@@ -66,7 +66,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
 
         get :index, filterrific: { date_from: Date.today + 2.days, state: 'booked' }
 
-        expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
+        expect(assigns(:bookings)).to match_array([booked_bookings[3], booked_bookings[4]])
       end
       
       it 'by date to' do
@@ -76,7 +76,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
 
         get :index, filterrific: { date_to: Date.today - 2.days, state: 'booked' }
 
-        expect(assigns(:bookings)).to eq([booked_bookings[3], booked_bookings[4]])
+        expect(assigns(:bookings)).to match_array([booked_bookings[3], booked_bookings[4]])
       end
       
       it 'by state' do
@@ -85,12 +85,12 @@ RSpec.describe Admin::BookingsController, type: :controller do
       end
       
       it 'by team' do
-        supplier = FactoryBot.create(:supplier)
-        journey = FactoryBot.create(:journey, supplier: supplier)
+        team = FactoryBot.create(:team)
+        journey = FactoryBot.create(:journey, team: team)
         booked_bookings[4].update_attributes(journey: journey)
         
-        get :index, filterrific: { team: supplier.team }
-        expect(assigns(:bookings)).to eq([ booked_bookings[4] ])
+        get :index, filterrific: { team: team }
+        expect(assigns(:bookings)).to match_array([ booked_bookings[4] ])
       end
       
     end

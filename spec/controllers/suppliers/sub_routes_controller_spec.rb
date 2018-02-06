@@ -15,7 +15,7 @@ RSpec.describe Admin::SubRoutesController, type: :controller do
     
     it 'gets subroutes for a route' do
       subject
-      expect(assigns(:routes)).to eq(sub_routes)
+      expect(assigns(:routes)).to match_array(sub_routes)
     end
     
   end

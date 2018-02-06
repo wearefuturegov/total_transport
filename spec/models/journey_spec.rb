@@ -74,8 +74,8 @@ RSpec.describe Journey, type: :model do
   
   context '#seats_left' do
     
-    it 'returns the correct number of seats left in a vehicle' do
-      journey.vehicle = FactoryBot.create(:vehicle, seats: 11)
+    it 'returns the correct number of seats left' do
+      journey.seats = 11
       journey.bookings = FactoryBot.create_list(:booking, 3, state: 'booked', number_of_passengers: 2)
       
       expect(journey.seats_left).to eq(5)
@@ -86,14 +86,14 @@ RSpec.describe Journey, type: :model do
   context '#full?' do
     
     it 'returns true if there are the same number of passengers as seats' do
-      journey.vehicle = FactoryBot.create(:vehicle, seats: 12)
+      journey.seats = 12
       journey.bookings = FactoryBot.create_list(:booking, 6, state: 'booked', number_of_passengers: 2)
       
       expect(journey.full?).to eq(true)
     end
     
     it 'returns false if there are more seats than passengers' do
-      journey.vehicle = FactoryBot.create(:vehicle, seats: 12)
+      journey.seats = 12
       journey.bookings = FactoryBot.create_list(:booking, 3, state: 'booked', number_of_passengers: 2)
       
       expect(journey.full?).to eq(false)
@@ -138,14 +138,13 @@ RSpec.describe Journey, type: :model do
   
   context '#duplicate' do
     
-    let(:vehicle) { FactoryBot.create(:vehicle) }
-    let(:supplier) { FactoryBot.create(:supplier) }
+    let(:team) { FactoryBot.create(:team) }
     let(:route) { FactoryBot.create(:route) }
     let(:journey) {
       FactoryBot.create(:journey,
         start_time: '2016-01-01T09:00:00Z',
-        vehicle: vehicle,
-        supplier: supplier,
+        seats: 5,
+        team: team,
         open_to_bookings: true,
         reversed: false,
         route: route
@@ -157,8 +156,8 @@ RSpec.describe Journey, type: :model do
       expect(Journey.count).to eq(10)
       (Date.parse('2016-01-02')..Date.parse('2016-01-10')).each_with_index do |d,i|
         j = Journey.all.to_a[i + 1]
-        expect(j.vehicle).to eq(vehicle)
-        expect(j.supplier).to eq(supplier)
+        expect(j.seats).to eq(5)
+        expect(j.team).to eq(team)
         expect(j.route).to eq(route)
         expect(j.start_time.to_date).to eq(d)
         expect(j.start_time.hour).to eq(9)

@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Admin::TeamsController, type: :controller do
   login_supplier(true)
   
-  let(:team) { FactoryBot.create(:team) }
+  let(:team) { FactoryBot.create(:team, suppliers: []) }
 
   describe 'GET index' do
     
-    let(:teams) { FactoryBot.create_list(:team, 5) }
+    let(:teams) { FactoryBot.create_list(:team, 5, suppliers: []) }
     
     it 'gets all teams' do
       get :index

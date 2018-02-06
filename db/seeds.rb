@@ -59,6 +59,4 @@ FactoryBot.create(:stop, position: 6,
   route: route
 )
 
-FactoryBot.create(:vehicle, team_id: 1, seats: 12, registration: "MJ57FCP", make_model: "Mercedes Benz Sprinter Minibus", colour: "Silver")
-
 DataSeed.create_journeys

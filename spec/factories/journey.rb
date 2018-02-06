@@ -3,7 +3,7 @@ FactoryBot.define do
     open_to_bookings true
     route
     sequence(:start_time) { |n| Date.tomorrow + n.hours  }
-    supplier { FactoryBot.create(:supplier) }
-    vehicle { FactoryBot.create(:vehicle) }
+    team { FactoryBot.create(:team) }
+    seats 5
   end
 end
