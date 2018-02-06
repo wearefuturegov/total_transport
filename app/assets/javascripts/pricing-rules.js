@@ -1,10 +1,10 @@
 $.fn.pricingRules = function() {
-  
+    
   if (this.length === 0) { return false; }
   
   var changeStages = function() {
     var stages = {};
-    $('#stages .wrapper').each(function() {
+    $('#stages_wrapper .wrapper').each(function() {
       var from = $(this).find('.rule_to').val()
       var price = $(this).find('.price').val()
       stages[from] = price;
@@ -15,15 +15,15 @@ $.fn.pricingRules = function() {
     
   $(this).find('#pricing_rule_rule_type').on('change', function() {
     $('#per_mile').addClass('hidden');
-    $('#staged').addClass('hidden');
+    $('#stages').addClass('hidden');
     
     if ($(this).val() == 'per_mile') {
       $('#per_mile').removeClass('hidden');
     } else {
-      $('#staged').removeClass('hidden');
+      $('#stages').removeClass('hidden');
     }
   })
-  
+    
   $(this).find('#add-stage').click(function(e) {
     var $stage = $($(this).data('content'));
     var id = 'stage_' + Date.now();
@@ -43,17 +43,18 @@ $.fn.pricingRules = function() {
       $(this).attr('for', oldID + '_' + id);
     });
         
-    $('#stages').append($stage.html());
+    $('#stages_wrapper').append($stage.html());
     e.preventDefault();
   })
   
-  $(this).on('click', '#stages .remove', function(e) {
+  $(this).on('click', '#stages_wrapper .remove', function(e) {
     var id = $(this).data('parent-id');
     $('#' + id).remove();
     changeStages();
     e.preventDefault();
   })
   
-  $(this).on('change', '#stages input', changeStages);
+  $(this).on('change', '#stages_wrapper input', changeStages);
   
+  changeStages();
 }

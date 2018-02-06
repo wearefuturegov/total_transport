@@ -4,22 +4,25 @@
 = form.label :rule_type
 = form.select :rule_type, PricingRule.rule_types.keys, { include_blank: 'Please select' }, class: 'input select'
 
-#per_mile.hidden
+#per_mile{ class: form.object.per_mile? ? '' : 'hidden' }
   
   = form.label :per_mile, 'Pence Per Mile'
   = form.number_field :per_mile, class: 'input'
   
-#staged.hidden
+#stages{ class: form.object.staged? ? '' : 'hidden' }
 
   %hr/
 
   %h3
     Pricing Stages
       
-  #stages
+  #stages_wrapper
   
-  = link_to 'Add Stage', '#', { 'data-content' => (render partial: 'stage', locals: {form: form}), id: 'add-stage', class: 'button' }
+    - if form.object.stages.count > 0
+      = render partial: 'stage', collection: form.object.stages
   
+  = link_to 'Add Stage', '#', { 'data-content' => (render partial: 'stage', locals: {stage: PricingRule::Stage.new}), id: 'add-stage', class: 'button' }
+
   = form.hidden_field :stages
   
   %hr/

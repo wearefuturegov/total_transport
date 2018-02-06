@@ -1,14 +1,15 @@
+- id = "stage_#{(DateTime.now.to_f * 100000).to_i}"
 .stage
-  .wrapper
+  .wrapper{ id: id }
     = label :rule, :from, 'Start Mileage'
-    = number_field :rule, :from, class: 'rule_from'
+    = number_field :rule, :from, class: 'rule_from', value: stage.from
 
     = label :rule, :to, 'End Mileage'
-    = number_field :rule, :to, class: 'rule_to'
+    = number_field :rule, :to, class: 'rule_to', value: stage.to
 
     = label :rule, :price, 'Price'
-    = number_field :rule, :price, class: 'price'
+    = number_field :rule, :price, class: 'price', value: stage.price
     
-    = link_to 'Remove Stage', '#', class: 'remove'
+    = link_to 'Remove Stage', '#', class: 'remove', 'data-parent-id' => id
 
     %hr/
