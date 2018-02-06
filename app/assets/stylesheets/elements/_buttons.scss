@@ -46,12 +46,17 @@ button {
   font-size: $body;
   font-weight: 700;
   line-height: $baseline*2;
+  cursor: pointer;
   background: $brand;
   border: $border-width $border-style $brand;
   color: $white;
   display: inline-block;
   padding: 0 $baseline;
   width: auto;
+  &:hover {
+    background: $black;
+    border-color: $black;
+  }
   &.secondary {
     color: $black;
     background: $white;

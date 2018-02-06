@@ -1,5 +1,7 @@
 %section.section
-  .card  
+  .card
+    %h2
+      Manage teams
     = form_for [:admin, @team] do |form|
     
       = form.label :name
@@ -8,14 +10,14 @@
       = form.label :email
       = form.email_field :email
       
-      %h3 Suppliers
+      %section.section
+      %h3
+        Suppliers
         
       = form.fields_for :suppliers do |supplier|
         = render 'admin/teams/supplier', f: supplier
       
-      .links
-        = link_to_add_association 'Add Supplier', form, :suppliers, partial: 'admin/teams/supplier', class: 'button'
-                    
-      %hr
-      
-      = form.submit 'Update', :class => 'button border-left-radius'
+      = link_to_add_association 'Add supplier', form, :suppliers, partial: 'admin/teams/supplier', class: 'text'
+
+      .action.primary      
+        = form.submit 'Update', :class => 'button'

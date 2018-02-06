@@ -3,8 +3,8 @@
     - Route.bookable_routes.each do |route|
       .card
         %h2 Select a Route
-        %p.highlight= route.name
-        %p Via
+        %p= route.name 
+        Via
         %ul
           - route.stops.each_with_index do |stop|
             %li= stop.name

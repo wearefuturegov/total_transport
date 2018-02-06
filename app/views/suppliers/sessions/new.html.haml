@@ -1,6 +1,6 @@
 %section.section
   .card
-    %h2 Log in to admin
+    %h2 Log in
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       = f.label :email
       = f.email_field :email, autofocus: true
@@ -12,5 +12,5 @@
           = f.label :remember_me, :class => 'inline mb05'
       .action.primary
         = f.submit "Log in"
-      %p.mt05.mb0 Don't have an account?
+      Don't have an account?
       = render "suppliers/shared/links"

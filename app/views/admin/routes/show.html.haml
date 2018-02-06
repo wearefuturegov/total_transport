@@ -1,4 +1,7 @@
 %section.section
+  .card
+    %h2
+      Stops
   #sup_edit_route
     - if @route.route.nil?
       .card
@@ -10,32 +13,31 @@
 
     .card
       %h3 Stops:
-      #sortable_stops.stop-list
+      #sortable_stops.stops
         - @route.stops.each do |stop|
-          .stop{:id => "stop_#{stop.id}"}
-            .edit_route_mins.half
-              %p.stop_name= stop.name
-              .buttons
+          %section.section
+            .stop{:id => "stop_#{stop.id}"}
+              .edit_route_mins
+                %p= stop.name
                 = link_to edit_admin_route_stop_path(@route, stop) do
-                  .button Edit Stop
+                  Edit stop
                 = form_for [:admin, @route, stop], method: :delete do |form|
-                  = form.submit "Delete stop", :class => "negative delete"
-            .half
-              .time_gap_form
-                = form_for [:admin, @route, stop] do |form|
-                  = form.number_field :minutes_from_last_stop, class: 'minutes-field'
-                  minutes.
-                  \#{form.submit "Save", :class => "min_save"}
-              .map_preview
-      .action.primary
-        = link_to new_admin_route_stop_path(@route) do
-          .button
-            Add a New Stop
+                  = form.submit "Delete stop", :class => "text"
+                  %section.section
+                    = form.label 'Minutes'
+                  = form_for [:admin, @route, stop] do |form|
+                    = form.number_field :minutes_from_last_stop, class: 'minutes-field'
+                    \#{form.submit "Save", :class => "text"}
+                .map_preview
         = form_for [:admin, @route], method: :delete do |form|
           = form.submit "Delete route", :class => "button text"
         - if @route.route.nil?
           = button_to 'Make subroute', admin_route_sub_routes_path(@route), method: :post, class: 'text'
           = link_to 'View subroutes', admin_route_sub_routes_path(@route), class: 'text'
+      .action.primary
+        = link_to new_admin_route_stop_path(@route) do
+          .button
+            Add a new stop
 - content_for :js do
   :javascript
     function hideFirstTimeGap() {

@@ -1,6 +1,7 @@
 %section.section
   = form_for_filterrific @filter do |form|
     .card
+      %h2 Bookings
       = form.label :route
       = form.select :route, options_from_collection_for_select(Route.main_routes, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
       = form.label :state

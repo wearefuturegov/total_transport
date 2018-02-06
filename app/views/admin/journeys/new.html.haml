@@ -1,7 +1,7 @@
 %section.section
-  %h2 Add a New Journey
   = form_for [:admin, @journey] do |form|
     .card
+      %h2 Add a new journey
       %p.highlight= @journey.route_name
       %p
         Via #{@journey.stops_in_direction.count-2} Possible Stops:
@@ -12,12 +12,12 @@
         - @journey.stops_in_direction.each do |stop|
           %option{:selected => "selected", :value => "#{stop.place.latitude}, #{stop.place.longitude}"}= stop.name
       .route_preview{:id => "map_#{@route.id}"}
-    .card
-      = form.hidden_field 'route_id'
-      = form.hidden_field 'reversed'
-      = render partial: 'fields', locals: {form: form}
-      .action.primary
-        = form.submit "Create Journey", :class => "button"
+      %section.section
+        = form.hidden_field 'route_id'
+        = form.hidden_field 'reversed'
+        = render partial: 'fields', locals: {form: form}
+        .action.primary
+          = form.submit "Create Journey", :class => "button"
 - content_for :js do
   :javascript
     function initMap() {

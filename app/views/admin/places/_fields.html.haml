@@ -1,16 +1,13 @@
-<%= hidden_field_tag(:previous_route_id, @route_id.to_i) if @route_id %>
-<%= form.label :name  %>
-<%= form.text_field :name %>
-
-<%= form.label :latlng, 'Location'  %>
-<%= form.hidden_field :latitude %>
-<%= form.hidden_field :longitude %>
-<div id="map_wrapper">
-  <%= text_field :search_map, nil, placeholder: 'Search the map' %>
-</div>
-
-<% content_for :js do %>
-<script type="text/javascript">
+= hidden_field_tag(:previous_route_id, @route_id.to_i) if @route_id
+= form.label :name
+= form.text_field :name
+= form.label :latlng, 'Location'
+= form.hidden_field :latitude
+= form.hidden_field :longitude
+#map_wrapper
+  = text_field :search_map, nil, placeholder: 'Search the map'
+- content_for :js do
+  :javascript
     var map = L.map('map_wrapper', {
       zoomControl: true
     }).setView([52.0891, 0.5600], 9);
@@ -53,5 +50,3 @@
     };
 
     $('#search_map_').easyAutocomplete(autoCompleteOptions);
-</script>
-<% end %>

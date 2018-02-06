@@ -5,6 +5,10 @@
   @include span-columns(12);
 }
 
+section.section {
+  @include span-columns(12);
+}
+
 .hero {
   @include span-columns(12);
   margin-right: 0;

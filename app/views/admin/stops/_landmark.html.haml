@@ -1,0 +1,8 @@
+.landmark{"data-lat" => latitude, "data-lng" => longitude}
+  %section.section
+    = f.label :name
+    = f.text_field :name
+    .map{:style => "height: 300px; width: 100%;"}
+    = f.hidden_field :latitude, class: 'latitude'
+    = f.hidden_field :longitude, class: 'longitude'
+    = link_to_remove_association 'Remove Landmark', f, class: 'text'
