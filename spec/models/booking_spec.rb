@@ -476,7 +476,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil
       ])
@@ -493,7 +493,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil,
         'outward',
@@ -517,7 +517,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil,
         'return',
