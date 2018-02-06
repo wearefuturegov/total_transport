@@ -47,4 +47,15 @@ RSpec.describe Route, type: :model do
     
   end
   
+  it 'saves all subroutes' do
+    route.name = 'New Name'
+    route.pricing_rule = FactoryBot.create(:pricing_rule)
+    route.sub_routes = FactoryBot.create_list(:route, 5, name: 'Old Name', pricing_rule: nil, route: nil)
+    route.save
+    route.reload
+    
+    expect(route.sub_routes.pluck(:name).uniq).to eq(['New Name'])
+    expect(route.sub_routes.pluck(:pricing_rule_id).uniq).to eq([route.pricing_rule.id])
+  end
+  
 end
