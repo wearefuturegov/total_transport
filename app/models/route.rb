@@ -7,7 +7,6 @@ class Route < ActiveRecord::Base
   belongs_to :route
   belongs_to :pricing_rule
   
-  after_initialize :set_rule
   after_save :queue_geometry
   
   validate :check_sub_route
@@ -82,10 +81,6 @@ class Route < ActiveRecord::Base
   end
   
   private
-
-    def set_rule
-      self.pricing_rule ||= {}
-    end
     
     def queue_geometry
       SetRouteGeometry.enqueue(id)
