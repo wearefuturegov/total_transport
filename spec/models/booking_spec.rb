@@ -4,11 +4,11 @@ RSpec.describe Booking, :que, type: :model do
   
   let(:stops) {
     [
-      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryBot.create(:place, name: 'Pickup Stop')),
+      FactoryBot.create(:stop, minutes_from_last_stop: nil, position: 1, place: FactoryBot.create(:place, name: 'Pickup Stop', latitude: 51.7239162277052, longitude: 0.899999141693115)),
       FactoryBot.create(:stop, minutes_from_last_stop: 40, position: 2),
       FactoryBot.create(:stop, minutes_from_last_stop: 20, position: 3),
       FactoryBot.create(:stop, minutes_from_last_stop: 10, position: 4),
-      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryBot.create(:place, name: 'Dropoff Stop'))
+      FactoryBot.create(:stop, minutes_from_last_stop: 15, position: 5, place: FactoryBot.create(:place, name: 'Dropoff Stop', latitude: 51.6275191853741, longitude: 0.814597606658936))
     ]
   }
   let(:route) { FactoryBot.create(:route, stops: stops) }
@@ -151,13 +151,7 @@ RSpec.describe Booking, :que, type: :model do
   context '#price_distance' do
     
     it 'returns the distance between stops' do
-      booking.pickup_stop.place.latitude = 51.7239162277052
-      booking.pickup_stop.place.longitude = 0.899999141693115
-      
-      booking.dropoff_stop.place.latitude = 51.6275191853741
-      booking.dropoff_stop.place.longitude = 0.814597606658936
-      
-      expect(booking.price_distance.round(1)).to eq(7.6)
+      expect(booking.price_distance).to eq(8.0)
     end
     
   end
@@ -476,7 +470,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        4.2,
         'n',
         nil
       ])
@@ -493,7 +487,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        4.2,
         'n',
         nil,
         'outward',
@@ -517,7 +511,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        4.2,
         'n',
         nil,
         'return',
@@ -576,18 +570,18 @@ RSpec.describe Booking, :que, type: :model do
   describe 'pricing' do
     
     {
-      0..5 => [2,4,1,2],
-      6..10 => [4,8,2,4],
-      11..15 => [6,12,3,6],
-      16..20 => [8,16,4,8],
-      21..25 => [10,20,5,10],
-      26..50 => [12,24,6,12]
-    }.each do |range,fares|
+      5 => [1.8,2.6,0.9,1.3],
+      7 => [2.5,3.7,1.2,1.8],
+      12 => [4.2,6.3,2.1,3.2],
+      18 => [6.3,9.5,3.2,4.7],
+      23 => [8.1,12.1,4.0,6.0],
+      28 => [9.8,14.7,4.9,7.4]
+    }.each do |miles, fares|
       
-      context "Between between #{range.first} and #{range.last} miles" do
+      context "for #{miles} miles" do
         
         before do
-          allow(booking).to receive(:price_distance).and_return(rand(range))
+          allow(booking).to receive(:price_distance).and_return(miles)
         end
         
         context 'adult fare' do
