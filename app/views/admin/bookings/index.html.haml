@@ -14,8 +14,9 @@
       = form.label :date_to
       = form.date_field :date_to, value: @filter.date_to
 
-      .action.primary
+      .action
         = link_to 'Reset filters', reset_filterrific_url
+      .action.primary
         = form.submit 'Update filter', class: "button", name: nil
 
     .card      
@@ -25,5 +26,5 @@
       .number= @passengers_count
       Passengers
       
-      .action.primary
-        = link_to 'Download CSV', params.merge({ format: :csv }), class: 'button'
+      .action
+        = link_to 'Download CSV', params.merge({ format: :csv }), class: 'text'
