@@ -24,26 +24,28 @@
               %li
                 = link_to admin_root_path do
                   Journeys
-            - if current_supplier
               %li
                 = link_to admin_account_path do
                   Profile 
-          - if current_supplier.admin?
-            %ul
-              %li
-                #{link_to "View Bookings", admin_bookings_path}
-              %li
-                #{link_to "Manage Core Routes", admin_routes_path}
-              %li
-                #{link_to "Manage Suppliers", admin_suppliers_path}
-              %li
-                #{link_to "Manage Teams", admin_teams_path}
-              %li
-                #{link_to "View Suggestions", admin_suggestions_path}
-              %li
-                #{link_to "Manage Promo Codes", admin_promo_codes_path}
-              %li
-                #{link_to "Create a timetable", new_admin_timetable_path}
+              = form_tag destroy_supplier_session_path, method: :delete do
+                = submit_tag "Logout", class: 'button text'
+
+              - if current_supplier.admin?
+                %ul
+                  %li
+                    #{link_to "View Bookings", admin_bookings_path}
+                  %li
+                    #{link_to "Manage Core Routes", admin_routes_path}
+                  %li
+                    #{link_to "Manage Suppliers", admin_suppliers_path}
+                  %li
+                    #{link_to "Manage Teams", admin_teams_path}
+                  %li
+                    #{link_to "View Suggestions", admin_suggestions_path}
+                  %li
+                    #{link_to "Manage Promo Codes", admin_promo_codes_path}
+                  %li
+                    #{link_to "Create a timetable", new_admin_timetable_path}
       = yield
       %footer.footer
         %p

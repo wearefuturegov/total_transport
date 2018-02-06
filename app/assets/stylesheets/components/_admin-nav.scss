@@ -6,5 +6,12 @@
       display: inline;
       padding-right: $gutter*0.5;
     }
+    li + form {
+      width: auto;
+      float: right;
+    }
+  }
+  ul ul {
+    margin-top: $baseline;
   }
 }
