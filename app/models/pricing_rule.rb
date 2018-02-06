@@ -14,4 +14,12 @@ class PricingRule < ActiveRecord::Base
     end
   end
   
+  def get_single_price(distance)
+    if per_mile?
+      (distance * per_mile) / 100
+    else
+      (stages.find { |s| distance.between?(s.from, s.to) } || stages.last).price
+    end
+  end
+  
 end
