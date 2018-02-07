@@ -12,9 +12,10 @@
       = form.check_box :admin
       = form.label :approved
       = form.check_box :approved
-
-      .action
-        = form_for [:admin, @supplier], method: :delete do |form|
-          = form.submit "Delete supplier", class: "text"
+      
       .action.primary
         = form.submit "Update", :class => "button"
+
+    .action
+      = form_for [:admin, @supplier], method: :delete do |form|
+        = form.submit "Delete supplier", class: "text"
