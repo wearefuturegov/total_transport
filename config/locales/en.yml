@@ -26,10 +26,10 @@ en:
   # This also changes @page_title everywhere
 
   public-index:
-    title:
-      essex: "Your local service that helps you go places in Essex."
-      suffolk: "Your local service that helps you go places in Suffolk."
-      essex-demo: "Your local service that helps you go places in Suffolk and Essex."
+    planner:
+      title: "Go places…"
+      extra: "*Right now we're piloting two routes between Newmarket"
+    title: "Your local service that helps you go places in Essex and Suffolk"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
       suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -74,10 +74,13 @@ en:
 
   steps:
     step_1:
+      title: "Affordable"
       info: "Affordable, reliable shared transport"
     step_2:
+      title: "Local"
       info: "Provided by local transport companies"
     step_3:
+      title: "Bookable"
       info: "Runs when booked, with instant confirmation"
 
   journey:
@@ -89,6 +92,21 @@ en:
       label: "To"
       message: "e.g. Maldon, Broomfield Hospital"
 
+  what:
+    title: "What is Ride?"
+    passengers:
+      title: "What is Ride for passengers?"
+      info: "Prebook service for you, your family or as a group of friends. Be it your commute, school run, shopping trip, visiting friends or going to a local event."
+    suppliers:
+      title: "What is Ride for suppliers?"
+      info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
+
+  pilot:
+    title: "Getting you places"
+    info_a: "We're piloting a new service."
+    info_b: "Right now we have a limited number of routes available running from xxx to xxx."
+    info_c: "Pre-book a ride a try it out."
+    info_d: "Let is know where would be a good route for us to offer in the future."
 
   promotion_a:
     title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -307,6 +325,7 @@ en:
     pay: "Pay Now"
     again: "Book another Ride"
     cancel: "Cancel"
+    enquiry_b: "Get in touch"
 
   email:
     address: "<%= ENV['RIDE_ADMIN_EMAIL'] %>"

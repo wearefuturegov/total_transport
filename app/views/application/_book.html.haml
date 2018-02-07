@@ -1,12 +1,17 @@
 %section.book
   %h2
-    = t("public-index.title.#{Rails.configuration.x.pickup.council}")
+    = t("public-index.planner.title")
+  %p
+    = t("public-index.title")
   = label_tag do
     = t('journey.from.label')
   = text_field_tag :from, nil, { placeholder: I18n.t('journey.from.message') }
   = label_tag do
     = t('journey.to.label')
   = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message')
+
+  = link_to I18n.t('button.book'), "promotion", class: "button"
+  
   #from_result.hidden{"aria-live" => "assertive", hidden: "", role: "alert", class: "error-block"}
     = t('message.sorry')
     from
@@ -17,3 +22,6 @@
   
   #results.hidden
     %i.fa.fa-spinner.fa-spin
+
+  %p.small
+    = t('public-index.planner.extra')

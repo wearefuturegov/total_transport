@@ -12,50 +12,24 @@
   %section.section.features
     .icon
       =image_tag('icons/piggy.svg')
+      %h3
+        = t('steps.step_1.title')
       %p
         = t('steps.step_1.info')
     .icon
       =image_tag('icons/driving.svg')
+      %h3
+        = t('steps.step_2.title')
       %p
         = t('steps.step_2.info')
     .icon
       =image_tag('icons/mobile.svg')
+      %h3
+        = t('steps.step_3.title')
       %p
         = t('steps.step_3.info')
 
-  %section.hero.regular#step-1
-    .overlay
-    .event
-    %section.section
-      %h2
-        = t('public-index.event.title')
-      %p
-        = t('public-index.event.info')
-
-      %section.action
-        = link_to I18n.t('button.book'), journeys_path, class: 'button cta'
-
-  %section.section
-    %h3
-      = t('promotion_a.section_e.title')
-    %p
-      = t('promotion_a.section_e.info')
-
-  %section.interest
-    %section.section
-      %h4
-        = t('promotion_a.section_c.title')
-      %p
-        = t('promotion_a.section_c.info')
-
-  %section.interest
-    %section.section
-      %h4
-        = t('promotion_a.section_c.title')
-      %p
-        = t('promotion_a.section_c.info')
-
-  %section.hero.enquiry
+  %section.hero.enquiry#step-1
     .overlay
     .event
     %section.section
@@ -66,6 +40,45 @@
 
       %section.action
         = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+
+  %section.interest
+    %section.section
+      %h4
+        = t('what.passengers.title')
+      %p
+        = t('what.passengers.info')
+      .action
+        = mail_to I18n.t('button.enquiry_b'), I18n.t('button.enquiry_b'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+
+  %section.interest
+    %section.section
+      %h4
+        = t('what.suppliers.title')
+      %p
+        = t('what.suppliers.info')
+      .action
+        = mail_to I18n.t('button.enquiry_b'), I18n.t('button.enquiry_b'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+
+  %section.section
+    %h3
+      = t('pilot.title')
+    %p
+      = t('pilot.info_a')
+      = t('pilot.info_b')
+      = t('pilot.info_c')
+      = t('pilot.info_d')
+
+  %section.hero.regular
+    .overlay
+    .event
+    %section.section
+      %h2
+        = t('public-index.event.title')
+      %p
+        = t('public-index.event.info')
+
+      %section.action
+        = link_to I18n.t('button.book'), journeys_path, class: 'button'
 
   %section.section
     %h3

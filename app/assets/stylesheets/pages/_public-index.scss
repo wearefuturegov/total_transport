@@ -88,7 +88,7 @@
       }
     }
     &.enquiry {
-      padding-top: $logo-height * 4;
+      padding-top: $logo-height;
       .overlay {
         background-color: rgba(3, 23, 29, 0.5);
         background-color: rgba(0, 35, 80, 0.5);
@@ -118,6 +118,12 @@
         text-align: left;
         margin-top: 0;
         margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
+      }
+      p {
+        text-align: left;
+      }
+      p.small {
+        margin-top: $baseline*0.5;
       }
       label {
         font-size: $small;

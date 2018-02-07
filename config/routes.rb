@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'about/index'
+
   resources :log_entry, only: [:create]
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :places, only: [:index, :show]
