@@ -4,7 +4,7 @@ class Admin::RoutesController < AdminController
   before_filter :get_pricing_rules, only: [:show]
   
   def index
-    @routes = Route.all
+    @routes = Route.where(route: nil)
     @route = Route.new
     @back_path = admin_account_path
     @new_route_path = admin_routes_path

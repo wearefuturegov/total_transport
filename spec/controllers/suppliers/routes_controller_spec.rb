@@ -5,11 +5,16 @@ RSpec.describe Admin::RoutesController, type: :controller do
   
   context '#index' do
     
-    let(:routes) { FactoryBot.create_list(:route, 5) }
+    let!(:routes) { FactoryBot.create_list(:route, 5, route: nil) }
+    let!(:sub_routes) { FactoryBot.create_list(:route, 6, route: routes[0]) }
     let!(:subject) { get :index }
     
     it 'lists all the routes' do
-      expect(assigns(:routes)).to eq(routes)
+      expect(assigns(:routes)).to match_array(routes)
+    end
+    
+    it 'does not list subroutes' do
+      expect(assigns(:routes)).to_not match_array(sub_routes)
     end
     
     it 'initializes a new route' do
