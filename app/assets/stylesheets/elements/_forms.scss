@@ -31,6 +31,17 @@ textarea {
   line-height: $baseline;
 }
 
+input.text {
+  padding: 0;
+  text-decoration: underline;
+  text-transform: initial;
+  text-align: left;
+  background: none;
+  color: $brand;
+  line-height: $baseline;
+  border: none;
+}
+
 input[type=checkbox] {
   -webkit-appearance: checkbox;
   margin: 0;
@@ -46,7 +57,7 @@ input[type=checkbox] {
   background-color: white;
   border: $black $border-width-thin $border-style;
   box-sizing: border-box;
-  margin-bottom: $baseline * 0.5;
+  margin-bottom: $baseline*0.5;
   padding: $baseline*0.5;
   transition: border-color ;
   width: 100%;
@@ -122,5 +133,9 @@ input[type=number]::-webkit-outer-spin-button {
   background-size: 5px 5px, 5px 5px, 1px $baseline*2.5;
   background-repeat: no-repeat;
   margin-bottom: $baseline*0.5;
-  width: 100%;
+  width: 100%;  
+  &.year, &.month, &.day, &.hour, &.minute {
+    display: inline;
+    width: 33%;
+  }
 }

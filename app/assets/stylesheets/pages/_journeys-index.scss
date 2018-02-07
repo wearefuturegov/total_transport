@@ -12,6 +12,9 @@
   .easy-autocomplete {
     width: 100% !important;
   }
+  section.section {
+    @include outer-container(75%);
+  }
 }
 
 #journeys-index, #bookings-edit, #bookings-confirmation, #bookings-cancel {

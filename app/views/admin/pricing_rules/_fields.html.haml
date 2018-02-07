@@ -1,0 +1,39 @@
+= form.label :name
+= form.text_field :name
+
+= form.label :rule_type
+= form.select :rule_type, PricingRule.rule_types.keys, { include_blank: 'Please select' }, class: 'input select'
+
+#per_mile{ class: form.object.per_mile? ? '' : 'hidden' }
+  
+  = form.label :per_mile, 'Pence Per Mile'
+  = form.number_field :per_mile, class: 'input'
+  
+#stages{ class: form.object.staged? ? '' : 'hidden' }
+
+  %hr/
+
+  %h3
+    Pricing Stages
+      
+  #stages_wrapper
+  
+    - if form.object.stages.count > 0
+      = render partial: 'stage', collection: form.object.stages
+  
+  = link_to 'Add Stage', '#', { 'data-content' => (render partial: 'stage', locals: {stage: PricingRule::Stage.new}), id: 'add-stage', class: 'button' }
+
+  = form.hidden_field :stages
+  
+  %hr/
+  
+= form.label :child_multiplier
+= form.number_field :child_multiplier, class: 'input', step: 0.5, value: 0.5
+
+= form.label :return_multiplier
+= form.number_field :return_multiplier, class: 'input', step: 1.5
+
+= form.label :allow_concessions
+= form.select :allow_concessions, [['Yes', 1],['No', 0]], {}, class: 'input select'
+
+= form.submit 'Submit'

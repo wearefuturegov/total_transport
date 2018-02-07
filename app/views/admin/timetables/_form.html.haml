@@ -1,0 +1,56 @@
+= form_for [:admin, timetable] do |form|
+  
+  = form.label :route
+  = form.select :route_id, options_from_collection_for_select(@routes, :id, :name, timetable.route_id), { include_blank: 'Please select a route' }, class: 'select'
+  
+  - if current_supplier.admin?
+    = form.label :team_id, 'Team'
+    = form.select :team_id, options_from_collection_for_select(Team.all, 'id', 'name'), { selected: current_team.id }, class: 'select'
+  - else
+    = form.hidden_field :team_id, value: current_team.id
+  
+  = form.label :from, 'Timetable Start Date'
+  = form.date_select :from, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
+  
+  = form.label :to, 'Timetable End Date'
+  = form.date_select :to, { with_css_classes: true, order: [:day, :month, :year] }, { class: 'select' }
+  
+  = form.label :open_to_bookings, 'Open to Bookings?'
+  = form.select :open_to_bookings, [['Yes', true], ['No', false]], {}, class: 'select'
+  
+  = form.label :reversed, 'Reversed?'
+  = form.select :reversed, [['No', false], ['Yes', true]], {}, class: 'select'
+  
+  = form.label :days, 'Days of operation'
+    
+  - Date::DAYNAMES.each_with_index do |day, i|
+    = label_tag do
+      = check_box_tag "#{form.object_name}[days][]", i, timetable.days.map(&:to_s).include?(i.to_s)
+      = day
+  
+  #time-wrapper{ class: timetable.timetable_times.count.zero? ? 'hidden' : '' }    
+    #times{ 'data-route-id': timetable.route&.id }
+      = form.fields_for :timetable_times do |time|
+        = render 'timetable_time_fields', f: time
+      .action.secondary
+        = link_to_add_association 'add time', form, :timetable_times, { class: 'button secondary' }
+  
+  .action.primary
+    = form.submit 'Submit', class: 'button border-bottom-radius'
+  
+- content_for :js do
+  
+  :javascript
+    
+    $('#timetable_route_id').change(function() {
+      $('#time-wrapper').removeClass('hidden');
+      $('#times').data('route-id', $(this).val())
+    })
+    
+    $('#times').on('cocoon:after-insert', function(e, added_time) {
+      var id = added_time.html().match(/timetable_timetable_times_attributes_(\d+)/)[1]
+      var reversed = $('#timetable_reversed').val()
+      added_time.attr('id', 'time-' + id)
+      $.get('/admin/routes/' + $('#times').data('route-id') + '.js?time_id=' + id + '&reversed=' + reversed)
+    })
+    

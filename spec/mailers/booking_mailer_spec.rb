@@ -19,8 +19,7 @@ RSpec.describe BookingMailer, type: :mailer do
   }
   let(:route) { FactoryBot.create(:route, stops: stops) }
   let(:team) { FactoryBot.create(:team, email: 'team@example.com') }
-  let(:supplier) { FactoryBot.create(:supplier, team: team) }
-  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), supplier: supplier) }
+  let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), team: team) }
   let(:booking) {
     FactoryBot.create(:booking,
       journey: journey,
@@ -64,7 +63,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Dropoff Stop/)
         expect(body).to match(/Pickup place: Pickup Landmark/)
         expect(body).to match(/Dropoff place: Dropoff Landmark/)
-        expect(body).to match(/Amount: £2.00/)
+        expect(body).to match(/Amount: £12.00/)
         expect(body).to match(/Payment method: cash/)
         expect(body).to match(/This is a single journey/)
       end
@@ -185,7 +184,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/To: Pickup Stop/)
         expect(body).to match(/Pickup place: Dropoff Landmark/)
         expect(body).to match(/Dropoff place: Pickup Landmark/)
-        expect(body).to match(/Amount: £4.00/)
+        expect(body).to match(/Amount: £18.00/)
         expect(body).to match(/This is a return journey/)
       end
       

@@ -1,0 +1,22 @@
+%section.section
+  .card
+    %h2
+      Manage suppliers
+    %table
+      %tr
+        %th Email
+        %th Name
+        %th Phone Number
+        %th Team
+        %th Approved?
+        %th Super admin?
+        %th
+      - @suppliers.each do |supplier|
+        %tr
+          %td= supplier.email
+          %td= supplier.name
+          %td= supplier.phone_number
+          %td= supplier.team.name
+          %td= supplier.approved?
+          %td= supplier.admin?
+          %td= link_to "edit", edit_admin_supplier_path(supplier)

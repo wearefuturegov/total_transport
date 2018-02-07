@@ -41,8 +41,8 @@ en:
       essex-demo: "Start by exploring the routes on offer. Pickup travels all across rural Suffolk and Essex, including Chelmsford, Maldon, and the Dengie. Trips can be booked any time from a month to a day in advance."
     map_title: "Connecting residents to great locations in your area"
     about:
-      title:
-      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way."
+      title: "Pre-book a Ride for you"
+      info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
       extra: "Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
       info-demo: "Pre-book a Ride for you, your family or as a group of friends. Travel around Suffolk and Essex from a pick-up point near you in a simpler, more flexible way."
     collection:
@@ -173,15 +173,12 @@ en:
     oneway: "One way"
     return: "Return"
     typeform: "Tell us more"
+    more: "Find out more"
     next: "Continue"
     complete: "All done"
     main_book: "Try our £1 return offers *"
     main_book_asterisk: "* Introductory offer"
     book: "Pre-book your Ride"
-    contact: "Have a question?"
-    submit: "Submit your booking request"
-    return: "Return"
-    typeform: "Tell us more"
     typeform-link: "https://bookyourride.typeform.com/to/mv530I"
     event: "Coming Soon"
     regular: "Coming Soon"
@@ -340,7 +337,3 @@ en:
       body: |
         Your Ride booking on %{pickup_date} at %{pickup_time} from %{pickup_name}
         has been cancelled. To book a new journey, go to https://bookyourride.co.uk/.
-    post_survey:
-      body: |
-        We hope you enjoyed your Ride. To help us improve the service, please
-        share your feedback: %{url}

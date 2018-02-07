@@ -1,0 +1,14 @@
+%section.section
+  .card
+    %h2
+      Manage teams
+    %table
+      %tr
+        %th Name
+        %th Email
+        %th
+      - @teams.each do |team|
+        %tr
+          %td= team.name
+          %td= team.email
+          %td= link_to "edit", edit_admin_team_path(team)

@@ -1,0 +1,4 @@
+%tr
+  %td= pricing_rule.name
+  %td= link_to 'Edit', edit_admin_pricing_rule_path(pricing_rule)
+  %td= link_to 'Delete', admin_pricing_rule_path(pricing_rule), method: :delete, data: { confirm: 'This will delete the rule. Are you sure?' }

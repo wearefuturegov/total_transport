@@ -1,0 +1,57 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Ride
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+  %body{:class => "#{controller.controller_name}", :id => "#{@body_id}"}
+    - if alert.present? || notice.present?
+      #alerts.alerts
+        %p.notice= notice
+        %p.alert= alert
+    #admin
+      %header.header
+        %nav.admin-nav
+          %ul
+            / - if @back_path
+            /   %li
+            /     = link_to @back_path do
+            /       Back
+            - if current_supplier
+              %li
+                = link_to admin_root_path do
+                  Journeys
+              %li
+                = link_to admin_account_path do
+                  Profile 
+              = form_tag destroy_supplier_session_path, method: :delete do
+                = submit_tag "Logout", class: 'button text'
+
+              - if current_supplier.admin?
+                %ul
+                  %li
+                    #{link_to "View bookings", admin_bookings_path}
+                  %li
+                    #{link_to "Manage core routes", admin_routes_path}
+                  %li
+                    #{link_to "Manage suppliers", admin_suppliers_path}
+                  %li
+                    #{link_to "Manage teams", admin_teams_path}
+                  %li
+                    #{link_to "View suggestions", admin_suggestions_path}
+                  %li
+                    #{link_to "Manage promo codes", admin_promo_codes_path}
+                  %li
+                    #{link_to "Create a timetable", new_admin_timetable_path}
+      = yield
+      %footer.footer
+        %p
+          See something wrong, or have an idea for improvement?
+        %p
+          = link_to new_admin_supplier_suggestion_path(from_url: request.path) do
+            Make a suggestion
+  = yield(:js)
+  %script{:async => "", :defer => "defer", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCStCdohZX5YZIQ9lbl1FJL1imDPF8EY5w&callback=initMap&libraries=drawing,geometry,places"}

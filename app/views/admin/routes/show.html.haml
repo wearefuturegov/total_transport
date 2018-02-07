@@ -1,0 +1,70 @@
+%section.section
+  .card
+    %h2
+      Stops
+  #sup_edit_route
+    - if @route.route.nil?
+      .card
+        = form_for [:admin, @route] do |f|
+          = f.label :name
+          = f.text_field :name
+          = f.label :pricing_rule_id
+          = f.select :pricing_rule_id, options_from_collection_for_select(@pricing_rules, :id, :name), {}, class: 'select'
+          .action.primary
+            = f.submit 'Update', class: 'button'
+
+    .card
+      %h3 Stops:
+      #sortable_stops.stops
+        - @route.stops.each do |stop|
+          %section.section
+            .stop{:id => "stop_#{stop.id}"}
+              .edit_route_mins
+                %p= stop.name
+                = link_to edit_admin_route_stop_path(@route, stop) do
+                  Edit stop
+                = form_for [:admin, @route, stop], method: :delete do |form|
+                  = form.submit "Delete stop", :class => "text"
+                  %section.section
+                    = form.label 'Minutes'
+                  = form_for [:admin, @route, stop] do |form|
+                    = form.number_field :minutes_from_last_stop, class: 'minutes-field'
+                    \#{form.submit "Save", :class => "text"}
+                .map_preview
+        = form_for [:admin, @route], method: :delete do |form|
+          = form.submit "Delete route", :class => "button text"
+        - if @route.route.nil?
+          = button_to 'Make subroute', admin_route_sub_routes_path(@route), method: :post, class: 'text'
+          = link_to 'View subroutes', admin_route_sub_routes_path(@route), class: 'text'
+      .action.primary
+        = link_to new_admin_route_stop_path(@route) do
+          .button
+            Add a new stop
+- content_for :js do
+  :javascript
+    function hideFirstTimeGap() {
+      $('.time_gap_form').css('visibility', 'visible');
+      $('.stop-list .time_gap_form').first().css('visibility', 'hidden');
+    }
+    var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    $('#sortable_stops').sortable({items:'.card', containment:'#sortable_stops', axis:'y', update: function() {
+      $.post('#{sort_admin_route_path(@route)}', '_method=put&authenticity_token='+AUTH_TOKEN+'&'+$(this).sortable('serialize'));
+      hideFirstTimeGap();
+    }});
+
+    $(function () {
+      hideFirstTimeGap();
+    })
+
+    function initMap() {
+      $('.map_preview').each(function(i, m) {
+        var map = new google.maps.Map(m, {});
+        map.data.addGeoJson($(m).data('geojson'));
+        var polygon;
+        map.setOptions({draggable: false, scrollwheel:  false});
+        map.data.forEach(function(feature) {polygon = feature.getGeometry()});
+        var bounds = new google.maps.LatLngBounds();
+        polygon.forEachLatLng(function(ll) {bounds.extend(ll)});
+        tightFitBounds(map, bounds);
+      });
+    }

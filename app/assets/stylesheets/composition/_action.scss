@@ -5,10 +5,32 @@
   margin-bottom: $baseline*2;
 }
 
+.card .action {
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+}
+
 .action {
-  margin-top: $baseline*4;
-  margin-bottom: $baseline*2;
+  margin-top: $baseline*3;
+  margin-bottom: $baseline*3;
   .button.cta + .button.cta{
     margin-left: $baseline;
+  }
+  &.primary {
+    text-align: right;
+    .button,
+    input {
+      width: auto;
+    }
+  }
+  &.secondary {
+    text-align: left;
+    .button {
+      width: auto;
+    }
+    &:hover .button {
+      background: $black;
+      color: $white;
+    }
   }
 }

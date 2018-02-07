@@ -1,23 +1,34 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
-.section {
-  // @include pad(0 default);
-  @include outer-container(75%);
+#admin,
+.admin-nav {
+  @include span-columns(12);
+}
+
+section.section {
+  @include span-columns(12);
 }
 
 .hero {
   @include span-columns(12);
   margin-right: 0;
+  .book {
+    @include span-columns(5);
+  }
+  .section.heading {
+    @include span-columns(10);
+    @include shift(1);
+  }
+}
+
+.main {
+  @include span-columns(12);
   .features {
     @include span-columns(12);
     .icon {
       @include span-columns(4);
     }
   }
-}
-
-.main {
-  @include span-columns(12);
   .journey .single {
     @include span-columns(4);
     @include shift(0);
@@ -29,6 +40,21 @@
       margin-right: 0;
     }
   }
+  section.section {
+    @include span-columns(8);
+    @include shift(2);
+  }
+  .divide {
+    @include span-columns(2);
+    @include shift(5);
+  }
+  .interest {
+    @include span-columns(6);
+  }
+}
+
+.action {
+  @include span-columns(12);
 }
 
 .footer {

@@ -29,7 +29,7 @@ RSpec.describe Booking, :que, type: :model do
   
   describe 'confirm!' do
     it 'sends a text message to the passenger' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       job = QueJob.find_by(job_class: 'SendSMS')
       expect(job.args[0]['to']).to eq(booking.phone_number)
     end
@@ -57,24 +57,33 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'queues text messages' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
-      post_survey = jobs.find { |j| j.args[0]['template'] == 'post_survey'}
       expect(first_alert.run_at).to eq(booking.outward_trip.pickup_time - 24.hours)
       expect(second_alert.run_at).to eq(booking.outward_trip.pickup_time - 1.hours)
-      expect(post_survey.run_at).to eq(booking.outward_trip.dropoff_time + 30.minutes)
+    end
+    
+    it 'queues a survey' do
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      job = QueJob.find_by(job_class: 'TriggerSurvey')
+      expect(job.run_at).to eq(booking.outward_trip.dropoff_time + 30.minutes)
     end
     
     it 'queues a text message for the return journey' do
       booking.return_journey = FactoryBot.create(:journey)
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(5)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
       jobs = QueJob.where(job_class: 'SendSMS')
       alert = jobs.select { |j| j.args[0]['template'] == 'second_alert'}.last
-      post_survey = jobs.find { |j| j.args[0]['template'] == 'post_survey'}
       expect(alert.run_at).to eq(booking.return_trip.pickup_time - 1.hours)
-      expect(post_survey.run_at).to eq(booking.return_trip.dropoff_time + 30.minutes)
+    end
+    
+    it 'queues a survey for the return journey' do
+      booking.return_journey = FactoryBot.create(:journey)
+      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      job = QueJob.find_by(job_class: 'TriggerSurvey')
+      expect(job.run_at).to eq(booking.return_trip.dropoff_time + 30.minutes)
     end
     
     it 'sets the journey to booked' do
@@ -148,7 +157,7 @@ RSpec.describe Booking, :que, type: :model do
       booking.dropoff_stop.place.latitude = 51.6275191853741
       booking.dropoff_stop.place.longitude = 0.814597606658936
       
-      expect(booking.price_distance.round(1)).to eq(7.6)
+      expect(booking.price_distance).to eq(8)
     end
     
   end
@@ -183,7 +192,7 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'ignores full journeys' do
       full_journey = journeys[0]
-      FactoryBot.create_list(:booking, full_journey.vehicle.seats, journey: full_journey, state: 'booked')
+      FactoryBot.create_list(:booking, full_journey.seats, journey: full_journey, state: 'booked')
       expect(booking.available_journeys).to_not include(full_journey)
     end
     
@@ -467,7 +476,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil
       ])
@@ -484,7 +493,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil,
         'outward',
@@ -508,7 +517,7 @@ RSpec.describe Booking, :que, type: :model do
         0,
         'Wheelchair',
         booking.created_at,
-        4,
+        18.0,
         'n',
         nil,
         'return',
@@ -538,16 +547,41 @@ RSpec.describe Booking, :que, type: :model do
     
   end
   
+  describe 'scopes' do
+    
+    describe '#route' do
+      
+      let!(:route) { FactoryBot.create(:route) }
+      let!(:journey) { FactoryBot.create(:journey, route: route) }
+      let!(:bookings) { FactoryBot.create_list(:booking, 3, journey: journey) }
+
+      it 'gets bookings with route' do
+        FactoryBot.create_list(:booking, 2)
+        expect(Booking.route(route.id)).to match_array(bookings)
+      end
+      
+      it 'includes sub routes' do
+        sub_route = FactoryBot.create(:route, route: route)
+        sub_route_bookings = FactoryBot.create_list(:booking, 2,
+          journey: FactoryBot.create(:journey, route: sub_route)
+        )
+        expect(Booking.route(route.id)).to match_array(bookings + sub_route_bookings)
+      end
+      
+    end
+    
+  end
+  
   
   describe 'pricing' do
     
     {
-      0..5 => [2,4,1,2],
-      6..10 => [4,8,2,4],
-      11..15 => [6,12,3,6],
-      16..20 => [8,16,4,8],
-      21..25 => [10,20,5,10],
-      26..50 => [12,24,6,12]
+      0..5 => [2,3,1,1.5],
+      6..10 => [4,6,2,3],
+      11..15 => [6,9,3,4.5],
+      16..20 => [8,12,4,6],
+      21..25 => [10,15,5,7.5],
+      26..50 => [12,18,6,9]
     }.each do |range,fares|
       
       context "Between between #{range.first} and #{range.last} miles" do
@@ -595,14 +629,18 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'with pricing rules' do
-      booking.route.pricing_rule = {
-        child_single_price: 0,
-        child_return_price: 0
-      }
-      booking.child_tickets = 1
+      allow(booking).to receive(:price_distance).and_return(4)
+      booking.route.pricing_rule = FactoryBot.create(:pricing_rule,
+        return_multiplier: 2,
+        child_multiplier: 0.25,
+        rule_type: :per_mile,
+        per_mile: 50
+      )
       
-      expect(booking.price).to eq(0)
-      expect(booking.return_price).to eq(0)
+      expect(booking.adult_single_price).to eq(2)
+      expect(booking.adult_return_price).to eq(4)
+      expect(booking.child_single_price).to eq(0.5)
+      expect(booking.child_return_price).to eq(1)
     end
     
   end

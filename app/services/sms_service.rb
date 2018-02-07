@@ -18,8 +18,8 @@ class SmsService
   end
   
   def perform
-    @client.messages.create(
-      from: TWILIO_PHONE_NUMBER,
+    @client.api.account.messages.create(
+      from: ENV['TWILIO_PHONE_NUMBER'],
       to: @to,
       body: message
     )
@@ -78,7 +78,7 @@ class SmsService
       I18n.t('sms.second_alert.body',
         pickup_name: @trip.pickup_name,
         pickup_time: plus_minus_ten(@trip.pickup_time),
-        supplier_number: @booking.journey.supplier.phone_number
+        supplier_number: @booking.journey.team.suppliers.first.phone_number
       ).squish
     end
     
@@ -88,10 +88,6 @@ class SmsService
         pickup_time: format_time(@booking.journey.start_time),
         pickup_name: @booking.outward_trip.pickup_stop.name
       ).squish
-    end
-  
-    def post_survey
-      I18n.t('sms.post_survey.body', url: ENV['POST_SURVEY_LINK']).squish
     end
   
 end

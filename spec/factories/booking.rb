@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory(:booking) do
     dropoff_stop factory: :stop
-    journey { FactoryBot.create(:journey, supplier: supplier) }
+    journey { FactoryBot.create(:journey, team: team) }
     passenger
     phone_number nil
     pickup_stop factory: :stop
@@ -14,11 +14,11 @@ FactoryBot.define do
     end
     
     transient do
-      supplier { FactoryBot.create(:supplier) }
+      team { FactoryBot.create(:team) }
     end
     
     trait(:with_return_journey) do
-      return_journey { FactoryBot.create(:journey, supplier: supplier) }
+      return_journey { FactoryBot.create(:journey, team: team) }
     end
   end
 end

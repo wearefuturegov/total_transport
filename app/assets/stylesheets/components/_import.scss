@@ -1,13 +1,18 @@
-/* Cards, heros, blocks of elements such as navigation as a whole */
+/*Components */
 
+@import "admin-nav";
 @import "buspass";
 @import "cards";
 @import "footer";
 @import "header";
 @import "hero";
+@import "inputsingle";
 @import "journey";
+@import "maps";
+@import "pagination";
 @import "plusminus";
 @import "profiles";
 @import "single";
-@import "structure";
+@import "stops";
+@import "tabs";
 

@@ -60,4 +60,13 @@ class Stop < ActiveRecord::Base
     end
   end
   
+  def copy
+    stop = self.dup
+    self.landmarks.each do |l|
+      stop.landmarks << l.copy
+    end
+    stop.save
+    stop
+  end
+  
 end

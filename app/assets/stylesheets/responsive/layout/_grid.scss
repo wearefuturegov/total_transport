@@ -3,28 +3,49 @@
 
 @media only screen and (max-width: 667px) {
 
-  .section {
-    @include outer-container(90%);
-  }
-
   .hero {
     @include span-columns(12);
     margin-right: 0;
-    .features {
+    &.enquiry {
+      @include pad(default);
+    }
+    .book {
       @include span-columns(12);
-      .icon {
-        @include span-columns(12);
-      }
+    }
+    section.section {
+      @include span-columns(12);
+      @include shift(0);
+      margin-right: 0;
     }
   }
 
   .main {
     @include span-columns(12);
+    margin-right: 0;
+    .section.features {
+      @include span-columns(12);
+      @include shift(0);
+      margin-right: 0;
+      .icon {
+        @include span-columns(12);
+        margin-right: 0;
+      }
+    }
     .journey .single {
       @include span-columns(12);
     }
     .collection .single {
       @include span-columns(12);
+    }
+    section.section {
+      @include span-columns(12);
+      @include pad(default);
+      @include shift(0);
+      margin-right: 0;
+    }
+    .action {
+      @include span-columns(12);
+      @include shift(0);
     }
   }
 

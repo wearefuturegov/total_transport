@@ -16,4 +16,7 @@
 //= require jquery-ui/sortable
 //= require datetimepicker
 //= require cocoon
+//= require booking-home
+//= require pricing-rules
+//= require public
 //= require_tree .

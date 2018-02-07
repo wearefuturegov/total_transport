@@ -12,6 +12,12 @@ class Landmark < ActiveRecord::Base
     end
   end
   
+  def copy
+    landmark = self.dup
+    landmark.save
+    landmark
+  end
+  
   private
   
     def get_latlng_from_postcode

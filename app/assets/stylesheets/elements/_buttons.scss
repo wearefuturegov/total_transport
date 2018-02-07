@@ -37,32 +37,28 @@ button {
   }
 }
 
-// remove the .cta from .button when the buttons sass file is sorted out.
-.button.cta {
+#{$all-buttons}, .button {
   @include ease;
   position: relative;
   font-family: $stack-2;
   text-align: center;
+  text-decoration: none;
   font-size: $body;
   font-weight: 700;
   line-height: $baseline*2;
+  cursor: pointer;
   background: $brand;
-  border-color: $brand;
+  border: $border-width $border-style $brand;
   color: $white;
   display: inline-block;
   padding: 0 $baseline;
   width: auto;
-  &.cta {
-    color: $white;
-    background: $brand;
-    border: $border-width*2 $border-style $brand;
-    &:hover {
-      background: $black;
-      border-color: $black;
-    }
+  &:hover {
+    background: $black;
+    border-color: $black;
   }
   &.secondary {
-    color: $brand;
+    color: $black;
     background: $white;
     border-color: $black;
     &:hover {
@@ -84,64 +80,28 @@ button {
       border-color: $stripe;
     }
   }
-}
-
-// previous buttons below here
-
-#{$all-buttons}, .button {
-  @include ease;
-  border: $border-style $border-width*2 $brand;
-  text-align: center;
-  appearance: none;
-  background-color: $brand;
-  color: $white;
-  cursor: pointer;
-  display: inline-block;
-  font-family: $stack-1;
-  font-size: $body;
-  -webkit-font-smoothing: antialiased;
-  font-weight: 700;
-  line-height: 1;
-  padding: $small-spacing $base-spacing;
-  text-decoration: none;
-  user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-transform: uppercase;
-  width: 100%;
-  -webkit-appearance: none;
-  padding: 0 $baseline;
-  line-height: $baseline*2;
-  &:hover, &:focus {
-    background-color: $black;
-    border-color: $black;
-    color: #fff;
-  }
-  &:active {
-    -webkit-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
-    -moz-box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
-    box-shadow: inset 0px 5px 35px -10px rgba($dark-gray, 0.75);
-  }
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 1;
-    background-color: $medium-gray;
+  &.text {
+    padding: 0;
+    text-decoration: underline;
+    text-transform: initial;
+    text-align: left;
+    background: none;
+    color: $brand;
+    line-height: $baseline;
+    border: none;
     &:hover {
-      background-color: darken($medium-gray, 10%);
-    }
-  }
-  &.secondary {
-    background: $white;
-    color: $black;
-    border-color: $black;
-
-    &:hover {
+      background: none;
       color: $black;
+      cursor: pointer;
     }
   }
   &.cancel {
     border-color: $brand;
     color: $brand;
+  }
+  &.small {
+    font-size: $small;
+    line-height: $baseline*1.5;
   }
 }
 

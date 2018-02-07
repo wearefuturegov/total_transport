@@ -1,0 +1,21 @@
+/* pagination */
+
+.pagination {
+  display: inline-block;
+  text-align: center;
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+  width: 100%;
+  .prev {
+    margin-right: $gutter*0.5;
+  }
+  .next {
+    margin-left: $gutter*0.5;
+  }
+  .page {
+    float: none;
+  }
+  .last, .first {
+    display: none;
+  }
+}

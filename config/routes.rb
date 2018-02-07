@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+
   resources :log_entry, only: [:create]
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :places, only: [:index, :show]
+  resources :promotion, only: [:index]
   resources :journeys, only: [:index] do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
     member do
       get :confirmation
       get :return_journeys
+      put :send_missed_feedback
     end
   end
   
@@ -33,8 +36,8 @@ Rails.application.routes.draw do
     root 'journeys#index'
     #resource :team, only: [:show]
     resources :teams
+    resources :pricing_rules
     get :account, to: 'teams#show'
-    resources :vehicles
     resources :journeys do
       collection do
         get 'surrounding_journeys'
@@ -52,6 +55,7 @@ Rails.application.routes.draw do
       end
 
       resources :stops
+      resources :sub_routes
     end
     resources :suggestions
     resources :supplier_suggestions
@@ -60,6 +64,7 @@ Rails.application.routes.draw do
     resources :sms, only: [:new, :create]
     resources :places, only: [:new, :create]
     resources :placenames, only: [:index]
+    resources :timetables
   end
   get '/admin' => 'admin/journeys#index', as: :supplier_root # creates user_root_path
   get '/bookings/:token/cancel', as: :cancel_booking, to: 'bookings#cancel'

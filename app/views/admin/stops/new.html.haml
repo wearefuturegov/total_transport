@@ -1,0 +1,9 @@
+%section.section
+  .card
+    %h2 Add a stop
+    = form_for [:admin, @route, @stop] do |form|
+      = render partial: 'fields', locals: {form: form}
+      .action
+        = form.submit "Create & add another stop", :class => "button text"
+      .action.primary
+        = form.submit "Create & finish", :class => "button"
