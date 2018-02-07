@@ -12,4 +12,5 @@
       %tbody
         = render partial: 'pricing_rule', collection: @pricing_rules
     
-    = link_to 'Create new rule', new_admin_pricing_rule_path, { class: 'button' }
+    .action.primary
+      = link_to 'Create new rule', new_admin_pricing_rule_path, { class: 'button' }
