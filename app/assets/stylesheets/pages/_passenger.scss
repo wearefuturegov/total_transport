@@ -1,0 +1,19 @@
+
+/* passengers view unique styles */
+
+#journeys-index,
+#bookings-new {
+  header {
+    display: none;
+  }
+  #{$all-buttons}, .button {
+    width: 100%;
+  }
+  section.section {
+    @include outer-container(90%);
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: $baseline*0.5;
+    margin-bottom: $baseline*0.5;
+  }
+}
