@@ -39,7 +39,7 @@
         = t('public-index.event.enquiry.info')
 
       %section.action
-        = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+        = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button'
 
   %section.interest
     %section.section
@@ -67,6 +67,11 @@
       = t('pilot.info_b')
       = t('pilot.info_c')
       = t('pilot.info_d')
+
+      .action
+        = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button secondary'
+
+
 
   %section.hero.regular
     .overlay

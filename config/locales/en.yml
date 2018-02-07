@@ -326,6 +326,7 @@ en:
     again: "Book another Ride"
     cancel: "Cancel"
     enquiry_b: "Get in touch"
+    routes: "Suggest future routes"
 
   email:
     address: "<%= ENV['RIDE_ADMIN_EMAIL'] %>"
