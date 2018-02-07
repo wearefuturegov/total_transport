@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 20180207165226) do
     t.integer  "place_id"
   end
 
-  add_index "stops", ["place_id", "route_id"], name: "index_stops_on_place_id_and_route_id", unique: true, using: :btree
+  add_index "stops", ["place_id", "route_id"], name: "index_stops_on_place_id_and_route_id", using: :btree
   add_index "stops", ["place_id"], name: "index_stops_on_place_id", using: :btree
   add_index "stops", ["route_id"], name: "index_stops_on_route_id", using: :btree
 
