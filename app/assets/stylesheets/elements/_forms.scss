@@ -31,6 +31,17 @@ textarea {
   line-height: $baseline;
 }
 
+input.text {
+  padding: 0;
+  text-decoration: underline;
+  text-transform: initial;
+  text-align: left;
+  background: none;
+  color: $brand;
+  line-height: $baseline;
+  border: none;
+}
+
 input[type=checkbox] {
   -webkit-appearance: checkbox;
   margin: 0;

@@ -1,0 +1,35 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Ride
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "WbdTeRAxwGsOdKLgCCx1YZ1Ed9IG0KsGLcHF7W5iP8k", :name => "google-site-verification"}/
+  %body{:class => "#{controller.controller_name}", :id => "#{@body_id}"}
+    %header.header
+      - if @back_path
+        = link_to @back_path do
+          Back
+    - if flash[:alert].present? || @flash_alert.present?
+      #alerts.alerts.container
+        .inner
+          %p.alert
+            = flash[:alert]
+            = @flash_alert
+    - if content_for?(:top_sec)
+      = yield(:top_sec)
+    = yield
+    / <footer class="footer"></footer>
+  = yield(:js)
+  - if Rails.env.production? && ENV['GA_ANALYTICS_ID']
+    / Global site tag (gtag.js) - Google Analytics
+    %script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=#{ENV['GA_ANALYTICS_ID']}"}
+    :javascript
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '#{ENV['GA_ANALYTICS_ID']}');

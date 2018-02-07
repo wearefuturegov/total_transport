@@ -1,0 +1,57 @@
+%section.section
+  .card
+    %h2 View suggestions
+    %h3 Suggested routes
+    %table
+      %tr
+        %th Suggested by
+        %th Description
+      - @suggested_routes.each do |suggested_route|
+        %tr
+          %td
+            = suggested_route.passenger.phone_number
+            on #{friendly_date suggested_route.passenger.created_at}
+          %td= suggested_route.description
+    %h3 Suggested times
+    %table
+      %tr
+        %th Suggested by
+        %th On route
+        %th Time
+        %th Description
+      - @suggested_journeys.each do |suggested_journey|
+        %tr
+          %td
+            = suggested_journey.passenger.phone_number
+            on #{friendly_date suggested_journey.passenger.created_at}
+          %td= link_to suggested_journey.route.name, admin_route_path(suggested_journey.route)
+          %td= suggested_journey.start_time
+          %td= suggested_journey.description
+    %h3 Suggested edit to stops
+    %table
+      %tr
+        %th Suggested by
+        %th On route
+        %th Stop
+        %th Description
+      - @suggested_edit_to_stops.each do |suggested_edit_to_stop|
+        %tr
+          %td
+            = suggested_edit_to_stop.passenger.phone_number
+            on #{friendly_date suggested_edit_to_stop.passenger.created_at}
+          %td= link_to suggested_edit_to_stop.stop.route.name, admin_route_path(suggested_edit_to_stop.stop.route)
+          %td= link_to suggested_edit_to_stop.stop.name, edit_admin_route_stop_path(suggested_edit_to_stop.stop.route, suggested_edit_to_stop.stop)
+          %td= suggested_edit_to_stop.description
+    %h3 Supplier suggestions
+    %table
+      %tr
+        %th Suggested by
+        %th From page
+        %th Description
+      - @supplier_suggestions.each do |supplier_suggestion|
+        %tr
+          %td
+            = supplier_suggestion.supplier.email
+            on #{friendly_date supplier_suggestion.supplier.created_at}
+          %td= link_to supplier_suggestion.url, supplier_suggestion.url
+          %td= supplier_suggestion.description

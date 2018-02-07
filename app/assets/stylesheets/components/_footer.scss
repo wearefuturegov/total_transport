@@ -1,0 +1,16 @@
+/* much like the header, the footer needs a bit of a tidy */
+
+footer.psuedo-footer {
+  background: $black;
+}
+
+#admin {
+  footer.footer {
+    text-align: center;
+    border-top: $border-style $border-width-thin $gray;
+  }
+}
+
+footer.footer {
+  padding: $baseline*0.5 $gutter;
+}

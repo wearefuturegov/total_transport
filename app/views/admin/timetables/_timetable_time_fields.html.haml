@@ -1,5 +1,6 @@
 .nested-fields
-  = f.label :time
+  %h2
+    Time
   = f.time_select :time, { with_css_classes: true }, { class: 'select' }
   
   = f.label :seats, 'Available seats'
@@ -13,6 +14,4 @@
       = render partial: 'admin/routes/stop', collection: @timetable.route.stops, locals: { selected: f.object.route.stops.collect(&:name), time_id: f.index }
   
   %p
-    = link_to_remove_association 'Remove time', f
-
-  %hr
+    = link_to_remove_association 'Remove time',

@@ -1,0 +1,25 @@
+%section.section
+  .card
+    %h2
+      Profile
+    %h3
+      = current_supplier.name
+    = link_to "Edit your profile", edit_supplier_registration_path
+    %section.section
+      %label
+        Email
+      = current_supplier.email
+      %label
+        Phone Number
+      = current_supplier.phone_number
+    %section.section
+      %h3 
+        Your team
+      - if current_team.solo_team?
+        %p You are currently the only person in your team - invite people now
+      - else
+        %p
+          You have #{current_team.suppliers.count} people in your team:
+        %ul
+          - current_team.suppliers.each do |supplier|
+            %li= supplier.name

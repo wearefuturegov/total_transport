@@ -1,6 +1,10 @@
 /* footer */
 
-.footer, .psuedo-footer {
+footer.footer {
+  margin-top: $baseline*2;
+}
+
+footer.footer, .psuedo-footer {
   section.section {
     margin-top: $baseline;
     margin-bottom: $baseline;

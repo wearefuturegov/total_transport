@@ -1,0 +1,65 @@
+/* tabs */
+
+.tabs {
+  background: $white;
+  float: left;
+  width: 100%;
+}
+
+/* old code below to check */
+
+.tabs-container {
+  margin: 0 auto;
+  text-align: left;
+  display: inline-flex;
+  .tab {
+    @include box-sizing;
+    display: inline-block;
+    color: $white;
+    background: $gray;
+    padding: $baseline*0.25 $gutter*1.5 $baseline*0.75 $gutter*0.5;
+    height: $baseline*2;
+    border: $border-width-thin $border-style $white;
+    border-bottom: none;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+  .tab.selected {
+    background-color: $white;
+    border-color: $gray;
+    color: $black;
+    cursor: default;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    z-index: 2;
+  }
+  .tab:first-child {
+    margin-right: -1px;
+  }
+  .tab:last-child {
+    margin-left: -1px;
+  }
+  & + .tabs-container {
+    float: right;
+  }
+}
+
+.three-tabs {
+  .tab:nth-child(2) {
+    margin-left: -1px;
+  }
+  .tab:last-child {
+    margin-left: -2px;
+  }
+}
+
+.tabs-container.full-width-tabs {
+  width: 100%;
+  max-width: 375px;
+  .tab {
+    width: 50%;
+  }
+}

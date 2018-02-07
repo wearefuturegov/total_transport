@@ -1,7 +1,12 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
 
-.section {
-  @include outer-container(100%);
+#admin,
+.admin-nav {
+  @include span-columns(12);
+}
+
+section.section {
+  @include span-columns(12);
 }
 
 .hero {
@@ -46,10 +51,10 @@
   .interest {
     @include span-columns(6);
   }
-  .action {
-    @include span-columns(4 of 8);
-    @include shift(2);
-  }
+}
+
+.action {
+  @include span-columns(12);
 }
 
 .footer {

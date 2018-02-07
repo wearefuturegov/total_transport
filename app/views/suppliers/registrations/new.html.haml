@@ -1,0 +1,24 @@
+%section.section
+  .card
+    %h2 Sign up
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.label :email
+      = f.email_field :email, autofocus: true
+      = f.label :password
+      - if @minimum_password_length
+        .small
+          (#{@minimum_password_length} characters minimum)
+      = f.password_field :password, autocomplete: "off"
+      = f.label :password_confirmation
+      .small
+        Retype password
+      = f.password_field :password_confirmation, autocomplete: "off"
+      = f.label :name
+      = f.text_field :name
+      = f.label :phone_number
+      = f.text_field :phone_number
+      = f.label :team_id
+      = f.select :team_id, [["New team", nil]] + Team.all.collect {|t| [t.name, t.id]}, {}, {class: 'select'}
+      .action.primary
+        = f.submit "Sign up", class: "button"
+      = render "suppliers/shared/links"

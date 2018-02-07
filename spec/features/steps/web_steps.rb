@@ -54,7 +54,7 @@ module WebSteps
   
   step 'I should see a suggestion of a journey from :start_point to :destination' do |start_point, destination|
     wait_for_ajax
-    expect(first('.book-button').text).to eq(destination.upcase)
+    expect(first('.book-button').text).to eq(destination)
   end
   
   step 'I confirm my booking' do

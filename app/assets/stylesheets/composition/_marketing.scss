@@ -64,6 +64,11 @@
     }
   }
   .main {
+    .action {
+      margin-top: $baseline*0.5;
+      margin-bottom: $baseline*0.5;
+      text-align: center;
+    }
     .event {
       background-image: image-url('enquiry.jpg');
       background-size: cover;

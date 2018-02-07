@@ -5,14 +5,32 @@
   margin-bottom: $baseline*2;
 }
 
+.card .action {
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+}
+
 .action {
-  text-align: center;
-  margin-top: $baseline*2;
-  margin-bottom: $baseline*2;
-  .button.cta {
-    min-width: $baseline*10;
-    & + .button.cta{
-      margin-left: $baseline;
+  margin-top: $baseline*3;
+  margin-bottom: $baseline*3;
+  .button.cta + .button.cta{
+    margin-left: $baseline;
+  }
+  &.primary {
+    text-align: right;
+    .button,
+    input {
+      width: auto;
+    }
+  }
+  &.secondary {
+    text-align: left;
+    .button {
+      width: auto;
+    }
+    &:hover .button {
+      background: $black;
+      color: $white;
     }
   }
 }

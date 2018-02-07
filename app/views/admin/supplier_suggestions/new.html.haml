@@ -1,0 +1,8 @@
+%section.section
+  = form_for [:admin, @supplier_suggestion] do |form|
+    %p Pickup is still currently being developed, if you see any issues or have any suggestions for improvements to the admin system for Pickup, please provide details below.
+    = form.hidden_field :url
+    = form.label :description
+    = form.text_area :description
+    .action.primary
+      = form.submit "Submit Suggestion"

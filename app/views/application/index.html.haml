@@ -54,4 +54,6 @@
       = t('public-index.about.info')
 
     .action
-      = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button cta secondary'
+      = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+
+= render 'partials/psuedo_footer'

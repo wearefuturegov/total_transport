@@ -1,0 +1,12 @@
+.container
+  .inner
+    .card.no-click.wide-btn
+      = form_for [:admin, @route, @journey] do |form|
+        .inner
+          %h4 Edit Journey
+          = render partial: 'fields', locals: {form: form}
+        .half
+          = form.submit "Save Edit", :class => "button border-bottom-left-radius"
+      .half
+        = form_for [:admin, @route, @journey], method: :delete do |form|
+          = form.submit "Delete journey", :class => "negative button border-bottom-right-radius"
