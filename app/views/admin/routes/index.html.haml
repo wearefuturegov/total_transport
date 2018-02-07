@@ -42,6 +42,7 @@
         
         geoJSON.addTo(map);
         map.fitBounds(geoJSON.getBounds());
+        map.scrollWheelZoom.disable();
         
       }
     });
