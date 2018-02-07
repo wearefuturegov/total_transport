@@ -1,8 +1,8 @@
-.container
-  .inner
+%section.section
+  .card
     %h2
       Edit pricing rule
-  
+
     = form_for [:admin, @pricing_rule] do |form|
       .inner
         = render partial: 'fields', locals: {form: form}
