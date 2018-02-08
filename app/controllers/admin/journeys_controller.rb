@@ -8,6 +8,7 @@ class Admin::JourneysController < AdminController
       (params[:filterrific] || {})
     ) or return
     @journeys = @filterrific.find.page(params[:page])
+    @routes = Route.main_routes
   end
 
   def new

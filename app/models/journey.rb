@@ -24,11 +24,14 @@ class Journey < ActiveRecord::Base
   }
   
   scope :on_date, ->(date) {
-    where('start_time >= ? AND start_time <= ?', date.at_beginning_of_day, date.at_end_of_day)
+    where('start_time >= ? AND start_time <= ?', date.to_date.at_beginning_of_day, date.to_date.at_end_of_day)
   }
   scope :booked_or_empty, ->(booked_or_empty) {
     query = joins('LEFT JOIN bookings on journeys.id = bookings.journey_id').group('journeys.id')
     booked_or_empty == 'booked' ? query.having('count(bookings) > 0') : query.having('count(bookings) = 0')
+  }
+  scope :by_route, ->(route_id) {
+    where(route_id: Route.id_with_subroutes(route_id))
   }
 
   filterrific(
@@ -38,7 +41,8 @@ class Journey < ActiveRecord::Base
     available_filters: [
       :past_or_future,
       :on_date,
-      :booked_or_empty
+      :booked_or_empty,
+      :by_route
     ]
   )
   

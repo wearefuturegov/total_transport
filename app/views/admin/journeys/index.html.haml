@@ -12,10 +12,13 @@
             %strong My Journeys
             = link_to admin_journeys_path(filter: 'team', filterrific: params[:filterrific]) do
               Team's Journeys
+              
     = form_for_filterrific @filterrific do |form|
       = form.label :on_date, 'Filter by Date'
       = form.date_field :on_date, value: @filterrific.on_date
       
+      = form.label :by_route, 'Filter by routes'
+      = form.select :by_route, options_from_collection_for_select(@routes, :id, :name, @filterrific.by_route), { include_blank: 'All Routes' }, { class: 'select' }
       .hidden
         = hidden_field_tag :filter, params[:filter]
         = form.select(:past_or_future, [['Past', 'past'], ['Future', 'future'],],{ include_blank: '- Any -' })

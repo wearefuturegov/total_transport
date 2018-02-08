@@ -12,6 +12,10 @@ class Route < ActiveRecord::Base
   validate :check_sub_route
   
   scope :main_routes, -> { where(route_id: nil) }
+  
+  def self.id_with_subroutes(id)
+    find(id).sub_routes.collect(&:id).push(id)
+  end
 
   def self.bookable_routes
     all.reject {|route| route.stops.count <= 2}

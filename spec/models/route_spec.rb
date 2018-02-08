@@ -59,4 +59,38 @@ RSpec.describe Route, type: :model do
     expect(route.sub_routes.pluck(:pricing_rule_id).uniq).to eq([route.pricing_rule.id])
   end
   
+  describe 'id_with_subroutes' do
+    
+    context 'with subroutes' do
+      
+      let(:sub_routes) { FactoryBot.create_list(:route, 7) }
+      
+      before do
+        route.sub_routes = sub_routes
+        route.save
+        route.reload
+      end
+      
+      it 'gets the right IDs' do
+        expect(Route.id_with_subroutes(route.id).count).to eq(8)
+        expect(Route.id_with_subroutes(route.id)).to match_array(sub_routes.collect(&:id).push(route.id))
+      end
+      
+    end
+    
+    it 'returns one id' do
+      expect(Route.id_with_subroutes(route.id).count).to eq(1)
+      expect(Route.id_with_subroutes(route.id)).to match_array([route.id])
+    end
+    
+  end
+  
+  it 'gets ids for route and subroutes' do
+    route.sub_routes = FactoryBot.create_list(:route, 7)
+    route.save
+    route.reload
+    
+    
+  end
+  
 end
