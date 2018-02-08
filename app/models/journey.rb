@@ -27,7 +27,8 @@ class Journey < ActiveRecord::Base
     where('start_time >= ? AND start_time <= ?', date.at_beginning_of_day, date.at_end_of_day)
   }
   scope :booked_or_empty, ->(booked_or_empty) {
-    where(booked: booked_or_empty == 'booked')
+    query = joins('LEFT JOIN bookings on journeys.id = bookings.journey_id').group('journeys.id')
+    booked_or_empty == 'booked' ? query.having('count(bookings) > 0') : query.having('count(bookings) = 0')
   }
 
   filterrific(
