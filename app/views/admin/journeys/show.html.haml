@@ -5,7 +5,7 @@
       Date: #{@journey.start_time.strftime("%F")}
     %h3 Stops:
     %p
-      - @journey.stops.each do |stop|
+      - @journey.stops.includes([:place]).each do |stop|
         %p
           = stop.name
           \:
