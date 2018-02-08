@@ -20,6 +20,12 @@ class Admin::BookingsController < AdminController
     @back_path = admin_journey_path(@booking.journey_id)
   end
   
+  def update
+    @booking = Booking.find(params[:id])
+    @booking.update_attributes(booking_params)
+    redirect_to admin_journey_path(@booking.journey)
+  end
+  
   def csv_data(bookings)
     CSV.generate do |csv|
       csv << Booking.csv_headers
@@ -28,5 +34,11 @@ class Admin::BookingsController < AdminController
       end
     end
   end
+  
+  private
+  
+    def booking_params
+      params.require(:booking).permit(:state)
+    end
   
 end
