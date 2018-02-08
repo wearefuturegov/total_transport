@@ -5,7 +5,7 @@
       = form.label :route
       = form.select :route, options_from_collection_for_select(Route.main_routes, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
       = form.label :state
-      = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled']], {}, class: 'select'
+      = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled'], ['Missed', 'missed'], ['Successful', 'successful']], {}, class: 'select'
       = form.label :team
       = form.select :team, options_from_collection_for_select(Team.all, 'id', 'name', @filter.team), { include_blank: 'All' }, class: 'select'
 
@@ -19,7 +19,7 @@
       .action.primary
         = form.submit 'Update filter', class: "button", name: nil
 
-    .card      
+    .card
       = render partial: 'bookings', locals: { bookings: @bookings }
       .number= @bookings_count
       Bookings
