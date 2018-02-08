@@ -2,7 +2,65 @@
 
 #promotion-index,
 #public-index,
-#about-index {
+#about-index,
+#book-index {
+  .hero {
+    border: $border-width-thick $border-style $white;
+    border-top: none;
+    .overlay {
+      background-color: rgba(0, 35, 80, 0.5);
+      background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
+    }
+    .event {
+      background-image: image-url('enquiry.jpg');
+      & + .section {
+        h1, h2, p {
+          color: $white;
+        }
+      }
+    }
+    h1, h2, p {
+      color: $black;
+    }
+    .heading {
+      position: relative;
+      z-index: 500;
+    }
+  }
+  .header {
+    background: none;
+    position: absolute;
+  }
+  .button {
+    text-transform: initial;
+  }
+  h2, h3, p {
+    text-align: center;
+  }
+  h2 {
+    $h2: 50px;
+    font-size: $h2;
+    font-weight: 900;
+    line-height: calc(#{$h2} * 1.2);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*4} - #{$h2} * 1.2);
+  }
+  h3 {
+    $h3: 38px;
+    font-size: $h3;
+    font-weight: 900;
+    line-height: calc(#{$h3} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*3} - #{$h3} * 1.1);
+  }
+  h4 {
+    $h4: 28px;
+    font-size: $h4;
+    font-weight: 900;
+    line-height: calc(#{$h4} * 1.1);
+    margin-top: 0;
+    margin-bottom: calc(#{$baseline*2} - #{$h4} * 1.1);
+  }
   .logo {
     background: image-url('logo.svg');
     background-size: 100% 100%;
@@ -31,30 +89,55 @@
       margin-left: $logo-width + $baseline*0.125;
     }
   }
-  .hero {
-    border: $border-width-thick $border-style $white;
-    border-top: none;
-    .overlay {
-      background-color: rgba(0, 35, 80, 0.5);
-      background: linear-gradient(90deg, rgba(0, 15, 45, 1), rgba(0, 35, 101, 0.1));
-    }
-    .event {
-      background-image: image-url('enquiry.jpg');
-      & + .section {
-        h1, h2, p {
+  .main {
+    .hero {
+      float: none;
+      display: inline-block;
+      position: relative;
+      h2, p {
+        color: $white;
+      }
+      .action {
+        position: relative;
+        a {
+          background: $white;
+          border-color: $white;
+          color: $brand;
+          min-width: $baseline*10;
+        }
+        a:hover {
+          background: $brand;
+          border-color: $brand;
           color: $white;
+          &.disabled {
+            background: $white;
+            border-color: $white;
+            color: $brand;
+            cursor: not-allowed;
+            opacity: 0.9;
+          }
         }
       }
     }
-    h1, h2, p {
-      color: $black;
+    .action {
+      margin-top: $baseline*0.5;
+      margin-bottom: $baseline*0.5;
+      text-align: center;
     }
-    .heading {
-      position: relative;
-      z-index: 500;
+    .event {
+      background-image: image-url('enquiry.jpg');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      + .section {
+        position: relative;
+        z-index: 750;
+      }
     }
-  }
-  .main {
     .divide {
       border-top: $border-width $border-style $brand;
       margin-top: $baseline*0.5;
@@ -84,5 +167,8 @@
         line-height: 24px;
       }
     }
+  }
+  footer.psuedo-footer {
+    display: block;
   }
 }

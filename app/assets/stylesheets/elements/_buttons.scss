@@ -54,6 +54,7 @@ button {
   padding: 0 $baseline;
   width: auto;
   &:hover {
+    color: $white;
     background: $black;
     border-color: $black;
   }

@@ -21,6 +21,11 @@
     display: inline-block;
     background: none;
     position: relative;
+    .section .book {
+      h1, h2, p {
+        color: $black;
+      }
+    }
     .easy-autocomplete-container {
       ul {
         background: $brand;
@@ -138,19 +143,6 @@
   }
   .main {
     background: $white;
-    .heading {
-      margin-top: 0;
-      margin-bottom: 0;
-      h4 {
-        $h4: 40px;
-        font-size: $h4;
-        font-weight: 900;
-        line-height: calc(#{$h4} * 1.2);
-        text-align: center;
-        margin-top: $baseline*3;
-        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
-      }
-    }
     .hero {
       border: none;
       float: none;

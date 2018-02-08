@@ -5,7 +5,7 @@ class PlacesController < PublicController
   def index
     respond_to do |format|
       format.json do
-        render json: @places.as_json(include: :routes)
+        render json: @places.as_json(methods: :route_count)
       end
     end
   end
@@ -17,7 +17,8 @@ class PlacesController < PublicController
     end
     
     def get_places
-      @places = places_params[:query].nil? ? Place.all : Place.where("name ILIKE ?", "#{places_params[:query]}%")
+      @places = Place.all.includes(:routes)
+      @places = @places.where("name ILIKE ?", "#{places_params[:query]}%") if places_params[:query]
     end
 
 end

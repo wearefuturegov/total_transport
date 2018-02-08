@@ -40,7 +40,7 @@
       
       history.pushState(null, null, '/journeys/' + chosenItem.slug);
       
-      if (chosenItem.routes.length > 0) {
+      if (chosenItem.route_count > 0) {
         enableTo(chosenItem.slug);
         $('#to').removeAttr('disabled');
       } else {

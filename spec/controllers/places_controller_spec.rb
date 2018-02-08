@@ -39,7 +39,7 @@ RSpec.describe PlacesController, type: :controller, que: true do
     
     expect(json.count).to eq(1)
     expect(json.first['name']).to eq('Some place')
-    expect(json.first['routes'].count).to eq(2)
+    expect(json.first['route_count']).to eq(2)
   end
   
 end

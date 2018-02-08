@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
   resources :promotion, only: [:index]
   resources :about, only: [:index]
+  resources :book, only: [:index]
   resources :journeys, only: [:index] do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to

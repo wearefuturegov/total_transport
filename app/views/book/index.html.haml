@@ -1,0 +1,67 @@
+%section.logo
+  %h1
+    = @page_title
+
+%section.hero
+  .overlay
+  .event
+  %section.section.heading
+    %h2
+      = t('promotion_a.title')
+    %p
+      = t('promotion_a.intro')
+
+  / .action
+  /   = link_to "Find more Ride locations in our app", I18n.t('button.typeform-link'), class: 'button cta secondary'
+
+%main.main
+  %section.section
+    %h3
+      = t('promotion_a.section_a.title')
+    %p
+      = t('promotion_a.section_a.info')
+
+    .action.input-single
+      = label_tag do
+        = t('Promotional code')
+      = text_field_tag :from, nil, placeholder: "Type in your code here"
+      = link_to "Submit", "this", class: "button"
+
+  %section.section
+    %h3
+      = t('promotion_a.section_b.title')
+    %p
+      = t('promotion_a.section_b.info')
+
+  %section.interest
+    %section.section
+      %h4
+        = t('promotion_a.section_c.title')
+      %p
+        = t('promotion_a.section_c.info')
+
+  %section.interest
+    %section.section
+      %h4
+        = t('promotion_a.section_d.title')
+      %p
+        = t('promotion_a.section_d.info')
+
+  %section.section
+    %h3
+      = t('promotion_a.section_e.title')
+    %p
+      = t('promotion_a.section_e.info')
+
+  .divide
+
+  %section.section
+    %h3
+      = t('promotion_a.section_f.title')
+    %p
+      = t('promotion_a.section_f.info')
+
+    .action
+      = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta secondary'
+
+= render 'partials/psuedo_footer'
