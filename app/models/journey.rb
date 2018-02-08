@@ -27,8 +27,8 @@ class Journey < ActiveRecord::Base
     where('start_time >= ? AND start_time <= ?', date.to_date.at_beginning_of_day, date.to_date.at_end_of_day)
   }
   scope :booked_or_empty, ->(booked_or_empty) {
-    query = joins('LEFT JOIN bookings on journeys.id = bookings.journey_id').group('journeys.id')
-    booked_or_empty == 'booked' ? query.having('count(bookings) > 0') : query.having('count(bookings) = 0')
+    query = joins('LEFT JOIN bookings as outward_bookings on journeys.id = outward_bookings.journey_id LEFT JOIN bookings as return_bookings on journeys.id = return_bookings.return_journey_id').group('journeys.id')
+    booked_or_empty == 'booked' ? query.having('count(outward_bookings) > 0 OR count(return_bookings) > 0') : query.having('count(outward_bookings) = 0 AND count(return_bookings) = 0')
   }
   scope :by_route, ->(route_id) {
     where(route_id: Route.id_with_subroutes(route_id))
