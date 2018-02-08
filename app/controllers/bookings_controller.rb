@@ -87,7 +87,7 @@ class BookingsController < PublicController
   
   def send_missed_feedback
     render(nothing: true, status: 401) and return unless params[:booking][:token] == @booking.token
-    @booking.update_attributes(booking_params.permit(:missed, :missed_feedback))
+    @booking.update_attributes(booking_params.permit(:state, :missed_feedback))
     render nothing: true, status: 200
   end
 
@@ -115,7 +115,6 @@ class BookingsController < PublicController
       :verification_code,
       :cancellation_reason,
       :state,
-      :missed,
       :missed_feedback
     )
   end
