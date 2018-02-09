@@ -1,0 +1,39 @@
+
+#route-index {
+  .hero {
+    .action {
+      margin-top: $baseline*0.5;
+      margin-bottom: $baseline*0.5;
+      text-align: center;
+      position: relative;
+      a {
+        background: $white;
+        border-color: $white;
+        color: $brand;
+        min-width: $baseline*10;
+      }
+      a:hover {
+        background: $brand;
+        border-color: $brand;
+        color: $white;
+        &.disabled {
+          background: $white;
+          border-color: $white;
+          color: $brand;
+          cursor: not-allowed;
+          opacity: 0.9;
+        }
+      }
+    }
+    &.regular {
+      margin-top: $baseline*2;
+      .overlay {
+        background: rgba(6, 15, 25, 0.61);
+      }
+      .event {
+        background-image: image-url('daily_service.png');
+        background-position-y: center;
+      }
+    }
+  }
+}

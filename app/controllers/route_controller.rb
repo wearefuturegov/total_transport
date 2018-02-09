@@ -1,4 +1,4 @@
-class BookController < ApplicationController
+class RouteController < ApplicationController
   layout 'application'
   
   before_filter :create_body_id

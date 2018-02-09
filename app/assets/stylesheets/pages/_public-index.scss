@@ -177,16 +177,6 @@
         right: 0;
         z-index: 500;
       }
-      &.regular {
-        margin-top: $baseline*2;
-        .overlay {
-          background: rgba(6, 15, 25, 0.61);
-        }
-        .event {
-          background-image: image-url('daily_service.png');
-          background-position-y: center;
-        }
-      }
       &.enquiry {
         margin-top: $baseline*2;
         .overlay {

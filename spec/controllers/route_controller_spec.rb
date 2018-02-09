@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BookController, type: :controller do
+RSpec.describe RouteController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do

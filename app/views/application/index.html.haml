@@ -39,57 +39,13 @@
         = t('public-index.event.enquiry.info')
 
       %section.action
-        = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button'
-
-  %section.interest
-    %section.section
-      %h4
-        = t('what.passengers.title')
-      %p
-        = t('what.passengers.info')
-      .action
-        = mail_to I18n.t('button.enquiry_b'), I18n.t('button.enquiry_b'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
-
-  %section.interest
-    %section.section
-      %h4
-        = t('what.suppliers.title')
-      %p
-        = t('what.suppliers.info')
-      .action
-        = mail_to I18n.t('button.enquiry_b'), I18n.t('button.enquiry_b'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+        = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button'
 
   %section.section
     %h3
-      = t('pilot.title')
+      = t('question.title')
     %p
-      = t('pilot.info_a')
-      = t('pilot.info_b')
-      = t('pilot.info_c')
-      = t('pilot.info_d')
-
-      .action
-        = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button secondary'
-
-
-
-  %section.hero.regular
-    .overlay
-    .event
-    %section.section
-      %h2
-        = t('public-index.event.title')
-      %p
-        = t('public-index.event.info')
-
-      %section.action
-        = link_to I18n.t('button.book'), journeys_path, class: 'button'
-
-  %section.section
-    %h3
-      = t('public-index.about.title')
-    %p
-      = t('public-index.about.info')
+      = t('question.info')
 
     .action
       = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'

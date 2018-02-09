@@ -61,8 +61,6 @@ en:
       author_3: "FutureGov"
 
     event:
-      title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
-      info: "Convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
       regular:
         title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
         info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
@@ -92,8 +90,13 @@ en:
       label: "To"
       message: "e.g. Maldon, Broomfield Hospital"
 
+  route:
+    title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
+    info: "Convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
+
   what:
     title: "What is Ride?"
+    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
     passengers:
       title: "What is Ride for passengers?"
       info: "Prebook service for you, your family or as a group of friends. Be it your commute, school run, shopping trip, visiting friends or going to a local event."
@@ -101,8 +104,13 @@ en:
       title: "What is Ride for suppliers?"
       info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
 
+  question:
+    title: "Pre-book a Ride for you"
+    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+
   pilot:
     title: "Getting you places"
+    info: "We're piloting a new service. Right now we have a limited number of routes available running from xxx to xxx. Pre-book a ride a try it out. Let is know where would be a good route for us to offer in the future."
     info_a: "We're piloting a new service."
     info_b: "Right now we have a limited number of routes available running from xxx to xxx."
     info_c: "Pre-book a ride a try it out."
