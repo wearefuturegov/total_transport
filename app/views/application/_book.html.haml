@@ -6,14 +6,21 @@
   %p#loader
     %i.fa.fa-spinner.fa-spin
   .wrapper.hidden
-    = label_tag do
-      = t('journey.from.label')
-    = text_field_tag :from, nil, { placeholder: I18n.t('journey.from.message') }
-    = label_tag do
-      = t('journey.to.label')
-    = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message')
+    .input.from
+      = label_tag do
+        = t('journey.from.label')
+      = text_field_tag :from, nil, { placeholder: I18n.t('journey.from.message') }
+      %span.required-text.hidden
+        Required
+    
+    .input.to
+      = label_tag do
+        = t('journey.to.label')
+      = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message')
+      %span.required-text.hidden
+        Required
 
-    = link_to I18n.t('button.book'), "promotion", class: "button"
+    = link_to I18n.t('button.book'), '#', class: "button", id: "booking_submit"
 
     #from_result.hidden{"aria-live" => "assertive", hidden: "", role: "alert", class: "error-block"}
       = t('message.sorry')
