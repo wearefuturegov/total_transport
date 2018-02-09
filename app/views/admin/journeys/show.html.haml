@@ -23,11 +23,13 @@
         
           =link_to 'Show booking', admin_journey_booking_path(@journey, booking)
           - unless booking.state == 'successful'
-            |
-            =button_to 'Mark as successful', admin_journey_booking_path(@journey, booking), { class: 'text', form_class: 'inline success_form', method: 'put', remote: true, params: { 'booking[state]' => 'successful' } }
+            %span.success
+              |
+              =button_to 'Mark as successful', admin_journey_booking_path(@journey, booking), { class: 'text', form_class: 'inline', method: 'put', remote: true, params: { 'booking[state]' => 'successful' } }
           - unless booking.state == 'missed'
-            |
-            =button_to 'Mark as missed', admin_journey_booking_path(@journey, booking), { class: 'text', form_class: 'inline missed_form', method: 'put', remote: true, params: { 'booking[state]' => 'missed' } }
+            %span.missed
+              |
+              =button_to 'Mark as missed', admin_journey_booking_path(@journey, booking), { class: 'text', form_class: 'inline', method: 'put', remote: true, params: { 'booking[state]' => 'missed' } }
           
           %hr/
       %hr/
@@ -43,12 +45,10 @@
         
 :javascript
 
-  $('.success_form').on('ajax:success', function(e, data, status, xhr){
-    $('.success_form').addClass('hidden');
+  $('.success form').on('ajax:success', function(e, data, status, xhr){
+    $('.success').addClass('hidden');
   })
   
-  $('.missed_form').on('ajax:success', function(e, data, status, xhr){
-    debugger;
-
-    $('.missed_form').addClass('hidden');
+  $('.missed form').on('ajax:success', function(e, data, status, xhr){
+    $('.missed').addClass('hidden');
   })
