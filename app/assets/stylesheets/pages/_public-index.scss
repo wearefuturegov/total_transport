@@ -21,9 +21,13 @@
     display: inline-block;
     background: none;
     position: relative;
+    border: none;
     .section .book {
       h1, h2, p {
         color: $black;
+      }
+      h2, p.small {
+        margin-bottom: $baseline*0.5;
       }
     }
     .easy-autocomplete-container {
@@ -108,7 +112,7 @@
       }
       input {
         padding: $baseline*0.25;
-        margin-bottom: $baseline*0.25;
+        margin-bottom: 0;
       }
       input,
       select,

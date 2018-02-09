@@ -10,14 +10,14 @@
       = label_tag do
         = t('journey.from.label')
       = text_field_tag :from, nil, { placeholder: I18n.t('journey.from.message') }
-      %span.required-text.hidden
+      %span.required-text.hidden.error.small
         Required
     
     .input.to
       = label_tag do
         = t('journey.to.label')
       = text_field_tag :to, nil, placeholder: I18n.t('journey.to.message')
-      %span.required-text.hidden
+      %span.required-text.hidden.error.small
         Required
 
     = link_to I18n.t('button.book'), '#', class: "button", id: "booking_submit"
@@ -27,8 +27,6 @@
       from
       = succeed "." do
         %span#place
-      %p
-        = link_to I18n.t('button.more'), "promotion", class: "button small secondary cta"
     
     #results.hidden
       %i.fa.fa-spinner.fa-spin

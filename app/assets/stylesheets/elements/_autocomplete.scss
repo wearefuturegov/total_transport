@@ -1,9 +1,14 @@
-.easy-autocomplete {
+.easy-autocomplete, .intput.from, .input.to {
   position: relative;
   width: 100% !important; //overwrite script
   input {
     &::placeholder {
       color: $gray;
+    }
+    &:disabled {
+      &::placeholder {
+        color: $white;
+      }
     }
   }
 }
