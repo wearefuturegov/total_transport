@@ -37,6 +37,8 @@ class Booking < ActiveRecord::Base
   
   scope :team, ->(team_id) { joins(:journey).where('team_id = ?', team_id) }
   
+  scope :payment_method, ->(payment_method) { where(payment_method: payment_method) }
+  
   filterrific(
     default_filter_params: { state: 'booked' },
     available_filters: [
@@ -44,7 +46,8 @@ class Booking < ActiveRecord::Base
       :date_from,
       :date_to,
       :state,
-      :team
+      :team,
+      :payment_method
     ]
   )
   
