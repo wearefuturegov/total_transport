@@ -380,6 +380,8 @@ en:
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
     feedback: " will be expanding to more locations soon. By telling us more about your desired journey, you will help us improving what we offer."
+    other: "Other destinations from"
+    other_end: "you might consider are"
 
   email:
     booking_details:

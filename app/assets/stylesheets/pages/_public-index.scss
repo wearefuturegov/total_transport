@@ -25,6 +25,7 @@
     .section .book {
       h1, h2, p {
         color: $black;
+        text-align: left;
       }
       h2, p.small {
         margin-bottom: $baseline*0.5;
