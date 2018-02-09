@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
   belongs_to :pickup_landmark, class_name: 'Landmark'
   belongs_to :dropoff_landmark, class_name: 'Landmark'
 
-  scope :booked, -> { where(state: 'booked') }
+  scope :booked, -> { where(state: ['booked', 'successful', 'missed']) }
   
   after_update :cancel, if: ->(booking) { booking.state == 'cancelled' }
   before_create :generate_token
@@ -37,6 +37,8 @@ class Booking < ActiveRecord::Base
   
   scope :team, ->(team_id) { joins(:journey).where('team_id = ?', team_id) }
   
+  scope :payment_method, ->(payment_method) { where(payment_method: payment_method) }
+  
   filterrific(
     default_filter_params: { state: 'booked' },
     available_filters: [
@@ -44,7 +46,8 @@ class Booking < ActiveRecord::Base
       :date_from,
       :date_to,
       :state,
-      :team
+      :team,
+      :payment_method
     ]
   )
   

@@ -16,6 +16,29 @@ RSpec.describe Journey, type: :model do
     
   end
   
+  context 'by_route' do
+    
+    let(:single_route) { FactoryBot.create(:route) }
+    let(:route_with_subroutes) do
+      route = FactoryBot.create(:route)
+      FactoryBot.create_list(:route, 5, route: route)
+      route
+    end
+
+    let!(:single_journeys) { FactoryBot.create_list(:journey, 6, route: single_route) }
+    let!(:subroute_journeys) { FactoryBot.create_list(:journey, 10, route: route_with_subroutes) }
+
+    it 'gets journeys for a single route' do
+      expect(Journey.by_route(single_route.id)).to match_array(single_journeys)
+    end
+    
+    it 'gets journeys for a route and all subroutes' do
+      expect(Journey.by_route(route_with_subroutes.id)).to match_array(subroute_journeys)
+    end
+    
+    
+  end
+  
   it 'queues a job to close the journey for bookings' do
     Timecop.freeze('2016-12-23T09:00:00')
     start_time = DateTime.parse('2017-09-01T17:00:00')

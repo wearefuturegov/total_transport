@@ -4,4 +4,6 @@ $(document).ready(function() {
   
   $('body.pricing_rules').pricingRules();
   
+  $('.route_preview').routeMap();
+  
 })

@@ -53,8 +53,14 @@ RSpec.describe Admin::JourneysController, type: :controller do
       end
       
       it 'filters by booked and empty' do
-        FactoryBot.create_list(:journey, 2, outward_bookings: FactoryBot.create_list(:booking, 4), team: @supplier.team, booked: true)
-        FactoryBot.create_list(:journey, 5, return_bookings: FactoryBot.create_list(:booking, 2), team: @supplier.team, booked: true)
+        outward = FactoryBot.create_list(:journey, 2, team: @supplier.team)
+        outward.each do |j|
+          j.outward_bookings = FactoryBot.create_list(:booking, 2)
+        end
+        returns = FactoryBot.create_list(:journey, 5, team: @supplier.team)
+        returns.each do |j|
+          j.return_bookings = FactoryBot.create_list(:booking, 2)
+        end
         FactoryBot.create_list(:journey, 3, team: @supplier.team, booked: false)
         get :index, { filterrific: {
             booked_or_empty: 'booked'

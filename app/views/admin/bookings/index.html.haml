@@ -5,9 +5,11 @@
       = form.label :route
       = form.select :route, options_from_collection_for_select(Route.main_routes, 'id', 'name', @filter.route), { include_blank: 'All' }, class: 'select'
       = form.label :state
-      = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled']], {}, class: 'select'
+      = form.select :state, [['Booked', 'booked'], ['Cancelled','cancelled'], ['Missed', 'missed'], ['Successful', 'successful']], { include_blank: 'All' }, class: 'select'
       = form.label :team
       = form.select :team, options_from_collection_for_select(Team.all, 'id', 'name', @filter.team), { include_blank: 'All' }, class: 'select'
+      = form.label :payment_method
+      = form.select :payment_method, [['Cash', 'cash'], ['Card', 'card']], { include_blank: 'All' }, class: 'select'
 
       = form.label :date_from
       = form.date_field :date_from, value: @filter.date_from
@@ -16,15 +18,7 @@
 
       .action
         = link_to 'Reset filters', reset_filterrific_url
-      .action.primary
-        = form.submit 'Update filter', class: "button", name: nil
 
-    .card      
-      = render partial: 'bookings', locals: { bookings: @bookings }
-      .number= @bookings_count
-      Bookings
-      .number= @passengers_count
-      Passengers
-      
-      .action
-        = link_to 'Download CSV', params.merge({ format: :csv }), class: 'text'
+    .card
+      #filterrific_results
+        = render partial: 'bookings', locals: { bookings: @bookings }

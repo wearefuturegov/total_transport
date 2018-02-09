@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207165226) do
+ActiveRecord::Schema.define(version: 20180208173427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20180207165226) do
     t.string   "cancellation_reason"
     t.string   "charge_id"
     t.boolean  "survey_sent"
-    t.boolean  "missed",               default: false
     t.text     "missed_feedback"
   end
 

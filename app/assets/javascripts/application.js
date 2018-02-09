@@ -18,5 +18,7 @@
 //= require cocoon
 //= require booking-home
 //= require pricing-rules
+//= require route-map
 //= require public
+//= require filterrific/filterrific-jquery
 //= require_tree .
