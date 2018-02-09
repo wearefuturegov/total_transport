@@ -1,6 +1,16 @@
 /* header */
 
 header.header {
+  line-height: $logo-height;
   padding: $baseline $gutter;
+  background: $white;
+  nav.nav {
+    float: right;
+    a, a:hover {
+      color: $brand;
+      text-decoration: underline;
+      font-weight: 600;
+      margin-left: $gutter;
+    }
+  }
 }
-

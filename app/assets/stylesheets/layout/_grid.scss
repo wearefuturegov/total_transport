@@ -9,6 +9,10 @@ section.section {
   @include span-columns(12);
 }
 
+header.header {
+  @include span-columns(12);
+}
+
 .hero {
   @include span-columns(12);
   margin-right: 0;
