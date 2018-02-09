@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :places, only: [:index, :show]
   resources :promotion, only: [:index]
+  resources :about, only: [:index]
+  resources :route, only: [:index]
   resources :journeys, only: [:index] do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to

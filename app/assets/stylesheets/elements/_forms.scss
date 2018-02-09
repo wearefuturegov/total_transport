@@ -79,6 +79,14 @@ input[type=checkbox] {
   &::placeholder {
     color: $black;
   }
+  &.required {
+    border-color: red;
+    &:after {
+      content: 'Required';
+      color: $white;
+      background-color: $red;
+    }
+  }
 }
 
 #filter {

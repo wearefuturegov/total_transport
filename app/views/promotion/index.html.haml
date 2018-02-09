@@ -3,10 +3,9 @@
   .event
   %section.section.heading
     %h2
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      = t('promotion_a.title')
     %p
-      = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      = t('promotion_a.intro')
 
   / .action
   /   = link_to "Find more Ride locations in our app", I18n.t('button.typeform-link'), class: 'button cta secondary'
@@ -14,10 +13,9 @@
 %main.main
   %section.section
     %h3
-      = t('public-index.event.enquiry.title')
+      = t('promotion_a.section_a.title')
     %p
-      = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      = t('promotion_a.section_a.info')
 
     .action.input-single
       = label_tag do
@@ -27,42 +25,39 @@
 
   %section.section
     %h3
-      Something more…
+      = t('promotion_a.section_b.title')
     %p
-      = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      = t('promotion_a.section_b.info')
 
   %section.interest
     %section.section
       %h4
-        Passengers
+        = t('promotion_a.section_c.title')
       %p
-        = t('public-index.event.enquiry.info')
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        = t('promotion_a.section_c.info')
 
   %section.interest
     %section.section
       %h4
-        Suppliers
+        = t('promotion_a.section_d.title')
       %p
-        = t('public-index.event.enquiry.info')
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        = t('promotion_a.section_d.info')
 
   %section.section
     %h3
-      = t('public-index.event.enquiry.title')
+      = t('promotion_a.section_e.title')
     %p
-      = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      = t('promotion_a.section_e.info')
 
   .divide
 
   %section.section
     %h3
-      One more thing
+      = t('promotion_a.section_f.title')
     %p
-      = t('public-index.event.enquiry.info')
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      = t('promotion_a.section_f.info')
 
     .action
       = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta secondary'
+
+= render 'partials/psuedo_footer'

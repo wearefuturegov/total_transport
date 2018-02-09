@@ -3,34 +3,6 @@
 #public-index {
   float: left;
   background-color: $white;
-  .logo {
-    background: image-url('logo.svg');
-    background-size: 100% 100%;
-    display: block;
-    width: $logo-width;
-    height: $logo-height;
-    z-index: 1000;
-    h1 {
-      font-weight: 900;
-      text-transform: uppercase;
-      text-indent: -9999px;
-      font-style: italic;
-      position: fixed;
-      color: $brand;
-      margin: 0;
-      width: inherit;
-      height: $logo-height;
-    }
-    span {
-      font-size: 14px;
-      line-height: 14px;
-      text-transform: uppercase;
-      font-style: italic;
-      float: left;
-      margin-top: 21px;
-      margin-left: $logo-width + $baseline*0.125;
-    }
-  }
   h3 {
     $h3: 30px;
     font-size: $h3;
@@ -44,6 +16,16 @@
     display: inline-block;
     background: none;
     position: relative;
+    border: none;
+    .section .book {
+      h1, h2, p {
+        color: $black;
+        text-align: left;
+      }
+      h2, p.small {
+        margin-bottom: $baseline*0.5;
+      }
+    }
     .easy-autocomplete-container {
       ul {
         background: $brand;
@@ -83,7 +65,7 @@
       }
     }
     &.enquiry {
-      padding-top: $logo-height * 4;
+      padding-top: $logo-height;
       .overlay {
         background-color: rgba(3, 23, 29, 0.5);
         background-color: rgba(0, 35, 80, 0.5);
@@ -114,13 +96,19 @@
         margin-top: 0;
         margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
       }
+      p {
+        text-align: left;
+      }
+      p.small {
+        margin-top: $baseline*0.5;
+      }
       label {
         font-size: $small;
         margin-bottom: 0;
       }
       input {
         padding: $baseline*0.25;
-        margin-bottom: $baseline*0.25;
+        margin-bottom: 0;
       }
       input,
       select,
@@ -155,19 +143,6 @@
   }
   .main {
     background: $white;
-    .heading {
-      margin-top: 0;
-      margin-bottom: 0;
-      h4 {
-        $h4: 40px;
-        font-size: $h4;
-        font-weight: 900;
-        line-height: calc(#{$h4} * 1.2);
-        text-align: center;
-        margin-top: $baseline*3;
-        margin-bottom: calc(#{$baseline*4 - $border-width} - #{$h4} * 1.2);
-      }
-    }
     .hero {
       border: none;
       float: none;
@@ -201,16 +176,6 @@
         bottom: 0;
         right: 0;
         z-index: 500;
-      }
-      &.regular {
-        margin-top: $baseline*2;
-        .overlay {
-          background: rgba(6, 15, 25, 0.61);
-        }
-        .event {
-          background-image: image-url('daily_service.png');
-          background-position-y: center;
-        }
       }
       &.enquiry {
         margin-top: $baseline*2;

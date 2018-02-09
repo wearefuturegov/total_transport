@@ -15,6 +15,9 @@ button {
   input {
     display: none;
   }
+  &.hidden {
+    display: none;
+  }
 }
 
 #outward_times,
@@ -53,7 +56,7 @@ button {
   display: inline-block;
   padding: 0 $baseline;
   width: auto;
-  &:hover {
+  &:hover, &:active, &:focus {
     color: $white;
     background: $black;
     border-color: $black;
