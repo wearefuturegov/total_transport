@@ -15,6 +15,9 @@ button {
   input {
     display: none;
   }
+  &.hidden {
+    display: none;
+  }
 }
 
 #outward_times,

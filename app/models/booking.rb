@@ -64,7 +64,9 @@ class Booking < ActiveRecord::Base
       'Time Booked',
       'Price Paid',
       'Card Payment?',
-      'Stripe Charge ID'
+      'Stripe Charge ID',
+      'Outward Journey Time',
+      'Return Journey Time'
     ]
   end
   
@@ -252,6 +254,8 @@ class Booking < ActiveRecord::Base
     ]
     if !journey_id.nil?
       data += journey_id == journey.id ? outward_trip.row_data : return_trip.row_data
+    else
+      data += [ outward_trip.pickup_time, return_trip.pickup_time ]
     end
     data
   end
