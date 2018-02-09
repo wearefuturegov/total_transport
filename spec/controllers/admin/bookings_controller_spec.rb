@@ -108,5 +108,22 @@ RSpec.describe Admin::BookingsController, type: :controller do
     end
     
   end
+  
+  describe '#update' do
+    
+    let(:booking) { FactoryBot.create(:booking) }
+    
+    it 'sets the status' do
+      put :update, {
+        id: booking.id,
+        booking: {
+          state: 'missed'
+        }
+      }
+      booking.reload
+      expect(booking.state).to eq('missed')
+    end
+    
+  end
 
 end
