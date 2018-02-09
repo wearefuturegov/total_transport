@@ -10,6 +10,7 @@ class Admin::BookingsController < AdminController
     @passengers_count = bookings.inject(0) { |sum, p| sum + p.number_of_passengers }
     respond_to do |format|
       format.html
+      format.js
       format.csv { send_data csv_data(@bookings), filename: "bookings.csv", type: 'text/csv;charset=utf-8' }
     end
   end

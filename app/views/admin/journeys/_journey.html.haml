@@ -1,0 +1,10 @@
+= link_to admin_journey_path(journey), class: "card journey" do
+  %div{:class => "#{" past-journey" if journey.start_time.past?}#{journey.team == current_team ? " my-journey" : " team-journey"}", "data-booked" => "if journey.is_booked? true else false", :id => "jrny_#{journey.id}"}
+    %ul
+      %li
+        = friendly_date journey.start_time
+        = journey.start_time.strftime("%H:%M")
+      %li= journey.route.name
+      %li
+        %span.number= journey.all_bookings.count
+        = "booking".pluralize(journey.all_bookings.count)
