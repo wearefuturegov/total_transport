@@ -38,39 +38,21 @@
           Upcoming
         %div{:class => "tab radius border-right-radius#{" selected" if @filterrific.past_or_future == 'past'}", "data-tabid" => "past"}
           Past
+    
+    = render partial: 'admin/journeys/journeys'
 
-    - if @journeys.exists?
-      - @journeys.each do |journey|
-        = link_to admin_journey_path(journey), class: "card journey" do
-          %div{:class => "#{" past-journey" if journey.start_time.past?}#{journey.team == current_team ? " my-journey" : " team-journey"}", "data-booked" => "if journey.is_booked? true else false", :id => "jrny_#{journey.id}"}
-            %ul
-              %li
-                = friendly_date journey.start_time
-                = journey.start_time.strftime("%H:%M")
-              %li= journey.route.name
-              %li
-                %span.number= journey.all_bookings.count
-                = "booking".pluralize(journey.all_bookings.count)
-    - else
-      .card.journey
-        %p
-          There are no journeys to be found here either try another filter, or #{link_to "add a new journey", new_admin_journey_path} now to get started.
-    = paginate @journeys
     .action.primary
       = link_to new_admin_journey_path do
         .button Add a journey
+
 - content_for :js do
   :javascript
     $(document).ready(function() {
       $('.tab').click(function() {
         if ($(this).hasClass('selected')) {
           var parentID = $(this).parent().attr('id');
-          $('#filterrific_'+parentID).val($(this).data('tabid'));
-          $('#filterrific_filter').submit();
+          $('#filterrific_' + parentID).val($(this).data('tabid'));
+          $('#filterrific_' + parentID).change();
         }
       });
-      
-      $('input, select').change(function() {
-        $('#filterrific_filter').submit();
-      })
     });

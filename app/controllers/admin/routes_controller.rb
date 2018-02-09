@@ -36,7 +36,6 @@ class Admin::RoutesController < AdminController
   
   def update
     @route.update_attributes(route_params)
-    @route.save
     redirect_to admin_route_path(@route)
   end
   

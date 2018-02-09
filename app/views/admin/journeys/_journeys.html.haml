@@ -1,0 +1,8 @@
+#filterrific_results
+  - if @journeys.exists?
+    = render partial: 'admin/journeys/journey', collection: @journeys
+  - else
+    .card.journey
+      %p
+        There are no journeys to be found here either try another filter, or #{link_to "add a new journey", new_admin_journey_path} now to get started.
+  = paginate @journeys

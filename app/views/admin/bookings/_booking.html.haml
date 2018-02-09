@@ -1,0 +1,20 @@
+= link_to admin_journey_booking_path(booking.journey, booking) do
+  .card
+    %h3= booking.journey.route.name
+    
+    %p= friendly_date booking.journey.start_time
+    
+    %p
+      = pluralize booking.number_of_passengers, 'Passenger'
+      from
+      = booking.outward_trip.pickup_stop.name
+      To
+      = booking.outward_trip.dropoff_stop.name
+      
+    - if booking.return_trip
+      
+      %p
+        Returning from
+        = booking.return_trip.pickup_stop.name
+        To
+        = booking.return_trip.dropoff_stop.name
