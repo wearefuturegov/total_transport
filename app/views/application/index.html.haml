@@ -12,30 +12,24 @@
   %section.section.features
     .icon
       =image_tag('icons/piggy.svg')
+      %h3
+        = t('steps.step_1.title')
       %p
         = t('steps.step_1.info')
     .icon
       =image_tag('icons/driving.svg')
+      %h3
+        = t('steps.step_2.title')
       %p
         = t('steps.step_2.info')
     .icon
       =image_tag('icons/mobile.svg')
+      %h3
+        = t('steps.step_3.title')
       %p
         = t('steps.step_3.info')
 
-  %section.hero.regular#step-1
-    .overlay
-    .event
-    %section.section
-      %h2
-        = t('public-index.event.title')
-      %p
-        = t('public-index.event.info')
-
-      %section.action
-        = link_to I18n.t('button.book'), journeys_path, class: 'button cta'
-
-  %section.hero.enquiry
+  %section.hero.enquiry#step-1
     .overlay
     .event
     %section.section
@@ -45,13 +39,13 @@
         = t('public-index.event.enquiry.info')
 
       %section.action
-        = link_to I18n.t('button.enquiry'), I18n.t('button.typeform-link'), class: 'button cta'
+        = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button'
 
   %section.section
     %h3
-      = t('public-index.about.title')
+      = t('question.title')
     %p
-      = t('public-index.about.info')
+      = t('question.info')
 
     .action
       = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'

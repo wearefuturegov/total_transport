@@ -1,0 +1,38 @@
+%section.logo
+  %h1
+    = @page_title
+
+%section.hero
+  .overlay
+  .event
+  %section.section.heading
+    %h2
+      = t('what.title')
+    / %p
+    /   = t('what.info')
+
+%main.main
+  %section.interest
+    %section.section
+      %h4
+        = t('what.passengers.title')
+      %p
+        = t('what.passengers.info')
+
+  %section.interest
+    %section.section
+      %h4
+        = t('what.suppliers.title')
+      %p
+        = t('what.suppliers.info')
+
+  %section.section
+    %h3
+      = t('question.title')
+    %p
+      = t('question.info')
+
+    .action
+      = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+
+= render 'partials/psuedo_footer'

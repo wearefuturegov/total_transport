@@ -2,24 +2,18 @@
   %p.error-block
     = t('message.sorry')
     to <strong>#{to.name}</strong>.
-  %p
+  %p.small
     %span.bold
       = t('service')
     = t('message.feedback')
   %p
     = link_to I18n.t('button.typeform'), I18n.t('button.typeform-link')
-  %p
-    = t('message.suggest')
+  %p.small
+    = t('message.other')
     <strong>#{from.name}</strong>
-    = t('message.suggest_end')
+    = t('message.other_end')
 
-
-
-  %h3
-    = from.name
-    to:
-  %section.collection
-    - places.each do |place|
-      .single
-        .details
-          = render 'book_button', from: from, to: place, button_label: place.name
+  - places.each do |place|
+    .single
+      .details
+        = render 'book_button', from: from, to: place, button_label: place.name

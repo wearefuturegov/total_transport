@@ -49,4 +49,14 @@
     }
   }
 
+  #bookings-new,
+  #bookings-create,
+  #bookings-confirmation,
+  #bookings-cancel,
+  #bookings-update {
+    section.section {
+      @include pad(default);
+    }
+  }
+
 }

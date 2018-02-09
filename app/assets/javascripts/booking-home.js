@@ -33,6 +33,7 @@ $.fn.bookingHome = function() {
         $('#to').attr('disabled', 'true');
         $('#to').val('');
         $('#results').hide();
+        $('#booking_submit').hide();
         $.post({
           url: '/log_entry/?from=' + chosenItem.name
         });
@@ -45,6 +46,8 @@ $.fn.bookingHome = function() {
 
       $('#to').data('placename', chosenItem.name);
       $('#to_result').empty();
+      
+      $('#booking_submit').hide();
       
       $.get({
         url: url,
@@ -67,6 +70,28 @@ $.fn.bookingHome = function() {
     };
       
     $wrapper.find('#from').easyAutocomplete(options);
+    
+    $wrapper.find('#booking_submit').click(function(e) {
+      if ($wrapper.find('#from').val() == '') {
+        $wrapper.find('.from input').addClass('required')
+        $wrapper.find('.from .required-text').show()
+      }
+      
+      if ($wrapper.find('#to').val() == '') {
+        $wrapper.find('.to input').addClass('required')
+        $wrapper.find('.to .required-text').show()
+      }
+
+      e.preventDefault();
+    })
+    
+    $wrapper.find('#from, #to').on('keyup', function() {
+      $wrapper.find('.from input').removeClass('required')
+      $wrapper.find('.from .required-text').hide()
+      $wrapper.find('.to input').removeClass('required')
+      $wrapper.find('.to .required-text').hide()
+    })
+    
   });
   
 }

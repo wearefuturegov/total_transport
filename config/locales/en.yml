@@ -26,10 +26,10 @@ en:
   # This also changes @page_title everywhere
 
   public-index:
-    title:
-      essex: "Your local service that helps you go places in Essex."
-      suffolk: "Your local service that helps you go places in Suffolk."
-      essex-demo: "Your local service that helps you go places in Suffolk and Essex."
+    planner:
+      title: "Go places…"
+      extra: "*Right now we're piloting two routes between Newmarket and Haverhill, Suffolk and between Broomfield Hospital and The Dengie, Essex"
+    title: "Your local service that helps you go places in Essex and Suffolk"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
       suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -61,8 +61,6 @@ en:
       author_3: "FutureGov"
 
     event:
-      title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
-      info: "Convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
       regular:
         title: "Maldon Vintage Christmas Fayre - Thursday 30th November"
         info: "Under 16s Ride for free with adults. Enjoy a fun evening out with Ride from local villages. Fayre opening hours 6pm - 9pm."
@@ -74,10 +72,13 @@ en:
 
   steps:
     step_1:
+      title: "Affordable"
       info: "Affordable, reliable shared transport"
     step_2:
+      title: "Local"
       info: "Provided by local transport companies"
     step_3:
+      title: "Bookable"
       info: "Runs when booked, with instant confirmation"
 
   journey:
@@ -88,6 +89,151 @@ en:
     to:
       label: "To"
       message: "e.g. Maldon, Broomfield Hospital"
+
+  route:
+    title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
+    info: "Convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
+
+  what:
+    title: "What is Ride?"
+    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
+    passengers:
+      title: "What is Ride for passengers?"
+      info: "Prebook service for you, your family or as a group of friends. Be it your commute, school run, shopping trip, visiting friends or going to a local event."
+    suppliers:
+      title: "What is Ride for suppliers?"
+      info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
+
+  question:
+    title: "Pre-book a Ride for you"
+    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+
+  pilot:
+    title: "Getting you places"
+    info: "We're piloting a new service. Right now we have a limited number of routes available running from xxx to xxx. Pre-book a ride a try it out. Let is know where would be a good route for us to offer in the future."
+    info_a: "We're piloting a new service."
+    info_b: "Right now we have a limited number of routes available running from xxx to xxx."
+    info_c: "Pre-book a ride a try it out."
+    info_d: "Let is know where would be a good route for us to offer in the future."
+
+  promotion_a:
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    intro: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_a:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_b:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_c:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_d:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_e:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    section_f:
+      title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+  promotion_b:
+    title: ""
+    intro: ""
+    section_a:
+      title: ""
+      info: ""
+    section_b:
+      title: ""
+      info: ""
+    section_c:
+      title: ""
+      info: ""
+    section_d:
+      title: ""
+      info: ""
+    section_e:
+      title: ""
+      info: ""
+
+
+  about:
+    title: ""
+    intro: ""
+    section_a:
+      title: ""
+      info: ""
+    section_b:
+      title: ""
+      info: ""
+    section_c:
+      title: ""
+      info: ""
+    section_d:
+      title: ""
+      info: ""
+    section_e:
+      title: ""
+      info: ""
+
+  contact:
+    title: ""
+    intro: ""
+    section_a:
+      title: ""
+      info: ""
+    section_b:
+      title: ""
+      info: ""
+    section_c:
+      title: ""
+      info: ""
+    section_d:
+      title: ""
+      info: ""
+    section_e:
+      title: ""
+      info: ""
+
+  t_and_c:
+    section_a:
+      title: ""
+      info: ""
+    section_b:
+      title: ""
+      info: ""
+    section_c:
+      title: ""
+      info: ""
+    section_d:
+      title: ""
+      info: ""
+    section_e:
+      title: ""
+      info: ""
+    section_f:
+      title: ""
+      info: ""
+    section_g:
+      title: ""
+      info: ""
+    section_h:
+      title: ""
+      info: ""
+    section_i:
+      title: ""
+      info: ""
+    section_j:
+      title: ""
+      info: ""
+    section_k:
+      title: ""
+      info: ""
+    section_l:
+      title: ""
+      info: ""
+
 
   bookings:
     title: "Your journey"
@@ -187,6 +333,8 @@ en:
     pay: "Pay Now"
     again: "Book another Ride"
     cancel: "Cancel"
+    enquiry_b: "Get in touch"
+    routes: "Suggest future routes"
 
   email:
     address: "<%= ENV['RIDE_ADMIN_EMAIL'] %>"
@@ -232,6 +380,8 @@ en:
     suggest: "Here are some destinations from "
     suggest_end: "that might suit you."
     feedback: " will be expanding to more locations soon. By telling us more about your desired journey, you will help us improving what we offer."
+    other: "Other destinations from"
+    other_end: "you might consider are"
 
   email:
     booking_details:
