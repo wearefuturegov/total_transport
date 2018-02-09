@@ -28,8 +28,8 @@ en:
   public-index:
     planner:
       title: "Go places…"
-      extra: "Right now we're piloting two routes between Newmarket and Haverhill, Suffolk and between Broomfield, Maldon and The Dengie*"
-    title: "Your local service that helps you go places in Essex and Suffolk"
+      extra: "*Right now we're piloting two routes: Newmarket to Haverhill, Suffolk Broomfield Hospital to the Maldon & Dengie area, Essex"
+    title: "Your local service that helps you go places in Essex and Suffolk*"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
       suffolk: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -99,23 +99,20 @@ en:
     info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
     passengers:
       title: "Passengers"
-      info: "Prebook service for you, your family or as a group of friends. Be it your commute, school run, shopping trip, visiting friends or going to a local event."
+      info: "Ride is a pre-booked service to help improve transport in the rural areas of Essex and Suffolk. It not only opens up where you can go, but when. Whether that’s for you, your family or as a group of friends. Ride can help you have a more affordable way to get to work, do the school run, visit friends or head out to local events. Try it out or suggest where would be a good route for you. We work with local, approved suppliers and have the possibility of adjusting routes based on demand."
     suppliers:
       title: "Suppliers"
-      info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
+      info: "Ride is here to help improve how you provide transport in rural areas. We can help you understand how to be more efficient with the route you currently offer. We’re piloting routes with a number of suppliers around Essex and Suffolk. If you’re a community transport supplier or Private Hire Vehicle, and are interested to know more, just get in touch."
 
   question:
     title: "Your area, your Ride"
     title_b: "Ride and local events"
     info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex & Suffolk from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+    info_b: "Ride can also help support what’s going on throughout the year. We’ve previously supported getting people from surrounding villages to local fireworks and Christmas Fayres. If you have an event coming up or are a local attraction that would like to know more, Ride is here to help everyone get places."
 
   pilot:
     title: "Getting you places"
-    info: "Ride is here to help with your work commute, bring you better connections to the next town and make sure you don't miss you're next hospital appointment. We're piloting a new service. Right now we have a limited number of routes available running from xxx to xxx. Pre-book a ride a try it out. Let is know where would be a good route for us to offer in the future."
-    info_a: "We're piloting a new service."
-    info_b: "Right now we have a limited number of routes available running from xxx to xxx."
-    info_c: "Pre-book a ride a try it out."
-    info_d: "Let is know where would be a good route for us to offer in the future."
+    info: "Ride is here to help with your work commute, bring you better connections to the next town and make sure you don't miss you're next hospital appointment. We previously ran a trial in Essex and are now expanding to Suffolk. Right now we have a limited number of routes running from Newmarket to Haverhill and from Broomfield Hospital to the Maldon & Dengie area. Book your Ride and see if we can help you go places. We also want to know where we should offer next. If the route you need isn’t available, or you have trouble connecting to onwards transport, let us know."
 
   promotion_a:
     title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -254,7 +251,7 @@ en:
     requirements:
       label: "Special requirements"
       message: "Wheelchair, lifting etc"
-      extra: "Let us know if you have wheelchair, pushchair, or large item with you or if you require any extra assistance"
+      extra: "Please let us know if you have wheelchair, pushchair, or large item with you or if you require any extra assistance. We are unable guarantee space for items that are not mentioned in advanced."
     passenger:
       title: "Passengers"
       adult:
