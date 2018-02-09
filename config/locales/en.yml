@@ -28,7 +28,7 @@ en:
   public-index:
     planner:
       title: "Go places…"
-      extra: "*Right now we're piloting two routes between Newmarket and Haverhill, Suffolk and between Broomfield Hospital and The Dengie, Essex"
+      extra: "Right now we're piloting two routes between Newmarket and Haverhill, Suffolk and between Broomfield, Maldon and The Dengie*"
     title: "Your local service that helps you go places in Essex and Suffolk"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -68,7 +68,7 @@ en:
         info-demo: "Daily journeys from 7am - 7pm including pickups from local villages."
       enquiry:
         title: "Where can we take you?"
-        info: "We are expanding our shared routes across Essex. Tell us the journey you want to make."
+        info: "We are expanding our shared routes across Essex & Suffolk. Tell us the journey you want to make."
 
   steps:
     step_1:
@@ -105,8 +105,8 @@ en:
       info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
 
   question:
-    title: "Pre-book a Ride for you"
-    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+    title: "Your area, your Ride"
+    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex & Suffolk from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
 
   pilot:
     title: "Getting you places"
