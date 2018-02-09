@@ -478,7 +478,9 @@ RSpec.describe Booking, :que, type: :model do
         booking.created_at,
         18.0,
         'n',
-        nil
+        nil,
+        booking.outward_trip.pickup_time,
+        booking.return_trip.pickup_time
       ])
     end
     
