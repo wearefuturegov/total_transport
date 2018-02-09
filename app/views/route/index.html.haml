@@ -8,11 +8,9 @@
   %section.section.heading
     %h2
       = t('route.title')
-    %p
-      = t('route.info')
 
     %section.action
-      = link_to I18n.t('button.book'), I18n.t('button.typeform-link'), class: 'button'
+      = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button'
 
 %main.main
   %section.section
@@ -21,14 +19,7 @@
     %p
       = t('pilot.info')
 
-  .divide
-
   %section.section
-    %h3
-      = t('question.title')
-    %p
-      = t('question.info')
-
     .action
       = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
 

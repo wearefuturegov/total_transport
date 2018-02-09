@@ -91,7 +91,7 @@ en:
       message: "e.g. Maldon, Broomfield Hospital"
 
   route:
-    title: "Daily service between Broomfield Hospital, Maldon and the Dengie"
+    title: "How can Ride help you?"
     info: "Convenient, pre-booked services from 6.15am - 10pm. Avoid the hassle and expense of parking."
 
   what:
@@ -111,7 +111,7 @@ en:
 
   pilot:
     title: "Getting you places"
-    info: "We're piloting a new service. Right now we have a limited number of routes available running from xxx to xxx. Pre-book a ride a try it out. Let is know where would be a good route for us to offer in the future."
+    info: "Ride is here to help with your work commute, bring you better connections to the next town and make sure you don't miss you're next hospital appointment. We're piloting a new service. Right now we have a limited number of routes available running from xxx to xxx. Pre-book a ride a try it out. Let is know where would be a good route for us to offer in the future."
     info_a: "We're piloting a new service."
     info_b: "Right now we have a limited number of routes available running from xxx to xxx."
     info_c: "Pre-book a ride a try it out."
