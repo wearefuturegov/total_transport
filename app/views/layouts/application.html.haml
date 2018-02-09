@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Ride
+    %title Ride!!
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -10,6 +10,14 @@
     %meta{:content => "WbdTeRAxwGsOdKLgCCx1YZ1Ed9IG0KsGLcHF7W5iP8k", :name => "google-site-verification"}/
   %body{:class => "#{controller.controller_name}", :id => "#{@body_id}"}
     %header.header
+      %section.logo
+        %h1
+          = @page_title
+      %nav.nav
+        = link_to "Home", root_path
+        = link_to "About", "about"
+        = link_to "Route", "route"
+
       - if @back_path
         = link_to @back_path do
           Back
