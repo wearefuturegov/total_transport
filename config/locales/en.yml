@@ -98,14 +98,15 @@ en:
     title: "What is Ride?"
     info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
     passengers:
-      title: "What is Ride for passengers?"
+      title: "Passengers"
       info: "Prebook service for you, your family or as a group of friends. Be it your commute, school run, shopping trip, visiting friends or going to a local event."
     suppliers:
-      title: "What is Ride for suppliers?"
+      title: "Suppliers"
       info: "Currently piloting routes with a number of suppliers around Essex and Suffolk. We want to help be more efficient with routes you offer regularly. Talk to us if you want to disucss how we can work together."
 
   question:
     title: "Your area, your Ride"
+    title_b: "Ride and local events"
     info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex & Suffolk from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
 
   pilot:
