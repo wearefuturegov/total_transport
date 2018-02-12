@@ -16,14 +16,3 @@
     @include outer-container(75%);
   }
 }
-
-#journeys-index, #bookings-edit, #bookings-confirmation, #bookings-cancel {
-  .section {
-    max-width: 960px;
-    padding: 0 25px;
-
-    @media screen and (min-width: ($hd-screen)) {
-      max-width: 1150px;
-    }
-  }
-}

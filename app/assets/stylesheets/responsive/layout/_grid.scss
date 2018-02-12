@@ -45,12 +45,18 @@
   }
 }
 
-#bookings-new,
-#bookings-create,
-#bookings-confirmation,
-#bookings-cancel,
-#bookings-update {
-  section.section {
-    @include pad(default);
+.key {
+  .markers {
+    @include span-columns(2);
+  }
+  .route {
+    @include span-columns(1);
+  }
+  .form {
+    @include span-columns(5);
+  }
+  .info-wrap {
+    @include span-columns(10);
+    margin-left: 0;
   }
 }

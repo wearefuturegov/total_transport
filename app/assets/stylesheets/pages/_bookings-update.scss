@@ -1,9 +1,12 @@
 #bookings-update {
-  .button {
+  header.header {
+    display: none;
+  }
+  a.button {
     left: 0;
     right: 0;
     bottom: 0;
-    position: relative;
+    position: absolute;
     width: 100%;
   }
 }
