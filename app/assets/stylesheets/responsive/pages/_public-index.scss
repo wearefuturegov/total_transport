@@ -1,44 +1,54 @@
-@media only screen and (max-width: 667px) {
-
-  #public-index {
-    .hero {
-      &.enquiry {
-        .event {
-          background-position-x: 100%;
-        }
-        .section {
-          margin-top: $baseline;
-        }
-        .book h2 {
-          $h2: 40px;
-          font-size: $h2;
-          font-weight: 900;
-          line-height: calc(#{$h2} * 1.2);
-          text-align: left;
-          margin-top: 0;
-          margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
-        }
+#public-index {
+  .hero {
+    text-align: left;
+    &.enquiry {
+      .event {
+        background-position-x: 100%;
       }
-      .book {
-        left: 0;
+      .section {
+        margin-top: $baseline;
+      }
+      .book h2 {
+        $h2: 40px;
+        font-size: $h2;
+        font-weight: 900;
+        line-height: calc(#{$h2} * 1.2);
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: calc(#{$baseline*3 - $border-width} - #{$h2} * 1.2);
       }
     }
-    #demo {
-      .main .hero {
-        h3 {
-          $h3: 30px;
-          font-size: $h3;
-          font-weight: 900;
-          line-height: calc(#{$h3} * 1.1);
-          margin-top: 0;
-          margin-bottom: calc(#{$baseline*2} - #{$h3} * 1.1);
+    .book {
+      left: 0;
+    }
+    .heading {
+      h2 {
+        float: left;
+      }
+      .action {
+        margin-top: 0;
+        h4 {
+          $h4: 40px;
+          font-size: $h4;
+          line-height: calc(#{$h4} * 1.2);
         }
       }
-      .event {
-        background-position: 0 0;
+      .icon {
+        img {
+          width: 150px;
+          height: auto;
+        }
       }
-      .regular .event {
-        background-position-x: center;
+    }
+  }
+  .main {
+    h3 {
+      display: block;
+      .hyphen {
+        display: none;
+      }
+      span ~ span {
+        display: block;
       }
     }
   }
