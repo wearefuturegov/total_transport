@@ -4,3 +4,15 @@
   margin-top: $baseline*2;
   margin-bottom: $baseline*2;
 }
+
+#bookings-new,
+#bookings-create,
+#bookings-edit,
+#bookings-confirmation,
+#bookings-cancel,
+#bookings-update {
+  section.section {
+   margin-top: $baseline*0.5;
+   margin-bottom: $baseline*0.5;
+  }
+}
