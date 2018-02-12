@@ -39,11 +39,11 @@ RSpec.describe ApplicationHelper, type: :helper do
     
   end
   
-  context '#plus_minus_ten' do
+  context '#plus_minus_five' do
     
-    it 'returns a time period of twenty minutes' do
+    it 'returns a time period of ten minutes' do
       time = Time.parse('10:00')
-      expect(plus_minus_ten time).to eq(' 9:50am – 10:10am')
+      expect(plus_minus_five time).to eq(' 9:55am – 10:05am')
     end
     
   end

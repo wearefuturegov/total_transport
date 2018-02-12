@@ -352,9 +352,9 @@ en:
     day:
       title: "Select an available day"
     outward:
-      time: "Outward time (+-10mins)"
+      time: "Outward time (+-5mins)"
     return:
-      time: "Return time (+-10mins)"
+      time: "Return time (+-5mins)"
     landmark:
       title: "Select your preferred stops"
     pickup_landmark_id:
@@ -388,7 +388,7 @@ en:
   summary:
     title: "We're almost there!"
     extra: "Check your journey before you confirm"
-    plus_minus_ten: "(+-10mins)"
+    plus_minus_five: "(+-5mins)"
     outbound:
       title: "Outbound"
       pickup: "Pick up point"

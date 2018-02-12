@@ -122,7 +122,7 @@ RSpec.describe BookingMailer, type: :mailer do
         expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop for 1 passenger is confirmed/)
         expect(body).to match(/Your vehicle will collect you from Pickup Landmark, Pickup Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
-        expect(body).to match(/between 9:50am – 10:10am/)
+        expect(body).to match(/between 9:55am – 10:05am/)
       end
       
     end
@@ -139,7 +139,7 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the body' do
         expect(body).to match(/Hello Me/)
-        expect(body).to match(/Sunday, 1 Jan at 9:50am – 10:10am from Pickup Stop, Pickup Landmark has been cancelled/)
+        expect(body).to match(/Sunday, 1 Jan at 9:55am – 10:05am from Pickup Stop, Pickup Landmark has been cancelled/)
       end
       
     end
@@ -197,7 +197,7 @@ RSpec.describe BookingMailer, type: :mailer do
       it 'renders the body' do
         expect(body).to match(/Your return journey is from Dropoff Landmark, Dropoff Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
-        expect(body).to match(/between 2:50pm – 3:10pm/)
+        expect(body).to match(/between 2:55pm – 3:05pm/)
       end
       
     end

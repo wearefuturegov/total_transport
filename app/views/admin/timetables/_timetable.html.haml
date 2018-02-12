@@ -1,5 +1,5 @@
 %tr
-  %td=timetable.route.name
+  %td=timetable.route&.name
   %td=timetable.from.to_date.to_s(&:short)
   %td=timetable.to.to_date.to_s(&:short)
   %td=link_to 'Delete timetable', admin_timetable_path(timetable), method: :delete, data: { confirm: 'This will delete all associated journeys. Are you sure?' }, class: 'button text'
