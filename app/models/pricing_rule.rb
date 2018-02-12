@@ -8,7 +8,7 @@ class PricingRule < ActiveRecord::Base
   def stages
     from = 0
     read_attribute(:stages).map do |k,v|
-      stage = Stage.new(from.to_i, k.to_i, v.to_i)
+      stage = Stage.new(from.to_i, k.to_i, v.to_f)
       from = k
       stage
     end

@@ -8,7 +8,7 @@
     = number_field :rule, :to, class: 'rule_to', value: stage.to
 
     = label :rule, :price, 'Price'
-    = number_field :rule, :price, class: 'price', value: stage.price
+    = number_field :rule, :price, class: 'price', value: stage.price, step: 0.1
     
     = link_to 'Remove Stage', '#', class: 'remove', 'data-parent-id' => id
 
