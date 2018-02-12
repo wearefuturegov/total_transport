@@ -12,7 +12,7 @@ class Route < ActiveRecord::Base
   validate :check_sub_route
   
   scope :main_routes, -> { where(route_id: nil) }
-  scope :by_name, ->(name) { where('name ILIKE ?', "#{name}%") }
+  scope :by_name, ->(name) { where('name ILIKE ?', "%#{name}%") }
   
   filterrific(
     available_filters: [
