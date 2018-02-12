@@ -12,9 +12,9 @@
     %header.header
       %section.logo
         %h1
-          = @page_title
+          = link_to @page_title, root_path 
       %nav.nav
-        = link_to "Home", root_path
+        = link_to "Book", root_path
         = link_to "Suggest", "route"
         = link_to "About", "about"
 
