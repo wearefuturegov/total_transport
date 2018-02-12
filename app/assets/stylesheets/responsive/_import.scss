@@ -1,7 +1,11 @@
-@import "components/import";
-@import "composition/import";
-@import "elements/import";
-@import "layout/import";
-@import "pages/import";
-@import "base/import";
-@import "identity/import";
+@media only screen and (max-width: 667px) {
+
+  @import "components/import";
+  @import "composition/import";
+  @import "elements/import";
+  @import "layout/import";
+  @import "pages/import";
+  @import "base/import";
+  @import "identity/import";
+
+}

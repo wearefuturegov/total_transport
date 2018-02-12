@@ -67,6 +67,7 @@ header.header {
 
 .psuedo-footer {
   @include span-columns(12);
+  @include pad(default);
 }
 
 .key {

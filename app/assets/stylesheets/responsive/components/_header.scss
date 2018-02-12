@@ -1,11 +1,7 @@
-@media only screen and (max-width: 667px) {
-
-  header.header {
-    nav.nav {
-      a, a:hover {
-        margin-left: $gutter*0.25;
-      }
+header.header {
+  nav.nav {
+    a, a:hover {
+      margin-left: $gutter*0.25;
     }
   }
-
 }

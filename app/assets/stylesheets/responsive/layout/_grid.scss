@@ -1,62 +1,56 @@
 /* grid. refer to older documentation http://neat.bourbon.io/docs/1.7.1/ */
-
-
-@media only screen and (max-width: 667px) {
-
-  .hero {
+.hero {
+  @include span-columns(12);
+  margin-right: 0;
+  &.enquiry {
+    @include pad(default);
+  }
+  .book {
     @include span-columns(12);
-    margin-right: 0;
-    &.enquiry {
-      @include pad(default);
-    }
-    .book {
-      @include span-columns(12);
-    }
-    section.section {
-      @include span-columns(12);
-      @include shift(0);
-      margin-right: 0;
-    }
   }
-
-  .main {
+  section.section {
     @include span-columns(12);
+    @include shift(0);
     margin-right: 0;
-    .section.features {
+  }
+}
+
+.main {
+  @include span-columns(12);
+  margin-right: 0;
+  .section.features {
+    @include span-columns(12);
+    @include shift(0);
+    margin-right: 0;
+    .icon {
       @include span-columns(12);
-      @include shift(0);
-      margin-right: 0;
-      .icon {
-        @include span-columns(12);
-        margin-right: 0;
-      }
-    }
-    .journey .single {
-      @include span-columns(12);
-    }
-    .collection .single {
-      @include span-columns(12);
-    }
-    section.section {
-      @include span-columns(12);
-      @include pad(default);
-      @include shift(0);
       margin-right: 0;
     }
-    .action {
-      @include span-columns(12);
-      @include shift(0);
-    }
   }
-
-  #bookings-new,
-  #bookings-create,
-  #bookings-confirmation,
-  #bookings-cancel,
-  #bookings-update {
-    section.section {
-      @include pad(default);
-    }
+  .journey .single {
+    @include span-columns(12);
   }
+  .collection .single {
+    @include span-columns(12);
+  }
+  section.section {
+    @include span-columns(12);
+    @include pad(default);
+    @include shift(0);
+    margin-right: 0;
+  }
+  .action {
+    @include span-columns(12);
+    @include shift(0);
+  }
+}
 
+#bookings-new,
+#bookings-create,
+#bookings-confirmation,
+#bookings-cancel,
+#bookings-update {
+  section.section {
+    @include pad(default);
+  }
 }
