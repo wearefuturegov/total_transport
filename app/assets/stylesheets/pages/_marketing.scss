@@ -146,7 +146,7 @@
       border: $border-width-thick $border-style $white;
       border-right-width: $border-width-thick*0.5;
       border-bottom: none;
-      min-height: $baseline*12; // temp
+      min-height: $baseline*16; // temp
       @include pad($gutter);
       & + .interest {
         border-left-width: $border-width-thick*0.5;
