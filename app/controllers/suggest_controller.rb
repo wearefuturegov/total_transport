@@ -1,4 +1,4 @@
-class RouteController < ApplicationController
+class SuggestController < ApplicationController
   layout 'application'
   
   before_action :set_page_title

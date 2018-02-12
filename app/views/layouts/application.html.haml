@@ -12,10 +12,10 @@
     %header.header
       %section.logo
         %h1
-          = link_to @page_title, root_path 
+          = link_to @page_title, root_path
       %nav.nav
         = link_to "Book", root_path
-        = link_to "Suggest", "route"
+        = link_to "Suggest", "suggest"
         = link_to "About", "about"
 
       - if @back_path
