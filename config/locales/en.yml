@@ -28,7 +28,9 @@ en:
   public-index:
     planner:
       title: "Go places…"
-      extra: "*Right now we're piloting two routes: Newmarket to Haverhill, Suffolk Broomfield Hospital to the Maldon & Dengie area, Essex"
+      info: "*Right now we're piloting two routes:"
+      info_b: "Newmarket to Haverhill, Suffolk"
+      info_c: "Broomfield Hospital to the Maldon & Dengie area, Essex"
     title: "Your local service that helps you go places in Essex and Suffolk*"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
@@ -106,7 +108,7 @@ en:
   question:
     title: "Your area, your Ride"
     title_b: "Ride and local events"
-    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex & Suffolk from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
+    info: "Pre-book a Ride for you, your family or as a group of friends. Travel around Essex & Suffolk from a pick-up point near you in a simpler, more flexible way. Ride is an easy transport service, that helps get you to the shops, visit your friends or go to local events."
     info_b: "Ride can also help support what’s going on throughout the year. We’ve previously supported getting people from surrounding villages to local fireworks and Christmas Fayres. If you have an event coming up or are a local attraction that would like to know more, Ride is here to help everyone get places."
 
   pilot:

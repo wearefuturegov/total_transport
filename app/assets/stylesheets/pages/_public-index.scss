@@ -101,6 +101,10 @@
       }
       p.small {
         margin-top: $baseline*0.5;
+        span {
+          float: left;
+          width: 100%;
+        }
       }
       label {
         font-size: $small;
