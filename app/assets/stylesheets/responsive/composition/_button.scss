@@ -1,13 +1,9 @@
-@media only screen and (max-width: 667px) {
+.button.cta + .button.cta{
+  margin-top: $baseline;
+  margin-left: 0;
+}
 
-  .button.cta + .button.cta{
-    margin-top: $baseline;
-    margin-left: 0;
-  }
-
-  .primary {
-    position: absolute;
-    bottom: $baseline;
-  }
-
+.primary {
+  position: absolute;
+  bottom: $baseline;
 }

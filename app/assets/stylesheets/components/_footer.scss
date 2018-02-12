@@ -14,3 +14,43 @@ footer.psuedo-footer {
 footer.footer {
   padding: $baseline*0.5 $gutter;
 }
+
+footer.psuedo-footer {
+  display: none;
+  background: $gray-lighter;
+  border: $gutter*0.5 $border-style $white;
+  ul {
+    text-align: center;
+    li {
+      color: $black;
+      display: inline;
+      margin-bottom: 0;
+      a {
+        color: $black;
+        text-decoration: underline;
+        font-weight: 700;
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+    &.social {
+      margin-bottom: $baseline*0.5;
+      li {
+        margin-right: $gutter*0.25;
+      }
+    }
+    &.credit{
+      font-size: $small;
+      margin-bottom: 0;
+      span:before {
+        content: "|";
+        margin: 0 $baseline*0.25;
+      }
+      span:first-child:before {
+        content: "";
+        margin-right: 0;
+      }
+    }
+  }
+}

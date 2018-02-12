@@ -1,12 +1,10 @@
-@media only screen and (max-width: 667px) {
-
-#promotion-index {
+#promotion-index,
+#public-index,
+#about-index {
   .main {
     .interest, .interest + .interest {
       border-width: $border-width-thick;
       width: 100%;
     }
   }
-}
-
 }
