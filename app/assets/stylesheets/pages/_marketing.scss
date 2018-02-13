@@ -3,7 +3,8 @@
 #promotion-index,
 #public-index,
 #about-index,
-#suggest-index {
+#suggest-index,
+#legal-index {
   .hero {
     border: $border-width-thick $border-style $white;
     border-top: none;
@@ -54,7 +55,7 @@
     font-size: $h4;
     font-weight: 900;
     line-height: calc(#{$h4} * 1.1);
-    margin-top: 0;
+    margin-top: calc(#{$baseline*3} - #{$h4} * 1.1);
     margin-bottom: calc(#{$baseline*2} - #{$h4} * 1.1);
   }
   .logo {

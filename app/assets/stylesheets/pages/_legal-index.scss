@@ -1,0 +1,45 @@
+#legal-index {
+  .main {
+    section.section {
+      margin-top: $baseline*1.5;
+      margin-bottom: $baseline*1.5;
+    }
+    h3, p {
+      text-align: left;
+    }
+    ol li {
+      list-style: initial;
+      ol {
+        counter-reset: item;
+        li {
+          list-style: decimal;
+          margin-left: $gutter*2;
+          &:before { 
+            content: counters(item, ".") " ";
+            counter-increment: item;
+            position: absolute;
+          }
+          &:first-child {
+            margin-top: $baseline*2;
+          }
+          p {
+            margin-left: $gutter;
+          }
+        }
+        ol li {
+          list-style: lower-alpha;
+          margin-left: $gutter*2;
+          &:before {
+            content: none;
+          }
+          &:first-child {
+            margin-top: $baseline*2;
+          }
+          p {
+            margin-left: $gutter*0.5;
+          }
+        }
+      }
+    }
+  }
+}

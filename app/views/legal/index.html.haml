@@ -1,0 +1,54 @@
+%section.hero
+  .overlay
+  .event
+  %section.section.heading
+    %h2
+      = t('legal.title')
+
+%main.main
+  %section.section
+    %h3
+      = t('legal.section_a.title')
+    %p
+      = t('legal.section_a.info')
+    %p
+      = t('legal.section_a.info_b')
+
+    %h4
+      = t('legal.section_a.title')
+
+    %p
+      = t('legal.section_a.info')
+    %p
+      = t('legal.section_a.info_b')
+
+  %section.section
+    %h3
+      = t('legal.section_a.title')
+
+    %ol
+      %li
+        %p
+          = t('legal.section_a.info')
+        %li
+          %p
+            = t('legal.section_a.info')
+      %li
+        %p
+          = t('legal.section_a.info_b')
+        %ol
+          %li
+            %p
+              = t('legal.section_a.info_b')
+          %li
+            %p
+              = t('legal.section_a.info_b')
+            %ol
+              %li
+                %p
+                  = t('legal.section_a.info_b')
+              %li
+                %p
+                  = t('legal.section_a.info_b')
+
+= render 'partials/psuedo_footer'
