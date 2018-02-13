@@ -3,7 +3,7 @@
 .key {
   position: relative;
   .markers, .fa-map-marker {
-    text-align: center;
+    text-align: left;
     width: 100%;
   }
   .form {
@@ -61,7 +61,7 @@ $key-math: $baseline*3.5;
   height: $baseline*1.5;
   margin-top: $baseline*0.25;
   margin-bottom: $baseline*0.25;
-  margin: $baseline*0.25 calc(50% - #{$border-width});
+  margin: $baseline*0.25 9px;
   &.long {
     height: $key-math + $baseline;
   }

@@ -1,9 +1,14 @@
-class RouteController < ApplicationController
+class SuggestController < ApplicationController
   layout 'application'
   
+  before_action :set_page_title
   before_filter :create_body_id
 
   def index
+  end
+
+  def set_page_title
+    @page_title = t('service')
   end
 
   def create_body_id

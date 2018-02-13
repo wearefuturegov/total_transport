@@ -2,4 +2,8 @@
   position: fixed;
   left: $gutter;
   top: $baseline;
+  a {
+    float: left;
+    width: 100%;
+  }
 }

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RouteController, type: :controller do
+RSpec.describe SuggestController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
