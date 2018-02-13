@@ -147,7 +147,7 @@ class Journey < ActiveRecord::Base
     
     def close_time
       if start_time.hour < 9
-        (start_time - 1.day).change({ hour: 17 })
+        (start_time - 1.day).change({ hour: 15, min: 30 })
       else
         start_time - 4.hours
       end
