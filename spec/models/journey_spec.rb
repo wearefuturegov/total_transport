@@ -50,7 +50,7 @@ RSpec.describe Journey, type: :model do
   it 'takes business hours into account' do
     start_time = DateTime.parse('2017-09-01T08:00:00')
     expect { FactoryBot.create(:journey, start_time: start_time) }.to change { QueJob.count }.by(1)
-    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-08-31T17:00:00'))
+    expect(QueJob.last.run_at).to eq(DateTime.parse('2017-08-31T15:30:00'))
   end
   
   it 'deletes and creates a new job if the journey time is changed' do

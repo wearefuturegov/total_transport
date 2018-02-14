@@ -27,7 +27,7 @@ RSpec.describe SmsService, type: :model do
       body = FakeSMS.messages.last[:body]
       expect(body).to match(/Your Ride booking from Sudbury to Saffron Walden is confirmed/)
       expect(body).to match(/Your vehicle will pick you up from The Red Lion/)
-      expect(body).to match(/Monday, 2 Jan between 10:30am – 10:50am/)
+      expect(body).to match(/Monday, 2 Jan between 10:35am – 10:45am/)
     end
     
     it 'with a return journey' do
@@ -37,7 +37,7 @@ RSpec.describe SmsService, type: :model do
       expect(FakeSMS.messages.last[:to]).to eq('1234')
       body = FakeSMS.messages.last[:body]
       expect(body).to match(/Your return journey is from The White Horse, Saffron Walden/)
-      expect(body).to match(/between 4:30pm – 4:50pm/)
+      expect(body).to match(/between 4:35pm – 4:45pm/)
     end
     
   end
@@ -67,7 +67,7 @@ RSpec.describe SmsService, type: :model do
       booking.payment_method = 'cash'
       expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
       expect(FakeSMS.messages.last[:to]).to eq('1234')
-      expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow for your outbound journey from The Red Lion, Sudbury between 10:30am – 10:50am/)
+      expect(FakeSMS.messages.last[:body]).to match(/Your Ride booking reminder. Your vehicle will collect you tomorrow for your outbound journey from The Red Lion, Sudbury between 10:35am – 10:45am/)
       expect(FakeSMS.messages.last[:body]).to match(/Don’t forget to pay the driver directly./)
     end
     
@@ -88,7 +88,7 @@ RSpec.describe SmsService, type: :model do
     sms = SmsService.new(to: '1234', template: :second_alert, trip: booking.outward_trip, booking: booking)
     expect { sms.perform }.to change { FakeSMS.messages.count }.by(1)
     expect(FakeSMS.messages.last[:to]).to eq('1234')
-    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:30am – 10:50am/
+    expect(FakeSMS.messages.last[:body]).to match /Your pickup point is The Red Lion, Sudbury between 10:35am – 10:45am/
   end
   
   it 'sends a cancellation confirmation' do

@@ -81,11 +81,11 @@
 
       %p
         = @booking.outward_trip.pickup_time.strftime("%l:%M%P")
-        = t('summary.plus_minus_ten')
+        = t('summary.plus_minus_five')
 
       -#
         %p
-          Picked up approx #{plus_minus_ten @booking.pickup_time}
+          Picked up approx #{plus_minus_five @booking.pickup_time}
 
         %p
           = map(@booking.pickup_landmark.latitude, @booking.pickup_landmark.longitude)
@@ -126,7 +126,7 @@
 
         %p
           = @booking.return_trip.pickup_time.strftime("%l:%M%P")
-          = t('summary.plus_minus_ten')
+          = t('summary.plus_minus_five')
 
         %h4
           = t('summary.return.dropoff')

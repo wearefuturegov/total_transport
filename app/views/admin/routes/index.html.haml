@@ -4,9 +4,10 @@
     
     %p= button_to 'Create new route', @new_route_path, method: :post, class: 'button'
     
-    = form_for_filterrific @filterrific do |f|
-      =f.label :by_name, 'Filter by name'
-      =f.text_field :by_name, class: 'filterrific-periodically-observed'
+    - if @filterrific
+      = form_for_filterrific @filterrific do |f|
+        =f.label :by_name, 'Filter by name'
+        =f.text_field :by_name, class: 'filterrific-periodically-observed'
     
   #filterrific_results
     = render partial: 'admin/routes/route', collection: @routes

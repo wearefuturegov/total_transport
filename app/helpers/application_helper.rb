@@ -14,9 +14,9 @@ module ApplicationHelper
     end
   end
 
-  def plus_minus_ten(time)
+  def plus_minus_five(time)
     t = time.to_time
-    final_time = "#{format_time(t - 10.minutes)} – #{format_time(t + 10.minutes)}"
+    final_time = "#{format_time(t - 5.minutes)} – #{format_time(t + 5.minutes)}"
   end
 
   def grab_phone_number(phone, booking)
