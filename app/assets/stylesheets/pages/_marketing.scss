@@ -42,7 +42,7 @@
     margin-top: 0;
     margin-bottom: calc(#{$baseline*4} - #{$h2} * 1.2);
   }
-  h3 {
+  h3, ol li.title:before {
     $h3: 38px;
     font-size: $h3;
     font-weight: 900;
