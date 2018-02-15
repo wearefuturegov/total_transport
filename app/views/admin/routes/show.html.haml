@@ -23,8 +23,8 @@
                 %p= stop.name
                 = link_to edit_admin_route_stop_path(@route, stop) do
                   Edit stop
+                = button_to 'Delete stop', admin_route_stop_path(@route, stop), method: :delete, class: 'text'
                 = form_for [:admin, @route, stop], method: :delete do |form|
-                  = form.submit "Delete stop", :class => "text"
                   %section.section
                     = form.label 'Minutes'
                   = form_for [:admin, @route, stop] do |form|
