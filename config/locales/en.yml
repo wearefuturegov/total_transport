@@ -58,8 +58,8 @@ en:
       social_1: "Twitter"
       social_2: "Facebook"
       info: "A project by:"
-      author_1: "Essex County Council"
-      author_2: "Suffolk County Council"
+      author_1: "Essex County Council,"
+      author_2: "Suffolk County Council &"
       author_3: "FutureGov"
 
     event:
@@ -486,6 +486,8 @@ en:
     futuregov:
       text: "FutureGov"
       link: "http://www.wearefuturegov.com/"
+    terms:
+      text: "Terms & Conditions"
 
   message:
     sorry: "Unfortunately, we don't currently travel "
