@@ -17,20 +17,19 @@
       %h3 Stops:
       #sortable_stops.stops
         - @route.stops.each do |stop|
-          %section.section
-            .stop{:id => "stop_#{stop.id}"}
-              .edit_route_mins
-                %p= stop.name
-                = link_to edit_admin_route_stop_path(@route, stop) do
-                  Edit stop
-                = button_to 'Delete stop', admin_route_stop_path(@route, stop), method: :delete, class: 'text'
-                = form_for [:admin, @route, stop], method: :delete do |form|
-                  %section.section
-                    = form.label 'Minutes'
-                  = form_for [:admin, @route, stop] do |form|
-                    = form.number_field :minutes_from_last_stop, class: 'minutes-field'
-                    \#{form.submit "Save", :class => "text"}
-                .map_preview
+          .stop{:id => "stop_#{stop.id}"}
+            .edit_route_mins
+              %p= stop.name
+              = link_to edit_admin_route_stop_path(@route, stop) do
+                Edit stop
+              = button_to 'Delete stop', admin_route_stop_path(@route, stop), method: :delete, class: 'text'
+              = form_for [:admin, @route, stop], method: :delete do |form|
+                %section.section
+                  = form.label 'Minutes'
+                = form_for [:admin, @route, stop] do |form|
+                  = form.number_field :minutes_from_last_stop, class: 'minutes-field'
+                  \#{form.submit "Save", :class => "text"}
+              .map_preview
         = form_for [:admin, @route], method: :delete do |form|
           = form.submit "Delete route", :class => "button text"
         - if @route.route.nil?
