@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe LegalController, type: :controller do
+RSpec.describe TermsController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do

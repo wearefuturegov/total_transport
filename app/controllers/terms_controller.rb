@@ -1,4 +1,4 @@
-class LegalController < ApplicationController
+class TermsController < ApplicationController
   
   before_action :set_page_title
   before_filter :create_body_id
