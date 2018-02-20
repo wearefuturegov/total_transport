@@ -20,6 +20,8 @@
 
     = link_to I18n.t('button.book'), '#', class: "button", id: "booking_submit"
 
+    = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button secondary'
+
     #from_result.hidden{"aria-live" => "assertive", hidden: "", role: "alert", class: "error-block"}
       = t('message.sorry')
       from
