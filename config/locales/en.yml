@@ -98,7 +98,8 @@ en:
 
   what:
     title: "What is Ride?"
-    info: "Ride is an online booking service for shared transport that not only opens up where you can go, but when. We work with local, approved suppliers and have the possibility of adjusting routes based on demand."
+    info: "Ride is an online booking service for shared transport that not only opens up where you can go, but when."
+    extra: " We work with local, approved suppliers and have the possibility of adjusting routes based on demand."
     passengers:
       title: "Passengers"
       info: "Ride is a pre-booked service to help improve transport in the rural areas of Essex and Suffolk. It not only opens up where you can go, but when. Whether that’s for you, your family or as a group of friends. Ride can help you have a more affordable way to get to work, do the school run, visit friends or head out to local events. Try it out or suggest where would be a good route for you. We work with local, approved suppliers and have the possibility of adjusting routes based on demand."
@@ -136,6 +137,9 @@ en:
     section_f:
       title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
       info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+  privacy:
+    title: "Privacy Notice"
 
   legal:
     title: "Liability and complaints. Limitations of our liability to you"
