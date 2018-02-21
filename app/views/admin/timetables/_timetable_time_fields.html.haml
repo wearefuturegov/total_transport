@@ -14,4 +14,4 @@
       = render partial: 'admin/routes/stop', collection: @timetable.route.stops, locals: { selected: f.object.route.stops.collect(&:name), time_id: f.index }
   
   %p
-    = link_to_remove_association 'Remove time',
+    = link_to_remove_association 'Remove time', f
