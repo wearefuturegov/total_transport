@@ -2,6 +2,7 @@ class PricingRule < ActiveRecord::Base
   has_many :routes
   
   enum rule_type: [:per_mile, :staged]
+  enum child_fare_rule: [:multiplier, :flat_rate]
   
   Stage = Struct.new(:from, :to, :price)
   
