@@ -8,15 +8,17 @@
 %main.main
   %section.section
     %p
-      Essex County Council is committed to protecting your privacy when you use our services.
+      Essex and Suffolk County Councils are committed to protecting your privacy when you use our services.
     %p
       The Privacy Notice below explains how we use information about you and how we protect your privacy.
     %p
-      To the left of this webpage you’ll see a list of services we provide. Under each service is more information about who we may share your information with and why. 
+      Ride is provided by the Passenger Transport Teams at Essex and Suffolk County Councils.  Both Local Authorities have Data Protection Officers who makes sure we respect your rights and follow the law. If you have any concerns or questions about how we look after your personal information, please contact the Data Protection Officer for the area in which you are resident:
     %p
-      Ride is provided by the Passenger Transport Team at Essex County Council.  We have a Data Protection Officer who makes sure we respect your rights and follow the law. If you have any concerns or questions about how we look after your personal information, please contact the Data Protection Officer, Paul Turner, at 
-      = mail_to "DPO@essex.gov.uk", "DPO@essex.gov.uk" 
-      or by calling 03457 430 430 and asking to speak to the Data Protection Officer.
+      Essex County Council - the Data Protection Officer, Paul Turner, at 
+      = mail_to "dpo@essex.gov.uk", "dpo@essex.gov.uk" 
+      or by calling 03457 430 430 and asking to speak to the Data Protection Officer. Suffolk County Council – The Data Protection Manager at
+      = mail_to "data.protection@suffolk.gov.uk", "data.protection@suffolk.gov.uk"
+      or by calling 01473 264814. If you are not a resident of either county then please use either contact above.
 
   %section.section
     %h3
@@ -32,7 +34,7 @@
     %p
       Some information is ‘special’ and needs more protection due to its sensitivity. It’s often information you would not want widely known and is very personal to you. This is likely to include anything that can reveal your:
 
-    %ul
+    %ul.bullet
       %li
         sexuality and sexual health
       %li
@@ -55,7 +57,7 @@
     %p
       We may need to use some information about you to:
 
-    %ul
+    %ul.bullet
       %li
         deliver services and support to you;
       %li
@@ -81,7 +83,7 @@
       Each privacy notice from the menu on the left explains for each service which legal reason is being used. Generally we collect and use personal information in the where:
 
 
-    %ul
+    %ul.bullet
       %li
         you, or your legal representative, have given consent
       %li
@@ -108,8 +110,10 @@
         it is necessary for archiving, research, or statistical purposes
 
     %p
-      If we have consent to use your personal information, you have the right to remove it at any time. If you want to remove your consent, please contact 
-      = mail_to "DPO@essex.gov.uk", "DPO@essex.gov.uk" 
+      If we have consent to use your personal information, you have the right to remove it at any time. If you want to remove your consent, please contact Essex at
+      = mail_to "dpo@essex.gov.uk", "essex.gov.uk"
+      or Suffolk at
+      = mail_to "data.protection@suffolk.gov.uk", "data.protection@suffolk.gov.uk"
       and tell us which service you’re using so we can deal with your request.
 
     %h4
@@ -140,14 +144,16 @@
       We would normally expect to share what we record about you with you whenever we assess your needs or provide you with services. 
  
     %p
-      Ride is provided by the Passenger Transport Team at Essex County Council and  you also have the right to ask for all the information we have
-      = link_to "about you", "https://www.essex.gov.uk/Your-Council/Your-Right-Know/Pages/Your-Right-Know.aspx"
-      and the services you receive from us. When we receive a request from you in writing, we must give you access to everything we’ve recorded about you. 
+      is provided by the Passenger Transport Team at Essex and Suffolk County Councils and  you also have the right to ask for all the information we have about you (
+      = link_to "Essex", "https://www.essex.gov.uk/Your-Council/Your-Right-Know/Pages/Your-Right-Know.aspx"
+      ,
+      = link_to "Suffolk", "https://www.suffolk.gov.uk/about/privacy-and-data-protection/"
+      ) and the services you receive from us. When we receive a request from you in writing, we must give you access to everything we’ve recorded about you. 
 
     %p
       However, we can’t let you see any parts of your record which contain:
 
-    %ul
+    %ul.bullet
       %li
         Confidential information about other people; or
       %li
@@ -159,9 +165,11 @@
       This applies to personal information that is in both paper and electronic records. If you ask us, we’ll also let others see your record (except if one of the points above applies). 
 
     %p
-      If you can’t ask for your records in writing, we’ll make sure there are other ways that you can. If you have any queries about access to your information please contact 
+      If you can’t ask for your records in writing, we’ll make sure there are other ways that you can. If you have any queries about access to your information please contact transparencyteam@essex.gov.uk
       = mail_to "transparencyteam@essex.gov.uk"
-      or 0333 013 953.
+      or 0333 013 953 if you are a Essex resident or 
+      = mail_to "information.management@suffolk.gov.uk"
+      or 01473 264814 if you are a Suffolk resident.
 
     %h4
       You can ask to change information you think is inaccurate
@@ -170,9 +178,14 @@
       You should let us know if you disagree with something written on your file.
 
     %p
-      We may not always be able to change or remove that information but we’ll correct factual inaccuracies and may include your comments in the record to show that you disagree with it. 
+      We may not always be able to change or remove that information but we’ll correct factual inaccuracies and may include your comments in the record to show that you disagree with it.
 
-    = link_to "Please complete the online form to inform us of any inaccuracies.", "https://forms.essex.gov.uk/default.aspx/RenderForm/?F.Name=r4Qcams7sBg&HideAll=1"
+    %p
+      For Essex residents:
+      = link_to "Please complete the online form to inform us of any inaccuracies.", "https://forms.essex.gov.uk/default.aspx/RenderForm/?F.Name=r4Qcams7sBg&HideAll=1"
+    %p
+      For Suffolk: 
+      = link_to "Application for Access – Your records", "https://www.suffolk.gov.uk/assets/About/privacy-and-data-protection/2017-04-App-for-Access-to-Records.pdf"
 
     %h4
       You can ask to delete information (right to be forgotten)
@@ -180,7 +193,7 @@
     %p
       In some circumstances you can ask for your personal information to be deleted, for example:
 
-    %ul
+    %ul.bullet
       %li
         Where your personal information is no longer needed for the reason why it was collected in the first place
       %li
@@ -196,7 +209,7 @@
     %p
       Please note that we can’t delete your information where:
 
-    %ul
+    %ul.bullet
       %li
         we’re required to have it by law
       %li
@@ -214,7 +227,7 @@
     %p
       You have the right to ask us to restrict what we use your personal information for where:
 
-    %ul
+    %ul.bullet
       %li
         you have identified inaccurate information, and have told us of it
       %li  
@@ -271,7 +284,7 @@
     %p
       Sometimes we have a legal duty to provide personal information to other organisations. This is often because we need to give that data to courts, including:
 
-    %ul
+    %ul.bullet
       %li
         if we take a child into care;
       %li
@@ -282,7 +295,7 @@
     %p
       We may also share your personal information when we feel there’s a good reason that’s more important than protecting your privacy. This doesn’t happen often, but we may share your information:
 
-    %ul
+    %ul.bullet
       %li
         in order to find and stop crime and fraud; or 
       %li
@@ -313,7 +326,7 @@
     %p
       We’ll do what we can to make sure we hold records about you (on paper and electronically) in a secure way, and we’ll only make them available to those who have a right to see them. Examples of our security include:
 
-    %ul
+    %ul.bullet
       %li
         Encryption, meaning that information is hidden so that it cannot be read without special knowledge (such as a password). This is done with a secret code or what’s called a ‘cypher’. The hidden information is said to then be ‘encrypted’
       %li
@@ -357,14 +370,16 @@
       Where can I get advice?
 
     %p
-      Ride is being delivered by the Passenger Transport Team at Essex County Council.  If you have any worries or questions about how your personal information is handled please contact the Data Protection Officer at
-      = mail_to "DPO@essex.gov.uk", "DPO@essex.gov.uk" 
-      or by calling 03457 430430.
+      Ride is being delivered by the Passenger Transport Teams at Essex and Suffolk County Councils.  If you have any worries or questions about how your personal information is handled please contact
+      = mail_to "dpo@essex.gov.uk", "dpo@essex.gov.uk" 
+      or by calling 03457 430430. Suffolk: 
+      = mail_to "data.protection@suffolk.gov.uk", "data.protection@suffolk.gov.uk"
+      or by calling 01473 264814
 
     %p
       For independent advice about data protection, privacy and data sharing issues, you can contact the Information Commissioner’s Office (ICO) at:
 
-    %ul
+    %ul.bullet
       %li
         Information Commissioner's Office
       %li
@@ -394,7 +409,7 @@
     %p
       They improve things by:
 
-    %ul
+    %ul.bullet
       %li
         remembering the things you’ve chosen while on our website, so you don’t have to keep 
       %li
@@ -484,7 +499,7 @@
     %p
       We share the information you provide with the relevant transport operators in order to provide your journeys you book with us.  In any other circumstances, unless the law allows us to, we do not:
 
-    %ul
+    %ul.bullet
       %li
         share any of the data we collect about you with others, or
       %li
@@ -501,7 +516,7 @@
       Below are links to their cookie policies:
 
 
-    %ul
+    %ul.bullet
       %li
         = link_to "Google and YouTube", "https://www.google.com/policies/technologies/cookies/" 
       %li
