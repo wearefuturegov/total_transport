@@ -7,6 +7,14 @@ ul, ol {
   }
 }
 
+ul.bullet {
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+  li {
+    list-style: initial;
+  }
+}
+
 dl {
   margin: 0;
 }
