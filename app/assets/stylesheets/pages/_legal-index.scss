@@ -1,4 +1,5 @@
-#legal-index {
+#legal-index,
+#privacy-index {
   .main {
     section.section {
       margin-top: $baseline*1.5;
@@ -46,6 +47,30 @@
         p {
           margin-left: $gutter*0.5;
         }
+      }
+    }
+    table {
+      margin-top: $baseline;
+      margin-bottom: $baseline*2;
+      tr td, tr th {
+        padding: $baseline*0.5 $gutter*0.25;
+        border-left: $border-width-thin $gray $border-style;
+      }
+      tr td:first-child {
+        width: 10%;
+      }
+      tr td:last-child {
+        width: 30%;
+      }
+      tr td {
+        width: 60%;
+      }
+      tr th:first-child, 
+      tr td:first-child {
+        border-left: none;
+      }
+      tr:last-child td {
+        border-bottom: none;
       }
     }
   }

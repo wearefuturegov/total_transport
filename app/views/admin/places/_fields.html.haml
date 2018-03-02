@@ -6,9 +6,10 @@
 = form.hidden_field :longitude
 #map_wrapper
   = text_field :search_map, nil, placeholder: 'Search the map'
+  #map{style: 'width: 100%; height: 100%'}
 - content_for :js do
   :javascript
-    var map = L.map('map_wrapper', {
+    var map = L.map('map', {
       zoomControl: true
     }).setView([52.0891, 0.5600], 9);
     
@@ -16,6 +17,27 @@
       maxZoom: 18,
       accessToken: 'pk.eyJ1Ijoid2VhcmVmdXR1cmVnb3YiLCJhIjoiY2o3dDc4bGpoNGd2ajJ3bWp4ZWg3dWd0YiJ9.SbUuzZNHrNFQmgjtYUTU-A'
     }).addTo(map);
+    
+    map.clearMarkers = function() {
+      var map = this;
+      map.eachLayer(function (layer) {
+        if (layer._latlng) {
+          map.removeLayer(layer);
+        }
+      })
+    }
+    
+    map.addMarker = function(latlng) {
+      this.clearMarkers()
+      return new L.marker(latlng, {draggable:'true'}).addTo(map);
+    }
+        
+    map.on('click', function(e) {
+      map.addMarker(e.latlng)
+      
+      $('#place_latitude').val(e.latlng.lat);
+      $('#place_longitude').val(e.latlng.lng);
+    });
 
     var autoCompleteOptions = {
       url: function(place) {
@@ -36,8 +58,7 @@
           $('#place_latitude').val(latlng.lat);
           $('#place_longitude').val(latlng.lng);
           
-          marker = L.marker(coords, {draggable:'true'})
-          marker.addTo(map);
+          marker = map.addMarker(latlng);
           marker.on('dragend', function() {
             var position = marker.getLatLng();
             $('#place_latitude').val(position.lat);

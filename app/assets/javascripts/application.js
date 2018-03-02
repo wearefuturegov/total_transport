@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery-ui/sortable
+//= require leaflet
 //= require datetimepicker
 //= require cocoon
 //= require booking-home

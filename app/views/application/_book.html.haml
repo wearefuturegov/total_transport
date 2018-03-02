@@ -25,9 +25,11 @@
       from
       = succeed "." do
         %span#place
-    
+        
     #results.hidden
       %i.fa.fa-spinner.fa-spin
+
+    = link_to I18n.t('button.routes'), I18n.t('button.typeform-link'), class: 'button secondary'
 
   %p.small
     %span

@@ -4,7 +4,8 @@
 #public-index,
 #about-index,
 #suggest-index,
-#legal-index {
+#legal-index,
+#privacy-index {
   .hero {
     border: $border-width-thick $border-style $white;
     border-top: none;
@@ -147,7 +148,7 @@
       border: $border-width-thick $border-style $white;
       border-right-width: $border-width-thick*0.5;
       border-bottom: none;
-      min-height: $baseline*16; // temp
+      min-height: $baseline*18; // temp
       @include pad($gutter);
       & + .interest {
         border-left-width: $border-width-thick*0.5;

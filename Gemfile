@@ -65,6 +65,8 @@ gem 'postcodes_io'
 gem 'stripe'
 gem 'polylines'
 
+gem 'leaflet-rails'
+
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'
 

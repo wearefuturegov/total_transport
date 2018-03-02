@@ -124,9 +124,10 @@
         line-height: $baseline;
       }
       .error-block {
-        display: block;
+        float: left;
         font-size: $small;
         margin: $baseline*0.5 0;
+        width: 100%;
         &.hidden {
           display: none;
         }
@@ -141,7 +142,38 @@
         padding-left: $baseline*0.5;
         padding-right: $baseline*0.5;
         margin-top: $baseline*0.5;
+        width: 100%;
+        &.secondary {
+          margin-bottom: $baseline*0.5;
+        }
+      }
+      .single {
+        float: left;
+        margin: 0;
+        &:last-child {
+          margin-bottom: $baseline;
+        }
+      }
+      .book-button.button {
+        text-decoration: underline;
+        background: none;
+        border: none;
+        float: left;
+        color: $brand;        
+        padding: 0;
+        margin: 0;
+        margin-right: $gutter*0.25;
+        line-height: $baseline;
         width: auto;
+        &:hover {
+          color: $black;
+        }
+        &:after {
+          content: ",";
+        }
+        &:after:last-child {
+          content: "";
+        }
       }
     }
   }
