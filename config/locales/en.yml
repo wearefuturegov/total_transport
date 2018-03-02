@@ -28,9 +28,10 @@ en:
   public-index:
     planner:
       title: "Go places…"
-      info: "*Right now we're piloting two routes:"
-      info_b: "Newmarket to Haverhill, Suffolk"
-      info_c: "Broomfield Hospital to the Maldon & Dengie area, Essex"
+      info: "*Routes currently available around Essex & Suffolk:"
+      info_b: "Newmarket to Haverhill and surrounding areas."
+      info_c: "Stradbroke to Framlingham and the surrounding areas."
+      info_d: "Broomfield Hospital to the Maldon & Dengie area."
     title: "Your local service that helps you go places in Essex and Suffolk*"
     intro:
       essex: "Your local commute or big day out made simple - pre-book your shared Ride today"
