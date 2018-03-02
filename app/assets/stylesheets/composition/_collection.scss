@@ -3,6 +3,7 @@
 .collection {
   display: flex;
   flex-wrap: wrap;
+  margin-top: $baseline*2;
   ul {
     width: 100%;
     .single {
@@ -11,5 +12,10 @@
   }
   .single {
     margin-bottom: $baseline;
+    &:before {
+      content: "•";
+      color: $brand;
+      margin-right: $gutter*0.5;
+    }
   }
 }
