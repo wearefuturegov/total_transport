@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208173427) do
+ActiveRecord::Schema.define(version: 20180223085823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,8 @@ ActiveRecord::Schema.define(version: 20180208173427) do
     t.boolean  "allow_concessions", default: true
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "child_fare_rule",   default: 0
+    t.float    "child_flat_rate"
   end
 
   create_table "promo_codes", force: :cascade do |t|

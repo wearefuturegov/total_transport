@@ -62,6 +62,24 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
       expect(rule.stages[1].price).to eq(7)
     end
     
+    it 'creates a rule with a child flat rate' do
+      post :create, {
+        pricing_rule: {
+          name: 'Something',
+          rule_type: :per_mile,
+          per_mile: 35,
+          child_fare_rule: :flat_rate,
+          child_flat_rate: 1,
+          return_multiplier: 2,
+          allow_concessions: false
+        }
+      }
+      
+      rule = PricingRule.first
+      expect(rule.child_fare_rule).to eq('flat_rate')
+      expect(rule.child_flat_rate).to eq(1)
+    end
+    
   end
   
   describe 'GET index' do
