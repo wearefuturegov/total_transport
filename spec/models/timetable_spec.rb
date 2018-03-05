@@ -99,5 +99,31 @@ RSpec.describe Timetable, type: :model do
     
   end
   
+  context '#extend' do
+    
+    let(:timetable) do
+      FactoryBot.create(:timetable,
+        from: DateTime.now,
+        to: DateTime.now + 3.days,
+        timetable_times: [
+          FactoryBot.create(:timetable_time, time: Time.parse('10:00'), seats: 4),
+          FactoryBot.create(:timetable_time, time: Time.parse('14:00'), seats: 5),
+          FactoryBot.create(:timetable_time, time: Time.parse('17:00'), seats: 6)
+        ]
+      )
+    end
+    
+    before { timetable.extend(DateTime.now + 6.days) }
+    
+    it 'extends a timetable' do
+      expect(timetable.journeys.count).to eq(24)
+    end
+    
+    it 'updates the end date' do
+      expect(timetable.to).to eq(Date.today + 6.days)
+    end
+    
+  end
+  
 end
   
