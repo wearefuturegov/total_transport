@@ -135,12 +135,12 @@ class Booking < ActiveRecord::Base
     route.pricing_rule.get_single_price(price_distance)
   end
 
+  def child_single_price
+    route.pricing_rule.get_child_price(price_distance)
+  end
+  
   def adult_return_price
     adult_single_price * route.pricing_rule.return_multiplier
-  end
-
-  def child_single_price
-    adult_single_price * route.pricing_rule.child_multiplier
   end
 
   def child_return_price

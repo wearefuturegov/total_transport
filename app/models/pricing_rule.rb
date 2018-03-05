@@ -23,4 +23,12 @@ class PricingRule < ActiveRecord::Base
     end
   end
   
+  def get_child_price(distance)
+    if flat_rate?
+      child_flat_rate
+    elsif multiplier?
+      get_single_price(distance) * child_multiplier
+    end
+  end
+  
 end

@@ -61,6 +61,34 @@ RSpec.describe PricingRule, type: :model do
     
   end
   
+  describe 'get_child_price' do
+    
+    context 'with flat rate' do
+      
+      let(:rule) { FactoryBot.create(:pricing_rule, child_fare_rule: :flat_rate, child_flat_rate: 12) }
+
+      it 'returns the price' do
+        expect(rule.get_child_price(5)).to eq(12)
+      end
+      
+    end
+    
+    context 'with multiplier' do
+      
+      let(:rule) { FactoryBot.create(:pricing_rule, child_fare_rule: :multiplier, child_multiplier: 0.5) }
+
+      before do
+        allow(rule).to receive(:get_single_price) { 10 }
+      end
+      
+      it 'returns the price' do
+        expect(rule.get_child_price(5)).to eq(5)
+      end
+      
+    end
+    
+  end
+  
   
   
 end
