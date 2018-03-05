@@ -37,6 +37,8 @@ class Admin::PricingRulesController < AdminController
         :rule_type,
         :per_mile,
         :stages,
+        :child_fare_rule,
+        :child_flat_rate,
         :child_multiplier,
         :return_multiplier,
         :allow_concessions
