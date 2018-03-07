@@ -20,6 +20,7 @@
 //= require booking-home
 //= require pricing-rules
 //= require route-map
+//= require warn-unsaved
 //= require public
 //= require filterrific/filterrific-jquery
 //= require_tree .
