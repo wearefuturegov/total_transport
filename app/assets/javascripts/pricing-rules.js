@@ -12,6 +12,12 @@ $.fn.pricingRules = function() {
     
     $('#pricing_rule_stages').attr('value', JSON.stringify(stages));
   }
+  
+  $(this).find('#pricing_rule_child_fare_rule').on('change', function() {
+    var ruleType = $(this).val();
+    $('#multiplier, #flat_rate').addClass('hidden');
+    $('#' + ruleType).removeClass('hidden');
+  })
     
   $(this).find('#pricing_rule_rule_type').on('change', function() {
     $('#per_mile').addClass('hidden');

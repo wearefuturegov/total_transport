@@ -2,6 +2,7 @@ class PricingRule < ActiveRecord::Base
   has_many :routes
   
   enum rule_type: [:per_mile, :staged]
+  enum child_fare_rule: [:multiplier, :flat_rate]
   
   Stage = Struct.new(:from, :to, :price)
   
@@ -19,6 +20,14 @@ class PricingRule < ActiveRecord::Base
       (distance * per_mile) / 100
     elsif staged?
       (stages.find { |s| distance.between?(s.from, s.to) } || stages.last).price
+    end
+  end
+  
+  def get_child_price(distance)
+    if flat_rate?
+      child_flat_rate
+    elsif multiplier?
+      get_single_price(distance) * child_multiplier
     end
   end
   

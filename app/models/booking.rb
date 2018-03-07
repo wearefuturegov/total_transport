@@ -124,7 +124,7 @@ class Booking < ActiveRecord::Base
   end
 
   def price
-    (return_journey? ? return_price : single_price).round(1)
+    apply_promo_code(return_journey? ? return_price : single_price).round(1)
   end
   
   def price_in_pence
@@ -135,34 +135,30 @@ class Booking < ActiveRecord::Base
     route.pricing_rule.get_single_price(price_distance)
   end
 
+  def child_single_price
+    route.pricing_rule.get_child_price(price_distance)
+  end
+  
   def adult_return_price
     adult_single_price * route.pricing_rule.return_multiplier
-  end
-
-  def child_single_price
-    adult_single_price * route.pricing_rule.child_multiplier
   end
 
   def child_return_price
     child_single_price * route.pricing_rule.return_multiplier
   end
+  
+  def apply_promo_code(price)
+    return price unless promo_code
+    p -= promo_code.price_deduction
+    [0, p].max
+  end
 
   def single_price
-    p = (number_of_adult_tickets * adult_single_price) + (child_tickets * child_single_price)
-    if promo_code
-      p -= promo_code.price_deduction
-      p = 0 if p < 0
-    end
-    p
+    (number_of_adult_tickets * adult_single_price) + (child_tickets * child_single_price)
   end
 
   def return_price
-    p = (number_of_adult_tickets * adult_return_price) + (child_tickets * child_return_price)
-    if promo_code
-      p -= promo_code.price_deduction
-      p = 0 if p < 0
-    end
-    p
+    (number_of_adult_tickets * adult_return_price) + (child_tickets * child_return_price)
   end
 
   def number_of_free_tickets
