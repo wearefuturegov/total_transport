@@ -6,4 +6,6 @@ $(document).ready(function() {
   
   $('.route_preview').routeMap();
   
+  $('#admin').warnUnsaved();
+  
 })
