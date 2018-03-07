@@ -39,11 +39,80 @@
 
   %section.section
     %h3
+      = t('public-index.list.title')
+    %p
+      Currently travelling to 30 destinations with more added by you all the time.
+    %section.collection
+      %ul
+        %li.single
+          Hargrave
+        %li.single
+          Wickhambrook 
+        %li.single
+          Stradishall 
+        %li.single
+          Hundon 
+        %li.single
+          Haverhill
+        %li.single
+          Newmarket 
+        %li.single
+          Newmarket Academy 
+        %li.single
+          Kedington
+        %li.single
+          Broomfield Hospital 
+        %li.single
+          Dengie
+        %li.single
+          Maldon
+        %li.single
+          Bradwell on Sea
+        %li.single
+          Brundish 
+        %li.single
+          Laxfield 
+        %li.single
+          Ubberstone Green 
+        %li.single
+          Heveningham 
+        %li.single
+          Walpole 
+        %li.single
+          Halesworth
+        %li.single
+          Framlingham 
+        %li.single
+          Dennington
+        %li.single
+          Wilby 
+        %li.single
+          Stradbroke
+        %li.single
+          Burnham-on-Crouch
+        %li.single
+          Tillingham
+        %li.single
+          Heybridge
+        %li.single
+          Boxted 
+        %li.single
+          Colchester
+        %li.single
+          Hatfield Peverel
+        %li.single
+          Assington Green
+        %li.single
+          Lidgate
+
+  %section.section
+    %h3
       = t('question.title')
     %p
       = t('question.info')
 
     .action
       = mail_to I18n.t('email.landing.address'), I18n.t('button.contact'), subject: I18n.t('email.landing.subject'), class: 'button secondary'
+
 
 = render 'partials/psuedo_footer'
