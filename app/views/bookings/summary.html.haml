@@ -98,11 +98,11 @@
       %p
         #{@booking.outward_trip.dropoff_name}
 
-      %h4
-        = t('summary.outbound.eta')
-
-      %p
-        = @booking.outward_trip.dropoff_time.strftime("%l:%M%P")
+      -# %h4
+      -#   = t('summary.outbound.eta')
+      -#
+      -# %p
+      -#   = @booking.outward_trip.dropoff_time.strftime("%l:%M%P")
 
       -#
         = friendly_date @booking.journey.start_time, true
