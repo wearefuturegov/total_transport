@@ -32,7 +32,6 @@ class BookingsController < PublicController
   
   def update
     if params[:confirm]
-      @booking.update_attribute :passenger, Passenger.setup(@booking.phone_number)
       begin
         @booking.create_payment!(params[:stripe_token]) if params[:stripe_token].present?
         @booking.confirm!
@@ -104,8 +103,8 @@ class BookingsController < PublicController
       :pickup_landmark_id,
       :dropoff_stop_id,
       :dropoff_landmark_id,
-      :phone_number,
-      :email,
+      :passenger_phone_number,
+      :passenger_email,
       :passenger_name,
       :payment_method,
       :number_of_passengers,

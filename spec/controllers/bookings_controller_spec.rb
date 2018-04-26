@@ -62,6 +62,13 @@ RSpec.describe BookingsController, type: :controller do
       expect(booking.dropoff_stop_id).to eq(route.stops.last.id)
     end
     
+    it 'creates a passenger' do
+      expect(booking.passenger).to_not eq(nil)
+      expect(booking.passenger.name).to eq(params[:booking][:passenger_name])
+      expect(booking.passenger.email).to eq(params[:booking][:passenger_email])
+      expect(booking.passenger.phone_number).to eq(params[:booking][:passenger_phone_number])
+    end
+    
   end
   
   describe 'PUT update' do
