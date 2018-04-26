@@ -1,4 +1,4 @@
-%p= t('email.greeting', passenger_name: @booking.passenger_name)
+%p= t('email.greeting', passenger_name: @booking.name)
 
 %p= t('email.user_confirmation.intro', pickup_stop: @booking.outward_trip.pickup_stop.name, dropoff_stop: @booking.outward_trip.dropoff_stop.name, passengers: pluralize(@booking.number_of_passengers, 'passenger'))
 

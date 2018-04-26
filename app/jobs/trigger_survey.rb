@@ -7,7 +7,7 @@ class TriggerSurvey < Que::Job
       return if booking.survey_sent?
       client = Twilio::REST::Client.new
       client.studio.v1.flows(ENV['TWILIO_FLOW_ID']).engagements.create(
-        to: Passenger.formatted_phone_number(booking.phone_number),
+        to: booking.phone_number,
         from: ENV['TWILIO_PHONE_NUMBER'],
         parameters: {
           booking_url: booking_url(booking),

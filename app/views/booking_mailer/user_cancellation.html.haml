@@ -1,4 +1,4 @@
-%p= t('email.greeting', passenger_name: @booking.passenger_name)
+%p= t('email.greeting', passenger_name: @booking.name)
 
 %p= t('email.user_cancellation.intro_html', pickup_date: friendly_date(@booking.journey.start_time), pickup_time: plus_minus_five(@booking.outward_trip.pickup_time), stop: @booking.outward_trip.pickup_stop.name, landmark: @booking.outward_trip.pickup_landmark.name)
 

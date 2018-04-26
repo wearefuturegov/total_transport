@@ -47,17 +47,18 @@ RSpec.describe BookingsController, type: :controller do
         booking: {
           pickup_stop_id: route.stops.first.id,
           dropoff_stop_id: route.stops.last.id,
+          passenger_name: 'Me',
+          passenger_phone_number: '+441473760072',
+          passenger_email: 'email@example.com',
         }
       }
     }
+    let!(:subject) { post :create, params }
+    let(:booking) { Booking.first }
     
     it 'creates a booking' do
-      post :create, params
-      
       expect(Booking.count).to eq(1)
-      
-      booking = Booking.first
-      
+            
       expect(booking.pickup_stop_id).to eq(route.stops.first.id)
       expect(booking.dropoff_stop_id).to eq(route.stops.last.id)
     end

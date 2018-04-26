@@ -20,11 +20,9 @@ RSpec.describe Trip, type: :model do
       return_journey: return_journey,
       pickup_stop: stops.first,
       dropoff_stop: stops.last,
-      passenger_name: 'Me',
-      phone_number: '12345',
-      email: 'me@example.com',
       pickup_landmark: stops.first.landmarks.first,
       dropoff_landmark: stops.last.landmarks.first,
+      passenger: FactoryBot.create(:passenger)
     )
   }
   

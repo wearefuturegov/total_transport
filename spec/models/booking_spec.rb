@@ -18,12 +18,10 @@ RSpec.describe Booking, :que, type: :model do
       journey: journey,
       pickup_stop: stops.first,
       dropoff_stop: stops.last,
-      passenger_name: 'Me',
-      phone_number: '12345',
-      email: 'me@example.com',
       pickup_landmark: stops.first.landmarks.first,
       dropoff_landmark: stops.last.landmarks.first,
-      special_requirements: 'Wheelchair'
+      special_requirements: 'Wheelchair',
+      passenger: FactoryBot.create(:passenger)
     )
   }
   
@@ -97,13 +95,13 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'does not send emails if no email is specified' do
-      booking.email = nil
+      booking.passenger.email = nil
       booking.confirm!
       expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
     end
     
     it 'does not send text messages if no phone number is specified' do
-      booking.phone_number = nil
+      booking.passenger.phone_number = nil
       booking.confirm!
       expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
     end
@@ -283,8 +281,8 @@ RSpec.describe Booking, :que, type: :model do
     context 'removes all the alerts', :que do
       
       before do
-        booking.email = 'someone@example.com'
-        booking.phone_number = '123455'
+        booking.passenger.email = 'someone@example.com'
+        booking.passenger.phone_number = '123455'
         booking.queue_alerts
       end
       
@@ -493,9 +491,9 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'returns data without a journey specified' do
       expect(booking.csv_row).to eq([
-        'Me',
-        '12345',
-        'me@example.com',
+        booking.passenger.name,
+        booking.passenger.phone_number,
+        booking.passenger.email,
         journey.route.name,
         1,
         0,
@@ -512,9 +510,9 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'returns data for the outward journey' do
       expect(booking.csv_row(booking.journey.id)).to eq([
-        'Me',
-        '12345',
-        'me@example.com',
+        booking.passenger.name,
+        booking.passenger.phone_number,
+        booking.passenger.email,
         journey.route.name,
         1,
         0,
@@ -536,9 +534,9 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'returns data for the return journey' do
       expect(booking.csv_row(booking.return_journey.id)).to eq([
-        'Me',
-        '12345',
-        'me@example.com',
+        booking.passenger.name,
+        booking.passenger.phone_number,
+        booking.passenger.email,
         journey.route.name,
         1,
         0,

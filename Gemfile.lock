@@ -132,6 +132,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.15.0)
       multipart-post (>= 1.2, < 3)
+    ffaker (2.9.0)
     ffi (1.9.23)
     filterrific (5.0.1)
     font-awesome-rails (4.7.0.4)
@@ -464,6 +465,7 @@ DEPENDENCIES
   devise (>= 4.3.0)
   dotenv-rails (>= 2.2.1)
   factory_bot_rails (>= 4.8.0)
+  ffaker
   filterrific
   font-awesome-rails
   font-awesome-sass (~> 5.0.9)
