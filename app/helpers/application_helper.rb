@@ -18,13 +18,6 @@ module ApplicationHelper
     t = time.to_time
     final_time = "#{format_time(t - 5.minutes)} – #{format_time(t + 5.minutes)}"
   end
-
-  def grab_phone_number(phone, booking)
-    unless booking.passenger_id.nil?
-      original = Passenger.find(booking.passenger_id).phone_number
-      phone.nil? ? original : "#{phone} - number possibly changed from passenger's original (#{original})"
-    end
-  end
   
   def format_time(time)
     (time).strftime("%l:%M%P")
