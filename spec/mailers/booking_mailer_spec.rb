@@ -20,16 +20,15 @@ RSpec.describe BookingMailer, type: :mailer do
   let(:route) { FactoryBot.create(:route, stops: stops) }
   let(:team) { FactoryBot.create(:team, email: 'team@example.com') }
   let(:journey) { FactoryBot.create(:journey, route: route, start_time: DateTime.parse('2017-01-01T10:00:00'), team: team) }
+  let(:passenger) { FactoryBot.create(:passenger, name: 'Me') }
   let(:booking) {
     FactoryBot.create(:booking,
       journey: journey,
       pickup_stop: stops.first,
       dropoff_stop: stops.last,
-      passenger_name: 'Me',
-      phone_number: '12345',
       pickup_landmark: stops.first.landmarks.first,
       dropoff_landmark: stops.last.landmarks.first,
-      email: 'hello@example.com'
+      passenger: passenger
     )
   }
   
@@ -56,8 +55,8 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the body' do
         expect(body).to match(/A new booking has been confirmed/)
-        expect(body).to match(/Name: Me/)
-        expect(body).to match(/Mobile Number: 12345/)
+        expect(body).to match(/Name: #{passenger.name}/)
+        expect(body).to match(/Mobile Number: #{passenger.phone_number}/)
         expect(body).to match(/Travelling at 10:00am on Sunday, 1 Jan/)
         expect(body).to match(/From: Pickup Stop/)
         expect(body).to match(/To: Dropoff Stop/)
@@ -95,8 +94,8 @@ RSpec.describe BookingMailer, type: :mailer do
       
       it 'renders the body' do
         expect(body).to match(/A booking has been cancelled/)
-        expect(body).to match(/Name: Me/)
-        expect(body).to match(/Mobile Number: 12345/)
+        expect(body).to match(/Name: #{passenger.name}/)
+        expect(body).to match(/Mobile Number: #{passenger.phone_number}/)
         expect(body).to match(/Travelling at 10:00am on Sunday, 1 Jan/)
         expect(body).to match(/From: Pickup Stop/)
         expect(body).to match(/To: Dropoff Stop/)
@@ -118,7 +117,7 @@ RSpec.describe BookingMailer, type: :mailer do
       end
       
       it 'renders the body' do
-        expect(body).to match(/Hello Me/)
+        expect(body).to match(/Hello #{passenger.name}/)
         expect(body).to match(/Your Ride booking from Pickup Stop to Dropoff Stop for 1 passenger is confirmed/)
         expect(body).to match(/Your vehicle will collect you from Pickup Landmark, Pickup Stop/)
         expect(body).to match(/on Sunday, 1 Jan/)
@@ -138,7 +137,7 @@ RSpec.describe BookingMailer, type: :mailer do
       end
       
       it 'renders the body' do
-        expect(body).to match(/Hello Me/)
+        expect(body).to match(/Hello #{passenger.name}/)
         expect(body).to match(/Sunday, 1 Jan at 9:55am – 10:05am from Pickup Stop, Pickup Landmark has been cancelled/)
       end
       
@@ -155,7 +154,7 @@ RSpec.describe BookingMailer, type: :mailer do
       end
       
       it 'renders the body' do
-        expect(body).to match(/Hello Me/)
+        expect(body).to match(/Hello #{passenger.name}/)
         expect(body).to match(/We hope you enjoyed your Ride. To help us improve the service, please share your feedback/)
       end
       

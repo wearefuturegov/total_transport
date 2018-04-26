@@ -5,7 +5,7 @@
 - else
   = t('email.booking_details.confirmed_intro_html')
 
-= t('email.booking_details.passenger_details_html', name: booking.passenger_name, phone_number: booking.phone_number, email: booking.email, number_of_adult_tickets: booking.number_of_adult_tickets, child_tickets: booking.child_tickets, number_of_free_tickets: booking.number_of_free_tickets)
+= t('email.booking_details.passenger_details_html', name: booking.name, phone_number: booking.phone_number, email: booking.email, number_of_adult_tickets: booking.number_of_adult_tickets, child_tickets: booking.child_tickets, number_of_free_tickets: booking.number_of_free_tickets)
   
 - if state != 'cancelled' && booking.special_requirements
   = t('email.booking_details.special_requirements_html', special_requirements: booking.special_requirements)

@@ -70,6 +70,7 @@ gem 'leaflet-rails'
 gem 'factory_bot_rails', '>= 4.8.0'
 gem 'appsignal'
 gem 'sendgrid_actionmailer_adapter'
+gem 'ffaker'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
