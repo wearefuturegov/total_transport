@@ -62,6 +62,17 @@ RSpec.describe Admin::TeamsController, type: :controller do
       expect(team.suppliers.count).to eq(3)
     end
     
+    it 'updates a team without suppliers' do
+      put :update, id: team, team: {
+        name: 'New name',
+        email: 'foo@example.com'
+      }
+      
+      team.reload
+      expect(team.name).to eq('New name')
+      expect(team.email).to eq('foo@example.com')
+    end
+    
   end
 
 end

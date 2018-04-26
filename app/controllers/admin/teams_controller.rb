@@ -14,7 +14,7 @@ class Admin::TeamsController < AdminController
   end
   
   def update
-    team_params[:suppliers_attributes].values.each do |s|
+    team_params[:suppliers_attributes]&.values&.each do |s|
       supplier = Supplier.find(s[:id])
       supplier.team = @team
       supplier.save
