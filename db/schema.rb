@@ -33,11 +33,9 @@ ActiveRecord::Schema.define(version: 20180706141440) do
     t.integer  "disabled_bus_passes",  default: 0
     t.integer  "scholar_bus_passes",   default: 0
     t.integer  "promo_code_id"
-    t.string   "passenger_name"
     t.string   "payment_method",       default: "cash"
     t.integer  "pickup_landmark_id"
     t.integer  "dropoff_landmark_id"
-    t.string   "email"
     t.string   "token"
     t.string   "cancellation_reason"
     t.string   "charge_id"
@@ -107,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180706141440) do
     t.datetime "photo_updated_at"
     t.string   "name"
     t.string   "session_token",                  limit: 40
+    t.string   "email"
   end
 
   add_index "passengers", ["session_token"], name: "index_passengers_on_session_token", unique: true, using: :btree
