@@ -141,6 +141,11 @@ en:
 
   privacy:
     title: "Privacy Notice"
+    
+  unsubscribed:
+    title: "You have been sucessfully unsubscribed"
+    content: "You will no longer receive any emails from us."
+    reset: "If you clicked this link in error, please contact us to resubscribe."
 
   legal:
     title: "Liability and complaints. Limitations of our liability to you"
@@ -210,7 +215,7 @@ en:
       info_14_a: "been damaged, mutilated or defaced;"
       info_14_b: "been issued for use by another person on terms that it is not transferable;"
       info_14_c: "expired: or"
-      info_14_d: "in the reasonable opinion of the driver or an Operator official, been obtained fraudulently." 
+      info_14_d: "in the reasonable opinion of the driver or an Operator official, been obtained fraudulently."
       info_15: "Customers are responsible for the safety and integrity of their own tickets and passes once validly issued. We are not obliged to replace your ticket, pass or permit to travel if it is lost, mislaid or stolen. You will have to purchase a new ticket to allow you to use our services."
       info_16: "If your ticket has been damaged but remains legible then the Operator may provide you with a replacement for the remainder of its period of validity, or offer you the choice to purchase a replacement ticket from their own range which may be valid for a longer period, but will require you to pay the difference if you choose this option."
       info_17: "Concessionary travel schemes for many categories of passenger are operated by local authorities in England, the Scottish Government and the Welsh Assembly. The terms, rules and conditions applying to these schemes are the responsibility of, and the validity of individual passes is determined by, the pass issuing authority."
