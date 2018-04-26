@@ -12,4 +12,9 @@ class Passenger < ActiveRecord::Base
   }
   
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+  
+  def anonymise!
+    update_attributes(name: nil, email: nil, phone_number: nil)
+    save
+  end
 end
