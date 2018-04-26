@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :suggest, only: [:index]
   resources :legal, only: [:index]
   resources :privacy, only: [:index]
+  resources :unsubscribed, only: [:index]
   resources :journeys, only: [:index] do
     collection do
       get ':from/(:to)' => 'journeys#index', as: :from_to

@@ -1,0 +1,9 @@
+%section.hero
+  .overlay
+  .event
+  %section.section.heading
+    %h2
+      = t('unsubscribed.title')
+    
+    %p You will no longer receive any emails from us.
+    %p If you clicked this link in error, please #{mail_to ENV['RIDE_ADMIN_EMAIL'], 'contact us' } to resubscribe.

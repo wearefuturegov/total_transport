@@ -1,5 +1,6 @@
 #legal-index,
-#privacy-index {
+#privacy-index,
+#unsubscribed-index {
   .main {
     section.section {
       margin-top: $baseline*1.5;
@@ -15,7 +16,7 @@
           margin-left: $gutter;
           margin-top: $baseline*2;
         }
-        &:before { 
+        &:before {
           content: counters(item, ".");
           counter-increment: item;
           position: absolute;
@@ -65,7 +66,7 @@
       tr td {
         width: 60%;
       }
-      tr th:first-child, 
+      tr th:first-child,
       tr td:first-child {
         border-left: none;
       }
