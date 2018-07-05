@@ -69,6 +69,7 @@ gem 'leaflet-rails'
 
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'
+gem 'appsignal'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
