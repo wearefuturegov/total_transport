@@ -69,6 +69,9 @@ GEM
       thor (~> 0.19)
     brakeman (3.7.2)
     builder (3.2.3)
+    bullet (5.7.5)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11.0)
     byebug (10.0.2)
     capybara (2.14.4)
       addressable
@@ -412,6 +415,7 @@ GEM
     uber (0.1.0)
     uglifier (4.1.10)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.11.0)
     vcr (4.0.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -437,6 +441,7 @@ DEPENDENCIES
   bitters
   bourbon
   brakeman
+  bullet
   byebug
   capybara-selenium
   chromedriver-helper
