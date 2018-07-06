@@ -163,18 +163,11 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'gets available journeys' do
       get :edit, route_id: route, id: booking
-      expect(assigns(:journeys)).to eq({
-        (Date.today + 1.day) => [
-          journeys[0]
-        ],
-        (Date.today + 2.day) => [
-          journeys[2],
-          journeys[1]
-        ],
-        (Date.today + 3.day) => [
-          journeys[3]
-        ]
-      })
+      available_journeys = assigns(:journeys)
+      
+      expect(available_journeys[Date.today + 1.day]).to match_array([journeys[0]])
+      expect(available_journeys[Date.today + 2.day]).to match_array([journeys[1], journeys[2]])
+      expect(available_journeys[Date.today + 3.day]).to match_array([journeys[3]])
     end
     
     it 'sets the correct back_path' do

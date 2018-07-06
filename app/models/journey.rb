@@ -13,7 +13,7 @@ class Journey < ActiveRecord::Base
 
   scope :forwards, -> {where("reversed IS NOT TRUE")}
   scope :backwards, -> {where("reversed IS TRUE")}
-  scope :available, -> {where('start_time > ? AND open_to_bookings IS TRUE', Time.now)}
+  scope :available, -> {where('start_time > :start_time AND open_to_bookings IS TRUE AND "full?" IS FALSE', start_time: Time.now)}
 
   scope :past_or_future, ->(past_or_future) {
     if past_or_future == 'past'
@@ -50,23 +50,19 @@ class Journey < ActiveRecord::Base
   after_update :change_close_time, if: :start_time_changed?
   
   def self.available_for_places(start_place, destination_place)
-    from = Stop.where(place: start_place).includes(:route)
-    to = Stop.where(place: destination_place).includes(:route)
+    from = Stop.where(place: start_place)
+    to = Stop.where(place: destination_place)
     routes = Route.where(id: from.collect(&:route_id) & to.collect(&:route_id)).includes(:stops)
-    routes.map do |route|
+    journeys = routes.map do |route|
       stops = route.stops
       f = from.find { |s| stops.include?(s) }
       t = to.find { |s| stops.include?(s) }
       Journey.available.where(
         route_id: route.id,
         reversed: f.position > t.position,
-        full?: false
-      ).order(:start_time).map do |j|
-        j.pickup_stop = f
-        j.dropoff_stop = t
-        j
-      end
+      ).pluck(:id)
     end.flatten.uniq
+    Journey.where(id: journeys)
   end
   
   def duplicate(start_date, end_date, include_days = [0,1,2,3,4,5,6])
