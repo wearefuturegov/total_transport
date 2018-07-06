@@ -6,7 +6,10 @@ class BookingsController < PublicController
   def new
     @from = Place.friendly.find(params[:from])
     @to = Place.friendly.find(params[:to])
-    @journeys = Journey.available_for_places(@from, @to).sort_by {|j| j.start_time }.group_by { |j| j.start_time.to_date }
+    @journeys = Journey.available_for_places(@from, @to)
+                       .where('start_time < ?', DateTime.now + 2.months)
+                       .order(:start_time)
+                       .group_by { |j| j.start_time.to_date }
     @booking = Booking.new
   end
 
