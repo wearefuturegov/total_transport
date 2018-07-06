@@ -190,6 +190,7 @@ class Booking < ActiveRecord::Base
     queue_alerts
     update_attribute(:state, 'booked')
     journey.update_attribute(:booked, true)
+    journey.update_attribute(:full?, true) if journey.seats_left <= 0
     return_journey.update_attribute(:booked, true) if return_journey
   end
   

@@ -107,6 +107,27 @@ RSpec.describe Booking, :que, type: :model do
       booking.confirm!
       expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
     end
+    
+    context 'if the booking fills a journey' do
+      
+      before { booking.update_attribute(:number_of_passengers, journey.seats) }
+      
+      it 'sets full? to true' do
+        booking.confirm!
+        expect(journey.full?).to be true
+      end
+      
+    end
+    
+    context 'if the booking does not fill a journey' do
+      
+      it 'sets does not set full?' do
+        booking.confirm!
+        expect(journey.full?).to be false
+      end
+      
+    end
+    
   end
   
   context '#past?' do
