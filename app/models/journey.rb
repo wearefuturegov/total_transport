@@ -60,13 +60,14 @@ class Journey < ActiveRecord::Base
       t = to.find { |s| stops.include?(s) }
       Journey.available.where(
         route_id: route.id,
-        reversed: f.position > t.position
+        reversed: f.position > t.position,
+        full?: false
       ).order(:start_time).map do |j|
         j.pickup_stop = f
         j.dropoff_stop = t
         j
       end
-    end.flatten.uniq.reject { |s| s.full? }
+    end.flatten.uniq
   end
   
   def duplicate(start_date, end_date, include_days = [0,1,2,3,4,5,6])
@@ -92,10 +93,6 @@ class Journey < ActiveRecord::Base
 
   def seats_left
     seats - booked_bookings.sum(:number_of_passengers)
-  end
-
-  def full?
-    seats_left <= 0
   end
 
   def route_name
