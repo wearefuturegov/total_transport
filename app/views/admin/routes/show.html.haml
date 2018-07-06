@@ -16,7 +16,7 @@
     .card
       %h3 Stops:
       #sortable_stops.stops
-        - @route.stops.each do |stop|
+        - @route.stops.includes(:place).each do |stop|
           .stop{:id => "stop_#{stop.id}"}
             .edit_route_mins
               %p= stop.name
