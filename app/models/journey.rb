@@ -51,10 +51,9 @@ class Journey < ActiveRecord::Base
   
   def self.available_for_places(start_place, destination_place)
     from = Stop.where(place: start_place).includes(:route)
-    from_routes = from.collect(&:route)
     to = Stop.where(place: destination_place).includes(:route)
-    to_routes = to.collect(&:route)
-    (from_routes & to_routes).map do |route|
+    routes = Route.where(id: from.collect(&:route_id) & to.collect(&:route_id)).includes(:stops)
+    routes.map do |route|
       stops = route.stops
       f = from.find { |s| stops.include?(s) }
       t = to.find { |s| stops.include?(s) }
