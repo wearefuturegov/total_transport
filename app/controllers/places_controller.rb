@@ -17,7 +17,7 @@ class PlacesController < PublicController
     end
     
     def get_places
-      @places = Place.all.includes(:routes)
+      @places = Place.all
       @places = @places.where("name ILIKE ?", "#{places_params[:query]}%") if places_params[:query]
     end
 
