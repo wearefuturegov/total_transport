@@ -98,6 +98,7 @@ group :development, :test do
   gem 'coveralls', require: false
   gem 'turnip'
   gem 'vcr'
+  gem 'bullet'
 end
 
 group :development do
