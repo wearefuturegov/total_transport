@@ -288,6 +288,7 @@ class Booking < ActiveRecord::Base
       send_cancellation_sms!
       refund! unless charge_id.nil?
       send_cancellation_email!
+      journey.update_attribute(:full?, false)
     end
     
     def refund!
