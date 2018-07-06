@@ -106,24 +106,6 @@ RSpec.describe Journey, type: :model do
     
   end
   
-  context '#full?' do
-    
-    it 'returns true if there are the same number of passengers as seats' do
-      journey.seats = 12
-      journey.bookings = FactoryBot.create_list(:booking, 6, state: 'booked', number_of_passengers: 2)
-      
-      expect(journey.full?).to eq(true)
-    end
-    
-    it 'returns false if there are more seats than passengers' do
-      journey.seats = 12
-      journey.bookings = FactoryBot.create_list(:booking, 3, state: 'booked', number_of_passengers: 2)
-      
-      expect(journey.full?).to eq(false)
-    end
-    
-  end
-  
   context '#route_name' do
     
     before do
