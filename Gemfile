@@ -29,6 +29,7 @@ gem 'neat', '< 2.0'
 gem 'bitters'
 # Haml is the way
 gem 'haml-rails', '~> 1.0'
+gem 'redcarpet'
 # Fontawesome is pretty awesome
 gem "font-awesome-rails"
 # other starter gems

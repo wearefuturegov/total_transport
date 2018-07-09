@@ -7,7 +7,8 @@ ul, ol {
   }
 }
 
-ul.bullet {
+.privacy ul {
+  margin-left: $baseline;
   margin-top: $baseline;
   margin-bottom: $baseline;
   li {
