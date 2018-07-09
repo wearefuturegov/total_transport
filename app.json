@@ -13,9 +13,6 @@
     "HEROKU_API_TOKEN": {
       "required": true
     },
-    "AIRBRAKE_API_KEY": {
-      "required": true
-    },
     "AWS_ACCESS_KEY_ID": {
       "required": true
     },

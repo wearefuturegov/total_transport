@@ -48,8 +48,6 @@ gem 'rails_12factor'
 gem 'puma'
 gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
 
-gem 'airbrake', '~> 4.1'
-
 gem 'twilio-ruby'
 
 gem 'paperclip'
