@@ -29,14 +29,14 @@
 
 #multiplier{ class: (form.object.multiplier? ? '' : 'hidden') }
   = form.label :child_multiplier
-  = form.number_field :child_multiplier, class: 'input', step: 0.5
+  = form.number_field :child_multiplier, class: 'input', step: 0.1
 
 #flat_rate{ class: (form.object.flat_rate? ? '' : 'hidden') }
   = form.label :child_flat_rate
   = form.number_field :child_flat_rate, class: 'input'
 
 = form.label :return_multiplier
-= form.number_field :return_multiplier, class: 'input', step: 0.5
+= form.number_field :return_multiplier, class: 'input', step: 0.1
 
 = form.label :allow_concessions
 = form.select :allow_concessions, [['Yes', 1],['No', 0]], {}, class: 'input select'
