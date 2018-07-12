@@ -16,7 +16,7 @@
         = t('bookings.passenger.child.extra')
     = form.number_field :child_tickets, class: 'passenger_number', 'data-target' => 'child_tickets', readonly: true
 
-  - if @booking.route.allow_concessions
+  - if @booking.route.pricing_rule.allow_concessions
     #passes.hidden
       %label
         = t('bookings.passenger.pass.title')
