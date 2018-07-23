@@ -186,7 +186,7 @@ GEM
       excon
       moneta
       multi_json (>= 1.9.2)
-    high_voltage (3.0.0)
+    high_voltage (3.1.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
