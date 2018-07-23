@@ -1,5 +1,5 @@
 class BookingsController < PublicController
-  before_filter :find_booking, except: [:new, :create, :cancelled, :price, :passengers]
+  before_action :find_booking, except: [:new, :create, :cancelled, :price, :passengers]
   skip_before_action :verify_authenticity_token, only: :send_missed_feedback
   include ApplicationHelper
   

@@ -1,6 +1,6 @@
 class Admin::SubRoutesController < AdminController
-  before_filter :check_permissions
-  before_filter :get_route, only: [:show, :update, :sort, :destroy]
+  before_action :check_permissions
+  before_action :get_route, only: [:show, :update, :sort, :destroy]
   
   def index
     @routes = Route.where(route_id: params[:route_id])

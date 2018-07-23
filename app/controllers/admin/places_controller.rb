@@ -1,6 +1,6 @@
 class Admin::PlacesController < AdminController
   
-  before_filter :get_back_path, :set_defaults
+  before_action :get_back_path, :set_defaults
 
   def new
   end

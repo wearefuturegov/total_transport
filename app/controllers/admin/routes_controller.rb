@@ -1,7 +1,7 @@
 class Admin::RoutesController < AdminController
-  before_filter :check_permissions
-  before_filter :get_route, only: [:show, :update, :sort, :destroy]
-  before_filter :get_pricing_rules, only: [:show]
+  before_action :check_permissions
+  before_action :get_route, only: [:show, :update, :sort, :destroy]
+  before_action :get_pricing_rules, only: [:show]
   
   def index
     @filterrific = initialize_filterrific(

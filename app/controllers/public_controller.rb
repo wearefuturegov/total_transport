@@ -2,7 +2,7 @@ class PublicController < ApplicationController
   layout 'application'
     
   before_action :set_page_title
-  before_filter :create_body_id
+  before_action :create_body_id
   
   def index
     template = ENV['DEMO'] ? 'application/demo' : 'application/index'

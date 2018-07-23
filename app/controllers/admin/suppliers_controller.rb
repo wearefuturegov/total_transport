@@ -1,5 +1,5 @@
 class Admin::SuppliersController < AdminController
-  before_filter :check_permissions, except: 'pending'
+  before_action :check_permissions, except: 'pending'
   skip_before_action :authenticate_supplier!, only: 'pending'
 
   def index

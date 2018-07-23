@@ -1,5 +1,5 @@
 class Admin::PromoCodesController < AdminController
-  before_filter :check_permissions
+  before_action :check_permissions
 
   def index
     @promo_codes = PromoCode.all
