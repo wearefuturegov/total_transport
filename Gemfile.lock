@@ -503,6 +503,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   sendgrid_actionmailer_adapter
   simplecov
+  sinatra (> 1.4.6)
   spring
   stripe
   stripe-ruby-mock (~> 2.5.1)
