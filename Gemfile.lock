@@ -403,7 +403,7 @@ GEM
       sprockets (>= 3.0.0)
     stripe (3.13.0)
       faraday (~> 0.10)
-    stripe-ruby-mock (2.5.3)
+    stripe-ruby-mock (2.5.1)
       dante (>= 0.2.0)
       multi_json (~> 1.0)
       stripe (>= 2.0.3)
@@ -506,7 +506,7 @@ DEPENDENCIES
   sinatra (> 1.4.6)
   spring
   stripe
-  stripe-ruby-mock (~> 2.5.1)
+  stripe-ruby-mock (= 2.5.1)
   timecop
   turnip
   twilio-ruby
