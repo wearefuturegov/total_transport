@@ -1,4 +1,4 @@
-class AddRouteCountToPlaces < ActiveRecord::Migration
+class AddRouteCountToPlaces < ActiveRecord::Migration[4.2]
   def change
     add_column :places, :route_count, :integer
     

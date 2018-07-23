@@ -1,4 +1,4 @@
-class CreateTimetableTimes < ActiveRecord::Migration
+class CreateTimetableTimes < ActiveRecord::Migration[4.2]
   def change
     create_table :timetable_times do |t|
       t.time :time

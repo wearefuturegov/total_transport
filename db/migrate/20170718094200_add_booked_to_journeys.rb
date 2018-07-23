@@ -1,4 +1,4 @@
-class AddBookedToJourneys < ActiveRecord::Migration
+class AddBookedToJourneys < ActiveRecord::Migration[4.2]
   def change
     add_column :journeys, :booked, :boolean, default: false
     Journey.all.each do |journey|

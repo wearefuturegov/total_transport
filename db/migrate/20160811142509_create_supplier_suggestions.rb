@@ -1,4 +1,4 @@
-class CreateSupplierSuggestions < ActiveRecord::Migration
+class CreateSupplierSuggestions < ActiveRecord::Migration[4.2]
   def change
     create_table :supplier_suggestions do |t|
       t.references :supplier, index: true, foreign_key: true

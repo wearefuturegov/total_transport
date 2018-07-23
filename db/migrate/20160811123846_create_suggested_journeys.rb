@@ -1,4 +1,4 @@
-class CreateSuggestedJourneys < ActiveRecord::Migration
+class CreateSuggestedJourneys < ActiveRecord::Migration[4.2]
   def change
     create_table :suggested_journeys do |t|
       t.references :passenger, index: true, foreign_key: true

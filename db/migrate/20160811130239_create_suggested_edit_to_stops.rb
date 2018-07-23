@@ -1,4 +1,4 @@
-class CreateSuggestedEditToStops < ActiveRecord::Migration
+class CreateSuggestedEditToStops < ActiveRecord::Migration[4.2]
   def change
     create_table :suggested_edit_to_stops do |t|
       t.references :passenger, index: true, foreign_key: true

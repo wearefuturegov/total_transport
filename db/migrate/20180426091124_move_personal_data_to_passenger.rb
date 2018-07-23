@@ -1,4 +1,4 @@
-class MovePersonalDataToPassenger < ActiveRecord::Migration
+class MovePersonalDataToPassenger < ActiveRecord::Migration[4.2]
   def change
     add_column :passengers, :email, :string
     Booking.all.each do |b|

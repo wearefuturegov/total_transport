@@ -1,4 +1,4 @@
-class CreatePricingRules < ActiveRecord::Migration
+class CreatePricingRules < ActiveRecord::Migration[4.2]
   def change
     create_table :pricing_rules do |t|
       t.string :name
