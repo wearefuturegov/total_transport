@@ -1,0 +1,45 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "7ccee428d265b6727d47c36e72c63790f5e1a7bb0ea87e35881ff8f64a44870c",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/suppliers_controller.rb",
+      "line": 29,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:supplier).permit(:email, :phone_number, :name, :admin, :approved)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::SuppliersController",
+        "method": "supplier_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "c4d4d3f1a83650abb5edf6ea3c9592a64bb02c348ad945d9daabd0f8ca1d8ef4",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in link_to href",
+      "file": "app/views/admin/suggestions/index.html.haml",
+      "line": 56,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(SupplierSuggestion.new.url, SupplierSuggestion.new.url)",
+      "render_path": [{"type":"controller","class":"Admin::SuggestionsController","method":"index","line":8,"file":"app/controllers/admin/suggestions_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "admin/suggestions/index"
+      },
+      "user_input": "SupplierSuggestion.new.url",
+      "confidence": "Weak",
+      "note": ""
+    }
+  ],
+  "updated": "2018-07-23 12:00:03 +0100",
+  "brakeman_version": "4.2.1"
+}
