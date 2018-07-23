@@ -8,18 +8,18 @@ RSpec.describe Admin::BookingsController, type: :controller do
   context '#show' do
     
     it 'shows a booking' do
-      get :show, { id: booking.id }
+      get :show, params: { id: booking.id }
       expect(assigns(:booking)).to eq(booking)
       expect(assigns(:back_path)).to eq(admin_journey_path(booking.journey_id))
     end
     
     it 'gets the outward trip' do
-      get :show, { id: booking.id, journey_id: booking.journey_id }
+      get :show, params: { id: booking.id, journey_id: booking.journey_id }
       expect(assigns(:trip).journey).to eq(booking.journey)
     end
     
     it 'gets the return trip' do
-      get :show, { id: booking.id, journey_id: booking.return_journey_id  }
+      get :show, params: { id: booking.id, journey_id: booking.return_journey_id  }
       expect(assigns(:trip).journey).to eq(booking.return_journey)
     end
     
@@ -54,7 +54,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
         booked_bookings[0].update_attributes(journey: journey)
         booked_bookings[1].update_attributes(journey: journey)
 
-        get :index, filterrific: { route: route.id, state: 'booked' }
+        get :index, params: { filterrific: { route: route.id, state: 'booked' } }
         
         expect(assigns(:bookings)).to match_array([booked_bookings[0], booked_bookings[1]])
       end
@@ -64,7 +64,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
         booked_bookings[3].update_attributes(journey: journey)
         booked_bookings[4].update_attributes(journey: journey)
 
-        get :index, filterrific: { date_from: Date.today + 2.days, state: 'booked' }
+        get :index, params: { filterrific: { date_from: Date.today + 2.days, state: 'booked' } }
 
         expect(assigns(:bookings)).to match_array([booked_bookings[3], booked_bookings[4]])
       end
@@ -74,13 +74,13 @@ RSpec.describe Admin::BookingsController, type: :controller do
         booked_bookings[3].update_attributes(journey: journey)
         booked_bookings[4].update_attributes(journey: journey)
 
-        get :index, filterrific: { date_to: Date.today - 2.days, state: 'booked' }
+        get :index, params: { filterrific: { date_to: Date.today - 2.days, state: 'booked' } }
 
         expect(assigns(:bookings)).to match_array([booked_bookings[3], booked_bookings[4]])
       end
       
       it 'by state' do
-        get :index, filterrific: { state: 'cancelled' }
+        get :index, params: { filterrific: { state: 'cancelled' } }
         expect(assigns(:bookings)).to eq(cancelled_bookings)
       end
       
@@ -89,7 +89,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
         journey = FactoryBot.create(:journey, team: team)
         booked_bookings[4].update_attributes(journey: journey)
         
-        get :index, filterrific: { team: team }
+        get :index, params: { filterrific: { team: team } }
         expect(assigns(:bookings)).to match_array([ booked_bookings[4] ])
       end
       
@@ -114,7 +114,7 @@ RSpec.describe Admin::BookingsController, type: :controller do
     let(:booking) { FactoryBot.create(:booking) }
     
     it 'sets the status' do
-      put :update, {
+      put :update, params: {
         id: booking.id,
         booking: {
           state: 'missed'

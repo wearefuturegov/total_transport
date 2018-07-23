@@ -9,7 +9,7 @@ RSpec.describe Admin::StopsController, type: :controller do
   context '#new' do
     
     it 'initializes a stop' do
-      get :new, route_id: stop.route
+      get :new, params: { route_id: stop.route }
       expect(assigns(:route)).to eq(route)
       expect(assigns(:stop)).to be_a(Stop)
     end
@@ -19,7 +19,7 @@ RSpec.describe Admin::StopsController, type: :controller do
   context '#edit' do
     
     it 'shows a stop' do
-      get :edit, route_id: stop.route, id: stop
+      get :edit, params: { route_id: stop.route, id: stop }
       expect(assigns(:stop)).to eq(stop)
     end
     
@@ -42,7 +42,7 @@ RSpec.describe Admin::StopsController, type: :controller do
         route_id: route
       }
     }
-    let(:subject) { post :create, params }
+    let(:subject) { post :create, params: params }
     
     it 'creates a stop' do
       expect { subject }.to change { Stop.count }.by(1)
@@ -86,7 +86,7 @@ RSpec.describe Admin::StopsController, type: :controller do
         id: stop
       }
     }
-    let(:subject) { post :update, params }
+    let(:subject) { post :update, params: params }
     
     it 'updates a stop' do
       expect { subject }.to change {
@@ -139,7 +139,7 @@ RSpec.describe Admin::StopsController, type: :controller do
   end
   
   context '#destroy' do
-    let(:subject) { post :destroy, route_id: stop.route, id: stop }
+    let(:subject) { post :destroy, params: { route_id: stop.route, id: stop } }
 
     it 'destroys a landmark' do
       expect { subject }.to change {

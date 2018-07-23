@@ -53,7 +53,7 @@ RSpec.describe BookingsController, type: :controller do
         }
       }
     }
-    let!(:subject) { post :create, params }
+    let!(:subject) { post :create, params: params }
     let(:booking) { Booking.first }
     
     it 'creates a booking' do
@@ -124,7 +124,7 @@ RSpec.describe BookingsController, type: :controller do
       
       it 'sends an SMS' do
         expect {
-          put :update, params
+          put :update, params: params
         }.to change { FakeSMS.messages.count }.by(1)
       end
       
@@ -142,7 +142,7 @@ RSpec.describe BookingsController, type: :controller do
           route_id: route
         }
       }
-      let(:subject) { put :update, params }
+      let(:subject) { put :update, params: params }
       
       it 'cancels a booking' do
         subject
@@ -170,7 +170,7 @@ RSpec.describe BookingsController, type: :controller do
   describe 'GET edit' do
     
     it 'gets available journeys' do
-      get :edit, route_id: route, id: booking
+      get :edit, params: { route_id: route, id: booking }
       available_journeys = assigns(:journeys)
       
       expect(available_journeys[Date.today + 1.day]).to match_array([journeys[0]])
@@ -179,7 +179,7 @@ RSpec.describe BookingsController, type: :controller do
     end
     
     it 'sets the correct back_path' do
-      get :edit, route_id: route, id: booking
+      get :edit, params: { route_id: route, id: booking }
       expect(assigns(:back_path)).to eq("/journeys/#{booking.pickup_stop.place.slug}/#{booking.dropoff_stop.place.slug}")
     end
     
@@ -189,7 +189,7 @@ RSpec.describe BookingsController, type: :controller do
     
     let(:booking) { FactoryBot.create(:booking) }
     let(:subject) {
-      get :cancel, token: booking.token
+      get :cancel, params: { token: booking.token }
     }
     
     it 'gets the booking by token' do
@@ -202,7 +202,7 @@ RSpec.describe BookingsController, type: :controller do
   describe 'GET return_journeys' do
         
     it 'gets return journeys for a given datetime' do
-      xhr :get, :return_journeys, route_id: route, id: booking, start_time: "#{Date.today + 2.day}T09:30:00", format: :js
+      get :return_journeys, xhr: true, params: { route_id: route, id: booking, start_time: "#{Date.today + 2.day}T09:30:00", format: :js }
       expect(assigns(:journeys).count).to eq(1)
     end
     
@@ -211,7 +211,7 @@ RSpec.describe BookingsController, type: :controller do
   describe 'PUT send_missed_feedback' do
     
     it 'creates feedback' do
-      put :send_missed_feedback, {
+      put :send_missed_feedback, params: {
         booking: {
           state: 'missed',
           missed_feedback: 'Something',
@@ -226,7 +226,7 @@ RSpec.describe BookingsController, type: :controller do
     end
     
     it 'returns 401 if token is incorrect' do
-      put :send_missed_feedback, {
+      put :send_missed_feedback, params: {
         booking: {
           state: 'missed',
           missed_feedback: 'Something',

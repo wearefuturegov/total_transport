@@ -20,7 +20,7 @@ RSpec.describe Admin::SmsController, type: :controller do
         }
       }
     }
-    subject { post :create, params }
+    subject { post :create, params: params }
 
     it 'sends an sms' do
       expect {

@@ -27,7 +27,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
     
     let!(:route) { FactoryBot.create(:route) }
     let!(:subject) {
-      get :show, {
+      get :show, params: {
         id: route.id
       }
     }
@@ -63,7 +63,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
     
     let!(:route) { FactoryBot.create(:route) }
     let(:subject) {
-      delete :destroy, {
+      delete :destroy, params: {
         id: route.id
       }
     }
@@ -85,7 +85,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
     it 'redirects the stop order' do
       stops = route.stops
       
-      put :sort, {
+      put :sort, params: {
         id: route.id,
         stop: [
           stops[0],
@@ -116,7 +116,7 @@ RSpec.describe Admin::RoutesController, type: :controller do
     let(:route) { FactoryBot.create(:route) }
     let(:pricing_rule) { FactoryBot.create(:pricing_rule) }
     let(:subject) {
-      post :update, {
+      post :update, params: {
         id: route.id,
         route: {
           name: 'My Route',

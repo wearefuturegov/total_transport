@@ -33,7 +33,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
     end
     
     before do
-      post :create, params
+      post :create, params: params
     end
     
     let(:timetable) { Timetable.first }
@@ -116,8 +116,7 @@ RSpec.describe Admin::TimetablesController, type: :controller do
                 stops: [
                   route.stops[2],
                   route.stops[3],
-                  route.stops[4],
-                  route.stops[5],
+                  route.stops[4]
                 ]
               },
               {
@@ -172,12 +171,12 @@ RSpec.describe Admin::TimetablesController, type: :controller do
     end
     
     it 'deletes the timetable' do
-      delete :destroy, { id: timetable.id }
+      delete :destroy, params: { id: timetable.id }
       expect(Timetable.count).to eq(0)
     end
     
     it 'deletes all associated records' do
-      delete :destroy, { id: timetable.id }
+      delete :destroy, params: { id: timetable.id }
       expect(TimetableTime.count).to eq(0)
       expect(Journey.count).to eq(0)
     end
