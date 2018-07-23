@@ -141,7 +141,7 @@ GEM
       sass (>= 3.2)
     friendly_id (5.2.4)
       activerecord (>= 4.0.0)
-    geokit (1.11.0)
+    geokit (1.13.1)
     gherkin (5.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
