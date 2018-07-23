@@ -1,4 +1,4 @@
-class Booking < ActiveRecord::Base
+class Booking < ApplicationRecord
   include Rails.application.routes.url_helpers
   
   attr_accessor :passenger_email, :passenger_phone_number, :passenger_name

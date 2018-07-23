@@ -1,4 +1,4 @@
-class TimetableTime < ActiveRecord::Base
+class TimetableTime < ApplicationRecord
   belongs_to :timetable
   belongs_to :route
   has_many :journeys, dependent: :destroy

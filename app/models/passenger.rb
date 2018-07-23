@@ -1,4 +1,4 @@
-class Passenger < ActiveRecord::Base
+class Passenger < ApplicationRecord
   
   has_many :bookings, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy

@@ -1,4 +1,4 @@
-class Landmark < ActiveRecord::Base
+class Landmark < ApplicationRecord
   belongs_to :stop
   attr_accessor :postcode
   

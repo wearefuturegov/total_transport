@@ -1,4 +1,4 @@
-class PromoCode < ActiveRecord::Base
+class PromoCode < ApplicationRecord
   before_create :create_code
   validates_presence_of :price_deduction
 

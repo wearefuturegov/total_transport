@@ -1,4 +1,4 @@
-class Stop < ActiveRecord::Base
+class Stop < ApplicationRecord
   belongs_to :route
   belongs_to :place, autosave: true, counter_cache: :route_count
   acts_as_list scope: :route

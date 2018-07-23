@@ -1,6 +1,6 @@
 require 'csv'
 
-class Journey < ActiveRecord::Base
+class Journey < ApplicationRecord
   belongs_to :route
   has_many :stops, through: :route
   has_many :outward_bookings, dependent: :destroy, class_name: 'Booking', foreign_key: 'journey_id'
