@@ -6,7 +6,7 @@ FactoryBot.define do
       create_list(:stop, evaluator.stops_count, route: route) unless evaluator.stops.count > 0
     end
     
-    after(:build) { |route| route.class.skip_callback(:save, :after, :queue_geometry) }
+    after(:build) { |route| route.class.skip_callback(:save, :after, :queue_geometry, raise: false) }
 
   end
 end
