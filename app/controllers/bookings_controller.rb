@@ -62,7 +62,7 @@ class BookingsController < PublicController
     if booking_params[:pickup_stop_id].present? && booking_params[:dropoff_stop_id].present?
       @booking = Booking.new(booking_params)
     else
-      render nothing: true
+      head :ok
     end
   end
   
@@ -88,9 +88,12 @@ class BookingsController < PublicController
   end
   
   def send_missed_feedback
-    render(nothing: true, status: 401) and return unless params[:booking][:token] == @booking.token
-    @booking.update_attributes(booking_params.permit(:state, :missed_feedback))
-    render nothing: true, status: 200
+    unless params[:booking][:token] == @booking.token
+      head 401
+    else
+      @booking.update_attributes(booking_params.permit(:state, :missed_feedback))
+      head :ok
+    end
   end
 
   private

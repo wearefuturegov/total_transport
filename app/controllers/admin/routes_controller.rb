@@ -43,7 +43,7 @@ class Admin::RoutesController < AdminController
     params[:stop].each_with_index do |value,index|
       @route.stops.find(value).update_attribute(:position,index+1)
     end
-    render :nothing => true
+    head :ok
   end
   
   private
