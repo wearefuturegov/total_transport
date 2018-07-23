@@ -1,4 +1,4 @@
-class AddPhotoToSuppliers < ActiveRecord::Migration
+class AddPhotoToSuppliers < ActiveRecord::Migration[4.2]
   def self.up
     add_attachment :suppliers, :photo
   end

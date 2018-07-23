@@ -1,4 +1,4 @@
-class CreateBookings < ActiveRecord::Migration
+class CreateBookings < ActiveRecord::Migration[4.2]
   def change
     create_table :bookings do |t|
       t.references :journey, index: true, foreign_key: true

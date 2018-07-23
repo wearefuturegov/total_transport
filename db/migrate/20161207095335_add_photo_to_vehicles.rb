@@ -1,4 +1,4 @@
-class AddPhotoToVehicles < ActiveRecord::Migration
+class AddPhotoToVehicles < ActiveRecord::Migration[4.2]
   def self.up
     add_attachment :vehicles, :photo
   end

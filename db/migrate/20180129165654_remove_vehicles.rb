@@ -1,4 +1,4 @@
-class RemoveVehicles < ActiveRecord::Migration
+class RemoveVehicles < ActiveRecord::Migration[4.2]
   def change
     Journey.all.each do |j|
       vehicle = ActiveRecord::Base.connection.execute("SELECT * FROM vehicles where id=#{j.vehicle_id}").first

@@ -1,4 +1,4 @@
-class CreateJourneys < ActiveRecord::Migration
+class CreateJourneys < ActiveRecord::Migration[4.2]
   def change
     create_table :journeys do |t|
       t.references :route, index: true, foreign_key: true

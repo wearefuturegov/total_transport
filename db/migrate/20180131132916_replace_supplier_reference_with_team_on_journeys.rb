@@ -1,4 +1,4 @@
-class ReplaceSupplierReferenceWithTeamOnJourneys < ActiveRecord::Migration
+class ReplaceSupplierReferenceWithTeamOnJourneys < ActiveRecord::Migration[4.2]
   def change
     add_reference :journeys, :team
     Journey.all.each do |j|

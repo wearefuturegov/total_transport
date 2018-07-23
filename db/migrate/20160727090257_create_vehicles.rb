@@ -1,4 +1,4 @@
-class CreateVehicles < ActiveRecord::Migration
+class CreateVehicles < ActiveRecord::Migration[4.2]
   def change
     create_table :vehicles do |t|
       t.references :team, index: true, foreign_key: true

@@ -1,4 +1,4 @@
-class ReplaceSupplierReferenceWithTeamInTimetable < ActiveRecord::Migration
+class ReplaceSupplierReferenceWithTeamInTimetable < ActiveRecord::Migration[4.2]
   def change
     add_reference :timetables, :team
     Timetable.all.each do |t|
