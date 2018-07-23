@@ -1,4 +1,4 @@
-class PricingRule < ActiveRecord::Base
+class PricingRule < ApplicationRecord
   has_many :routes
   
   enum rule_type: [:per_mile, :staged]

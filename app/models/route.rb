@@ -1,4 +1,4 @@
-class Route < ActiveRecord::Base
+class Route < ApplicationRecord
   has_many :stops, -> { order(position: :asc) }, dependent: :destroy
   has_many :journeys, -> { order(start_time: :asc) }, dependent: :destroy
   has_many :suggested_journeys, dependent: :destroy
