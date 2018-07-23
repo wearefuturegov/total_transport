@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 5.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
@@ -70,7 +70,7 @@ gem 'leaflet-rails'
 gem 'factory_bot_rails', '>= 4.8.0'
 gem 'appsignal'
 gem 'sendgrid_actionmailer_adapter'
-gem 'sinatra', '> 1.4.6'
+gem 'sinatra'
 gem 'ffaker'
 
 # Use ActiveModel has_secure_password
@@ -103,6 +103,7 @@ group :development, :test do
   gem 'turnip'
   gem 'vcr'
   gem 'bullet'
+  gem 'rails-controller-testing'
 end
 
 group :development do
