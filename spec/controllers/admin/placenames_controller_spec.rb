@@ -20,7 +20,7 @@ RSpec.describe Admin::PlacenamesController, type: :controller do
     end
     
     it 'returns data from the PlacenamesService' do
-      get :index, query: query
+      get :index, params: { query: query }
       expect(JSON.parse response.body).to eq(service_response)
     end
     

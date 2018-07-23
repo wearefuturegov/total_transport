@@ -10,7 +10,7 @@ RSpec.describe Admin::SubRoutesController, type: :controller do
   describe '#index' do
     
     let(:subject) {
-      get :index, route_id: route
+      get :index, params: { route_id: route }
     }
     
     it 'gets subroutes for a route' do
@@ -23,7 +23,7 @@ RSpec.describe Admin::SubRoutesController, type: :controller do
   context '#create' do
     
     let(:subject) {
-      post :create, route_id: route
+      post :create, params: { route_id: route }
     }
     
     it 'creates a route' do
@@ -49,7 +49,7 @@ RSpec.describe Admin::SubRoutesController, type: :controller do
   
   context '#show' do
     
-    let(:subject) { get :show, route_id: route, id: sub_route }
+    let(:subject) { get :show, params: { route_id: route, id: sub_route } }
     
     it 'gets a sub route' do
       subject
@@ -60,7 +60,7 @@ RSpec.describe Admin::SubRoutesController, type: :controller do
   
   context '#destroy' do
     
-    let(:subject) { delete :destroy, route_id: route, id: sub_route }
+    let(:subject) { delete :destroy, params: { route_id: route, id: sub_route } }
     
     it 'gets the correct sub route' do
       subject

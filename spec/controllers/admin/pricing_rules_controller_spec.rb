@@ -15,7 +15,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
   describe 'POST create' do
     
     it 'creates a rule' do
-      post :create, {
+      post :create, params: {
         pricing_rule: {
           name: 'Something',
           rule_type: :per_mile,
@@ -37,7 +37,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     end
     
     it 'creates a rule with stages' do
-      post :create, {
+      post :create, params: {
         pricing_rule: {
           name: 'Something',
           rule_type: :staged,
@@ -63,7 +63,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     end
     
     it 'creates a rule with a child flat rate' do
-      post :create, {
+      post :create, params: {
         pricing_rule: {
           name: 'Something',
           rule_type: :per_mile,
@@ -98,7 +98,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     let(:pricing_rule) { FactoryBot.create(:pricing_rule) }
     
     it 'gets a rule' do
-      get :edit, id: pricing_rule
+      get :edit, params: { id: pricing_rule }
       expect(assigns(:pricing_rule)).to eq(pricing_rule)
     end
     
@@ -109,7 +109,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     let(:pricing_rule) { FactoryBot.create(:pricing_rule) }
     
     it 'updates a rule' do
-      put :update, {
+      put :update, params: {
         id: pricing_rule,
         pricing_rule: {
           name: 'Something',
@@ -131,7 +131,7 @@ RSpec.describe Admin::PricingRulesController, type: :controller do
     end
     
     it 'updates a rule with stages' do
-      put :update, {
+      put :update, params: {
         id: pricing_rule,
         pricing_rule: {
           name: 'Something',

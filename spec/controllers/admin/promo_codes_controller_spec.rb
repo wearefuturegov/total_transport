@@ -21,7 +21,7 @@ RSpec.describe Admin::PromoCodesController, type: :controller do
   context '#create' do
     
     let(:subject) {
-      post :create, {
+      post :create, params: {
         promo_code: {
           price_deduction: 3
         }
@@ -45,7 +45,7 @@ RSpec.describe Admin::PromoCodesController, type: :controller do
     
     let!(:promo_code) { FactoryBot.create(:promo_code) }
     let(:subject) {
-      delete :destroy, {
+      delete :destroy, params: {
         id: promo_code.id
       }
     }

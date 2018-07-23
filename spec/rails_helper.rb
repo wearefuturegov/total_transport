@@ -16,7 +16,7 @@ require 'support/stripe'
 
 SmsService.client = FakeSMS
 
-ActiveRecord::Migration.maintain_test_schema!
+ActiveRecord::Migration[4.2].maintain_test_schema!
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false

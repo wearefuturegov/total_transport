@@ -21,7 +21,7 @@ RSpec.describe Admin::PlacesController, type: :controller do
     end
     
     context 'with a route id set' do
-      subject { get :new, previous_route_id: 1 }
+      subject { get :new, params: { previous_route_id: 1 } }
 
       it 'sets the back path' do
         subject
@@ -42,7 +42,7 @@ RSpec.describe Admin::PlacesController, type: :controller do
       }
     }
     
-    subject { post :create, params }
+    subject { post :create, params: params }
 
     it 'creates a place' do
       expect { subject }.to change { Place.count }.by(1)
@@ -57,7 +57,7 @@ RSpec.describe Admin::PlacesController, type: :controller do
     end
     
     context 'with a route id set' do
-      subject { post :create, params.merge({
+      subject { post :create, params: params.merge({
           previous_route_id: 1
         })
       }

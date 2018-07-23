@@ -21,7 +21,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
       end
       
       it 'gets all journeys for a team' do
-        get :index, { filter: 'team' }
+        get :index, params: { filter: 'team' }
         expect(assigns(:journeys).count).to eq(3)
       end
       
@@ -40,12 +40,12 @@ RSpec.describe Admin::JourneysController, type: :controller do
       it 'filters by past or future' do
         FactoryBot.create_list(:journey, 2, start_time: DateTime.now - 4.days, team: @supplier.team)
         FactoryBot.create_list(:journey, 3, start_time: DateTime.now + 4.days, team: @supplier.team)
-        get :index, { filterrific: {
+        get :index, params: { filterrific: {
             past_or_future: 'future'
           }
         }
         expect(assigns(:journeys).count).to eq(3)
-        get :index, { filterrific: {
+        get :index, params: { filterrific: {
             past_or_future: 'past'
           }
         }
@@ -62,12 +62,12 @@ RSpec.describe Admin::JourneysController, type: :controller do
           j.return_bookings = FactoryBot.create_list(:booking, 2)
         end
         FactoryBot.create_list(:journey, 3, team: @supplier.team, booked: false)
-        get :index, { filterrific: {
+        get :index, params: { filterrific: {
             booked_or_empty: 'booked'
           }
         }
         expect(assigns(:journeys).to_a.count).to eq(7)
-        get :index, { filterrific: {
+        get :index, params: { filterrific: {
             booked_or_empty: 'empty'
           }
         }
@@ -86,7 +86,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     end
     
     it 'gets the correct route and initializes a journey when route_id is defined' do
-      get :new, { route_id: route.id, reversed: false }
+      get :new, params: { route_id: route.id, reversed: false }
       expect(assigns(:route)).to eq(route)
       journey = assigns(:journey)
       expect(journey.route).to eq(route)
@@ -100,7 +100,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     
     it 'creates a new journey' do
       start_time = DateTime.now + 4.days
-      post :create, {
+      post :create, params: {
         journey: {
           start_time: start_time,
           seats: 4,
@@ -125,7 +125,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#edit' do
     
     it 'gets a journey' do
-      get :edit, { id: journey.id }
+      get :edit, params: { id: journey.id }
       expect(assigns(:journey)).to eq(journey)
     end
         
@@ -134,13 +134,13 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#show' do
     
     it 'gets a journey' do
-      get :show, { id: journey.id }
+      get :show, params: { id: journey.id }
       expect(assigns(:journey)).to eq(journey)
     end
     
     it 'returns a csv' do
-      get :show, { id: journey.id, format: :csv }
-      expect(response.headers['Content-Type']).to eq('text/csv;charset=utf-8')
+      get :show, params: { id: journey.id, format: :csv }
+      expect(response.headers['Content-Type']).to eq('text/csv; charset=utf-8')
     end
         
   end
@@ -148,7 +148,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
   context '#update' do
     
     it 'updates a journey' do
-      put :update, {
+      put :update, params: {
         id: journey.id,
         journey: {
           seats: 5,
@@ -165,7 +165,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     it 'destroys a journey' do
       journey = FactoryBot.create(:journey, team: @supplier.team)
       expect {
-        delete :destroy, { id: journey.id }
+        delete :destroy, params: { id: journey.id }
       }.to change(Journey, :count).by(-1)
     end
             
@@ -175,7 +175,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     it 'sends a message to one passenger' do
       booking = journey.outward_bookings.last
       expect  {
-        post :send_message, {
+        post :send_message, params: {
           id: journey.id,
           to: booking.id,
           notification_message: 'Hello!'
@@ -188,7 +188,7 @@ RSpec.describe Admin::JourneysController, type: :controller do
     
     it 'sends a message to all passengers' do
       expect  {
-        post :send_message, {
+        post :send_message, params: {
           id: journey.id,
           to: 'all',
           notification_message: 'Hello!'

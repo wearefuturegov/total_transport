@@ -40,7 +40,7 @@ RSpec.describe JourneysController, type: :controller do
   end
   
   it 'initialises a journey if there are availble journeys' do
-    get :index, from: origin, to: destination
+    get :index, params: { from: origin, to: destination }
     journeys = assigns(:journeys)
     route = journeys.collect(&:route).uniq.first
     expect(journeys.count).to eq(4)
@@ -49,7 +49,7 @@ RSpec.describe JourneysController, type: :controller do
   end
   
   it 'gets reversed journeys' do
-    get :index, from: destination, to: origin
+    get :index, params: { from: destination, to: origin }
     journeys = assigns(:journeys)
     route = journeys.collect(&:route).uniq.first
     expect(journeys.count).to eq(6)
@@ -59,7 +59,7 @@ RSpec.describe JourneysController, type: :controller do
   
   context 'if an origin does not have any routes', :que do
     
-    let(:subject) { get :index, from: destination, to: other_place }
+    let(:subject) { get :index, params: { from: destination, to: other_place } }
     
     it 'returns possible destinations' do
       subject

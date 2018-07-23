@@ -6,7 +6,7 @@ RSpec.describe PlacesController, type: :controller, que: true do
   it 'returns all places' do
     FactoryBot.create_list(:place, 5)
     
-    get 'index', format: :json
+    get 'index', params: { format: :json }
     
     json = JSON.parse response.body
     
@@ -33,7 +33,7 @@ RSpec.describe PlacesController, type: :controller, que: true do
       FactoryBot.create(:stop),
     ])
         
-    get 'index', format: :json, query: 'so'
+    get 'index', params: { format: :json, query: 'so' }
     
     json = JSON.parse response.body
     

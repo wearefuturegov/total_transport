@@ -29,7 +29,7 @@ RSpec.describe Admin::TeamsController, type: :controller do
   describe 'GET edit' do
       
     it 'gets a team' do
-      get :edit, id: team
+      get :edit, params: { id: team }
       expect(assigns(:team)).to eq(team)
     end
     
@@ -40,18 +40,21 @@ RSpec.describe Admin::TeamsController, type: :controller do
     let(:suppliers) { FactoryBot.create_list(:supplier, 3) }
     
     it 'updates a team' do
-      put :update, id: team, team: {
-        name: 'New name',
-        email: 'foo@example.com',
-        suppliers_attributes: {
-          '0' => {
-            id: suppliers[0]
-          },
-          '1' => {
-            id: suppliers[1]
-          },
-          '2' => {
-            id: suppliers[2]
+      put :update, params: {
+        id: team,
+        team: {
+          name: 'New name',
+          email: 'foo@example.com',
+          suppliers_attributes: {
+            '0' => {
+              id: suppliers[0]
+            },
+            '1' => {
+              id: suppliers[1]
+            },
+            '2' => {
+              id: suppliers[2]
+            }
           }
         }
       }
@@ -63,9 +66,12 @@ RSpec.describe Admin::TeamsController, type: :controller do
     end
     
     it 'updates a team without suppliers' do
-      put :update, id: team, team: {
-        name: 'New name',
-        email: 'foo@example.com'
+      put :update, params: {
+        id: team,
+        team: {
+          name: 'New name',
+          email: 'foo@example.com'
+        }
       }
       
       team.reload
