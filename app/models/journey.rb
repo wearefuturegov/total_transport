@@ -47,7 +47,7 @@ class Journey < ApplicationRecord
   )
   
   after_create :close_before_end
-  after_update :change_close_time, if: :start_time_changed?
+  after_update :change_close_time, if: :saved_change_to_start_time?
   
   def self.available_for_places(start_place, destination_place)
     from = Stop.where(place: start_place)
