@@ -1,5 +1,5 @@
 class Admin::BookingsController < AdminController
-  before_filter :check_permissions
+  before_action :check_permissions
   
   def index
     filter = params[:filterrific] || {}

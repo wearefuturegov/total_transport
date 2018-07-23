@@ -1,6 +1,6 @@
 class Admin::StopsController < AdminController
-  before_filter :find_route
-  before_filter :get_places, only: [:new, :edit, :create]
+  before_action :find_route
+  before_action :get_places, only: [:new, :edit, :create]
   
   def new
     @stop = @route.stops.new

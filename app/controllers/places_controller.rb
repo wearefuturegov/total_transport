@@ -1,6 +1,6 @@
 class PlacesController < PublicController
   
-  before_filter :get_places, only: [:index]
+  before_action :get_places, only: [:index]
   
   def index
     respond_to do |format|

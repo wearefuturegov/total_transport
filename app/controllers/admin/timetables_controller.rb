@@ -1,6 +1,6 @@
 class Admin::TimetablesController < AdminController
   
-  before_filter :get_routes, only: [:new, :edit]
+  before_action :get_routes, only: [:new, :edit]
   
   def index
     @timetables = Timetable.all

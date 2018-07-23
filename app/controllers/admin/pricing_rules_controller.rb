@@ -1,5 +1,5 @@
 class Admin::PricingRulesController < AdminController
-  before_filter :get_pricing_rule, only: [:edit, :update]
+  before_action :get_pricing_rule, only: [:edit, :update]
   
   def index
     @pricing_rules = PricingRule.all
@@ -32,7 +32,7 @@ class Admin::PricingRulesController < AdminController
   private
   
     def pricing_rules_params
-      params.require(:pricing_rule).permit(
+      pricing_rules_params = params.require(:pricing_rule).permit(
         :name,
         :rule_type,
         :per_mile,
@@ -43,6 +43,8 @@ class Admin::PricingRulesController < AdminController
         :return_multiplier,
         :allow_concessions
       )
+      pricing_rules_params[:stages] = JSON.parse(pricing_rules_params[:stages]) if pricing_rules_params[:stages]
+      pricing_rules_params
     end
     
     def get_pricing_rule

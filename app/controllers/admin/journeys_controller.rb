@@ -1,6 +1,6 @@
 class Admin::JourneysController < AdminController
-  before_filter :find_journey, only: [:edit, :update, :destroy, :show, :send_message]
-  before_filter :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
+  before_action :find_journey, only: [:edit, :update, :destroy, :show, :send_message]
+  before_action :check_permissions, except: [:index, :create, :new, :show, :surrounding_journeys]
   def index
     journeys = (current_supplier.admin? ? Journey.all : current_team.journeys).includes([:team, :route])
     @filterrific = initialize_filterrific(

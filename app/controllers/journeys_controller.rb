@@ -1,5 +1,5 @@
 class JourneysController < PublicController
-  before_filter :find_places
+  before_action :find_places
   respond_to :html, :js
   
   def index

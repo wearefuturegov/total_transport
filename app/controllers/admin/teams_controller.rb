@@ -1,6 +1,6 @@
 class Admin::TeamsController < AdminController
-  before_filter :check_permissions, except: [:show]
-  before_filter :get_team, only: [:edit, :update]
+  before_action :check_permissions, except: [:show]
+  before_action :get_team, only: [:edit, :update]
   
   def show
     @back_path = admin_root_path
