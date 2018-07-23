@@ -9,7 +9,7 @@ FactoryBot.define do
     
     transient { landmarks_count 1 }
     
-    after(:build) { |stop| stop.class.skip_callback(:create, :after, :queue_minutes_from_last_stop) }
+    after(:build) { |stop| stop.class.skip_callback(:create, :after, :queue_minutes_from_last_stop, raise: false) }
     
     factory(:stop_with_callback) do
       after(:create) { |stop| stop.send(:queue_minutes_from_last_stop) }
