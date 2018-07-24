@@ -590,9 +590,9 @@ en:
       return: |
         Your return journey is from %{pickup_landmark}, %{pickup_stop}
         between %{pickup_time}.
-      payment: The total amount due is %{amount}, remember to pay the driver when you onboard
+      payment: The total amount due is %{amount}, remember to pay the driver when you board
       amend_cancel:
-        To amend or cancel your booking please use this form %{url}
+        . To amend or cancel your booking please use this form %{url}
     first_alert:
       body: |
         Your Ride booking reminder. Your vehicle will collect you tomorrow for
