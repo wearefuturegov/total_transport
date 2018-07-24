@@ -14,6 +14,7 @@ class BookingsController < PublicController
   def create
     @booking = Booking.create(booking_params)
     if @booking.valid?
+      session[:booking_id] = @booking.id
       render :summary
     else
       render :edit
