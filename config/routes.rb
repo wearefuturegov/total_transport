@@ -20,9 +20,11 @@ Rails.application.routes.draw do
     collection do
       post :price
       post :passengers
+      get :confirmation
+      get :edit
+      put :update
     end
     member do
-      get :confirmation
       get :return_journeys
       put :send_missed_feedback
     end

@@ -33,7 +33,7 @@ class BookingsController < PublicController
       begin
         @booking.create_payment!(params[:stripe_token]) if params[:stripe_token].present?
         @booking.confirm!
-        redirect_to confirmation_booking_path(@booking)
+        redirect_to confirmation_bookings_path
       rescue Stripe::CardError => e
         flash[:alert] = "There was a problem with your card. The message from the provider was: '#{e.message}'"
         render :summary
@@ -129,6 +129,8 @@ class BookingsController < PublicController
   def find_booking
     @booking = if params[:token]
       Booking.find_by_token(params[:token])
+    elsif session[:booking_id]
+      Booking.find(session[:booking_id])
     else
       Booking.find(params[:id])
     end
