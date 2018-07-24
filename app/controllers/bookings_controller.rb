@@ -6,10 +6,7 @@ class BookingsController < PublicController
   def new
     @from = Place.friendly.find(params[:from])
     @to = Place.friendly.find(params[:to])
-    @journeys = Journey.available_for_places(@from, @to)
-                       .where('start_time < ?', DateTime.now + 2.months)
-                       .order(:start_time)
-                       .group_by { |j| j.start_time.to_date }
+    @journeys = get_journeys
     @booking = Booking.new
   end
 
@@ -26,7 +23,7 @@ class BookingsController < PublicController
   def edit
     @from = @booking.pickup_stop.place
     @to = @booking.dropoff_stop.place
-    @journeys = Journey.available_for_places(@from, @to).group_by { |j| j.start_time.to_date }
+    @journeys = get_journeys
     @back_path = from_to_journeys_path(@booking.pickup_stop.place.slug, @booking.dropoff_stop.place.slug)
   end
   
@@ -134,5 +131,12 @@ class BookingsController < PublicController
     else
       Booking.find(params[:id])
     end
+  end
+  
+  def get_journeys
+    Journey.available_for_places(@from, @to)
+           .where('start_time < ?', DateTime.now + 2.months)
+           .order(:start_time)
+           .group_by { |j| j.start_time.to_date }
   end
 end
