@@ -17,7 +17,7 @@ module WebSteps
     click_book_journey
     choose_journey
     choose_pickup_and_dropoff_point
-    fill_in_details('My Name', '+15005550006', 'foo@example.com')
+    fill_in_details('My Name', '+15005550006')
   end
 
   step 'I have chosen a journey' do
