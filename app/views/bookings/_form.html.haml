@@ -19,7 +19,7 @@
           %label
             = to.name
 
-  = form_for @booking do |form|
+  = form_for @booking, form_params do |form|
   
     = form.hidden_field :pickup_stop_id
     = form.hidden_field :dropoff_stop_id

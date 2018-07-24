@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get ':from/:to/return' => 'journeys#return', as: :return
     end
   end
-  resources :bookings do
+  resources :bookings, only: [:new, :create, :destroy] do
     collection do
       post :price
       post :passengers
