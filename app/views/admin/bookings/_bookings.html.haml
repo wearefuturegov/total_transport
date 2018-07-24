@@ -13,4 +13,4 @@
   Passengers
   
   .action
-    = link_to 'Download CSV', params.merge({ format: :csv }), class: 'text'
+    = link_to 'Download CSV', request.parameters.merge({ format: :csv }), class: 'text'
