@@ -455,6 +455,7 @@ en:
     pay: "Pay Now"
     again: "Book another Ride"
     cancel: "Cancel"
+    submit_cancellation: "Cancel your booking"
     enquiry_b: "Get in touch"
     routes: "Suggest future routes"
 
