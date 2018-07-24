@@ -30,6 +30,12 @@ step 'my booking should have :n ":type" bus pass(es)' do |n, type|
   end
 end
 
+step 'my contact details should be saved' do
+  expect(@booking.passenger).to_not be_nil
+  expect(@booking.passenger.name).to eq(@first_name)
+  expect(@booking.passenger.phone_number).to eq(@phone_number)
+end
+
 step 'my booking should have a charge id' do
   expect(@booking.charge_id).to_not be_nil
 end

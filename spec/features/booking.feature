@@ -39,6 +39,7 @@ Feature: Booking a journey
     And I confirm my booking
     Then my booking should be confirmed
     And my booking should be a single journey
+    And my contact details should be saved
     
   Scenario: Booking a journey with multiple passengers
     Given I have chosen a journey

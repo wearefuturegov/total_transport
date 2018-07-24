@@ -17,7 +17,7 @@ module WebSteps
     click_book_journey
     choose_journey
     choose_pickup_and_dropoff_point
-    fill_in_details('My Name', '+15005550006')
+    fill_in_details('My Name', '+15005550006', 'foo@example.com')
   end
 
   step 'I have chosen a journey' do
@@ -186,9 +186,13 @@ module WebSteps
     select(landmark.name, from: "booking_#{type}_landmark_id")
   end
 
-  def fill_in_details(first_name, phone_numer)
+  def fill_in_details(first_name, phone_number, email = nil)
+    @first_name = first_name
+    @phone_number = phone_number
+    @email = email
     fill_in 'booking_passenger_name', with: first_name
-    fill_in 'booking_passenger_phone_number', with: phone_numer
+    fill_in 'booking_passenger_phone_number', with: phone_number
+    fill_in 'booking_passenger_email', with: email
     page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
     click_button I18n.t('button.next')
   end
