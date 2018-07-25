@@ -11,6 +11,13 @@ module WebSteps
   step :choose_journey, 'I choose a journey'
   step :choose_pickup_and_dropoff_point, 'I choose a pickup and dropoff point'
   
+  step 'I edit my booking\'s contact details' do
+    click_on I18n.t('summary.back')
+    choose_journey
+    choose_pickup_and_dropoff_point
+    fill_in_details('New Name', '+15005550006')
+  end
+  
   step 'I have entered my booking details' do
     choose_place('from', 'Newmarket')
     choose_place('to', 'Haverhill')
@@ -190,9 +197,9 @@ module WebSteps
     @first_name = first_name
     @phone_number = phone_number
     @email = email
-    fill_in 'booking_passenger_name', with: first_name
-    fill_in 'booking_passenger_phone_number', with: phone_number
-    fill_in 'booking_passenger_email', with: email
+    fill_in 'booking[passenger_attributes][name]', with: first_name
+    fill_in 'booking[passenger_attributes][phone_number]', with: phone_number
+    fill_in 'booking[passenger_attributes][email]', with: email
     page.execute_script 'document.getElementById(\'submit-booking\').scrollIntoView(true)'
     click_button I18n.t('button.next')
   end

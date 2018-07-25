@@ -47,9 +47,11 @@ RSpec.describe BookingsController, type: :controller do
         booking: {
           pickup_stop_id: route.stops.first.id,
           dropoff_stop_id: route.stops.last.id,
-          passenger_name: 'Me',
-          passenger_phone_number: '+441473760072',
-          passenger_email: 'email@example.com',
+          passenger_attributes: {
+            name: 'Me',
+            phone_number: '+441473760072',
+            email: 'email@example.com'
+          }
         }
       }
     }
@@ -65,9 +67,9 @@ RSpec.describe BookingsController, type: :controller do
     
     it 'creates a passenger' do
       expect(booking.passenger).to_not eq(nil)
-      expect(booking.passenger.name).to eq(params[:booking][:passenger_name])
-      expect(booking.passenger.email).to eq(params[:booking][:passenger_email])
-      expect(booking.passenger.phone_number).to eq(params[:booking][:passenger_phone_number])
+      expect(booking.passenger.name).to eq(params[:booking][:passenger_attributes][:name])
+      expect(booking.passenger.email).to eq(params[:booking][:passenger_attributes][:email])
+      expect(booking.passenger.phone_number).to eq(params[:booking][:passenger_attributes][:phone_number])
     end
     
   end

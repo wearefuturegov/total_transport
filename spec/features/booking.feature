@@ -58,3 +58,11 @@ Feature: Booking a journey
     Then my booking should be confirmed
     And my booking should have 2 passengers
     And my booking should have 1 child ticket
+    
+  Scenario: Change booking details
+    Given I have chosen a single journey
+    And I fill in my details
+    And I edit my booking's contact details
+    And I confirm my booking
+    Then my booking should be confirmed
+    And my contact details should be saved
