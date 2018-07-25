@@ -59,27 +59,29 @@
           %span.required
             *
           = t('form.required')
+        
+        = form.fields_for :passenger do |f|
           
-        = form.label :passenger_name, :class => 'long' do
-          = t('bookings.lead.label')
-          %span.required
-            *
-        = form.text_field :passenger_name, required: true
-    
-        = form.label :passenger_phone_number, :class => 'long' do
-          = t('bookings.lead.mobile.label')
-          %span.required
-            *
-          %span.small
-            = t('bookings.lead.mobile.message')
-        = form.text_field :passenger_phone_number, required: true, pattern: '.{11,}', minlength: 11, title: 'Minimum of 11 characters'
-    
-    
-        = form.label :passenger_email, :class => 'long' do
-          = t('bookings.lead.email.label')
-          %spans.small
-            = t('bookings.lead.email.message')
-        = form.text_field :passenger_email
+          = f.label :name, :class => 'long' do
+            = t('bookings.lead.label')
+            %span.required
+              *
+          = f.text_field :name, required: true
+      
+          = f.label :phone_number, :class => 'long' do
+            = t('bookings.lead.mobile.label')
+            %span.required
+              *
+            %span.small
+              = t('bookings.lead.mobile.message')
+          = f.text_field :phone_number, required: true, pattern: '.{11,}', minlength: 11, title: 'Minimum of 11 characters'
+      
+      
+          = f.label :email, :class => 'long' do
+            = t('bookings.lead.email.label')
+            %spans.small
+              = t('bookings.lead.email.message')
+          = f.text_field :email
     
       = form.submit :class => 'button cta primary', :id => 'submit-booking', value: t('button.next')
 

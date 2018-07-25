@@ -8,6 +8,7 @@ class BookingsController < PublicController
     @to = Place.friendly.find(params[:to])
     @journeys = get_journeys
     @booking = Booking.new
+    @booking.passenger = Passenger.new
   end
 
   # Save stops
@@ -105,8 +106,6 @@ class BookingsController < PublicController
       :dropoff_stop_id,
       :dropoff_landmark_id,
       :passenger_phone_number,
-      :passenger_email,
-      :passenger_name,
       :payment_method,
       :number_of_passengers,
       :special_requirements,
@@ -118,7 +117,8 @@ class BookingsController < PublicController
       :verification_code,
       :cancellation_reason,
       :state,
-      :missed_feedback
+      :missed_feedback,
+      passenger_attributes: [:phone_number, :email, :name]
     )
   end
 

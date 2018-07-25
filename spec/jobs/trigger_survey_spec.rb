@@ -3,6 +3,9 @@ require 'support/vcr'
 
 RSpec.describe TriggerSurvey, :vcr, :webmock do
   
+  before(:all) { Passenger.skip_callback(:save, :before, :format_phone_number) }
+  after(:all) { Passenger.set_callback(:save, :before, :format_phone_number, if: :phone_number_changed?) }
+
   let(:booking) { FactoryBot.create(:booking, phone_number: '+15005550006') }
   let(:client) { Twilio::REST::Client.new }
   

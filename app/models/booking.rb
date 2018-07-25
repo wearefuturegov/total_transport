@@ -14,7 +14,7 @@ class Booking < ApplicationRecord
   
   delegate :email, :phone_number, :name, to: :passenger
   
-  after_create :generate_passenger
+  accepts_nested_attributes_for :passenger
 
   scope :booked, -> { where(state: ['booked', 'successful', 'missed']) }
   
@@ -306,21 +306,6 @@ class Booking < ApplicationRecord
         random_token = SecureRandom.urlsafe_base64(nil, false)
         break random_token unless Booking.exists?(token: random_token)
       end
-    end
-    
-    def generate_passenger
-      return unless passenger.nil?
-      passenger = setup_passenger(passenger_phone_number, passenger_email, passenger_name)
-      update_attribute(:passenger_id, passenger.id)
-    end
-    
-    def setup_passenger(phone_number, email, name)
-      phone_number = PhoneNumberFormatter.new(phone_number).format
-      Passenger.find_or_create_by(
-        phone_number: phone_number,
-        email: email,
-        name: name
-      )
     end
   
 end
