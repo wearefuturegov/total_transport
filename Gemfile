@@ -104,6 +104,7 @@ group :development, :test do
   gem 'vcr'
   gem 'bullet'
   gem 'rails-controller-testing'
+  gem 'email_spec'
 end
 
 group :development do

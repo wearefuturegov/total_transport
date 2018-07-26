@@ -80,6 +80,7 @@ class BookingsController < PublicController
   end
   
   def cancel
+    session[:booking_id] = @booking.id
     @page_title = "Cancel your booking"
   end
   

@@ -212,6 +212,17 @@ module WebSteps
       select 'Child fare', from: 'concession-list'
     end
   end
+  
+  step 'I cancel my booking' do
+    visit "/bookings/#{@booking.token}/cancel"
+    @reason = 'Just want to cancel'
+    fill_in 'booking_cancellation_reason', with: @reason
+    click_on I18n.t('button.submit_cancellation')
+  end
+  
+  step 'I should see that my booking has been cancelled' do
+    expect(page).to have_content(I18n.t('cancelled.extra'))
+  end
 
 end
 
