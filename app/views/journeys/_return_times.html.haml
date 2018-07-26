@@ -8,7 +8,7 @@
         = t('button.return')
         = form.radio_button :return_journey_id, nil
       .hide_times
-        - if journeys.count > 0
+        - if journeys.length > 0
           %label
             = t('bookings.return.time')
           %p.time

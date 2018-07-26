@@ -15,10 +15,9 @@ class JourneysController < PublicController
   def return
     start_time = DateTime.parse params[:start_time]
     @booking = Booking.new
-    available_journeys = Journey.available_for_places(@to, @from)
-    @journeys = Journey.where(id: available_journeys).where(
-      start_time: start_time...start_time.end_of_day
-    ).order(:start_time)
+    @journeys = Journey.available_for_places(@to, @from)
+                       .where(start_time: start_time...start_time.end_of_day)
+                       .order(:start_time)
   end
   
   private
