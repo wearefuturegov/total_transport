@@ -21,6 +21,11 @@ step 'my booking should have :n child ticket(s)' do |n|
   expect(@booking.child_tickets).to eq(n.to_i)
 end
 
+step 'I have paid by card' do
+  @booking.charge_id = '12334'
+  @booking.save
+end
+
 step 'my booking should have :n ":type" bus pass(es)' do |n, type|
   case type
   when 'Older People\'s'
@@ -49,4 +54,22 @@ step 'both journeys should show as booked' do
   expect(@booking.journey.all_bookings.count).to eq(1)
   expect(@booking.return_journey.booked).to eq(true)
   expect(@booking.return_journey.all_bookings.count).to eq(1)
+end
+
+step 'I have made a booking' do
+  @booking = FactoryBot.create(:booking)
+end
+
+step 'my booking should be cancelled' do
+  @booking.reload
+  expect(@booking.state).to eq('cancelled')
+end
+
+step 'my cancellation reason should be recorded' do
+  @booking.reload
+  expect(@booking.cancellation_reason).to eq(@reason)
+end
+
+step 'my payment should be refunded' do
+  expect_any_instance_of(Booking).to receive(:refund!)
 end

@@ -1,6 +1,8 @@
 require 'turnip/capybara'
 require 'selenium/webdriver'
 require 'rails_helper'
+require 'email_spec'
+require 'email_spec/rspec'
 
 require 'support/wait_for_ajax'
 require 'support/turnip_formatter'

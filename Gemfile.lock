@@ -128,6 +128,10 @@ GEM
     dotenv-rails (2.4.0)
       dotenv (= 2.4.0)
       railties (>= 3.2, < 6.0)
+    email_spec (2.2.0)
+      htmlentities (~> 4.3.3)
+      launchy (~> 2.1)
+      mail (~> 2.7)
     erubi (1.7.1)
     erubis (2.7.0)
     excon (0.62.0)
@@ -192,6 +196,7 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     httpclient (2.8.3)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
@@ -483,6 +488,7 @@ DEPENDENCIES
   database_cleaner
   devise (>= 4.3.0)
   dotenv-rails (>= 2.2.1)
+  email_spec
   factory_bot_rails (>= 4.8.0)
   ffaker
   filterrific (~> 2.1)
