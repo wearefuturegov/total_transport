@@ -32,9 +32,11 @@
          
       showArrivalTime(data, place);
       
+      $('#one_way').html('<p id="loading"><i class="fa fa-spinner fa-spin"></i> Fetching return journeys</p>');
+      $('#one_way').removeClass('hidden');
+      
       $.get(
         '#{return_journeys_path(from.slug, to.slug)}',{ start_time: dateTime }, function() {
-        $('#one_way').removeClass('hidden');
         $.get('/stops/' + data.fromId + '/landmarks', { type: 'pickup' });
       });
     })
