@@ -31,12 +31,10 @@ class BookingsController < PublicController
   
   def update
     if params[:confirm]
-      begin
-        @booking.create_payment!(params[:stripe_token]) if params[:stripe_token].present?
-        @booking.confirm!
+      if @booking.confirm!(params[:stripe_token])
         redirect_to confirmation_bookings_path
-      rescue Stripe::CardError => e
-        flash[:alert] = "There was a problem with your card. The message from the provider was: '#{e.message}'"
+      else
+        flash[:alert] = @booking.errors[:payment].first
         render :summary
       end
     elsif booking_params[:cancellation_reason]

@@ -191,13 +191,19 @@ class Booking < ApplicationRecord
     "#{pickup_stop.name} - #{dropoff_stop.name} on #{journey.start_time}"
   end
   
-  def confirm!
-    send_confirmation!
-    queue_alerts
-    update_attribute(:state, 'booked')
-    journey.update_attribute(:booked, true)
-    journey.update_attribute(:full?, true) if journey.seats_left <= 0
-    return_journey.update_attribute(:booked, true) if return_journey
+  def confirm!(stripe_token)
+    payment = BookingPaymentService.new(self, stripe_token)
+    if payment.create === false
+      errors.add(:payment, "There was a problem with your card. The message from the provider was: '#{payment.error}'")
+      return false
+    else
+      send_confirmation!
+      queue_alerts
+      update_attribute(:state, 'booked')
+      journey.update_attribute(:booked, true)
+      journey.update_attribute(:full?, true) if journey.seats_left <= 0
+      return_journey.update_attribute(:booked, true) if return_journey
+    end
   end
   
   def queue_sms
@@ -262,30 +268,7 @@ class Booking < ApplicationRecord
     end
     data
   end
-  
-  def create_payment!(token)
-    customer = Stripe::Customer.create(
-      :source => token
-    )
-    
-    metadata = {
-      outward_journey_url: admin_journey_booking_url(outward_trip.journey, self),
-    }
-    
-    metadata[:return_journey_url] = admin_journey_booking_url(return_trip.journey, self) if return_trip
 
-    charge = Stripe::Charge.create(
-      customer: customer.id,
-      amount:  price_in_pence,
-      description: payment_description,
-      currency: 'gbp',
-      metadata: metadata
-    )
-    
-    update_column(:charge_id, charge.id)
-    update_column(:payment_method, 'card')
-  end
-  
   private
     
     def cancel

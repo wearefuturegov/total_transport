@@ -26,28 +26,31 @@ RSpec.describe Booking, :que, type: :model do
   }
   
   describe 'confirm!' do
+    
+    let(:subject) { booking.confirm!(nil) }
+    
     it 'sends a text message to the passenger' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
+      expect { subject }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       job = QueJob.find_by(job_class: 'SendSMS')
       expect(job.args[0]['to']).to eq(booking.phone_number)
     end
     
     it 'sends an email to the passenger' do
-      booking.confirm!
+      subject
       job = QueJob.where(job_class: 'SendEmail').find { |j| j.args[1] == 'user_confirmation'}
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
     it 'queues up a survey link' do
-      booking.confirm!
+      subject
       job = QueJob.where(job_class: 'SendEmail').find { |j| j.args[1] == 'feedback'}
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[2]).to eq('booking_id' => booking.id)
     end
     
     it 'sends an email to the supplier' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendEmail').count }.by(3)
+      expect { subject }.to change { QueJob.where(job_class: 'SendEmail').count }.by(3)
       job = QueJob.find_by(job_class: 'SendEmail')
       expect(job.args[0]).to eq('BookingMailer')
       expect(job.args[1]).to eq('booking_confirmed')
@@ -55,7 +58,7 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'queues text messages' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
+      expect { subject }.to change { QueJob.where(job_class: 'SendSMS').count }.by(3)
       jobs = QueJob.where(job_class: 'SendSMS')
       first_alert = jobs.find { |j| j.args[0]['template'] == 'first_alert'}
       second_alert = jobs.find { |j| j.args[0]['template'] == 'second_alert'}
@@ -64,14 +67,14 @@ RSpec.describe Booking, :que, type: :model do
     end
     
     it 'queues a survey' do
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      expect { subject }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
       job = QueJob.find_by(job_class: 'TriggerSurvey')
       expect(job.run_at).to eq(booking.outward_trip.dropoff_time + 30.minutes)
     end
     
     it 'queues a text message for the return journey' do
       booking.return_journey = FactoryBot.create(:journey)
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
+      expect { subject }.to change { QueJob.where(job_class: 'SendSMS').count }.by(4)
       jobs = QueJob.where(job_class: 'SendSMS')
       alert = jobs.select { |j| j.args[0]['template'] == 'second_alert'}.last
       expect(alert.run_at).to eq(booking.return_trip.pickup_time - 1.hours)
@@ -79,30 +82,30 @@ RSpec.describe Booking, :que, type: :model do
     
     it 'queues a survey for the return journey' do
       booking.return_journey = FactoryBot.create(:journey)
-      expect { booking.confirm! }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
+      expect { subject }.to change { QueJob.where(job_class: 'TriggerSurvey').count }.by(1)
       job = QueJob.find_by(job_class: 'TriggerSurvey')
       expect(job.run_at).to eq(booking.return_trip.dropoff_time + 30.minutes)
     end
     
     it 'sets the journey to booked' do
-      booking.confirm!
+      subject
       expect(booking.journey.booked).to eq(true)
     end
     
     it 'sets the booking state to booked' do
-      booking.confirm!
+      subject
       expect(booking.state).to eq('booked')
     end
     
     it 'does not send emails if no email is specified' do
       booking.passenger.email = nil
-      booking.confirm!
+      subject
       expect(QueJob.where(job_class: 'SendEmail').count).to eq(1)
     end
     
     it 'does not send text messages if no phone number is specified' do
       booking.passenger.phone_number = nil
-      booking.confirm!
+      subject
       expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
     end
     
@@ -111,7 +114,7 @@ RSpec.describe Booking, :que, type: :model do
       before { booking.update_attribute(:number_of_passengers, journey.seats) }
       
       it 'sets full? to true' do
-        booking.confirm!
+        subject
         expect(journey.full?).to be true
       end
       
@@ -120,7 +123,7 @@ RSpec.describe Booking, :que, type: :model do
     context 'if the booking does not fill a journey' do
       
       it 'sets does not set full?' do
-        booking.confirm!
+        subject
         expect(journey.full?).to be false
       end
       
@@ -258,7 +261,7 @@ RSpec.describe Booking, :que, type: :model do
   
   context 'cancelling booking' do
     let(:booking) { FactoryBot.create(:booking, state: 'booked') }
-    before { booking.confirm! }
+    before { booking.confirm!(nil) }
     
     context 'sets the journey boolean' do
       let(:journey) { booking.journey }
@@ -345,76 +348,10 @@ RSpec.describe Booking, :que, type: :model do
     
   end
   
-  describe '#create_payment', :stripe do
-    
-    context 'with a valid card' do
-    
-      before do
-        booking.create_payment!(@stripe_helper.generate_card_token)
-      end
-      
-      it 'sets database columns correctly' do
-        expect(booking.charge_id).to_not be_nil
-        expect(booking.payment_method).to eq('card')
-      end
-      
-      it 'creates a charge' do
-        charge = Stripe::Charge.retrieve(booking.charge_id)
-        expect(charge.amount).to eq(booking.price_in_pence)
-      end
-      
-      it 'creates metadata' do
-        charge = Stripe::Charge.retrieve(booking.charge_id)
-        expect(charge.metadata['outward_journey_url']).to eq(
-          "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
-        )
-      end
-      
-      context 'with a return trip' do
-        
-        before do
-          booking.return_journey = FactoryBot.create(:journey,
-            route: route,
-            start_time: DateTime.parse('2017-01-01T15:00:00'),
-            reversed: true
-          )
-          booking.create_payment!(@stripe_helper.generate_card_token)
-        end
-        
-        it 'creates metadata' do
-          charge = Stripe::Charge.retrieve(booking.charge_id)
-          expect(charge.metadata['outward_journey_url']).to eq(
-            "http://example.org/admin/journeys/#{booking.outward_trip.journey.id}/bookings/#{booking.id}"
-          )
-          expect(charge.metadata['return_journey_url']).to eq(
-            "http://example.org/admin/journeys/#{booking.return_trip.journey.id}/bookings/#{booking.id}"
-          )
-        end
-        
-      end
-      
-    end
-    
-    context 'with an invalid card' do
-      
-      before do
-        StripeMock.prepare_card_error(:card_declined)
-      end
-      
-      it 'generates an error' do
-        expect {
-          booking.create_payment!(@stripe_helper.generate_card_token)
-        }.to raise_error(Stripe::CardError, 'The card was declined')
-      end
-      
-    end
-    
-  end
-  
   describe '#refund', :stripe do
     
     before do
-      booking.create_payment!(@stripe_helper.generate_card_token)
+      BookingPaymentService.new(booking, @stripe_helper.generate_card_token).create
     end
     
     it 'refunds a charge' do
