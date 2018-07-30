@@ -53,7 +53,7 @@ gem 'twilio-ruby'
 gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
 
-gem 'filterrific', '~> 2.1'
+gem 'filterrific', '~> 4.0'
 gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
