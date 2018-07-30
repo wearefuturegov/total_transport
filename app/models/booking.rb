@@ -215,6 +215,7 @@ class Booking < ApplicationRecord
   end
   
   def queue_emails
+    return if email.nil?
     SendEmail.enqueue('BookingMailer', :user_confirmation, booking_id: id)
     SendEmail.enqueue('BookingMailer', :feedback, booking_id: id, run_at: last_dropoff_time + 30.minutes)
   end
@@ -225,7 +226,7 @@ class Booking < ApplicationRecord
   
   def send_cancellation_email!
     SendEmail.enqueue('BookingMailer', :booking_cancelled, booking_id: id)
-    SendEmail.enqueue('BookingMailer', :user_cancellation, booking_id: id)
+    SendEmail.enqueue('BookingMailer', :user_cancellation, booking_id: id) unless email.nil?
   end
   
   def send_cancellation_sms!
