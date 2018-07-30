@@ -264,7 +264,7 @@ GEM
     normalize-rails (4.1.1)
     orm_adapter (0.5.0)
     os (0.9.6)
-    paperclip (5.3.0)
+    paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       mime-types
@@ -508,7 +508,7 @@ DEPENDENCIES
   neat (< 2.0)
   newrelic_rpm
   normalize-rails
-  paperclip (= 5.3.0)
+  paperclip (= 6.1.0)
   pg (= 0.21.0)
   platform-api
   polylines

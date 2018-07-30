@@ -50,7 +50,7 @@ gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
 
 gem 'twilio-ruby'
 
-gem 'paperclip', '5.3.0'
+gem 'paperclip', '6.1.0'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific', '~> 2.1'
