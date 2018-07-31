@@ -262,10 +262,10 @@ class Booking < ApplicationRecord
       payment_method == 'card' ? 'y' : 'n',
       charge_id
     ]
-    if !journey_id.nil?
+    if journey_id.present?
       data += journey_id == journey.id ? outward_trip.row_data : return_trip.row_data
     else
-      data += [ outward_trip.pickup_time, return_trip.pickup_time ]
+      data += [ outward_trip.pickup_time, return_trip&.pickup_time ]
     end
     data
   end
