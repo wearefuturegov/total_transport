@@ -192,6 +192,7 @@ class Booking < ApplicationRecord
   end
   
   def confirm!(stripe_token)
+    return if state == 'booked'
     payment = BookingPaymentService.new(self, stripe_token)
     if payment.create === false
       errors.add(:payment, "There was a problem with your card. The message from the provider was: '#{payment.error}'")

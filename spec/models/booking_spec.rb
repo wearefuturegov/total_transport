@@ -109,6 +109,13 @@ RSpec.describe Booking, :que, type: :model do
       expect(QueJob.where(job_class: 'SendSMS').count).to eq(0)
     end
     
+    it 'returns straight away if booking is already booked' do
+      booking.state = 'booked'
+      expect(booking).to_not receive(:send_confirmation!)
+      expect(booking).to_not receive(:queue_alerts)
+      subject
+    end
+    
     context 'if the booking fills a journey' do
       
       before { booking.update_attribute(:number_of_passengers, journey.seats) }
@@ -260,7 +267,7 @@ RSpec.describe Booking, :que, type: :model do
   end
   
   context 'cancelling booking' do
-    let(:booking) { FactoryBot.create(:booking, state: 'booked') }
+    let(:booking) { FactoryBot.create(:booking) }
     before { booking.confirm!(nil) }
     
     context 'sets the journey boolean' do
