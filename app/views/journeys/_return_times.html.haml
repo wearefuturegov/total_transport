@@ -14,7 +14,10 @@
           %p.time
             - journeys.each do |j|
               = render 'bookings/journey_time', journey: j, type: 'return', form: form, journey_type: :return_journey_id, from: j.stops.find_by(place: from), to: j.stops.find_by(place: to)
-                          
+            
+            - if journeys.map { |j| j.team.name }.uniq.include? 'TVN'
+              %p
+                %i If these timings are not suitable please contact #{link_to('01638 664304', 'tel:+441638664304')} to discuss your needs.
           .arrival-times.hidden
         - else
           .no-return-time

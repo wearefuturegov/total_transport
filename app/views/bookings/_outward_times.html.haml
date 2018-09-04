@@ -7,7 +7,11 @@
         %p{class: "journeys_#{date.to_s} hidden time" }
           - journey_collection.sort_by(&:start_time).uniq.each do |j|
             = render 'journey_time', journey: j, type: type, form: form, journey_type: journey_type, from: j.stops.find_by(place: from), to: j.stops.find_by(place: to)
-
+        
+      - if journeys.values.flatten.map { |j| j.team.name }.uniq.include? 'TVN'
+        %p
+          %i If these timings are not suitable please contact #{link_to('01638 664304', 'tel:+441638664304')} to discuss your needs.
+        
       .arrival-times.hidden
 
 - content_for :js do
