@@ -4,6 +4,7 @@ header.header {
   line-height: $logo-height;
   padding: $baseline $gutter;
   background: $white;
+  z-index: 999;
   nav.nav {
     float: right;
     a, a:hover {

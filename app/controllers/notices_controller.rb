@@ -1,5 +1,5 @@
 class NoticesController < ActionController::Base
-  layout false
+  layout 'application'
   def closure_notice
   end
 end
