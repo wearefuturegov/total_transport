@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  get '/closure_notice', as: :closure_notice, to: 'notices#closure_notice'
   resources :log_entry, only: [:create]
   devise_for :suppliers, controllers: { registrations: "suppliers/registrations" }
   resources :places, only: [:index, :show]
