@@ -1,0 +1,49 @@
+version: 2
+updates:
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: airbrake
+    versions:
+    - "< 8, >= 7.0.a"
+  - dependency-name: aws-sdk
+    versions:
+    - "< 4, >= 3.0.a"
+  - dependency-name: filterrific
+    versions:
+    - "< 5, >= 4.a"
+  - dependency-name: filterrific
+    versions:
+    - "< 6, >= 5.0.a"
+  - dependency-name: jquery-ui-rails
+    versions:
+    - "< 7, >= 6.0.a"
+  - dependency-name: neat
+    versions:
+    - "< 3, >= 2.0.a"
+  - dependency-name: paperclip
+    versions:
+    - "< 7, >= 6.a"
+  - dependency-name: rspec-rails
+    versions:
+    - 4.0.2
+    - 4.1.0
+  - dependency-name: loofah
+    versions:
+    - 2.8.0
+    - 2.9.0
+  - dependency-name: webmock
+    versions:
+    - 3.11.0
+  - dependency-name: excon
+    versions:
+    - 0.78.1
+  - dependency-name: stripe
+    versions:
+    - 5.28.0
+  - dependency-name: twilio-ruby
+    versions:
+    - 5.41.0
