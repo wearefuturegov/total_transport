@@ -45,7 +45,7 @@ gem 'acts_as_list', '>= 0.9.5'
 gem 'devise', '>= 4.3.0'
 
 gem 'rails_12factor'
-gem 'puma'
+gem 'puma', '>= 4.3.8'
 gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
 
 gem 'twilio-ruby'
