@@ -20,7 +20,7 @@ gem 'jquery-rails', '>= 4.3.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 1.0.0', group: :doc
 
 # include bourbon/neat/bitters for basic template
 gem 'bourbon'
@@ -58,7 +58,7 @@ gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
-gem 'google_drive'
+gem 'google_drive', '>= 2.1.11'
 gem 'cocoon'
 gem 'postcodes_io'
 gem 'stripe'
@@ -90,13 +90,13 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.5.2'
   gem 'database_cleaner'
-  gem 'launchy'
-  gem 'webmock'
+  gem 'launchy', '>= 2.4.3'
+  gem 'webmock', '>= 3.4.1'
   gem 'simplecov'
   gem 'timecop'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
-  gem 'capybara-selenium'
+  gem 'capybara-selenium', '>= 0.0.6'
   gem 'chromedriver-helper'
   gem 'brakeman', require: false
   gem 'coveralls', require: false
@@ -104,7 +104,7 @@ group :development, :test do
   gem 'vcr'
   gem 'bullet'
   gem 'rails-controller-testing'
-  gem 'email_spec'
+  gem 'email_spec', '>= 2.2.0'
 end
 
 group :development do
