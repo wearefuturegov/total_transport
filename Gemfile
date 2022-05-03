@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2', '>= 5.2.7.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0', '>= 5.0.7'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.2.2'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '>= 4.3.1'
+gem 'jquery-rails', '>= 4.3.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -28,7 +28,7 @@ gem 'bourbon'
 gem 'neat', '< 2.0'
 gem 'bitters'
 # Haml is the way
-gem 'haml-rails', '~> 1.0'
+gem 'haml-rails', '~> 1.0', '>= 1.0.0'
 gem 'redcarpet'
 # Fontawesome is pretty awesome
 gem "font-awesome-rails"
@@ -42,11 +42,11 @@ gem 'geokit'
 
 gem 'acts_as_list', '>= 0.9.5'
 
-gem 'devise', '>= 4.3.0'
+gem 'devise', '>= 4.4.3'
 
 gem 'rails_12factor'
 gem 'puma'
-gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
+gem 'dotenv-rails', '>= 2.5.0', :groups => [:development, :test]
 
 gem 'twilio-ruby'
 
@@ -54,7 +54,7 @@ gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific', '~> 2.1'
-gem 'kaminari', '>= 1.0.1'
+gem 'kaminari', '>= 1.1.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
@@ -67,10 +67,10 @@ gem 'polylines'
 gem 'leaflet-rails'
 
 # Require FactoryBot in production for seeding purposes
-gem 'factory_bot_rails', '>= 4.8.0'
+gem 'factory_bot_rails', '>= 4.8.2'
 gem 'appsignal'
 gem 'sendgrid_actionmailer_adapter'
-gem 'sinatra'
+gem 'sinatra', '>= 2.2.0'
 gem 'ffaker'
 
 # Use ActiveModel has_secure_password
@@ -109,7 +109,7 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.6'
+  gem 'web-console', '~> 3.6', '>= 3.6.2'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
