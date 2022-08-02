@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2', '>= 5.2.8.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
@@ -40,7 +40,7 @@ gem 'jquery-ui-rails', '>= 5.0.5', '< 6.0.0'
 
 gem 'geokit'
 
-gem 'acts_as_list', '>= 0.9.5'
+gem 'acts_as_list', '>= 0.9.15'
 
 gem 'devise', '>= 4.3.0'
 
@@ -54,7 +54,7 @@ gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific', '~> 2.1'
-gem 'kaminari', '>= 1.0.1'
+gem 'kaminari', '>= 1.1.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
