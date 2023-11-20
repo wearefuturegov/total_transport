@@ -3,20 +3,20 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2', '>= 5.2.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 5.0', '>= 5.0.8'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2.2'
+gem 'coffee-rails', '~> 5.0.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails', '>= 4.3.1'
+gem 'jquery-rails', '>= 4.3.4'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -28,46 +28,46 @@ gem 'bourbon'
 gem 'neat', '< 2.0'
 gem 'bitters'
 # Haml is the way
-gem 'haml-rails', '~> 1.0'
+gem 'haml-rails', '~> 2.0', '>= 2.0.0'
 gem 'redcarpet'
 # Fontawesome is pretty awesome
-gem "font-awesome-rails"
+gem "font-awesome-rails", ">= 4.7.0.5"
 # other starter gems
 gem 'high_voltage'
 gem 'normalize-rails'
 gem 'font-awesome-sass', '~> 5.0.9'
-gem 'jquery-ui-rails', '>= 5.0.5', '< 6.0.0'
+gem 'jquery-ui-rails', '~> 6.0'
 
 gem 'geokit'
 
 gem 'acts_as_list', '>= 0.9.5'
 
-gem 'devise', '>= 4.3.0'
+gem 'devise', '>= 4.5.0'
 
 gem 'rails_12factor'
 gem 'puma'
-gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
+gem 'dotenv-rails', '>= 2.6.0', :groups => [:development, :test]
 
-gem 'twilio-ruby'
+gem 'twilio-ruby', '>= 5.12.0'
 
 gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific', '~> 2.1'
-gem 'kaminari', '>= 1.0.1'
+gem 'kaminari', '>= 1.2.0'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
-gem 'google_drive'
+gem 'google_drive', '>= 2.1.12'
 gem 'cocoon'
 gem 'postcodes_io'
 gem 'stripe'
 gem 'polylines'
 
-gem 'leaflet-rails'
+gem 'leaflet-rails', '>= 1.4.0'
 
 # Require FactoryBot in production for seeding purposes
-gem 'factory_bot_rails', '>= 4.8.0'
+gem 'factory_bot_rails', '>= 4.10.0'
 gem 'appsignal'
 gem 'sendgrid_actionmailer_adapter'
 gem 'sinatra'
@@ -88,7 +88,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry'
-  gem 'rspec-rails', '~> 3.5.2'
+  gem 'rspec-rails', '~> 3.6.0'
   gem 'database_cleaner'
   gem 'launchy'
   gem 'webmock'
@@ -97,19 +97,19 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'capybara-selenium'
-  gem 'chromedriver-helper'
+  gem 'chromedriver-helper', '>= 2.0.0'
   gem 'brakeman', require: false
   gem 'coveralls', require: false
   gem 'turnip'
   gem 'vcr'
   gem 'bullet'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '>= 1.0.3'
   gem 'email_spec'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.6'
+  gem 'web-console', '~> 3.7', '>= 3.7.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
