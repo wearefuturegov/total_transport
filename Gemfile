@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 7.0', '>= 7.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0', '>= 6.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -28,7 +28,7 @@ gem 'bourbon'
 gem 'neat', '< 2.0'
 gem 'bitters'
 # Haml is the way
-gem 'haml-rails', '~> 1.0'
+gem 'haml-rails', '~> 2.1', '>= 2.1.0'
 gem 'redcarpet'
 # Fontawesome is pretty awesome
 gem "font-awesome-rails"
@@ -64,7 +64,7 @@ gem 'postcodes_io'
 gem 'stripe'
 gem 'polylines'
 
-gem 'leaflet-rails'
+gem 'leaflet-rails', '>= 1.9.4'
 
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'
