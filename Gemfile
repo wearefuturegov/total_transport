@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 7.1', '>= 7.1.5.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '= 0.21.0'
 # Use SCSS for stylesheets
@@ -40,7 +40,7 @@ gem 'jquery-ui-rails', '>= 5.0.5', '< 6.0.0'
 
 gem 'geokit'
 
-gem 'acts_as_list', '>= 0.9.5'
+gem 'acts_as_list', '>= 0.9.16'
 
 gem 'devise', '>= 4.3.0'
 
@@ -54,17 +54,17 @@ gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
 
 gem 'filterrific', '~> 2.1'
-gem 'kaminari', '>= 1.0.1'
+gem 'kaminari', '>= 1.2.0'
 gem 'que'
 gem 'platform-api'
-gem 'friendly_id'
+gem 'friendly_id', '>= 5.2.5'
 gem 'google_drive'
 gem 'cocoon'
 gem 'postcodes_io'
 gem 'stripe'
 gem 'polylines'
 
-gem 'leaflet-rails'
+gem 'leaflet-rails', '>= 1.4.0'
 
 # Require FactoryBot in production for seeding purposes
 gem 'factory_bot_rails', '>= 4.8.0'
