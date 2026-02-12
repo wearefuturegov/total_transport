@@ -48,7 +48,7 @@ gem 'rails_12factor'
 gem 'puma'
 gem 'dotenv-rails', '>= 2.2.1', :groups => [:development, :test]
 
-gem 'twilio-ruby'
+gem 'twilio-ruby', '>= 5.67.0'
 
 gem 'paperclip', '5.3.0'
 gem 'aws-sdk', '~> 2.3'
@@ -58,10 +58,10 @@ gem 'kaminari', '>= 1.0.1'
 gem 'que'
 gem 'platform-api'
 gem 'friendly_id'
-gem 'google_drive'
+gem 'google_drive', '>= 3.0.5'
 gem 'cocoon'
 gem 'postcodes_io'
-gem 'stripe'
+gem 'stripe', '>= 5.0.0'
 gem 'polylines'
 
 gem 'leaflet-rails'
@@ -116,7 +116,7 @@ group :development do
 end
 
 group :test do
-  gem 'stripe-ruby-mock', '2.5.1', :require => 'stripe_mock'
+  gem 'stripe-ruby-mock', '2.5.2', :require => 'stripe_mock'
 end
 
 source 'https://rails-assets.org' do
